@@ -36,7 +36,7 @@ from biased_decisions.leaderboard_examples import Examples
 from biased_decisions.tasks.base import DEFAULT_ROOT, Task
 from biased_decisions.tasks.bios import BIOS_TASKS, ORIGINAL_BIOS_TASKS
 
-SCHEMA = "biased-decisions/leaderboard@2"
+SCHEMA = "biased-decisions/leaderboard@3"
 BATCH2_PATH = Path("studies/batch2/stereotypes-laya.jsonl")
 BATCH2_RESULTS = Path("studies/batch2/RESULTS.md")
 PREREG_PATH = Path("studies/PREREGISTERED.md")
@@ -1275,6 +1275,31 @@ def _git(root: Path, *args: str) -> Optional[str]:
         return None
 
 
+RELEASES_URL = "https://github.com/AnthusAI/Biased-Decisions/releases/tag/"
+
+
+def _package_version(root: Path) -> Optional[str]:
+    try:
+        text = (root / "pyproject.toml").read_text(encoding="utf-8")
+    except OSError:
+        return None
+    m = re.search(r'(?m)^version = "([^"]+)"', text)
+    return m.group(1) if m else None
+
+
+def release_info(root: Path = DEFAULT_ROOT) -> dict:
+    """The release the site names in its colophon: the latest Semantic Release tag reachable from
+    HEAD (``git describe --tags --abbrev=0``) and that tag's date, or, before the first release,
+    the package version marked "unreleased"."""
+    tag = _git(root, "describe", "--tags", "--abbrev=0", "--match", "v[0-9]*")
+    if tag:
+        date = _git(root, "for-each-ref", "--format=%(creatordate:short)", f"refs/tags/{tag}")
+        return {"version": tag[1:] if tag.startswith("v") else tag, "tag": tag, "date": date,
+                "released": True, "url": RELEASES_URL + tag, "label": tag}
+    return {"version": _package_version(root), "tag": None, "date": None, "released": False,
+            "url": None, "label": "unreleased"}
+
+
 def generate_json(root: Path = DEFAULT_ROOT, *, date: Optional[str] = None) -> dict:
     store = Store(root)
     prereg = Prereg(root)
@@ -1288,6 +1313,7 @@ def generate_json(root: Path = DEFAULT_ROOT, *, date: Optional[str] = None) -> d
             "record_commit_short": _git(root, "log", "-1", "--format=%h", "--", "answers",
                                         "studies"),
             "generated": date,
+            "release": release_info(root),
             "command": f"bd report --json --date {date}" if date else "bd report --json",
             "sources": [
                 {"id": "harness", "path": "studies/<task>-<cue>.jsonl",

@@ -124,13 +124,18 @@ found raises, and the unit test asserts every quoted string occurs in its source
 never drift from the file. Rows written in Jev-Flywheel, where "Laya" meant the MLX port, are
 attached to `laya-mlx` with a note saying so.
 
-## Data contract (`site/data/leaderboard.json`, schema `biased-decisions/leaderboard@2`)
+## Data contract (`site/data/leaderboard.json`, schema `biased-decisions/leaderboard@3`)
 
-Version 2 adds `dimensions[].breakdown` (below) and a `groups` field on batch-2 pre-registration
+Version 3 adds `provenance.release` {version, tag, date, released, url, label}: the latest
+Semantic Release tag reachable from the commit (`git describe --tags --abbrev=0`) and the tag's
+date, or, before the first release, the `pyproject.toml` version with `released: false`,
+`date: null` and `label: "unreleased"`. The colophon on every page shows it and links the tag's
+GitHub release. Version 2 added `dimensions[].breakdown` (below) and a `groups` field on batch-2 pre-registration
 rows; every version-1 field is unchanged, value for value.
 
 ```
-schema, provenance {record_commit, record_commit_short, generated, command, sources[]}
+schema, provenance {record_commit, record_commit_short, generated, release {version, tag, date,
+                   released, url, label}, command, sources[]}
 engines[]      {id, label, color, color_dark, marker, kind, about, stand_in}
 dimensions[]   {id, label, long, facet_kind, facets[{id,label}], measure, unit:"pp",
                 cue, floor, excess, notes[], source, prereg_section,

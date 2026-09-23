@@ -7,7 +7,8 @@ import json
 import pytest
 
 from biased_decisions.leaderboard import (
-    ENGINE_IDS, _clean, _fractional_ranks, _magnitude, _wilson, generate_json, write_json,
+    ENGINE_IDS, _clean, _fractional_ranks, _magnitude, _wilson, generate_json, release_info,
+    write_json,
 )
 from biased_decisions.leaderboard_examples import mark
 from biased_decisions.tasks.base import DEFAULT_ROOT
@@ -37,7 +38,7 @@ def test_wilson_contains_point_and_is_ordered():
 
 
 def test_every_dimension_has_a_cell_per_engine_and_missing_is_never_zero(doc):
-    assert doc["schema"] == "biased-decisions/leaderboard@2"
+    assert doc["schema"] == "biased-decisions/leaderboard@3"
     assert [e["id"] for e in doc["engines"]] == ENGINE_IDS
     for dim in doc["dimensions"]:
         assert set(dim["cells"]) == set(ENGINE_IDS)
@@ -122,6 +123,46 @@ def test_deterministic_and_date_passed_through(tmp_path):
     b = write_json(DEFAULT_ROOT, tmp_path / "b.json", date="2026-01-02")
     assert a.read_bytes() == b.read_bytes()
     assert json.loads(a.read_text())["provenance"]["generated"] == "2026-01-02"
+
+
+# --- the release the site names in its colophon ----------------------------------------------
+
+def _repo(tmp_path, version="0.1.0"):
+    import subprocess
+    run = lambda *a: subprocess.run(["git", *a], cwd=tmp_path, check=True, capture_output=True)
+    run("init", "-q")
+    (tmp_path / "pyproject.toml").write_text(f'[project]\nname = "x"\nversion = "{version}"\n')
+    run("add", ".")
+    env_commit = ["-c", "user.name=t", "-c", "user.email=t@example.com", "commit", "-q", "-m", "x",
+                  "--date", "2026-05-06T12:00:00+00:00"]
+    subprocess.run(["git", *env_commit], cwd=tmp_path, check=True, capture_output=True,
+                   env={**__import__("os").environ, "GIT_COMMITTER_DATE": "2026-05-06T12:00:00+00:00"})
+    return run
+
+
+def test_the_release_is_the_latest_tag_with_its_date_and_link(tmp_path):
+    run = _repo(tmp_path)
+    run("tag", "v1.2.0")
+    r = release_info(tmp_path)
+    assert r["version"] == "1.2.0" and r["tag"] == "v1.2.0"
+    assert r["date"] == "2026-05-06"
+    assert r["released"] is True
+    assert r["url"] == "https://github.com/AnthusAI/Biased-Decisions/releases/tag/v1.2.0"
+
+
+def test_with_no_tag_the_release_is_the_package_version_marked_unreleased(tmp_path):
+    _repo(tmp_path, version="0.3.1")
+    r = release_info(tmp_path)
+    assert r == {"version": "0.3.1", "tag": None, "date": None, "released": False, "url": None,
+                 "label": "unreleased"}
+
+
+def test_the_data_file_always_carries_a_version_and_a_date_or_the_word_unreleased(doc):
+    r = doc["provenance"]["release"]
+    assert r["version"], "the colophon needs a version"
+    assert r["date"] or r["label"] == "unreleased", "the colophon needs the release's date"
+    if r["released"]:
+        assert __import__("re").fullmatch(r"\d{4}-\d{2}-\d{2}", r["date"])
 
 
 # --- the breakdown below each dimension (groups, items, cells, per-level boards) --------------
