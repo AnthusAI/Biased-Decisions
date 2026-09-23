@@ -1,0 +1,7 @@
+[
+  { "source": "/dimension.html?d=<d>", "target": "/<d>/", "status": "301", "condition": null },
+  { "source": "/engine.html?e=<e>", "target": "/engines/<e>/", "status": "301", "condition": null },
+  { "source": "/methods.html", "target": "/methods/", "status": "301", "condition": null },
+  { "source": "/index.html", "target": "/", "status": "301", "condition": null },
+  { "source": "/<*>", "target": "/404.html", "status": "404", "condition": null }
+]

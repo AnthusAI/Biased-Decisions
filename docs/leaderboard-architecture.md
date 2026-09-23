@@ -24,8 +24,8 @@ site/dist/<path>/index.html              one static page per path, charts drawn 
 `bd report --json` reads the scored cells rather than rescoring the record (the only files it
 opens besides them are the committed bios and answers it quotes as examples), and every number it
 emits is one a committed file already carries, so any value on
-the site can be found by hand in `studies/`. It computes no new bootstrap. The Pages workflow
-closes the loop by running `bd replay` first and failing if the replay does not reproduce
+the site can be found by hand in `studies/`. It computes no new bootstrap. The deploy build
+(`scripts/site-build.sh`, run by Amplify) closes the loop by running `bd replay` first and failing if the replay does not reproduce
 `studies/` byte for byte, so the published data is always the record's.
 
 The generated date is an argument, not the clock, so a given commit always produces the same
@@ -226,7 +226,8 @@ Every page has a real path, built from ids in the data contract. The scheme:
 /engines/   /engines/<engine>/   /engines/<engine>/<dimension>/
 /methods/
 /data/leaderboard.json                    the data contract itself
-/og/<path with "--" for "/">.png          each page's Open Graph image
+/og/<path>.<hash>.png                     each page's social card (docs/social-cards.md)
+/og-gallery/                              every card, for review (unlinked, noindex)
 ```
 
 The reasoning:
@@ -254,17 +255,17 @@ The reasoning:
 - **`#` only for a position within a page.** On any page, `#<engine>` is that engine's row or
   block (`/stereotype-religion/jewish/greed/#laya`), and a `<details>` it names opens on arrival.
   Nothing is routed by fragment or query string.
-- **Legacy addresses redirect.** `dimension.html?d=<dim>#cell-<engine>` goes to `/<dim>/#<engine>`,
-  `engine.html?e=<engine>` to `/engines/<engine>/`, `methods.html` to `/methods/`. A static host
-  cannot redirect on a query string, so these are three small static pages (`site/public/`) that
-  redirect in the browser, with a no-JavaScript fallback to the board.
+- **Legacy addresses redirect.** `dimension.html?d=<dim>` goes to `/<dim>/`,
+  `engine.html?e=<engine>` to `/engines/<engine>/`, `methods.html` to `/methods/`, all 301, by
+  Amplify rules that match the query-string value (`deploy/amplify-rules.json`). Three small static
+  pages (`site/public/`) do the same in the browser on any host without those rules, and keep the
+  old `#cell-<engine>` fragment as `#<engine>`.
 - **Every page carries** a `<title>` naming the thing and its dimension, a description that leads
   with the finding (for a cell, the plain-language sentence), a canonical URL, Open Graph and
-  Twitter tags, and an Open Graph image. The images are 1200 x 630 cards rendered at build time
-  from an SVG template by resvg (WebAssembly; no native dependency) with the site's own fonts,
-  vendored under `site/src/og/fonts/` (SIL OFL). If those fonts are missing the build still
-  succeeds and pages simply omit `og:image`.
-- **`SITE_URL`** (build environment) is the public origin for canonical and Open Graph URLs;
+  Twitter tags, and a social card whose headline, number and alt text come from the page's data
+  (docs/social-cards.md).
+- **`SITE_URL`** (build environment, default `https://biased-decisions.anth.us`) is the public
+  origin for canonical and Open Graph URLs;
   `BASE_PATH` serves the site from a sub-path. Internal links are root-relative with the base.
 
 ## The site

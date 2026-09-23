@@ -1,0 +1,31 @@
+# AWS Amplify build spec (the app is connected to the GitHub repository; Amplify builds on push).
+# Not a monorepo app: the app root is the repository root and the output is site/dist/.
+#
+# The build rebuilds the data from the record and fails, publishing nothing, if any spec fails
+# or the replay does not reproduce studies/ (scripts/site-build.sh). Redirects live in the
+# console (deploy/amplify-rules.json); response headers in customHttp.yml.
+version: 1
+frontend:
+  phases:
+    preBuild:
+      commands:
+        # Tags date the release in the colophon; a shallow clone may not carry them.
+        - git fetch --force --tags --unshallow origin || git fetch --force --tags origin || true
+        # Python 3.10 or newer for the harness (the build image's python3 may be older).
+        - PY=$(command -v python3.12 || command -v python3.11 || true); if [ -z "$PY" ]; then dnf install -y python3.11 >/dev/null && PY=$(command -v python3.11); fi; "$PY" --version && "$PY" -m venv .venv
+        - .venv/bin/pip install --quiet --upgrade pip
+        - .venv/bin/pip install --quiet -e '.[dev]'
+        # Node 22.12 or newer for Astro.
+        - nvm install 22 && nvm use 22
+        - npm ci --prefix site --no-fund --no-audit
+    build:
+      commands:
+        - export SITE_URL="${SITE_URL:-https://biased-decisions.anth.us}"
+        - bash scripts/site-build.sh
+  artifacts:
+    baseDirectory: site/dist
+    files:
+      - "**/*"
+  cache:
+    paths:
+      - site/node_modules/**/*

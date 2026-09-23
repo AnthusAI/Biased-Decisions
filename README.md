@@ -100,13 +100,16 @@ live-scored and nothing calls an engine.
 
 ```
 make leaderboard   # bd report --json --date <last commit's date> -> site/data/leaderboard.json
-make serve         # cd site && python3 -m http.server 8000, then open http://localhost:8000/
+make site          # build the site into site/dist/ and run its build specs
+make serve         # serve site/dist/ as AWS Amplify will, at http://127.0.0.1:4323/
+make dev           # live-reloading source at http://127.0.0.1:4321/
+make ci            # the whole deploy build: specs, replay check, data, site
 ```
 
-It must be served over HTTP (any static server; opening the HTML from disk cannot load the
-data), and it works from a sub-path, so GitHub Pages serves it as is:
-`.github/workflows/pages.yml` replays the record, checks that the replay reproduces `studies/`,
-regenerates the data and publishes `site/` on each release.
+It is published at https://biased-decisions.anth.us by AWS Amplify, which builds `main` on every
+push: it replays the record, checks that the replay reproduces `studies/`, regenerates the data,
+builds the site and runs its specs, and publishes nothing if any step fails
+([docs/deploy.md](docs/deploy.md)).
 
 The ranking rules, in three sentences. Each dimension ranks engines on their excess over the
 floor (the measurement minus an equally trivial edit's), headlined by the largest excess among
