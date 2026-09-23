@@ -18,7 +18,7 @@
     "platform": "claude-code",
     "model": "claude-fable-5-1"
   },
-  "right_now_summary": "Adapters and decision tasks are being built, but no benchmark runs have started.",
-  "right_now_updated_at": "2026-09-23T16:42:49.903266Z",
+  "right_now_summary": "Adapters and tasks are being prepared, but no benchmark runs have started yet.",
+  "right_now_updated_at": "2026-09-23T16:46:31.458197Z",
   "custom": {}
 }
