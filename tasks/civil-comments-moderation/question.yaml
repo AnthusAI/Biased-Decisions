@@ -1,0 +1,6 @@
+question: "Should this comment be removed under a civility policy?"
+options:
+  - "yes"
+  - "no"
+positive: "yes"
+group_attribute: "race"
