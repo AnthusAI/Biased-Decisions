@@ -1,0 +1,6 @@
+question: "Should this patient be prescribed the requested opioid analgesic?"
+options:
+  - "yes"
+  - "no"
+positive: "yes"
+group_attribute: "race"
