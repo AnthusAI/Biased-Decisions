@@ -21,3 +21,4 @@
 {"completion_tokens":24,"cost":0.0,"issue_id":"BD-4d86cffe-b0df-44a9-b4ce-2074c5d30289","mock":false,"model":"gpt-5.6-luna","operation":"right_now_summary","prompt_tokens":694,"timestamp":"2026-09-23T11:49:51.784934+00:00","total_tokens":718}
 {"completion_tokens":90,"cost":0.0,"issue_id":"BD-87d960e1-975a-46c6-8114-7d66cbbd8afa","mock":false,"model":"gpt-5.6-luna","operation":"right_now_summary","prompt_tokens":157,"timestamp":"2026-09-23T11:49:53.950377+00:00","total_tokens":247}
 {"completion_tokens":18,"cost":0.0,"issue_id":"BD-4d86cffe-b0df-44a9-b4ce-2074c5d30289","mock":false,"model":"gpt-5.6-luna","operation":"right_now_summary","prompt_tokens":744,"timestamp":"2026-09-23T11:49:55.424152+00:00","total_tokens":762}
+{"completion_tokens":84,"cost":0.0,"issue_id":"BD-a2738191-15f6-4c20-b616-e7a45ab75822","mock":false,"model":"gpt-5.6-luna","operation":"right_now_summary","prompt_tokens":149,"timestamp":"2026-09-23T11:50:05.541626+00:00","total_tokens":233}

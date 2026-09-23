@@ -1,11 +1,205 @@
 {
   "version": 1,
-  "built_at": "2026-09-23T11:41:24Z",
+  "built_at": "2026-09-23T11:49:55Z",
   "file_mtimes": {
+    "BD-2d6909ec-b530-412b-84e6-2fe2f0978fde.json": 1790164089.129412,
+    "BD-431125d5-7275-4ffc-bafe-b13212a0dfe5.json": 1790164123.333002,
+    "BD-4383fb6e-c187-46b0-8493-65452dde07b5.json": 1790164059.250772,
+    "BD-45c20012-a076-4841-90de-dda5219badec.json": 1790164168.004249,
+    "BD-4d86cffe-b0df-44a9-b4ce-2074c5d30289.json": 1790164195.424731,
+    "BD-5dadcd25-19ca-434f-8ee1-1392bd38ad2b.json": 1790164084.186215,
+    "BD-87d960e1-975a-46c6-8114-7d66cbbd8afa.json": 1790164193.95101,
     "BD-a2738191-15f6-4c20-b616-e7a45ab75822.json": 1790163510.983353,
-    "BD-dc51ca9b-6149-495e-979f-22268681e251.json": 1790163684.561954
+    "BD-a6f0268a-82ca-4017-9b8e-44a27dd9fde5.json": 1790164152.980518,
+    "BD-b5d1254a-7b4d-4703-920a-5d3e4965c796.json": 1790164138.838504,
+    "BD-bfec5ea5-f4f4-4a1a-8c07-97ec1afa1cd0.json": 1790164091.107743,
+    "BD-dc51ca9b-6149-495e-979f-22268681e251.json": 1790164029.437216,
+    "BD-e4e9b599-ec5d-4ab3-9a90-b37dd78bfec6.json": 1790164185.503064,
+    "BD-eff9fba6-16f0-4fbf-b2c0-9b1c9f5aca4e.json": 1790164174.012093
   },
   "issues": [
+    {
+      "id": "BD-2d6909ec-b530-412b-84e6-2fe2f0978fde",
+      "title": "Engine adapter: Decider (decider-ai, 0.8B to 35B)",
+      "description": "Apache-2.0, probabilities per option, MPS fp16 merged 2026-09-22, CPU and CUDA. Start with the 0.8B checkpoint.",
+      "type": "story",
+      "status": "open",
+      "priority": 2,
+      "assignee": null,
+      "creator": null,
+      "parent": "BD-4d86cffe-b0df-44a9-b4ce-2074c5d30289",
+      "labels": [
+        "engines"
+      ],
+      "dependencies": [],
+      "comments": [],
+      "created_at": "2026-09-23T11:48:05.886170Z",
+      "updated_at": "2026-09-23T11:48:05.886189Z",
+      "closed_at": null,
+      "agent": {
+        "platform": "claude-code",
+        "model": "claude-fable-5-1"
+      },
+      "right_now_summary": "The Decider adapter is merged for MPS fp16, starting with the 0.8B checkpoint on CPU and CUDA.",
+      "right_now_updated_at": "2026-09-23T11:48:09.129253Z",
+      "custom": {}
+    },
+    {
+      "id": "BD-431125d5-7275-4ffc-bafe-b13212a0dfe5",
+      "title": "Engine adapter: Verdict rlcd-modernbert-151m (ONNX CPU)",
+      "description": "Apache-2.0, probabilities plus an abstain option, ONNX on CPU and WebGPU. The smallest candidate and the CPU-only reference.",
+      "type": "story",
+      "status": "open",
+      "priority": 2,
+      "assignee": null,
+      "creator": null,
+      "parent": "BD-4d86cffe-b0df-44a9-b4ce-2074c5d30289",
+      "labels": [
+        "engines"
+      ],
+      "dependencies": [],
+      "comments": [],
+      "created_at": "2026-09-23T11:48:39.970218Z",
+      "updated_at": "2026-09-23T11:48:39.970239Z",
+      "closed_at": null,
+      "agent": {
+        "platform": "claude-code",
+        "model": "claude-fable-5-1"
+      },
+      "right_now_summary": "The small Verdict model is being evaluated through an ONNX CPU adapter.",
+      "right_now_updated_at": "2026-09-23T11:48:43.332882Z",
+      "custom": {}
+    },
+    {
+      "id": "BD-4383fb6e-c187-46b0-8493-65452dde07b5",
+      "title": "Engine adapter: Von (395M ModernBERT, von-sdk)",
+      "description": "Apache-2.0, probabilities per option, runs on MPS, CPU, CUDA and ROCm via the von-sdk package. Closest sibling to Laya; first candidate.",
+      "type": "story",
+      "status": "open",
+      "priority": 2,
+      "assignee": null,
+      "creator": null,
+      "parent": "BD-4d86cffe-b0df-44a9-b4ce-2074c5d30289",
+      "labels": [
+        "engines"
+      ],
+      "dependencies": [],
+      "comments": [],
+      "created_at": "2026-09-23T11:47:36.948455Z",
+      "updated_at": "2026-09-23T11:47:36.948481Z",
+      "closed_at": null,
+      "agent": {
+        "platform": "claude-code",
+        "model": "claude-fable-5-1"
+      },
+      "right_now_summary": "The team is evaluating Von as the first engine adapter candidate.",
+      "right_now_updated_at": "2026-09-23T11:47:39.250602Z",
+      "custom": {}
+    },
+    {
+      "id": "BD-45c20012-a076-4841-90de-dda5219badec",
+      "title": "Engine adapter: Bespoke-Nimble-9B (MLX and CUDA)",
+      "description": "Apache-2.0 LoRA, probabilities per option, MLX on Apple silicon and CUDA. Time it first; 9B is the largest candidate that runs on our Mac.",
+      "type": "story",
+      "status": "open",
+      "priority": 2,
+      "assignee": null,
+      "creator": null,
+      "parent": "BD-4d86cffe-b0df-44a9-b4ce-2074c5d30289",
+      "labels": [
+        "engines"
+      ],
+      "dependencies": [],
+      "comments": [],
+      "created_at": "2026-09-23T11:49:25.675589Z",
+      "updated_at": "2026-09-23T11:49:25.675615Z",
+      "closed_at": null,
+      "agent": {
+        "platform": "claude-code",
+        "model": "claude-fable-5-1"
+      },
+      "right_now_summary": "The team is timing the 9B adapter on MLX and CUDA for Mac support.",
+      "right_now_updated_at": "2026-09-23T11:49:28.004119Z",
+      "custom": {}
+    },
+    {
+      "id": "BD-4d86cffe-b0df-44a9-b4ce-2074c5d30289",
+      "title": "Benchmark more open decision models on any hardware",
+      "description": "Survey (docs/decision-models-survey.md, 2026-09-23) found a dozen open Laya-like System 1 decision models. Goal: measure each one's bias on the same tasks, cues and floors as Jev and Laya, with one engine-adapter pattern (optional pip extras per engine, device auto-detect for MPS, CPU and CUDA, ONNX or GGUF fallback where the model ships one) so the harness runs on any machine with one command. Each child story: adapter in the record's shape, timing on our Mac, predictions written before the first run, every existing cell answered, RESULTS.md column.",
+      "type": "epic",
+      "status": "open",
+      "priority": 2,
+      "assignee": null,
+      "creator": null,
+      "parent": null,
+      "labels": [
+        "engines"
+      ],
+      "dependencies": [],
+      "comments": [],
+      "created_at": "2026-09-23T11:47:34.718117Z",
+      "updated_at": "2026-09-23T11:47:34.718145Z",
+      "closed_at": null,
+      "agent": {
+        "platform": "claude-code",
+        "model": "claude-fable-5-1"
+      },
+      "right_now_summary": "Adapters and cross-hardware benchmarks are being built for several open decision models.",
+      "right_now_updated_at": "2026-09-23T11:49:55.424563Z",
+      "custom": {}
+    },
+    {
+      "id": "BD-5dadcd25-19ca-434f-8ee1-1392bd38ad2b",
+      "title": "Engine adapter: Tiny-Jev (Qwen3-0.6B, transformers)",
+      "description": "Apache-2.0, probabilities per option, MPS 20 to 50 ms per text, CPU and CUDA. No pip package; load with transformers.",
+      "type": "story",
+      "status": "open",
+      "priority": 2,
+      "assignee": null,
+      "creator": null,
+      "parent": "BD-4d86cffe-b0df-44a9-b4ce-2074c5d30289",
+      "labels": [
+        "engines"
+      ],
+      "dependencies": [],
+      "comments": [],
+      "created_at": "2026-09-23T11:47:51.418379Z",
+      "updated_at": "2026-09-23T11:47:51.418402Z",
+      "closed_at": null,
+      "agent": {
+        "platform": "claude-code",
+        "model": "claude-fable-5-1"
+      },
+      "right_now_summary": "The Tiny-Jev adapter supports Qwen3-0.6B through Transformers on CPU, CUDA, and MPS.",
+      "right_now_updated_at": "2026-09-23T11:48:04.186050Z",
+      "custom": {}
+    },
+    {
+      "id": "BD-87d960e1-975a-46c6-8114-7d66cbbd8afa",
+      "title": "Cross-hardware runner: engine extras, device auto-detect, one command",
+      "description": "Copy the lm-evaluation-harness pattern: named backends, pip extras per engine, --device auto/mps/cpu/cuda, ONNX or GGUF fallback where a model ships one, a smoke test that loads each installed engine on one text. Document CUDA-only engines (NanoJev, Geni-S1-Ops, DiffusionGemma-derived) as not runnable here.",
+      "type": "story",
+      "status": "open",
+      "priority": 2,
+      "assignee": null,
+      "creator": null,
+      "parent": "BD-4d86cffe-b0df-44a9-b4ce-2074c5d30289",
+      "labels": [
+        "engines"
+      ],
+      "dependencies": [],
+      "comments": [],
+      "created_at": "2026-09-23T11:49:51.798667Z",
+      "updated_at": "2026-09-23T11:49:51.798687Z",
+      "closed_at": null,
+      "agent": {
+        "platform": "claude-code",
+        "model": "claude-fable-5-1"
+      },
+      "right_now_summary": "The runner is being built with backend extras, device auto-detection, fallbacks, and engine smoke tests.",
+      "right_now_updated_at": "2026-09-23T11:49:53.950810Z",
+      "custom": {}
+    },
     {
       "id": "BD-a2738191-15f6-4c20-b616-e7a45ab75822",
       "title": "Milestone 2: run the harness on your own data",
@@ -32,6 +226,84 @@
       "custom": {}
     },
     {
+      "id": "BD-a6f0268a-82ca-4017-9b8e-44a27dd9fde5",
+      "title": "Engine adapter: System One Gemma (Gemma 3 270M + scoring head)",
+      "description": "Community model, not Google. Code Apache-2.0 but weights CC-BY-NC-4.0: confirm the licence allows benchmark publication before running. CPU and CUDA; MPS not stated.",
+      "type": "story",
+      "status": "open",
+      "priority": 2,
+      "assignee": null,
+      "creator": null,
+      "parent": "BD-4d86cffe-b0df-44a9-b4ce-2074c5d30289",
+      "labels": [
+        "engines"
+      ],
+      "dependencies": [],
+      "comments": [],
+      "created_at": "2026-09-23T11:49:10.569102Z",
+      "updated_at": "2026-09-23T11:49:10.569140Z",
+      "closed_at": null,
+      "agent": {
+        "platform": "claude-code",
+        "model": "claude-fable-5-1"
+      },
+      "right_now_summary": "The model’s licence must be confirmed before benchmark results are published.",
+      "right_now_updated_at": "2026-09-23T11:49:12.980351Z",
+      "custom": {}
+    },
+    {
+      "id": "BD-b5d1254a-7b4d-4703-920a-5d3e4965c796",
+      "title": "Engine adapter: jeff (GLiFormer 400M, auto device)",
+      "description": "MIT code, probabilities per option, auto-selects CUDA, MPS or CPU, ONNX export. Check the weights licence before running.",
+      "type": "story",
+      "status": "open",
+      "priority": 2,
+      "assignee": null,
+      "creator": null,
+      "parent": "BD-4d86cffe-b0df-44a9-b4ce-2074c5d30289",
+      "labels": [
+        "engines"
+      ],
+      "dependencies": [],
+      "comments": [],
+      "created_at": "2026-09-23T11:48:56.785480Z",
+      "updated_at": "2026-09-23T11:48:56.785499Z",
+      "closed_at": null,
+      "agent": {
+        "platform": "claude-code",
+        "model": "claude-fable-5-1"
+      },
+      "right_now_summary": "The jeff engine adapter supports GLiFormer 400M, automatic device selection, and ONNX export.",
+      "right_now_updated_at": "2026-09-23T11:48:58.838395Z",
+      "custom": {}
+    },
+    {
+      "id": "BD-bfec5ea5-f4f4-4a1a-8c07-97ec1afa1cd0",
+      "title": "Engine adapter: this-that-model (FLock, 1.9B, MIT)",
+      "description": "MIT, probabilities per option, MPS, CPU, CUDA, plus a GGUF mirror. Good test of the GGUF fallback path.",
+      "type": "story",
+      "status": "open",
+      "priority": 2,
+      "assignee": null,
+      "creator": null,
+      "parent": "BD-4d86cffe-b0df-44a9-b4ce-2074c5d30289",
+      "labels": [
+        "engines"
+      ],
+      "dependencies": [],
+      "comments": [],
+      "created_at": "2026-09-23T11:48:11.107586Z",
+      "updated_at": "2026-09-23T11:48:11.107604Z",
+      "closed_at": null,
+      "agent": {
+        "platform": "claude-code",
+        "model": "claude-fable-5-1"
+      },
+      "right_now_summary": null,
+      "right_now_updated_at": null,
+      "custom": {}
+    },
+    {
       "id": "BD-dc51ca9b-6149-495e-979f-22268681e251",
       "title": "Add Kev as a benchmark engine",
       "description": "Kev is another emerging System 1 decision model. Add it to the harness as an engine adapter in the record's shape (a probability per option, the committed option order, resumable answer cache), price or time its runs first, then answer every existing cell: the seven Bias in Bios tasks under the gender-pronouns cue, the disability, religion-v2, ask-twice and option-order cues, and the batch-2 stereotype tests. Report its numbers beside Jev and Laya in RESULTS.md with floors, and score them against predictions written before the first run. Adapter must run on Apple silicon, CPU and CUDA, or be hosted with a keyed client; document which.",
@@ -45,16 +317,81 @@
         "engines"
       ],
       "dependencies": [],
-      "comments": [],
+      "comments": [
+        {
+          "id": "6043f2fe-b359-47da-8fe9-9b80144c6217",
+          "author": "home",
+          "text": "Survey of candidate engines done 2026-09-23 (decision-models-survey.md, to be added under docs/): Kev is open-weights, Apache-2.0, by Jared Palmer, 0.8B/4B/9B on Qwen3.5, implements the TypeSafe systemone contract; CUDA first-class, Apple silicon slow on the Qwen3.5 checkpoints, no MLX path yet.",
+          "created_at": "2026-09-23T11:47:06.493906Z",
+          "comment_type": "default",
+          "agent": {
+            "platform": "claude-code",
+            "model": "claude-fable-5-1"
+          }
+        }
+      ],
       "created_at": "2026-09-23T11:41:24.561784Z",
-      "updated_at": "2026-09-23T11:41:24.561809Z",
+      "updated_at": "2026-09-23T11:47:06.493922Z",
+      "closed_at": null,
+      "agent": {
+        "platform": "claude-code",
+        "model": "claude-fable-5-1",
+        "name": "Claude Fable 5.1"
+      },
+      "right_now_summary": "Kev’s engine survey is complete, and its adapter and benchmark runs still need to be added.",
+      "right_now_updated_at": "2026-09-23T11:47:09.437085Z",
+      "custom": {}
+    },
+    {
+      "id": "BD-e4e9b599-ec5d-4ab3-9a90-b37dd78bfec6",
+      "title": "LLM logprob comparators: Llama, Qwen and Gemma via option-token logprobs",
+      "description": "The slow-thinking comparator without an API bill: transformers last-token logits on every device, mlx-lm logprobs on Mac, llama.cpp n_probs for one GGUF across Metal, CPU and CUDA. Qwen is the Chinese-trained comparator the nationality axis of batch 2 needs.",
+      "type": "story",
+      "status": "open",
+      "priority": 2,
+      "assignee": null,
+      "creator": null,
+      "parent": "BD-4d86cffe-b0df-44a9-b4ce-2074c5d30289",
+      "labels": [
+        "engines"
+      ],
+      "dependencies": [],
+      "comments": [],
+      "created_at": "2026-09-23T11:49:37.211751Z",
+      "updated_at": "2026-09-23T11:49:37.211777Z",
       "closed_at": null,
       "agent": {
         "platform": "claude-code",
         "model": "claude-fable-5-1"
       },
-      "right_now_summary": null,
-      "right_now_updated_at": null,
+      "right_now_summary": "The project compares Llama, Qwen, and Gemma using token logprobs across local runtimes.",
+      "right_now_updated_at": "2026-09-23T11:49:45.502938Z",
+      "custom": {}
+    },
+    {
+      "id": "BD-eff9fba6-16f0-4fbf-b2c0-9b1c9f5aca4e",
+      "title": "Engine adapter: open-jev-deberta-v3-large (0.4B)",
+      "description": "Apache-2.0, probabilities per option, CPU and CUDA; MPS not stated. Encoder-based like Laya.",
+      "type": "story",
+      "status": "open",
+      "priority": 2,
+      "assignee": null,
+      "creator": null,
+      "parent": "BD-4d86cffe-b0df-44a9-b4ce-2074c5d30289",
+      "labels": [
+        "engines"
+      ],
+      "dependencies": [],
+      "comments": [],
+      "created_at": "2026-09-23T11:49:31.432783Z",
+      "updated_at": "2026-09-23T11:49:31.432809Z",
+      "closed_at": null,
+      "agent": {
+        "platform": "claude-code",
+        "model": "claude-fable-5-1"
+      },
+      "right_now_summary": "The adapter supports CPU and CUDA, while MPS support remains unspecified.",
+      "right_now_updated_at": "2026-09-23T11:49:34.011957Z",
       "custom": {}
     }
   ],
