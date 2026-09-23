@@ -1,3 +1,10 @@
+# [1.7.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.6.0...v1.7.0) (2026-09-23)
+
+
+### Features
+
+* **scripts:** a resumable answer runner for any task and cue on upstream Laya ([b7bac52](https://github.com/AnthusAI/Biased-Decisions/commit/b7bac52349a0e7ac8e40246a34c1d8db57acb599))
+
 # [1.6.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.5.0...v1.6.0) (2026-09-23)
 
 
