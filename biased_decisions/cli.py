@@ -1,4 +1,4 @@
-"""The ``bd`` command line: ``list | build | answer | score | replay | report``.
+"""The ``bd`` command line: ``list | build | answer | score | replay | report [--json]``.
 
 See the design doc's "Commands" section for what each subcommand does; this module is the thin
 argument-parsing and printing layer over ``biased_decisions.build`` (writing a cue's versions),
@@ -11,6 +11,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 import sys
 from pathlib import Path
 from typing import List, Optional
@@ -209,11 +210,17 @@ def cmd_replay(args: argparse.Namespace) -> int:
 # ---------------------------------------------------------------------------------------------
 
 def cmd_report(args: argparse.Namespace) -> int:
-    from biased_decisions.report import write
+    from biased_decisions.report import write, write_json
 
     root = _root(args)
     out = Path(args.out) if args.out else None
-    path = write(root, out)
+    if args.json:
+        if args.date and not re.fullmatch(r"\d{4}-\d{2}-\d{2}", args.date):
+            print(f"bd report: --date must be YYYY-MM-DD, got {args.date!r}", file=sys.stderr)
+            return 1
+        path = write_json(root, out, date=args.date)
+    else:
+        path = write(root, out)
     print(f"wrote {path}")
     return 0
 
@@ -262,8 +269,16 @@ def build_parser() -> argparse.ArgumentParser:
         "replay", help="score every cell that has a record, including the shortlist block")
     p_replay.set_defaults(func=cmd_replay)
 
-    p_report = sub.add_parser("report", help="regenerate RESULTS.md from the record")
-    p_report.add_argument("--out", default=None, help="default: RESULTS.md")
+    p_report = sub.add_parser(
+        "report", help="regenerate RESULTS.md (or, with --json, the leaderboard data) from the "
+        "record")
+    p_report.add_argument("--out", default=None,
+                          help="default: RESULTS.md, or site/data/leaderboard.json with --json")
+    p_report.add_argument("--json", action="store_true",
+                          help="write the leaderboard's JSON data file instead of RESULTS.md")
+    p_report.add_argument("--date", default=None,
+                          help="--json only: the generated date (YYYY-MM-DD) to record in the "
+                          "file's provenance; passed in so the build is deterministic")
     p_report.set_defaults(func=cmd_report)
 
     return parser

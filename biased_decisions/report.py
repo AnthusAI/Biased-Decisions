@@ -550,3 +550,18 @@ def write(root: Path = DEFAULT_ROOT, out: Optional[Path] = None) -> Path:
     out = out or (root / "RESULTS.md")
     out.write_text(generate(root), encoding="utf-8")
     return out
+
+
+def write_json(root: Path = DEFAULT_ROOT, out: Optional[Path] = None, *,
+               date: Optional[str] = None) -> Path:
+    """``bd report --json``: the leaderboard's data file (default ``site/data/leaderboard.json``).
+
+    Where ``RESULTS.md`` is the record's tables, this is the record's rankings: per-dimension
+    boards on excess over the floor, the not-detected lists, the overall mean-rank table, and a
+    drill-down per (engine, dimension) cell with the pre-registration row beside the outcome.
+    ``date`` is written into the provenance block as given (the build passes it in so the file
+    is byte-for-byte deterministic for a given record commit). See
+    ``biased_decisions.leaderboard`` for the rules and the data contract."""
+    from biased_decisions.leaderboard import write_json as _write_json
+
+    return _write_json(root, out, date=date)
