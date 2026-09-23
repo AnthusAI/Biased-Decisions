@@ -1,3 +1,10 @@
+## [1.15.1](https://github.com/AnthusAI/Biased-Decisions/compare/v1.15.0...v1.15.1) (2026-09-23)
+
+
+### Bug Fixes
+
+* **site:** say what averaging with a swapped copy means, in plain words ([08fe01d](https://github.com/AnthusAI/Biased-Decisions/commit/08fe01d58f94d55ee948f2c27b244896ce60056a))
+
 # [1.15.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.14.0...v1.15.0) (2026-09-23)
 
 
