@@ -22,10 +22,22 @@
         "model": "Claude Opus 5.5",
         "name": "Biased-Decisions coordinator"
       }
+    },
+    {
+      "id": "17cd1a2e-357c-4daa-967b-e552394462c1",
+      "author": "home",
+      "text": "Pre-registration committed and pushed: docs/antisemitic-tropes-preregistration.md on feat/antisemitic-tropes (commit 15da6dd). Six ADL/AJC-sourced tropes (greed, banks/media/government power, dual loyalty, wars, conspiracy, clannishness), 3 wordings + 1 control question each (24 questions total), five cue forms (secular, religious, surname via fullname mechanism, nationality, community role) each against matched other-group controls and a same-shape floor, two text sources (2,000 Bias-in-Bios held-out bios matching batch 2's pool, plus 200 synthetic loan narratives -- Civil Comments on feat/regulated-tasks was considered but skipped to avoid an unmerged-branch dependency). Estimated ~1.25M Laya calls for the full design (phased build recommended) and an 8,000-request first Jev probe on the two headline tropes. Now proceeding to build task/version files with bd build; no engine will be run.",
+      "created_at": "2026-09-23T16:31:25.463306Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude_code",
+        "model": "Claude Sonnet 5",
+        "name": "Antisemitism study designer"
+      }
     }
   ],
   "created_at": "2026-09-23T16:20:53.694155Z",
-  "updated_at": "2026-09-23T16:21:00.643275Z",
+  "updated_at": "2026-09-23T16:31:25.463337Z",
   "closed_at": null,
   "agent": {
     "platform": "claude_code",
