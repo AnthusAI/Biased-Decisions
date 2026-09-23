@@ -44,17 +44,17 @@ PREREG_PATH = Path("studies/PREREGISTERED.md")
 # ---------------------------------------------------------------------------------------------
 
 ENGINES: List[dict] = [
-    {"id": "jev", "label": "Jev", "color": "#0389d7", "color_dark": "#3fb0f5",
+    {"id": "jev", "label": "Jev", "color": "#0389d7", "color_dark": "#1f9be3",
      "marker": "circle", "kind": "hosted decision engine",
      "about": "The hosted engine, called through typesafe-sdk. Probabilities are its own, "
               "reported to two decimals.",
      "stand_in": False},
-    {"id": "laya", "label": "Laya", "color": "#d03382", "color_dark": "#ee6aa9",
+    {"id": "laya", "label": "Laya", "color": "#d03382", "color_dark": "#e8579b",
      "marker": "square", "kind": "open-weights decision engine",
      "about": "The original upstream package as released (github.com/NandhaKishorM/laya, "
               "Apache-2.0, laya 0.3.7, PyTorch). Probabilities are its own.",
      "stand_in": False},
-    {"id": "laya-mlx", "label": "Laya-mlx", "color": "#7a4fc9", "color_dark": "#a98bf0",
+    {"id": "laya-mlx", "label": "Laya-mlx", "color": "#7a4fc9", "color_dark": "#9b7ae6",
      "marker": "diamond", "kind": "open-weights decision engine (Apple-silicon port)",
      "about": "An independent MLX port of the same model (laya-mlx 0.1.0). Every Laya number "
               "published before the port and the original were told apart came from this "
