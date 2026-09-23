@@ -3,6 +3,7 @@ author fixed, checked against the committed record, plus the pure helpers they r
 from __future__ import annotations
 
 import json
+import re
 
 import pytest
 
@@ -313,3 +314,32 @@ def test_examples_come_from_the_committed_files(doc):
                     ids = {json.loads(line)["id"] for line in handle}
                 assert ex["versions"][0]["id"] in ids or ex["versions"][1]["id"] in ids
     assert n >= 40
+
+
+# --- the caveats panel every page carries ------------------------------------------------------
+
+def test_the_caveats_panel_has_four_or_six_short_cards_so_the_grid_has_no_orphan(doc):
+    cards = doc["honesty"]
+    assert len(cards) in (4, 6)
+    assert len({c["id"] for c in cards}) == len(cards)
+    for c in cards:
+        assert c["title"] and not c["title"].endswith(".")
+        sentences = [s for s in re.split(r"(?<=[.?!])\s+(?=[A-Z\"])", c["text"].strip()) if s]
+        assert 1 <= len(sentences) <= 3, c["id"]
+
+
+def test_the_caveats_that_matter_survive_in_plain_words(doc):
+    by_id = {c["id"]: c for c in doc["honesty"]}
+    assert "the least" in by_id["one-detail"]["text"]
+    assert "order" in by_id["option-order"]["title"].lower()
+    replay = by_id["replay"]
+    assert "record" in replay["text"] and replay["link"] == {"to": "data", "label": "the data file"}
+    assert "not the people" in by_id["tropes"]["title"]
+    assert "stand-in" not in json.dumps(doc["honesty"])
+
+
+def test_every_percentage_in_a_caveat_is_a_number_on_the_board(doc):
+    on_board = set(re.findall(r'"value": (-?\d+(?:\.\d+)?)', json.dumps(doc["dimensions"])))
+    for c in doc["honesty"]:
+        for pct in re.findall(r"(\d+(?:\.\d+)?)%", c["text"]):
+            assert pct in on_board, f"{c['id']}: {pct}% is not on the board"

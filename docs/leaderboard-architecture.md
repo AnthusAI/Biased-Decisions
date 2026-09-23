@@ -169,7 +169,8 @@ overall        {rule, n_dimensions, rows[{engine, mean_rank, ranked_on, position
                 sole_engine[], unmeasured[], not_detected[], incomplete, measured_on}]}
 floors         {ask_twice[{engine, task, task_label, flip_pct, mean_abs_dp, max_abs_dp, n,
                 record, study}]}
-honesty[]      {id, title, text}          vocabulary[] {term, text}
+honesty[]      {id, title, text, link?{to, label}}  (four or six cards)
+vocabulary[]   {term, text}
 compliance     {notice, citations[{id, short, name, covers, primary_url, quotes[{where, text,
                 source_url}], repo_ref {path, text}}], unmeasured[{id, short, decision, status,
                 repo_ref}], practices[{id, label, decision}],

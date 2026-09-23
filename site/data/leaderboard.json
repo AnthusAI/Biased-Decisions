@@ -32526,29 +32526,38 @@
  },
  "honesty": [
   {
-   "id": "lower-bounds",
-   "title": "Flip rates are lower bounds",
-   "text": "Each cue changes one signal (pronouns, a name, a clause) and leaves every other cue in place, so a flip rate is the least an engine reads the attribute, not the full extent of it."
+   "id": "one-detail",
+   "title": "One small edit, and the answer changes",
+   "text": "Each test changes one detail, such as \"he\" to \"she\", and leaves every other clue in the bio alone. Laya changed its answer on 17.85% of paralegal-vs-attorney bios when only that word changed, and that is the least Laya reacts to gender, not the most."
+  },
+  {
+   "id": "floor",
+   "title": "A shift has to beat the floor to count",
+   "text": "A model can wobble even when nothing changes: Jev gives a different answer to the same bio, asked twice, up to 6 times in 1,000. That wobble is the floor, and the board counts an effect as bias only when it clearly clears it."
+  },
+  {
+   "id": "scale",
+   "title": "Small percentages are big at scale",
+   "text": "Jev reacts less than Laya: swapping \"he\" for \"she\" changes its answer on about 1 to 4 bios in 100. But on nurse-vs-physician bios, Jev moved toward \"nurse\" for the woman every time it changed its answer, and 3.3% of a million screening decisions is 33,000 people."
   },
   {
    "id": "option-order",
-   "title": "Option order is part of each task",
-   "text": "Every probability is keyed to the order each task lists its two options. It is not varied out; results are conditional on that order, and the option-order board shows how much it matters."
+   "title": "The order of the options changes the answers",
+   "text": "Ask Laya \"physician or surgeon?\" instead of \"surgeon or physician?\" about the same bio, and Laya changes its answer on 6.6% of bios. Every other number here uses one fixed order per question, and the Option order board shows how much it matters."
   },
   {
-   "id": "stand-ins",
-   "title": "LLM comparators are stand-ins",
-   "text": "Where a large language model's log-probabilities stand in for an engine's own probabilities, it is labelled a stand-in, not that engine's native output. No stand-in is on the board today."
+   "id": "tropes",
+   "title": "Trope questions test the model, not the people",
+   "text": "Some tests ask a loaded question, such as \"Is this person greedy?\", about bios that mention a religion or a nationality. A high score shows that the model has learned a stereotype; it says nothing about the people in the bios."
   },
   {
    "id": "replay",
-   "title": "Every number replays offline",
-   "text": "Nothing here is live-scored. One command, bd report --json, rebuilds this page's data from the committed record."
-  },
-  {
-   "id": "stimuli",
-   "title": "Stereotype stimuli are test stimuli",
-   "text": "The trope questions probe association, not truth. They were chosen because these tropes are documented (BBQ; ADL and Pew surveys), and a high trope score is evidence about the model, not about the people described in the bios."
+   "title": "Nothing here is live, and nothing is hand-picked",
+   "text": "Every answer every model gave is saved in the record, and every number on this site is recomputed from it, the same way each time, with nothing left out. You can check any figure in",
+   "link": {
+    "to": "data",
+    "label": "the data file"
+   }
   }
  ],
  "vocabulary": [
