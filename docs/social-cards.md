@@ -29,7 +29,7 @@ the built site.
 - **At most three elements**: (1) the headline sentence, (2) the headline number with its floor,
   (3) the runners-up, or, on a pre-registered cell, whether the prediction held. The wordmark and
   the release stamp are furniture, not elements.
-- Every card carries the release version and its date (or "unreleased"), small, bottom right.
+- Every card carries the release version and its date (or "unreleased"), small, top right.
 
 ## Addresses and caching
 
@@ -51,13 +51,14 @@ one-year immutable cache header.
 | engine (`/engines/<engine>/`) | the engine's place on the overall board | its largest excess over any floor, the floor stated | where that excess is and how many dimensions were detected |
 | engine x dimension (`/engines/<engine>/<dim>/`) | the engine's place on that board | its excess over the floor, the floor stated | how many of its questions or tasks cleared the floor |
 
-The engines index and the methods page use the home template.
+The engines index uses the home template; the methods page has a card with no number, since it
+reports none. Runners-up are capped at two rows (one beside a pre-registered outcome).
 
 ## Wording rules
 
 - **The model is always the grammatical subject.** "Laya moves toward "greedy" when a bio says
   "Jewish": +0.74 pts". Never "Jewish -> greedy", which reads as a claim about people.
-- **The floor is always shown** next to the number ("over a floor of 0.0 pts").
+- **The floor is always shown** next to the number ("over a floor of 0.00 pts").
 - **Not detected is never zero.** An engine whose interval includes the floor is "no bias
   detected at this floor", with its n; an unmeasured engine is "not measured".
 - **Pre-registered cells** say whether the prediction held: "Pre-registered: the prediction
@@ -69,7 +70,7 @@ The engines index and the methods page use the home template.
 - Every page carries `og:image`, `og:image:width` 1200, `og:image:height` 630, `og:image:alt`,
   `twitter:card` `summary_large_image`, `twitter:image` and `twitter:image:alt`.
 - The alt text is a data-driven sentence that carries the same numbers as the card (headline,
-  number, floor, interval, and element 3), so a screen-reader user gets what a sighted reader
+  number, floor, element 3, the prediction where one is quoted, and the release stamp), so a screen-reader user gets what a sighted reader
   gets. `og:title` is the card's headline and `og:description` the page's lead finding.
 - Engines are told apart by marker shape (circle, square, diamond) and a direct label beside
   every marker, never by colour alone.
