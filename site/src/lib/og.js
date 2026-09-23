@@ -65,15 +65,60 @@ export function cardTree(card) {
   // Helper to build bars section
   function barsSection() {
     const max = Math.max(...card.bars.map(x => x.value || 0), 1);
-    return el("div", { display: "flex", flexDirection: "column", alignItems: "center", marginTop: 22, width: 1040, gap: 16 },
+    return el("div", { display: "flex", flexDirection: "column", alignItems: "center", marginTop: 18, width: 1040, gap: 10 },
       card.bars.map((b) =>
-        el("div", { display: "flex", alignItems: "center", height: 64 },
+        el("div", { display: "flex", alignItems: "center", height: 56, width: 1040 },
           marker(b.engine, 40),
-          el("div", { fontSize: 40, fontWeight: 700, width: 230, marginLeft: 14, color: C.ink }, engineById[b.engine].label),
-          el("div", { width: 520, height: 40, backgroundColor: C.track, borderRadius: 6, display: "flex" },
-            b.value > 0 ? el("div", { width: Math.max(8, Math.round(520 * b.value / max)), height: 40, borderRadius: 6, backgroundColor: engineById[b.engine].color }) : null),
-          el("div", { fontSize: 40, fontWeight: 600, marginLeft: 18, color: b.value > 0 ? C.alarm : C.muted }, b.text))),
-      el("div", { fontSize: 30, color: C.muted, marginTop: 6 }, card.numberNote));
+          el("div", { display: "flex", fontSize: 40, fontWeight: 700, width: 230, marginLeft: 14, color: C.ink }, engineById[b.engine].label),
+          el("div", { width: 520, height: 36, backgroundColor: C.track, borderRadius: 6, display: "flex" },
+            b.value > 0 ? el("div", { display: "flex", width: Math.max(8, Math.round(520 * b.value / max)), height: 36, borderRadius: 6, backgroundColor: engineById[b.engine].color }) : null),
+          el("div", { display: "flex", fontSize: 40, fontWeight: 600, marginLeft: 18, color: b.value > 0 ? C.alarm : C.muted }, b.text))),
+      el("div", { display: "flex", fontSize: 30, color: C.muted, marginTop: 6 }, card.numberNote));
+  }
+
+
+  function spiderChart() {
+    const { engine, axes } = card.spider;
+    const S = 340, R = 118, cx = S / 2, cy = S / 2, n = axes.length;
+    const max = Math.max(...axes.map((a) => a.value), 1);
+    const ang = (i) => -Math.PI / 2 + (2 * Math.PI * i) / n;
+    const pt = (i, f) => [cx + R * f * Math.cos(ang(i)), cy + R * f * Math.sin(ang(i))];
+    const poly = (f) => axes.map((_, i) => pt(i, f).map((v) => v.toFixed(1)).join(",")).join(" ");
+    const color = engineById[engine].color;
+    const children = [
+      ...[0.5, 1].map((f) => ({ type: "polygon", props: { points: poly(f), fill: "none", stroke: C.rule, strokeWidth: 1.5 } })),
+      ...axes.map((_, i) => ({ type: "line", props: { x1: cx, y1: cy, x2: pt(i, 1)[0], y2: pt(i, 1)[1], stroke: C.rule, strokeWidth: 1.5 } })),
+      { type: "polygon", props: { points: axes.map((a, i) => pt(i, a.value / max).map((v) => v.toFixed(1)).join(",")).join(" "), fill: color, fillOpacity: 0.28, stroke: color, strokeWidth: 3 } },
+      ...axes.map((a, i) => ({ type: "circle", props: { cx: pt(i, a.value / max)[0], cy: pt(i, a.value / max)[1], r: 5, fill: a.value > 0 ? C.alarm : C.muted } })),
+    ];
+    const box = { width: 620, height: 420, position: "relative", display: "flex" };
+    const ox = (620 - S) / 2, oy = (420 - S) / 2;
+    const labels = axes.map((a, i) => {
+      const [x, y] = [cx + (R + 22) * Math.cos(ang(i)), cy + (R + 22) * Math.sin(ang(i))];
+      const c = Math.cos(ang(i));
+      const w = 200;
+      const left = ox + x - (Math.abs(c) < 0.3 ? w / 2 : c > 0 ? 0 : w);
+      return el("div", { position: "absolute", top: oy + y - 14, left, width: w, display: "flex", justifyContent: Math.abs(c) < 0.3 ? "center" : c > 0 ? "flex-start" : "flex-end",
+        fontSize: 22, fontWeight: 600, color: a.value > 0 ? C.ink : C.muted }, a.label);
+    });
+    return el("div", box,
+      el("div", { position: "absolute", top: oy, left: ox, width: S, height: S, display: "flex" },
+        { type: "svg", props: { width: S, height: S, viewBox: `0 0 ${S} ${S}`, style: { display: "flex" }, children } }),
+      ...labels);
+  }
+
+  if (card.spider) {
+    return el("div", { width: W, height: H, display: "flex", flexDirection: "column", backgroundColor: C.ground, color: C.ink, fontFamily: "Montserrat", padding: "34px 48px 30px", position: "relative" },
+      el("div", { position: "absolute", top: 0, left: 0, width: W, height: 8, backgroundColor: C.accent, display: "flex" }),
+      el("div", { position: "absolute", top: 30, left: 48, display: "flex", fontFamily: "Jersey 25", fontSize: 44, color: C.ink }, "Biased", el("span", { color: C.muted, marginLeft: 10 }, "Decisions")),
+      el("div", { position: "absolute", top: 44, right: 48, display: "flex", fontSize: 24, fontWeight: 600, color: C.muted, letterSpacing: 1 }, card.stamp),
+      el("div", { display: "flex", marginTop: 96, flex: 1 },
+        el("div", { display: "flex", flexDirection: "column", width: 480, justifyContent: "center", paddingRight: 20 },
+          el("div", { display: "flex", fontSize: 44, fontWeight: 700, lineHeight: 1.14, color: C.ink }, card.headline),
+          el("div", { display: "flex", fontSize: 30, fontWeight: 500, color: C.alarm, marginTop: 24 }, card.numberNote),
+          ...card.rows.map((r) => el("div", { display: "flex", alignItems: "center", fontSize: 26, fontWeight: 500, color: C.ink2, marginTop: 14 },
+            r.engine ? marker(r.engine, 28) : null, el("span", { marginLeft: r.engine ? 10 : 0 }, r.text)))),
+        el("div", { display: "flex", alignItems: "center", justifyContent: "center", flex: 1 }, spiderChart())));
   }
 
   return el("div", { width: W, height: H, display: "flex", flexDirection: "column", alignItems: "center",

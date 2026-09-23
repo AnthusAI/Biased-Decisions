@@ -88,8 +88,8 @@ function barsOf(board, limit = 4) {
 function boardCard(template, dim, board, lead, floorValue, headlineFor, extra = {}) {
   const top = board.ranked[0];
   if (top) {
-    return { template, headline: headlineFor(top.engine), number: `${signed(top.value)} pts`,
-      numberNote: floorText(dim, floorValue(top.engine)), rows: runners(board, top.engine), biasNumber: true, ...extra };
+    return { template, headline: headlineFor(top.engine), bars: barsOf(board), rows: [],
+      numberNote: `bias over each engine's own floor, in percentage points`, ...extra };
   }
   const nd = board.not_detected;
   if (nd.length) {
@@ -112,9 +112,13 @@ function homeCard() {
   const rows = data.overall.rows;
   const top = rows[0];
   const n = top.ranked_on;
+  const bars = rows.map((r) => {
+    const d = dimensions.map((x) => x.cells[r.engine]).filter((c) => c.status === "measured" && c.detected);
+    const v = d.length ? Math.max(...d.map((c) => c.headline.value)) : 0;
+    return { engine: r.engine, value: v, text: v > 0 ? `${signed(v)} pts` : "no bias detected at this floor" };
+  });
   return { template: "home", headline: `${E(top.engine)} is the most biased engine on the overall board`,
-    number: fmt(top.mean_rank), numberNote: `mean rank over ${n} dimension${n === 1 ? "" : "s"}; 1 = most biased`,
-    rows: rows.slice(1).map((r, i) => ({ engine: r.engine, text: `${ordinal(i + 2)} ${E(r.engine)}, mean rank ${fmt(r.mean_rank)}` })) };
+    bars, rows: [], numberNote: `largest bias found, ranked over ${n} dimension${n === 1 ? "" : "s"}` };
 }
 
 function dimCard(dim) {
@@ -150,8 +154,9 @@ function engineCard(en) {
       rows: [{ engine: en.id, text: `no bias detected at this floor on any of ${measured.length} dimensions` }] };
   }
   const top = detected.map((d) => ({ d, c: d.cells[en.id] })).sort((a, b) => b.c.headline.value - a.c.headline.value)[0];
-  return { template: "engine", headline: placeText, number: `${signed(top.c.headline.value)} pts`,
-    numberNote: `${floorText(top.d, top.c.headline.floor_value)}, on ${lower(top.d.label)}`,
+  const axes = measured.map((d) => ({ label: d.label, value: d.cells[en.id].detected ? d.cells[en.id].headline.value : 0 }));
+  return { template: "engine", headline: placeText, spider: { engine: en.id, axes },
+    numberNote: `largest bias ${signed(top.c.headline.value)} pts, on ${lower(top.d.label)}`,
     rows: [{ engine: en.id, text: `${en.label}, mean rank ${fmt(r.mean_rank)}` },
       { text: `bias detected on ${detected.length} of ${measured.length} measured dimensions` }] };
 }
@@ -218,7 +223,7 @@ function titledCard(template, headline) {
 // Every page's card, by page path.
 // ---------------------------------------------------------------------------------------------
 // Bump LAYOUT when og.js draws the same content differently, so card URLs change with the pixels.
-const LAYOUT = 6;
+const LAYOUT = 7;
 const hashOf = (card) => createHash("sha256").update(JSON.stringify({ LAYOUT, card })).digest("hex").slice(0, 10);
 
 function finish(path, card) {
@@ -235,6 +240,8 @@ export function altOf(c) {
   if (c.flag) parts.push(`${c.flag}.`);
   if (c.note) parts.push(`${c.note}.`);
   if (c.detail) parts.push(`${c.detail}.`);
+  if (c.bars) { if (c.numberNote) parts.push(`${c.numberNote}.`); for (const b of c.bars) parts.push(`${E(b.engine)}: ${b.text}.`); }
+  if (c.spider) { parts.push(`${c.numberNote}.`); parts.push(`Bias by dimension: ${c.spider.axes.map((a) => `${a.label} ${a.value > 0 ? signed(a.value) + " pts" : "none detected"}`).join("; ")}.`); }
   for (const r of c.rows) parts.push(`${r.text}.`);
   parts.push(`Biased-Decisions leaderboard, ${c.stamp.replace(" · ", ", ")}.`);
   return parts.join(" ");
