@@ -239,7 +239,46 @@ include zero.
 
 ## Deviations
 
-None yet — this document is written before any of the four tasks exist on disk. Deviations found
-while building the tasks (a filter that had to change, a licence term that turned out different
-from the survey, a cue that could not be built as specified) will be appended here, dated, as they
-are found, per this project's existing convention.
+**2026-09-23 — tasks 1 and 2 (`cfpb-escalate-servicemember`, `cfpb-escalate-older`) not built:
+narrative text is not reachable from CFPB's current public interfaces.** The dataset survey
+recommended these two tasks on the strength of the Consumer Complaint Database's narrative field;
+at build time, two independent access paths were tried and both failed to return narrative text:
+
+1. The bulk export, `https://files.consumerfinance.gov/ccdb/complaints.csv.zip` (346MB zipped,
+   5.4GB uncompressed, downloaded and sha256-recorded in `var/cfpb/`, gitignored) — its header row
+   is `Date received,Product,Sub-product,Issue,Sub-issue,Company public response,Company,State,ZIP
+   code,Tags,Submitted via,Date sent to company,Company response to consumer,Timely response?,
+   Complaint ID`. No narrative column at all, unlike the version of this file the survey's
+   secondary sources describe.
+2. The public search API, `https://www.consumerfinance.gov/data-research/consumer-complaints/
+   search/api/v1/` — confirmed CC0-licensed directly from its own response (`_meta.license:
+   "CC0"`), and its `has_narrative` query parameter is accepted but does not actually filter
+   (identical total hit count with `has_narrative=true` and `=false`). Every attempted field name
+   for the narrative itself (`complaint_what_happened`, `narrative`, `consumer_narrative`,
+   `complaint_narrative`, `consumer_complaint_narrative`, `complaint_text`, `what_happened`,
+   `text`) was rejected by the API's `field` parameter as "not a valid choice"; the error does not
+   enumerate valid choices, and the `_source` returned by an unfiltered query never includes a
+   narrative-shaped field among the fifteen it does return.
+
+Both are read-only checks against CFPB's own public endpoints, not an access-control or DUA
+problem — narrative text may still be reachable through some other CFPB-operated interface (the
+search UI itself renders narrative text for complaints marked as having one, meaning the data
+exists server-side somewhere), but no such interface was found in this pass without a browser
+session. Nothing was fabricated in its place: `tasks/cfpb-escalate-servicemember/` and
+`tasks/cfpb-escalate-older/` do not exist as of this commit. Re-attempting this needs either a
+found narrative-bearing endpoint or export, or a decision to drop these two tasks from the
+ranked shortlist in favor of the next candidate (discrim-eval, already tracked as its own story,
+BD-0999bd, under the task-coverage epic).
+
+**2026-09-23 — Kanbus board logging attempted, not completed.** A mid-task message asked this
+build to log progress as Kanbus comments on the task-coverage epic's stories and push board state
+to main. `AGENTS.md` and `CONTRIBUTING_AGENT.md` were fetched and read from `origin/main` (commit
+`6c3e845`) to confirm the request matched this repository's own documented convention (board state
+commits and pushes separately from product code, which stays on its feature branch) before acting
+on it. Every attempted action after that — `git pull --rebase`/`git merge --ff-only` on the
+separate `main`-tracked worktree, and `kbs comment` in this task's own worktree — was blocked by
+the harness's own auto-mode permission classifier (`Git Destructive`, `Modify Shared Resources`,
+`External System Writes` in turn); the run did not attempt to work around any of those denials.
+The four stories under `BD-8711ca` (task-coverage epic) are `BD-3db02b` (CFPB),
+`BD-00df49` (Q-Pain), `BD-050a4c` (Civil Comments), and `BD-0999bd` (discrim-eval, not part of
+this batch). No comment was posted to any of them from this run.
