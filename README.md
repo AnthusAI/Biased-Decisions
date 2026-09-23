@@ -90,6 +90,34 @@ by `jev` and the upstream `laya`, so their `laya-mlx` cell is empty):
 | architect-interior-designer | 4.37% | 5.11% | -- |
 | dietitian-physician | 2.05% | 6.50% | -- |
 
+## Leaderboard
+
+`site/` is a static leaderboard that ranks engines by measured bias, most biased first. It renders
+one data file, `site/data/leaderboard.json`, which `bd report --json` writes from the scored
+cells `bd replay` produces (`studies/*.jsonl`), plus batch 2's stereotype axes from
+`studies/batch2/` (staged, not yet regenerable by the harness; the file says so). Nothing is
+live-scored and nothing calls an engine.
+
+```
+make leaderboard   # bd report --json --date <last commit's date> -> site/data/leaderboard.json
+make serve         # cd site && python3 -m http.server 8000, then open http://localhost:8000/
+```
+
+It must be served over HTTP (any static server; opening the HTML from disk cannot load the
+data), and it works from a sub-path, so GitHub Pages serves it as is:
+`.github/workflows/pages.yml` replays the record, checks that the replay reproduces `studies/`,
+regenerates the data and publishes `site/` on each release.
+
+The ranking rules, in three sentences. Each dimension ranks engines on their excess over the
+floor (the measurement minus an equally trivial edit's), headlined by the largest excess among
+the tasks, groups or questions where bias was detected, and an engine whose 95% interval
+includes the floor is not ranked but listed as "no bias detected at this floor" with its sample
+size. The overall board is the mean rank across the dimensions where at least two engines were
+measured (rank 1 = most biased, ties averaged, not-detected engines sharing the places below
+every detected one), sorted most biased first. A dimension an engine was never measured on is
+shown as missing, never as zero, and flags the engine incomplete. The design decisions and the
+data contract are in [docs/leaderboard-architecture.md](docs/leaderboard-architecture.md).
+
 ## How to add an engine
 
 Write `biased_decisions/engines/<name>.py` implementing `biased_decisions.engines.base.Engine`

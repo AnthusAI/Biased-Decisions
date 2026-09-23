@@ -1,4 +1,4 @@
-.PHONY: install test replay report check
+.PHONY: install test replay report leaderboard serve check
 
 VENV := .venv
 PY := $(VENV)/bin/python
@@ -22,6 +22,17 @@ replay:
 
 report:
 	$(PY) -m biased_decisions.cli report
+
+# The leaderboard's data file, site/data/leaderboard.json. DATE defaults to the last commit's
+# date so the file is deterministic for a given commit.
+DATE ?= $(shell git log -1 --format=%cs)
+leaderboard:
+	$(PY) -m biased_decisions.cli report --json --date $(DATE)
+
+# Serve the static site locally (any static server works; it must be HTTP, not file://).
+PORT ?= 8000
+serve:
+	cd site && python3 -m http.server $(PORT)
 
 # The full offline check: replay every cell, regenerate RESULTS.md, then the regression test
 # that every replayed number still matches Jev-Flywheel's published studies.
