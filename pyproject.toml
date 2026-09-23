@@ -1,0 +1,45 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "biased-decisions"
+version = "0.1.0"
+description = "A benchmark harness for bias in fast decision models: causal counterfactuals on real text, with control floors, reported in the decision's own currency."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [
+    { name = "Anthus AI Solutions", email = "info@anthus.ai" },
+]
+dependencies = [
+    "pyyaml",
+    "python-dotenv",
+]
+
+[project.optional-dependencies]
+jev = ["typesafe-sdk"]
+laya = ["laya"]
+laya-mlx = ["laya-mlx==0.1.0"]
+build = [
+    "pandas",
+    "pyarrow",
+    "spacy>=3.8,<3.9",
+    "en_core_web_sm @ https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.8.0/en_core_web_sm-3.8.0-py3-none-any.whl",
+]
+dev = [
+    "pytest>=8",
+    "pytest-asyncio>=0.23",
+    "pyflakes",
+]
+
+[project.scripts]
+bd = "biased_decisions.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["biased_decisions*"]
+
+[tool.pytest.ini_options]
+python_files = ["*_test.py", "test_*.py"]
+testpaths = ["biased_decisions", "tests"]
+asyncio_mode = "auto"
