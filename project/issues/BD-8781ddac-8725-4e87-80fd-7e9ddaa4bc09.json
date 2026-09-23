@@ -18,8 +18,8 @@
     "platform": "claude-code",
     "model": "claude-fable-5-1"
   },
-  "right_now_summary": "The team is running bias tests, expanding model coverage, and building replayable benchmark tools.",
-  "right_now_updated_at": "2026-09-23T16:32:00.491169Z",
+  "right_now_summary": "The team is running Laya tests, adding bias checks, merging results, and building replayable leaderboard evidence.",
+  "right_now_updated_at": "2026-09-23T16:36:11.091196Z",
   "custom": {
     "project_label": "BD",
     "source": "shared"

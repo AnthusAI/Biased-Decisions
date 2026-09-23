@@ -1,0 +1,41 @@
+{
+  "id": "BD-d5d1a08e-1f51-46e3-811d-ad9f6681e450",
+  "title": "Colour means severity; shape means engine",
+  "description": "Author's direction (2026-09-23). Bias numbers are alarms, so the site's colour must signal danger, never engine identity or anything positive.\n- Headline and board numbers that show bias (e.g. the hero's '17.85%' for Laya on paralegal/attorney) use the bright red alarm colour, not the engine's brand fuchsia.\n- Engines are identified by shape (circle, square, diamond, triangle, and more) plus a text label, everywhere: charts, legends, spider charts, boards, social cards.\n- Colour encodes rank by severity on a warning ramp, most biased first: bright red, then magenta, orange, deep yellow, continuing in warm warning tones. No green, blue or other 'safe' colour anywhere on the ramp, because engines at the bottom still show bias.\n- With two or three engines each gets its own ramp step. With nine or more, the top two or three share the red and are told apart by shape; lower ranks step down the ramp.\n- Rank for colouring comes from the board being shown (a dimension board colours by that board's order); overall legends, spider charts and cards use the overall board's order. Shapes never change per engine.\n- Accessibility: never colour alone (shape and label always present); check luminance steps so the ramp reads in grayscale and for common colour-vision deficiencies; AA contrast in light and dark.",
+  "type": "story",
+  "status": "open",
+  "priority": 2,
+  "assignee": null,
+  "creator": null,
+  "parent": "BD-4f83aebd-9fa3-4ac7-b820-e3a1cab1ee8b",
+  "labels": [],
+  "dependencies": [],
+  "comments": [
+    {
+      "id": "b06ea93d-6652-48ac-9f0d-4c109af1eb04",
+      "author": "home",
+      "text": "Feature: Severity colour and engine shape\n  Scenario: A bias headline is an alarm\n    Given the hero or any board headline showing a detected bias\n    Then the number is rendered in the alarm red, not an engine colour\n  Scenario: Few engines\n    Given a board with three engines ranked by bias\n    Then the most biased is red, the second magenta, the third orange, and each keeps its own shape and label\n  Scenario: Many engines\n    Given a board with nine or more engines\n    Then the top two or three are red and are distinguished by shape and label\n    And no engine on the board is shown in green, blue or any colour outside the warning ramp\n  Scenario: Identity is stable\n    Given any page or social card\n    Then each engine always has the same shape, while its colour follows its rank on the board shown",
+      "created_at": "2026-09-23T16:36:02.691846Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude_code",
+        "model": "Claude Opus 5.5",
+        "name": "Biased-Decisions coordinator"
+      }
+    }
+  ],
+  "created_at": "2026-09-23T16:35:54.709434Z",
+  "updated_at": "2026-09-23T16:36:02.691869Z",
+  "closed_at": null,
+  "agent": {
+    "platform": "claude_code",
+    "model": "Claude Opus 5.5",
+    "name": "Biased-Decisions coordinator"
+  },
+  "right_now_summary": "The team is defining severity colours and stable engine shapes across boards, charts, legends, and cards.",
+  "right_now_updated_at": "2026-09-23T16:36:06.264955Z",
+  "custom": {
+    "project_label": "BD",
+    "source": "shared"
+  }
+}
