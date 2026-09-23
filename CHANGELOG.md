@@ -1,3 +1,16 @@
+# [1.4.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.3.1...v1.4.0) (2026-09-23)
+
+
+### Bug Fixes
+
+* **site:** matrix shading follows the size of the bias in either direction ([9e6c480](https://github.com/AnthusAI/Biased-Decisions/commit/9e6c4802938c931cefe43b78875843baab944ed2))
+
+
+### Features
+
+* **site:** follow the system colour scheme; remove the theme toggle ([a6b86fe](https://github.com/AnthusAI/Biased-Decisions/commit/a6b86fe3bf8ff7f8595249ef382dcd06407c5fee))
+* **site:** results first; predictions leave the public pages ([4ad76bc](https://github.com/AnthusAI/Biased-Decisions/commit/4ad76bc521d40186cae9a82d50237e7ae398ef52))
+
 ## [1.3.1](https://github.com/AnthusAI/Biased-Decisions/compare/v1.3.0...v1.3.1) (2026-09-23)
 
 
