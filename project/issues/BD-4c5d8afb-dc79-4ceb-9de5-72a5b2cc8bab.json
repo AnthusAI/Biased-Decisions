@@ -3,7 +3,7 @@
   "title": "Build the veteran-status cue on all seven tasks and answer with Laya",
   "description": "Implement the veteran-status insertion cue (iraq / navy / floor clauses, same eligibility and insertion rule as batch-1 cues) and build versions files for all seven Bias in Bios tasks. Answer with the upstream Laya engine (free) on all seven tasks and score against the floor per docs/veteran-status-preregistration.md, Design A.",
   "type": "story",
-  "status": "open",
+  "status": "closed",
   "priority": 2,
   "assignee": null,
   "creator": null,
@@ -12,15 +12,28 @@
     "studies"
   ],
   "dependencies": [],
-  "comments": [],
+  "comments": [
+    {
+      "id": "7d31d636-0b84-4686-ba1b-d0a63c8f471f",
+      "author": "home",
+      "text": "Feature: Veteran-status cue answers with Laya on all seven tasks\n\nScenario: The veteran-status cue scores against the floor per task\n  Given the veteran-status insertion cue (iraq / navy / floor clauses) built with the batch-1 eligibility and insertion rule across all seven Bias in Bios tasks\n  When I run bd run with the upstream Laya engine (free) on all seven tasks\n  Then studies/veteran-status records each answer, and bd score reports the shift vs the floor per task with a 95% interval, scored against docs/veteran-status-preregistration.md Design A\n",
+      "created_at": "2026-09-23T16:20:58.951878Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude_code",
+        "model": "Claude Sonnet 5",
+        "name": "Board steward"
+      }
+    }
+  ],
   "created_at": "2026-09-23T12:47:08.060893Z",
-  "updated_at": "2026-09-23T12:47:08.061004Z",
-  "closed_at": null,
+  "updated_at": "2026-09-23T16:35:43.007409Z",
+  "closed_at": "2026-09-23T16:35:43.007365Z",
   "agent": {
     "platform": "claude-code",
     "model": "claude-fable-5-1"
   },
-  "right_now_summary": "The veteran-status cue and Laya-based build are being prepared for all seven Bias in Bios tasks.",
-  "right_now_updated_at": "2026-09-23T12:47:11.415589Z",
+  "right_now_summary": "The veteran-status cue is being built for all seven tasks and tested with Laya against the floor.",
+  "right_now_updated_at": "2026-09-23T16:35:45.731547Z",
   "custom": {}
 }

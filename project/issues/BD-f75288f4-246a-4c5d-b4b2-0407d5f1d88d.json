@@ -12,15 +12,28 @@
     "studies"
   ],
   "dependencies": [],
-  "comments": [],
+  "comments": [
+    {
+      "id": "726267d4-a716-4d69-ae88-046297fc3fdd",
+      "author": "home",
+      "text": "Feature: Jev go/no-go prices design A on the two article tasks\n\nScenario: A dry-run price and cap gate the veteran-status Jev run\n  Given veteran-status Design A limited to paralegal-attorney and surgeon-physician, three versions each (iraq, navy, floor), roughly 8,300 requests, per docs/veteran-status-preregistration.md Rules and the free-engines-before-paid-ones convention\n  When I run a Jev dry-run price on those two article tasks\n  Then the price and a request cap are recorded and approved before any Jev request is sent\n",
+      "created_at": "2026-09-23T16:24:46.482207Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude_code",
+        "model": "Claude Sonnet 5",
+        "name": "Board steward"
+      }
+    }
+  ],
   "created_at": "2026-09-23T12:47:39.432438Z",
-  "updated_at": "2026-09-23T12:47:39.432478Z",
+  "updated_at": "2026-09-23T16:24:46.482229Z",
   "closed_at": null,
   "agent": {
     "platform": "claude-code",
     "model": "claude-fable-5-1"
   },
-  "right_now_summary": "The team is setting a price and request cap before approving the Jev run.",
-  "right_now_updated_at": "2026-09-23T12:47:41.863773Z",
+  "right_now_summary": "A dry run is pricing the Jev request and setting a cap before any requests are sent.",
+  "right_now_updated_at": "2026-09-23T16:24:48.333854Z",
   "custom": {}
 }

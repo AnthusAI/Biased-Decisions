@@ -10,11 +10,29 @@
   "parent": "BD-bc5c8b83-d2e8-4d06-b516-833ffc21b81e",
   "labels": [],
   "dependencies": [],
-  "comments": [],
+  "comments": [
+    {
+      "id": "21b93e49-8f45-45b6-9748-49d0fefcceba",
+      "author": "home",
+      "text": "Feature: Design 3 measures communal vs agentic descriptors\n\nScenario: Descriptor choice crossed with gender shifts advancement\n  Given reference-letter descriptors crossed with gender: communal ('warm, supportive, a team player') vs agentic ('confident, independent, a natural leader')\n  When I run bd score on the advance-final-round task for the committed engine record\n  Then studies/gendered-language-design3 reports the signed shift vs the floor by descriptor type and gender with a 95% interval\n",
+      "created_at": "2026-09-23T16:24:17.063197Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude_code",
+        "model": "Claude Sonnet 5",
+        "name": "Board steward"
+      }
+    }
+  ],
   "created_at": "2026-09-23T15:56:07.304828Z",
-  "updated_at": "2026-09-23T15:56:07.304850Z",
+  "updated_at": "2026-09-23T16:24:17.063220Z",
   "closed_at": null,
-  "right_now_summary": "The team is deciding whether descriptors and gender should affect advancement to the final round.",
-  "right_now_updated_at": "2026-09-23T15:56:09.480740Z",
+  "agent": {
+    "platform": "claude_code",
+    "model": "Claude Opus 5.5",
+    "name": "Biased-Decisions coordinator"
+  },
+  "right_now_summary": "The study measures how communal and agentic descriptors affect advancement decisions across genders.",
+  "right_now_updated_at": "2026-09-23T16:24:19.333814Z",
   "custom": {}
 }

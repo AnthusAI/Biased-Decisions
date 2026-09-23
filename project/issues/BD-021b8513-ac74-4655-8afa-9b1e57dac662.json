@@ -10,11 +10,29 @@
   "parent": "BD-46601366-1119-4d0f-ad88-1de3e6b63349",
   "labels": [],
   "dependencies": [],
-  "comments": [],
+  "comments": [
+    {
+      "id": "b3752968-56bd-4ab7-9980-1f0d4abfb8e6",
+      "author": "home",
+      "text": "Feature: Batch 3 runs Laya first, Jev only on explicit go\n\nScenario: Jev is never called without a priced, approved go\n  Given batch 3's pre-registration is committed and only one GPU job may run at a time\n  When I run bd run for batch 3 against Laya, and separately attempt a Jev run without an explicit approved go\n  Then the Laya run completes and records answers, and the Jev run is refused until a price and cap have been approved\n",
+      "created_at": "2026-09-23T16:19:12.128392Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude_code",
+        "model": "Claude Sonnet 5",
+        "name": "Board steward"
+      }
+    }
+  ],
   "created_at": "2026-09-23T15:57:20.730714Z",
-  "updated_at": "2026-09-23T15:57:20.730738Z",
+  "updated_at": "2026-09-23T16:19:12.128418Z",
   "closed_at": null,
-  "right_now_summary": "Laya runs batch 3 first; Jev waits for priced and approved spend.",
-  "right_now_updated_at": "2026-09-23T15:57:23.554253Z",
+  "agent": {
+    "platform": "claude_code",
+    "model": "Claude Opus 5.5",
+    "name": "Biased-Decisions coordinator"
+  },
+  "right_now_summary": "Batch 3 runs on Laya first; Jev waits for explicit approval of its price and cap.",
+  "right_now_updated_at": "2026-09-23T16:19:13.866229Z",
   "custom": {}
 }

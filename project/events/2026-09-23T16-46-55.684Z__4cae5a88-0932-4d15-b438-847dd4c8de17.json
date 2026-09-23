@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "event_id": "4cae5a88-0932-4d15-b438-847dd4c8de17",
+  "issue_id": "BD-016fb265-be94-41da-9b25-ef6530e655b1",
+  "event_type": "issue_created",
+  "occurred_at": "2026-09-23T16:46:55.684Z",
+  "actor_id": "home",
+  "payload": {
+    "title": "System colours only, and richer social cards",
+    "description": "Author's direction 2026-09-23: (1) remove the light/dark toggle; the site follows the system colour scheme only (prefers-color-scheme), with no stored override. (2) Social cards always render in light mode. (3) Engine cards show the engine's spider chart (severity colours and shape per BD-d5d1a0), not a single big number. (4) Leaderboard-style cards (home, dimension, group, question) show the ranking as a horizontal bar chart of engines, most biased at the top, with the floor marked, rather than one big number. Cell cards may keep a big number with its interval. All cards keep the phone-feed legibility rules in docs/social-cards.md.",
+    "issue_type": "story",
+    "status": "open",
+    "priority": 2,
+    "assignee": null,
+    "parent": "BD-4f83aebd-9fa3-4ac7-b820-e3a1cab1ee8b",
+    "labels": [],
+    "agent": {
+      "platform": "claude_code",
+      "model": "Claude Opus 5.5",
+      "name": "Biased-Decisions coordinator"
+    }
+  }
+}

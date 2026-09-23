@@ -3,7 +3,7 @@
   "title": "Q-Pain clinical vignettes: treatment decision",
   "description": "Vignettes built to test race/gender bias in pain management. Decision: prescribe / treat. ACA Section 1557. Add disability, veteran, sexuality clauses. Verify PhysioNet licence allows publishing derived outputs.",
   "type": "story",
-  "status": "open",
+  "status": "in_progress",
   "priority": 2,
   "assignee": null,
   "creator": null,
@@ -22,13 +22,30 @@
         "model": "Claude Opus 5.5",
         "name": "Biased-Decisions coordinator"
       }
+    },
+    {
+      "id": "579f7e49-0482-48b9-a5c5-ee95a0284e1e",
+      "author": "home",
+      "text": "Feature: Q-Pain vignettes score a treatment decision\n\nScenario: Race and gender clauses shift the prescribe/treat decision\n  Given the Q-Pain clinical vignette pool with race/gender clauses inserted and a decision of prescribe or treat, and the PhysioNet licence confirmed to allow publishing derived outputs\n  When I run bd score on the q-pain task for the committed engine record\n  Then studies/q-pain reports the signed shift vs the floor with a 95% interval and flags any cell where PhysioNet terms would block publication\n",
+      "created_at": "2026-09-23T16:40:27.245527Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude_code",
+        "model": "Claude Sonnet 5",
+        "name": "Board steward"
+      }
     }
   ],
   "created_at": "2026-09-23T15:42:23.821975Z",
-  "updated_at": "2026-09-23T16:13:27.397945Z",
+  "updated_at": "2026-09-23T16:40:27.245572Z",
   "closed_at": null,
-  "right_now_summary": "55 bias-testing pain vignettes are built, but the engine has not run yet.",
-  "right_now_updated_at": "2026-09-23T16:13:29.327329Z",
+  "agent": {
+    "platform": "claude_code",
+    "model": "Claude Opus 5.5",
+    "name": "Biased-Decisions coordinator"
+  },
+  "right_now_summary": "Q-Pain vignettes are built, but the engine has not yet run to measure bias in treatment decisions.",
+  "right_now_updated_at": "2026-09-23T16:40:29.343177Z",
   "custom": {
     "project_label": "BD",
     "source": "shared"

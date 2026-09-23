@@ -10,11 +10,29 @@
   "parent": "BD-bc5c8b83-d2e8-4d06-b516-833ffc21b81e",
   "labels": [],
   "dependencies": [],
-  "comments": [],
+  "comments": [
+    {
+      "id": "49688769-10ea-41e6-a735-36e9bef69f37",
+      "author": "home",
+      "text": "Feature: Design 1 measures loaded-word by gender interaction\n\nScenario: The double difference isolates the word's effect from the gender's\n  Given real bios with 'Colleagues describe her/him as <word>' inserted in a 2x2 gender by neutral/loaded-word design, each pair serving as its own control\n  When I run bd score on the management-readiness task for the committed engine record\n  Then studies/gendered-language-design1 reports (loaded - neutral) for women minus the same difference for men, with a 95% interval and the pre-registered verdict\n",
+      "created_at": "2026-09-23T16:19:33.872045Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude_code",
+        "model": "Claude Sonnet 5",
+        "name": "Board steward"
+      }
+    }
+  ],
   "created_at": "2026-09-23T15:55:56.052730Z",
-  "updated_at": "2026-09-23T15:55:56.052763Z",
+  "updated_at": "2026-09-23T16:19:33.872067Z",
   "closed_at": null,
-  "right_now_summary": "The study design is specified, but no current work or findings are reported.",
-  "right_now_updated_at": "2026-09-23T15:55:58.198709Z",
+  "agent": {
+    "platform": "claude_code",
+    "model": "Claude Opus 5.5",
+    "name": "Biased-Decisions coordinator"
+  },
+  "right_now_summary": "The team is measuring how loaded words affect management-readiness judgments by gender.",
+  "right_now_updated_at": "2026-09-23T16:19:35.784458Z",
   "custom": {}
 }

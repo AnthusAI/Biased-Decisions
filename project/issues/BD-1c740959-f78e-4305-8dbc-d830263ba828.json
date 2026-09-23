@@ -3,7 +3,7 @@
   "title": "Sexuality and gender identity: spouse clauses and explicit labels",
   "description": "Pre-registers and tracks the sexuality and gender-identity studies in docs/sexuality-gender-identity-preregistration.md. Two cues, sexuality and gender-identity, each with an occupation-invariance design (batch-1 pattern, all seven tasks) and a trope-susceptibility design (batch-2 pattern, the 2,000-bio stereotype pool with a new safeguarding question). Every version is gender-matched to the bio's own pronoun so it never collides with the existing gender-pronouns cue. Laya runs first and free on everything; Jev is priced and capped before any request, with design A limited to nurse/physician and architect/interior designer. This epic tracks writing the cues, running Laya, and the Jev go/no-go decision.",
   "type": "epic",
-  "status": "open",
+  "status": "in_progress",
   "priority": 2,
   "assignee": null,
   "creator": null,
@@ -12,15 +12,28 @@
     "studies"
   ],
   "dependencies": [],
-  "comments": [],
+  "comments": [
+    {
+      "id": "1e36cd33-3689-453b-a449-d75e5f78da5b",
+      "author": "home",
+      "text": "Status (2026-09-23): In progress. Sexuality and gender-identity spouse-clause and explicit-label cues are running on Laya 0.3.7. A partial run on 0.3.9 is being kept only as a version-drift record, not as the primary result. Jev pricing (BD-fb3204) has not been actioned.\n",
+      "created_at": "2026-09-23T16:31:14.534482Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude_code",
+        "model": "Claude Sonnet 5",
+        "name": "Board steward"
+      }
+    }
+  ],
   "created_at": "2026-09-23T13:04:48.428131Z",
-  "updated_at": "2026-09-23T13:04:48.428160Z",
+  "updated_at": "2026-09-23T16:31:14.534504Z",
   "closed_at": null,
   "agent": {
     "platform": "claude-code",
     "model": "claude-fable-5-1"
   },
-  "right_now_summary": "The team is updating matched cues, expanding the batch, scoring with Laya, and setting Jev costs and caps.",
-  "right_now_updated_at": "2026-09-23T13:05:21.851956Z",
+  "right_now_summary": "Laya 0.3.7 is running the cues; 0.3.9 is only a drift record, and Jev pricing awaits action.",
+  "right_now_updated_at": "2026-09-23T16:34:10.619501Z",
   "custom": {}
 }

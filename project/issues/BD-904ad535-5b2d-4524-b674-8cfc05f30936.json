@@ -3,18 +3,36 @@
   "title": "Verify the trope surveys against their sources",
   "description": "Check every cited URL in the US and global surveys; keep only supported entries; record removals.",
   "type": "story",
-  "status": "open",
+  "status": "closed",
   "priority": 2,
   "assignee": null,
   "creator": null,
   "parent": "BD-46601366-1119-4d0f-ad88-1de3e6b63349",
   "labels": [],
   "dependencies": [],
-  "comments": [],
+  "comments": [
+    {
+      "id": "076f8906-ded0-4fd6-a6fd-23b3aa780330",
+      "author": "home",
+      "text": "Feature: Trope surveys are verified against their sources\n\nScenario: Only supported entries remain in the survey\n  Given the US and global trope surveys with every entry citing a source URL\n  When I check every cited URL against the claimed trope\n  Then unsupported entries are removed and docs/tropes-survey.md records each removal with its reason\n",
+      "created_at": "2026-09-23T16:22:27.191734Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude_code",
+        "model": "Claude Sonnet 5",
+        "name": "Board steward"
+      }
+    }
+  ],
   "created_at": "2026-09-23T15:57:05.418280Z",
-  "updated_at": "2026-09-23T15:57:05.418301Z",
-  "closed_at": null,
-  "right_now_summary": "The cited URLs in the US and global trope surveys are being checked against their sources.",
-  "right_now_updated_at": "2026-09-23T15:57:07.444683Z",
+  "updated_at": "2026-09-23T16:36:07.325025Z",
+  "closed_at": "2026-09-23T16:36:07.324977Z",
+  "agent": {
+    "platform": "claude_code",
+    "model": "Claude Opus 5.5",
+    "name": "Biased-Decisions coordinator"
+  },
+  "right_now_summary": "The US and global trope surveys are checked against their sources, with unsupported entries removed and logged.",
+  "right_now_updated_at": "2026-09-23T16:36:09.889978Z",
   "custom": {}
 }

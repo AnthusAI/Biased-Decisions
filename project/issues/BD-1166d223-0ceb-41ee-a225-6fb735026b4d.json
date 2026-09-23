@@ -3,18 +3,48 @@
   "title": "Pre-register the brand and company bias study",
   "description": "Tasks, cues, floors (invented names), predictions per engine, how position bias is separated, and the naming policy for real companies.",
   "type": "story",
-  "status": "open",
+  "status": "in_progress",
   "priority": 2,
   "assignee": null,
   "creator": null,
   "parent": "BD-72afa4ac-4c22-430f-b9e3-473780ae784d",
   "labels": [],
   "dependencies": [],
-  "comments": [],
+  "comments": [
+    {
+      "id": "c42c9dfb-1641-4c6b-a4c6-c2f0f7e3c2d4",
+      "author": "home",
+      "text": "Feature: Pre-register the brand and company bias study\n\nScenario: Predictions are committed before any engine sees the tasks\n  Given the tasks, cues, invented-name floors, and the naming policy for real companies are drafted\n  When I commit docs/brand-company-preregistration.md before any engine answers a single item\n  Then studies/brand-company scores every subsequent run word for word against that committed file, including how position bias is separated\n",
+      "created_at": "2026-09-23T16:19:40.530704Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude_code",
+        "model": "Claude Sonnet 5",
+        "name": "Board steward"
+      }
+    },
+    {
+      "id": "774a15f0-0d37-406c-b563-aeb9767bd732",
+      "author": "home",
+      "text": "2026-09-23: pre-registration committed to main as docs/brand-bias-preregistration.md (f254df6, merged 9790610). Kiva rejected (API terms); small-business loans as labelled synthetic templates; product ranking on Amazon Reviews 2023 (CC BY-SA 4.0); CFPB by-company waits on the CFPB narrative source (BD-3db02b).",
+      "created_at": "2026-09-23T16:46:17.739931Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude_code",
+        "model": "Claude Opus 5.5",
+        "name": "Biased-Decisions coordinator"
+      }
+    }
+  ],
   "created_at": "2026-09-23T15:56:20.880446Z",
-  "updated_at": "2026-09-23T15:56:20.880482Z",
+  "updated_at": "2026-09-23T16:46:17.739962Z",
   "closed_at": null,
-  "right_now_summary": "The team is drafting the preregistration for the brand and company bias study.",
-  "right_now_updated_at": "2026-09-23T15:56:23.564050Z",
+  "agent": {
+    "platform": "claude_code",
+    "model": "Claude Opus 5.5",
+    "name": "Biased-Decisions coordinator"
+  },
+  "right_now_summary": "The preregistration is merged; loan templates and Amazon reviews are set, while CFPB data awaits a source.",
+  "right_now_updated_at": "2026-09-23T16:46:20.900571Z",
   "custom": {}
 }

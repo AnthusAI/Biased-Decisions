@@ -1,0 +1,41 @@
+{
+  "id": "BD-169f65ca-f4e5-445e-a6bc-d05fa1d24b4d",
+  "title": "One dimension per protected characteristic: merge the three religion dimensions",
+  "description": "Religion appears as three dimensions (religion v1, religion v2 same-shape floor, religious stereotypes). Merge into one Religion dimension: v2 (same-shape floor) is the occupation measurement; the batch-2 trope questions are questions within it; v1 is withdrawn (its 'practising' cue was confounded) and appears only as a note in methods, not on the board. Apply the same rule everywhere: dimensions are protected characteristics (gender, race, age, disability, religion, nationality, veteran status, sexual orientation, gender identity, marital and family status); cues, tasks and question families nest inside them (e.g. nationality stereotypes inside Nationality; race first name and race full name inside Race). Keep old URLs redirecting to the merged pages. Update the data contract (bd report --json) with specs, the overall ranking rule (one rank per characteristic), and the cards.",
+  "type": "story",
+  "status": "open",
+  "priority": 2,
+  "assignee": null,
+  "creator": null,
+  "parent": "BD-4f83aebd-9fa3-4ac7-b820-e3a1cab1ee8b",
+  "labels": [],
+  "dependencies": [],
+  "comments": [
+    {
+      "id": "f04262b7-d0a4-4434-84a2-5555b6b9efd1",
+      "author": "home",
+      "text": "Feature: One dimension per protected characteristic\n  Scenario: Religion is one dimension\n    Given the leaderboard data\n    Then there is exactly one religion dimension, containing the same-shape-floor occupation tasks and the trope questions\n    And religion v1 appears only in the methods notes\n  Scenario: Old links still work\n    Given a link to /religion-v2/, /religion-v1/ or /stereotype-religion/ and their sub-paths\n    Then it redirects with 301 to the matching path under the merged religion dimension\n  Scenario: The overall ranking counts each characteristic once\n    Given an engine measured on several cues of one characteristic\n    Then the overall mean rank uses one rank for that characteristic",
+      "created_at": "2026-09-23T16:47:17.985052Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude_code",
+        "model": "Claude Opus 5.5",
+        "name": "Biased-Decisions coordinator"
+      }
+    }
+  ],
+  "created_at": "2026-09-23T16:47:09.109585Z",
+  "updated_at": "2026-09-23T16:47:17.985082Z",
+  "closed_at": null,
+  "agent": {
+    "platform": "claude_code",
+    "model": "Claude Opus 5.5",
+    "name": "Biased-Decisions coordinator"
+  },
+  "right_now_summary": "Religion is being merged into one dimension, with old links redirected and one overall rank per characteristic.",
+  "right_now_updated_at": "2026-09-23T16:47:19.574757Z",
+  "custom": {
+    "project_label": "BD",
+    "source": "shared"
+  }
+}

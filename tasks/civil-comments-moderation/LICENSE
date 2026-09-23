@@ -1,0 +1,15 @@
+This directory (tasks/civil-comments-moderation/) contains data derived from the Civil Comments
+platform archive, distributed via the "google/civil_comments" dataset on Hugging Face
+(https://huggingface.co/datasets/google/civil_comments), which is published under CC0-1.0 (public
+domain dedication), confirmed from the dataset's own card (`license: cc0-1.0`).
+
+CC0 places no attribution or share-alike requirement on this project; items.jsonl and every file
+under versions/ may be redistributed under this repository's own top-level licence without a
+separate note, and this file exists only to record the source's own licence for provenance, not
+because a share-alike obligation applies here (contrast tasks/qpain-treatment/LICENSE, where one
+does).
+
+Source citation: Jigsaw / Conversation AI, "Civil Comments," via
+https://huggingface.co/datasets/google/civil_comments (CC0-1.0). Underlying platform: the Civil
+Comments commenting plugin, public comments 2015-2017, archived per the dataset card's own
+description.

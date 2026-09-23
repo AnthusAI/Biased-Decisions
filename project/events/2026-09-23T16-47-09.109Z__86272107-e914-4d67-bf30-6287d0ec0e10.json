@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "event_id": "86272107-e914-4d67-bf30-6287d0ec0e10",
+  "issue_id": "BD-169f65ca-f4e5-445e-a6bc-d05fa1d24b4d",
+  "event_type": "issue_created",
+  "occurred_at": "2026-09-23T16:47:09.109Z",
+  "actor_id": "home",
+  "payload": {
+    "title": "One dimension per protected characteristic: merge the three religion dimensions",
+    "description": "Religion appears as three dimensions (religion v1, religion v2 same-shape floor, religious stereotypes). Merge into one Religion dimension: v2 (same-shape floor) is the occupation measurement; the batch-2 trope questions are questions within it; v1 is withdrawn (its 'practising' cue was confounded) and appears only as a note in methods, not on the board. Apply the same rule everywhere: dimensions are protected characteristics (gender, race, age, disability, religion, nationality, veteran status, sexual orientation, gender identity, marital and family status); cues, tasks and question families nest inside them (e.g. nationality stereotypes inside Nationality; race first name and race full name inside Race). Keep old URLs redirecting to the merged pages. Update the data contract (bd report --json) with specs, the overall ranking rule (one rank per characteristic), and the cards.",
+    "issue_type": "story",
+    "status": "open",
+    "priority": 2,
+    "assignee": null,
+    "parent": "BD-4f83aebd-9fa3-4ac7-b820-e3a1cab1ee8b",
+    "labels": [],
+    "agent": {
+      "platform": "claude_code",
+      "model": "Claude Opus 5.5",
+      "name": "Biased-Decisions coordinator"
+    }
+  }
+}

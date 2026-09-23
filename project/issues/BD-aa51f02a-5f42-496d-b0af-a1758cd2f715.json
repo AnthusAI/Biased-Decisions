@@ -10,12 +10,30 @@
   "parent": "BD-8711caaf-17a6-4c26-a826-496dfd6bae82",
   "labels": [],
   "dependencies": [],
-  "comments": [],
+  "comments": [
+    {
+      "id": "800ef793-8c1e-43a5-8b50-e5872517d656",
+      "author": "home",
+      "text": "Feature: BBQ runs as a secondary cross-check\n\nScenario: BBQ results are reported alongside, not as, a business decision\n  Given the Bias Benchmark for QA across nine social dimensions including sexual orientation, SES and appearance\n  When I run bd score on the bbq task for the committed engine record\n  Then studies/bbq reports the bias and ambiguity scores per dimension as a secondary check, clearly separated from the business-decision tasks\n",
+      "created_at": "2026-09-23T16:23:11.716941Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude_code",
+        "model": "Claude Sonnet 5",
+        "name": "Board steward"
+      }
+    }
+  ],
   "created_at": "2026-09-23T15:42:45.798321Z",
-  "updated_at": "2026-09-23T15:43:58.357142Z",
+  "updated_at": "2026-09-23T16:23:11.716965Z",
   "closed_at": null,
-  "right_now_summary": "The team is considering BBQ as a secondary cross-check for bias across nine social dimensions.",
-  "right_now_updated_at": "2026-09-23T15:44:00.676262Z",
+  "agent": {
+    "platform": "claude_code",
+    "model": "Claude Opus 5.5",
+    "name": "Biased-Decisions coordinator"
+  },
+  "right_now_summary": "BBQ runs as a secondary bias check, separate from business decisions.",
+  "right_now_updated_at": "2026-09-23T16:23:13.677058Z",
   "custom": {
     "project_label": "BD",
     "source": "shared"

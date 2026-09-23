@@ -1,0 +1,41 @@
+{
+  "id": "BD-c76881dd-18a6-4b9e-bbb1-bcc8118a2c7b",
+  "title": "Matrix shading ignores large shifts that are negative or unattributed",
+  "description": "On two-axis dimension pages (e.g. /religion-v2/, 'Every religion, every task'), site/src/components/Matrix.astro shades only cells whose interval lies ABOVE the floor ('detected'). Cells whose interval lies below the floor ('reverse of the trope') and cells marked 'unattributed' render white regardless of size, so large shifts look like no bias. The leaderboard counts bias in either direction, so shading must follow the size of the shift whenever its interval excludes the floor, in either direction, with direction shown by sign and a non-colour cue. Unattributed cells need their own clearly explained style, not white. The pre-registered outline also goes (results-first story BD-e84479). Reported by the author 2026-09-23.",
+  "type": "bug",
+  "status": "open",
+  "priority": 2,
+  "assignee": null,
+  "creator": null,
+  "parent": "BD-4f83aebd-9fa3-4ac7-b820-e3a1cab1ee8b",
+  "labels": [],
+  "dependencies": [],
+  "comments": [
+    {
+      "id": "e1078b0c-b28d-42cd-adb0-6b7676917d58",
+      "author": "home",
+      "text": "Feature: Matrix shading follows the size of the bias\n  Scenario: A large shift below the floor is shaded\n    Given a cell whose interval lies entirely below the floor\n    When the matrix is built\n    Then the cell is shaded by the absolute size of the shift on the same scale as cells above the floor, and marked as reverse direction by sign and a pattern or icon\n  Scenario: Only cells whose interval includes the floor are unshaded\n    Given a cell whose interval includes the floor\n    Then it is unshaded and labelled 'no bias detected at this floor'\n  Scenario: Unattributed cells are explained\n    Given a cell marked unattributed\n    Then it has a distinct style and an accessible explanation, never plain white",
+      "created_at": "2026-09-23T16:29:41.890907Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude_code",
+        "model": "Claude Opus 5.5",
+        "name": "Biased-Decisions coordinator"
+      }
+    }
+  ],
+  "created_at": "2026-09-23T16:29:34.518967Z",
+  "updated_at": "2026-09-23T16:29:41.890941Z",
+  "closed_at": null,
+  "agent": {
+    "platform": "claude_code",
+    "model": "Claude Opus 5.5",
+    "name": "Biased-Decisions coordinator"
+  },
+  "right_now_summary": "Matrix shading is being updated to show large reverse shifts and give unattributed cells a clear style.",
+  "right_now_updated_at": "2026-09-23T16:29:43.777525Z",
+  "custom": {
+    "project_label": "BD",
+    "source": "shared"
+  }
+}

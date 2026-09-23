@@ -12,15 +12,28 @@
     "engines"
   ],
   "dependencies": [],
-  "comments": [],
+  "comments": [
+    {
+      "id": "034677e4-4699-44eb-a55e-4fb20e6a7750",
+      "author": "home",
+      "text": "Feature: Engine adapter: jeff answers a scored task\n\nScenario: jeff auto-selects its device after the weights licence is checked\n  Given the jeff (GLiFormer 400M, MIT code) model with an ONNX export, and its weights licence checked before running\n  When I run bd run --engine jeff on a committed task\n  Then it auto-selects CUDA, MPS or CPU, returns a probability per option for every item, and studies/ records the answers\n",
+      "created_at": "2026-09-23T16:23:18.601465Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude_code",
+        "model": "Claude Sonnet 5",
+        "name": "Board steward"
+      }
+    }
+  ],
   "created_at": "2026-09-23T11:48:56.785480Z",
-  "updated_at": "2026-09-23T11:48:56.785499Z",
+  "updated_at": "2026-09-23T16:23:18.601492Z",
   "closed_at": null,
   "agent": {
     "platform": "claude-code",
     "model": "claude-fable-5-1"
   },
-  "right_now_summary": "The jeff engine adapter supports GLiFormer 400M, automatic device selection, and ONNX export.",
-  "right_now_updated_at": "2026-09-23T11:48:58.838395Z",
+  "right_now_summary": "The jeff adapter checks the weights licence, picks a device, and records probability-scored answers.",
+  "right_now_updated_at": "2026-09-23T16:23:21.023535Z",
   "custom": {}
 }

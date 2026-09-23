@@ -3,7 +3,7 @@
   "title": "CFPB complaint narratives: escalate / valid-dispute tasks",
   "description": "Consumer Complaint Database narratives (public domain). Decision: should this complaint be escalated; is the dispute valid. Regulation: UDAAP, Reg E/Z dispute handling. Native Servicemember and Older American tags (veteran, age); inserted-clause cues for religion, disability, nationality, sexuality. Verify licence and PII scrubbing first.",
   "type": "story",
-  "status": "open",
+  "status": "in_progress",
   "priority": 2,
   "assignee": null,
   "creator": null,
@@ -22,13 +22,54 @@
         "model": "Claude Opus 5.5",
         "name": "Biased-Decisions coordinator"
       }
+    },
+    {
+      "id": "4fea2cfc-b085-426b-86b1-bd370eb072c1",
+      "author": "home",
+      "text": "Feature: CFPB complaint narratives score escalate and valid-dispute decisions\n\nScenario: Native servicemember/older-American tags and inserted clauses both score\n  Given Consumer Complaint Database narratives (public domain, licence and PII scrubbing verified) with native Servicemember and Older American tags and inserted-clause cues for religion, disability, nationality and sexuality\n  When I run bd score on the cfpb-escalate and cfpb-valid-dispute tasks for the committed engine record\n  Then studies/cfpb reports the signed shift vs the floor per attribute and per task, each with a 95% interval\n",
+      "created_at": "2026-09-23T16:41:40.079220Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude_code",
+        "model": "Claude Sonnet 5",
+        "name": "Board steward"
+      }
+    },
+    {
+      "id": "c1306941-72bc-4ad4-9ab5-54aaaafeace7",
+      "author": "home",
+      "text": "2026-09-23: next step assigned to a Haiku agent: find an archived CFPB complaint snapshot that still carries narrative text, with licence, date, size and checksum. No download over 2 GB, no commits.",
+      "created_at": "2026-09-23T16:46:25.474619Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude_code",
+        "model": "Claude Opus 5.5",
+        "name": "Biased-Decisions coordinator"
+      }
+    },
+    {
+      "id": "ff34e557-465f-455b-8e64-4bbe3c6d2225",
+      "author": "home",
+      "text": "2026-09-23: unblocked. Source: Internet Archive snapshot of the CFPB bulk file dated 2020-02-17, https://web.archive.org/web/20200217073319/https://files.consumerfinance.gov/ccdb/complaints.csv.zip, 240,082,835 bytes, sha256 a74190517eea0fabffda3219d2c863441469ae045797b2d4923ee0cf0bd2d9a1 (checksum and header verified by the coordinator). Header includes 'Consumer complaint narrative' and 'Tags'. Reported by the Haiku search: 1,504,898 complaints (2011-08 to 2020-02), 494,378 with narratives, 119,137 tagged Servicemember, 102,277 tagged Older American (to be recounted by the build script). Public domain (CFPB). The build must pin this URL and checksum.",
+      "created_at": "2026-09-23T16:52:46.065588Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude_code",
+        "model": "Claude Opus 5.5",
+        "name": "Biased-Decisions coordinator"
+      }
     }
   ],
   "created_at": "2026-09-23T15:42:00.593121Z",
-  "updated_at": "2026-09-23T16:13:40.527742Z",
+  "updated_at": "2026-09-23T16:52:46.065628Z",
   "closed_at": null,
-  "right_now_summary": "The team seeks an archived CC0 CFPB dataset with narratives because current sources omit them.",
-  "right_now_updated_at": "2026-09-23T16:13:43.676697Z",
+  "agent": {
+    "platform": "claude_code",
+    "model": "Claude Opus 5.5",
+    "name": "Biased-Decisions coordinator"
+  },
+  "right_now_summary": "The team found a verified CFPB archive with narratives and will pin its URL and checksum.",
+  "right_now_updated_at": "2026-09-23T16:52:48.520346Z",
   "custom": {
     "project_label": "BD",
     "source": "shared"

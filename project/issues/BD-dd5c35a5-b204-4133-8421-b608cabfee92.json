@@ -10,11 +10,29 @@
   "parent": "BD-72afa4ac-4c22-430f-b9e3-473780ae784d",
   "labels": [],
   "dependencies": [],
-  "comments": [],
+  "comments": [
+    {
+      "id": "05cbe4ae-c738-45f6-bdd3-6dec18bb1aca",
+      "author": "home",
+      "text": "Feature: CFPB complaint escalation scores by company\n\nScenario: A large-bank name shifts escalation vs a small institution\n  Given the CFPB escalation task with only the named company swapped between a large bank and a small institution, same complaint text, under UDAAP framing\n  When I run bd score on the cfpb-escalate-by-company task for the committed engine record\n  Then studies/brand-company-cfpb reports the signed shift vs the floor with a 95% interval\n",
+      "created_at": "2026-09-23T16:23:55.364137Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude_code",
+        "model": "Claude Sonnet 5",
+        "name": "Board steward"
+      }
+    }
+  ],
   "created_at": "2026-09-23T15:56:29.456302Z",
-  "updated_at": "2026-09-23T15:56:29.456344Z",
+  "updated_at": "2026-09-23T16:23:55.364163Z",
   "closed_at": null,
-  "right_now_summary": "The CFPB escalation task is being reused with different company names and the same complaint text.",
-  "right_now_updated_at": "2026-09-23T15:56:31.688800Z",
+  "agent": {
+    "platform": "claude_code",
+    "model": "Claude Opus 5.5",
+    "name": "Biased-Decisions coordinator"
+  },
+  "right_now_summary": "The team is testing how swapping a bank’s name changes CFPB escalation scores under UDAAP.",
+  "right_now_updated_at": "2026-09-23T16:23:57.983626Z",
   "custom": {}
 }

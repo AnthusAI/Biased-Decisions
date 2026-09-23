@@ -3,7 +3,7 @@
   "title": "Leaderboard: rank models by measured bias, most biased first",
   "description": "A public, static leaderboard that ranks decision models by measured bias rather than by score, most biased at the top, as designed in docs/leaderboard-design.md. Per dimension it ranks engines on excess over the floor with 95 percent intervals and lists undetected engines separately, and an overall board ranks mean rank across dimensions without rewarding missing measurements. Spider charts show one polygon per engine with radius equal to excess bias, and every cell drills down to a task-level table with CIs, cues, replay source, and the pre-registered prediction. The whole thing builds from the committed record: bd report --json writes leaderboard.json from studies/*.jsonl, a static site under site/ renders it, and GitHub Pages publishes on each release. This epic covers the build pipeline, the static site, the spider charts and drill-down, and the publishing workflow, tracked as its four child stories.",
   "type": "epic",
-  "status": "open",
+  "status": "in_progress",
   "priority": 2,
   "assignee": null,
   "creator": null,
@@ -12,15 +12,28 @@
     "site"
   ],
   "dependencies": [],
-  "comments": [],
+  "comments": [
+    {
+      "id": "000e9fc3-35d3-4244-82c2-3c2373496d68",
+      "author": "home",
+      "text": "Status (2026-09-23): In progress. The leaderboard site (Astro, deep links, social cards, version footer) is built and merged; the leaderboard.json generation (BD-46ff20) and the static per-dimension/overall-board site (BD-5609c2) are closed below as done. The Amplify app is connected and the custom domain biased-decisions.anth.us is attached and available. Builds currently fail at the replay check because race-fullname majority-flip values differ on the build machine; a fix is in progress, so the epic stays in_progress rather than closing.\n",
+      "created_at": "2026-09-23T16:38:04.410966Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude_code",
+        "model": "Claude Sonnet 5",
+        "name": "Board steward"
+      }
+    }
+  ],
   "created_at": "2026-09-23T13:03:21.518944Z",
-  "updated_at": "2026-09-23T13:03:21.518977Z",
+  "updated_at": "2026-09-23T16:38:04.410987Z",
   "closed_at": null,
   "agent": {
     "platform": "claude-code",
     "model": "claude-fable-5-1"
   },
-  "right_now_summary": "The team is building report generation, leaderboard views, and GitHub Pages publishing.",
-  "right_now_updated_at": "2026-09-23T16:03:34.398414Z",
+  "right_now_summary": "The leaderboard site is built, but replay checks fail due to differing race-fullname results.",
+  "right_now_updated_at": "2026-09-23T16:51:52.654881Z",
   "custom": {}
 }
