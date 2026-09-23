@@ -22,18 +22,30 @@
         "model": "Claude Opus 5.5",
         "name": "Biased-Decisions coordinator"
       }
+    },
+    {
+      "id": "59c8a313-f71f-415d-ae5e-107a8595b509",
+      "author": "home",
+      "text": "2026-09-23: merged to main (962fab1, Haiku pass B, reviewed): engines coloured by overall severity rank on SEVERITY_LIGHT/DARK (Laya red, Laya-mlx magenta, Jev orange); markers keep identity; hero number and example highlights use the alarm red. Specs: rank order, no safe colours, nine-or-more share red, few engines get their own step. Remaining: per-board recolouring is not done (colour follows the overall rank everywhere, so an engine's colour is stable across the site); cards follow in the next pass.",
+      "created_at": "2026-09-23T17:34:05.648678Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude_code",
+        "model": "Claude Opus 5.5",
+        "name": "Biased-Decisions coordinator"
+      }
     }
   ],
   "created_at": "2026-09-23T16:35:54.709434Z",
-  "updated_at": "2026-09-23T16:36:02.691869Z",
+  "updated_at": "2026-09-23T17:34:05.648937Z",
   "closed_at": null,
   "agent": {
     "platform": "claude_code",
     "model": "Claude Opus 5.5",
     "name": "Biased-Decisions coordinator"
   },
-  "right_now_summary": "The team is defining severity colours and stable engine shapes across boards, charts, legends, and cards.",
-  "right_now_updated_at": "2026-09-23T16:36:06.264955Z",
+  "right_now_summary": "Severity colours and stable engine shapes are merged, but per-board recolouring and cards still need work.",
+  "right_now_updated_at": "2026-09-23T17:34:08.266245Z",
   "custom": {
     "project_label": "BD",
     "source": "shared"

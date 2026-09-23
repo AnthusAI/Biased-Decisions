@@ -18,8 +18,8 @@
     "platform": "claude-code",
     "model": "claude-fable-5-1"
   },
-  "right_now_summary": "Studies are published and replay checks pass; new work is being prepared, while leaderboard fixes and Jev approval",
-  "right_now_updated_at": "2026-09-23T17:29:57.857653Z",
+  "right_now_summary": "Published studies are expanding while new runs, replay fixes, and preregistrations continue.",
+  "right_now_updated_at": "2026-09-23T17:34:13.755865Z",
   "custom": {
     "project_label": "BD",
     "source": "shared"
