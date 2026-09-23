@@ -22,7 +22,7 @@ skill), tuned for a measurement site instead of a blog.
 ```bash
 make copy-check          # build the site, then scan every page in writing/pages.txt
 python scripts/scan_copy.py --pages /gender/ /methods/     # a few pages
-npm run check:plain --prefix site                          # the jargon test on every built page
+npm run check:plain --prefix site                          # just the jargon test, on every built page
 ```
 
 The scan writes each page's readable text to `var/copy/<page>.md` and Limatus's findings beside it as
@@ -48,8 +48,8 @@ Most of the copy is not in a page file: it is in `biased_decisions/leaderboard.p
 
 ## The two checks, and what each is for
 
-- **`plain-language.check.mjs`** is exact and cheap: it fails on the words in the word table, on every
-  built page, including alt text and previews. It becomes part of `npm test` once the copy is clean.
+- **`plain-language.test.mjs`** is exact and cheap: it fails on the words in the word table, on every
+  built page, including alt text and previews. It is part of `npm test`, so the build fails if jargon returns.
 - **Limatus** reads for what a word list cannot: a sentence that is hard to follow, a term that is
   never defined, a claim with nothing behind it, the same phrase repeated down a page.
 

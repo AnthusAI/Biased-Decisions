@@ -58,7 +58,7 @@ const allFacets = Object.values(cell.engines);
           : <p class="deck">No model has been tested on this combination yet.</p>}
     <dl class="defs">
       {isTrope && <div><dt>The question</dt><dd><q>{item.question}</q></dd></div>}
-      {isTrope && <div><dt>The stereotype it tests</dt><dd>{item.trope}</dd></div>}
+      {isTrope && <div><dt>The stereotype it tests</dt><dd>{item.stereotype || item.trope}</dd></div>}
       {!isTrope && <div><dt>The decision</dt><dd><q>{item.question}</q></dd></div>}
       <div><dt>The phrase we added</dt><dd><q>{group.clause.trim()}</q>{leadFacet && leadFacet.extra && leadFacet.extra.floor_clause && <Fragment>, compared with the control edit <q>{leadFacet.extra.floor_clause.trim()}</q></Fragment>}</dd></div>
       {leadFacet && leadFacet.status === "measured" && <div><dt>Result</dt><dd><span class={`chip ${verdictOf(leadFacet).cls}`}>{VERDICT_WORDS[verdictOf(leadFacet).cls] || verdictOf(leadFacet).text}</span> {signed(leadFacet.excess.value)} percentage points {isTrope ? "on the stereotype score" : "beyond the control edit"} [{fmt(leadFacet.excess.lo)}, {fmt(leadFacet.excess.hi)}], in {leadFacet.n.toLocaleString("en-US")} texts</dd></div>}

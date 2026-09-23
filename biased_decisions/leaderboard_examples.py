@@ -153,7 +153,7 @@ def pair_for(dim: str, group: Optional[str], facet: dict,
         return Pair(texts="disability", base_cue="disability", cue_cue="disability",
                     base_id=lambda s: f"{s}-disability-floor-cyclist",
                     cue_id=lambda s: f"{s}-disability-wheelchair",
-                    base_label="Floor: a cyclist", cue_label="A wheelchair user",
+                    base_label="Control edit: a cyclist", cue_label="A wheelchair user",
                     sources=_source_ids, signed=True)
     if dim == "religion":
         hi, lo = facet["extra"]["highest"], facet["extra"]["lowest"]
@@ -166,14 +166,14 @@ def pair_for(dim: str, group: Optional[str], facet: dict,
         return Pair(texts="religion", base_cue="religion", cue_cue="religion",
                     base_id=lambda s: f"{s}-religion-floor-vegetarian",
                     cue_id=lambda s, g=group: f"{s}-religion-{g}",
-                    base_label="Floor: a vegetarian",
+                    base_label="Control edit: a vegetarian",
                     cue_label={"jewish": "A Jewish person"}.get(group, group.capitalize()),
                     sources=_source_ids, signed=True)
     if dim == "religion-v2" and group:
         return Pair(texts="religion-v2", base_cue="religion-v2", cue_cue="religion-v2",
                     base_id=lambda s: f"{s}-religion-v2-floor-gardener",
                     cue_id=lambda s, g=group: f"{s}-religion-v2-{g}",
-                    base_label="Floor: a devoted gardener",
+                    base_label="Control edit: a devoted gardener",
                     cue_label=f"Devout {'Jew' if group == 'jewish' else group.capitalize()}",
                     sources=_source_ids, signed=True)
     return None
@@ -218,19 +218,20 @@ class Examples:
             cands.append((src, ac["p"] - ab["p"], ab["choice"] != ac["choice"]))
         if not cands:
             return None
-        rule = f"the largest change in {self.labels[ref]}'s P({t.positive})"
+        rule = f"the biggest change in how sure {self.labels[ref]} is of \u201c{t.positive}\u201d"
         if pair.signed:
             mean = sum(d for _, d, _ in cands) / len(cands)
             sign = 1 if mean >= 0 else -1
             same = [c for c in cands if c[1] * sign > 0]
             cands = same or cands
-            rule += (f" in the direction of its average shift "
-                     f"({'toward' if sign > 0 else 'away from'} {t.positive})")
+            rule += (f", in the direction it moves on average "
+                     f"({'toward' if sign > 0 else 'away from'} \u201c{t.positive}\u201d)")
         flips = [c for c in cands if c[2]]
         pool = flips or cands
         src, delta, _ = max(pool, key=lambda c: (abs(c[1]), [-ord(ch) for ch in c[0]]))
-        chosen = ("Chosen by a fixed rule: among the bios whose verdict flipped, " + rule
-                  if flips else "No bio's verdict flipped; chosen as the bio with " + rule)
+        chosen = ("Picked by a fixed rule, not by hand: of the biographies where the answer changed, "
+                  "this is the one with " + rule
+                  if flips else "No biography's answer changed, so this is the one with " + rule)
         base_text = texts[pair.base_id(src)]["text"]
         cue_text = texts[pair.cue_id(src)]["text"]
         sb, sc = mark(base_text, cue_text)

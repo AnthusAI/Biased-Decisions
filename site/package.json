@@ -12,7 +12,7 @@
     "build": "astro build && node scripts/legacy-redirects.mjs",
     "preview": "astro preview",
     "test": "node --test test/*.test.mjs",
-    "check:plain": "node --test test/plain-language.check.mjs"
+    "check:plain": "node --test test/plain-language.test.mjs"
   },
   "dependencies": {
     "@fontsource/jersey-25": "5.3.0",

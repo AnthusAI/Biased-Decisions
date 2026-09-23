@@ -43,7 +43,7 @@ site: site/node_modules
 	cd site && npm run build && npm test
 
 copy-check: site/node_modules
-	cd site && npm run build && npm run check:plain || true
+	cd site && npm run build
 	$(PY) scripts/scan_copy.py
 
 dev: site/node_modules

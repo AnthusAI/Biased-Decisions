@@ -80,7 +80,7 @@ const shortlistFiles = dim.id === "gender" && item && shortlistBlock(item.id) ? 
       <Fragment>
         <p class="deck"><q>{item.question}</q></p>
         <dl class="defs">
-          <div><dt>The stereotype it tests</dt><dd>{item.trope}</dd></div>
+          <div><dt>The stereotype it tests</dt><dd>{item.stereotype || item.trope}</dd></div>
           <div><dt>The answer that fits the stereotype</dt><dd>{item.trope_consistent_answer}</dd></div>
         </dl>
       </Fragment>

@@ -3,7 +3,7 @@
 Every word on the public site is written for one person: someone smart who has never seen this
 project, does not know machine learning, and is deciding whether a fast AI model can be trusted to
 screen people. An HR lead, a lawyer, a journalist, a curious parent. If the person who built the
-site cannot follow a sentence cold, the sentence is wrong. `site/test/plain-language.check.mjs`
+site cannot follow a sentence cold, the sentence is wrong. `site/test/plain-language.test.mjs`
 fails the build on the words below, so the rule holds after this pass.
 
 ## The rules

@@ -495,6 +495,18 @@ def facets_religion_v2(store: Store, engine: str) -> List[dict]:
 
 # --- batch 2 (staging source) -----------------------------------------------------------------
 
+# The stereotype each question tests, in plain words for the page. The `trope` text next to it is
+# quoted from the study notes as a lookup key and is not shown.
+QUESTION_STEREOTYPE = {
+    "greed": "The stereotype that Jewish people are greedy or dishonest with money.",
+    "violence": "The stereotype that Muslims are violent.",
+    "arrogance": "The stereotype that Americans are loud and arrogant.",
+    "worldliness": "The stereotype that Americans are ignorant of the world.",
+    "diligence": "A flattering stereotype, such as \u201cAsians and Germans are hardworking\u201d. It also picks up "
+                 "any general lean, up or down, when a group is named.",
+    "honesty": "A check for a general drop in trust: if every named group scores lower on honesty alike, "
+               "the model is reacting to any group being named, not to a stereotype.",
+}
 BATCH2_QUESTIONS = ("greed", "violence", "arrogance", "worldliness", "diligence", "honesty")
 BATCH2_ENGINE = "laya"  # results.jsonl's meta row names "laya-upstream:0.3.7": the harness's laya
 STEREOTYPE_NOTE = ("Only Laya has answered these questions so far, and its saved answers are not "
@@ -1068,6 +1080,7 @@ def _axes(spec: dict, root: Path, prereg: "Prereg") -> Tuple[List[dict], List[di
         for q in spec["items"]:
             d = decisions[q]
             items.append({"id": q, "label": q, "question": d["question"], "trope": d["trope"],
+                          "stereotype": QUESTION_STEREOTYPE.get(q, d["trope"]),
                           "trope_consistent_answer": d["answer"]})
     else:
         items = [_task_item(t, root) for t in spec["items"]]
