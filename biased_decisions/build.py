@@ -26,6 +26,9 @@ from pathlib import Path
 from typing import Dict, List, Optional, Tuple
 
 from biased_decisions.cues.age import eligible, insert_age
+from biased_decisions.cues.antisemitism import CUES as ANTISEMITISM_INSERTION_CUES
+from biased_decisions.cues.antisemitism import surname_versions
+from biased_decisions.cues.antisemitism import versions_for as antisemitism_versions_for
 from biased_decisions.cues.fullname import analyze_full_name, render_full_name
 from biased_decisions.cues.gender import ORIGINAL_RULE, swap_gender
 from biased_decisions.cues.insertion import eligible as insertion_eligible
@@ -47,7 +50,7 @@ DEFAULT_POOLS_PATH = Path(__file__).resolve().parents[1] / "pools" / "name_pools
 CUES: Tuple[str, ...] = (
     "gender-pronouns", "race-name", "race-fullname", "age-inserted",
     "disability", "religion", "religion-v2", "ask-twice",
-)
+) + ANTISEMITISM_INSERTION_CUES + ("antisemitism-surname",)
 
 
 class BuildError(RuntimeError):
@@ -259,6 +262,82 @@ def build_religion_v2(task: Task) -> BuildResult:
     return build_insertion(task, "religion-v2")
 
 
+def build_antisemitism_insertion(task: Task, cue: str) -> BuildResult:
+    """One of the four antisemitic-tropes-in-depth clause-insertion cues (``antisemitism-secular``,
+    ``antisemitism-religious``, ``antisemitism-nationality``, ``antisemitism-role`` -- see
+    ``biased_decisions.cues.antisemitism`` for the clause tables and
+    ``docs/antisemitic-tropes-preregistration.md`` for the study). Same mechanics as
+    ``build_insertion`` (eligibility, clause insertion, file order), sourced from the new module's
+    own tables instead of ``biased_decisions.cues.insertion``'s.
+    """
+    rows: List[dict] = []
+    excluded = 0
+    for item in _test_items_in_file_order(task):
+        if not insertion_eligible(item.text):
+            excluded += 1
+            continue
+        for version, clause in antisemitism_versions_for(cue):
+            rows.append({
+                "id": f"{item.id}-{cue}-{version}",
+                "text": insert_clause(item.text, clause),
+                "metadata": {
+                    "cue": cue, "version": version, "source_id": item.id,
+                    "occupation": item.metadata.get("occupation"),
+                    "gender": item.metadata.get("gender"),
+                    "reference_label": item.metadata.get("reference_label"),
+                },
+            })
+    return BuildResult(rows=rows, excluded=excluded)
+
+
+def build_antisemitism_secular(task: Task) -> BuildResult:
+    return build_antisemitism_insertion(task, "antisemitism-secular")
+
+
+def build_antisemitism_religious(task: Task) -> BuildResult:
+    return build_antisemitism_insertion(task, "antisemitism-religious")
+
+
+def build_antisemitism_nationality(task: Task) -> BuildResult:
+    return build_antisemitism_insertion(task, "antisemitism-nationality")
+
+
+def build_antisemitism_role(task: Task) -> BuildResult:
+    return build_antisemitism_insertion(task, "antisemitism-role")
+
+
+def build_antisemitism_surname(task: Task) -> BuildResult:
+    """The antisemitic-tropes-in-depth surname cue: a Jewish-associated surname vs. a
+    matched-frequency floor surname, first name held constant per bio (see
+    ``biased_decisions.cues.antisemitism.surname_versions``). Sorted-id order (like
+    ``race-fullname``, not file order), since the surname a bio receives depends on its position
+    in the sorted draw, not on where it happens to sit in ``items.jsonl``.
+    """
+    rows: List[dict] = []
+    excluded = 0
+    for index, item in enumerate(_test_items_sorted(task)):
+        gender = item.metadata.get("gender")
+        versions = surname_versions(item.text, gender, index)
+        if versions is None:
+            excluded += 1
+            continue
+        for version, text, surname in (
+            ("jewish", versions.jewish_text, versions.jewish_surname),
+            ("floor", versions.floor_text, versions.floor_surname),
+        ):
+            rows.append({
+                "id": f"{item.id}-antisemitism-surname-{version}",
+                "text": text,
+                "metadata": {
+                    "cue": "antisemitism-surname", "version": version, "source_id": item.id,
+                    "first": versions.first, "surname": surname,
+                    "occupation": item.metadata.get("occupation"), "gender": gender,
+                    "reference_label": item.metadata.get("reference_label"),
+                },
+            })
+    return BuildResult(rows=rows, excluded=excluded)
+
+
 def build_ask_twice(task: Task, *, seed: int = ASK_TWICE_SEED,
                     size: int = ASK_TWICE_SUBSAMPLE_SIZE) -> BuildResult:
     """The ``ask-twice`` noise-floor subsample: 500 held-out ids drawn
@@ -285,6 +364,11 @@ BUILDERS = {
     "religion": build_religion,
     "religion-v2": build_religion_v2,
     "ask-twice": build_ask_twice,
+    "antisemitism-secular": build_antisemitism_secular,
+    "antisemitism-religious": build_antisemitism_religious,
+    "antisemitism-nationality": build_antisemitism_nationality,
+    "antisemitism-role": build_antisemitism_role,
+    "antisemitism-surname": build_antisemitism_surname,
 }
 
 
