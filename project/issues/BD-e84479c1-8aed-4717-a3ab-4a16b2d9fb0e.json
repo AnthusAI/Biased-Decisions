@@ -22,18 +22,30 @@
         "model": "Claude Opus 5.5",
         "name": "Biased-Decisions coordinator"
       }
+    },
+    {
+      "id": "9c179dc0-4b33-4634-a3a3-3f8381de5220",
+      "author": "home",
+      "text": "Feature: Results first\n  Scenario: Public pages show results, not hypotheses\n    Given any dimension, group, question, cell or engine page, or its social card\n    When it is built\n    Then it shows no 'pre-registered' label, no prediction and no verdict\n    And it leads with the measured result, its interval and an example\n  Scenario: The method is still auditable\n    Given the methods page\n    Then one sentence says predictions were committed before each run and links to the repository's pre-registration files",
+      "created_at": "2026-09-23T16:28:01.298697Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude_code",
+        "model": "Claude Opus 5.5",
+        "name": "Biased-Decisions coordinator"
+      }
     }
   ],
   "created_at": "2026-09-23T16:26:55.783516Z",
-  "updated_at": "2026-09-23T16:27:09.239865Z",
+  "updated_at": "2026-09-23T16:28:01.298737Z",
   "closed_at": null,
   "agent": {
     "platform": "claude_code",
     "model": "Claude Opus 5.5",
     "name": "Biased-Decisions coordinator"
   },
-  "right_now_summary": "The team is adding inline explanations, methods guidance, and links proving when predictions were recorded.",
-  "right_now_updated_at": "2026-09-23T16:27:11.485858Z",
+  "right_now_summary": "The site is replacing the label with results and documenting predictions on the methods page.",
+  "right_now_updated_at": "2026-09-23T16:28:04.306580Z",
   "custom": {
     "project_label": "BD",
     "source": "shared"
