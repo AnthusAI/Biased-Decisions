@@ -33,7 +33,7 @@
     "platform": "claude-code",
     "model": "claude-fable-5-1"
   },
-  "right_now_summary": "Builds fail on replay checks due to differing race-fullname values, and a fix is underway.",
-  "right_now_updated_at": "2026-09-23T16:38:06.957744Z",
+  "right_now_summary": "Builds fail on replay checks, and the team is fixing inconsistent race-fullname values.",
+  "right_now_updated_at": "2026-09-23T16:47:21.083047Z",
   "custom": {}
 }

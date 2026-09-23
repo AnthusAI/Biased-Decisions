@@ -1,0 +1,41 @@
+{
+  "id": "BD-016fb265-be94-41da-9b25-ef6530e655b1",
+  "title": "System colours only, and richer social cards",
+  "description": "Author's direction 2026-09-23: (1) remove the light/dark toggle; the site follows the system colour scheme only (prefers-color-scheme), with no stored override. (2) Social cards always render in light mode. (3) Engine cards show the engine's spider chart (severity colours and shape per BD-d5d1a0), not a single big number. (4) Leaderboard-style cards (home, dimension, group, question) show the ranking as a horizontal bar chart of engines, most biased at the top, with the floor marked, rather than one big number. Cell cards may keep a big number with its interval. All cards keep the phone-feed legibility rules in docs/social-cards.md.",
+  "type": "story",
+  "status": "open",
+  "priority": 2,
+  "assignee": null,
+  "creator": null,
+  "parent": "BD-4f83aebd-9fa3-4ac7-b820-e3a1cab1ee8b",
+  "labels": [],
+  "dependencies": [],
+  "comments": [
+    {
+      "id": "6d9f37ca-01c7-4dec-b590-76356f8e9db0",
+      "author": "home",
+      "text": "Feature: System colours and chart cards\n  Scenario: No theme toggle\n    Given any page\n    Then there is no light/dark control and the page follows the operating system's colour scheme\n  Scenario: Cards are light\n    Given any social card\n    Then it is rendered in the light palette regardless of the build machine or viewer\n  Scenario: Engine cards show the spider\n    Given an engine's social card\n    Then it shows that engine's spider chart across dimensions with its overall rank\n  Scenario: Board cards show bars\n    Given the home, a dimension, a group or a question card\n    Then it shows a horizontal bar chart of engines ranked most biased first with the floor marked",
+      "created_at": "2026-09-23T16:47:03.113351Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude_code",
+        "model": "Claude Opus 5.5",
+        "name": "Biased-Decisions coordinator"
+      }
+    }
+  ],
+  "created_at": "2026-09-23T16:46:55.684448Z",
+  "updated_at": "2026-09-23T16:47:03.113383Z",
+  "closed_at": null,
+  "agent": {
+    "platform": "claude_code",
+    "model": "Claude Opus 5.5",
+    "name": "Biased-Decisions coordinator"
+  },
+  "right_now_summary": "The site now follows system colours, while social cards use light mode and show charts instead of single scores.",
+  "right_now_updated_at": "2026-09-23T16:47:04.842655Z",
+  "custom": {
+    "project_label": "BD",
+    "source": "shared"
+  }
+}
