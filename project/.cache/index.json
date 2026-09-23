@@ -1,8 +1,9 @@
 {
   "version": 1,
-  "built_at": "2026-09-23T11:38:31Z",
+  "built_at": "2026-09-23T11:41:24Z",
   "file_mtimes": {
-    "BD-a2738191-15f6-4c20-b616-e7a45ab75822.json": 1790163510.983353
+    "BD-a2738191-15f6-4c20-b616-e7a45ab75822.json": 1790163510.983353,
+    "BD-dc51ca9b-6149-495e-979f-22268681e251.json": 1790163684.561954
   },
   "issues": [
     {
@@ -25,6 +26,32 @@
         "platform": "claude-code",
         "model": "claude-fable-5-1",
         "name": "Kanbus Setup Agent"
+      },
+      "right_now_summary": null,
+      "right_now_updated_at": null,
+      "custom": {}
+    },
+    {
+      "id": "BD-dc51ca9b-6149-495e-979f-22268681e251",
+      "title": "Add Kev as a benchmark engine",
+      "description": "Kev is another emerging System 1 decision model. Add it to the harness as an engine adapter in the record's shape (a probability per option, the committed option order, resumable answer cache), price or time its runs first, then answer every existing cell: the seven Bias in Bios tasks under the gender-pronouns cue, the disability, religion-v2, ask-twice and option-order cues, and the batch-2 stereotype tests. Report its numbers beside Jev and Laya in RESULTS.md with floors, and score them against predictions written before the first run. Adapter must run on Apple silicon, CPU and CUDA, or be hosted with a keyed client; document which.",
+      "type": "epic",
+      "status": "open",
+      "priority": 2,
+      "assignee": null,
+      "creator": null,
+      "parent": null,
+      "labels": [
+        "engines"
+      ],
+      "dependencies": [],
+      "comments": [],
+      "created_at": "2026-09-23T11:41:24.561784Z",
+      "updated_at": "2026-09-23T11:41:24.561809Z",
+      "closed_at": null,
+      "agent": {
+        "platform": "claude-code",
+        "model": "claude-fable-5-1"
       },
       "right_now_summary": null,
       "right_now_updated_at": null,
