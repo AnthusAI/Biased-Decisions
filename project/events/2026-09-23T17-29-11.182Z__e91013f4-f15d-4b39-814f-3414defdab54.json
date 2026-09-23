@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "event_id": "e91013f4-f15d-4b39-814f-3414defdab54",
+  "issue_id": "BD-32a9e2fb-2ac9-42bb-ad57-82243fdae24b",
+  "event_type": "issue_created",
+  "occurred_at": "2026-09-23T17:29:11.182Z",
+  "actor_id": "home",
+  "payload": {
+    "title": "Pin and record Laya's model weights revision on every run",
+    "description": "laya.load() takes no revision argument and downloads Hugging Face refs/main (convaiinnovations/laya), so the package version does not pin the weights. The sexuality run (2026-09-23) resolved weights commit 5e7b2b1b8ca2ecdd3f2322d94069c9b6ce7e844b under both laya 0.3.7 and 0.3.9. Record the resolved weights commit in every Laya answer record and study build note; pin it for future runs (load from a snapshot_download at a fixed revision); and establish which weights the earlier Laya runs (batch 1, religion v2, batch 2, veteran) used, from HF cache metadata or run dates against the repo's commit history, flagging any run whose weights differ.",
+    "issue_type": "chore",
+    "status": "open",
+    "priority": 2,
+    "assignee": null,
+    "parent": "BD-8781ddac-8725-4e87-80fd-7e9ddaa4bc09",
+    "labels": [],
+    "agent": {
+      "platform": "claude_code",
+      "model": "Claude Opus 5.5",
+      "name": "Biased-Decisions coordinator"
+    }
+  }
+}
