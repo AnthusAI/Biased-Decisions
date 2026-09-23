@@ -1,3 +1,10 @@
+# [1.13.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.12.0...v1.13.0) (2026-09-23)
+
+
+### Features
+
+* **report:** Q-Pain and Civil Comments on the boards by characteristic ([13b591f](https://github.com/AnthusAI/Biased-Decisions/commit/13b591f6a388a23c1bc5c2b9dbf7a28d4374d61b))
+
 # [1.12.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.11.0...v1.12.0) (2026-09-23)
 
 
