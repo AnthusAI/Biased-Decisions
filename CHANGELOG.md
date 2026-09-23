@@ -1,3 +1,10 @@
+# [1.9.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.8.0...v1.9.0) (2026-09-23)
+
+
+### Features
+
+* **site:** overall board boxes show the bias in points, darker is worse ([18d61f9](https://github.com/AnthusAI/Biased-Decisions/commit/18d61f917134961b1464697b4546e19b436fe9c5))
+
 # [1.8.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.7.0...v1.8.0) (2026-09-23)
 
 
