@@ -3,13 +3,31 @@
 import { s, h, fmt, signed, esc, ticks, niceMax, marker, bindTip, reducedMotion, rawUnit, boardPlace } from "./util.js";
 
 // Re-render a chart whenever its container changes width.
+// Grow a chart's viewBox to cover everything drawn (axis labels sit outside the plot radius and
+// can run past the edge), then keep the rendered width so the chart shrinks to fit its card.
+function fitToContent(svg) {
+  const vb = svg.viewBox.baseVal;
+  let bb;
+  try { bb = svg.getBBox(); } catch { return; }
+  const m = 6;
+  const x0 = Math.min(vb.x, bb.x - m), y0 = Math.min(vb.y, bb.y - m);
+  const x1 = Math.max(vb.x + vb.width, bb.x + bb.width + m), y1 = Math.max(vb.y + vb.height, bb.y + bb.height + m);
+  if (x0 === vb.x && y0 === vb.y && x1 === vb.x + vb.width && y1 === vb.y + vb.height) return;
+  const w = vb.width;
+  svg.setAttribute("viewBox", `${x0} ${y0} ${x1 - x0} ${y1 - y0}`);
+  svg.setAttribute("width", w);
+  svg.setAttribute("height", Math.round((w * (y1 - y0)) / (x1 - x0)));
+}
+
 export function responsive(container, draw) {
   let last = -1;
   const run = () => {
     const w = Math.round(container.clientWidth);
     if (w === last || w === 0) return;
     last = w;
-    container.replaceChildren(draw(w));
+    const node = draw(w);
+    container.replaceChildren(node);
+    if (node.classList && node.classList.contains("spider")) fitToContent(node);
   };
   run();
   if ("ResizeObserver" in window) new ResizeObserver(() => requestAnimationFrame(run)).observe(container);
