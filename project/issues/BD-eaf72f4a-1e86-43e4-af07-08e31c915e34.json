@@ -1,0 +1,25 @@
+{
+  "id": "BD-eaf72f4a-1e86-43e4-af07-08e31c915e34",
+  "title": "Assess project strengths and research priorities",
+  "description": "Provide a repository-based assessment of the measurement design, reproducibility, ranking limits, and next priorities. Advisory review only; no product-code changes or engine runs.",
+  "type": "task",
+  "status": "open",
+  "priority": 2,
+  "assignee": null,
+  "creator": null,
+  "parent": "BD-4d86cffe-b0df-44a9-b4ce-2074c5d30289",
+  "labels": [],
+  "dependencies": [],
+  "comments": [],
+  "created_at": "2026-09-23T23:39:26.778537Z",
+  "updated_at": "2026-09-23T23:39:26.778877Z",
+  "closed_at": null,
+  "agent": {
+    "platform": "codex",
+    "model": "GPT-6",
+    "name": "Project Assessment"
+  },
+  "right_now_summary": null,
+  "right_now_updated_at": null,
+  "custom": {}
+}
