@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "event_id": "7e85ab51-1f21-4d5e-b281-b29e173fd692",
+  "issue_id": "BD-1f42b782-1f36-4601-bc97-a9071ac8fa90",
+  "event_type": "issue_created",
+  "occurred_at": "2026-09-23T17:54:38.242Z",
+  "actor_id": "home",
+  "payload": {
+    "title": "Neutral-pronoun control and accuracy check for twin averaging",
+    "description": "Add a neutral-pronoun arm (they, and blanked) beside he and she on the bios task to show which direction the pronoun bias runs, and score the twin-averaged verdict against the corpus occupation label to check that removing the variable does not cost accuracy. Prompted by a reader asking whether stripping sex creates more equal distributions. Pre-register before any run; Laya only.",
+    "issue_type": "story",
+    "status": "open",
+    "priority": 2,
+    "assignee": null,
+    "parent": "BD-4f83aebd-9fa3-4ac7-b820-e3a1cab1ee8b",
+    "labels": [],
+    "agent": {
+      "platform": "claude_code",
+      "model": "claude-sonnet-5",
+      "name": "claude"
+    }
+  }
+}
