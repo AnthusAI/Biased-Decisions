@@ -18,8 +18,8 @@
     "platform": "claude-code",
     "model": "claude-fable-5-1"
   },
-  "right_now_summary": "The team is running bias tests, fixing replay issues, and building a public leaderboard.",
-  "right_now_updated_at": "2026-09-23T16:29:48.104870Z",
+  "right_now_summary": "The team is running bias tests, expanding model coverage, and building replayable benchmark tools.",
+  "right_now_updated_at": "2026-09-23T16:32:00.491169Z",
   "custom": {
     "project_label": "BD",
     "source": "shared"
