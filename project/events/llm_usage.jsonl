@@ -536,3 +536,4 @@
 {"completion_tokens":87,"cost":0.0,"issue_id":"BD-904ad535-5b2d-4524-b674-8cfc05f30936","mock":false,"model":"gpt-5.6-luna","operation":"right_now_summary","prompt_tokens":162,"timestamp":"2026-09-23T16:36:09.889644+00:00","total_tokens":249}
 {"completion_tokens":77,"cost":0.0,"issue_id":"BD-46601366-1119-4d0f-ad88-1de3e6b63349","mock":false,"model":"gpt-5.6-luna","operation":"right_now_summary","prompt_tokens":417,"timestamp":"2026-09-23T16:36:12.131688+00:00","total_tokens":494}
 {"completion_tokens":100,"cost":0.0,"issue_id":"BD-8781ddac-8725-4e87-80fd-7e9ddaa4bc09","mock":false,"model":"gpt-5.6-luna","operation":"right_now_summary","prompt_tokens":860,"timestamp":"2026-09-23T16:36:14.845860+00:00","total_tokens":960}
+{"completion_tokens":105,"cost":0.0,"issue_id":"BD-46ff201f-a94c-4e21-8eb9-6e557f78ae59","mock":false,"model":"gpt-5.6-luna","operation":"right_now_summary","prompt_tokens":160,"timestamp":"2026-09-23T16:36:22.956517+00:00","total_tokens":265}
