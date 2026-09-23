@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "event_id": "acc4bc47-c17e-4e6a-9b01-0be3901e3b2d",
+  "issue_id": "BD-e84479c1-8aed-4717-a3ab-4a16b2d9fb0e",
+  "event_type": "comment_added",
+  "occurred_at": "2026-09-23T16:28:01.298Z",
+  "actor_id": "home",
+  "payload": {
+    "comment_id": "9c179dc0-4b33-4634-a3a3-3f8381de5220",
+    "comment_author": "home",
+    "agent": {
+      "platform": "claude_code",
+      "model": "Claude Opus 5.5",
+      "name": "Biased-Decisions coordinator"
+    }
+  }
+}

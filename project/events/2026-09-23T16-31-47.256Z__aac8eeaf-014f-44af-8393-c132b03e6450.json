@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "event_id": "aac8eeaf-014f-44af-8393-c132b03e6450",
+  "issue_id": "BD-1897817b-9f75-4dc0-bfd1-a7ae515594e2",
+  "event_type": "issue_created",
+  "occurred_at": "2026-09-23T16:31:47.256Z",
+  "actor_id": "home",
+  "payload": {
+    "title": "Move the replay audit out of the Amplify deploy",
+    "description": "The Amplify build runs bd replay (about 4 minutes of re-scoring the committed answers; no model inference) and fails the deploy when any studies/ file differs. Author's direction: CI in Amplify is not for evaluations. Amplify builds only: fast specs, bd report --json from the committed studies/, and the Astro build. The replay audit moves to a GitHub Actions workflow (replay.yml) on push and pull request, on Linux, so reproducibility is still checked and visible without blocking the site.",
+    "issue_type": "chore",
+    "status": "open",
+    "priority": 2,
+    "assignee": null,
+    "parent": "BD-4f83aebd-9fa3-4ac7-b820-e3a1cab1ee8b",
+    "labels": [],
+    "agent": {
+      "platform": "claude_code",
+      "model": "Claude Opus 5.5",
+      "name": "Biased-Decisions coordinator"
+    }
+  }
+}

@@ -3,36 +3,18 @@
   "title": "Batch 3: sourced tropes, US and global",
   "description": "Batch-2 design (inserted identity clause, same-shape floors, yes/no screening questions, trope score = target shift minus mean shift of other groups) on 30-45 verified tropes: antisemitic, Islamophobic, anti-Black, anti-Asian (model-minority ability and bamboo-ceiling leadership, opposite directions), anti-Latino, Native American, LGBTQ, disability, sexualization, family status, and non-US stereotypes (China regional and hukou, India caste and region, Nigerian and Kenyan ethnic groups, migrants in South Africa). Sources verified entry by entry.",
   "type": "epic",
-  "status": "in_progress",
+  "status": "open",
   "priority": 2,
   "assignee": null,
   "creator": null,
   "parent": "BD-8781ddac-8725-4e87-80fd-7e9ddaa4bc09",
   "labels": [],
   "dependencies": [],
-  "comments": [
-    {
-      "id": "9a4b2355-cdc7-4db8-9fae-7c9d4fbad6f9",
-      "author": "home",
-      "text": "Status (2026-09-23): In progress. Trope-survey verification against sources is done (BD-904ad5, closed below; drafts sit in the tooling checkout's var/tropes). The batch-3 pre-registration is drafted but not yet committed (BD-c930e2, moved to in_progress). No Laya or Jev runs have happened yet (BD-021b85 remains open).\n",
-      "created_at": "2026-09-23T16:33:30.025993Z",
-      "comment_type": "default",
-      "agent": {
-        "platform": "claude_code",
-        "model": "Claude Sonnet 5",
-        "name": "Board steward"
-      }
-    }
-  ],
+  "comments": [],
   "created_at": "2026-09-23T15:57:00.897249Z",
-  "updated_at": "2026-09-23T16:33:30.026015Z",
+  "updated_at": "2026-09-23T15:57:00.897272Z",
   "closed_at": null,
-  "agent": {
-    "platform": "claude_code",
-    "model": "Claude Opus 5.5",
-    "name": "Biased-Decisions coordinator"
-  },
-  "right_now_summary": "Source checks are complete, the preregistration is being drafted, and runs have not started.",
-  "right_now_updated_at": "2026-09-23T16:36:12.131997Z",
+  "right_now_summary": "The team is verifying sources and assembling the preregistration plan for Batch 3.",
+  "right_now_updated_at": "2026-09-23T16:26:09.679511Z",
   "custom": {}
 }

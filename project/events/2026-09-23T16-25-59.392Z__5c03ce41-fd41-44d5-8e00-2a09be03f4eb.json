@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "event_id": "5c03ce41-fd41-44d5-8e00-2a09be03f4eb",
+  "issue_id": "BD-bb75b8a3-68ba-40ab-b2ce-4b09ce63ec10",
+  "event_type": "issue_created",
+  "occurred_at": "2026-09-23T16:25:59.392Z",
+  "actor_id": "home",
+  "payload": {
+    "title": "Expand the nationality axis: Israeli, Palestinian, Russian, Ukrainian, Korean and others",
+    "description": "Batch 2's nationality axis has seven groups (American, Chinese, German, Nigerian, Mexican, Indian, British). Add Israeli, Russian and Korean (author's request), with paired counterparts so the axis is balanced and contrasts are meaningful: Palestinian with Israeli, Ukrainian with Russian, Japanese with Korean (and 'South Korean' vs 'Korean' to check the North/South ambiguity). Consider Iranian, Pakistani, Brazilian and French if sources support testable tropes. Tropes per nationality come only from verified sources (SeeGULL country-attribute pairs, CC BY 4.0; academic and survey sources), turned into yes/no professional and financial screening questions, alongside batch 2's six questions so results compare. Trope score = the group's shift minus the mean shift of the other nationalities. Keep the Israeli nationality cue distinct from the Jewish identity cues in the antisemitic-tropes story, and report both, so nationality and religion or ethnicity are not conflated.",
+    "issue_type": "story",
+    "status": "open",
+    "priority": 2,
+    "assignee": null,
+    "parent": "BD-46601366-1119-4d0f-ad88-1de3e6b63349",
+    "labels": [],
+    "agent": {
+      "platform": "claude_code",
+      "model": "Claude Opus 5.5",
+      "name": "Biased-Decisions coordinator"
+    }
+  }
+}

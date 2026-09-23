@@ -3,7 +3,7 @@
   "title": "Q-Pain clinical vignettes: treatment decision",
   "description": "Vignettes built to test race/gender bias in pain management. Decision: prescribe / treat. ACA Section 1557. Add disability, veteran, sexuality clauses. Verify PhysioNet licence allows publishing derived outputs.",
   "type": "story",
-  "status": "in_progress",
+  "status": "open",
   "priority": 2,
   "assignee": null,
   "creator": null,
@@ -12,28 +12,23 @@
   "dependencies": [],
   "comments": [
     {
-      "id": "df623227-257d-49de-bd28-f7b21c887a5e",
+      "id": "b1af35b3-a107-4ebb-a44e-5d259f58d2d0",
       "author": "home",
-      "text": "Feature: Q-Pain vignettes score a treatment decision\n\nScenario: Race and gender clauses shift the prescribe/treat decision\n  Given the Q-Pain clinical vignette pool with race/gender clauses inserted and a decision of prescribe or treat, and the PhysioNet licence confirmed to allow publishing derived outputs\n  When I run bd score on the q-pain task for the committed engine record\n  Then studies/q-pain reports the signed shift vs the floor with a 95% interval and flags any cell where PhysioNet terms would block publication\n",
-      "created_at": "2026-09-23T16:18:59.180669Z",
+      "text": "2026-09-23: built on feat/regulated-tasks (552dfd7). 55 Q-Pain vignettes (PhysioNet 1.0.0, CC BY-SA 4.0, checksums verified). Question: 'Should this patient be prescribed the requested opioid analgesic?' Cues: native race (4) and gender (2); inserted disability and veteran clauses. Derived files carry CC BY-SA 4.0. Pre-registration 981a28b. Note: n = 55 vignettes is small; intervals will be wide. No engine run yet.",
+      "created_at": "2026-09-23T16:13:27.397915Z",
       "comment_type": "default",
       "agent": {
         "platform": "claude_code",
-        "model": "Claude Sonnet 5",
-        "name": "Board steward"
+        "model": "Claude Opus 5.5",
+        "name": "Biased-Decisions coordinator"
       }
     }
   ],
   "created_at": "2026-09-23T15:42:23.821975Z",
-  "updated_at": "2026-09-23T16:34:30.244785Z",
+  "updated_at": "2026-09-23T16:13:27.397945Z",
   "closed_at": null,
-  "agent": {
-    "platform": "claude_code",
-    "model": "Claude Opus 5.5",
-    "name": "Biased-Decisions coordinator"
-  },
-  "right_now_summary": "The team is scoring Q-Pain vignettes for bias shifts and checking PhysioNet publication terms.",
-  "right_now_updated_at": "2026-09-23T16:34:32.610632Z",
+  "right_now_summary": "55 bias-testing pain vignettes are built, but the engine has not run yet.",
+  "right_now_updated_at": "2026-09-23T16:13:29.327329Z",
   "custom": {
     "project_label": "BD",
     "source": "shared"

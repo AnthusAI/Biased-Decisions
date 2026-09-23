@@ -1,0 +1,38 @@
+{
+  "id": "BD-1c8487f2-ee15-486a-8aa9-4eb5e33afe86",
+  "title": "Inversion page: how to cause a compliance failure with a fast decision model",
+  "description": "A page applying Charlie Munger's inversion: deployment patterns that would reliably create violations (e.g. using the verdict as the decision, one model for every firm, gating on the cue, unpinned versions, no outcome check), each tied to a measured result and paired with the inverse practice.",
+  "type": "story",
+  "status": "open",
+  "priority": 2,
+  "assignee": null,
+  "creator": null,
+  "parent": "BD-7ee75377-b740-4085-8a84-ee0df2fb9083",
+  "labels": [],
+  "dependencies": [],
+  "comments": [
+    {
+      "id": "b314c961-4d61-4607-8507-e81e8286cd17",
+      "author": "home",
+      "text": "Feature: Inversion page\n  Scenario: Each failure pattern is grounded\n    Given the inversion page\n    Then each failure pattern names the regulated decision, links to a measured result that shows it, and states the inverse practice\n  Scenario: Deep links reach it\n    Given any risk panel\n    Then it links to the matching failure pattern on the inversion page by a stable anchor",
+      "created_at": "2026-09-23T16:19:15.981474Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude_code",
+        "model": "Claude Opus 5.5",
+        "name": "Biased-Decisions coordinator"
+      }
+    }
+  ],
+  "created_at": "2026-09-23T16:19:08.316260Z",
+  "updated_at": "2026-09-23T16:19:15.981501Z",
+  "closed_at": null,
+  "agent": {
+    "platform": "claude_code",
+    "model": "Claude Opus 5.5",
+    "name": "Biased-Decisions coordinator"
+  },
+  "right_now_summary": "The inversion page links each failure pattern to measured results, inverse practices, and stable anchors from risk",
+  "right_now_updated_at": "2026-09-23T16:19:17.889913Z",
+  "custom": {}
+}

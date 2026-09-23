@@ -3,7 +3,7 @@
   "title": "Task coverage: at least three tasks per dimension, across regulated-decision domains",
   "description": "Today gender has seven tasks and most other dimensions one or two, all on Bias in Bios with one task type (occupation choice). Add tasks from other datasets and decision types (approve/deny, prioritise, risk rating) tied to regulated decisions: lending (ECOA/Reg B), housing (Fair Housing Act), employment (Title VII, ADEA, ADA, USERRA), healthcare (ACA 1557), complaint handling (UDAAP, Reg E/Z), content moderation (EU DSA). Target: every dimension measured on at least three tasks from at least two domains. Dataset survey: docs/datasets-survey.md. Every dataset needs a verified licence that allows publishing edited items and model outputs.",
   "type": "epic",
-  "status": "in_progress",
+  "status": "open",
   "priority": 2,
   "assignee": null,
   "creator": null,
@@ -19,28 +19,23 @@
       "comment_type": "default"
     },
     {
-      "id": "3d32e333-127f-4aea-9897-8207b70b250e",
+      "id": "01a33c58-7b5a-493c-8384-0556714057d9",
       "author": "home",
-      "text": "Status (2026-09-23): In progress. Four new regulated-decision tasks are being built on branch feat/regulated-tasks: CFPB servicemember/older-American narratives, Q-Pain clinical vignettes, and the Civil Comments identity subset. Pre-registration comes first; no engine runs have happened yet. A dataset survey has been committed as docs/datasets-survey.md.\n",
-      "created_at": "2026-09-23T16:31:59.002161Z",
+      "text": "2026-09-23 log: pre-registration for the regulated tasks committed first (981a28b). Q-Pain and Civil Comments built with passing specs; CFPB blocked on narrative availability (see story). Branch feat/regulated-tasks, not yet merged. The builder could not write to Kanbus (permission gate), so the coordinator logged these.",
+      "created_at": "2026-09-23T16:13:48.614949Z",
       "comment_type": "default",
       "agent": {
         "platform": "claude_code",
-        "model": "Claude Sonnet 5",
-        "name": "Board steward"
+        "model": "Claude Opus 5.5",
+        "name": "Biased-Decisions coordinator"
       }
     }
   ],
   "created_at": "2026-09-23T15:41:55.318382Z",
-  "updated_at": "2026-09-23T16:31:59.002190Z",
+  "updated_at": "2026-09-23T16:13:48.614993Z",
   "closed_at": null,
-  "agent": {
-    "platform": "claude_code",
-    "model": "Claude Opus 5.5",
-    "name": "Biased-Decisions coordinator"
-  },
-  "right_now_summary": "Four regulated-decision tasks are being built; licensing checks and pre-registration come before engine runs.",
-  "right_now_updated_at": "2026-09-23T16:34:47.324852Z",
+  "right_now_summary": "The team is building regulated-decision tests while checking licenses and awaiting engine runs.",
+  "right_now_updated_at": "2026-09-23T16:13:50.930240Z",
   "custom": {
     "project_label": "BD",
     "source": "shared"

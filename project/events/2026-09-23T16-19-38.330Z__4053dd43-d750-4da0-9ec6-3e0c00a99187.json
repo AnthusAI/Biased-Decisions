@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "event_id": "4053dd43-d750-4da0-9ec6-3e0c00a99187",
+  "issue_id": "BD-fda56e1f-54a6-4838-b471-ac4c2323e3aa",
+  "event_type": "issue_created",
+  "occurred_at": "2026-09-23T16:19:38.330Z",
+  "actor_id": "home",
+  "payload": {
+    "title": "Social cards and deep links for the compliance pages",
+    "description": "The new pages and panels get clean deep links, canonical URLs and data-driven social cards consistent with the existing scheme.",
+    "issue_type": "story",
+    "status": "open",
+    "priority": 2,
+    "assignee": null,
+    "parent": "BD-7ee75377-b740-4085-8a84-ee0df2fb9083",
+    "labels": [],
+    "agent": {
+      "platform": "claude_code",
+      "model": "Claude Opus 5.5",
+      "name": "Biased-Decisions coordinator"
+    }
+  }
+}
