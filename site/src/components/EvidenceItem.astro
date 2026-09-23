@@ -1,20 +1,26 @@
 ---
 // One piece of evidence: what the model did (the model is the subject), the number with its
-// interval and sample size, and the link to the measurement that proves it.
-import { evidence } from "../lib/compliance.js";
+// interval and sample size, and the link to the measurement that proves it. A prediction row shows
+// its plain sentence (ev.plain) when the data has one, never the raw measurement string.
+import { evidence, evidenceById } from "../lib/compliance.js";
 const { id = null, found = null } = Astro.props;
 const e = found || evidence(id);
 const cls = `ev${e.detected === false && e.kind !== "prereg" ? " ev-nd" : ""}`;
+const row = (id && evidenceById[id]) || (e.id && evidenceById[e.id]) || {};
+const sentence = e.kind === "prereg"
+  ? (e.plain || row.plain || String(e.sentence).replace(/^Pre-?registered:\s*/i, ""))
+  : e.sentence;
+const verdict = e.kind === "cell" ? (e.detected ? "a clear effect" : "no clear effect") : null;
 ---
 {id
   ? <li class={cls} data-ev={id}>
-      <a class="ev-link" href={e.href}>{e.sentence}</a><span class="ev-fig">: {e.figure}{e.kind === "cell" && <Fragment> ({e.verdict})</Fragment>}.</span>
+      <a class="ev-link" href={e.href}>{sentence}</a><span class="ev-fig">: {e.figure}{verdict && <Fragment> ({verdict})</Fragment>}.</span>
       {e.direction && <span class="ev-dir"> {e.direction}.</span>}
       {e.kind === "prereg" && e.article && <span class="ev-dir"> Reported in <a href={e.article.url}>{e.article.title}</a>.</span>}
-      {e.example && <span class="ev-ex"> <a href={e.example}>See one real bio, both ways</a>.</span>}
+      {e.example && <span class="ev-ex"> <a href={e.example}>See one real biography, both ways</a>.</span>}
     </li>
   : <li class={cls}>
-      <a class="ev-link" href={e.href}>{e.sentence}</a><span class="ev-fig">: {e.figure}{e.kind === "cell" && <Fragment> ({e.verdict})</Fragment>}.</span>
+      <a class="ev-link" href={e.href}>{sentence}</a><span class="ev-fig">: {e.figure}{verdict && <Fragment> ({verdict})</Fragment>}.</span>
       {e.direction && <span class="ev-dir"> {e.direction}.</span>}
-      {e.example && <span class="ev-ex"> <a href={e.example}>See one real bio, both ways</a>.</span>}
+      {e.example && <span class="ev-ex"> <a href={e.example}>See one real biography, both ways</a>.</span>}
     </li>}

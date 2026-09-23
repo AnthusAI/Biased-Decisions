@@ -2,7 +2,7 @@
 // (src/lib/site.js builds it at build time): the hero matrix (every dimension on one scale), the
 // board, the spider, the forest (one row per question, group or task) and the measurement-vs-
 // floor chart. Every mark is a link to its drill-down; the payload carries every href.
-import { s, h, fmt, signed, esc, ticks, niceMax, marker, bindTip, reducedMotion, rawUnit, boardPlace } from "./util.js";
+import { s, h, fmt, signed, esc, ticks, niceMax, marker, bindTip, reducedMotion, rawUnit, boardPlace, measureOf, kindNames, unitText } from "./util.js";
 
 // Re-render a chart whenever its container changes width.
 // Grow a chart's viewBox to cover everything drawn (axis labels sit outside the plot radius and
@@ -53,12 +53,12 @@ function animateIn(nodes, fromX) {
 function tipHtml(dim, engine, cell, extra = "") {
   const hd = cell.headline;
   const status = cell.detected
-    ? `<b>bias detected</b>: largest excess on ${esc(hd.facet_label)}`
-    : `<b>no bias detected at this floor</b> (largest excess shown: ${esc(hd.facet_label)})`;
+    ? `<b>a clear effect</b>: largest on ${esc(hd.facet_label)}`
+    : `<b>no clear effect</b> (the largest is shown: ${esc(hd.facet_label)})`;
   return `<div class="tip-h"><span class="sw" style="background:var(--eng-${engine.id})"></span>${esc(engine.label)} · ${esc(dim.label)}</div>
-    <div class="tip-v">${signed(hd.value)} pp <span>[${fmt(hd.lo)}, ${fmt(hd.hi)}]</span></div>
+    <div class="tip-v">${signed(hd.value)} points <span>[${fmt(hd.lo)}, ${fmt(hd.hi)}]</span> beyond the control edit</div>
     <div>${status}</div>
-    <div class="tip-s">measured ${fmt(hd.raw.value)}${rawUnit(dim)} against a floor of ${fmt(hd.floor_value)}${rawUnit(dim)}; n = ${hd && cell.n ? cell.n.toLocaleString("en-US") : "—"}</div>${extra}`;
+    <div class="tip-s">after the edit ${fmt(hd.raw.value)}${unitText(rawUnit(dim))}, control edit ${fmt(hd.floor_value)}${unitText(rawUnit(dim))}; ${hd && cell.n ? cell.n.toLocaleString("en-US") : "—"} texts tested</div>${extra}`;
 }
 
 // ---------------------------------------------------------------------------------------------
@@ -86,7 +86,7 @@ export function heroMatrix(data, { animate = true } = {}) {
     const x0 = labelW + (narrow ? 8 : 16), x1 = w - right;
     const X = (v) => x0 + ((v - xmin) / (xmax - xmin)) * (x1 - x0);
     const svg = s("svg", { width: w, height: H, viewBox: `0 0 ${w} ${H}`, class: "chart hero-chart", role: "group",
-      "aria-label": "Excess bias over the floor for every engine on every dimension, in percentage points. Each row links to that dimension's board." });
+      "aria-label": "How far each model moved beyond the control edit, for every characteristic we tested, in percentage points. Each row links to that characteristic's page." });
 
     // grid
     const g = s("g", { class: "grid" });
@@ -94,12 +94,12 @@ export function heroMatrix(data, { animate = true } = {}) {
       g.append(s("line", { x1: X(t), x2: X(t), y1: top - 8, y2: H - bottom + 4 }));
       g.append(s("text", { x: X(t), y: H - bottom + 20, "text-anchor": "middle", class: "tick" }, t === 0 ? "0" : `${t}`));
     }
-    g.append(s("text", { x: x1, y: H - 4, "text-anchor": "end", class: "axis-label" }, "excess over the floor, percentage points →"));
+    g.append(s("text", { x: x1, y: H - 4, "text-anchor": "end", class: "axis-label" }, "beyond the control edit, percentage points →"));
     svg.append(g);
     // floor
     svg.append(s("rect", { x: X(xmin), y: top - 8, width: X(0) - X(xmin), height: H - top - bottom + 12, class: "below-floor" }));
     svg.append(s("line", { x1: X(0), x2: X(0), y1: top - 14, y2: H - bottom + 4, class: "floor-line" }));
-    svg.append(s("text", { x: X(0) + 5, y: top - 18, class: "floor-label" }, "floor"));
+    svg.append(s("text", { x: X(0) + 5, y: top - 18, class: "floor-label" }, "control edit"));
 
     const moving = [];
     dims.forEach((d, i) => {
@@ -112,7 +112,7 @@ export function heroMatrix(data, { animate = true } = {}) {
       link.append(s("text", { x: lx, y: ly, class: "row-label" }, d.label));
       if (unmeasured.length) {
         link.append(s("text", { x: narrow ? x1 : lx, y: narrow ? ly : ly + 16, class: "row-sub", "text-anchor": narrow ? "end" : "start" },
-          `not measured: ${unmeasured.join(", ")}`));
+          `not tested: ${unmeasured.join(", ")}`));
       }
       row.append(link);
       const measured = engines.filter((e) => d.cells[e.id].status === "measured");
@@ -121,7 +121,7 @@ export function heroMatrix(data, { animate = true } = {}) {
         const hd = c.headline;
         const y = yMid + (j - (measured.length - 1) / 2) * (narrow ? 8 : 9);
         const a = s("a", { href: c.href, class: "mark-link" + (c.detected ? "" : " nd"),
-          "aria-label": `${e.label}, ${d.label}: ${c.detected ? "" : "no bias detected at this floor, "}excess ${fmt(hd.value)} percentage points, interval ${fmt(hd.lo)} to ${fmt(hd.hi)}` });
+          "aria-label": `${e.label}, ${d.label}: ${c.detected ? "a clear effect, " : "no clear effect, "}${fmt(hd.value)} percentage points beyond the control edit, range ${fmt(hd.lo)} to ${fmt(hd.hi)}` });
         const grp = s("g", { class: "mv" });
         grp.append(s("line", { x1: X(hd.lo), x2: X(hd.hi), y1: y, y2: y, class: "whisker", stroke: `var(--eng-${e.id})`, "stroke-dasharray": c.detected ? null : "3 3" }));
         grp.append(marker(e.marker, X(hd.value), y, 5.5, c.detected
@@ -164,13 +164,13 @@ export function boardChart(data, dim, onPick) {
     const X = (v) => x0 + ((v - xmin) / (xmax - xmin)) * (x1 - x0);
     const unit = rawUnit(dim).trim();
     const svg = s("svg", { width: w, height: H, viewBox: `0 0 ${w} ${H}`, class: "chart board-chart", role: "group",
-      "aria-label": `${dim.long}: engines ranked by excess over the floor, most biased first.` });
+      "aria-label": `${dim.long}: models ranked by how far they moved beyond the control edit, most biased first.` });
     const g = s("g", { class: "grid" });
     for (const t of ticks(xmax - xmin, narrow ? 4 : 6).map((t) => t + xmin)) {
       g.append(s("line", { x1: X(t), x2: X(t), y1: top, y2: H - bottom + 4 }));
       g.append(s("text", { x: X(t), y: H - bottom + 20, "text-anchor": "middle", class: "tick" }, `${fmt(t, t % 1 ? 1 : 0)}`));
     }
-    g.append(s("text", { x: x1, y: H - 4, "text-anchor": "end", class: "axis-label" }, `${dim.measure}, ${unit === "%" ? "percent" : "points"} →`));
+    g.append(s("text", { x: x1, y: H - 4, "text-anchor": "end", class: "axis-label" }, `${measureOf(dim)}, ${unit === "%" ? "percent" : "points"} →`));
     svg.append(g);
     rows.forEach((r, i) => {
       const e = byId[r.engine];
@@ -180,7 +180,7 @@ export function boardChart(data, dim, onPick) {
       const y = yTop + (narrow ? 42 : rowH / 2);
       const head = c.facets.find((f) => f.id === hd.facet);
       const grp = s("a", { href: c.href, class: "board-row", "aria-label":
-        `Place ${boardPlace(dim, r.engine)}: ${e.label}, excess ${fmt(r.value)} percentage points on ${r.facet_label}. Open ${e.label}'s ${dim.facet_kind} table.` });
+        `Place ${boardPlace(dim, r.engine)}: ${e.label}, ${fmt(r.value)} percentage points beyond the control edit, on ${r.facet_label}. Open ${e.label}'s results.` });
       if (onPick) grp.addEventListener("click", (ev) => { ev.preventDefault(); onPick(e.id); });
       grp.append(s("rect", { x: 0, y: yTop + 2, width: w, height: rowH - 4, class: "hit row-hit" }));
       const lx = narrow ? x0 : 0, ly = narrow ? yTop + 16 : y + 5;
@@ -205,11 +205,11 @@ export function boardChart(data, dim, onPick) {
       grp.append(s("line", { x1: X(head.raw.lo), x2: X(head.raw.lo), y1: y - 5, y2: y + 5, class: "ci" }));
       grp.append(s("line", { x1: X(head.raw.hi), x2: X(head.raw.hi), y1: y - 5, y2: y + 5, class: "ci" }));
       grp.append(marker(e.marker, X(head.raw.value), y, 5, { fill: "var(--surface)", stroke: `var(--eng-${e.id})`, "stroke-width": 2 }));
-      const valText = `${signed(r.value)} pp over the floor · ${r.facet_label}`;
+      const valText = narrow ? `${signed(r.value)} points` : `${signed(r.value)} points beyond the control edit · ${r.facet_label}`;
       const tx = Math.min(X(head.raw.hi) + 10, x1);
       const anchorEnd = narrow || X(head.raw.hi) + 10 + valText.length * 6.4 > x1;
       grp.append(s("text", { x: anchorEnd ? x1 : tx, y: narrow ? yTop + 16 : y - 14, "text-anchor": anchorEnd ? "end" : "start", class: "val" }, valText));
-      bindTip(grp, tipHtml(dim, e, c, `<div class="tip-s">Thin ticks: the engine's other ${dim.facet_kind}s (${c.n_facets} measured, ${c.n_facets_detected} detected). Grey: the floor.</div>`));
+      bindTip(grp, tipHtml(dim, e, c, `<div class="tip-s">Thin ticks: the model's other ${kindNames(dim.facet_kind)} (${c.n_facets} tested, ${c.n_facets_detected} with a clear effect). Grey: the control edit.</div>`));
       svg.append(grp);
     });
     return svg;
@@ -240,7 +240,7 @@ export function spider({ axes, series, max, label, hrefFor, compact = false }) {
       if (!compact || t === rings[rings.length - 1]) {
         const a = -Math.PI / 2 + Math.PI / n; // halfway between the first two axes
         const rr = (R * t) / max * Math.cos(Math.PI / n);
-        grid.append(s("text", { x: cx + Math.cos(a) * rr + 3, y: cy + Math.sin(a) * rr - 3, class: "ring-label" }, `${t} pp`));
+        grid.append(s("text", { x: cx + Math.cos(a) * rr + 3, y: cy + Math.sin(a) * rr - 3, class: "ring-label" }, `${t} points`));
       }
     }
     axes.forEach((a, i) => {
@@ -265,7 +265,7 @@ export function spider({ axes, series, max, label, hrefFor, compact = false }) {
         grid.append(link);
       } else grid.append(txt);
       if (!anyMeasured && !compact) {
-        grid.append(s("text", { x: lx, y: Number(txt.getAttribute("y")) + (twoLines ? 30 : 15), "text-anchor": anchor, class: "axis-note" }, "not measured"));
+        grid.append(s("text", { x: lx, y: Number(txt.getAttribute("y")) + (twoLines ? 30 : 15), "text-anchor": anchor, class: "axis-note" }, "not tested"));
       }
     });
     svg.append(grid);
@@ -299,15 +299,15 @@ export function spider({ axes, series, max, label, hrefFor, compact = false }) {
         if (!v || v.status !== "measured") return;
         const [x, y] = pt(i, v.value);
         const link = s("a", { href: hrefFor ? hrefFor(sr.engine, a) : "#", class: "vertex",
-          "aria-label": `${sr.engine.label}, ${a.label}: ${v.detected ? "" : "no bias detected, "}excess ${fmt(v.value)} percentage points` });
+          "aria-label": `${sr.engine.label}, ${a.label}: ${v.detected ? "a clear effect, " : v.attributable === false ? "cannot blame one group, " : "no clear effect, "}${fmt(v.value)} percentage points beyond the control edit` });
         link.append(s("circle", { cx: x, cy: y, r: 12, class: "hit" }));
         link.append(marker(sr.engine.marker, x, y, compact ? 4 : 5, v.detected
           ? { fill: col, stroke: "var(--surface)", "stroke-width": 1.5 }
           : { fill: "var(--surface)", stroke: col, "stroke-width": 2 }));
         bindTip(link, `<div class="tip-h"><span class="sw" style="background:${col}"></span>${esc(sr.engine.label)} · ${esc(a.label)}</div>
-          <div class="tip-v">${signed(v.value)} pp <span>[${fmt(v.lo)}, ${fmt(v.hi)}]</span></div>
-          <div>${v.detected ? "bias detected" : v.attributable === false ? "unattributed: shown, not ranked" : "no bias detected at this floor"}</div>
-          ${v.value < 0 ? '<div class="tip-s">Below the floor; drawn at the centre.</div>' : ""}`);
+          <div class="tip-v">${signed(v.value)} points <span>[${fmt(v.lo)}, ${fmt(v.hi)}]</span> beyond the control edit</div>
+          <div>${v.detected ? "a clear effect" : v.attributable === false ? "every group moved alike, so we cannot blame one group: shown, not ranked" : "no clear effect"}</div>
+          ${v.value < 0 ? '<div class="tip-s">Below the control edit; drawn at the centre.</div>' : ""}`);
         svg.append(link);
       });
     }
@@ -340,7 +340,7 @@ export function legend(engines, { hollow = true } = {}) {
   if (hollow) {
     const sv = s("svg", { width: 16, height: 16, viewBox: "0 0 16 16", "aria-hidden": "true" });
     sv.append(s("circle", { cx: 8, cy: 8, r: 5, fill: "none", stroke: "var(--ink-2)", "stroke-width": 2 }));
-    items.push(h("li", { class: "lg-note" }, sv, "hollow: no bias detected at this floor"));
+    items.push(h("li", { class: "lg-note" }, sv, "hollow: no clear effect"));
   }
   return h("ul", { class: "legend" }, items);
 }
@@ -364,13 +364,13 @@ export function versusFloor(data, dim) {
     const X = (v) => x0 + (Math.max(0, v) / xmax) * (x1 - x0);
     const unit = rawUnit(dim);
     const svg = s("svg", { width: w, height: H, viewBox: `0 0 ${w} ${H}`, class: "chart vs-chart", role: "img",
-      "aria-label": `${dim.long}: each engine's measurement and its floor, with 95% intervals.` });
+      "aria-label": `${dim.long}: what each model did after the edit, and its control edit, with the ranges we are 95% sure of.` });
     const g = s("g", { class: "grid" });
     for (const t of ticks(xmax, narrow ? 4 : 6)) {
       g.append(s("line", { x1: X(t), x2: X(t), y1: top, y2: H - bottom + 4 }));
       g.append(s("text", { x: X(t), y: H - bottom + 20, "text-anchor": "middle", class: "tick" }, fmt(t, t % 1 ? 1 : 0)));
     }
-    g.append(s("text", { x: x1, y: H - 4, "text-anchor": "end", class: "axis-label" }, `${dim.measure}, ${unit.trim() === "%" ? "percent" : "points"} →`));
+    g.append(s("text", { x: x1, y: H - 4, "text-anchor": "end", class: "axis-label" }, `${measureOf(dim)}, ${unit.trim() === "%" ? "percent" : "points"} →`));
     svg.append(g);
     rows.forEach(({ e, f, c }, i) => {
       const yTop = top + i * rowH;
@@ -382,10 +382,10 @@ export function versusFloor(data, dim) {
         svg.append(s("rect", { x: X(f.floor.lo), y: yF - 4, width: Math.max(1, X(f.floor.hi) - X(f.floor.lo)), height: 8, rx: 2, class: "floor-seg" }));
       }
       svg.append(s("line", { x1: X(f.floor.value), x2: X(f.floor.value), y1: yF - 7, y2: yF + 7, class: "floor-tick" }));
-      svg.append(s("text", { x: X(f.floor.hi ?? f.floor.value) + 6, y: yF + 4, class: "row-sub" }, `floor ${fmt(f.floor.value)}${unit}`));
+      svg.append(s("text", { x: X(f.floor.hi ?? f.floor.value) + 6, y: yF + 4, class: "row-sub" }, `control edit ${fmt(f.floor.value)}${unitText(unit)}`));
       svg.append(s("line", { x1: X(f.raw.lo), x2: X(f.raw.hi), y1: yM, y2: yM, stroke: col, class: "whisker", "stroke-dasharray": f.detected ? null : "3 3" }));
       svg.append(marker(e.marker, X(f.raw.value), yM, 5.5, f.detected ? { fill: col } : { fill: "var(--surface)", stroke: col, "stroke-width": 2 }));
-      svg.append(s("text", { x: x1, y: yTop + 12, "text-anchor": "end", class: "val" }, `${fmt(f.raw.value)}${unit} [${fmt(f.raw.lo)}, ${fmt(f.raw.hi)}]${narrow ? "" : f.detected ? " · detected" : " · interval reaches the floor"}`));
+      svg.append(s("text", { x: x1, y: yTop + 12, "text-anchor": "end", class: "val" }, `${fmt(f.raw.value)}${unitText(unit)} [${fmt(f.raw.lo)}, ${fmt(f.raw.hi)}]${narrow ? "" : f.detected ? " · a clear effect" : " · range reaches the control edit"}`));
     });
     return svg;
   };
@@ -397,7 +397,7 @@ export function versusFloor(data, dim) {
 // to that row's page. Filled marker: detected. Hollow: not detected; a solid whisker below the
 // floor means the interval excludes zero on the other side (the reverse of the trope).
 // ---------------------------------------------------------------------------------------------
-export function forest({ rows, engines, label, axisLabel = "excess over the floor, points" }) {
+export function forest({ rows, engines, label, axisLabel = "beyond the control edit, percentage points" }) {
   return (w) => {
     const narrow = w < 600;
     const measuredEngines = engines.filter((e) => rows.some((r) => r.values[e.id] && r.values[e.id].status === "measured"));
@@ -434,7 +434,7 @@ export function forest({ rows, engines, label, axisLabel = "excess over the floo
       const lx = narrow ? x0 : 0;
       const ly = narrow ? yTop + 15 : yTop + rowH / 2 + 5;
       const t = s("text", { x: lx, y: ly, class: "row-label" }, r.label);
-      if (r.tag) t.append(s("tspan", { class: "row-tag", dx: 6 }, r.tag));
+      if (r.tag && !/pre-?regist/i.test(r.tag)) t.append(s("tspan", { class: "row-tag", dx: 6 }, r.tag));
       link.append(t);
       row.append(link);
       const band0 = narrow ? yTop + 24 : yTop + (rowH - inner) / 2 + 6;
@@ -444,13 +444,13 @@ export function forest({ rows, engines, label, axisLabel = "excess over the floo
         if (!v || v.status !== "measured") return;
         const col = `var(--eng-${e.id})`;
         const a = s("a", { href: r.hrefs && r.hrefs[e.id] ? r.hrefs[e.id] : r.href, class: "mark-link" + (v.detected ? "" : " nd"),
-          "aria-label": `${e.label}, ${r.label}: ${v.detected ? "detected" : v.reverse ? "interval below the floor" : "not detected"}, ${fmt(v.value)} points, interval ${fmt(v.lo)} to ${fmt(v.hi)}` });
+          "aria-label": `${e.label}, ${r.label}: ${v.detected ? "a clear effect" : v.reverse ? "a clear effect in the opposite direction" : v.attributable === false ? "cannot blame one group" : "no clear effect"}, ${fmt(v.value)} percentage points beyond the control edit, range ${fmt(v.lo)} to ${fmt(v.hi)}` });
         a.append(s("rect", { x: X(v.lo) - 6, y: y - 7, width: Math.max(14, X(v.hi) - X(v.lo) + 12), height: 14, class: "hit" }));
         a.append(s("line", { x1: X(v.lo), x2: X(v.hi), y1: y, y2: y, class: "whisker", stroke: col, "stroke-dasharray": v.detected || v.reverse ? null : "3 3" }));
         a.append(marker(e.marker, X(v.value), y, 5, v.detected ? { fill: col, class: "mk-fill" } : { fill: "var(--surface)", stroke: col, "stroke-width": 2 }));
         bindTip(a, `<div class="tip-h"><span class="sw" style="background:${col}"></span>${esc(e.label)} · ${esc(r.label)}</div>
-          <div class="tip-v">${signed(v.value)} <span>[${fmt(v.lo)}, ${fmt(v.hi)}]</span></div>
-          <div>${v.detected ? "<b>detected</b>: interval clears the floor" : v.reverse ? "interval below the floor: the reverse direction" : v.attributable === false ? "unattributed: shown, not ranked" : "not detected: interval includes the floor"}</div>`);
+          <div class="tip-v">${signed(v.value)} points <span>[${fmt(v.lo)}, ${fmt(v.hi)}]</span> beyond the control edit</div>
+          <div>${v.detected ? "<b>a clear effect</b>: the range stays above the control edit" : v.reverse ? "a clear effect in the opposite direction: the range stays below the control edit" : v.attributable === false ? "every group moved alike, so we cannot blame one group: shown, not ranked" : "no clear effect: the range includes the control edit"}</div>`);
         row.append(a);
       });
       svg.append(row);

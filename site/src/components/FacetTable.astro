@@ -1,44 +1,47 @@
 ---
 // One engine's facets as a table: every number with its interval, the floor it is read against,
-// the verdict, n, and underneath each row the record's other numbers and the files it replays from.
+// the verdict, n, and underneath each row the record's other numbers. The interval method and the
+// files each row replays from are said once, in plain words, by HowMeasured at the foot of the
+// page (pass sources={false} there); without it, each row lists its files.
 import Chip from "./Chip.astro";
-import { extraLines, filesOf, fmt, int, signed, unit, facetUnit } from "../lib/site.js";
+import { extraLines, filesOf, fmt, int, signed, facetUnit } from "../lib/site.js";
+import { kindName, unitText } from "../scripts/util.js";
 
-const { dim, facets, headline = null, detected = false, facetKind, caption, rowHref = null, rowId = null, extras = true } = Astro.props;
-const u = unit(dim);
+const { dim, facets, headline = null, detected = false, facetKind, caption, rowHref = null, rowId = null, extras = true, sources = true } = Astro.props;
+const first = (s) => (s ? s.charAt(0).toUpperCase() + s.slice(1) : s);
 ---
 <div class="table-scroll" tabindex="0" role="region" aria-label={caption}>
   <table class="cell-table">
-    <caption class="sr">{caption}</caption>
+    <caption class="sr">{caption}. Numbers in brackets are the range we are 95% sure of.</caption>
     <thead><tr>
-      <th scope="col">{facetKind}</th><th scope="col">measured [95% CI]</th><th scope="col">floor</th>
-      <th scope="col">excess [95% CI]</th><th scope="col">verdict</th><th scope="col">n</th>
+      <th scope="col">{first(kindName(facetKind))}</th><th scope="col">What the model did</th><th scope="col">Control edit</th>
+      <th scope="col">Beyond the control edit (percentage points)</th><th scope="col">Clear effect?</th><th scope="col">Texts tested</th>
     </tr></thead>
     <tbody>
       {facets.map((f) => {
         const href = rowHref ? rowHref(f) : null;
         const name = href ? <a href={href}>{f.label}</a> : f.label;
         if (f.status !== "measured") {
-          return <tr class="row-miss" id={rowId ? rowId(f) : undefined}><th scope="row">{name}</th><td colspan="3" class="muted">not measured ({f.why})</td><td><Chip facet={f} /></td><td>—</td></tr>;
+          return <tr class="row-miss" id={rowId ? rowId(f) : undefined}><th scope="row">{name}</th><td colspan="3" class="muted">not tested ({f.why})</td><td><Chip facet={f} /></td><td>—</td></tr>;
         }
         const lines = extras ? extraLines(dim, f) : [];
-        const u = facetUnit(dim, f);
+        const u = unitText(facetUnit(dim, f));
         const isHead = headline && f.id === headline;
         return (
           <Fragment>
             <tr class={isHead ? "row-head" : null} id={rowId ? rowId(f) : undefined}>
-              <th scope="row">{name}{isHead && <span class="hl">{detected ? "largest" : "largest excess"}</span>}</th>
+              <th scope="row">{name}{isHead && <span class="hl">{detected ? "largest" : "largest, not clear"}</span>}</th>
               <td class="num">{fmt(f.raw.value)}{u}<span class="ci-t"> [{fmt(f.raw.lo)}, {fmt(f.raw.hi)}]</span><div class="sub">{f.raw.label}</div></td>
               <td class="num">{fmt(f.floor.value)}{u}{f.floor.lo !== null && f.floor.lo !== undefined && <span class="ci-t"> [{fmt(f.floor.lo)}, {fmt(f.floor.hi)}]</span>}<div class="sub">{f.floor.label}</div></td>
-              <td class="num strong">{signed(f.excess.value)} pp<span class="ci-t"> [{fmt(f.excess.lo)}, {fmt(f.excess.hi)}]</span></td>
+              <td class="num strong">{signed(f.excess.value)}<span class="ci-t"> [{fmt(f.excess.lo)}, {fmt(f.excess.hi)}]</span></td>
               <td><Chip facet={f} /></td>
               <td class="num">{int(f.n)}</td>
             </tr>
-            {extras && (
+            {extras && (lines.length > 0 || f.note || sources) && (
               <tr class="row-more"><td colspan="6">
                 {lines.length > 0 && <ul class="more">{lines.map((l) => <li>{l}</li>)}</ul>}
                 {f.note && <p class="fnote">{f.note}</p>}
-                <div class="more-meta"><span>Interval: {f.interval_method}.</span><ul class="files">{filesOf(f).map((p) => <li><code>{p}</code></li>)}</ul></div>
+                {sources && <div class="more-meta"><span>Saved answers:</span><ul class="files">{filesOf(f).map((p) => <li><code>{p}</code></li>)}</ul></div>}
               </td></tr>
             )}
           </Fragment>

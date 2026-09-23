@@ -1,9 +1,10 @@
 ---
 // A two-axis dimension at a glance: groups down, items across. Each cell shows the most biased
 // engine's excess there (or, with `engineId`, that engine's own), shaded by size, and links to
-// the cell's page. Pre-registered cells are outlined.
+// the cell's page.
 import Marker from "./Marker.astro";
 import { engineById, fmt, signed, urls, matrixCell, cap } from "../lib/site.js";
+import { kindName, VERDICT_WORDS } from "../scripts/util.js";
 
 const { dim, engineId = null, caption } = Astro.props;
 const bd = dim.breakdown;
@@ -16,7 +17,7 @@ for (const r of grid) for (const c of r.cells) if (c.status === "measured" && (c
     <caption class="sr">{caption}</caption>
     <thead>
       <tr>
-        <th scope="col" class="mx-corner"><span>{bd.group_kind}</span> <span class="muted">/ {bd.item_kind}</span></th>
+        <th scope="col" class="mx-corner"><span>{kindName(bd.group_kind)}</span> <span class="muted">/ {kindName(bd.item_kind)}</span></th>
         {bd.items.map((i) => <th scope="col"><a href={urls.at(dim, null, i.id)}>{i.label}</a></th>)}
       </tr>
     </thead>
@@ -29,16 +30,16 @@ for (const r of grid) for (const c of r.cells) if (c.status === "measured" && (c
             const label = `${g.label}, ${item.label}`;
             const live = Object.values(bd.cells.find((x) => x.group === g.id && x.item === item.id).engines).some((f) => f.status === "measured");
             if (c.status !== "measured") return live
-              ? <td class="mx miss"><a href={c.href} aria-label={`${label}: not measured`}><span class="mx-v">—</span></a></td>
-              : <td class="mx miss"><span class="mx-v" aria-label={`${label}: not measured`}>—</span></td>;
+              ? <td class="mx miss"><a href={c.href} aria-label={`${label}: not tested`}><span class="mx-v">—</span></a></td>
+              : <td class="mx miss"><span class="mx-v" aria-label={`${label}: not tested`}>—</span></td>;
             const sig = c.detected || c.reverse;
             const v = sig && max > 0 ? Math.max(0.12, Math.abs(c.value) / max) : 0;
             const cls = `mx${c.detected ? " det" : c.reverse ? " rev" : c.attributable === false ? " unat" : " nd"}`;
             const style = sig ? `--v:${v.toFixed(3)};--c:var(--alarm)` : null;
-            const word = c.detected ? "detected" : c.reverse ? "below the floor" : c.attributable === false ? "unattributed" : "not detected";
+            const word = c.detected ? VERDICT_WORDS.det : c.reverse ? VERDICT_WORDS.rev : c.attributable === false ? VERDICT_WORDS.un : VERDICT_WORDS.nd;
             return (
               <td class={cls} style={style}>
-                <a href={c.href} aria-label={`${label}: ${engineById[c.engine].label} ${signed(c.value)} points, ${word}`}>
+                <a href={c.href} aria-label={`${label}: ${engineById[c.engine].label}, ${signed(c.value)} percentage points beyond the control edit, ${word}`}>
                   <span class="mx-v">{signed(c.value)}</span>
                   {!engineId && sig && <span class="mx-e"><Marker engine={engineById[c.engine]} size={9} />{engineById[c.engine].label}</span>}
                   {!sig && <span class="mx-e">{word}</span>}
@@ -51,4 +52,4 @@ for (const r of grid) for (const c of r.cells) if (c.status === "measured" && (c
     </tbody>
   </table>
 </div>
-<p class="note mx-key"><span class="mx-sw det"></span> bias above the floor <span class="mx-sw rev"></span> bias below the floor (striped) <span class="mx-sw unat"></span> shared shift, not attributable to one group <span class="mx-sw nd"></span> no bias detected at this floor <span class="mx-sw miss"></span> not measured. Shade shows size in either direction. Values are {engineId ? `${engineById[engineId].label}'s` : "the most biased engine's"} shift over the floor, in points{engineId ? "" : "; select a cell for every engine"}.</p>
+<p class="note mx-key"><span class="mx-sw det"></span> a clear effect <span class="mx-sw rev"></span> a clear effect in the opposite direction, away from the stereotype (striped) <span class="mx-sw unat"></span> every group moved alike, so we cannot blame one group <span class="mx-sw nd"></span> no clear effect <span class="mx-sw miss"></span> not tested. A darker shade is a larger effect, in either direction. Each number is {engineId ? `${engineById[engineId].label}'s` : "the most biased model's"} result beyond the control edit, in percentage points{engineId ? "" : ". Select a square to see every model"}.</p>

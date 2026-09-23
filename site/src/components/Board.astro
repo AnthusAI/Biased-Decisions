@@ -4,41 +4,48 @@
 import Chart from "./Chart.astro";
 import EngineName from "./EngineName.astro";
 import { engineById, fmt, int, signed } from "../lib/site.js";
+import { kindNames, unitText } from "../scripts/util.js";
 
-const { board, heads, unit, facetKind, chartId, hrefFor, heading = "The board", level = "h2", lede = null } = Astro.props;
+const { board, heads, unit, facetKind, chartId, hrefFor, heading = "The ranking: most biased model first", level = "h2", lede = null,
+  shows = "Each result shows how far one edit moved a model's answers, beyond a harmless edit of the same size. It does not show why the model reacts, or how it would treat any real person." } = Astro.props;
 const H = level;
 const ranked = board.ranked;
+const u = unitText(unit);
 ---
 <section class="wrap section board-sec">
   <H class={level === "h2" ? "display" : "display sm"}>{heading}</H>
   {ranked.length > 0
     ? <Fragment>
-        <p class="lede">{lede || `Most biased first. Each bar runs from the engine's floor (grey) to its measurement, so its length is the excess over the floor; the whisker is the 95% interval${facetKind ? ` and the thin ticks are the engine's other ${facetKind}s` : ""}. Select a row for that engine's detail.`}</p>
+        <p class="lede">{lede || `Most biased first. Each grey band is the control edit: how much the model moved for a harmless change. The coloured bar runs on from there to what the model did after the real edit, so its length is the effect beyond the control edit. The whisker is the range we are 95% sure of${facetKind ? `, and the thin ticks are the model's other ${kindNames(facetKind)}` : ""}. Select a row for that model's details.`}</p>
         <Chart id={chartId} />
+        {shows && <p class="note board-shows">{shows}</p>}
         <ol class="board-list sr">
-          {ranked.map((r) => <li>{engineById[r.engine].label}: {signed(r.value)} pp over the floor [{fmt(r.lo)}, {fmt(r.hi)}] on {r.facet_label}</li>)}
+          {ranked.map((r) => <li>{engineById[r.engine].label}: {signed(r.value)} percentage points beyond the control edit, range {fmt(r.lo)} to {fmt(r.hi)}, on {r.facet_label}</li>)}
         </ol>
       </Fragment>
-    : <p class="lede strong">No engine's interval clears the floor here, so nothing is ranked.</p>}
+    : <Fragment>
+        <p class="lede strong">No model moved clearly more than it does for the control edit here, so nothing is ranked.</p>
+        {shows && <p class="note board-shows">{shows}</p>}
+      </Fragment>}
   {board.not_detected.length > 0 && (
     <div class="nd-list">
-      <h3>No bias detected at this floor</h3>
+      <h3>No clear effect, so not ranked</h3>
       <ul>
         {board.not_detected.map((r) => {
           const hd = heads[r.engine].headline;
           return (
             <li>
               <EngineName engine={engineById[r.engine]} href={hrefFor(r.engine)} />
-              <span class="nd-n">n = {int(r.n)} bios{r.n_facets > 1 ? ` (largest of ${r.n_facets} ${facetKind}s)` : ""}</span>
-              <span class="nd-v">measured {fmt(hd.raw.value)}{unit} [{fmt(hd.raw.lo)}, {fmt(hd.raw.hi)}] against a floor of {fmt(hd.floor_value)}{unit}; excess {signed(r.value)} pp [{fmt(r.lo)}, {fmt(r.hi)}]</span>
+              <span class="nd-n">{int(r.n)} texts tested{r.n_facets > 1 ? ` (the largest of ${r.n_facets} ${kindNames(facetKind)})` : ""}.</span>
+              <span class="nd-v">After the edit {fmt(hd.raw.value)}{u} [{fmt(hd.raw.lo)}, {fmt(hd.raw.hi)}], control edit {fmt(hd.floor_value)}{u}; beyond the control edit {signed(r.value)} percentage points [{fmt(r.lo)}, {fmt(r.hi)}].</span>
             </li>
           );
         })}
       </ul>
-      <p class="note">Absence of evidence at this sample size, not a clean bill of health.</p>
+      <p class="note">Where the range includes zero, we could not tell the result from chance with this many texts. That does not mean the model is fair. Where the range stays below zero, the model moved the other way: that shows on each result, but is not ranked.</p>
     </div>
   )}
   {board.unmeasured.length > 0 && (
-    <p class="unmeasured"><span class="hatch"></span><span>Not measured here: {board.unmeasured.map((id, i) => <Fragment>{i ? ", " : ""}<a href={hrefFor(id)}>{engineById[id].label}</a></Fragment>)}. Shown as missing, never as zero.</span></p>
+    <p class="unmeasured"><span class="hatch"></span><span>Not tested here: {board.unmeasured.map((id, i) => <Fragment>{i ? ", " : ""}<a href={hrefFor(id)}>{engineById[id].label}</a></Fragment>)}. Shown as missing, never as zero.</span></p>
   )}
 </section>
