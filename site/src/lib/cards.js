@@ -128,6 +128,7 @@ function dimCard(dim) {
   const lead = lower(dim.long);
   return boardCard("dimension", dim, dim.board, lead, (e) => dim.cells[e].headline.floor_value, (e) => {
     const tie = dim.board.ranked.filter((r) => r.value === dim.board.ranked[0].value).length > 1;
+    if (!dim.board.contested) return `${E(e)}, the only engine measured, is biased on ${lead}`;
     return `${E(e)} is ${tie ? "joint " : ""}most biased on ${lead}`;
   });
 }
@@ -185,8 +186,7 @@ function engineDimCard(en, dim) {
       rows: [{ engine: en.id, text: "Shown as missing, never as zero" }] };
   }
   const kind = plural(dim.breakdown.item_kind);
-  const kindAll = multiGroup(dim) && multiItem(dim) ? `${dim.breakdown.item_kind}s (largest over the ${plural(dim.breakdown.group_kind)})` : kind;
-  const count = { engine: en.id, text: `${c.n_facets_detected} of ${c.n_facets} ${kindAll} clear the floor` };
+  const count = { engine: en.id, text: `${c.n_facets_detected} of ${c.n_facets} ${kind} clear the floor` };
   if (!c.detected) {
     return { template: "engine-dim", headline: `${en.label}: no bias detected at this floor on ${lead}`,
       number: `n = ${int(c.n)}`, numberNote: "bios; every interval includes the floor", rows: [count] };
@@ -213,7 +213,7 @@ function titledCard(template, headline) {
 // Every page's card, by page path.
 // ---------------------------------------------------------------------------------------------
 // Bump LAYOUT when og.js draws the same content differently, so card URLs change with the pixels.
-const LAYOUT = 3;
+const LAYOUT = 4;
 const hashOf = (card) => createHash("sha256").update(JSON.stringify({ LAYOUT, card })).digest("hex").slice(0, 10);
 
 function finish(path, card) {
