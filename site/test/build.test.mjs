@@ -136,7 +136,7 @@ test("every internal link resolves to a built page or file", () => {
 test("every deep-link level has a page: each group, question and cell of every dimension", () => {
   const have = new Set(pages.map((p) => p.path));
   for (const want of ["/religion/jewish/greed/", "/nationality/american/", "/nationality/arrogance/",
-    "/gender-pronouns/nurse-physician/", "/race/black/", "/religion/jewish/paralegal-attorney/",
+    "/gender/nurse-physician/", "/race/black/", "/religion/jewish/paralegal-attorney/",
     "/engines/laya/nationality/", "/methods/", "/how-to-fail/", "/guidance/"]) assert.ok(have.has(want), want);
 });
 

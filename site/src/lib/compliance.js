@@ -32,7 +32,7 @@ export const warnLabel = (dimId) => `Regulated decision: ${practiceById[mappingO
 // ---------------------------------------------------------------------------------------------
 export const shortlistBlock = (task) => C.shortlist.pairs.find((b) => b.task === task) || null;
 export const shortlistRowId = (r) => `shortlist-${r.engine}-${r.variant.replace(/_/g, "-")}-${r.cut}`;
-export const shortlistHref = (task, r) => `${urls.dim("gender-pronouns")}${task}/#${shortlistRowId(r)}`;
+export const shortlistHref = (task, r) => `${urls.dim("gender")}${task}/#${shortlistRowId(r)}`;
 const shortRow = (ev) => shortlistBlock(ev.task).rows.find((r) => r.engine === ev.engine && r.variant === ev.variant && r.cut === ev.cut);
 const plain = (t) => String(t).replace(/\*/g, "").replace(/\s*\(see [^)]*above\)/g, "");
 const per100 = (rate) => fmt(rate * 100, 1);
@@ -51,7 +51,7 @@ function cellFinding(dimId, group, item, engineId) {
   const figure = `${fmt(f.raw.value)}${u} [${fmt(f.raw.lo)}, ${fmt(f.raw.hi)}] against a floor of ${fmt(f.floor.value)}${u}, n = ${int(f.n)}`;
   const verdict = f.detected ? "detected" : "no bias detected at this floor";
   const x = f.extra || {};
-  const direction = x.direction_toward_more_female_pct !== undefined && dimId === "gender-pronouns" && item !== "surgeon-physician"
+  const direction = x.direction_toward_more_female_pct !== undefined && dimId === "gender" && item !== "surgeon-physician"
     ? `${fmt(x.direction_toward_more_female_pct, 1)}% of its flips moved toward “${x.more_female_label.replace(/_/g, " ")}” when the bio read as a woman`
     : null;
   return { sentence: doesAt(dim, group, item, engineId), figure, verdict, detected: f.detected,
@@ -118,7 +118,7 @@ export function panelFindings(dim, { level = null, engineId = null } = {}) {
 
 // The shortlist rows a gender page's panel adds: the outcome a screening tool would produce.
 export function panelShortlist(dim, { level = null, engineId = null } = {}) {
-  if (dim.id !== "gender-pronouns") return [];
+  if (dim.id !== "gender") return [];
   const task = level ? level.item : "paralegal-attorney";
   if (!shortlistBlock(task)) return [];
   const engs = engineId ? [engineId] : ["laya", "jev"];

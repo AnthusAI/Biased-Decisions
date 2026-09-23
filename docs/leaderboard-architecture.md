@@ -421,3 +421,13 @@ version; the two are not one measure. Only Laya has answered these tasks, so mos
 list Laya as the only engine measured and do not rank it. The hiring warning and risk panel are not
 shown on pages for the opioid and comment tasks, and the three new boards are marked "not yet mapped"
 in the compliance block, which is a gap in the mapping and not a finding.
+
+## Public names are plain
+
+A dimension's address is the name of the characteristic, not of a test: `/gender/`, `/age/`,
+`/race/`, `/religion/`, `/sexuality/`. Tests are items and groups inside it, so a new signal for
+the same characteristic (a name, a pronoun, an inserted clause, a task) joins the board instead of
+adding another. The internal spec ids in `leaderboard.py` (`gender-pronouns`, `age-inserted`,
+`orientation`, ...) are not public; `compose_dimensions` renames or merges them, and the old
+addresses redirect. Gender is one board: the pronoun swap on the seven bios tasks and the woman
+version of the opioid vignette. Sexuality is so named because it will also carry gender identity.

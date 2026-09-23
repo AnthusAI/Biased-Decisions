@@ -165,7 +165,7 @@ test("every evidence entry quoted on a page shows the record's number", () => {
 
 test("the shortlist is on its task pages, every row deep-linkable", () => {
   for (const block of C.shortlist.pairs) {
-    const path = `/gender-pronouns/${block.task}/`;
+    const path = `/gender/${block.task}/`;
     const html = pages.get(path);
     const sec = byId(html, "shortlist");
     assert.ok(sec, `${path}: no #shortlist`);

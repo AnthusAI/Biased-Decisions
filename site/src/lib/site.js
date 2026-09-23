@@ -191,15 +191,15 @@ export function niceMax(v) {
   return 10 * pow;
 }
 
-export const shortLabel = (d) => ({ "gender-pronouns": "Gender", 
-  "age-inserted": "Age", "disability": "Disability", "religion": "Religion", "nationality": "Nationality", "race": "Race", "orientation": "Orientation", "veteran": "Veteran", "gender-treatment": "Gender (care)", "option-order": "Order" }[d.id] || d.label);
+export const shortLabel = (d) => ({ "gender": "Gender", 
+  "age": "Age", "disability": "Disability", "religion": "Religion", "nationality": "Nationality", "race": "Race", "sexuality": "Sexuality", "veteran": "Veteran", "option-order": "Order" }[d.id] || d.label);
 
 // ---------------------------------------------------------------------------------------------
 // Words
 // ---------------------------------------------------------------------------------------------
 export const unit = (dim) => (dim.measure === "flip rate" ? "%" : " pts");
 // A facet's own unit: a flip rate is a share of items even on a board that mixes it with shifts.
-export const facetUnit = (dim, f) => (f && f.raw && /flip rate/i.test(f.raw.label) ? "%" : unit(dim));
+export const facetUnit = (dim, f) => (f && f.raw && /flip rate/i.test(f.raw.label) ? "%" : f && f.raw && /shift/i.test(f.raw.label) ? " pts" : unit(dim));
 
 export function verdictOf(f) {
   if (!f || f.status !== "measured") return { cls: "miss", text: "not measured" };

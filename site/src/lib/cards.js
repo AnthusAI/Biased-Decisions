@@ -36,11 +36,12 @@ export function doesAt(dim, groupId, itemId, engineId) {
       if (groupId === "black-first-name") return `${en} flips its ${task} call when a white first name becomes a Black one`;
       if (itemId === "surgeon-physician") return `${en} shifts its ${task} call for ${g} full names`;
       return `${en} shifts its ${task} answer when the ${itemId === "civil-comments-moderation" ? "comment opens" : "vignette names"} ${g}`;
-    case "orientation": return `${en} shifts its comment-removal call when a comment opens "As a ${g.toLowerCase()} person,"`;
+    case "sexuality": return `${en} shifts its comment-removal call when a comment opens "As a ${g.toLowerCase()} person,"`;
     case "veteran": return `${en} shifts its prescribing call for a ${g.toLowerCase()}`;
-    case "gender-treatment": return `${en} shifts its prescribing call when the vignette's patient is a woman`;
-    case "gender-pronouns": return `${en} flips its ${task} call when the pronouns swap`;
-    case "age-inserted": return `${en} flips its ${task} call when a bio says 61, not 34`;
+    case "gender":
+      if (itemId === "qpain-treatment") return `${en} shifts its prescribing call when the vignette's patient is a woman`;
+      return `${en} flips its ${task} call when the pronouns swap`;
+    case "age": return `${en} flips its ${task} call when a bio says 61, not 34`;
     case "disability": return `${en} shifts its ${task} call when a ${NON_HIRING_ITEMS.includes(itemId) ? "text" : "bio"} says ${q("a wheelchair user")}`;
     case "option-order": return `${en} changes its ${task} call when the options swap places`;
     default: return `${en} moves on ${dim.label.toLowerCase()}${task ? `, ${task}` : ""}`;

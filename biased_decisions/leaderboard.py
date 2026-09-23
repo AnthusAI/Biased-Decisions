@@ -1104,6 +1104,10 @@ MERGES = [{"id": "religion", "label": "Religion",
            "long": "Religion, by devout clause and by trope question",
            "parts": ("religion-v2", "stereotype-religion"),
            "measure": "probability shift and trope score", "item_kind": "test"},
+          {"id": "gender", "label": "Gender",
+           "long": "Gender, by pronoun swap and on the opioid task",
+           "parts": ("gender-pronouns", "gender-treatment"),
+           "measure": "flip rate", "item_kind": "task"},
           {"id": "race", "label": "Race",
            "long": "Race, by full name and on the opioid and comment tasks",
            "parts": ("race-fullname", "race-regulated", "race-name"),
@@ -1112,7 +1116,9 @@ RETIRED = ("religion",)   # Religion v1 stays in the record and the methods page
 # A board with no groups that joins a grouped board becomes one group of it.
 RESHAPE = {"race-name": ("black-first-name", "Black first name",
                          "a Black first name in place of a white one")}
-RENAMES = {"stereotype-nationality": ("nationality", "Nationality",
+RENAMES = {"age-inserted": ("age", "Age", "Age, by stated age"),
+           "orientation": ("sexuality", "Sexuality", "Sexuality, by inserted clause"),
+           "stereotype-nationality": ("nationality", "Nationality",
                                       "Nationality, by trope question")}
 
 
@@ -1125,18 +1131,19 @@ def _merge_breakdown(parts: List[dict], spec: dict) -> dict:
                 groups.append(g)
         items += [{**i, "kind": bd["item_kind"]} for i in bd["items"]
                   if i["id"] not in [x["id"] for x in items]]
-    gids, iids = [g["id"] for g in groups], [i["id"] for i in items]
+    gids, iids = [g["id"] for g in groups] or [None], [i["id"] for i in items]
     glabel = {g["id"]: g["label"] for g in groups}
     ilabel = {i["id"]: i["label"] for i in items}
+    multi_g, multi_i = len(groups) > 1, len(items) > 1
     have = {(c["group"], c["item"]): c for bd in bds for c in bd["cells"]}
     cells = []
     for g in gids:
         for i in iids:
             c = have.get((g, i))
             if c is None:
-                label = f"{glabel[g]} · {ilabel[i]}"
+                label = f"{glabel[g]} \u00b7 {ilabel[i]}" if g is not None else ilabel[i]
                 c = {"group": g, "item": i, "prereg": False, "example": None, "engines": {
-                    e: _relabel(_missing(i, ilabel[i], "not measured for this religion and test"),
+                    e: _relabel(_missing(i, ilabel[i], "not measured for this group and test"),
                                 i, label) for e in ENGINE_IDS}}
             cells.append(c)
     cellmap = {(c["group"], c["item"]): c for c in cells}
@@ -1147,15 +1154,21 @@ def _merge_breakdown(parts: List[dict], spec: dict) -> dict:
         return {"kind": kind, "group": g, "item": i, "ranks": ranks, "board": board,
                 "heads": heads}
 
-    levels = [level("group", g, None, {e: [_relabel(cellmap[(g, i)]["engines"][e], i, ilabel[i])
-                                           for i in iids] for e in ENGINE_IDS}) for g in gids]
-    levels += [level("item", None, i, {e: [_relabel(cellmap[(g, i)]["engines"][e], g, glabel[g])
-                                           for g in gids] for e in ENGINE_IDS}) for i in iids]
-    levels += [level("cell", g, i, {e: [_relabel(cellmap[(g, i)]["engines"][e], i,
-                                                 f"{glabel[g]} · {ilabel[i]}")]
-                                    for e in ENGINE_IDS})
-               for g in gids for i in iids
-               if any(cellmap[(g, i)]["engines"][e]["status"] == "measured" for e in ENGINE_IDS)]
+    levels = []
+    if multi_g:
+        levels += [level("group", g, None, {e: [_relabel(cellmap[(g, i)]["engines"][e], i, ilabel[i])
+                                                for i in iids] for e in ENGINE_IDS}) for g in gids]
+    if multi_i:
+        levels += [level("item", None, i, {e: [_relabel(cellmap[(g, i)]["engines"][e],
+                                                        g if g is not None else i,
+                                                        glabel[g] if g is not None else ilabel[i])
+                                               for g in gids] for e in ENGINE_IDS}) for i in iids]
+    if multi_g and multi_i:
+        levels += [level("cell", g, i, {e: [_relabel(cellmap[(g, i)]["engines"][e], i,
+                                                     f"{glabel[g]} \u00b7 {ilabel[i]}")]
+                                        for e in ENGINE_IDS})
+                   for g in gids for i in iids
+                   if any(cellmap[(g, i)]["engines"][e]["status"] == "measured" for e in ENGINE_IDS)]
     return {"group_kind": bds[0]["group_kind"], "item_kind": spec["item_kind"], "groups": groups,
             "items": items, "cells": cells, "levels": levels,
             "pending": [p for bd in bds for p in bd["pending"]],

@@ -150,7 +150,7 @@ const floorClause = group && isTrope ? (under.map((c) => Object.values(c.engines
     <section class="wrap section"><Example example={cell.example} note={bd.example_note} /></section>
   )}
 
-  {dim.id === "gender-pronouns" && item && <Shortlist task={item.id} positive={item.positive} />}
+  {dim.id === "gender" && item && <Shortlist task={item.id} positive={item.positive} />}
 
   <section class="wrap section">
     <nav class="chips" aria-label={`Other ${plural(siblingKind)}`}>

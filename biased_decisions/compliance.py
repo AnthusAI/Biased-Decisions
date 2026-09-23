@@ -217,7 +217,7 @@ PRACTICES: List[dict] = [
 _HIRING_SEX_RACE = ["title-vii", "four-fifths", "nyc-ll144", "eu-ai-act-4a"]
 
 MAPPING: List[dict] = [
-    {"dimension": "gender-pronouns", "regulated": True, "practice": "hiring", "attribute": "sex",
+    {"dimension": "gender", "regulated": True, "practice": "hiring", "attribute": "sex",
      "decision": "Which of two roles a bio describes: the senior role (attorney, physician, "
                  "professor, architect) or the junior one",
      "citations": _HIRING_SEX_RACE,
@@ -240,7 +240,7 @@ MAPPING: List[dict] = [
                  "not-detected-means-clean"],
      "insights": ["measure-before-deploying", "read-against-a-floor", "check-the-outcome",
                   "not-detected-is-not-clean"]},
-    {"dimension": "age-inserted", "regulated": True, "practice": "hiring", "attribute": "age",
+    {"dimension": "age", "regulated": True, "practice": "hiring", "attribute": "age",
      "decision": "Surgeon or physician, when a bio states an age in the protected range instead of "
                  "a younger one",
      "citations": ["adea", "eu-ai-act-4a"],
@@ -279,17 +279,12 @@ MAPPING: List[dict] = [
                    "assigns to it.",
      "recipes": ["ask-about-character", "test-one-characteristic"],
      "insights": ["no-character-questions", "measure-before-deploying"]},
-    {"dimension": "orientation", "regulated": False,
+    {"dimension": "sexuality", "regulated": False,
      "reason": "This board measures a comment-removal decision. The rules that govern it are not yet "
                "mapped in this project's compliance block, so it carries no regulated-decision "
                "warning: a gap in the mapping, not a finding that no rule applies.",
      "recipes": ["test-one-characteristic"], "insights": ["measure-before-deploying"]},
     {"dimension": "veteran", "regulated": False,
-     "reason": "This board measures an opioid-prescribing decision. The rules that govern it are not "
-               "yet mapped in this project's compliance block, so it carries no regulated-decision "
-               "warning: a gap in the mapping, not a finding that no rule applies.",
-     "recipes": ["test-one-characteristic"], "insights": ["measure-before-deploying"]},
-    {"dimension": "gender-treatment", "regulated": False,
      "reason": "This board measures an opioid-prescribing decision. The rules that govern it are not "
                "yet mapped in this project's compliance block, so it carries no regulated-decision "
                "warning: a gap in the mapping, not a finding that no rule applies.",
@@ -307,20 +302,20 @@ MAPPING: List[dict] = [
 
 # (id, dimension, group, item, engine)
 _CELL_EVIDENCE = [
-    ("gender-laya-paralegal", "gender-pronouns", None, "paralegal-attorney", "laya"),
-    ("gender-jev-paralegal", "gender-pronouns", None, "paralegal-attorney", "jev"),
-    ("gender-laya-nurse", "gender-pronouns", None, "nurse-physician", "laya"),
-    ("gender-jev-nurse", "gender-pronouns", None, "nurse-physician", "jev"),
-    ("gender-laya-surgeon", "gender-pronouns", None, "surgeon-physician", "laya"),
-    ("gender-jev-surgeon", "gender-pronouns", None, "surgeon-physician", "jev"),
-    ("gender-jev-journalist", "gender-pronouns", None, "journalist-professor", "jev"),
-    ("gender-mlx-paralegal", "gender-pronouns", None, "paralegal-attorney", "laya-mlx"),
+    ("gender-laya-paralegal", "gender", None, "paralegal-attorney", "laya"),
+    ("gender-jev-paralegal", "gender", None, "paralegal-attorney", "jev"),
+    ("gender-laya-nurse", "gender", None, "nurse-physician", "laya"),
+    ("gender-jev-nurse", "gender", None, "nurse-physician", "jev"),
+    ("gender-laya-surgeon", "gender", None, "surgeon-physician", "laya"),
+    ("gender-jev-surgeon", "gender", None, "surgeon-physician", "jev"),
+    ("gender-jev-journalist", "gender", None, "journalist-professor", "jev"),
+    ("gender-mlx-paralegal", "gender", None, "paralegal-attorney", "laya-mlx"),
     ("race-name-mlx", "race", "black-first-name", "surgeon-physician", "laya-mlx"),
     ("race-name-jev", "race", "black-first-name", "surgeon-physician", "jev"),
     ("race-fullname-jev-black", "race", "black", "surgeon-physician", "jev"),
     ("race-fullname-mlx-hispanic", "race", "hispanic", "surgeon-physician", "laya-mlx"),
-    ("age-jev", "age-inserted", None, "surgeon-physician", "jev"),
-    ("age-mlx", "age-inserted", None, "surgeon-physician", "laya-mlx"),
+    ("age-jev", "age", None, "surgeon-physician", "jev"),
+    ("age-mlx", "age", None, "surgeon-physician", "laya-mlx"),
     ("disability-laya-architect", "disability", None, "architect-interior-designer", "laya"),
     ("disability-jev-surgeon", "disability", None, "surgeon-physician", "jev"),
     ("religion-laya-jewish-journalist", "religion", "jewish", "journalist-professor", "laya"),

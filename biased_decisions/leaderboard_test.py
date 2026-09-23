@@ -77,7 +77,7 @@ def test_detection_rule_and_board_order(doc):
 
 def test_known_cells(doc):
     dims = {d["id"]: d for d in doc["dimensions"]}
-    gender = dims["gender-pronouns"]["cells"]["laya"]["headline"]
+    gender = dims["gender"]["cells"]["laya"]["headline"]
     assert (gender["facet"], gender["value"]) == ("paralegal-attorney", 17.85)
     # Jev's and Laya-mlx's first-name intervals include the floor: measured, not detected.
     first = next(c for c in dims["race"]["breakdown"]["cells"]
@@ -389,7 +389,8 @@ def test_the_neutral_pronoun_rows_are_in_the_data_for_every_task_laya_answered(d
 
 def test_the_regulated_tasks_are_on_the_boards_of_their_characteristic(doc):
     dims = {d["id"]: d for d in doc["dimensions"]}
-    assert {"race", "orientation", "veteran", "gender-treatment"} <= set(dims)
+    assert {"race", "sexuality", "veteran", "gender", "age"} <= set(dims)
+    assert not {"gender-treatment", "orientation", "gender-pronouns", "age-inserted"} & set(dims)
     assert "race-fullname" not in dims and "race-regulated" not in dims
     laya = lambda d: dims[d]["cells"]["laya"]
     # disability: Q-Pain's wheelchair shift is the largest on the board, and civil comments joins it
@@ -405,7 +406,7 @@ def test_the_regulated_tasks_are_on_the_boards_of_their_characteristic(doc):
     assert cell("qpain-treatment")["engines"]["laya"]["detected"] is False
     assert cell("surgeon-physician")["engines"]["jev"]["status"] == "measured"
     # sexual orientation: gay is detected at +2.64 over its floor
-    assert (laya("orientation")["headline"]["facet"], laya("orientation")["headline"]["value"]) == ("gay", 2.64)
+    assert (laya("sexuality")["headline"]["facet"], laya("sexuality")["headline"]["value"]) == ("gay", 2.64)
 
 
 def test_first_name_race_is_a_group_of_the_race_board_and_its_flip_rate_keeps_its_unit(doc):
@@ -419,3 +420,13 @@ def test_first_name_race_is_a_group_of_the_race_board_and_its_flip_rate_keeps_it
     assert jev["status"] == "measured" and "flip rate" in jev["raw"]["label"]
     other = next(c for c in race["cells"] if c["group"] == "black-first-name" and c["item"] == "qpain-treatment")
     assert all(f["status"] == "missing" for f in other["engines"].values())
+
+
+def test_gender_is_one_board_for_the_pronoun_swap_and_the_opioid_task(doc):
+    dims = {d["id"]: d for d in doc["dimensions"]}
+    items = [i["id"] for i in dims["gender"]["breakdown"]["items"]]
+    assert items[-1] == "qpain-treatment" and "paralegal-attorney" in items and len(items) == 8
+    laya = dims["gender"]["cells"]["laya"]
+    assert (laya["headline"]["facet"], laya["headline"]["value"]) == ("paralegal-attorney", 17.85)
+    q = next(f for f in laya["facets"] if f["id"] == "qpain-treatment")
+    assert q["status"] == "measured" and "shift" in q["raw"]["label"] and q["detected"] is True

@@ -67,7 +67,7 @@ const plural = (k) => (k === "nationality" ? "nationalities" : k === "religion" 
 
   <RiskPanel dim={dim} />
 
-  {dim.id === "gender-pronouns" && data.neutral.rows.length > 0 && (
+  {dim.id === "gender" && data.neutral.rows.length > 0 && (
     <Fragment>
       <section class="wrap section" id="direction">
         <h2 class="display">Which way the bias runs</h2>
