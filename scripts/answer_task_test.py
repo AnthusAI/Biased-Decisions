@@ -146,3 +146,56 @@ def test_it_resumes_from_a_partial_file():
 
         # Check that the partial file is gone.
         assert not partial_path.exists(), "Partial file should be deleted after completion"
+
+
+def test_skip_as_written_flag_skips_first_set():
+    """Run the answer script with --skip-as-written flag, only cue set is written."""
+    with tempfile.TemporaryDirectory() as tmpdir:
+        root = Path(tmpdir)
+
+        # Create the task structure.
+        task_dir = root / "tasks" / "t"
+        task_dir.mkdir(parents=True, exist_ok=True)
+
+        # Write question.yaml.
+        question_file = task_dir / "question.yaml"
+        question_file.write_text("question: Q?\noptions:\n  - yes\n  - no\npositive: yes\ngroup_attribute: x\n")
+
+        # Write items.jsonl with 2 test items.
+        items_file = task_dir / "items.jsonl"
+        items_file.write_text(
+            json.dumps({"id": "item1", "text": "text1", "metadata": {"split": "test"}}) + "\n"
+            + json.dumps({"id": "item2", "text": "text2", "metadata": {"split": "test"}}) + "\n"
+        )
+
+        # Write versions/c.jsonl with 3 items.
+        versions_dir = task_dir / "versions"
+        versions_dir.mkdir(parents=True, exist_ok=True)
+        versions_file = versions_dir / "c.jsonl"
+        versions_file.write_text(
+            json.dumps({"id": "v1", "text": "vtext1", "metadata": {}}) + "\n"
+            + json.dumps({"id": "v2", "text": "vtext2", "metadata": {}}) + "\n"
+            + json.dumps({"id": "v3", "text": "vtext3", "metadata": {}}) + "\n"
+        )
+
+        # Create a temporary output directory.
+        out_dir = root / "output"
+        out_dir.mkdir(parents=True, exist_ok=True)
+
+        # Run the script with a fake engine and skip_as_written=True.
+        fake_engine = FakeEngine()
+        asyncio.run(run(root, "t", "c", engine=fake_engine, out_dir=out_dir, skip_as_written=True))
+
+        # Check that the as-written file does NOT exist.
+        answers_dir = out_dir / "answers" / "laya" / "t"
+        as_written_path = answers_dir / "as-written.jsonl.gz"
+        assert not as_written_path.exists(), "as-written file should not exist when skip_as_written=True"
+
+        # Check that the cue file exists.
+        cue_path = answers_dir / "c.jsonl.gz"
+        assert cue_path.exists()
+        cue_rows = read_record(cue_path)
+        assert len(cue_rows) == 3, f"Expected 3 cue rows, got {len(cue_rows)}"
+
+        # Check that the fake engine was called only 3 times (only for cue, not as-written).
+        assert fake_engine.call_count == 3, f"Expected 3 calls, got {fake_engine.call_count}"

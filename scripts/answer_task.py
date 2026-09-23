@@ -21,6 +21,7 @@ async def run(
     engine: Optional[Any] = None,
     out_dir: Optional[Path] = None,
     model_name: str = "laya-upstream:0.3.7",
+    skip_as_written: bool = False,
 ) -> None:
     """Run the answer script on a task and cue.
 
@@ -31,6 +32,7 @@ async def run(
         engine: The engine to use (defaults to LayaEngine).
         out_dir: The output directory (defaults to root).
         model_name: The model name string for the record.
+        skip_as_written: If True, skip answering the as-written set.
     """
     root = Path(root)
     out_dir = Path(out_dir) if out_dir else root
@@ -46,13 +48,15 @@ async def run(
     if engine is None:
         engine = LayaEngine()
 
-    # Answer two sets: as-written and the cue.
-    await _answer_set(
-        root, out_dir, task_slug, "as-written",
-        task.load_items(), questions, engine, model_name,
-        split_filter="test"
-    )
+    # Answer the as-written set unless skipped.
+    if not skip_as_written:
+        await _answer_set(
+            root, out_dir, task_slug, "as-written",
+            task.load_items(), questions, engine, model_name,
+            split_filter="test"
+        )
 
+    # Answer the cue set.
     await _answer_set(
         root, out_dir, task_slug, cue,
         task.load_versions(cue), questions, engine, model_name
@@ -165,9 +169,10 @@ async def main():
     parser.add_argument("task", help="Task slug (e.g., qpain-treatment)")
     parser.add_argument("cue", help="Cue name (e.g., race)")
     parser.add_argument("--root", type=Path, default=DEFAULT_ROOT, help="Project root")
+    parser.add_argument("--skip-as-written", action="store_true", help="Skip answering the as-written set")
     args = parser.parse_args()
 
-    await run(args.root, args.task, args.cue)
+    await run(args.root, args.task, args.cue, skip_as_written=args.skip_as_written)
 
 
 if __name__ == "__main__":
