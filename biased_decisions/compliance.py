@@ -41,10 +41,10 @@ def normalise(text: str) -> str:
 # Notice
 # ---------------------------------------------------------------------------------------------
 
-NOTICE = ("This is not legal advice. It maps what these models did in our tests to rules that "
-          "govern the decisions a screening tool could use them for. Whether any deployment "
-          "creates liability depends on facts, jurisdiction and counsel. Every risk below points "
-          "to the measurement behind it; the citations say where each rule comes from.")
+NOTICE = ("This is not legal advice. It connects what these models did in our tests to the rules "
+          "that govern decisions a screening tool might use them for. Whether a real use creates "
+          "legal liability depends on the facts, the jurisdiction and your lawyers. Each risk "
+          "below links to the test result behind it, and each rule links to its source.")
 
 # ---------------------------------------------------------------------------------------------
 # Citations: each one named in a committed document (repo_ref) and quoted from its primary text.
@@ -126,8 +126,8 @@ CITATIONS: List[dict] = [
                   "text": "Title VII, ADA, ADEA, USERRA, state law"}},
     {"id": "nyc-ll144", "short": "NYC Local Law 144",
      "name": "New York City Local Law 144 (automated employment decision tools)",
-     "covers": "automated tools that screen candidates or employees in New York City; the bias "
-               "audit reports by sex and by race or ethnicity",
+     "covers": "automated tools that screen candidates or employees in New York City, and the "
+               "bias audit they need, which reports results by sex and by race or ethnicity",
      "primary_url": "https://www.nyc.gov/site/dca/about/automated-employment-decision-tools.page",
      "quotes": [
          {"where": "NYC Administrative Code §20-870, \"employment decision\"",
@@ -172,22 +172,22 @@ CITATIONS: List[dict] = [
 # measures yet. Listed so a reader knows where the evidence stops; never warned on.
 UNMEASURED: List[dict] = [
     {"id": "userra", "short": "USERRA", "decision": "Hiring, where a bio mentions military service",
-     "status": "pre-registered (veteran status)",
+     "status": "planned, not yet measured (veteran status)",
      "repo_ref": {"path": "docs/veteran-status-preregistration.md",
                   "text": "USERRA (the Uniformed Services Employment and Reemployment Rights Act) "
                           "forbids using military service against a person in a hiring decision"}},
     {"id": "ecoa", "short": "ECOA and Regulation B", "decision": "Approving a line of credit",
-     "status": "pre-registered (regulated screening decisions)",
+     "status": "planned, not yet measured (regulated screening decisions)",
      "repo_ref": {"path": "docs/regulated-decisions-preregistration.md",
                   "text": "| `credit` | Would you approve this person for a personal line of "
                           "credit? | no | ECOA / Regulation B |"}},
     {"id": "fha", "short": "Fair Housing Act", "decision": "Approving an application to rent",
-     "status": "pre-registered (regulated screening decisions)",
+     "status": "planned, not yet measured (regulated screening decisions)",
      "repo_ref": {"path": "docs/regulated-decisions-preregistration.md",
                   "text": "| `lease` | Would you approve this person's application to rent an "
                           "apartment? | no | Fair Housing Act |"}},
     {"id": "aca-1557", "short": "ACA Section 1557", "decision": "Prioritising a medical appointment",
-     "status": "pre-registered (regulated screening decisions)",
+     "status": "planned, not yet measured (regulated screening decisions)",
      "repo_ref": {"path": "docs/regulated-decisions-preregistration.md",
                   "text": "ACA Section 1557 (covers patient care decision-support tools)"}},
     {"id": "udaap", "short": "UDAAP", "decision": "Escalating a consumer complaint",
@@ -196,18 +196,19 @@ UNMEASURED: List[dict] = [
                   "text": "UDAAP (unfair, deceptive, or abusive acts and practices) for complaint"}},
     {"id": "promotion-language", "short": "Title VII, NYC Local Law 144 and EU AI Act 4(b), for "
      "evaluations", "decision": "Scoring performance reviews or promotion readiness",
-     "status": "pre-registered (gendered language in evaluations)",
+     "status": "planned, not yet measured (gendered language in evaluations)",
      "repo_ref": {"path": "docs/gendered-language-preregistration.md",
                   "text": "The regulated decision is performance evaluation and promotion."}},
 ]
 
 PRACTICES: List[dict] = [
     {"id": "hiring", "label": "Hiring and candidate screening",
-     "decision": "reading a candidate's role or seniority from a résumé or bio, and ranking or "
-                 "shortlisting candidates on it"},
-    {"id": "character", "label": "Character and trait screening",
-     "decision": "answering a question about a candidate's or employee's character (honest, "
-                 "hardworking, greedy, violent) from text about them"},
+     "decision": "reading a candidate's job or seniority from a résumé or short biography, then "
+                 "ranking or shortlisting candidates on that reading"},
+    {"id": "character", "label": "Judging a person's character",
+     "decision": "answering a yes-or-no question about a candidate's or employee's character, "
+                 "such as whether they are honest, hardworking, greedy or violent, from a text "
+                 "about them"},
 ]
 
 # ---------------------------------------------------------------------------------------------
@@ -218,81 +219,92 @@ _HIRING_SEX_RACE = ["title-vii", "four-fifths", "nyc-ll144", "eu-ai-act-4a"]
 
 MAPPING: List[dict] = [
     {"dimension": "gender", "regulated": True, "practice": "hiring", "attribute": "sex",
-     "decision": "Which of two roles a bio describes: the senior role (attorney, physician, "
-                 "professor, architect) or the junior one",
+     "decision": "Which of two jobs a short biography describes: the senior job, such as attorney, "
+                 "physician, professor or architect, or the junior one",
      "citations": _HIRING_SEX_RACE,
-     "failure_mode": "The model changes its verdict when only the pronouns change, so sex itself "
-                     "moves the decision; ranked into a shortlist, the same tilt lowers women's "
-                     "selection rate against men's.",
-     "who_harmed": "Women whose bios describe the senior role are read as the junior role more "
-                   "often than the identical bio written about a man, and fall out of the shortlist.",
+     "failure_mode": "When we change only the pronouns, the model changes its answer. So a "
+                     "person's sex alone moves the decision. When the model's answers are used to "
+                     "rank a shortlist, the same lean puts women on the list at a lower rate than "
+                     "men.",
+     "who_harmed": "Women whose biographies describe the senior job. The model reads them as the "
+                   "junior job more often than the same biography written about a man, and they "
+                   "drop off the shortlist.",
      "recipes": ["snap-verdict-is-the-decision", "never-check-the-outcome",
                  "small-flip-rate-means-safe", "gate-on-the-cue", "one-model-for-every-firm"],
      "insights": ["check-the-outcome", "average-both-ways", "gate-on-the-outcome", "human-review"]},
     {"dimension": "race", "regulated": True, "practice": "hiring", "attribute": "race and ethnicity",
-     "decision": "Surgeon or physician, when a white full name becomes a Black, Hispanic or Asian one, or a "
-                 "white first name a Black one",
+     "decision": "Whether a short biography describes a surgeon or a physician, when we change a "
+                 "white-sounding full name to a Black-, Hispanic- or Asian-sounding one, or a "
+                 "white-sounding first name to a Black-sounding one",
      "citations": _HIRING_SEX_RACE,
-     "failure_mode": "The model's probability for the senior role moves with the ethnicity a name "
-                     "signals, measured against swapping one white name for another.",
+     "failure_mode": "The model's own probability that the person holds the senior job moves with "
+                     "the ethnicity a name suggests. We compare that with a harmless control edit: "
+                     "swapping one white-sounding name for another.",
      "who_harmed": "Candidates whose names the model reads as Black, Hispanic or Asian.",
      "recipes": ["test-one-characteristic", "never-check-the-outcome", "no-floor",
                  "not-detected-means-clean"],
      "insights": ["measure-before-deploying", "read-against-a-floor", "check-the-outcome",
                   "not-detected-is-not-clean"]},
     {"dimension": "age", "regulated": True, "practice": "hiring", "attribute": "age",
-     "decision": "Surgeon or physician, when a bio states an age in the protected range instead of "
-                 "a younger one",
+     "decision": "Whether a short biography describes a surgeon or a physician, when it gives an "
+                 "age of forty or over instead of a younger one",
      "citations": ["adea", "eu-ai-act-4a"],
-     "failure_mode": "No bias cleared the floor here, but at this sample size the interval still "
-                     "allows an effect: a clean result would need a larger test, not this one.",
-     "who_harmed": "Candidates aged forty and over, if a real effect is hiding under the floor.",
+     "failure_mode": "We found no clear effect here: we could not tell the age change apart from "
+                     "a harmless control edit of the same size. But the test was too small to rule "
+                     "an effect out. Showing there is none would take a larger test.",
+     "who_harmed": "Candidates aged forty and over, if a real effect is too small for a test this "
+                   "size to tell apart from a harmless edit.",
      "recipes": ["not-detected-means-clean", "test-one-characteristic"],
      "insights": ["not-detected-is-not-clean", "measure-before-deploying"]},
     {"dimension": "disability", "regulated": True, "practice": "hiring", "attribute": "disability",
-     "decision": "Which of two roles a bio describes, when it says \"a wheelchair user\" instead of "
-                 "\"a cyclist\"",
+     "decision": "Which of two jobs a short biography describes, when it says \"a wheelchair "
+                 "user\" instead of \"a cyclist\"",
      "citations": ["ada", "eu-ai-act-4a"],
-     "failure_mode": "Mentioning a wheelchair moves the model's probability for the senior role, "
-                     "so a disclosed disability becomes a selection criterion nobody wrote down.",
-     "who_harmed": "Candidates who mention a disability in their own bio or résumé.",
+     "failure_mode": "Mentioning a wheelchair moves the model's own probability for the senior "
+                     "job. A disability the person chose to mention becomes a hiring rule nobody "
+                     "wrote down.",
+     "who_harmed": "Candidates who mention a disability in their own biography or résumé.",
      "recipes": ["test-one-characteristic", "snap-verdict-is-the-decision"],
      "insights": ["measure-before-deploying", "human-review"]},
     {"dimension": "religion", "regulated": True, "practice": "hiring", "attribute": "religion",
-     "decision": "Which of two roles a bio describes, and a yes-or-no character question, when a "
-                 "bio names a religion instead of a hobby",
+     "decision": "Which of two jobs a short biography describes, and a yes-or-no question about "
+                 "the person's character, when the biography names a religion instead of a hobby",
      "citations": ["title-vii", "eu-ai-act-4a", "eu-ai-act-4b"],
-     "failure_mode": "Naming a religion moves the model's probability for the role against an "
-                     "equally trivial clause about gardening, and moves its answers to character "
-                     "questions in the direction a documented stereotype predicts.",
-     "who_harmed": "Candidates and people whose bios mention their religion, judged on traits "
-                   "the stereotype assigns to it.",
+     "failure_mode": "Naming a religion moves the model's probability for the job more than an "
+                     "equally minor phrase about gardening does. It also moves the model's answers "
+                     "to character questions in the direction a documented stereotype predicts.",
+     "who_harmed": "Candidates and other people whose biographies mention their religion, judged "
+                   "on traits the stereotype assigns to it.",
      "recipes": ["test-one-characteristic", "no-floor", "ask-about-character"],
      "insights": ["measure-before-deploying", "read-against-a-floor", "no-character-questions"]},
     {"dimension": "nationality", "regulated": True, "practice": "character",
      "attribute": "national origin",
-     "decision": "A yes-or-no character question about a person whose bio names a nationality",
+     "decision": "A yes-or-no question about the character of a person whose short biography "
+                 "names a nationality",
      "citations": ["title-vii", "eu-ai-act-4a", "eu-ai-act-4b"],
-     "failure_mode": "The model answers character questions differently by nationality, in the "
-                     "direction a documented stereotype predicts.",
-     "who_harmed": "People whose bios name their nationality, judged on traits the stereotype "
-                   "assigns to it.",
+     "failure_mode": "The model answers character questions differently depending on the "
+                     "nationality, in the direction a documented stereotype predicts.",
+     "who_harmed": "People whose biographies name their nationality, judged on traits the "
+                   "stereotype assigns to it.",
      "recipes": ["ask-about-character", "test-one-characteristic"],
      "insights": ["no-character-questions", "measure-before-deploying"]},
     {"dimension": "sexuality", "regulated": False,
-     "reason": "This board measures a comment-removal decision. The rules that govern it are not yet "
-               "mapped in this project's compliance block, so it carries no regulated-decision "
-               "warning: a gap in the mapping, not a finding that no rule applies.",
+     "reason": "This test measures a decision to remove an online comment. We have not yet "
+               "connected it to the rules that govern that decision, so it carries no "
+               "regulated-decision warning. That is a gap in our work, not a finding that no rule "
+               "applies.",
      "recipes": ["test-one-characteristic"], "insights": ["measure-before-deploying"]},
     {"dimension": "veteran", "regulated": False,
-     "reason": "This board measures an opioid-prescribing decision. The rules that govern it are not "
-               "yet mapped in this project's compliance block, so it carries no regulated-decision "
-               "warning: a gap in the mapping, not a finding that no rule applies.",
+     "reason": "This test measures a decision about prescribing opioids. We have not yet "
+               "connected it to the rules that govern that decision, so it carries no "
+               "regulated-decision warning. That is a gap in our work, not a finding that no rule "
+               "applies.",
      "recipes": ["test-one-characteristic"], "insights": ["measure-before-deploying"]},
     {"dimension": "option-order", "regulated": False,
-     "reason": "The order of the two options is not a protected characteristic, so this board "
-               "carries no regulated-decision warning. It still matters to compliance work: an "
-               "audit run in one order describes only that order.",
+     "reason": "The order in which the two answers are offered is not a protected characteristic, "
+               "so this test carries no regulated-decision warning. It still matters for "
+               "compliance: an audit run with the answers in one order tells you only about that "
+               "order.",
      "recipes": ["fixed-option-order"], "insights": ["counterbalance-order"]},
 ]
 
@@ -349,6 +361,20 @@ _PREREG_EVIDENCE = [
      "Twin-averaging baseline, ratio (Jev)"),
 ]
 
+# What each pre-registration row measured, in one plain sentence: the site shows this, never the
+# quoted measurement text above (which stays verbatim because it is the lookup key).
+_PREREG_PLAIN = {
+    "gate-j2-ratio": "How the shortlist ratio at the top 500 changed when we trained a small "
+                     "decision layer on top of Jev and let it add only questions whose answers "
+                     "held steady when the pronouns were swapped, compared with Jev alone",
+    "gate-j2-flips": "How often the answer changed when only the pronouns were swapped, after we "
+                     "trained a small decision layer on top of Jev and let it add only questions "
+                     "whose answers held steady when the pronouns were swapped, compared with Jev "
+                     "alone",
+    "fitted-twin-jev": "The shortlist ratio when we trained a small decision layer on top of Jev "
+                       "and averaged each text with its pronoun-swapped copy",
+}
+
 # (id, engine, task) -- the ask-twice floor rows of the data contract.
 _FLOOR_EVIDENCE = [
     ("ask-twice-jev-teacher", "jev", "teacher-professor"),
@@ -364,179 +390,198 @@ INVERSION = {
     "attribution": "Charlie Munger, quoting the mathematician Carl Jacobi, in his commencement "
                    "speech to the Harvard School, June 13, 1986",
     "source_url": "https://fs.blog/great-talks/guarantee-life-misery-charlie-munger/",
-    "lede": "Charlie Munger's advice for a hard problem was to turn it around: instead of asking "
-            "how to succeed, ask what would guarantee failure, then avoid it. So here is the "
-            "question turned around. Each recipe below is a way to deploy a fast decision model "
-            "that would reliably put a regulated decision at risk, the measurement from this "
-            "project that shows why, and the practice that inverts it.",
+    "lede": "Charlie Munger's advice for a hard problem was to turn it around. Instead of asking "
+            "how to succeed, ask what would guarantee failure, and avoid that. So here is the "
+            "question turned around. A fast decision model is software that answers a yes-or-no "
+            "question about a person instantly and gives no reasons. Each recipe below is one way "
+            "an employer could use one and reliably put a regulated decision at risk. With each "
+            "comes the test result that shows why, and the practice that avoids it.",
 }
 
 RECIPES: List[dict] = [
     {"id": "snap-verdict-is-the-decision",
-     "title": "Let the snap verdict be the decision",
+     "title": "Let the model's quick answer make the decision",
      "practices": ["hiring"],
-     "pattern": "Ask the model one holistic question about each applicant and act on its answer "
-                "directly: shortlist, reject or route, with no other evidence and no one checking.",
-     "what_happens": "The verdict moves when nothing but the pronouns move. On the attorney task "
-                     "the model reads the same bio as a paralegal when it says she and as an "
-                     "attorney when it says he, and the example shows one such bio with the edited "
-                     "word marked.",
-     "inverse": "Treat the verdict as one input, not the decision. Ask job-related factual "
-                "questions around it, measure the combined decision on paired edits before use, "
-                "and keep a person accountable for the outcome.",
+     "pattern": "Ask the model one broad question about each applicant, such as \"attorney or "
+                "paralegal?\", and act on its answer straight away. The applicant is "
+                "shortlisted, rejected or sent elsewhere. Nobody looks at anything else, and "
+                "nobody checks.",
+     "what_happens": "The answer changes when nothing but the pronouns change. On the "
+                     "attorney-or-paralegal question, the model can read the same biography as a "
+                     "paralegal's when it says \"she\" and as an attorney's when it says \"he\". "
+                     "The example below shows one such biography, with the changed word marked.",
+     "inverse": "Treat the model's answer as one piece of evidence, not the decision. Ask it "
+                "factual questions about the job as well. Before you rely on the combined "
+                "decision, run the one-word test on it: the same text asked twice, with one "
+                "detail changed. Keep a named person accountable for the outcome.",
      "evidence": ["gender-laya-paralegal", "gender-jev-paralegal", "disability-laya-architect"],
      "insight": "measure-before-deploying"},
     {"id": "never-check-the-outcome",
-     "title": "Never compare selection rates against the four-fifths line",
+     "title": "Never count who makes the shortlist",
      "practices": ["hiring"],
-     "pattern": "Rank applicants by the model's probability, pass the top of the list to a "
-                "person, and never compute who made the list by sex or race.",
-     "what_happens": "A verdict-level tilt becomes a selection-rate gap. In the constructed "
-                     "shortlist below, women attorneys make the list at a fraction of the rate "
-                     "of men, and the counterfactual shows the model, not the bios, is the cause: "
-                     "women who make the list only when read as men, and no case the other way.",
-     "inverse": "Compute selection rates by group at the cut you will actually use, with "
-                "intervals, before deployment and on live traffic, and treat a ratio under the "
-                "line, or an interval that reaches it, as a stop.",
+     "pattern": "Rank applicants by the model's confidence, its own probability that each one "
+                "fits the senior job. Hand the top of the list to a recruiter, and never count "
+                "how many women and men, or people of each race, made the list.",
+     "what_happens": "A small lean in each answer becomes a large gap in who gets shortlisted. "
+                     "In the example shortlist below, women attorneys make the list at a fraction "
+                     "of the rate of men. Swapping only the pronouns shows that the model is the "
+                     "cause, not the biographies. Some women make the list only when the model "
+                     "reads them as men. In this test, no man made it only when read as a woman.",
+     "inverse": "Count each group's shortlist rate at the exact cut-off you will use, before you "
+                "start and again on live applicants. Divide women's rate by men's to get the "
+                "shortlist ratio, and report its range of likely values. U.S. hiring guidance, "
+                "the four-fifths rule, treats a ratio under four-fifths as evidence of adverse "
+                "impact. Treat a ratio under that line, or a range that reaches it, as a reason "
+                "to stop.",
      "evidence": ["shortlist-laya-attorney-500", "shortlist-jev-attorney-500",
                   "shortlist-laya-attorney-1000"],
      "insight": "check-the-outcome"},
     {"id": "small-flip-rate-means-safe",
-     "title": "Read a low flip rate as a clean bill of health",
+     "title": "Decide a model is fair because it rarely changes its answer",
      "practices": ["hiring"],
-     "pattern": "Test the model on paired edits, see that it rarely changes its verdict, and "
-                "conclude that it is safe to screen with.",
-     "what_happens": "Small at the verdict is not small at the shortlist. The model with the low "
-                     "flip rate still shortlists women attorneys below men, with an interval "
-                     "that reaches the four-fifths line at the tighter cuts.",
-     "inverse": "Measure in the decision's own currency: the selection rate at your cut, not "
-                "the share of verdicts that flip.",
+     "pattern": "Run the one-word test, see that the model rarely changes its answer when the "
+                "pronouns change, and conclude that it is fit to screen people with.",
+     "what_happens": "Few changed answers can still mean a real gap on the shortlist. The model "
+                     "that rarely changed its answer still put women attorneys on the list at a "
+                     "lower rate than men. On the shorter shortlists, the range of likely ratios "
+                     "reaches down to the four-fifths line.",
+     "inverse": "Measure what the decision actually does: the rate at which each group makes "
+                "your shortlist, at your cut-off. How often single answers change is not enough.",
      "evidence": ["gender-jev-paralegal", "shortlist-jev-attorney-500",
                   "shortlist-jev-attorney-250"],
      "insight": "check-the-outcome"},
     {"id": "one-model-for-every-firm",
-     "title": "Rent one model for every firm",
+     "title": "Sell every employer the same rented model",
      "practices": ["hiring"],
-     "pattern": "Build every screening product on the same rented model, so every employer that "
-                "buys one inherits the same verdicts for the same reasons.",
-     "what_happens": "A model's tilt is systematic, not random: the same bios lose their place "
+     "pattern": "Build every screening product on the same rented model. Every employer that "
+                "buys one gets the same answers, for the same reasons.",
+     "what_happens": "The model's lean is not random: the same biographies lose their place "
                      "every time. The women attorneys who make the list only when read as men "
-                     "would meet the same verdict at every firm using the same model, while "
-                     "each firm's audit covers only its own applicants.",
-     "inverse": "Measure your own deployment on your own applicants, prefer vendors that "
-                "publish paired-edit results per version, and do not assume that a model many "
+                     "would be turned away the same way at every firm using this model. Yet each "
+                     "firm's audit looks only at its own applicants.",
+     "inverse": "Test your own use of the model on your own applicants. Prefer vendors that "
+                "publish one-word-test results for each version. Do not assume that a model many "
                 "firms use has been checked by any of them.",
      "evidence": ["shortlist-laya-attorney-500", "gender-laya-paralegal"],
      "insight": "measure-before-deploying"},
     {"id": "gate-on-the-cue",
-     "title": "Gate on the cue and call it fixed",
+     "title": "Screen out questions that react to pronouns, and call the model fixed",
      "practices": ["hiring"],
-     "pattern": "Add questions to the model only if their answers do not flip when the pronouns "
-                "swap, and declare the system fair because every question passed.",
-     "what_happens": "The gate did cut the flip rate. It still let through a question that "
-                     "correlates with gender through the bio's content, and the shortlist got "
-                     "worse for women than doing nothing at all.",
-     "inverse": "Gate on the outcome, not the cue: accept a change only if the selection-rate "
-                "ratio at the real cut holds or improves.",
+     "pattern": "Let the system add a new question only if its answers stay the same when the "
+                "pronouns are swapped. Then declare the system fair because every question "
+                "passed.",
+     "what_happens": "The screening did cut how often the answer changed. But it let through a "
+                     "question whose answers still line up with gender through what the "
+                     "biography says. The shortlist then got worse for women than if nothing had "
+                     "been done at all.",
+     "inverse": "Judge a change by the shortlist, not by the pronoun test. Accept it only if the "
+                "shortlist ratio at your real cut-off stays the same or improves.",
      "evidence": ["gate-j2-flips", "gate-j2-ratio", "shortlist-jev-attorney-500"],
      "insight": "gate-on-the-outcome"},
     {"id": "silent-upgrade",
-     "title": "Let the model change without measuring again",
+     "title": "Let the model change without testing it again",
      "practices": ["hiring", "character"],
-     "pattern": "Accept every vendor update, refit or added feature as it ships, on the strength "
-                "of the audit you ran on the previous version.",
-     "what_happens": "A change that passed its own check moved the shortlist ratio well below "
-                     "the engine's original. An audit describes the version it measured, and "
+     "pattern": "Accept every vendor update, retraining or new input as it arrives, relying on "
+                "the audit you ran on the old version.",
+     "what_happens": "One change passed its own check and still pushed the shortlist ratio well "
+                     "below the original model's. An audit describes the version it tested, and "
                      "nothing after it.",
-     "inverse": "Pin the model version, treat any change as a new model, and repeat the paired "
-                "edits and the outcome check before the new version decides anything.",
+     "inverse": "Fix the model version you use, and treat any change as a new model. Repeat the "
+                "one-word test and the shortlist count before the new version decides anything.",
      "evidence": ["gate-j2-ratio", "gender-laya-paralegal", "gender-mlx-paralegal"],
      "insight": "pin-versions"},
     {"id": "fixed-option-order",
-     "title": "Present the options in one fixed order and never test the other",
+     "title": "Always offer the two answers in the same order, and never test the other",
      "practices": ["any"],
-     "pattern": "Hard-code the two answers in one order, audit in that order, and never ask "
-                "which verdicts depend on it.",
-     "what_happens": "Swapping the order of the two options changes more verdicts than asking "
-                     "the same question twice does. The audit then describes one arbitrary "
-                     "order, and the decisions that depend on it are arbitrary too.",
-     "inverse": "Counterbalance: ask in both orders and average, report the order flip rate "
-                "beside every bias measure, and fix the order in the deployed tool to the one "
-                "you audited.",
+     "pattern": "Build the tool to list the two possible answers in one order, audit it in that "
+                "order, and never ask which decisions depend on the order.",
+     "what_happens": "Swapping the order of the two options changes the model's answer more "
+                     "often than simply asking the same question twice. So the audit describes "
+                     "one arbitrary order, and the decisions that depend on it are arbitrary too.",
+     "inverse": "Ask in both orders and average the answers. Next to every bias result, report "
+                "how often the order changes the answer. Then set the tool to the order you "
+                "audited.",
      "evidence": ["order-laya-teacher", "ask-twice-laya-teacher", "order-jev-teacher",
                   "ask-twice-jev-teacher"],
      "insight": "counterbalance-order"},
     {"id": "no-floor",
-     "title": "Screen and audit with no ask-twice floor",
+     "title": "Audit with no harmless edit to compare against",
      "practices": ["hiring"],
-     "pattern": "Report how often a protected edit changes the verdict, without measuring how "
-                "often an edit that changes nothing protected does.",
-     "what_happens": "Without a floor, noise reads as bias and bias hides in noise. A flip rate "
-                     "that looks like a race effect is mostly what swapping one white name for "
-                     "another already does, and its interval reaches that floor; the same "
-                     "arithmetic can also hide a real effect.",
-     "inverse": "Read every protected edit against an equally trivial edit on the same text: "
-                "ask twice, swap one name for another of the same group, change a hobby.",
+     "pattern": "Report how often changing a protected detail, such as a name, changes the "
+                "answer. Never measure how often a harmless change of the same size does.",
+     "what_happens": "Without that comparison, noise looks like bias and bias hides in noise. "
+                     "One result that looks like a race effect is mostly what swapping one "
+                     "white-sounding name for another already does, and its range of likely "
+                     "values reaches that level. The same arithmetic can also hide a real effect.",
+     "inverse": "Compare every protected edit with an equally harmless edit to the same text. "
+                "Ask the same question twice, swap a name for another from the same group, or "
+                "change a hobby.",
      "evidence": ["race-name-mlx", "gender-jev-journalist"],
      "insight": "read-against-a-floor"},
     {"id": "not-detected-means-clean",
-     "title": "Treat no bias detected as no bias",
+     "title": "Treat \"no clear effect\" as \"no bias\"",
      "practices": ["hiring"],
-     "pattern": "Run a test too small to find the effect, see no significant result, and file it "
-                "as evidence that the model does not discriminate.",
-     "what_happens": "No bias detected at this floor is absence of evidence at that sample size. "
-                     "The age test's interval still allows an effect as large as the floor "
-                     "itself, so it neither clears nor convicts the model.",
-     "inverse": "Report the interval and the sample size with every null result, and size the "
-                "test to rule out an effect you would care about.",
+     "pattern": "Run a test too small to find the effect, see nothing clear, and file it as "
+                "proof that the model does not discriminate.",
+     "what_happens": "No clear effect in a test this size means only that this test could not "
+                     "see one. The age test's range of likely values still includes an effect as "
+                     "large as the one a harmless edit causes. So it neither clears the model nor "
+                     "convicts it.",
+     "inverse": "With every result that shows no clear effect, report the range of likely values "
+                "and how many texts were tested. Make the test large enough to rule out an "
+                "effect you would care about.",
      "evidence": ["age-jev", "age-mlx", "race-name-jev"],
      "insight": "not-detected-is-not-clean"},
     {"id": "test-one-characteristic",
-     "title": "Test one characteristic and assume the rest",
+     "title": "Test for gender only, and assume the rest behave the same",
      "practices": ["hiring"],
-     "pattern": "Audit for gender, find a number you can live with, and assume race, disability "
-                "and religion behave the same.",
-     "what_happens": "Each characteristic behaves differently, on each engine and each task. A "
-                     "model that looks small on one can move on another: a full name, a "
-                     "wheelchair, a religion each moved these models on their own.",
-     "inverse": "Test every characteristic the governing rules name, on your own task, each "
-                "against its own floor.",
+     "pattern": "Audit the model for gender, find a number you can live with, and assume race, "
+                "disability and religion will behave the same way.",
+     "what_happens": "Each characteristic behaves differently, in each model and each decision. "
+                     "A model that barely moves on one can move on another. A full name, a "
+                     "wheelchair and a religion each moved these models on their own.",
+     "inverse": "Test every characteristic that the rules for your decision name, on your own "
+                "decision, each against its own harmless control edit.",
      "evidence": ["race-fullname-jev-black", "race-fullname-mlx-hispanic",
                   "disability-laya-architect", "religion-laya-jewish-journalist"],
      "insight": "measure-before-deploying"},
     {"id": "ask-about-character",
      "title": "Ask the model about a candidate's character",
      "practices": ["character"],
-     "pattern": "Screen people with trait questions (is this person honest, hardworking, "
-                "greedy?) and let the answers weigh on the decision.",
-     "what_happens": "The model's answers move with the religion or nationality a bio names, in "
-                     "the direction documented stereotypes predict, including the ones this "
-                     "project pre-registered.",
+     "pattern": "Screen people with questions about their character, such as whether they are "
+                "honest, hardworking or greedy, and let the answers count toward the decision.",
+     "what_happens": "The model's answers move with the religion or nationality a biography "
+                     "names, in the direction documented stereotypes predict.",
      "inverse": "Do not ask a model about character. Ask about job-related facts the text "
-                "states, and test even those on paired edits.",
+                "states, and run the one-word test on even those.",
      "evidence": ["trope-laya-christian-honesty", "trope-laya-jewish-greed",
                   "trope-laya-muslim-violence", "trope-laya-german-worldliness"],
      "insight": "no-character-questions"},
 ]
 
 INSIGHTS: List[dict] = [
-    {"id": "measure-before-deploying", "title": "Measure on paired edits before deploying",
-     "text": "Take your own texts and your own question, change one protected detail and "
-             "nothing else, and count how often and how far the decision moves. Test every "
-             "characteristic the governing rules name, on every engine and task you will use: "
-             "the results do not transfer from one to another.",
+    {"id": "measure-before-deploying", "title": "Test the model on your own texts before you use it",
+     "text": "Take your own texts and your own question. Change one protected detail, such as a "
+             "pronoun or a name, and nothing else, then ask again. Count how often the decision "
+             "changes and by how much. That is the one-word test. Run it for every "
+             "characteristic the rules name, on every model and decision you will use. A result "
+             "for one does not carry over to another.",
      "evidence": ["gender-laya-paralegal", "race-fullname-jev-black", "disability-laya-architect"],
-     "links": [{"label": "How the paired edits are made", "href": "methods"}]},
-    {"id": "read-against-a-floor", "title": "Read every effect against a floor",
-     "text": "An edit that changes nothing protected (asking twice, a second name from the same "
-             "group, a hobby instead of a religion) shows how much the model moves anyway. An "
-             "effect counts only where its interval clears that floor.",
+     "links": [{"label": "How the one-word test works", "href": "methods"}]},
+    {"id": "read-against-a-floor", "title": "Compare every effect with a harmless edit",
+     "text": "Some edits change nothing protected: asking the same question twice, a second "
+             "name from the same group, or a hobby instead of a religion. They show how much the "
+             "model moves anyway, for no good reason. Count an effect only when its range of "
+             "likely values sits clearly above that.",
      "evidence": ["race-name-mlx", "gender-jev-journalist"],
-     "links": [{"label": "The ranking rules", "href": "methods"}]},
-    {"id": "check-the-outcome", "title": "Check the outcome, not only the verdict",
-     "text": "Rank the way the deployed tool will rank, cut where it will cut, and compare "
-             "selection rates by group against the four-fifths line with an interval. Check "
-             "several cuts: the ratio depends on where the line falls.",
+     "links": [{"label": "How we rank the results", "href": "methods"}]},
+    {"id": "check-the-outcome", "title": "Check who makes the shortlist, not only each answer",
+     "text": "Rank applicants the way your tool will rank them, and cut the list where it will "
+             "cut. Divide each group's shortlist rate by the rate of the group doing best, such "
+             "as women's rate by men's. Compare that ratio, with its range of likely values, to "
+             "the four-fifths line: U.S. hiring guidance treats a ratio under four-fifths as "
+             "evidence of adverse impact. Try several cut-offs, because the ratio depends on "
+             "where the list is cut.",
      "evidence": ["shortlist-laya-attorney-500", "shortlist-jev-attorney-500",
                   "shortlist-jev-attorney-250", "shortlist-laya-attorney-1000"],
      "links": []},
@@ -545,48 +590,51 @@ INSIGHTS: List[dict] = [
              "he, her becomes his, Ms becomes Mr. Ask the model about both copies and average its "
              "two answers, so the pronoun cannot tip the result either way. In our shortlist test "
              "this moved women's share of the shortlist much closer to men's for both models, and "
-             "it also made them match the corpus's own job labels a little less often, because in "
-             "this data the pronoun carries some real information about the job and we removed "
-             "it. It is not a guarantee. On the nurse and physician bios Laya's averaged ranking "
-             "went too far and favoured women, which suggests it reads women physicians' bios as "
-             "more physician-like once the pronouns are neutral. In an experiment where we trained "
-             "a small decision layer on top of Jev, averaging moved its ratio the wrong way. So "
-             "check the shortlist again after any fix.",
+             "it also made them match the dataset's own job labels a little less often, because "
+             "in this data the pronoun carries some real information about the job and we "
+             "removed it. It is not a guarantee. On the nurse and physician bios Laya's averaged "
+             "ranking went too far and favoured women, which suggests it reads women physicians' "
+             "bios as more physician-like once the pronouns are neutral. In an experiment where "
+             "we trained a small decision layer on top of Jev, averaging moved its ratio the "
+             "wrong way. So check the shortlist again after any fix.",
      "evidence": ["twin-laya-attorney-500", "twin-jev-attorney-500", "twin-laya-nurse-500",
                   "fitted-twin-jev"],
      "links": []},
-    {"id": "gate-on-the-outcome", "title": "Gate changes on the outcome, not the cue",
-     "text": "A question can pass a pronoun-swap test and still correlate with gender through "
-             "what the text says. Accept a new question, feature or fit only when the "
-             "selection-rate ratio at the real cut holds or improves.",
+    {"id": "gate-on-the-outcome", "title": "Judge every change by the shortlist it produces",
+     "text": "A question can pass the pronoun test, with answers that stay the same when the "
+             "pronouns are swapped, and still line up with gender through what the text says. "
+             "Accept a new question, a new input or a retrained model only when the shortlist "
+             "ratio at your real cut-off stays the same or improves.",
      "evidence": ["gate-j2-flips", "gate-j2-ratio"],
      "links": []},
-    {"id": "counterbalance-order", "title": "Counterbalance the order of the options",
-     "text": "Ask in both orders and average, and report how many verdicts change with the "
-             "order beside every bias measure. Deploy in the order you audited.",
+    {"id": "counterbalance-order", "title": "Offer the two answers in both orders",
+     "text": "Ask each question with the two possible answers in one order, then in the other, "
+             "and average the results. Next to every bias result, report how many answers change "
+             "with the order. Use the tool in the order you audited.",
      "evidence": ["order-laya-teacher", "order-jev-teacher", "ask-twice-laya-teacher"],
-     "links": [{"label": "The option-order board", "href": "option-order"}]},
-    {"id": "pin-versions", "title": "Pin the version; a new version is a new model",
-     "text": "Record the exact model and version behind every decision, and repeat the paired "
-             "edits and the outcome check on each new one before it decides anything. Where a "
-             "re-measurement reproduces the old numbers, as the Laya port did here, the record "
-             "says so.",
+     "links": [{"label": "Results for the order of the answers", "href": "option-order"}]},
+    {"id": "pin-versions", "title": "Fix the version: a new version is a new model",
+     "text": "Record the exact model and version behind every decision. Repeat the one-word test "
+             "and the shortlist count on each new version before it decides anything. When a new "
+             "test gives the same numbers as the old one, say so, as we did for Laya-mlx, the "
+             "same model as Laya run a different way.",
      "evidence": ["gender-laya-paralegal", "gender-mlx-paralegal", "gate-j2-ratio"],
      "links": []},
-    {"id": "human-review", "title": "Put the person where the harm happens",
-     "text": "Human review of a shortlist does not reach the people the model left off it. If a "
-             "person reviews, they need to see who was cut, and why, not only who was kept.",
+    {"id": "human-review", "title": "Put the reviewer where the harm happens",
+     "text": "A person who reviews only the shortlist does not see the people the model left off "
+             "it. If someone reviews, they need to see who was cut, and why, not only who was "
+             "kept.",
      "evidence": ["shortlist-laya-attorney-500"],
      "links": []},
-    {"id": "not-detected-is-not-clean", "title": "Report nulls with their intervals",
-     "text": "No bias detected is a statement about one test at one sample size. Publish the "
-             "interval and the sample size, and size the next test to rule out an effect that "
-             "would matter.",
+    {"id": "not-detected-is-not-clean", "title": "Report \"no clear effect\" with its range",
+     "text": "\"No clear effect\" describes one test of one size. Publish the range of likely "
+             "values and how many texts were tested. Then make the next test large enough to "
+             "rule out an effect that would matter.",
      "evidence": ["age-jev", "age-mlx", "race-name-jev"],
      "links": []},
     {"id": "no-character-questions", "title": "Do not ask a model about character",
-     "text": "Trait questions invite the stereotype. Ask about job-related facts the text "
-             "states, and test those on paired edits too.",
+     "text": "Questions about character invite the stereotype. Ask about job-related facts the "
+             "text states, and run the one-word test on those too.",
      "evidence": ["trope-laya-christian-honesty", "trope-laya-jewish-greed"],
      "links": []},
 ]
@@ -594,23 +642,27 @@ INSIGHTS: List[dict] = [
 CHECKLIST: List[dict] = [
     {"text": "Name the decision, the rules that govern it, and every characteristic they protect.",
      "insight": "measure-before-deploying"},
-    {"text": "Run paired edits on your own texts and question, one characteristic at a time.",
+    {"text": "Run the one-word test on your own texts and question: change one detail, such as a "
+             "pronoun or a name, and count how often the answer changes. Test one characteristic "
+             "at a time.",
      "insight": "measure-before-deploying"},
-    {"text": "Read each effect against an equally trivial edit, including asking twice.",
+    {"text": "Compare each effect with an equally harmless edit, including simply asking twice.",
      "insight": "read-against-a-floor"},
-    {"text": "Compute selection rates by group at your real cut, with intervals, against the "
-             "four-fifths line.", "insight": "check-the-outcome"},
-    {"text": "Ask in both option orders; deploy in the order you audited.",
+    {"text": "Count each group's shortlist rate at your real cut-off, with a range of likely "
+             "values, and compare the ratio with the four-fifths line.",
+     "insight": "check-the-outcome"},
+    {"text": "Ask with the two answers in both orders. Use the tool in the order you audited.",
      "insight": "counterbalance-order"},
-    {"text": "Accept a mitigation or a new question only if the outcome ratio holds or improves.",
-     "insight": "gate-on-the-outcome"},
-    {"text": "Pin the model version; repeat all of the above on every new one.",
+    {"text": "Accept a fix or a new question only if the shortlist ratio stays the same or "
+             "improves.", "insight": "gate-on-the-outcome"},
+    {"text": "Fix the model version, and repeat all of the above on every new one.",
      "insight": "pin-versions"},
-    {"text": "Give reviewers the people who were cut, not only the shortlist.",
+    {"text": "Show reviewers the people who were cut, not only the shortlist.",
      "insight": "human-review"},
-    {"text": "Publish nulls with their interval and sample size.",
-     "insight": "not-detected-is-not-clean"},
-    {"text": "Keep character questions out of the decision.", "insight": "no-character-questions"},
+    {"text": "Publish every \"no clear effect\" result with its range and the number of texts "
+             "tested.", "insight": "not-detected-is-not-clean"},
+    {"text": "Keep questions about character out of the decision.",
+     "insight": "no-character-questions"},
 ]
 
 ARTICLES: List[dict] = [
@@ -659,16 +711,16 @@ def _shortlist(root: Path) -> dict:
                 (root / study).read_text(encoding="utf-8").splitlines() if line]
         pairs.append({"task": task, "study": study, "rows": rows})
     return {"line": FOUR_FIFTHS, "pairs": pairs,
-            "prereg_section": "Pre-registration: the shortlist",
-            "scenario": "An invented employer receives two thousand applications, asks the model "
-                        "one role question of each, ranks applicants by the probability of the "
-                        "senior role and passes the top of the list to a person. The corpus and "
-                        "the question are real; the employer is constructed. It is a component "
-                        "of what ranking tools do, not a ranking tool.",
-            "twin_note": "This second table asks the model about each bio twice, once as written "
-                         "and once with the pronouns swapped, and averages the two answers. The "
-                         "columns about applicants read as men or as women do not apply to an "
-                         "average, so they are not shown."}
+            "prereg_section": "The shortlist, in our study notes",
+            "scenario": "Picture an employer with two thousand applications. It asks the model "
+                        "one question about each person, ranks them by how likely the answer is "
+                        "the senior job, and passes the top of the list to a recruiter. The "
+                        "biographies and the question are real. The employer is invented. This "
+                        "is one step of what a ranking tool does, not a whole ranking tool.",
+            "twin_note": "This second table asks the model about each biography twice, once as "
+                         "written and once with the pronouns swapped, and averages the two "
+                         "answers. An average is not read as a man or as a woman, so the columns "
+                         "about that are not shown."}
 
 
 def _shortlist_evidence(shortlist: dict) -> List[dict]:
@@ -687,7 +739,8 @@ def _prereg_evidence(prereg) -> List[dict]:
     out = []
     for eid, heading, first in _PREREG_EVIDENCE:
         row = prereg._row(heading, first, None)
-        out.append({"id": eid, "kind": "prereg", "section": row["section"],
+        out.append({"id": eid, "kind": "prereg", "plain": _PREREG_PLAIN[eid],
+                    "section": row["section"],
                     "measurement": row["measurement"] or first, "prediction": row["prediction"],
                     "observed": row["observed"], "verdict": row["verdict"],
                     "source": row["source"], "article": "can-you-fix-it"})
