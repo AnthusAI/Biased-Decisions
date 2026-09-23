@@ -1,3 +1,10 @@
+## [1.3.1](https://github.com/AnthusAI/Biased-Decisions/compare/v1.3.0...v1.3.1) (2026-09-23)
+
+
+### Bug Fixes
+
+* **site:** the hero's headline bias number is alarm red, not an engine colour ([a0bc8c7](https://github.com/AnthusAI/Biased-Decisions/commit/a0bc8c74d5728e2e81b1d2721374670d2ae893c6))
+
 # [1.3.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.2.0...v1.3.0) (2026-09-23)
 
 
