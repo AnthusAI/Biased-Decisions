@@ -19,7 +19,7 @@ step "unit specs"
 
 step "replay every cell from the committed record"
 "$PY" -m biased_decisions.cli replay
-git diff --exit-code --stat -- studies/ || { echo "bd replay did not reproduce studies/" >&2; exit 1; }
+git diff --exit-code --stat -- studies/ || { echo "bd replay did not reproduce studies/" >&2; git --no-pager diff --word-diff=plain -U0 -- studies/ | tr ',' '\n' | grep -E '\[-|\{\+' | head -40 >&2; "$PY" -m pip freeze | grep -iE 'numpy|scipy' >&2; exit 1; }
 
 step "leaderboard data"
 "$PY" -m biased_decisions.cli report --json --date "$(git log -1 --format=%cs HEAD)"
