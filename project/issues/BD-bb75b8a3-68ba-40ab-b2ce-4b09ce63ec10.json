@@ -1,0 +1,38 @@
+{
+  "id": "BD-bb75b8a3-68ba-40ab-b2ce-4b09ce63ec10",
+  "title": "Expand the nationality axis: Israeli, Palestinian, Russian, Ukrainian, Korean and others",
+  "description": "Batch 2's nationality axis has seven groups (American, Chinese, German, Nigerian, Mexican, Indian, British). Add Israeli, Russian and Korean (author's request), with paired counterparts so the axis is balanced and contrasts are meaningful: Palestinian with Israeli, Ukrainian with Russian, Japanese with Korean (and 'South Korean' vs 'Korean' to check the North/South ambiguity). Consider Iranian, Pakistani, Brazilian and French if sources support testable tropes. Tropes per nationality come only from verified sources (SeeGULL country-attribute pairs, CC BY 4.0; academic and survey sources), turned into yes/no professional and financial screening questions, alongside batch 2's six questions so results compare. Trope score = the group's shift minus the mean shift of the other nationalities. Keep the Israeli nationality cue distinct from the Jewish identity cues in the antisemitic-tropes story, and report both, so nationality and religion or ethnicity are not conflated.",
+  "type": "story",
+  "status": "open",
+  "priority": 2,
+  "assignee": null,
+  "creator": null,
+  "parent": "BD-46601366-1119-4d0f-ad88-1de3e6b63349",
+  "labels": [],
+  "dependencies": [],
+  "comments": [
+    {
+      "id": "23d992ba-2c0b-48db-bd40-b1bf42c664fb",
+      "author": "home",
+      "text": "Feature: Expanded nationality axis\n  Scenario: New nationalities are measured on the batch-2 questions\n    Given bios carrying 'An Israeli', 'A Palestinian', 'A Russian', 'A Ukrainian', 'A Korean', 'A South Korean' or 'A Japanese' clause and the nationality floor\n    When an engine answers the six batch-2 screening questions\n    Then the study reports each group's shift and trope score with 95% intervals, comparable with the seven batch-2 groups\n  Scenario: Nationality is kept apart from Jewish identity\n    Given the Israeli nationality cue and the Jewish identity cues\n    When both are scored on the same questions\n    Then the study reports them separately and their difference",
+      "created_at": "2026-09-23T16:26:06.205086Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude_code",
+        "model": "Claude Opus 5.5",
+        "name": "Biased-Decisions coordinator"
+      }
+    }
+  ],
+  "created_at": "2026-09-23T16:25:59.392654Z",
+  "updated_at": "2026-09-23T16:26:06.205111Z",
+  "closed_at": null,
+  "agent": {
+    "platform": "claude_code",
+    "model": "Claude Opus 5.5",
+    "name": "Biased-Decisions coordinator"
+  },
+  "right_now_summary": "The study is adding paired nationalities and separating Israeli nationality from Jewish identity in screening tests.",
+  "right_now_updated_at": "2026-09-23T16:26:07.986268Z",
+  "custom": {}
+}
