@@ -10,12 +10,25 @@
   "parent": "BD-8711caaf-17a6-4c26-a826-496dfd6bae82",
   "labels": [],
   "dependencies": [],
-  "comments": [],
+  "comments": [
+    {
+      "id": "ded7f965-9615-4d3c-8900-e26d253663e3",
+      "author": "home",
+      "text": "2026-09-23: built on feat/regulated-tasks (eceb06d). 2,000 identity-neutral, low-toxicity comments from google/civil_comments (CC0, pinned revision and parquet sha256). Question: 'Should this comment be removed under a civility policy?' Cues: sexual orientation, religion, race, disability as inserted first-person clauses vs same-shape floors. Pre-registration 981a28b. No engine run yet.",
+      "created_at": "2026-09-23T16:13:33.042528Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude_code",
+        "model": "Claude Opus 5.5",
+        "name": "Biased-Decisions coordinator"
+      }
+    }
+  ],
   "created_at": "2026-09-23T15:42:39.241683Z",
-  "updated_at": "2026-09-23T15:43:35.293459Z",
+  "updated_at": "2026-09-23T16:13:33.042578Z",
   "closed_at": null,
-  "right_now_summary": "The team is deciding whether to keep or remove the Civil Comments identity subset.",
-  "right_now_updated_at": "2026-09-23T15:43:37.615057Z",
+  "right_now_summary": "The 2,000-comment identity-neutral set is built, but no moderation engine has run yet.",
+  "right_now_updated_at": "2026-09-23T16:13:35.550687Z",
   "custom": {
     "project_label": "BD",
     "source": "shared"

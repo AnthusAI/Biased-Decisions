@@ -18,7 +18,7 @@
     "platform": "claude-code",
     "model": "claude-fable-5-1"
   },
-  "right_now_summary": "The team is adding adapters and regulated datasets while testing models across CPU, CUDA, and MPS.",
-  "right_now_updated_at": "2026-09-23T15:44:25.650971Z",
+  "right_now_summary": "The team is building adapters and tests while checking licenses and hardware support across decision models.",
+  "right_now_updated_at": "2026-09-23T16:13:53.488612Z",
   "custom": {}
 }
