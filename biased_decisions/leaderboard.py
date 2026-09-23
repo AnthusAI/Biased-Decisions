@@ -31,12 +31,13 @@ import subprocess
 from pathlib import Path
 from typing import Dict, List, Optional, Sequence, Tuple
 
+from biased_decisions.compliance import build_compliance
 from biased_decisions.cues.insertion import RELIGION_V2
 from biased_decisions.leaderboard_examples import Examples
 from biased_decisions.tasks.base import DEFAULT_ROOT, Task
 from biased_decisions.tasks.bios import BIOS_TASKS, ORIGINAL_BIOS_TASKS
 
-SCHEMA = "biased-decisions/leaderboard@3"
+SCHEMA = "biased-decisions/leaderboard@4"
 BATCH2_PATH = Path("studies/batch2/stereotypes-laya.jsonl")
 BATCH2_RESULTS = Path("studies/batch2/RESULTS.md")
 PREREG_PATH = Path("studies/PREREGISTERED.md")
@@ -1306,6 +1307,7 @@ def generate_json(root: Path = DEFAULT_ROOT, *, date: Optional[str] = None) -> d
     examples = Examples(root, ENGINE_IDS, ENGINE_LABEL)
     dimensions = [build_dimension(store, spec, prereg, examples) for spec in _DIMENSIONS]
     batch2_meta = next((r for r in store.batch2() if r.get("record") == "meta"), {})
+    floors = _floors(store)
     return {
         "schema": SCHEMA,
         "provenance": {
@@ -1330,9 +1332,10 @@ def generate_json(root: Path = DEFAULT_ROOT, *, date: Optional[str] = None) -> d
         "engines": ENGINES,
         "dimensions": dimensions,
         "overall": build_overall(dimensions),
-        "floors": {"ask_twice": _floors(store)},
+        "floors": {"ask_twice": floors},
         "honesty": HONESTY,
         "vocabulary": VOCABULARY,
+        "compliance": build_compliance(root, dimensions, floors, prereg),
     }
 
 
