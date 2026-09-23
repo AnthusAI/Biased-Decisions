@@ -1,3 +1,13 @@
+# [1.17.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.16.0...v1.17.0) (2026-09-23)
+
+
+### Features
+
+* **copy:** the leaderboard's data speaks plain language ([cb67ca1](https://github.com/AnthusAI/Biased-Decisions/commit/cb67ca197d978b5241ad0f8480dd9da5e2dea3d9))
+* **site:** plain language on the characteristic, group and result pages ([cfa6237](https://github.com/AnthusAI/Biased-Decisions/commit/cfa62377894a4145f3672d84757dd40a765f2e89))
+* **site:** plain-language sentences, card words and evidence in site/src/lib ([23e0354](https://github.com/AnthusAI/Biased-Decisions/commit/23e03546514a6c634c5ad4ebc899dde1203ebbb3))
+* **site:** the whole site in plain language ([578a5fd](https://github.com/AnthusAI/Biased-Decisions/commit/578a5fdc639c22601b506e208169ebbb125c8ee6))
+
 # [1.16.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.15.1...v1.16.0) (2026-09-23)
 
 
