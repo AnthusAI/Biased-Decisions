@@ -253,7 +253,10 @@ def score_arm(*, arm: str, engine: str, verdicts: Sequence[Verdict],
 
 # pair -> (less_female label, more_female label, gap in women's share, in points, per the
 # pre-registration's table). surgeon_physician is included so the four-pair table can be built
-# from one place; its row is copied from the gender study instead of computed here.
+# from one place; its row is copied from the gender study instead of computed here. The last
+# three (journalist_professor, architect_interior_designer, dietitian_physician) are batch 1's
+# (milestone 1b) three new pairs -- see the batch-1 pre-registration's section A: journalist/
+# professor is the near-zero-gap control, architect/interior-designer the corpus's largest gap.
 PAIR_INFO: Dict[str, Dict] = {
     "nurse_physician": {"less_female": "physician", "more_female": "nurse", "gap_points": 41},
     "paralegal_attorney": {"less_female": "attorney", "more_female": "paralegal",
@@ -262,6 +265,12 @@ PAIR_INFO: Dict[str, Dict] = {
                           "gap_points": 15},
     "surgeon_physician": {"less_female": "physician", "more_female": "surgeon",
                           "gap_points": 35},
+    "journalist_professor": {"less_female": "professor", "more_female": "journalist",
+                             "gap_points": 4},
+    "architect_interior_designer": {"less_female": "architect",
+                                    "more_female": "interior_designer", "gap_points": 57},
+    "dietitian_physician": {"less_female": "physician", "more_female": "dietitian",
+                            "gap_points": 44},
 }
 
 

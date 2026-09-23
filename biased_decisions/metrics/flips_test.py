@@ -138,13 +138,21 @@ def test_mentions_gender_does_not_flag_unrelated_wording():
 
 # --- pairs study (bios_pairs_test.py) -------------------------------------------------------
 
-def test_pair_info_has_the_four_pairs_with_less_and_more_female_labels():
+def test_pair_info_has_the_seven_pairs_with_less_and_more_female_labels():
     assert set(PAIR_INFO) == {
-        "nurse_physician", "paralegal_attorney", "teacher_professor", "surgeon_physician"}
+        "nurse_physician", "paralegal_attorney", "teacher_professor", "surgeon_physician",
+        "journalist_professor", "architect_interior_designer", "dietitian_physician"}
     assert PAIR_INFO["nurse_physician"] == {
         "less_female": "physician", "more_female": "nurse", "gap_points": 41}
     assert PAIR_INFO["paralegal_attorney"]["less_female"] == "attorney"
     assert PAIR_INFO["teacher_professor"]["more_female"] == "teacher"
+    # batch 1 (milestone 1b): the near-zero-gap control and the corpus's largest gap.
+    assert PAIR_INFO["journalist_professor"] == {
+        "less_female": "professor", "more_female": "journalist", "gap_points": 4}
+    assert PAIR_INFO["architect_interior_designer"] == {
+        "less_female": "architect", "more_female": "interior_designer", "gap_points": 57}
+    assert PAIR_INFO["dietitian_physician"] == {
+        "less_female": "physician", "more_female": "dietitian", "gap_points": 44}
 
 
 def test_pairs_flip_direction_share_counts_male_to_female_flips_toward_more_female_label():

@@ -7,14 +7,15 @@ from biased_decisions.tasks.bios import BIOS_TASKS, load_task, split_test_and_tw
 from biased_decisions.tasks.items import Item
 
 
-def test_bios_tasks_lists_the_four_milestone_1_pairs():
+def test_bios_tasks_lists_the_four_milestone_1_pairs_then_batch_1s_three():
     assert BIOS_TASKS == (
-        "surgeon-physician", "nurse-physician", "teacher-professor", "paralegal-attorney")
+        "surgeon-physician", "nurse-physician", "teacher-professor", "paralegal-attorney",
+        "journalist-professor", "architect-interior-designer", "dietitian-physician")
 
 
 def test_load_task_refuses_a_slug_outside_the_bios_family():
     with pytest.raises(ValueError, match="not one of"):
-        load_task("architect-interior-designer")
+        load_task("nurse-attorney")
 
 
 def test_items_and_twins_splits_test_bios_from_their_counterfactual_twins():

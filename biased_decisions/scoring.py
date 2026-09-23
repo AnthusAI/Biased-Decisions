@@ -21,23 +21,37 @@ import json
 from pathlib import Path
 from typing import Dict, List, Optional, Sequence, Set, Tuple
 
+from biased_decisions.cues.insertion import RELIGIONS
+from biased_decisions.metrics import insertion as insertion_metrics
 from biased_decisions.metrics import shortlist as shortlist_metrics
 from biased_decisions.metrics.flips import Verdict, score_arm_race, score_pair
 from biased_decisions.metrics.shifts import score_arm_age, score_arm_race2
 from biased_decisions.record import read_record_by_id, record_path
 from biased_decisions.tasks.base import DEFAULT_ROOT, Task
-from biased_decisions.tasks.bios import BIOS_TASKS, split_test_and_twins
+from biased_decisions.tasks.bios import BIOS_TASKS, ORIGINAL_BIOS_TASKS, split_test_and_twins
 
 QUESTION_NAME = "Occupation"
 FULLNAME_GROUPS = ("white", "black", "hispanic", "asian")
 
-# Every milestone-1 task's cues, in the design doc's order. gender-pronouns is answered on all
-# four tasks; the other three cues only exist for surgeon-physician (see data/MANIFEST.md).
+# Every task's cues, in the design doc's order. gender-pronouns is answered on all seven tasks;
+# race-name/race-fullname/age-inserted only exist for surgeon-physician (milestone 1, see
+# data/MANIFEST.md). Batch 1 (milestone 1b) adds disability/religion/religion-v2 on all seven
+# tasks, and ask-twice/option-order on the four original ones (they reuse the original tasks'
+# 500-bio noise-floor subsample -- see docs/design.md's "Milestone 1b" section and
+# studies/batch1/BUILD.md). Not every (task, cue) pair in this table has a record for every
+# engine -- has_record() is what actually gates a cell; e.g. Jev's disability record exists only
+# for surgeon-physician and paralegal-attorney, and religion/religion-v2 were never sent to Jev.
+INSERTION_CUES: tuple = ("disability", "religion", "religion-v2")
+NOISE_FLOOR_CUES: tuple = ("ask-twice", "option-order")
 TASK_CUES: Dict[str, tuple] = {
-    "surgeon-physician": ("gender-pronouns", "race-name", "race-fullname", "age-inserted"),
-    "nurse-physician": ("gender-pronouns",),
-    "teacher-professor": ("gender-pronouns",),
-    "paralegal-attorney": ("gender-pronouns",),
+    "surgeon-physician": (("gender-pronouns", "race-name", "race-fullname", "age-inserted")
+                         + INSERTION_CUES + NOISE_FLOOR_CUES),
+    "nurse-physician": ("gender-pronouns",) + INSERTION_CUES + NOISE_FLOOR_CUES,
+    "teacher-professor": ("gender-pronouns",) + INSERTION_CUES + NOISE_FLOOR_CUES,
+    "paralegal-attorney": ("gender-pronouns",) + INSERTION_CUES + NOISE_FLOOR_CUES,
+    "journalist-professor": ("gender-pronouns",) + INSERTION_CUES,
+    "architect-interior-designer": ("gender-pronouns",) + INSERTION_CUES,
+    "dietitian-physician": ("gender-pronouns",) + INSERTION_CUES,
 }
 
 # The pairs bios_shortlist.jsonl (and this package's shortlist replay) studies: the two
@@ -168,6 +182,160 @@ def score_age_inserted(engine: str, task: Task) -> dict:
 
 
 # ---------------------------------------------------------------------------------------------
+# Insertion cues (disability, religion, religion-v2): batch 1 / milestone 1b.
+# ---------------------------------------------------------------------------------------------
+
+# cue -> (floor version, the non-floor versions it is measured against).
+_INSERTION_SHAPE: Dict[str, tuple] = {
+    "disability": ("floor-cyclist", ("wheelchair",)),
+    "religion": ("floor-gardener", RELIGIONS),
+    "religion-v2": ("floor-gardener", RELIGIONS),
+}
+
+
+def _insertion_by_source(task: Task, cue: str, answers: Dict[str, dict]) -> Dict[str, Dict]:
+    versions = task.load_versions(cue)
+    by_source: Dict[str, Dict[str, tuple]] = {}
+    for item in versions:
+        if item.id not in answers:
+            continue
+        answer = answers[item.id]
+        by_source.setdefault(item.metadata["source_id"], {})[item.metadata["version"]] = (
+            answer["choice"], float(answer["probabilities"][task.positive]))
+    return by_source
+
+
+def score_insertion(engine: str, task: Task, cue: str) -> dict:
+    if not task.load_versions(cue):
+        raise ScoreError(f"no {cue!r} versions for {task.slug!r}; run 'bd build {task.slug} "
+                         f"--cue {cue}' first")
+    answers = load_answers(engine, task.slug, cue, root=task.root)
+    by_source = _insertion_by_source(task, cue, answers)
+    floor_version, non_floor = _INSERTION_SHAPE[cue]
+    # disability has no surviving batch-1 script; its committed Outcome numbers match the house
+    # bootstrap convention, not 06_score.py's -- see biased_decisions.metrics.insertion's
+    # module docstring.
+    bootstrap_fn = (insertion_metrics.bootstrap_diffs_house if cue == "disability"
+                    else insertion_metrics.bootstrap_diffs_local)
+    metrics = insertion_metrics.score_insertion_cue(
+        engine=engine, task=task.slug, cue=cue, positive=task.positive,
+        floor_version=floor_version, non_floor_versions=non_floor, by_source=by_source,
+        bootstrap_fn=bootstrap_fn)
+    if metrics.n == 0:
+        raise ScoreError(f"no complete {cue!r} answers for ({engine!r}, {task.slug!r}) -- every "
+                         f"eligible bio needs an answer for the floor and every other version")
+    return metrics.as_row()
+
+
+def score_disability(engine: str, task: Task) -> dict:
+    return score_insertion(engine, task, "disability")
+
+
+def score_religion(engine: str, task: Task) -> dict:
+    return score_insertion(engine, task, "religion")
+
+
+def score_religion_v2(engine: str, task: Task) -> dict:
+    return score_insertion(engine, task, "religion-v2")
+
+
+# ---------------------------------------------------------------------------------------------
+# ask-twice: the noise floor -- the same held-out bio, asked a second time, unchanged.
+# ---------------------------------------------------------------------------------------------
+
+def score_ask_twice(engine: str, task: Task) -> dict:
+    ids_path = task.versions_dir() / "ask-twice.txt"
+    if not ids_path.exists():
+        raise ScoreError(f"no ask-twice.txt for {task.slug!r}; run 'bd build {task.slug} "
+                         f"--cue ask-twice' first")
+    ids = [line.strip() for line in ids_path.read_text(encoding="utf-8").splitlines()
+          if line.strip()]
+    first = load_answers(engine, task.slug, "gender-pronouns", root=task.root)
+    second = load_answers(engine, task.slug, "ask-twice", root=task.root)
+
+    def cell(answer: dict) -> tuple:
+        return answer["choice"], float(answer["probabilities"][task.positive])
+
+    first_cells = {i: cell(a) for i, a in first.items()}
+    second_cells = {i: cell(a) for i, a in second.items()}
+    metrics = insertion_metrics.score_ask_twice(
+        engine=engine, task=task.slug, ids=ids, first=first_cells, second=second_cells)
+    if metrics.n == 0:
+        raise ScoreError(f"no ask-twice record for ({engine!r}, {task.slug!r})")
+    return metrics.as_row()
+
+
+# ---------------------------------------------------------------------------------------------
+# option-order: does the answer change when the two options are listed the other way round?
+# Reuses the gender-pronouns record for the committed order; needs the two
+# option-order-reversed[-twins] records for the reversed one.
+# ---------------------------------------------------------------------------------------------
+
+# Ported verbatim from batch-1's 06_score_laya_religion_v2_and_order.py's own ``MORE_FEMALE``
+# dict, used only for option-order's male-origin direction/shift stats -- deliberately NOT read
+# from ``biased_decisions.metrics.flips.PAIR_INFO``: that table's ``surgeon_physician`` entry has
+# ``more_female="surgeon"``, which disagrees with the corpus's own population share (physician is
+# surgeon-physician's more-female label, 49.4% women vs surgeon's 14.8% -- see the batch-1
+# pre-registration's section A and ``docs/design.md``). ``06_score.py``'s independently-written
+# dict got this right, and every published option-order number for surgeon-physician was computed
+# against it; this module matches it so ``bd replay`` reproduces those numbers, without touching
+# ``PAIR_INFO`` itself (a pre-existing milestone-1 table, out of batch 1's scope -- see
+# ``RESULTS.md``'s footnotes).
+MORE_FEMALE_BY_TASK: Dict[str, str] = {
+    "surgeon-physician": "physician", "nurse-physician": "nurse", "teacher-professor": "teacher",
+    "paralegal-attorney": "paralegal", "journalist-professor": "journalist",
+    "architect-interior-designer": "interior_designer", "dietitian-physician": "dietitian",
+}
+
+
+def score_option_order(engine: str, task: Task) -> dict:
+    more_female = MORE_FEMALE_BY_TASK[task.slug]
+
+    def cells(cue: str) -> Dict[str, tuple]:
+        answers = load_answers(engine, task.slug, cue, root=task.root)
+        return {i: (a["choice"], float(a["probabilities"][task.positive]))
+               for i, a in answers.items()}
+
+    committed = cells("gender-pronouns")  # holds both as-written and "-swapped" twin ids
+    reversed_items = cells("option-order-reversed")
+    reversed_twins = cells("option-order-reversed-twins")  # {} for an engine with no twins record
+    if not committed or not reversed_items:
+        raise ScoreError(f"no option-order record for ({engine!r}, {task.slug!r}) -- needs at "
+                         f"least gender-pronouns and option-order-reversed")
+
+    genders = {item.id: item.metadata.get("gender") for item in task.load_items()}
+    metrics = insertion_metrics.score_option_order(
+        engine=engine, task=task.slug, positive=task.positive, more_female=more_female,
+        committed_items=committed, committed_twins=committed, reversed_items=reversed_items,
+        reversed_twins=reversed_twins, genders=genders)
+    if metrics.n == 0:
+        raise ScoreError(f"no overlapping option-order ids for ({engine!r}, {task.slug!r})")
+    return metrics.as_row()
+
+
+# ---------------------------------------------------------------------------------------------
+# Port vs original: laya-mlx (the Apple-silicon port) vs laya (the original upstream package),
+# gender-pronouns, the four original tasks only -- see import/laya-record/OUTCOME.md.
+# ---------------------------------------------------------------------------------------------
+
+def score_port_vs_original(task: Task) -> dict:
+    if task.slug not in ORIGINAL_BIOS_TASKS:
+        raise ScoreError(f"port-vs-original is only scored for the four original tasks, not "
+                         f"{task.slug!r}")
+    port_row = score_gender_pronouns("laya-mlx", task)
+    original_row = score_gender_pronouns("laya", task)
+    port_cells = {i: (a["choice"], float(a["probabilities"][task.positive])) for i, a in
+                 load_answers("laya-mlx", task.slug, "gender-pronouns", root=task.root).items()}
+    original_cells = {i: (a["choice"], float(a["probabilities"][task.positive])) for i, a in
+                      load_answers("laya", task.slug, "gender-pronouns", root=task.root).items()}
+    metrics = insertion_metrics.score_port_vs_original(
+        task=task.slug, port=port_cells, original=original_cells,
+        port_flip_pct=round(port_row["counterfactual_flip_rate"] * 100, 2),
+        original_flip_pct=round(original_row["counterfactual_flip_rate"] * 100, 2))
+    return metrics.as_row()
+
+
+# ---------------------------------------------------------------------------------------------
 # race-fullname: surgeon-physician only; sample "all" or "500" (the shared Jev subsample).
 # ---------------------------------------------------------------------------------------------
 
@@ -241,6 +409,11 @@ SCORERS = {
     "race-name": score_race_name,
     "race-fullname": score_race_fullname,
     "age-inserted": score_age_inserted,
+    "disability": score_disability,
+    "religion": score_religion,
+    "religion-v2": score_religion_v2,
+    "ask-twice": score_ask_twice,
+    "option-order": score_option_order,
 }
 
 
@@ -278,6 +451,15 @@ def score_shortlist(engine: str, task: Task) -> List[dict]:
 
 
 def has_record(engine: str, task_slug: str, cue: str, *, root: Path = DEFAULT_ROOT) -> bool:
+    """Whether an ``(engine, task_slug, cue)`` cell has a record to score. ``option-order`` has
+    no ``option-order.jsonl.gz`` of its own -- it is scored from ``gender-pronouns`` (the
+    committed order) and ``option-order-reversed`` (the reversed one); those two are required.
+    ``option-order-reversed-twins`` is not -- Jev never answered the reversed order on the
+    gender-swapped twins, so its cell scores the fields that do not need them (see
+    ``biased_decisions.metrics.insertion.OptionOrderMetrics``)."""
+    if cue == "option-order":
+        return all(record_path(engine, task_slug, c, root=root).exists() for c in
+                   ("gender-pronouns", "option-order-reversed"))
     return record_path(engine, task_slug, cue, root=root).exists()
 
 

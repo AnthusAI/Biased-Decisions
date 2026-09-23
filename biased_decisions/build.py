@@ -28,6 +28,8 @@ from typing import Dict, List, Optional, Tuple
 from biased_decisions.cues.age import eligible, insert_age
 from biased_decisions.cues.fullname import analyze_full_name, render_full_name
 from biased_decisions.cues.gender import ORIGINAL_RULE, swap_gender
+from biased_decisions.cues.insertion import eligible as insertion_eligible
+from biased_decisions.cues.insertion import insert_clause, versions_for
 from biased_decisions.cues.names import name_versions
 from biased_decisions.tasks.base import Task
 from biased_decisions.tasks.items import Item
@@ -37,10 +39,15 @@ AGE_VALUES: Tuple[int, ...] = (34, 35, 61, 62)
 FULLNAME_GROUPS: Tuple[str, ...] = ("white", "black", "hispanic", "asian")
 FULLNAME_NAMES_PER_GROUP = 4
 FULLNAME_SUBSAMPLE_SIZE = 500
+ASK_TWICE_SUBSAMPLE_SIZE = 500
+ASK_TWICE_SEED = 0
 
 DEFAULT_POOLS_PATH = Path(__file__).resolve().parents[1] / "pools" / "name_pools.json"
 
-CUES: Tuple[str, ...] = ("gender-pronouns", "race-name", "race-fullname", "age-inserted")
+CUES: Tuple[str, ...] = (
+    "gender-pronouns", "race-name", "race-fullname", "age-inserted",
+    "disability", "religion", "religion-v2", "ask-twice",
+)
 
 
 class BuildError(RuntimeError):
@@ -62,6 +69,13 @@ def _test_items_sorted(task: Task) -> List[Item]:
     items = [item for item in task.load_items() if item.metadata.get("split") == "test"]
     items.sort(key=lambda item: item.id)
     return items
+
+
+def _test_items_in_file_order(task: Task) -> List[Item]:
+    """Held-out items in ``items.jsonl``'s own row order (not sorted by id) -- the order
+    batch-1's ``scripts/03_build_insertion_cues.py`` iterated in, which the committed
+    ``disability``/``religion``/``religion-v2`` versions files preserve."""
+    return [item for item in task.load_items() if item.metadata.get("split") == "test"]
 
 
 def build_gender_pronouns(task: Task) -> BuildResult:
@@ -208,11 +222,69 @@ def build_race_fullname(task: Task, *, pools_path: Path = DEFAULT_POOLS_PATH,
     return BuildResult(rows=rows, excluded=excluded, subsample=subsample)
 
 
+def build_insertion(task: Task, cue: str) -> BuildResult:
+    """A cue whose versions file is a clause inserted before every eligible held-out bio's
+    first subject pronoun (``disability``, ``religion``, ``religion-v2``). Ported ordering from
+    batch-1's ``scripts/03_build_insertion_cues.py`` -- see ``biased_decisions.cues.insertion``
+    for the eligibility rule and clause tables."""
+    rows: List[dict] = []
+    excluded = 0
+    for item in _test_items_in_file_order(task):
+        if not insertion_eligible(item.text):
+            excluded += 1
+            continue
+        for version, clause in versions_for(cue):
+            rows.append({
+                "id": f"{item.id}-{cue}-{version}",
+                "text": insert_clause(item.text, clause),
+                "metadata": {
+                    "cue": cue, "version": version, "source_id": item.id,
+                    "occupation": item.metadata.get("occupation"),
+                    "gender": item.metadata.get("gender"),
+                    "reference_label": item.metadata.get("reference_label"),
+                },
+            })
+    return BuildResult(rows=rows, excluded=excluded)
+
+
+def build_disability(task: Task) -> BuildResult:
+    return build_insertion(task, "disability")
+
+
+def build_religion(task: Task) -> BuildResult:
+    return build_insertion(task, "religion")
+
+
+def build_religion_v2(task: Task) -> BuildResult:
+    return build_insertion(task, "religion-v2")
+
+
+def build_ask_twice(task: Task, *, seed: int = ASK_TWICE_SEED,
+                    size: int = ASK_TWICE_SUBSAMPLE_SIZE) -> BuildResult:
+    """The ``ask-twice`` noise-floor subsample: 500 held-out ids drawn
+    ``random.Random(0).sample(sorted(test_ids), 500)``, then sorted again for a stable file --
+    the same method as ``race-fullname``'s Jev subsample and Jev-Flywheel's own
+    ``race2_jev_subsample.txt``. Carries no rows of its own (there is no edited text -- the same
+    bio is simply asked a second time); the 500 ids come back as ``BuildResult.subsample``, and
+    ``write_versions`` writes them to ``versions/ask-twice.txt``, one id per line, instead of a
+    ``.jsonl`` file."""
+    test_ids = sorted(item.id for item in task.load_items()
+                      if item.metadata.get("split") == "test")
+    rng = random.Random(seed)
+    subsample = rng.sample(test_ids, min(size, len(test_ids)))
+    subsample.sort()
+    return BuildResult(rows=[], excluded=len(test_ids) - len(subsample), subsample=subsample)
+
+
 BUILDERS = {
     "gender-pronouns": build_gender_pronouns,
     "race-name": build_race_name,
     "race-fullname": build_race_fullname,
     "age-inserted": build_age_inserted,
+    "disability": build_disability,
+    "religion": build_religion,
+    "religion-v2": build_religion_v2,
+    "ask-twice": build_ask_twice,
 }
 
 
@@ -228,7 +300,17 @@ def build(cue: str, task: Task) -> BuildResult:
 
 def write_versions(task: Task, cue: str, result: BuildResult) -> Path:
     """Write ``result``'s rows to the cue's versions file (and, for ``race-fullname``, the
-    subsample file alongside it), returning the versions file's path."""
+    subsample file alongside it), returning the versions file's path.
+
+    ``ask-twice`` has no rows at all (see ``build_ask_twice``) -- only its 500-id subsample is
+    written, to ``versions/ask-twice.txt``, and that path is what is returned.
+    """
+    if cue == "ask-twice":
+        path = task.versions_dir() / "ask-twice.txt"
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text("\n".join(result.subsample or []) + "\n", encoding="utf-8")
+        return path
+
     path = task.versions_path(cue)
     path.parent.mkdir(parents=True, exist_ok=True)
     with path.open("w", encoding="utf-8") as handle:

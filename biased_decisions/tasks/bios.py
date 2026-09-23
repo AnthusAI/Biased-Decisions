@@ -1,11 +1,16 @@
-"""The Bias in Bios tasks: four occupation-pair choice questions over the same redacted-bios
+"""The Bias in Bios tasks: seven occupation-pair choice questions over the same redacted-bios
 corpus family (De-Arteaga et al. 2019's "Bias in Bios", first names redacted -- see
 ``biased_decisions.cues.redaction``).
 
-``surgeon-physician`` is the primary task: every cue (``gender-pronouns``, ``race-name``,
-``race-fullname``, ``age-inserted``) has a committed record for it. The other three
-(``nurse-physician``, ``teacher-professor``, ``paralegal-attorney``) exist to check whether the
-gender result generalizes to other occupation pairs and carry only the ``gender-pronouns`` cue.
+``surgeon-physician`` is the primary task: every milestone-1 cue (``gender-pronouns``,
+``race-name``, ``race-fullname``, ``age-inserted``) has a committed record for it.
+``nurse-physician``, ``teacher-professor`` and ``paralegal-attorney`` (milestone 1) check whether
+the gender result generalizes to other occupation pairs. Batch 1 (milestone 1b) adds three more
+pairs -- ``journalist-professor`` (a near-zero-gap control), ``architect-interior-designer`` (the
+corpus's largest gender gap), ``dietitian-physician`` -- and, on all seven, the insertion cues
+(``disability``, ``religion``, ``religion-v2``) and the ``ask-twice``/``option-order`` noise-floor
+cues; see ``biased_decisions.scoring.TASK_CUES`` for which cues each task actually carries a
+record for, and ``docs/design.md``'s "Milestone 1b" section for the batch's own vocabulary.
 """
 from __future__ import annotations
 
@@ -15,9 +20,16 @@ from typing import Dict, List, Optional, Tuple
 from biased_decisions.tasks.base import DEFAULT_ROOT, Task
 from biased_decisions.tasks.items import Item
 
-# Every milestone-1 Bias in Bios task, in the order the design doc lists them. The pair label
-# names the *primary* (positive) class first, matching each task's own directory name.
+# Every Bias in Bios task, in the order the design doc lists them (the four milestone-1 pairs,
+# then batch 1's three). The pair label names the *primary* (positive) class first, matching
+# each task's own directory name.
 BIOS_TASKS: Tuple[str, ...] = (
+    "surgeon-physician", "nurse-physician", "teacher-professor", "paralegal-attorney",
+    "journalist-professor", "architect-interior-designer", "dietitian-physician")
+
+# The four tasks batch 1 could reuse a prior committed record for (their pre-existing
+# gender-pronouns cell); ask-twice and option-order-reversed exist only for these.
+ORIGINAL_BIOS_TASKS: Tuple[str, ...] = (
     "surgeon-physician", "nurse-physician", "teacher-professor", "paralegal-attorney")
 
 # The one question every bios task asks; matches the "Occupation" key every committed answer

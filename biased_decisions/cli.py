@@ -15,15 +15,18 @@ import sys
 from pathlib import Path
 from typing import List, Optional
 
-from biased_decisions.build import BuildError, build as build_cue, write_versions
+from biased_decisions.build import BuildError, CUES as BUILD_CUES, build as build_cue, write_versions
 from biased_decisions.scoring import (
-    ENGINES, ScoreError, SHORTLIST_PAIRS, TASK_CUES, has_record, score, score_shortlist,
-    write_rows,
+    ENGINES, SCORERS, ScoreError, SHORTLIST_PAIRS, TASK_CUES, has_record, score,
+    score_port_vs_original, score_shortlist, write_rows,
 )
 from biased_decisions.tasks.base import DEFAULT_ROOT
-from biased_decisions.tasks.bios import BIOS_TASKS, load_task
+from biased_decisions.tasks.bios import BIOS_TASKS, ORIGINAL_BIOS_TASKS, load_task
 
-CUES = ("gender-pronouns", "race-name", "race-fullname", "age-inserted")
+# Every cue that can be scored (a superset of BUILD_CUES: ``option-order`` has no versions file
+# of its own to build -- it is scored straight from three other cues' records, see
+# ``biased_decisions.scoring.has_record``).
+CUES = tuple(SCORERS)
 
 
 def _root(args: argparse.Namespace) -> Path:
@@ -183,6 +186,20 @@ def cmd_replay(args: argparse.Namespace) -> int:
             n_rows += len(rows)
             print(f"{pair_slug}-shortlist: {len(rows)} row(s) -> {out}")
 
+    port_rows = []
+    for task_slug in ORIGINAL_BIOS_TASKS:
+        if not (has_record("laya-mlx", task_slug, "gender-pronouns", root=root)
+                and has_record("laya", task_slug, "gender-pronouns", root=root)):
+            continue
+        task = load_task(task_slug, root=root)
+        port_rows.append(score_port_vs_original(task))
+        n_cells += 1
+    if port_rows:
+        out = root / "studies" / "batch1" / "port-vs-original.jsonl"
+        write_rows(out, port_rows, ("task",))
+        n_rows += len(port_rows)
+        print(f"port-vs-original: {len(port_rows)} row(s) -> {out}")
+
     print(f"replayed {n_cells} cell(s), {n_rows} row(s) written")
     return 0
 
@@ -218,7 +235,7 @@ def build_parser() -> argparse.ArgumentParser:
 
     p_build = sub.add_parser("build", help="write a cue's versions file from items.jsonl")
     p_build.add_argument("task", choices=BIOS_TASKS)
-    p_build.add_argument("--cue", required=True, choices=CUES)
+    p_build.add_argument("--cue", required=True, choices=BUILD_CUES)
     p_build.set_defaults(func=cmd_build)
 
     p_answer = sub.add_parser(

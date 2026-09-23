@@ -17,9 +17,12 @@ import subprocess
 from pathlib import Path
 from typing import Callable, Dict, List, Optional, Tuple
 
+from biased_decisions.cues.insertion import RELIGIONS
 from biased_decisions.scoring import (
-    FULLNAME_GROUPS, ScoreError, TASK_CUES, score_age_inserted, score_gender_pronouns,
-    score_race_fullname, score_race_name, score_shortlist,
+    FULLNAME_GROUPS, ORIGINAL_BIOS_TASKS, ScoreError, TASK_CUES, score_age_inserted,
+    score_ask_twice, score_disability, score_gender_pronouns, score_option_order,
+    score_port_vs_original, score_race_fullname, score_race_name, score_religion,
+    score_religion_v2, score_shortlist,
 )
 from biased_decisions.tasks.base import DEFAULT_ROOT
 from biased_decisions.tasks.bios import BIOS_TASKS, load_task
@@ -232,6 +235,201 @@ def section_age(ctx: ReportContext) -> str:
 
 
 # ---------------------------------------------------------------------------------------------
+# Insertion cues: disability, religion (v1, confounded -- between-religion contrasts only) and
+# religion-v2 (the devout/devoted floor). Batch 1 / milestone 1b.
+# ---------------------------------------------------------------------------------------------
+
+def _insertion_table(ctx: ReportContext, cue: str, title: str, scorer: Callable,
+                     versions: Tuple[str, ...], *, note: str = "") -> str:
+    task_slugs = [slug for slug in BIOS_TASKS if cue in TASK_CUES[slug]]
+    rows_by_task: Dict[str, Dict[str, dict]] = {}
+    engines_seen: List[str] = []
+    for slug in task_slugs:
+        task = ctx.tasks[slug]
+        rows_by_task[slug] = {}
+        for engine in ("jev", "laya", "laya-mlx"):
+            row = ctx.try_score(scorer, engine, task)
+            if row is None:
+                continue
+            rows_by_task[slug][engine] = row
+            if engine not in engines_seen:
+                engines_seen.append(engine)
+    if not engines_seen:
+        return ""
+
+    columns = [f"{ENGINE_LABELS[e]} {v}" for e in engines_seen for v in versions]
+    lines = [f"## {title}", ""]
+    if note:
+        lines += [note, ""]
+    lines += ["| task | " + " | ".join(columns) + " | shared/spread |",
+             "|---|" + "---|" * (len(columns) + 1)]
+    for slug in task_slugs:
+        cells = []
+        for engine in engines_seen:
+            row = rows_by_task[slug].get(engine)
+            for v in versions:
+                if row is None:
+                    cells.append("—")
+                    continue
+                shift = row["versions"][v]
+                cells.append(f"{shift['mean_pts']:+.2f} {_fmt_ci_raw(shift['ci_pts'])} "
+                            f"(flip {shift['flip_vs_floor_pct']:.2f}%)")
+        # shared-clause effect / between-version spread, from the last engine with a row.
+        extra = "—"
+        for engine in reversed(engines_seen):
+            row = rows_by_task[slug].get(engine)
+            if row and row.get("shared_clause_pts") is not None:
+                sc = row["shared_clause_pts"]
+                extra = (f"{ENGINE_LABELS[engine]}: shared {sc['mean_pts']:+.2f} "
+                        f"{_fmt_ci_raw(sc['ci_pts'])}, spread {row['spread_pts']:.2f}")
+                break
+        lines.append(f"| {slug} | " + " | ".join(cells) + f" | {extra} |")
+    lines.append("")
+    return "\n".join(lines)
+
+
+def _fmt_ci_raw(ci: List[float]) -> str:
+    return f"[{ci[0]:+.2f}, {ci[1]:+.2f}]"
+
+
+def section_disability(ctx: ReportContext) -> str:
+    return _insertion_table(ctx, "disability", "disability: shift in P(positive) vs the floor "
+                            "(\"A cyclist, \")", score_disability, ("wheelchair",))
+
+
+def section_religion(ctx: ReportContext) -> str:
+    return _insertion_table(
+        ctx, "religion", "religion v1: shift in P(positive) vs the floor (\"A keen "
+        "gardener, \")", score_religion, RELIGIONS,
+        note="**Confounded.** The clause is \"A practising X, \" -- the word \"practising\" is "
+        "shared with phrases like \"practising physician\"/\"practising attorney\" and the "
+        "floor does not carry it, so the *shared* per-religion shift measures the word, not "
+        "the religion. Only the between-religion contrasts (the spread column) are a religion "
+        "finding here; see religion v2 below for a floor built to separate the two.")
+
+
+def section_religion_v2(ctx: ReportContext) -> str:
+    return _insertion_table(
+        ctx, "religion-v2", "religion v2: shift in P(positive) vs the floor (\"A devoted "
+        "gardener, \")", score_religion_v2, RELIGIONS,
+        note="The floor (\"a devoted gardener\") mirrors the religion clauses' shape (\"a "
+        "devout Muslim\") the way v1's \"a keen gardener\" did not, separating a "
+        "religion-specific effect from the \"any inserted description\" effect. On "
+        "nurse-physician and dietitian-physician, an unattributed shared shift remains even "
+        "against this floor -- see the pre-registration's section E for the reading.")
+
+
+# ---------------------------------------------------------------------------------------------
+# ask-twice: the noise floor (same bio, asked again, unchanged).
+# ---------------------------------------------------------------------------------------------
+
+def section_ask_twice(ctx: ReportContext) -> str:
+    task_slugs = [slug for slug in BIOS_TASKS if "ask-twice" in TASK_CUES[slug]]
+    rows_by_task: Dict[str, Dict[str, dict]] = {}
+    engines_seen: List[str] = []
+    for slug in task_slugs:
+        task = ctx.tasks[slug]
+        rows_by_task[slug] = {}
+        for engine in ("jev", "laya", "laya-mlx"):
+            row = ctx.try_score(score_ask_twice, engine, task)
+            if row is None:
+                continue
+            rows_by_task[slug][engine] = row
+            if engine not in engines_seen:
+                engines_seen.append(engine)
+    if not engines_seen:
+        return ""
+    lines = ["## ask-twice: noise floor (same bio, asked a second time)", "",
+             "| task | " + " | ".join(ENGINE_LABELS[e] for e in engines_seen) + " |",
+             "|---|" + "---|" * len(engines_seen)]
+    for slug in task_slugs:
+        cells = []
+        for engine in engines_seen:
+            row = rows_by_task[slug].get(engine)
+            cells.append("—" if row is None else
+                        f"flip {row['flip_pct']:.2f}%, mean |dP| {row['mean_abs_dp']:.4f}, "
+                        f"max |dP| {row['max_abs_dp']:.4f} (n={row['n']})")
+        lines.append(f"| {slug} | " + " | ".join(cells) + " |")
+    lines.append("")
+    return "\n".join(lines)
+
+
+# ---------------------------------------------------------------------------------------------
+# option-order: committed vs reversed option order.
+# ---------------------------------------------------------------------------------------------
+
+def section_option_order(ctx: ReportContext) -> str:
+    task_slugs = [slug for slug in BIOS_TASKS if "option-order" in TASK_CUES[slug]]
+    rows_by_task: Dict[str, Dict[str, dict]] = {}
+    engines_seen: List[str] = []
+    for slug in task_slugs:
+        task = ctx.tasks[slug]
+        rows_by_task[slug] = {}
+        for engine in ("jev", "laya", "laya-mlx"):
+            row = ctx.try_score(score_option_order, engine, task)
+            if row is None:
+                continue
+            rows_by_task[slug][engine] = row
+            if engine not in engines_seen:
+                engines_seen.append(engine)
+    if not engines_seen:
+        return ""
+    lines = ["## option-order: does the answer change when the options are listed the other "
+            "way round?", "",
+            "The pre-registration's section D found Jev's order flip under 1% (1.0-2.8% "
+            "across the four original tasks plus journalist-professor's exploratory run) "
+            "and Laya's 3.25-7.80% (journalist-professor's 3.25% below the rest); the table "
+            "below is the committed replay, limited to the four original tasks that carry a "
+            "full option-order-reversed record. The gender-pronouns flip rate under both "
+            "orders is reported where the engine answered the reversed order on the twins "
+            "too.", "",
+            "| task | " + " | ".join(ENGINE_LABELS[e] for e in engines_seen) + " |",
+            "|---|" + "---|" * len(engines_seen)]
+    for slug in task_slugs:
+        cells = []
+        for engine in engines_seen:
+            row = rows_by_task[slug].get(engine)
+            if row is None:
+                cells.append("—")
+                continue
+            piece = (f"order flip {row['order_flip_pct_items']:.2f}% "
+                    f"(max |dP| {row['max_abs_dp_items']:.4f}, n={row['n']})")
+            if row.get("committed") and row.get("reversed"):
+                piece += (f"<br>gender flip: committed {row['committed']['flip_pct']:.2f}% / "
+                        f"reversed {row['reversed']['flip_pct']:.2f}%")
+            cells.append(piece)
+        lines.append(f"| {slug} | " + " | ".join(cells) + " |")
+    lines.append("")
+    return "\n".join(lines)
+
+
+# ---------------------------------------------------------------------------------------------
+# Port vs original: laya-mlx (the Apple-silicon port) vs laya (the original upstream package).
+# ---------------------------------------------------------------------------------------------
+
+def section_port_vs_original(ctx: ReportContext) -> str:
+    rows = []
+    for slug in ORIGINAL_BIOS_TASKS:
+        task = ctx.tasks[slug]
+        row = ctx.try_score(score_port_vs_original, task)
+        if row is not None:
+            rows.append(row)
+    if not rows:
+        return ""
+    lines = ["## Port vs original: laya-mlx vs laya, gender-pronouns", "",
+            "The Apple-silicon port (`laya-mlx`) against the original upstream package "
+            "(`laya`), same questions, same committed option order.", "",
+            "| task | port flip % | original flip % | verdict agreement | max abs dP |",
+            "|---|---|---|---|---|"]
+    for row in rows:
+        lines.append(f"| {row['task']} | {row['port_flip_pct']:.2f} | "
+                     f"{row['original_flip_pct']:.2f} | {row['verdict_agreement']:,} / "
+                     f"{row['verdict_total']:,} | {row['max_abs_dp']:.3f} |")
+    lines.append("")
+    return "\n".join(lines)
+
+
+# ---------------------------------------------------------------------------------------------
 # Shortlist: top-N four-fifths ratio, tie-fair, counterfactual counts, twin-averaged.
 # ---------------------------------------------------------------------------------------------
 
@@ -308,6 +506,14 @@ def section_footnotes(ctx: ReportContext) -> str:
         "the 500-bio subsample in `tasks/surgeon-physician/versions/"
         "race-fullname_jev-subsample.txt` (drawn once, so Laya can be compared to Jev on "
         "identical bios); Laya-mlx's covers all eligible bios, and is reported both ways.",
+        "- **Batch-1 (milestone 1b) coverage.** `disability` has a Jev record only for "
+        "`surgeon-physician` and `paralegal-attorney` (Laya covers all seven); `religion` and "
+        "`religion-v2` were only ever sent to Laya, never Jev; `ask-twice` and `option-order` "
+        "exist only for the four original tasks (they reuse those tasks' 500-bio noise-floor "
+        "subsample); the three new tasks (`journalist-professor`, "
+        "`architect-interior-designer`, `dietitian-physician`) were answered by Jev and the "
+        "upstream `laya` only, never `laya-mlx`. `bd list` shows exactly which "
+        "`(engine, task, cue)` cells have a record.",
         "- Run nothing new: every number here is replayed from the committed record.",
         "",
     ])
@@ -319,6 +525,12 @@ SECTIONS: List[Tuple[str, Callable[[ReportContext], str]]] = [
     ("race-name", section_race_name),
     ("race-fullname", section_race_fullname),
     ("age-inserted", section_age),
+    ("disability", section_disability),
+    ("religion", section_religion),
+    ("religion-v2", section_religion_v2),
+    ("ask-twice", section_ask_twice),
+    ("option-order", section_option_order),
+    ("port-vs-original", section_port_vs_original),
     ("shortlist", section_shortlist),
     ("footnotes", section_footnotes),
 ]
