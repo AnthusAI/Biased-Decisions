@@ -22,18 +22,30 @@
         "model": "claude-sonnet-5",
         "name": "claude"
       }
+    },
+    {
+      "id": "b2e0df52-3108-4922-ba76-8ef9108bb0b9",
+      "author": "home",
+      "text": "Pre-registration committed (03a4971, amended 5d3de09 on feat/neutral-pronoun). Cue built for seven tasks: blank arm drops no bios; they arm drops 0.2-1.3% (fails the 1% rule on journalist and architect). Grammar audit of 350 they rewrites: about 18% show unadjusted verbs after and/comma, over the 10% threshold, so the they arm is exploratory. Laya answers rerunning after fixing the record question name (Occupation). Scoring: metrics/neutral.py with specs; replay wiring in progress.",
+      "created_at": "2026-09-23T20:09:54.392893Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude_code",
+        "model": "claude-sonnet-5",
+        "name": "claude"
+      }
     }
   ],
   "created_at": "2026-09-23T17:54:38.242884Z",
-  "updated_at": "2026-09-23T17:54:55.534907Z",
+  "updated_at": "2026-09-23T20:09:54.392925Z",
   "closed_at": null,
   "agent": {
     "platform": "claude_code",
     "model": "claude-sonnet-5",
     "name": "claude"
   },
-  "right_now_summary": "The team is preparing neutral-pronoun tests and an accuracy check for twin averaging.",
-  "right_now_updated_at": "2026-09-23T17:54:58.496658Z",
+  "right_now_summary": "Laya is rerunning the corrected task while replay wiring and accuracy scoring are being prepared.",
+  "right_now_updated_at": "2026-09-23T20:09:58.578310Z",
   "custom": {
     "project_label": "BD",
     "source": "shared"
