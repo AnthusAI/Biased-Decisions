@@ -33,7 +33,7 @@
     "platform": "claude-code",
     "model": "claude-fable-5-1"
   },
-  "right_now_summary": "The site is live, but builds fail on race-fullname replay values while a fix is underway.",
-  "right_now_updated_at": "2026-09-23T16:32:41.040729Z",
+  "right_now_summary": "The leaderboard site is built, but replay checks fail because race-fullname values differ across machines.",
+  "right_now_updated_at": "2026-09-23T16:36:25.059477Z",
   "custom": {}
 }

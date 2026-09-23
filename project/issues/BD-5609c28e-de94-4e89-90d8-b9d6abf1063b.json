@@ -3,7 +3,7 @@
   "title": "Static site: per-dimension boards, overall mean-rank board, not-detected lists",
   "description": "",
   "type": "story",
-  "status": "open",
+  "status": "closed",
   "priority": 2,
   "assignee": null,
   "creator": null,
@@ -27,13 +27,13 @@
     }
   ],
   "created_at": "2026-09-23T13:03:47.123590Z",
-  "updated_at": "2026-09-23T16:21:05.816671Z",
-  "closed_at": null,
+  "updated_at": "2026-09-23T16:36:32.836621Z",
+  "closed_at": "2026-09-23T16:36:32.836588Z",
   "agent": {
     "platform": "claude-code",
     "model": "claude-fable-5-1"
   },
-  "right_now_summary": "The static site now renders per-dimension and overall boards plus lists for dimensions with no detected shift.",
-  "right_now_updated_at": "2026-09-23T16:21:08.292624Z",
+  "right_now_summary": "The static site now renders per-dimension boards, an overall mean-rank board, and not-detected lists.",
+  "right_now_updated_at": "2026-09-23T16:36:36.968559Z",
   "custom": {}
 }
