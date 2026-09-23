@@ -1,3 +1,10 @@
+# [1.11.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.10.0...v1.11.0) (2026-09-23)
+
+
+### Features
+
+* **scoring:** score Q-Pain and Civil Comments against their floors, and replay them ([0565589](https://github.com/AnthusAI/Biased-Decisions/commit/0565589ac5b9faa0988738eace9e13d6308959a2))
+
 # [1.10.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.9.0...v1.10.0) (2026-09-23)
 
 
