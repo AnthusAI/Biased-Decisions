@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "event_id": "313baa62-61c0-4a3f-bfad-45ebee9e0f30",
+  "issue_id": "BD-b5d1254a-7b4d-4703-920a-5d3e4965c796",
+  "event_type": "issue_created",
+  "occurred_at": "2026-09-23T11:48:56.785Z",
+  "actor_id": "home",
+  "payload": {
+    "title": "Engine adapter: jeff (GLiFormer 400M, auto device)",
+    "description": "MIT code, probabilities per option, auto-selects CUDA, MPS or CPU, ONNX export. Check the weights licence before running.",
+    "issue_type": "story",
+    "status": "open",
+    "priority": 2,
+    "assignee": null,
+    "parent": "BD-4d86cffe-b0df-44a9-b4ce-2074c5d30289",
+    "labels": [
+      "engines"
+    ],
+    "agent": {
+      "platform": "claude-code",
+      "model": "claude-fable-5-1"
+    }
+  }
+}

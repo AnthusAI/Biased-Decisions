@@ -12,16 +12,28 @@
     "engines"
   ],
   "dependencies": [],
-  "comments": [],
+  "comments": [
+    {
+      "id": "6043f2fe-b359-47da-8fe9-9b80144c6217",
+      "author": "home",
+      "text": "Survey of candidate engines done 2026-09-23 (decision-models-survey.md, to be added under docs/): Kev is open-weights, Apache-2.0, by Jared Palmer, 0.8B/4B/9B on Qwen3.5, implements the TypeSafe systemone contract; CUDA first-class, Apple silicon slow on the Qwen3.5 checkpoints, no MLX path yet.",
+      "created_at": "2026-09-23T11:47:06.493906Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude-code",
+        "model": "claude-fable-5-1"
+      }
+    }
+  ],
   "created_at": "2026-09-23T11:41:24.561784Z",
-  "updated_at": "2026-09-23T11:41:30.215627Z",
+  "updated_at": "2026-09-23T11:47:06.493922Z",
   "closed_at": null,
   "agent": {
     "platform": "claude-code",
     "model": "claude-fable-5-1",
     "name": "Claude Fable 5.1"
   },
-  "right_now_summary": null,
-  "right_now_updated_at": null,
+  "right_now_summary": "Kev’s engine survey is complete, and its adapter and benchmark runs still need to be added.",
+  "right_now_updated_at": "2026-09-23T11:47:09.437085Z",
   "custom": {}
 }
