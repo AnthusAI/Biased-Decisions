@@ -12,15 +12,28 @@
     "studies"
   ],
   "dependencies": [],
-  "comments": [],
+  "comments": [
+    {
+      "id": "23303593-cc8f-4c27-a04f-0bfedcbcc30c",
+      "author": "home",
+      "text": "Status (2026-09-23): No update recorded against this epic in the current facts pass. Its child stories (compliance-map reporting, screening-task build, and the Jev go/no-go pricing story) remain open; status left unchanged pending a fact check. The four new regulated-decision tasks referenced elsewhere (CFPB servicemember, CFPB older American, Q-Pain, Civil Comments) are tracked under the Task Coverage epic (BD-8711ca), not here.\n",
+      "created_at": "2026-09-23T16:31:49.240226Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude_code",
+        "model": "Claude Sonnet 5",
+        "name": "Board steward"
+      }
+    }
+  ],
   "created_at": "2026-09-23T13:04:51.180260Z",
-  "updated_at": "2026-09-23T13:04:51.180287Z",
+  "updated_at": "2026-09-23T16:31:49.240263Z",
   "closed_at": null,
   "agent": {
     "platform": "claude-code",
     "model": "claude-fable-5-1"
   },
-  "right_now_summary": "The team is building and testing regulated screening tasks and a compliance report before the full run.",
-  "right_now_updated_at": "2026-09-23T16:21:41.081277Z",
+  "right_now_summary": "The screening tasks, compliance report, and Jev dry run are being built and tested.",
+  "right_now_updated_at": "2026-09-23T16:31:50.835358Z",
   "custom": {}
 }

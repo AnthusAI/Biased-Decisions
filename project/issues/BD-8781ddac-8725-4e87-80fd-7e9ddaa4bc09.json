@@ -18,8 +18,8 @@
     "platform": "claude-code",
     "model": "claude-fable-5-1"
   },
-  "right_now_summary": "Studies are publishing, new tests are running, and the benchmark and replayable leaderboard are being built.",
-  "right_now_updated_at": "2026-09-23T16:31:29.989048Z",
+  "right_now_summary": "Several studies are published; new preregistrations and runs continue, while the replay build gets a fix.",
+  "right_now_updated_at": "2026-09-23T16:34:14.005159Z",
   "custom": {
     "project_label": "BD",
     "source": "shared"

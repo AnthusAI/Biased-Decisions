@@ -12,16 +12,29 @@
     "engines"
   ],
   "dependencies": [],
-  "comments": [],
+  "comments": [
+    {
+      "id": "6516060d-87bb-4f94-8b1d-35d5772a2e80",
+      "author": "home",
+      "text": "Status (2026-09-23): Not started. Open-model coverage work has not begun; the engine-adapter stories under this epic are specced but no runs have happened.\n",
+      "created_at": "2026-09-23T16:32:59.810536Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude_code",
+        "model": "Claude Sonnet 5",
+        "name": "Board steward"
+      }
+    }
+  ],
   "created_at": "2026-09-23T11:47:34.718117Z",
-  "updated_at": "2026-09-23T12:00:37.123596Z",
+  "updated_at": "2026-09-23T16:32:59.810558Z",
   "closed_at": null,
   "agent": {
     "platform": "claude-code",
     "model": "claude-fable-5-1"
   },
-  "right_now_summary": "Adapters and the cross-hardware runner are being built to benchmark open decision models on shared tasks.",
-  "right_now_updated_at": "2026-09-23T16:24:28.550245Z",
+  "right_now_summary": "Adapters and the cross-hardware runner are being built, but no benchmark runs have happened yet.",
+  "right_now_updated_at": "2026-09-23T16:33:01.767685Z",
   "custom": {
     "project_label": "BD",
     "source": "shared"

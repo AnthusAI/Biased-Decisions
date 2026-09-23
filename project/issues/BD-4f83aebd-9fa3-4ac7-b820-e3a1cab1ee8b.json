@@ -12,15 +12,28 @@
     "site"
   ],
   "dependencies": [],
-  "comments": [],
+  "comments": [
+    {
+      "id": "de9f575f-968a-42ad-999e-bdfba47c8eab",
+      "author": "home",
+      "text": "Status (2026-09-23): In progress. The leaderboard site (Astro, deep links, social cards, version footer) is built and merged; the leaderboard.json generation (BD-46ff20) and the static per-dimension/overall-board site (BD-5609c2) are closed below as done. The Amplify app is connected and the custom domain biased-decisions.anth.us is attached and available. Builds currently fail at the replay check because race-fullname majority-flip values differ on the build machine; a fix is in progress, so the epic stays in_progress rather than closing.\n",
+      "created_at": "2026-09-23T16:32:38.745764Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude_code",
+        "model": "Claude Sonnet 5",
+        "name": "Board steward"
+      }
+    }
+  ],
   "created_at": "2026-09-23T13:03:21.518944Z",
-  "updated_at": "2026-09-23T16:28:42.260458Z",
+  "updated_at": "2026-09-23T16:32:38.745783Z",
   "closed_at": null,
   "agent": {
     "platform": "claude-code",
     "model": "claude-fable-5-1"
   },
-  "right_now_summary": "The leaderboard pipeline, site, charts, drill-downs, and release publishing are being built.",
-  "right_now_updated_at": "2026-09-23T16:28:45.004605Z",
+  "right_now_summary": "The site is live, but builds fail on race-fullname replay values while a fix is underway.",
+  "right_now_updated_at": "2026-09-23T16:32:41.040729Z",
   "custom": {}
 }
