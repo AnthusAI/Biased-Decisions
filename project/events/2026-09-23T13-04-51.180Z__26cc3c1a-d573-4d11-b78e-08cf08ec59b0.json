@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "event_id": "26cc3c1a-d573-4d11-b78e-08cf08ec59b0",
+  "issue_id": "BD-4af5ba3d-22d2-4fce-be6c-7146f0de34f6",
+  "event_type": "issue_created",
+  "occurred_at": "2026-09-23T13:04:51.180Z",
+  "actor_id": "home",
+  "payload": {
+    "title": "Regulated screening decisions: marital, familial, pregnancy, criminal record, citizenship",
+    "description": "Pre-registered in docs/regulated-decisions-preregistration.md, before any run. Adds a second task family on the existing 2,000-bio stereotype pool: five yes/no screening questions of the kind automated tools make, each mapped to the regime that governs it. Five attribute cues (marital status, familial status, pregnancy, criminal record, citizenship) are inserted with same-shape floors, mirroring categories named by ECOA, the Fair Housing Act, the Pregnant Workers Fairness Act, EEOC/ban-the-box guidance, and IRCA. The report is a compliance map: attributes by regime, with signed shifts, bootstrap intervals, and flip rates versus each floor. Laya runs first and free; Jev is priced and capped before any request, starting with a 500-bio subsample go/no-go.",
+    "issue_type": "epic",
+    "status": "open",
+    "priority": 2,
+    "assignee": null,
+    "parent": "BD-8781ddac-8725-4e87-80fd-7e9ddaa4bc09",
+    "labels": [
+      "studies"
+    ],
+    "agent": {
+      "platform": "claude-code",
+      "model": "claude-fable-5-1"
+    }
+  }
+}
