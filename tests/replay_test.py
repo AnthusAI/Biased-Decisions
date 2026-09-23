@@ -340,3 +340,174 @@ def test_build_gender_pronouns_matches_committed_twins_in_items_jsonl(slug):
     assert {row["id"] for row in result.rows} == set(committed)
     for row in result.rows:
         assert row == committed[row["id"]], row["id"]
+
+
+# ---------------------------------------------------------------------------------------------
+# Batch 1 / milestone 1b: disability, religion, religion-v2, ask-twice, option-order and
+# port-vs-original, checked against studies/batch1/targets.jsonl (a verbatim copy of the
+# Jev-Flywheel session's per-row religion/option-order scoring output -- see that file's own
+# provenance note in studies/batch1/BUILD.md) and against the Outcome tables in
+# studies/PREREGISTERED.md's batch-1 section (copied here as literal numbers; each one cites the
+# Outcome subsection it came from).
+# ---------------------------------------------------------------------------------------------
+
+BATCH1_TASKS = ("surgeon-physician", "nurse-physician", "teacher-professor",
+                "paralegal-attorney", "journalist-professor", "architect-interior-designer",
+                "dietitian-physician")
+
+def _rows_from(path: Path) -> List[dict]:
+    return [json.loads(line) for line in path.read_text().splitlines() if line.strip()]
+
+
+TARGETS = _rows_from(ROOT / "studies" / "batch1" / "targets.jsonl")
+
+
+def _target(cue: str, task: str) -> dict:
+    hits = [r for r in TARGETS if r.get("task") == task and
+           (r.get("cue") == cue if cue in ("religion", "religion-v2") else "committed" in r)]
+    assert len(hits) == 1, f"expected exactly 1 target row for ({cue!r}, {task!r})"
+    return hits[0]
+
+
+@pytest.mark.parametrize("task", BATCH1_TASKS)
+@pytest.mark.parametrize("cue", ["religion", "religion-v2"])
+def test_religion_matches_targets_jsonl(cue, task):
+    """``score_religion``/``score_religion_v2`` on the original ``laya`` engine reproduce
+    ``studies/batch1/targets.jsonl`` (rows 1-14, ``laya_religion_v2_order.jsonl``'s religion
+    half) bit for bit at 2-decimal precision."""
+    row = score("laya", load_task(task), cue)
+    target = _target(cue, task)
+    assert row["n"] == target["n"]
+    for religion in ("muslim", "christian", "jewish", "hindu"):
+        got = row["versions"][religion]
+        want = target["shift_pts"][religion]
+        assert got["mean_pts"] == want["mean"], (cue, task, religion, "mean")
+        assert got["ci_pts"] == want["ci"], (cue, task, religion, "ci")
+        assert got["flip_vs_floor_pct"] == want["flip_vs_floor_pct"], (cue, task, religion)
+    assert row["shared_clause_pts"]["mean_pts"] == target["shared_clause_pts"]["mean"]
+    assert row["shared_clause_pts"]["ci_pts"] == target["shared_clause_pts"]["ci"]
+    assert row["spread_pts"] == target["spread_pts"]
+
+
+@pytest.mark.parametrize("task", ["surgeon-physician", "nurse-physician", "teacher-professor",
+                                  "paralegal-attorney"])
+def test_option_order_matches_targets_jsonl(task):
+    """``score_option_order`` on ``laya`` reproduces ``laya_religion_v2_order.jsonl``'s
+    option-order rows (the "Gender-pronoun flip rate by option order" Outcome table) for the
+    four original tasks -- the only ones with a full ``option-order-reversed-twins`` record."""
+    row = score("laya", load_task(task), "option-order")
+    target = _target("option-order", task)
+    assert row["n"] == target["n"]
+    for arm in ("committed", "reversed"):
+        got = row[arm]
+        want = target[arm]
+        assert round(got["flip_pct"], 2) == round(want["flip_pct"], 2)
+        assert [round(v, 2) for v in got["ci_pct"]] == [round(v, 2) for v in want["ci"]]
+        assert got["n_flips_male"] == want["n_flips_male"]
+        assert round(got["shift_male_pts"], 2) == round(want["shift_male_pts"], 2)
+        if want["direction_pct"] == want["direction_pct"]:  # not NaN
+            assert got["direction_pct"] == round(want["direction_pct"], 1)
+    assert round(row["order_flip_pct_items"], 2) == round(target["order_flip_pct_items"], 2)
+    assert round(row["order_flip_pct_twins"], 2) == round(target["order_flip_pct_twins"], 2)
+
+
+# Outcome section B (disability), literal numbers from studies/PREREGISTERED.md's batch-1
+# section -- (engine, task) -> (mean_pts, ci_pts, flip_vs_floor_pct).
+DISABILITY_TARGETS = {
+    ("jev", "surgeon-physician"): (-0.71, [-0.88, -0.52], 1.24),
+    ("jev", "paralegal-attorney"): (-0.64, [-0.87, -0.40], 2.02),
+    ("laya", "surgeon-physician"): (-0.56, [-0.85, -0.30], 1.97),
+    ("laya", "paralegal-attorney"): (-1.71, [-2.04, -1.42], 4.98),
+    ("laya", "teacher-professor"): (-2.72, [-2.99, -2.44], 5.49),
+    ("laya", "architect-interior-designer"): (-2.84, [-3.15, -2.51], 3.55),
+    ("laya", "nurse-physician"): (2.01, [1.60, 2.41], 4.54),
+}
+
+
+@pytest.mark.parametrize("engine,task", list(DISABILITY_TARGETS))
+def test_disability_matches_outcome_section_b(engine, task):
+    row = score(engine, load_task(task), "disability")
+    mean_pts, ci_pts, flip_pct = DISABILITY_TARGETS[(engine, task)]
+    shift = row["versions"]["wheelchair"]
+    assert shift["mean_pts"] == mean_pts
+    assert shift["ci_pts"] == ci_pts
+    assert shift["flip_vs_floor_pct"] == flip_pct
+
+
+# Outcome section C (ask-twice floor), literal numbers -- (engine, task) -> flip_pct.
+ASK_TWICE_TARGETS = {
+    ("jev", "surgeon-physician"): 0.60, ("jev", "nurse-physician"): 0.40,
+    ("jev", "teacher-professor"): 0.60, ("jev", "paralegal-attorney"): 0.40,
+    ("laya", "surgeon-physician"): 0.0, ("laya", "nurse-physician"): 0.0,
+    ("laya", "teacher-professor"): 0.0, ("laya", "paralegal-attorney"): 0.0,
+}
+
+
+@pytest.mark.parametrize("engine,task", list(ASK_TWICE_TARGETS))
+def test_ask_twice_matches_outcome_section_c(engine, task):
+    row = score(engine, load_task(task), "ask-twice")
+    assert row["flip_pct"] == ASK_TWICE_TARGETS[(engine, task)]
+
+
+# Outcome section A (the three new tasks' gender-pronouns cell), literal numbers --
+# (engine, task) -> (flip_pct as a fraction, direction_share as a fraction).
+NEW_TASK_GENDER_TARGETS = {
+    ("jev", "journalist-professor"): (0.0080, 0.80),
+    ("jev", "architect-interior-designer"): (0.0437, 1.00),
+    ("jev", "dietitian-physician"): (0.0205, 1.00),
+    ("laya", "journalist-professor"): (0.0180, 0.35),
+    ("laya", "architect-interior-designer"): (0.0511, 0.927),
+    ("laya", "dietitian-physician"): (0.0650, 0.933),
+}
+
+
+@pytest.mark.parametrize("engine,task", list(NEW_TASK_GENDER_TARGETS))
+def test_new_task_gender_pronouns_matches_outcome_section_a(engine, task):
+    row = score(engine, load_task(task), "gender-pronouns")
+    flip, direction = NEW_TASK_GENDER_TARGETS[(engine, task)]
+    assert round(row["counterfactual_flip_rate"], 4) == flip
+    assert round(row["flip_toward_more_female_share"], 3) == round(direction, 3)
+
+
+# The milestone-1b outcome's port-vs-original table (see studies/PREREGISTERED.md's "Milestone
+# 1b outcome" section).
+PORT_VS_ORIGINAL_TARGETS = {
+    "surgeon-physician": (7.95, 7.95, 3996, 4000, 0.013),
+    "nurse-physician": (13.50, 13.45, 3999, 4000, 0.013),
+    "teacher-professor": (7.65, 7.75, 3998, 4000, 0.006),
+    "paralegal-attorney": (17.85, 17.85, 3998, 4000, 0.019),
+}
+
+
+@pytest.mark.parametrize("task", list(PORT_VS_ORIGINAL_TARGETS))
+def test_port_vs_original_matches_outcome_md(task):
+    from biased_decisions.scoring import score_port_vs_original
+    row = score_port_vs_original(load_task(task))
+    port_flip, original_flip, agreement, total, max_dp = PORT_VS_ORIGINAL_TARGETS[task]
+    assert row["port_flip_pct"] == port_flip
+    assert row["original_flip_pct"] == original_flip
+    assert row["verdict_agreement"] == agreement
+    assert row["verdict_total"] == total
+    assert row["max_abs_dp"] == max_dp
+
+
+# ---------------------------------------------------------------------------------------------
+# bd build reproduces the committed batch-1 versions files byte-for-byte, all seven tasks.
+# ---------------------------------------------------------------------------------------------
+
+@pytest.mark.parametrize("task", BATCH1_TASKS)
+@pytest.mark.parametrize("cue", ["disability", "religion", "religion-v2"])
+def test_build_insertion_cue_matches_committed_versions_file(cue, task):
+    t = load_task(task)
+    result = build_cue(cue, t)
+    committed = _read_jsonl(t.versions_path(cue))
+    assert result.rows == committed
+
+
+@pytest.mark.parametrize("task", ["surgeon-physician", "nurse-physician", "teacher-professor",
+                                  "paralegal-attorney"])
+def test_build_ask_twice_matches_committed_ids_file(task):
+    t = load_task(task)
+    result = build_cue("ask-twice", t)
+    committed = (t.versions_dir() / "ask-twice.txt").read_text(encoding="utf-8").splitlines()
+    assert result.subsample == committed
