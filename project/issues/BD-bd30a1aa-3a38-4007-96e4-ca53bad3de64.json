@@ -1,0 +1,53 @@
+{
+  "id": "BD-bd30a1aa-3a38-4007-96e4-ca53bad3de64",
+  "title": "Plain-language copy for the whole site, checked by Limatus and a jargon test",
+  "description": "The site used builder jargon (engine, floor, cue, excess, trope, twin) a reader could not follow. Rewrite all public copy in plain language, set up Limatus from the Anth.us profile, and fail the build on jargon.",
+  "type": "story",
+  "status": "open",
+  "priority": 1,
+  "assignee": null,
+  "creator": null,
+  "parent": "BD-4f83aebd-9fa3-4ac7-b820-e3a1cab1ee8b",
+  "labels": [],
+  "dependencies": [],
+  "comments": [
+    {
+      "id": "60e56529-6345-4031-865e-dc9c2c6be7b9",
+      "author": "home",
+      "text": "Feature: Plain-language copy\n  Scenario: A first-time visitor can follow every page\n    Given a reader who has never heard of this project\n    When they read a page\n    Then no sentence needs a term the page has not defined\n  Scenario: Jargon cannot return\n    Given the built site\n    When npm test runs\n    Then it fails on any banned word in visible text, alt text or previews",
+      "created_at": "2026-09-23T23:26:38.118533Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude_code",
+        "model": "claude-sonnet-5",
+        "name": "claude"
+      }
+    },
+    {
+      "id": "b5f3a028-926d-4cff-8a6b-2bab4621e93f",
+      "author": "home",
+      "text": "Shipped in 578a5fd: five writers rewrote page templates, characteristic and result pages, sentence builders, data descriptions and compliance guidance; jargon test is in npm test (0 banned words, was 33 kinds); Limatus profile, samples and scan in writing/. Follow-ups: repeated lead paragraph on one-model pages, heading 'phrase we added' on name-change results, Limatus repetition findings.",
+      "created_at": "2026-09-23T23:26:44.699473Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude_code",
+        "model": "claude-sonnet-5",
+        "name": "claude"
+      }
+    }
+  ],
+  "created_at": "2026-09-23T23:26:31.768054Z",
+  "updated_at": "2026-09-23T23:26:44.699504Z",
+  "closed_at": null,
+  "agent": {
+    "platform": "claude_code",
+    "model": "claude-sonnet-5",
+    "name": "claude"
+  },
+  "right_now_summary": "Five writers rewrote the site in plain language, added a jargon test, and set up Limatus checks.",
+  "right_now_updated_at": "2026-09-23T23:26:46.099296Z",
+  "custom": {
+    "project_label": "BD",
+    "source": "shared"
+  }
+}
