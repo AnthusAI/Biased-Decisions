@@ -18,8 +18,8 @@
     "platform": "claude-code",
     "model": "claude-fable-5-1"
   },
-  "right_now_summary": "The harness is adding bias tests while teams replay Jev-Flywheel studies and run Laya comparisons.",
-  "right_now_updated_at": "2026-09-23T12:01:49.727111Z",
+  "right_now_summary": "The harness is adding bias tests while Laya runs continue and custom dataset support is still missing.",
+  "right_now_updated_at": "2026-09-23T12:02:31.674889Z",
   "custom": {
     "project_label": "BD",
     "source": "shared"

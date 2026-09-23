@@ -18,7 +18,7 @@
     "platform": "claude-code",
     "model": "claude-fable-5-1"
   },
-  "right_now_summary": "The Jev-Flywheel bias studies are being ported and replayed offline.",
-  "right_now_updated_at": "2026-09-23T12:00:56.746645Z",
+  "right_now_summary": "The input format is set, but the CLI still cannot ingest custom datasets.",
+  "right_now_updated_at": "2026-09-23T12:02:28.933742Z",
   "custom": {}
 }
