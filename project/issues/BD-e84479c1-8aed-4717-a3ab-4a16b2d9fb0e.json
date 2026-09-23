@@ -1,0 +1,41 @@
+{
+  "id": "BD-e84479c1-8aed-4717-a3ab-4a16b2d9fb0e",
+  "title": "Explain 'pre-registered' where it appears",
+  "description": "Readers see 'pre-registered' on dimension and question pages without an explanation. Add a short inline definition (accessible tooltip or expandable note) and a methods-page section: before an engine answered anything, each prediction (direction and rough size) was committed to the public repository, so the commit date proves it came first; the page then shows prediction, observed result and verdict. Link each prediction's commit. Distinguish pre-registered questions from exploratory ones.",
+  "type": "story",
+  "status": "open",
+  "priority": 2,
+  "assignee": null,
+  "creator": null,
+  "parent": "BD-4f83aebd-9fa3-4ac7-b820-e3a1cab1ee8b",
+  "labels": [],
+  "dependencies": [],
+  "comments": [
+    {
+      "id": "a5556f41-8b88-4a4e-aefd-1826a040fc02",
+      "author": "home",
+      "text": "Feature: Pre-registration explained in place\n  Scenario: A reader meets the term\n    Given a page that labels a question or cell 'pre-registered'\n    When the reader hovers, focuses or taps the label\n    Then a plain-language definition appears and links to the methods section\n  Scenario: The prediction's date is provable\n    Given a pre-registered prediction on a page\n    Then the page links the commit that recorded it, dated before the engine's first answer",
+      "created_at": "2026-09-23T16:27:09.239841Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude_code",
+        "model": "Claude Opus 5.5",
+        "name": "Biased-Decisions coordinator"
+      }
+    }
+  ],
+  "created_at": "2026-09-23T16:26:55.783516Z",
+  "updated_at": "2026-09-23T16:27:09.239865Z",
+  "closed_at": null,
+  "agent": {
+    "platform": "claude_code",
+    "model": "Claude Opus 5.5",
+    "name": "Biased-Decisions coordinator"
+  },
+  "right_now_summary": "The team is adding inline explanations, methods guidance, and links proving when predictions were recorded.",
+  "right_now_updated_at": "2026-09-23T16:27:11.485858Z",
+  "custom": {
+    "project_label": "BD",
+    "source": "shared"
+  }
+}
