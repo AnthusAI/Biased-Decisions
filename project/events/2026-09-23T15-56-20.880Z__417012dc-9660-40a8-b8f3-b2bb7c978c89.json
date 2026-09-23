@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "event_id": "417012dc-9660-40a8-b8f3-b2bb7c978c89",
+  "issue_id": "BD-1166d223-0ceb-41ee-a225-6fb735026b4d",
+  "event_type": "issue_created",
+  "occurred_at": "2026-09-23T15:56:20.880Z",
+  "actor_id": "home",
+  "payload": {
+    "title": "Pre-register the brand and company bias study",
+    "description": "Tasks, cues, floors (invented names), predictions per engine, how position bias is separated, and the naming policy for real companies.",
+    "issue_type": "story",
+    "status": "open",
+    "priority": 2,
+    "assignee": null,
+    "parent": "BD-72afa4ac-4c22-430f-b9e3-473780ae784d",
+    "labels": []
+  }
+}

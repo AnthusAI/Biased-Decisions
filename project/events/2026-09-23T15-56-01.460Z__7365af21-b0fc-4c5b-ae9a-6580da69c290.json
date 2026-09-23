@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "event_id": "7365af21-b0fc-4c5b-ae9a-6580da69c290",
+  "issue_id": "BD-29cc262c-2f73-4f23-8e97-843c32e66128",
+  "event_type": "issue_created",
+  "occurred_at": "2026-09-23T15:56:01.460Z",
+  "actor_id": "home",
+  "payload": {
+    "title": "Design 2: which word does the engine choose for the same behaviour",
+    "description": "Behaviour sentence with she/he; choice question between the neutral and the loaded word, option order counterbalanced on half the items. Measures the language mechanism directly (models drafting or summarising evaluations).",
+    "issue_type": "story",
+    "status": "open",
+    "priority": 2,
+    "assignee": null,
+    "parent": "BD-bc5c8b83-d2e8-4d06-b516-833ffc21b81e",
+    "labels": []
+  }
+}

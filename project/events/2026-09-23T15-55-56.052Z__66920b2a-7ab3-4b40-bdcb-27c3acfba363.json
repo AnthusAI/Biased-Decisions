@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "event_id": "66920b2a-7ab3-4b40-bdcb-27c3acfba363",
+  "issue_id": "BD-0fba29e6-da5b-4d67-ac20-72101043c7e9",
+  "event_type": "issue_created",
+  "occurred_at": "2026-09-23T15:55:56.052Z",
+  "actor_id": "home",
+  "payload": {
+    "title": "Design 1: word x gender interaction on a management-readiness question",
+    "description": "Insert 'Colleagues describe her/him as <word>.' into real bios; 2x2 gender x (neutral vs loaded word). Decision: ready for a management role? Measure: (loaded - neutral) for women minus the same for men. Each pair is its own control.",
+    "issue_type": "story",
+    "status": "open",
+    "priority": 2,
+    "assignee": null,
+    "parent": "BD-bc5c8b83-d2e8-4d06-b516-833ffc21b81e",
+    "labels": []
+  }
+}

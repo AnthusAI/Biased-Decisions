@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "event_id": "f557a2ae-214b-41d7-80f7-71c425d37c16",
+  "issue_id": "BD-f566891d-6233-4fd9-be3c-337281774eaf",
+  "event_type": "issue_created",
+  "occurred_at": "2026-09-23T15:55:48.078Z",
+  "actor_id": "home",
+  "payload": {
+    "title": "Pre-register the gendered-language study with sourced word pairs",
+    "description": "Word pairs (e.g. assertive/bossy, direct/abrasive, confident/aggressive, passionate/emotional, determined/stubborn), each with a published source; predictions for Laya and Jev per design; interval rules; what would change what I believe.",
+    "issue_type": "story",
+    "status": "open",
+    "priority": 2,
+    "assignee": null,
+    "parent": "BD-bc5c8b83-d2e8-4d06-b516-833ffc21b81e",
+    "labels": []
+  }
+}

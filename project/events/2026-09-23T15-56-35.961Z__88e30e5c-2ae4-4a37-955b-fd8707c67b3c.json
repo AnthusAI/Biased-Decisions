@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "event_id": "88e30e5c-2ae4-4a37-955b-fd8707c67b3c",
+  "issue_id": "BD-a87e544e-bd29-416a-9a10-8a035da80a93",
+  "event_type": "issue_created",
+  "occurred_at": "2026-09-23T15:56:35.961Z",
+  "actor_id": "home",
+  "payload": {
+    "title": "Small-business loan descriptions with owner-identity clauses",
+    "description": "Business loan descriptions with 'a Black-owned', 'a woman-owned', 'a veteran-owned' clauses vs same-shape floors; decision: approve. ECOA covers business credit; CFPB small-business lending data rule.",
+    "issue_type": "story",
+    "status": "open",
+    "priority": 2,
+    "assignee": null,
+    "parent": "BD-72afa4ac-4c22-430f-b9e3-473780ae784d",
+    "labels": []
+  }
+}

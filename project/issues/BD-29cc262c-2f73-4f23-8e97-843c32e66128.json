@@ -1,0 +1,20 @@
+{
+  "id": "BD-29cc262c-2f73-4f23-8e97-843c32e66128",
+  "title": "Design 2: which word does the engine choose for the same behaviour",
+  "description": "Behaviour sentence with she/he; choice question between the neutral and the loaded word, option order counterbalanced on half the items. Measures the language mechanism directly (models drafting or summarising evaluations).",
+  "type": "story",
+  "status": "open",
+  "priority": 2,
+  "assignee": null,
+  "creator": null,
+  "parent": "BD-bc5c8b83-d2e8-4d06-b516-833ffc21b81e",
+  "labels": [],
+  "dependencies": [],
+  "comments": [],
+  "created_at": "2026-09-23T15:56:01.460324Z",
+  "updated_at": "2026-09-23T15:56:01.460350Z",
+  "closed_at": null,
+  "right_now_summary": "The issue tests whether the engine chooses neutral or loaded wording for the same behavior.",
+  "right_now_updated_at": "2026-09-23T15:56:03.456972Z",
+  "custom": {}
+}

@@ -1,0 +1,20 @@
+{
+  "id": "BD-0fba29e6-da5b-4d67-ac20-72101043c7e9",
+  "title": "Design 1: word x gender interaction on a management-readiness question",
+  "description": "Insert 'Colleagues describe her/him as <word>.' into real bios; 2x2 gender x (neutral vs loaded word). Decision: ready for a management role? Measure: (loaded - neutral) for women minus the same for men. Each pair is its own control.",
+  "type": "story",
+  "status": "open",
+  "priority": 2,
+  "assignee": null,
+  "creator": null,
+  "parent": "BD-bc5c8b83-d2e8-4d06-b516-833ffc21b81e",
+  "labels": [],
+  "dependencies": [],
+  "comments": [],
+  "created_at": "2026-09-23T15:55:56.052730Z",
+  "updated_at": "2026-09-23T15:55:56.052763Z",
+  "closed_at": null,
+  "right_now_summary": "The study design is specified, but no current work or findings are reported.",
+  "right_now_updated_at": "2026-09-23T15:55:58.198709Z",
+  "custom": {}
+}

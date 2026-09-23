@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "event_id": "68141e45-e73b-4786-b010-d992cacbda58",
+  "issue_id": "BD-ecb43429-7bff-4573-869c-eba26e4e8327",
+  "event_type": "issue_created",
+  "occurred_at": "2026-09-23T15:56:07.304Z",
+  "actor_id": "home",
+  "payload": {
+    "title": "Design 3: communal vs agentic reference-letter descriptors",
+    "description": "Insert communal ('warm, supportive, a team player') or agentic ('confident, independent, a natural leader') descriptors crossed with gender. Decision: advance to the final round?",
+    "issue_type": "story",
+    "status": "open",
+    "priority": 2,
+    "assignee": null,
+    "parent": "BD-bc5c8b83-d2e8-4d06-b516-833ffc21b81e",
+    "labels": []
+  }
+}

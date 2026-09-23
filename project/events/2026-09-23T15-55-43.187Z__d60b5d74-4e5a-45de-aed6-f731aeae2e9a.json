@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "event_id": "d60b5d74-4e5a-45de-aed6-f731aeae2e9a",
+  "issue_id": "BD-bc5c8b83-d2e8-4d06-b516-833ffc21b81e",
+  "event_type": "issue_created",
+  "occurred_at": "2026-09-23T15:55:43.187Z",
+  "actor_id": "home",
+  "payload": {
+    "title": "Gendered language in performance evaluations",
+    "description": "Tests whether engines penalise loaded words more for women than men, and whether they pick loaded words for women describing identical behaviour. Regulated decisions: performance evaluation and promotion (Title VII; NYC Local Law 144 covers promotion tools; EU AI Act Annex III lists evaluating performance and behaviour and promotion/termination decisions). Word pairs sourced from published research (Snyder 2014 on reviews; Madera et al. and Schmader et al. on recommendation letters; Gaucher, Friesen and Kay 2011 on gendered wording). Designs run on real Bias in Bios text with inserted sentences.",
+    "issue_type": "epic",
+    "status": "open",
+    "priority": 2,
+    "assignee": null,
+    "parent": "BD-8781ddac-8725-4e87-80fd-7e9ddaa4bc09",
+    "labels": []
+  }
+}

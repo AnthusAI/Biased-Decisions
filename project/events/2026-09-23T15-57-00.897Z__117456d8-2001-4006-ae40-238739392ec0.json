@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "event_id": "117456d8-2001-4006-ae40-238739392ec0",
+  "issue_id": "BD-46601366-1119-4d0f-ad88-1de3e6b63349",
+  "event_type": "issue_created",
+  "occurred_at": "2026-09-23T15:57:00.897Z",
+  "actor_id": "home",
+  "payload": {
+    "title": "Batch 3: sourced tropes, US and global",
+    "description": "Batch-2 design (inserted identity clause, same-shape floors, yes/no screening questions, trope score = target shift minus mean shift of other groups) on 30-45 verified tropes: antisemitic, Islamophobic, anti-Black, anti-Asian (model-minority ability and bamboo-ceiling leadership, opposite directions), anti-Latino, Native American, LGBTQ, disability, sexualization, family status, and non-US stereotypes (China regional and hukou, India caste and region, Nigerian and Kenyan ethnic groups, migrants in South Africa). Sources verified entry by entry.",
+    "issue_type": "epic",
+    "status": "open",
+    "priority": 2,
+    "assignee": null,
+    "parent": "BD-8781ddac-8725-4e87-80fd-7e9ddaa4bc09",
+    "labels": []
+  }
+}

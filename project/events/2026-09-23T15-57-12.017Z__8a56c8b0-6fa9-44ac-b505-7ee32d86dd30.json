@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "event_id": "8a56c8b0-6fa9-44ac-b505-7ee32d86dd30",
+  "issue_id": "BD-c930e2e7-0580-4af1-a4c9-930312120d87",
+  "event_type": "issue_created",
+  "occurred_at": "2026-09-23T15:57:12.017Z",
+  "actor_id": "home",
+  "payload": {
+    "title": "Pre-register batch 3",
+    "description": "Groups, clauses, floors, questions, n, trope-score definition, predictions for Laya and Jev, multiple-comparison handling, sensitive-content handling.",
+    "issue_type": "story",
+    "status": "open",
+    "priority": 2,
+    "assignee": null,
+    "parent": "BD-46601366-1119-4d0f-ad88-1de3e6b63349",
+    "labels": []
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "event_id": "71c3e1f2-5f51-43cb-847c-e471a9f23563",
+  "issue_id": "BD-904ad535-5b2d-4524-b674-8cfc05f30936",
+  "event_type": "issue_created",
+  "occurred_at": "2026-09-23T15:57:05.418Z",
+  "actor_id": "home",
+  "payload": {
+    "title": "Verify the trope surveys against their sources",
+    "description": "Check every cited URL in the US and global surveys; keep only supported entries; record removals.",
+    "issue_type": "story",
+    "status": "open",
+    "priority": 2,
+    "assignee": null,
+    "parent": "BD-46601366-1119-4d0f-ad88-1de3e6b63349",
+    "labels": []
+  }
+}

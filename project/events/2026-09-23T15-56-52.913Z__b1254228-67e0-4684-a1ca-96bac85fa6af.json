@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "event_id": "b1254228-67e0-4684-a1ca-96bac85fa6af",
+  "issue_id": "BD-c6586460-d49e-46e1-a808-bd66276d799e",
+  "event_type": "issue_created",
+  "occurred_at": "2026-09-23T15:56:52.913Z",
+  "actor_id": "home",
+  "payload": {
+    "title": "Product-pair ranking with counterbalanced order",
+    "description": "Product listings from public review data with identical specifications, brand swapped (famous, house brand, unknown); decision: rank or feature. DMA self-preferencing, P2B ranking transparency, FTC Section 5.",
+    "issue_type": "story",
+    "status": "open",
+    "priority": 2,
+    "assignee": null,
+    "parent": "BD-72afa4ac-4c22-430f-b9e3-473780ae784d",
+    "labels": []
+  }
+}

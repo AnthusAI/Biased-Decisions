@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "event_id": "ccbdca7e-8cc4-4ef5-9dcc-5414e0bd29e2",
+  "issue_id": "BD-86375c72-cad3-4eba-b1ac-6bcee6c0b6fb",
+  "event_type": "issue_created",
+  "occurred_at": "2026-09-23T15:56:44.345Z",
+  "actor_id": "home",
+  "payload": {
+    "title": "Fund pairs from public SEC prospectus data",
+    "description": "Identical fee and return tables, famous fund-family name vs unknown name; decision: recommend to a retail client. Reg BI, FINRA suitability, MiFID II.",
+    "issue_type": "story",
+    "status": "open",
+    "priority": 2,
+    "assignee": null,
+    "parent": "BD-72afa4ac-4c22-430f-b9e3-473780ae784d",
+    "labels": []
+  }
+}

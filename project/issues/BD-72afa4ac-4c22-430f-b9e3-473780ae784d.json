@@ -1,0 +1,20 @@
+{
+  "id": "BD-72afa4ac-4c22-430f-b9e3-473780ae784d",
+  "title": "Brand and company bias in regulated recommendations",
+  "description": "Edit one detail: the brand, company or owner identity in an otherwise identical listing, fund description, loan description or complaint; floor = swap between two invented names. Regulations: EU Digital Markets Act self-preferencing and the P2B ranking rules; FTC Act Section 5; SEC Regulation Best Interest, FINRA suitability, MiFID II; ECOA for business credit and the CFPB small-business lending data rule; RESPA steering; anti-kickback and formulary rules; public procurement; the FTC rule on fake reviews and review suppression. Public pages report direction (e.g. toward famous brands), naming specific brands only in item-level data. Option order counterbalanced wherever options are ranked, since position bias is large (Von flips 72% on reversal).",
+  "type": "epic",
+  "status": "open",
+  "priority": 2,
+  "assignee": null,
+  "creator": null,
+  "parent": "BD-8781ddac-8725-4e87-80fd-7e9ddaa4bc09",
+  "labels": [],
+  "dependencies": [],
+  "comments": [],
+  "created_at": "2026-09-23T15:56:15.828766Z",
+  "updated_at": "2026-09-23T15:56:15.828792Z",
+  "closed_at": null,
+  "right_now_summary": "The team is drafting tests for brand bias across funds, loans, rankings, and complaints.",
+  "right_now_updated_at": "2026-09-23T15:56:57.822459Z",
+  "custom": {}
+}

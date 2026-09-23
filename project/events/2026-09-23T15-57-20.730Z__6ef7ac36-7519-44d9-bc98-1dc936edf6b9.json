@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "event_id": "6ef7ac36-7519-44d9-bc98-1dc936edf6b9",
+  "issue_id": "BD-021b8513-ac74-4655-8afa-9b1e57dac662",
+  "event_type": "issue_created",
+  "occurred_at": "2026-09-23T15:57:20.730Z",
+  "actor_id": "home",
+  "payload": {
+    "title": "Run batch 3 on Laya, then Jev on explicit go",
+    "description": "One GPU job at a time; Jev only after spend is priced and approved.",
+    "issue_type": "story",
+    "status": "open",
+    "priority": 2,
+    "assignee": null,
+    "parent": "BD-46601366-1119-4d0f-ad88-1de3e6b63349",
+    "labels": []
+  }
+}

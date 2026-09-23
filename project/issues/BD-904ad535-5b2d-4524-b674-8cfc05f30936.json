@@ -1,0 +1,20 @@
+{
+  "id": "BD-904ad535-5b2d-4524-b674-8cfc05f30936",
+  "title": "Verify the trope surveys against their sources",
+  "description": "Check every cited URL in the US and global surveys; keep only supported entries; record removals.",
+  "type": "story",
+  "status": "open",
+  "priority": 2,
+  "assignee": null,
+  "creator": null,
+  "parent": "BD-46601366-1119-4d0f-ad88-1de3e6b63349",
+  "labels": [],
+  "dependencies": [],
+  "comments": [],
+  "created_at": "2026-09-23T15:57:05.418280Z",
+  "updated_at": "2026-09-23T15:57:05.418301Z",
+  "closed_at": null,
+  "right_now_summary": "The cited URLs in the US and global trope surveys are being checked against their sources.",
+  "right_now_updated_at": "2026-09-23T15:57:07.444683Z",
+  "custom": {}
+}

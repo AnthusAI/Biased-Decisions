@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "event_id": "a6a13212-0e7c-404d-92fe-02664ef9e7e1",
+  "issue_id": "BD-dd5c35a5-b204-4133-8421-b608cabfee92",
+  "event_type": "issue_created",
+  "occurred_at": "2026-09-23T15:56:29.456Z",
+  "actor_id": "home",
+  "payload": {
+    "title": "CFPB complaint escalation by company",
+    "description": "Reuse the CFPB escalation task; swap the named company between a large bank and a small institution with the same complaint text. UDAAP.",
+    "issue_type": "story",
+    "status": "open",
+    "priority": 2,
+    "assignee": null,
+    "parent": "BD-72afa4ac-4c22-430f-b9e3-473780ae784d",
+    "labels": []
+  }
+}
