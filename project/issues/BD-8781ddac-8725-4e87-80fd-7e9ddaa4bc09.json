@@ -18,8 +18,8 @@
     "platform": "claude-code",
     "model": "claude-fable-5-1"
   },
-  "right_now_summary": "Published studies and replay checks are solid; the team is fixing build failures and preparing new runs.",
-  "right_now_updated_at": "2026-09-23T16:47:24.803114Z",
+  "right_now_summary": "Published studies and the replay port are ready, but leaderboard checks fail and new runs await preregistration.",
+  "right_now_updated_at": "2026-09-23T16:51:56.090389Z",
   "custom": {
     "project_label": "BD",
     "source": "shared"

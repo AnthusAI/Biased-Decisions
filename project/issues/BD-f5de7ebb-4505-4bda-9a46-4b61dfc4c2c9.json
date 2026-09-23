@@ -1,0 +1,41 @@
+{
+  "id": "BD-f5de7ebb-4505-4bda-9a46-4b61dfc4c2c9",
+  "title": "Rewrite 'Read this before the board' for general readers, in four or six cards",
+  "description": "Author's direction 2026-09-23: the panel shown on every page ('Read this before the board': five items defined in HONESTY in biased_decisions/leaderboard.py, rendered in site/src/layouts/Base.astro) is too dry to read, even for its creator. Rewrite it to be accessible, engaging and informative for a general reader: plain words, concrete examples from our own results, a better title. Use four or six cards (not five) so the grid breaks cleanly at one, two and three columns. Keep every caveat that matters (edits are the least the model reads a trait; option order matters; every number replays from a committed record; trope questions test the model, not people); drop or fold anything a general reader does not need (e.g. the stand-in comparator note belongs in methods). No pre-registration talk, no build trivia.",
+  "type": "story",
+  "status": "open",
+  "priority": 2,
+  "assignee": null,
+  "creator": null,
+  "parent": "BD-4f83aebd-9fa3-4ac7-b820-e3a1cab1ee8b",
+  "labels": [],
+  "dependencies": [],
+  "comments": [
+    {
+      "id": "329c3f35-c15f-49b1-902d-bd6a9f18455b",
+      "author": "home",
+      "text": "Feature: A readable caveats panel\n  Scenario: The panel reads well and lays out cleanly\n    Given any page\n    Then the caveats panel has four or six cards\n    And it lays out as one column on phones, two on tablets and three or two balanced columns on desktop, with no orphan card\n  Scenario: The caveats survive\n    Given the rewritten panel\n    Then it still tells the reader that each test shows the least a model reads a trait, that option order matters, that every number replays from the record, and that trope questions measure the model, not the people",
+      "created_at": "2026-09-23T16:51:47.914659Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude_code",
+        "model": "Claude Opus 5.5",
+        "name": "Biased-Decisions coordinator"
+      }
+    }
+  ],
+  "created_at": "2026-09-23T16:51:38.582660Z",
+  "updated_at": "2026-09-23T16:51:47.914685Z",
+  "closed_at": null,
+  "agent": {
+    "platform": "claude_code",
+    "model": "Claude Opus 5.5",
+    "name": "Biased-Decisions coordinator"
+  },
+  "right_now_summary": "Rewrite the caveats panel in plain language with four or six cards, keeping key limits and examples.",
+  "right_now_updated_at": "2026-09-23T16:51:49.879952Z",
+  "custom": {
+    "project_label": "BD",
+    "source": "shared"
+  }
+}
