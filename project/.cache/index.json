@@ -1,0 +1,648 @@
+{
+  "version": 1,
+  "built_at": "2026-09-23T12:02:44Z",
+  "file_mtimes": {
+    "BD-0ab5abed-1460-492c-8f77-99522fba976b.json": 1790164885.807925,
+    "BD-180e929e-6d8f-42b8-8e89-eecaa6ef09bc.json": 1790164879.497535,
+    "BD-250c97a3-6ae4-4061-8d67-dbfd02bf9549.json": 1790164944.733642,
+    "BD-2d6909ec-b530-412b-84e6-2fe2f0978fde.json": 1790164089.129412,
+    "BD-431125d5-7275-4ffc-bafe-b13212a0dfe5.json": 1790164123.333002,
+    "BD-4383fb6e-c187-46b0-8493-65452dde07b5.json": 1790164059.250772,
+    "BD-45c20012-a076-4841-90de-dda5219badec.json": 1790164168.004249,
+    "BD-4d7d87f2-0adc-4ec6-bbf6-a003893ca0ca.json": 1790164948.933908,
+    "BD-4d86cffe-b0df-44a9-b4ce-2074c5d30289.json": 1790164839.080492,
+    "BD-5dadcd25-19ca-434f-8ee1-1392bd38ad2b.json": 1790164084.186215,
+    "BD-8781ddac-8725-4e87-80fd-7e9ddaa4bc09.json": 1790164951.675038,
+    "BD-87d960e1-975a-46c6-8114-7d66cbbd8afa.json": 1790164193.95101,
+    "BD-a2738191-15f6-4c20-b616-e7a45ab75822.json": 1790164947.289776,
+    "BD-a6f0268a-82ca-4017-9b8e-44a27dd9fde5.json": 1790164152.980518,
+    "BD-b3c8763a-d3ca-4553-a5fb-31d8cf65d29a.json": 1790164901.886362,
+    "BD-b5d1254a-7b4d-4703-920a-5d3e4965c796.json": 1790164138.838504,
+    "BD-bfec5ea5-f4f4-4a1a-8c07-97ec1afa1cd0.json": 1790164091.107743,
+    "BD-dc51ca9b-6149-495e-979f-22268681e251.json": 1790164942.534723,
+    "BD-e4e9b599-ec5d-4ab3-9a90-b37dd78bfec6.json": 1790164185.503064,
+    "BD-e9aabf6a-9ee7-4842-937a-0cfae1a11f21.json": 1790164906.91277,
+    "BD-eff9fba6-16f0-4fbf-b2c0-9b1c9f5aca4e.json": 1790164174.012093,
+    "BD-f7d8e24b-69df-4874-87cc-9d2ae8e19421.json": 1790164891.305177,
+    "BD-f8788b40-be10-4304-82e4-47519808815c.json": 1790164897.054601
+  },
+  "issues": [
+    {
+      "id": "BD-0ab5abed-1460-492c-8f77-99522fba976b",
+      "title": "Race and age studies: inserted names and ages (published)",
+      "description": "Done 2026-09-23. Race v1 (Bertrand and Mullainathan names, inconclusive against the floor), race v2 (Rosenman/Census full-name pools, four groups, signed shift), age (inserted 34/35/61/62). Reported in the one-word-test article.",
+      "type": "epic",
+      "status": "open",
+      "priority": 2,
+      "assignee": null,
+      "creator": null,
+      "parent": "BD-8781ddac-8725-4e87-80fd-7e9ddaa4bc09",
+      "labels": [],
+      "dependencies": [],
+      "comments": [],
+      "created_at": "2026-09-23T12:01:22.819902Z",
+      "updated_at": "2026-09-23T12:01:22.819952Z",
+      "closed_at": null,
+      "agent": {
+        "platform": "claude-code",
+        "model": "claude-fable-5-1"
+      },
+      "right_now_summary": "The article reports race-name tests with four groups and age tests using inserted ages 34, 35, 61, and 62.",
+      "right_now_updated_at": "2026-09-23T12:01:25.807789Z",
+      "custom": {}
+    },
+    {
+      "id": "BD-180e929e-6d8f-42b8-8e89-eecaa6ef09bc",
+      "title": "Gender study: pronoun swap on four occupation pairs (published)",
+      "description": "Done 2026-09-22. Surgeon/physician, nurse/physician, teacher/professor, paralegal/attorney; first names redacted; Laya flips 7.65 to 17.85 percent, Jev 1.05 to 3.9, always toward the more-female title; shortlist four-fifths ratio 0.48 (Laya) and 0.85 (Jev) on paralegal/attorney. Published as https://anth.us/blog/encoding-prejudice/ and https://anth.us/blog/one-word-test/.",
+      "type": "epic",
+      "status": "open",
+      "priority": 2,
+      "assignee": null,
+      "creator": null,
+      "parent": "BD-8781ddac-8725-4e87-80fd-7e9ddaa4bc09",
+      "labels": [],
+      "dependencies": [],
+      "comments": [],
+      "created_at": "2026-09-23T12:01:17.319850Z",
+      "updated_at": "2026-09-23T12:01:17.319903Z",
+      "closed_at": null,
+      "agent": {
+        "platform": "claude-code",
+        "model": "claude-fable-5-1"
+      },
+      "right_now_summary": "The gender study is published with results for four occupation pairs.",
+      "right_now_updated_at": "2026-09-23T12:01:19.497267Z",
+      "custom": {}
+    },
+    {
+      "id": "BD-250c97a3-6ae4-4061-8d67-dbfd02bf9549",
+      "title": "Expand model coverage",
+      "description": "Every credible fast decision model measured on the same tasks, cues and floors, with adapters that run on Apple silicon, CPU and CUDA. Holds the Kev epic and the open-models epic. Sibling of the programme initiative BD-8781dd, which owns the harness and the studies.",
+      "type": "initiative",
+      "status": "open",
+      "priority": 2,
+      "assignee": null,
+      "creator": null,
+      "parent": null,
+      "labels": [],
+      "dependencies": [],
+      "comments": [],
+      "created_at": "2026-09-23T12:00:34.433632Z",
+      "updated_at": "2026-09-23T12:00:34.433665Z",
+      "closed_at": null,
+      "agent": {
+        "platform": "claude-code",
+        "model": "claude-fable-5-1"
+      },
+      "right_now_summary": "The team is adding model adapters and testing open decision models on CPU, CUDA, and Apple silicon.",
+      "right_now_updated_at": "2026-09-23T12:02:24.733461Z",
+      "custom": {}
+    },
+    {
+      "id": "BD-2d6909ec-b530-412b-84e6-2fe2f0978fde",
+      "title": "Engine adapter: Decider (decider-ai, 0.8B to 35B)",
+      "description": "Apache-2.0, probabilities per option, MPS fp16 merged 2026-09-22, CPU and CUDA. Start with the 0.8B checkpoint.",
+      "type": "story",
+      "status": "open",
+      "priority": 2,
+      "assignee": null,
+      "creator": null,
+      "parent": "BD-4d86cffe-b0df-44a9-b4ce-2074c5d30289",
+      "labels": [
+        "engines"
+      ],
+      "dependencies": [],
+      "comments": [],
+      "created_at": "2026-09-23T11:48:05.886170Z",
+      "updated_at": "2026-09-23T11:48:05.886189Z",
+      "closed_at": null,
+      "agent": {
+        "platform": "claude-code",
+        "model": "claude-fable-5-1"
+      },
+      "right_now_summary": "The Decider adapter is merged for MPS fp16, starting with the 0.8B checkpoint on CPU and CUDA.",
+      "right_now_updated_at": "2026-09-23T11:48:09.129253Z",
+      "custom": {}
+    },
+    {
+      "id": "BD-431125d5-7275-4ffc-bafe-b13212a0dfe5",
+      "title": "Engine adapter: Verdict rlcd-modernbert-151m (ONNX CPU)",
+      "description": "Apache-2.0, probabilities plus an abstain option, ONNX on CPU and WebGPU. The smallest candidate and the CPU-only reference.",
+      "type": "story",
+      "status": "open",
+      "priority": 2,
+      "assignee": null,
+      "creator": null,
+      "parent": "BD-4d86cffe-b0df-44a9-b4ce-2074c5d30289",
+      "labels": [
+        "engines"
+      ],
+      "dependencies": [],
+      "comments": [],
+      "created_at": "2026-09-23T11:48:39.970218Z",
+      "updated_at": "2026-09-23T11:48:39.970239Z",
+      "closed_at": null,
+      "agent": {
+        "platform": "claude-code",
+        "model": "claude-fable-5-1"
+      },
+      "right_now_summary": "The small Verdict model is being evaluated through an ONNX CPU adapter.",
+      "right_now_updated_at": "2026-09-23T11:48:43.332882Z",
+      "custom": {}
+    },
+    {
+      "id": "BD-4383fb6e-c187-46b0-8493-65452dde07b5",
+      "title": "Engine adapter: Von (395M ModernBERT, von-sdk)",
+      "description": "Apache-2.0, probabilities per option, runs on MPS, CPU, CUDA and ROCm via the von-sdk package. Closest sibling to Laya; first candidate.",
+      "type": "story",
+      "status": "open",
+      "priority": 2,
+      "assignee": null,
+      "creator": null,
+      "parent": "BD-4d86cffe-b0df-44a9-b4ce-2074c5d30289",
+      "labels": [
+        "engines"
+      ],
+      "dependencies": [],
+      "comments": [],
+      "created_at": "2026-09-23T11:47:36.948455Z",
+      "updated_at": "2026-09-23T11:47:36.948481Z",
+      "closed_at": null,
+      "agent": {
+        "platform": "claude-code",
+        "model": "claude-fable-5-1"
+      },
+      "right_now_summary": "The team is evaluating Von as the first engine adapter candidate.",
+      "right_now_updated_at": "2026-09-23T11:47:39.250602Z",
+      "custom": {}
+    },
+    {
+      "id": "BD-45c20012-a076-4841-90de-dda5219badec",
+      "title": "Engine adapter: Bespoke-Nimble-9B (MLX and CUDA)",
+      "description": "Apache-2.0 LoRA, probabilities per option, MLX on Apple silicon and CUDA. Time it first; 9B is the largest candidate that runs on our Mac.",
+      "type": "story",
+      "status": "open",
+      "priority": 2,
+      "assignee": null,
+      "creator": null,
+      "parent": "BD-4d86cffe-b0df-44a9-b4ce-2074c5d30289",
+      "labels": [
+        "engines"
+      ],
+      "dependencies": [],
+      "comments": [],
+      "created_at": "2026-09-23T11:49:25.675589Z",
+      "updated_at": "2026-09-23T11:49:25.675615Z",
+      "closed_at": null,
+      "agent": {
+        "platform": "claude-code",
+        "model": "claude-fable-5-1"
+      },
+      "right_now_summary": "The team is timing the 9B adapter on MLX and CUDA for Mac support.",
+      "right_now_updated_at": "2026-09-23T11:49:28.004119Z",
+      "custom": {}
+    },
+    {
+      "id": "BD-4d7d87f2-0adc-4ec6-bbf6-a003893ca0ca",
+      "title": "Harness milestone 1: port the Jev-Flywheel bias studies and replay them offline",
+      "description": "Done in Jev-Flywheel and being ported: package layout (engines, cues, tasks, metrics, record, report, CLI), the four Bias in Bios tasks, the gender-pronouns, race-name, race-fullname and age-inserted cues with floors, the Jev and laya-mlx records, bd replay reproducing every published number, RESULTS.md and README.",
+      "type": "epic",
+      "status": "open",
+      "priority": 2,
+      "assignee": null,
+      "creator": null,
+      "parent": "BD-8781ddac-8725-4e87-80fd-7e9ddaa4bc09",
+      "labels": [],
+      "dependencies": [],
+      "comments": [],
+      "created_at": "2026-09-23T12:00:54.375746Z",
+      "updated_at": "2026-09-23T12:00:54.375797Z",
+      "closed_at": null,
+      "agent": {
+        "platform": "claude-code",
+        "model": "claude-fable-5-1"
+      },
+      "right_now_summary": "The input format is set, but the CLI still cannot ingest custom datasets.",
+      "right_now_updated_at": "2026-09-23T12:02:28.933742Z",
+      "custom": {}
+    },
+    {
+      "id": "BD-4d86cffe-b0df-44a9-b4ce-2074c5d30289",
+      "title": "Benchmark more open decision models on any hardware",
+      "description": "Survey (docs/decision-models-survey.md, 2026-09-23) found a dozen open Laya-like System 1 decision models. Goal: measure each one's bias on the same tasks, cues and floors as Jev and Laya, with one engine-adapter pattern (optional pip extras per engine, device auto-detect for MPS, CPU and CUDA, ONNX or GGUF fallback where the model ships one) so the harness runs on any machine with one command. Each child story: adapter in the record's shape, timing on our Mac, predictions written before the first run, every existing cell answered, RESULTS.md column.",
+      "type": "epic",
+      "status": "open",
+      "priority": 2,
+      "assignee": null,
+      "creator": null,
+      "parent": "BD-250c97a3-6ae4-4061-8d67-dbfd02bf9549",
+      "labels": [
+        "engines"
+      ],
+      "dependencies": [],
+      "comments": [],
+      "created_at": "2026-09-23T11:47:34.718117Z",
+      "updated_at": "2026-09-23T12:00:37.123596Z",
+      "closed_at": null,
+      "agent": {
+        "platform": "claude-code",
+        "model": "claude-fable-5-1"
+      },
+      "right_now_summary": "The team is building adapters and testing open decision models across CPU, CUDA, and MPS.",
+      "right_now_updated_at": "2026-09-23T12:00:39.080306Z",
+      "custom": {
+        "project_label": "BD",
+        "source": "shared"
+      }
+    },
+    {
+      "id": "BD-5dadcd25-19ca-434f-8ee1-1392bd38ad2b",
+      "title": "Engine adapter: Tiny-Jev (Qwen3-0.6B, transformers)",
+      "description": "Apache-2.0, probabilities per option, MPS 20 to 50 ms per text, CPU and CUDA. No pip package; load with transformers.",
+      "type": "story",
+      "status": "open",
+      "priority": 2,
+      "assignee": null,
+      "creator": null,
+      "parent": "BD-4d86cffe-b0df-44a9-b4ce-2074c5d30289",
+      "labels": [
+        "engines"
+      ],
+      "dependencies": [],
+      "comments": [],
+      "created_at": "2026-09-23T11:47:51.418379Z",
+      "updated_at": "2026-09-23T11:47:51.418402Z",
+      "closed_at": null,
+      "agent": {
+        "platform": "claude-code",
+        "model": "claude-fable-5-1"
+      },
+      "right_now_summary": "The Tiny-Jev adapter supports Qwen3-0.6B through Transformers on CPU, CUDA, and MPS.",
+      "right_now_updated_at": "2026-09-23T11:48:04.186050Z",
+      "custom": {}
+    },
+    {
+      "id": "BD-8781ddac-8725-4e87-80fd-7e9ddaa4bc09",
+      "title": "Measure bias in fast decision models, on any hardware, with replayable evidence",
+      "description": "The whole programme. A public benchmark of System 1 decision models (text in, typed question, a probability per option, no reasoning): causal counterfactuals on real text with control floors, reported in the decision's own currency, replayed offline from a committed answer record. Owns the harness and the studies; the engines it covers are tracked in the sibling initiative Expand model coverage (BD-250c97).",
+      "type": "initiative",
+      "status": "open",
+      "priority": 2,
+      "assignee": null,
+      "creator": null,
+      "parent": null,
+      "labels": [],
+      "dependencies": [],
+      "comments": [],
+      "created_at": "2026-09-23T11:59:36.415262Z",
+      "updated_at": "2026-09-23T12:00:41.707868Z",
+      "closed_at": null,
+      "agent": {
+        "platform": "claude-code",
+        "model": "claude-fable-5-1"
+      },
+      "right_now_summary": "The harness is adding bias tests while Laya runs continue and custom dataset support is still missing.",
+      "right_now_updated_at": "2026-09-23T12:02:31.674889Z",
+      "custom": {
+        "project_label": "BD",
+        "source": "shared"
+      }
+    },
+    {
+      "id": "BD-87d960e1-975a-46c6-8114-7d66cbbd8afa",
+      "title": "Cross-hardware runner: engine extras, device auto-detect, one command",
+      "description": "Copy the lm-evaluation-harness pattern: named backends, pip extras per engine, --device auto/mps/cpu/cuda, ONNX or GGUF fallback where a model ships one, a smoke test that loads each installed engine on one text. Document CUDA-only engines (NanoJev, Geni-S1-Ops, DiffusionGemma-derived) as not runnable here.",
+      "type": "story",
+      "status": "open",
+      "priority": 2,
+      "assignee": null,
+      "creator": null,
+      "parent": "BD-4d86cffe-b0df-44a9-b4ce-2074c5d30289",
+      "labels": [
+        "engines"
+      ],
+      "dependencies": [],
+      "comments": [],
+      "created_at": "2026-09-23T11:49:51.798667Z",
+      "updated_at": "2026-09-23T11:49:51.798687Z",
+      "closed_at": null,
+      "agent": {
+        "platform": "claude-code",
+        "model": "claude-fable-5-1"
+      },
+      "right_now_summary": "The runner is being built with backend extras, device auto-detection, fallbacks, and engine smoke tests.",
+      "right_now_updated_at": "2026-09-23T11:49:53.950810Z",
+      "custom": {}
+    },
+    {
+      "id": "BD-a2738191-15f6-4c20-b616-e7a45ab75822",
+      "title": "Milestone 2: run the harness on your own data",
+      "description": "Extend the bias-decisions harness so a user can point it at their own dataset instead of the bundled Bias in Bios sample. Document the input format and add a walkthrough for running an end-to-end evaluation on custom data.",
+      "type": "story",
+      "status": "open",
+      "priority": 2,
+      "assignee": null,
+      "creator": null,
+      "parent": "BD-4d7d87f2-0adc-4ec6-bbf6-a003893ca0ca",
+      "labels": [],
+      "dependencies": [],
+      "comments": [
+        {
+          "id": "0d043145-44d3-43f0-b33c-9d1e653925ca",
+          "author": "home",
+          "text": "Shape is fixed: tasks/<slug>/items.jsonl plus question.yaml with ordered options; the CLI does not yet ingest an arbitrary corpus.",
+          "created_at": "2026-09-23T11:50:03.268999Z",
+          "comment_type": "default",
+          "agent": {
+            "platform": "claude-code",
+            "model": "claude-fable-5-1"
+          }
+        }
+      ],
+      "created_at": "2026-09-23T11:38:27.752625Z",
+      "updated_at": "2026-09-23T12:02:24.779004Z",
+      "closed_at": null,
+      "agent": {
+        "platform": "claude-code",
+        "model": "claude-fable-5-1",
+        "name": "Kanbus Setup Agent"
+      },
+      "right_now_summary": "The input format is set, but the CLI still cannot ingest a user’s own dataset.",
+      "right_now_updated_at": "2026-09-23T12:02:27.289622Z",
+      "custom": {
+        "project_label": "BD",
+        "source": "shared"
+      }
+    },
+    {
+      "id": "BD-a6f0268a-82ca-4017-9b8e-44a27dd9fde5",
+      "title": "Engine adapter: System One Gemma (Gemma 3 270M + scoring head)",
+      "description": "Community model, not Google. Code Apache-2.0 but weights CC-BY-NC-4.0: confirm the licence allows benchmark publication before running. CPU and CUDA; MPS not stated.",
+      "type": "story",
+      "status": "open",
+      "priority": 2,
+      "assignee": null,
+      "creator": null,
+      "parent": "BD-4d86cffe-b0df-44a9-b4ce-2074c5d30289",
+      "labels": [
+        "engines"
+      ],
+      "dependencies": [],
+      "comments": [],
+      "created_at": "2026-09-23T11:49:10.569102Z",
+      "updated_at": "2026-09-23T11:49:10.569140Z",
+      "closed_at": null,
+      "agent": {
+        "platform": "claude-code",
+        "model": "claude-fable-5-1"
+      },
+      "right_now_summary": "The model’s licence must be confirmed before benchmark results are published.",
+      "right_now_updated_at": "2026-09-23T11:49:12.980351Z",
+      "custom": {}
+    },
+    {
+      "id": "BD-b3c8763a-d3ca-4553-a5fb-31d8cf65d29a",
+      "title": "Milestone 1b: the original Laya reproduces the MLX port",
+      "description": "Done 2026-09-23. Upstream laya 0.3.7 on MPS matches laya-mlx within 0.1 point on all four pairs once the committed option order is used; the upstream record is the canonical laya engine, the port is laya-mlx.",
+      "type": "epic",
+      "status": "open",
+      "priority": 2,
+      "assignee": null,
+      "creator": null,
+      "parent": "BD-8781ddac-8725-4e87-80fd-7e9ddaa4bc09",
+      "labels": [],
+      "dependencies": [],
+      "comments": [],
+      "created_at": "2026-09-23T12:01:39.376854Z",
+      "updated_at": "2026-09-23T12:01:39.376903Z",
+      "closed_at": null,
+      "agent": {
+        "platform": "claude-code",
+        "model": "claude-fable-5-1"
+      },
+      "right_now_summary": "Upstream Laya 0.3.7 on MPS matches laya-mlx within 0.1 point across all four pairs.",
+      "right_now_updated_at": "2026-09-23T12:01:41.886206Z",
+      "custom": {}
+    },
+    {
+      "id": "BD-b5d1254a-7b4d-4703-920a-5d3e4965c796",
+      "title": "Engine adapter: jeff (GLiFormer 400M, auto device)",
+      "description": "MIT code, probabilities per option, auto-selects CUDA, MPS or CPU, ONNX export. Check the weights licence before running.",
+      "type": "story",
+      "status": "open",
+      "priority": 2,
+      "assignee": null,
+      "creator": null,
+      "parent": "BD-4d86cffe-b0df-44a9-b4ce-2074c5d30289",
+      "labels": [
+        "engines"
+      ],
+      "dependencies": [],
+      "comments": [],
+      "created_at": "2026-09-23T11:48:56.785480Z",
+      "updated_at": "2026-09-23T11:48:56.785499Z",
+      "closed_at": null,
+      "agent": {
+        "platform": "claude-code",
+        "model": "claude-fable-5-1"
+      },
+      "right_now_summary": "The jeff engine adapter supports GLiFormer 400M, automatic device selection, and ONNX export.",
+      "right_now_updated_at": "2026-09-23T11:48:58.838395Z",
+      "custom": {}
+    },
+    {
+      "id": "BD-bfec5ea5-f4f4-4a1a-8c07-97ec1afa1cd0",
+      "title": "Engine adapter: this-that-model (FLock, 1.9B, MIT)",
+      "description": "MIT, probabilities per option, MPS, CPU, CUDA, plus a GGUF mirror. Good test of the GGUF fallback path.",
+      "type": "story",
+      "status": "open",
+      "priority": 2,
+      "assignee": null,
+      "creator": null,
+      "parent": "BD-4d86cffe-b0df-44a9-b4ce-2074c5d30289",
+      "labels": [
+        "engines"
+      ],
+      "dependencies": [],
+      "comments": [],
+      "created_at": "2026-09-23T11:48:11.107586Z",
+      "updated_at": "2026-09-23T11:48:11.107604Z",
+      "closed_at": null,
+      "agent": {
+        "platform": "claude-code",
+        "model": "claude-fable-5-1"
+      },
+      "right_now_summary": null,
+      "right_now_updated_at": null,
+      "custom": {}
+    },
+    {
+      "id": "BD-dc51ca9b-6149-495e-979f-22268681e251",
+      "title": "Add Kev as a benchmark engine",
+      "description": "Kev is another emerging System 1 decision model. Add it to the harness as an engine adapter in the record's shape (a probability per option, the committed option order, resumable answer cache), price or time its runs first, then answer every existing cell: the seven Bias in Bios tasks under the gender-pronouns cue, the disability, religion-v2, ask-twice and option-order cues, and the batch-2 stereotype tests. Report its numbers beside Jev and Laya in RESULTS.md with floors, and score them against predictions written before the first run. Adapter must run on Apple silicon, CPU and CUDA, or be hosted with a keyed client; document which.",
+      "type": "epic",
+      "status": "open",
+      "priority": 2,
+      "assignee": null,
+      "creator": null,
+      "parent": "BD-250c97a3-6ae4-4061-8d67-dbfd02bf9549",
+      "labels": [
+        "engines"
+      ],
+      "dependencies": [],
+      "comments": [
+        {
+          "id": "6043f2fe-b359-47da-8fe9-9b80144c6217",
+          "author": "home",
+          "text": "Survey of candidate engines done 2026-09-23 (decision-models-survey.md, to be added under docs/): Kev is open-weights, Apache-2.0, by Jared Palmer, 0.8B/4B/9B on Qwen3.5, implements the TypeSafe systemone contract; CUDA first-class, Apple silicon slow on the Qwen3.5 checkpoints, no MLX path yet.",
+          "created_at": "2026-09-23T11:47:06.493906Z",
+          "comment_type": "default",
+          "agent": {
+            "platform": "claude-code",
+            "model": "claude-fable-5-1"
+          }
+        }
+      ],
+      "created_at": "2026-09-23T11:41:24.561784Z",
+      "updated_at": "2026-09-23T12:02:20.410765Z",
+      "closed_at": null,
+      "agent": {
+        "platform": "claude-code",
+        "model": "claude-fable-5-1",
+        "name": "Claude Fable 5.1"
+      },
+      "right_now_summary": "Kev’s engine survey is complete, covering its models, license, contract, and hardware support.",
+      "right_now_updated_at": "2026-09-23T12:02:22.534586Z",
+      "custom": {
+        "project_label": "BD",
+        "source": "shared"
+      }
+    },
+    {
+      "id": "BD-e4e9b599-ec5d-4ab3-9a90-b37dd78bfec6",
+      "title": "LLM logprob comparators: Llama, Qwen and Gemma via option-token logprobs",
+      "description": "The slow-thinking comparator without an API bill: transformers last-token logits on every device, mlx-lm logprobs on Mac, llama.cpp n_probs for one GGUF across Metal, CPU and CUDA. Qwen is the Chinese-trained comparator the nationality axis of batch 2 needs.",
+      "type": "story",
+      "status": "open",
+      "priority": 2,
+      "assignee": null,
+      "creator": null,
+      "parent": "BD-4d86cffe-b0df-44a9-b4ce-2074c5d30289",
+      "labels": [
+        "engines"
+      ],
+      "dependencies": [],
+      "comments": [],
+      "created_at": "2026-09-23T11:49:37.211751Z",
+      "updated_at": "2026-09-23T11:49:37.211777Z",
+      "closed_at": null,
+      "agent": {
+        "platform": "claude-code",
+        "model": "claude-fable-5-1"
+      },
+      "right_now_summary": "The project compares Llama, Qwen, and Gemma using token logprobs across local runtimes.",
+      "right_now_updated_at": "2026-09-23T11:49:45.502938Z",
+      "custom": {}
+    },
+    {
+      "id": "BD-e9aabf6a-9ee7-4842-937a-0cfae1a11f21",
+      "title": "Batch 2: stereotype and trope susceptibility (religion and nationality clauses)",
+      "description": "Pre-registered 2026-09-23, Laya run in progress: 2,000 mixed bios, devout-X and nationality clauses with same-shape floors, six yes/no trait questions, trope score = target group minus the mean of the other groups. Then a Jev go/no-go (about 26,000 requests) and the Llama/Qwen logprob comparators.",
+      "type": "epic",
+      "status": "open",
+      "priority": 2,
+      "assignee": null,
+      "creator": null,
+      "parent": "BD-8781ddac-8725-4e87-80fd-7e9ddaa4bc09",
+      "labels": [],
+      "dependencies": [],
+      "comments": [],
+      "created_at": "2026-09-23T12:01:44.648012Z",
+      "updated_at": "2026-09-23T12:01:44.648037Z",
+      "closed_at": null,
+      "agent": {
+        "platform": "claude-code",
+        "model": "claude-fable-5-1"
+      },
+      "right_now_summary": "The Laya run is underway on 2,000 bios, followed by Jev and Llama/Qwen comparisons.",
+      "right_now_updated_at": "2026-09-23T12:01:46.912582Z",
+      "custom": {}
+    },
+    {
+      "id": "BD-eff9fba6-16f0-4fbf-b2c0-9b1c9f5aca4e",
+      "title": "Engine adapter: open-jev-deberta-v3-large (0.4B)",
+      "description": "Apache-2.0, probabilities per option, CPU and CUDA; MPS not stated. Encoder-based like Laya.",
+      "type": "story",
+      "status": "open",
+      "priority": 2,
+      "assignee": null,
+      "creator": null,
+      "parent": "BD-4d86cffe-b0df-44a9-b4ce-2074c5d30289",
+      "labels": [
+        "engines"
+      ],
+      "dependencies": [],
+      "comments": [],
+      "created_at": "2026-09-23T11:49:31.432783Z",
+      "updated_at": "2026-09-23T11:49:31.432809Z",
+      "closed_at": null,
+      "agent": {
+        "platform": "claude-code",
+        "model": "claude-fable-5-1"
+      },
+      "right_now_summary": "The adapter supports CPU and CUDA, while MPS support remains unspecified.",
+      "right_now_updated_at": "2026-09-23T11:49:34.011957Z",
+      "custom": {}
+    },
+    {
+      "id": "BD-f7d8e24b-69df-4874-87cc-9d2ae8e19421",
+      "title": "Mitigation studies: invariance gate, twin averaging, fine-tuning (published, lives in Jev-Flywheel)",
+      "description": "Done 2026-09-22 in Jev-Flywheel, not in the harness: learning-loop arms with a 2 percent invariance gate, twin averaging (shortlist ratio 0.48 to 0.79), Laya fine-tune on 140 labels reduced flips against prediction. Published as https://anth.us/blog/can-you-fix-it/. The harness measures; mitigation stays there.",
+      "type": "epic",
+      "status": "open",
+      "priority": 2,
+      "assignee": null,
+      "creator": null,
+      "parent": "BD-8781ddac-8725-4e87-80fd-7e9ddaa4bc09",
+      "labels": [],
+      "dependencies": [],
+      "comments": [],
+      "created_at": "2026-09-23T12:01:28.393638Z",
+      "updated_at": "2026-09-23T12:01:28.393671Z",
+      "closed_at": null,
+      "agent": {
+        "platform": "claude-code",
+        "model": "claude-fable-5-1"
+      },
+      "right_now_summary": "The mitigation work lives in Jev-Flywheel, while the harness only measures it.",
+      "right_now_updated_at": "2026-09-23T12:01:31.305029Z",
+      "custom": {}
+    },
+    {
+      "id": "BD-f8788b40-be10-4304-82e4-47519808815c",
+      "title": "Batch 1: three more pairs, disability and religion cues, noise floor, option order",
+      "description": "Done 2026-09-23 on Jev and the original Laya: journalist/professor control, architect/interior designer, dietitian/physician; disability insertion (Jev shifts minus 0.6 to minus 0.7 points, intervals clear of zero); religion v1 confounded by the word practising, v2 finds a Christian versus Muslim/Hindu contrast on paralegal/attorney; Jev ask-twice floor 0.4 to 0.6 percent; option order flips 1 to 2.8 percent on Jev and 3 to 8 on Laya; reversed-order twins keep every gender number within 2 points. Being folded into the harness.",
+      "type": "epic",
+      "status": "open",
+      "priority": 2,
+      "assignee": null,
+      "creator": null,
+      "parent": "BD-8781ddac-8725-4e87-80fd-7e9ddaa4bc09",
+      "labels": [],
+      "dependencies": [],
+      "comments": [],
+      "created_at": "2026-09-23T12:01:34.616065Z",
+      "updated_at": "2026-09-23T12:01:34.616090Z",
+      "closed_at": null,
+      "agent": {
+        "platform": "claude-code",
+        "model": "claude-fable-5-1"
+      },
+      "right_now_summary": "The new bias tests and option-order checks are being added to the harness.",
+      "right_now_updated_at": "2026-09-23T12:01:37.054466Z",
+      "custom": {}
+    }
+  ],
+  "reverse_deps": {}
+}

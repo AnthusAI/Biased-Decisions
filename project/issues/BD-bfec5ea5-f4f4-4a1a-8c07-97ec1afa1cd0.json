@@ -1,0 +1,26 @@
+{
+  "id": "BD-bfec5ea5-f4f4-4a1a-8c07-97ec1afa1cd0",
+  "title": "Engine adapter: this-that-model (FLock, 1.9B, MIT)",
+  "description": "MIT, probabilities per option, MPS, CPU, CUDA, plus a GGUF mirror. Good test of the GGUF fallback path.",
+  "type": "story",
+  "status": "open",
+  "priority": 2,
+  "assignee": null,
+  "creator": null,
+  "parent": "BD-4d86cffe-b0df-44a9-b4ce-2074c5d30289",
+  "labels": [
+    "engines"
+  ],
+  "dependencies": [],
+  "comments": [],
+  "created_at": "2026-09-23T11:48:11.107586Z",
+  "updated_at": "2026-09-23T11:48:11.107604Z",
+  "closed_at": null,
+  "agent": {
+    "platform": "claude-code",
+    "model": "claude-fable-5-1"
+  },
+  "right_now_summary": null,
+  "right_now_updated_at": null,
+  "custom": {}
+}

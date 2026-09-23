@@ -1,0 +1,26 @@
+{
+  "id": "BD-288d73a4-fa68-47e4-9ef2-dffdf0e68eca",
+  "title": "Build the screening task and the five attribute cues on the pool; answer with Laya",
+  "description": "Implement the five noul screening questions (shortlist, lease, credit, safety, appointment) and the five attribute cues with their floors, per docs/regulated-decisions-preregistration.md, on the existing 2,000-bio stereotype pool. Run Laya first and free, recording answers to the committed answer record.",
+  "type": "story",
+  "status": "open",
+  "priority": 2,
+  "assignee": null,
+  "creator": null,
+  "parent": "BD-4af5ba3d-22d2-4fce-be6c-7146f0de34f6",
+  "labels": [
+    "studies"
+  ],
+  "dependencies": [],
+  "comments": [],
+  "created_at": "2026-09-23T13:05:04.886263Z",
+  "updated_at": "2026-09-23T13:05:04.886289Z",
+  "closed_at": null,
+  "agent": {
+    "platform": "claude-code",
+    "model": "claude-fable-5-1"
+  },
+  "right_now_summary": "The team is adding five screening questions and attribute cues, then running Laya first and recording answers.",
+  "right_now_updated_at": "2026-09-23T13:05:07.130256Z",
+  "custom": {}
+}

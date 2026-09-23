@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "event_id": "36cfb4c1-6a42-477a-9a03-1a7244c0f0d0",
+  "issue_id": "BD-8781ddac-8725-4e87-80fd-7e9ddaa4bc09",
+  "event_type": "issue_created",
+  "occurred_at": "2026-09-23T11:59:36.415Z",
+  "actor_id": "home",
+  "payload": {
+    "title": "Measure bias in fast decision models, on any hardware, with replayable evidence",
+    "description": "The whole programme. A public benchmark of System 1 decision models (text in, typed question, a probability per option, no reasoning): causal counterfactuals on real text with control floors, reported in the decision's own currency, replayed offline from a committed answer record. Three strands: the harness and its record, the studies that produce the numbers, and the engines it covers.",
+    "issue_type": "initiative",
+    "status": "open",
+    "priority": 2,
+    "assignee": null,
+    "parent": null,
+    "labels": [],
+    "agent": {
+      "platform": "claude-code",
+      "model": "claude-fable-5-1"
+    }
+  }
+}

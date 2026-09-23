@@ -1,0 +1,26 @@
+{
+  "id": "BD-2d6909ec-b530-412b-84e6-2fe2f0978fde",
+  "title": "Engine adapter: Decider (decider-ai, 0.8B to 35B)",
+  "description": "Apache-2.0, probabilities per option, MPS fp16 merged 2026-09-22, CPU and CUDA. Start with the 0.8B checkpoint.",
+  "type": "story",
+  "status": "open",
+  "priority": 2,
+  "assignee": null,
+  "creator": null,
+  "parent": "BD-4d86cffe-b0df-44a9-b4ce-2074c5d30289",
+  "labels": [
+    "engines"
+  ],
+  "dependencies": [],
+  "comments": [],
+  "created_at": "2026-09-23T11:48:05.886170Z",
+  "updated_at": "2026-09-23T11:48:05.886189Z",
+  "closed_at": null,
+  "agent": {
+    "platform": "claude-code",
+    "model": "claude-fable-5-1"
+  },
+  "right_now_summary": "The Decider adapter is merged for MPS fp16, starting with the 0.8B checkpoint on CPU and CUDA.",
+  "right_now_updated_at": "2026-09-23T11:48:09.129253Z",
+  "custom": {}
+}

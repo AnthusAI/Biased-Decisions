@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "event_id": "bfd1cc9a-ce65-46b9-be4a-ff517b9f1d42",
+  "issue_id": "BD-a2738191-15f6-4c20-b616-e7a45ab75822",
+  "event_type": "comment_added",
+  "occurred_at": "2026-09-23T11:50:03.269Z",
+  "actor_id": "home",
+  "payload": {
+    "comment_id": "0d043145-44d3-43f0-b33c-9d1e653925ca",
+    "comment_author": "home",
+    "agent": {
+      "platform": "claude-code",
+      "model": "claude-fable-5-1"
+    }
+  }
+}

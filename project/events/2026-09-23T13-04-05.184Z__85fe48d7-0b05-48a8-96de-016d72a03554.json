@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "event_id": "85fe48d7-0b05-48a8-96de-016d72a03554",
+  "issue_id": "BD-9cfb7252-0c9c-447f-8c08-8dec7cf7125c",
+  "event_type": "issue_created",
+  "occurred_at": "2026-09-23T13:04:05.184Z",
+  "actor_id": "home",
+  "payload": {
+    "title": "Spider charts and cell drill-down with pre-registration outcomes",
+    "description": "",
+    "issue_type": "story",
+    "status": "open",
+    "priority": 2,
+    "assignee": null,
+    "parent": "BD-4f83aebd-9fa3-4ac7-b820-e3a1cab1ee8b",
+    "labels": [
+      "site"
+    ],
+    "agent": {
+      "platform": "claude-code",
+      "model": "claude-fable-5-1"
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "event_id": "cc134492-e98a-4f8c-85f7-2d76aaf95323",
+  "issue_id": "BD-7c1bacd0-6a0a-440a-904d-4dc564532259",
+  "event_type": "issue_created",
+  "occurred_at": "2026-09-23T13:05:10.396Z",
+  "actor_id": "home",
+  "payload": {
+    "title": "Sexuality and gender-identity axes on the stereotype pool with Laya (safeguarding question)",
+    "description": "Design B from docs/sexuality-gender-identity-preregistration.md: add the sexuality and gender-identity axes (gay/lesbian, bisexual, straight, transgender, matched floors) to the 2,000-bio batch-2 stereotype pool, add the new safeguarding question to the existing six, and run Laya (free) to compute trope scores against the floors. Report every cell including cells where the interval includes zero.",
+    "issue_type": "story",
+    "status": "open",
+    "priority": 2,
+    "assignee": null,
+    "parent": "BD-1c740959-f78e-4305-8dbc-d830263ba828",
+    "labels": [
+      "studies"
+    ],
+    "agent": {
+      "platform": "claude-code",
+      "model": "claude-fable-5-1"
+    }
+  }
+}

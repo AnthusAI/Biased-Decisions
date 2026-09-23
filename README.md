@@ -190,3 +190,11 @@ MIT (see `LICENSE`). [Bias in Bios](https://huggingface.co/datasets/LabHC/bias_i
 (`pools/name_pools.json`, `pools/first_names.txt`) are built from CC0 and public-domain sources
 (Rosenman, Olivella & Imai 2023; SSA baby names; US Census 2010 surnames) -- see
 `pools/README.md` for the exact provenance, thresholds and pool sizes.
+
+## Project tracking
+
+This repo uses [Kanbus](https://github.com/AnthusAI/Kanbus) (`kbs`) for issue tracking and [Semantic Release](https://semantic-release.gitbook.io/) for versioning; see [CONTRIBUTING.md](CONTRIBUTING.md). List open issues with:
+
+```bash
+kbs list
+```

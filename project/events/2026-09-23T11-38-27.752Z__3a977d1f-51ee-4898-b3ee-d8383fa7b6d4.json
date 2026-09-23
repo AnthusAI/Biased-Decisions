@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "event_id": "3a977d1f-51ee-4898-b3ee-d8383fa7b6d4",
+  "issue_id": "BD-a2738191-15f6-4c20-b616-e7a45ab75822",
+  "event_type": "issue_created",
+  "occurred_at": "2026-09-23T11:38:27.752Z",
+  "actor_id": "home",
+  "payload": {
+    "title": "Milestone 2: run the harness on your own data",
+    "description": "Extend the bias-decisions harness so a user can point it at their own dataset instead of the bundled Bias in Bios sample. Document the input format and add a walkthrough for running an end-to-end evaluation on custom data.",
+    "issue_type": "story",
+    "status": "open",
+    "priority": 2,
+    "assignee": null,
+    "parent": null,
+    "labels": [],
+    "agent": {
+      "platform": "claude-code",
+      "model": "claude-fable-5-1"
+    }
+  }
+}

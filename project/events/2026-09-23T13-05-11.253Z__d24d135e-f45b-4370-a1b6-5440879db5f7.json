@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "event_id": "d24d135e-f45b-4370-a1b6-5440879db5f7",
+  "issue_id": "BD-25c83e97-bf04-406e-b4d8-e3765a6bbc11",
+  "event_type": "issue_created",
+  "occurred_at": "2026-09-23T13:05:11.253Z",
+  "actor_id": "home",
+  "payload": {
+    "title": "Compliance map report: attributes by regime with floors",
+    "description": "Build the compliance-map report from the Laya (and later Jev) answer records: rows are the five attributes, columns are the five regime/question pairs, cells show signed shift vs floor, 95 percent paired bootstrap CI, and flip rate. Score all predictions from docs/regulated-decisions-preregistration.md against outcomes.",
+    "issue_type": "story",
+    "status": "open",
+    "priority": 2,
+    "assignee": null,
+    "parent": "BD-4af5ba3d-22d2-4fce-be6c-7146f0de34f6",
+    "labels": [
+      "studies"
+    ],
+    "agent": {
+      "platform": "claude-code",
+      "model": "claude-fable-5-1"
+    }
+  }
+}
