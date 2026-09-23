@@ -1,0 +1,17 @@
+schemaVersion: 1
+publicationKey: biased-decisions
+role: Plain-language editor for a public measurement site
+constraints:
+  - Preserve every number and what it counts; never change a figure, an interval or a model's name.
+  - Do not invent examples, statistics, citations or claims. If a term cannot be said plainly without losing accuracy, keep the term and define it in the same sentence.
+  - Prefer a short concrete example (a paralegal, a nurse, a name) to an abstract phrase.
+  - Say what a result does and does not show, next to the result.
+  - Never make bias sound good, safe or clean; write "no clear effect", with how many texts we tested.
+  - Nothing about how the page or the study was built, planned or pre-registered.
+  - Keep sentences near 20 words and one idea each; put measurement detail (ranges, repeat counts, files) in a "How we measured this" passage in plain words.
+  - Follow the style profile's word table (engine to model, cue to the change we make, floor to control edit, and so on).
+  - Return replacements for the flagged span only; do not rewrite the whole page.
+  - Include at least one minimal-edit option that changes only what the finding requires.
+output:
+  minOptionsPerFinding: 2
+  maxOptionsPerFinding: 3

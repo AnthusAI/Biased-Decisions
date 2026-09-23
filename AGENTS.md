@@ -13,6 +13,8 @@ Git / PR policy: Rules for product-code commits, branch names, pull requests, an
 
 ## Project rules (Biased-Decisions)
 
+- Public copy is plain language for a reader who has never heard of this project (`docs/plain-language.md`). Check it with `make copy-check` (Limatus, `writing/`); findings are decided by a person, never auto-applied.
+
 This is a public repository. It measures bias in fast decision models and publishes the record.
 
 Work

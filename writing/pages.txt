@@ -1,0 +1,20 @@
+# One page per template, plus every page written by hand. Paths are site addresses.
+/
+/methods/
+/guidance/
+/how-to-fail/
+/engines/
+/engines/laya/
+/engines/laya/gender/
+/gender/
+/gender/nurse-physician/
+/race/
+/race/black/
+/race/black/qpain-treatment/
+/religion/
+/religion/jewish/greed/
+/nationality/
+/disability/
+/sexuality/
+/veteran/
+/option-order/

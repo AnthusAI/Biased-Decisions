@@ -1,4 +1,4 @@
-.PHONY: install test replay report leaderboard site dev serve ci check
+.PHONY: install test replay report leaderboard site dev serve ci check copy-check
 
 VENV := .venv
 PY := $(VENV)/bin/python
@@ -41,6 +41,10 @@ site/node_modules: site/package-lock.json
 
 site: site/node_modules
 	cd site && npm run build && npm test
+
+copy-check: site/node_modules
+	cd site && npm run build && npm run check:plain || true
+	$(PY) scripts/scan_copy.py
 
 dev: site/node_modules
 	cd site && npx astro dev --port $(PORT)
