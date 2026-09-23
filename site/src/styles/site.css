@@ -108,8 +108,8 @@ h3 { font-size: 18px; font-weight: 700; margin: 1.6em 0 .4em; }
 .hero { padding-top: clamp(36px, 7vw, 88px); padding-bottom: 16px; }
 .kicker { text-transform: uppercase; letter-spacing: .14em; font-size: 12px; font-weight: 700; color: var(--muted); margin: 0 0 14px; }
 .deck { font-size: clamp(17px, 2vw, 21px); line-height: 1.55; max-width: 44em; color: var(--ink-2); margin: 8px 0 28px; }
-.finding { display: flex; gap: 18px; align-items: baseline; flex-wrap: wrap; border-top: 3px solid var(--ink); padding-top: 16px; margin: 0 0 40px; max-width: 58em; }
-.finding-num { font-family: var(--display); font-size: clamp(64px, 10vw, 120px); line-height: .8; color: var(--eng-laya, var(--ink)); }
+.finding { display: flex; gap: 18px; align-items: baseline; flex-wrap: wrap; border-top: 3px solid var(--alarm); padding-top: 16px; margin: 0 0 40px; max-width: 58em; }
+.finding-num { font-family: var(--display); font-size: clamp(64px, 10vw, 120px); line-height: .8; color: var(--alarm); }
 .finding-txt { flex: 1 1 22em; font-size: 17px; }
 .eng { display: inline-flex; align-items: center; gap: 6px; font-weight: 700; color: var(--ink); white-space: nowrap; }
 
