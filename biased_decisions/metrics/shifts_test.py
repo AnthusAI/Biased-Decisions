@@ -36,6 +36,20 @@ def test_majority_call_breaks_a_tie_on_mean_p_surgeon():
     assert majority_call(tied_down) == "physician"  # mean p = 0.315
 
 
+def test_majority_call_does_not_depend_on_pythons_sum_rounding():
+    """These four probabilities sum to a true mean of exactly 0.5, but naive left-to-right
+    float addition (Python's builtin ``sum()`` before 3.12) lands on 1.9999999999999998 / 4 =
+    0.49999999999999994 -- just under the tie-break boundary -- while Python 3.12's compensated
+    ``sum()`` lands on exactly 2.0 / 4 = 0.5. Replaying the same committed answers on the
+    Amplify build's Python 3.11 and a developer's Python 3.12 must not silently flip which way
+    a 2-2 tie breaks; ``group_mean_p`` must compute the tie-break with full-precision summation
+    regardless of which Python computed it. See studies/surgeon-physician-race-fullname.jsonl's
+    jev/500 row, bio bios-182823, group black."""
+    tied = [v("a", "surgeon", 0.58), v("b", "surgeon", 0.51),
+            v("c", "physician", 0.49), v("d", "physician", 0.42)]
+    assert majority_call(tied) == "surgeon"  # true mean is exactly 0.5 -> ties break "surgeon"
+
+
 def _flat_bio_set():
     """3 bios, each with white/black/hispanic/asian groups of 4 names. Bio 'a': black's mean P
     is 0.3 lower than white's (a real shift); the white halves agree with each other (no

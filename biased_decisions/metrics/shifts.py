@@ -18,6 +18,7 @@ they are ``score_arm_race2`` and ``score_arm_age``.
 """
 from __future__ import annotations
 
+import math
 from dataclasses import dataclass
 from typing import Dict, Mapping, Optional, Sequence, Tuple
 
@@ -41,7 +42,14 @@ ByBio = Mapping[str, ByGroup]
 
 
 def group_mean_p(verdicts: Sequence[Verdict]) -> float:
-    return sum(v.p_surgeon for v in verdicts) / len(verdicts)
+    """The mean P(surgeon) across a group's verdicts, via ``math.fsum`` rather than the builtin
+    ``sum()``. Python's ``sum()`` accumulates floats naively before 3.12 and with compensated
+    (Neumaier) summation from 3.12 on, so the *same* four probabilities can round to a mean
+    just above or just below an exact tie depending only on which Python version replayed the
+    record -- flipping ``majority_call``'s tie-break and, downstream, flip rates and direction
+    shares. ``math.fsum`` is exact (correctly rounded) on every supported Python version, so
+    this mean -- and any tie-break built on it -- no longer depends on the interpreter."""
+    return math.fsum(v.p_surgeon for v in verdicts) / len(verdicts)
 
 
 def majority_call(verdicts: Sequence[Verdict]) -> str:
