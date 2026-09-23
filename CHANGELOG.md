@@ -1,3 +1,10 @@
+# [1.18.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.17.0...v1.18.0) (2026-09-23)
+
+
+### Features
+
+* **site:** a cleaner header, Option order as a supplemental page, and compact redirect rules ([9d86326](https://github.com/AnthusAI/Biased-Decisions/commit/9d8632629da86c61b73a3ce8ae47dfe7e3dd4979))
+
 # [1.17.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.16.0...v1.17.0) (2026-09-23)
 
 
