@@ -11,8 +11,10 @@ frontend:
       commands:
         # Tags date the release in the colophon; a shallow clone may not carry them.
         - git fetch --force --tags --unshallow origin || git fetch --force --tags origin || true
-        # Python 3.10 or newer for the harness (the build image's python3 may be older).
-        - PY=$(command -v python3.12 || command -v python3.11 || true); if [ -z "$PY" ]; then dnf install -y python3.11 >/dev/null && PY=$(command -v python3.11); fi; "$PY" --version && "$PY" -m venv .venv
+        # Python 3.10 or newer for the harness. The build image carries 3.11 under pyenv but does not
+        # select it, so pick the newest installed 3.1x before creating the venv.
+        - if command -v pyenv >/dev/null; then V=$(pyenv versions --bare | grep -E '^3\.1[0-9]+(\.[0-9]+)?$' | sort -V | tail -1); if [ -n "$V" ]; then pyenv global "$V"; fi; fi
+        - PY=$(command -v python3.12 || command -v python3.11 || command -v python3); "$PY" -c 'import sys; assert sys.version_info >= (3, 10), sys.version' && "$PY" --version && "$PY" -m venv .venv
         - .venv/bin/pip install --quiet --upgrade pip
         - .venv/bin/pip install --quiet -e '.[dev]'
         # Node 22.12 or newer for Astro.
