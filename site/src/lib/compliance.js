@@ -2,7 +2,8 @@
 // what each risk panel says, and how every piece of evidence is worded and linked. Everything is
 // read from data.compliance (bd report --json); the words here only frame numbers the data file
 // carries, with the model as the grammatical subject.
-import { data, engineById, dimById, urls, cellOf, groupOf, itemOf, fmt, int, facetUnit } from "./site.js";
+import { data, engineById, dimById, urls, cellOf, groupOf, itemOf, fmt, int, facetUnit, isRate, textsOf, taskWord,
+  sureBetween, controlOf } from "./site.js";
 import { doesAt, positionOf, dimPositionOf } from "./cards.js";
 
 export const C = data.compliance;
@@ -48,11 +49,14 @@ function cellFinding(dimId, group, item, engineId) {
   const f = cell.engines[engineId];
   const u = facetUnit(dim, f);
   const href = `${urls.at(dim, group, item)}#${engineId}`;
-  const figure = `${fmt(f.raw.value)}${u} [${fmt(f.raw.lo)}, ${fmt(f.raw.hi)}] against a floor of ${fmt(f.floor.value)}${u}, n = ${int(f.n)}`;
-  const verdict = f.detected ? "detected" : "no bias detected at this floor";
+  const texts = textsOf(dim, item);
+  const amount = isRate(u) ? `on ${fmt(f.raw.value)} of every 100 ${texts}` : `by ${fmt(f.raw.value)} percentage points`;
+  const ctl = controlOf(f, u);
+  const figure = `${amount}. ${ctl.sentence} We are 95% sure the true figure is between ${fmt(f.raw.lo)} and ${fmt(f.raw.hi)}, from ${int(f.n)} ${texts}`;
+  const verdict = f.detected ? "a clear effect beyond the control" : "not clearly beyond the control";
   const x = f.extra || {};
   const direction = x.direction_toward_more_female_pct !== undefined && dimId === "gender" && item !== "surgeon-physician"
-    ? `${fmt(x.direction_toward_more_female_pct, 1)}% of its flips moved toward “${x.more_female_label.replace(/_/g, " ")}” when the bio read as a woman`
+    ? `When its answer changed, it moved toward “${x.more_female_label.replace(/_/g, " ")}” for the version that read as a woman ${fmt(x.direction_toward_more_female_pct, 1)} times in 100`
     : null;
   return { sentence: doesAt(dim, group, item, engineId), figure, verdict, detected: f.detected,
     what: f.raw.label, href, example: cell.example ? `${urls.at(dim, group, item)}#example` : null, direction };
@@ -65,23 +69,25 @@ export function describeEvidence(ev) {
     const en = engineById[ev.engine].label;
     const who = role(ev.task);
     const twin = ev.variant === "twin_averaged";
-    const put = `put ${per100(r.women_shortlist_rate)} of every 100 women ${who} in the top ${int(r.cut)} of 2,000, and ${per100(r.men_shortlist_rate)} of every 100 men`;
-    const sentence = twin ? `${en}'s ranking, averaged over each bio as written and a copy with the pronouns swapped, ${put}` : `${en}'s ranking ${put}`;
-    const figure = `four-fifths ratio ${fmt(r.four_fifths_ratio)} [${fmt(r.ratio_ci[0])}, ${fmt(r.ratio_ci[1])}], tie-fair ${fmt(r.tie_fair_ratio)}; accuracy ${fmt(r.accuracy * 100, 1)}%; n = ${int(r.n_women_positive)} women and ${int(r.n_men_positive)} men`;
+    const put = `put ${per100(r.women_shortlist_rate)} of every 100 women ${who} on a shortlist of the top ${int(r.cut)} of 2,000 bios, against ${per100(r.men_shortlist_rate)} of every 100 men`;
+    const sentence = twin ? `Asked twice about each bio, once as written and once with the pronouns swapped, then averaged, ${en} ${put}` : `${en} ${put}`;
+    const figure = `a shortlist ratio of ${fmt(r.four_fifths_ratio)} (the women's rate divided by the men's; 1.00 is equal). We are 95% sure the true figure is between ${fmt(r.ratio_ci[0])} and ${fmt(r.ratio_ci[1])}. Counting applicants the model scored equally as a group, not in file order, gives ${fmt(r.tie_fair_ratio)}. ${en} got the role right for ${fmt(r.accuracy * 100, 1)} of every 100 bios. The test had ${int(r.n_women_positive)} women and ${int(r.n_men_positive)} men who really were ${who}`;
     const counter = twin ? null
-      : `${int(r.women_who_gain_place_read_as_men)} of ${int(r.n_women_positive)} women ${who} made the list only when read as men; ${int(r.men_who_gain_place_read_as_women)} men made it only when read as women`;
-    return { id: ev.id, kind: ev.kind, sentence, figure, verdict: r.four_fifths_ratio < C.shortlist.line ? "under the four-fifths line" : "above the four-fifths line",
+      : `${int(r.women_who_gain_place_read_as_men)} of the ${int(r.n_women_positive)} women ${who} made the list only when their bio was read as a man's. ${int(r.men_who_gain_place_read_as_women)} men made it only when read as a woman's`;
+    return { id: ev.id, kind: ev.kind, sentence, figure, verdict: r.four_fifths_ratio < C.shortlist.line ? `under ${fmt(C.shortlist.line)}, the level U.S. hiring guidance treats as a warning sign` : `at or above ${fmt(C.shortlist.line)}, the level U.S. hiring guidance treats as a warning sign`,
       detected: r.four_fifths_ratio < C.shortlist.line, ratio: fmt(r.four_fifths_ratio), href: shortlistHref(ev.task, r), direction: counter, example: null };
   }
   if (ev.kind === "prereg") {
-    return { id: ev.id, kind: ev.kind, sentence: `Pre-registered: ${ev.measurement}`, figure: `observed ${plain(ev.observed)}`,
+    // The row's plain sentence, then what we saw; never the raw measurement string.
+    const said = ev.plain ? plain(ev.plain).trim().replace(/[.:;]+$/, "") : "Result";
+    return { id: ev.id, kind: ev.kind, sentence: said, figure: plain(ev.observed),
       verdict: plain(ev.verdict), prediction: plain(ev.prediction), href: `${REPO_BLOB}${ev.source}`, external: true,
       article: articleById[ev.article], example: null, direction: null };
   }
   if (ev.kind === "floor") {
     const en = engineById[ev.engine].label;
-    return { id: ev.id, kind: ev.kind, sentence: `Asked the same ${ev.task_label} question twice, ${en} changes its call`,
-      figure: `on ${fmt(ev.value)}% of bios, n = ${int(ev.n)} (the ask-twice floor)`, verdict: "floor",
+    return { id: ev.id, kind: ev.kind, sentence: `Asked the same ${taskWord(ev.task, ev.task_label)} question twice about the same unchanged bio, ${en} changes its answer`,
+      figure: `on ${fmt(ev.value)} of every 100 bios, out of ${int(ev.n)} tested. That is how much it moves for no reason at all`, verdict: "floor",
       href: `${urls.dim("option-order")}${ev.task}/#${ev.engine}`, example: null, direction: null };
   }
   throw new Error(`unknown evidence kind ${ev.kind}`);

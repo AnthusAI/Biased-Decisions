@@ -127,6 +127,9 @@ const slimSummary = (s) => s.status !== "measured" ? { status: s.status }
   : { status: s.status, detected: s.detected, n: s.n, n_facets: s.n_facets, n_facets_detected: s.n_facets_detected,
       headline: s.headline };
 
+// What a dimension measures, in the words a reader sees (the plain phrase when the data has one).
+export const measureOf = (dim) => dim.measure_plain || dim.measure;
+
 // A dimension, in the shape the board chart reads.
 export function boardPayload(dim) {
   const cells = {};
@@ -134,7 +137,7 @@ export function boardPayload(dim) {
     const c = dim.cells[e.id];
     cells[e.id] = { ...slimSummary(c), facets: c.facets.map(slimFacet), href: urls.engineDim(e.id, dim.id) };
   }
-  return { id: dim.id, label: dim.label, long: dim.long, measure: dim.measure, facet_kind: dim.facet_kind,
+  return { id: dim.id, label: dim.label, long: dim.long, measure: measureOf(dim), facet_kind: dim.facet_kind,
     board: dim.board, cells, href: urls.dim(dim.id) };
 }
 
@@ -147,7 +150,7 @@ export function levelPayload(dim, level) {
     cells[e.id] = { ...slimSummary(level.heads[e.id]), facets, href: `${levelPath(dim, level)}#${e.id}` };
   }
   return { id: `${dim.id}/${level.group || ""}/${level.item || ""}`, label: levelTitle(dim, level),
-    long: `${dim.long}: ${levelTitle(dim, level)}`, measure: dim.measure, facet_kind: rowKind(dim, level),
+    long: `${dim.long}: ${levelTitle(dim, level)}`, measure: measureOf(dim), facet_kind: rowKind(dim, level),
     board: level.board, cells, href: levelPath(dim, level) };
 }
 
@@ -162,7 +165,7 @@ export function heroPayload() {
   return dimensions.map((d) => {
     const cells = {};
     for (const e of engines) cells[e.id] = { ...slimSummary(d.cells[e.id]), href: urls.engineDim(e.id, d.id) };
-    return { id: d.id, label: d.label, long: d.long, measure: d.measure, cells, href: urls.dim(d.id) };
+    return { id: d.id, label: d.label, long: d.long, measure: measureOf(d), cells, href: urls.dim(d.id) };
   });
 }
 
@@ -200,13 +203,96 @@ export const shortLabel = (d) => ({ "gender": "Gender",
 export const unit = (dim) => dim.raw_unit || " pts";
 // A facet's own unit: a flip rate is a share of items even on a board that mixes it with shifts.
 export const facetUnit = (dim, f) => (f && f.raw && f.raw.unit) || unit(dim);
+// "%" results count texts whose answer changed ("X of every 100"); " pts" results measure how far
+// the model's confidence moved, in percentage points.
+export const isRate = (u) => String(u || "").trim() === "%";
+
+// ---------------------------------------------------------------------------------------------
+// Plain words for the sentences below, shared with cards.js and compliance.js.
+// ---------------------------------------------------------------------------------------------
+const q = (s) => `“${s}”`;
+const an = (s) => (/^[aeiou]/i.test(s) ? "an" : "a");
+
+// A decision's name inside a sentence: "surgeon / physician" -> "surgeon-or-physician".
+const TASK_WORD = { "qpain-treatment": "prescribing", "civil-comments-moderation": "comment-removal" };
+export function taskWord(itemId, label) {
+  if (TASK_WORD[itemId]) return TASK_WORD[itemId];
+  if (!label) return "";
+  return label.includes(" / ") ? label.split(" / ").map((x) => x.trim().replace(/\s+/g, "-")).join("-or-") : label;
+}
+// A decision's name as a label: "surgeon / physician" -> "surgeon or physician".
+export const taskLabel = (label) => (label ? label.replace(/ \/ /g, " or ") : label);
+
+// What the texts of a decision are.
+export const textsWord = (itemId) => (itemId === "qpain-treatment" ? "case descriptions"
+  : itemId === "civil-comments-moderation" ? "comments" : "bios");
+// The texts of a whole dimension: one word when every decision uses the same kind, else "texts".
+export function textsOf(dim, itemId = null) {
+  if (itemId) return textsWord(itemId);
+  const kinds = new Set(dim.breakdown.items.map((i) => textsWord(i.id)));
+  return kinds.size === 1 ? [...kinds][0] : "texts";
+}
+
+// What a row of a breakdown is called, for a reader: a task is a decision.
+export const kindWord = (k) => (k === "task" ? "decision" : k || "group");
+
+// The one change we make, as a "when ..." clause.
+export function changeWhen(dim, groupId, itemId) {
+  const g = groupId ? groupLabel(dim, groupId) : null;
+  switch (dim.id) {
+    case "religion":
+    case "nationality":
+      return `when a ${itemId === "civil-comments-moderation" ? "comment" : "bio"} says ${q(g)}`;
+    case "race":
+      if (groupId === "black-first-name") return "when only a white-sounding first name becomes a Black-sounding one";
+      if (itemId === "surgeon-physician") return `when a white-sounding full name becomes ${an(g)} ${g}-sounding one`;
+      if (itemId === "civil-comments-moderation") return `when a comment opens ${q(`As ${an(g)} ${g} person,`)}`;
+      return `when the patient in the case description is ${g}, not white`;
+    case "sexuality": return `when a comment opens ${q(`As ${an(g)} ${g.toLowerCase()} person,`)}`;
+    case "veteran": return `when the patient is ${an(g)} ${g}`;
+    case "gender":
+      if (itemId === "qpain-treatment") return "when the patient is a woman, not a man";
+      return "when only the pronouns change";
+    case "age": return "when a bio gives the age as 61, not 34";
+    case "disability": return `when a ${itemId && NON_HIRING_ITEMS.includes(itemId) ? "text" : "bio"} says ${q("a wheelchair user")}`;
+    case "option-order": return "when the two answer options swap places";
+    default: return `when we change the ${dim.label.toLowerCase()}`;
+  }
+}
+
+// The control a result is read against, in words, and whether it is already built into the number.
+function controlOf(f, u) {
+  const fl = f.floor || {};
+  const v = fmt(fl.value);
+  const moves = isRate(u) ? `it changes its answer on ${v} of every 100` : `its confidence moves ${v} percentage points`;
+  const out = (built, text, sentence) => ({ built, text, sentence });
+  if (fl.source === "none") return out(false, "no control was measured for this model, so we compare against zero",
+    "No control was measured for this model, so we compare against zero.");
+  if (fl.source === "ask-twice" || fl.source === "ask-twice-borrowed") {
+    const t = `when we simply ask again about the same unchanged text, ${moves}${fl.source === "ask-twice-borrowed" ? " (measured on another decision)" : ""}`;
+    return out(false, t, `By comparison, ${t}.`);
+  }
+  if (fl.source === "contrast") return out(true, "compared with the other groups, so a change every group shares is left out",
+    "That is compared with the other groups, so a change every group shares is left out.");
+  if (/version of the same/.test(fl.label || "")) return out(true, "measured against the otherwise identical case description, case by case",
+    "That is measured against the otherwise identical case description, case by case.");
+  if (fl.value === 0 && (fl.lo === null || fl.lo === undefined)) return out(true, "already measured against a harmless control edit, text by text",
+    "That is already measured against a harmless control edit, text by text.");
+  const t = `after a harmless control edit of the same size, ${moves}`;
+  return out(false, t, `By comparison, ${t}.`);
+}
+export { controlOf };
+
+// The range we are 95% sure of, in words.
+export const sureBetween = (lo, hi) => `we are 95% sure the true figure is between ${fmt(lo)} and ${fmt(hi)}`;
+const range = (lo, hi, d = 2) => `95% sure: ${fmt(lo, d)} to ${fmt(hi, d)}`;
 
 export function verdictOf(f) {
   if (!f || f.status !== "measured") return { cls: "miss", text: "not measured" };
-  if (!f.attributable) return { cls: "un", text: "unattributed" };
-  if (f.detected) return { cls: "det", text: "detected" };
-  if (f.extra && f.extra.direction === "reverse") return { cls: "rev", text: "reverse of the trope" };
-  return { cls: "nd", text: "not detected" };
+  if (!f.attributable) return { cls: "un", text: "every group moved alike" };
+  if (f.detected) return { cls: "det", text: "a clear effect" };
+  if (f.extra && f.extra.direction === "reverse") return { cls: "rev", text: "opposite of the stereotype" };
+  return { cls: "nd", text: "no clear effect" };
 }
 
 const axisNoun = { religion: "religions", nationality: "nationalities", "name group": "name groups" };
@@ -215,35 +301,79 @@ const axisNoun = { religion: "religions", nationality: "nationalities", "name gr
 export function cellSentence(dim, cell, engineId) {
   const f = cell.engines[engineId];
   const en = engineById[engineId].label;
-  if (!f || f.status !== "measured") return `${en} was not measured here.`;
+  if (!f || f.status !== "measured") return `We have not tested ${en} here.`;
   const x = f.extra || {};
+  const n = `${int(f.n)} ${textsOf(dim, cell.item)}`;
   if (dim.facet_kind === "question" || x.trope_consistent_answer != null) {
     const item = itemOf(dim, cell.item);
-    const others = `the other ${axisNoun[dim.breakdown.group_kind] || "groups"}`;
-    const ans = `"${x.trope_consistent_answer}"`;
-    const lead = `When a bio opened with "${x.clause.trim()}" ${en} was`;
-    const q = `"${item.question}"`;
-    if (f.detected) return `${lead} ${fmt(f.raw.value)} points more likely than for ${others} to answer ${ans} to ${q}, the answer the trope predicts.`;
-    if (x.direction === "reverse") return `${lead} ${fmt(Math.abs(f.raw.value))} points less likely than for ${others} to answer ${ans} to ${q}: the opposite of the trope.`;
-    return `${lead} within [${fmt(f.raw.lo)}, ${fmt(f.raw.hi)}] points of ${others} on ${q}: no trope detected.`;
+    const others = `one of the other ${axisNoun[dim.breakdown.group_kind] || "groups"}`;
+    const ans = q(x.trope_consistent_answer);
+    const lead = `When a bio opened with ${q(x.clause.trim().replace(/,$/, ""))}, ${en} was`;
+    const asked = `to answer ${ans} to ${q(item.question)}`;
+    if (f.detected) return `${lead} ${fmt(f.raw.value)} percentage points more likely ${asked} than when the bio named ${others}. That is the answer the stereotype predicts, and ${sureBetween(f.raw.lo, f.raw.hi)}.`;
+    if (x.direction === "reverse") return `${lead} ${fmt(Math.abs(f.raw.value))} percentage points less likely ${asked} than when the bio named ${others}. That is the opposite of the stereotype. We are 95% sure the true difference is between ${fmt(f.raw.lo)} and ${fmt(f.raw.hi)} percentage points.`;
+    return `${lead} about as likely ${asked} as when the bio named ${others}. The difference is between ${fmt(f.raw.lo)} and ${fmt(f.raw.hi)} percentage points, a range that includes zero, so there is no clear sign of the stereotype. We tested ${n}.`;
   }
-  if (x.signed_shift_pts !== undefined && x.floor_clause !== undefined && x.clause) {
-    return `With "${x.clause.trim()}" in place of "${x.floor_clause.trim()}", ${en}'s probability of "${x.positive}" moved ${signed(x.signed_shift_pts)} points [${fmt(x.signed_ci[0])}, ${fmt(x.signed_ci[1])}], ${f.detected ? "an interval that excludes zero" : f.attributable ? "an interval that includes zero" : "but every religion moved alike on this task, so it is not attributed to religion"}.`;
+  // An inserted clause ("A devout Muslim, ") is quoted; a whole-text version swap is described instead.
+  if (x.signed_shift_pts !== undefined && x.floor_clause !== undefined && x.clause && /,\s*$/.test(x.clause)) {
+    const lead = `With ${q(x.clause.trim().replace(/,$/, ""))} in place of ${q(x.floor_clause.trim().replace(/,$/, ""))}, ${en}'s confidence (its own probability) that the answer is ${q(x.positive)} ${x.signed_shift_pts < 0 ? "fell" : "rose"} by ${fmt(Math.abs(x.signed_shift_pts))} percentage points.`;
+    const range2 = `We are 95% sure the true move is between ${fmt(x.signed_ci[0])} and ${fmt(x.signed_ci[1])}`;
+    if (f.detected) return `${lead} ${range2}, so this is a clear effect. We tested ${n}.`;
+    if (f.attributable) return `${lead} ${range2}, a range that includes zero, so this is not a clear effect. We tested ${n}.`;
+    return `${lead} But every ${dim.breakdown.group_kind || "group"} moved about the same amount on this decision, so we cannot blame one ${dim.breakdown.group_kind || "group"}.`;
   }
   const u = facetUnit(dim, f);
-  return `${en} measured ${fmt(f.raw.value)}${u} [${fmt(f.raw.lo)}, ${fmt(f.raw.hi)}] (${f.raw.label}) against a floor of ${fmt(f.floor.value)}${u}: ${signed(f.excess.value)} pp over the floor, ${f.detected ? "bias detected" : f.attributable ? "not detected at this floor" : "unattributed"}.`;
+  const item = itemOf(dim, cell.item);
+  const task = taskWord(cell.item, item && item.label);
+  const when = changeWhen(dim, cell.group, cell.item);
+  const ctl = controlOf(f, u);
+  const did = isRate(u)
+    ? `${en} changes its ${task} answer on ${fmt(f.raw.value)} of every 100 ${textsOf(dim, cell.item)} ${when}.`
+    : `${en}'s confidence (its own probability) in its ${task} answer moves ${fmt(f.raw.value)} percentage points ${when}.`;
+  const gapWord = isRate(u) ? `${fmt(f.excess.value)} more of every 100` : `${fmt(f.excess.value)} percentage points`;
+  const rangeText = `${sureBetween(f.excess.lo, f.excess.hi)}${f.detected ? "" : ", a range that includes zero"}`;
+  if (!f.attributable) return `${did} ${ctl.sentence} Every ${dim.breakdown.group_kind || "group"} moved about the same, so we cannot blame this one.`;
+  if (ctl.built) return `${did} ${ctl.sentence} ${f.detected ? "This is a clear effect" : "This is not a clear effect"}: ${rangeText}. We tested ${n}.`;
+  return `${did} ${ctl.sentence} The difference, ${gapWord}, is ${f.detected ? "a clear effect" : "not a clear effect"}: ${rangeText}. We tested ${n}.`;
+}
+
+// The head of a board: what an engine's headline result measures, for the board lead.
+function headOf(dim, board, engineId) {
+  if (board === dim.board) return dim.cells[engineId];
+  const level = dim.breakdown.levels.find((l) => l.board === board);
+  return level ? level.heads[engineId] : null;
+}
+
+// A facet's name inside a sentence: a decision, a stereotype question or a group.
+function facetName(dim, facetId, label) {
+  const item = itemOf(dim, facetId);
+  if (item && item.trope) return `the ${q(item.label)} question`;
+  if (item) return `the ${taskWord(item.id, item.label)} decision`;
+  return taskLabel(label);
 }
 
 // The page's lead number, for titles and descriptions.
 export function boardLead(board, dim) {
   const top = board.ranked[0];
-  if (top) return `${engineById[top.engine].label} is most biased: ${signed(top.value)} pp over the floor on ${top.facet_label}`;
-  if (board.not_detected.length) return `No engine clears the floor (n = ${board.not_detected.map((r) => r.n.toLocaleString("en-US")).join(", ")})`;
-  return "No engine measured yet";
+  if (top) {
+    const head = headOf(dim, board, top.engine);
+    const u = head && head.headline && head.headline.raw ? head.headline.raw.unit : unit(dim);
+    const how = isRate(u) ? `changes its answer on ${fmt(top.value)} more of every 100 texts than after a harmless control edit`
+      : `moves its confidence ${fmt(top.value)} percentage points more than a harmless control edit does`;
+    return `${engineById[top.engine].label} shows the most bias: it ${how}, on ${facetName(dim, top.facet, top.facet_label)}`;
+  }
+  if (board.not_detected.length) {
+    const ns = [...new Set(board.not_detected.map((r) => int(r.n)))];
+    const level = dim.breakdown.levels.find((l) => l.board === board);
+    return `No model shows a clear effect, in ${ns.join(" and ")} ${textsOf(dim, level && level.item)} tested`;
+  }
+  return "No model tested yet";
 }
 
 export function describeDim(dim) {
-  return `${dim.long}: engines ranked by measured bias, most biased first. ${boardLead(dim.board, dim)}. Every ${dim.breakdown.groups.length > 1 ? `${dim.breakdown.group_kind} and ` : ""}${dim.breakdown.item_kind}, with intervals, floors and the record behind each number.`;
+  const bd = dim.breakdown;
+  const rows = `${bd.groups.length > 1 ? `${bd.group_kind} and ` : ""}${kindWord(bd.item_kind)}`;
+  return `${dim.long}: how much each fast AI model changes its answers when we change only this detail, most biased first. ${boardLead(dim.board, dim)}. Results for every ${rows}, each with the range we are 95% sure of.`;
 }
 
 export function describeLevel(dim, level) {
@@ -252,10 +382,10 @@ export function describeLevel(dim, level) {
   if (level.kind === "cell") {
     const cell = cellOf(dim, level.group, level.item);
     const first = level.board.ranked[0] || level.board.not_detected[0];
-    return first ? cellSentence(dim, cell, first.engine) : `${dim.long}, ${t}: not measured yet.`;
+    return first ? cellSentence(dim, cell, first.engine) : `${dim.long}, ${t}: not tested yet.`;
   }
-  const rows = level.kind === "group" ? `question by question` : multiGroup(dim) ? `${dim.breakdown.group_kind} by ${dim.breakdown.group_kind}` : "engine by engine";
-  return `${dim.long}, ${t}: ${lead}. Every engine's measurement ${rows}, with its interval and floor.`;
+  const rows = level.kind === "group" ? `every ${kindWord(dim.breakdown.item_kind)}` : multiGroup(dim) ? `every ${dim.breakdown.group_kind}` : "every model";
+  return `${dim.long}, ${t}: ${lead}. Results for ${rows}, with the range we are 95% sure of.`;
 }
 
 export { fmt, signed };
@@ -265,20 +395,21 @@ export { fmt, signed };
 export function extraLines(dim, f) {
   const x = f.extra || {};
   const out = [];
-  if (x.direction_toward_more_female_pct !== undefined) out.push(`${fmt(x.direction_toward_more_female_pct, 1)}% of flips moved toward "${(x.more_female_label || "").replace(/_/g, " ")}" when the bio read as a woman; recall gap ${signed(x.recall_gap_pts)} pts`);
-  if (x.direction_share_pct !== undefined) out.push(`${fmt(x.direction_share_pct, 1)}% of ${x.n_flips} flips toward physician for the Black name`);
-  if (x.signed_shift_pts !== undefined && x.signed_ci) out.push(`signed shift ${signed(x.signed_shift_pts)} pts [${fmt(x.signed_ci[0])}, ${fmt(x.signed_ci[1])}]${x.flip_vs_floor_pct !== undefined ? `; ${fmt(x.flip_vs_floor_pct)}% of verdicts flipped against the floor` : ""}`);
-  if (x.floor_signed_shift_pts !== undefined) out.push(`floor's signed shift ${signed(x.floor_signed_shift_pts, 3)} pts`);
-  if (x.all_sample) out.push(`all ${x.all_sample.n.toLocaleString("en-US")} bios: ${signed(x.all_sample.shift_pts, 3)} pts [${fmt(x.all_sample.ci[0], 3)}, ${fmt(x.all_sample.ci[1], 3)}], floor ${signed(x.all_sample.floor_shift_pts, 3)}`);
-  if (x.shift_61_minus_34_pts !== undefined) out.push(`shift in P(surgeon), 61 minus 34: ${signed(x.shift_61_minus_34_pts)} pts [${fmt(x.shift_ci[0])}, ${fmt(x.shift_ci[1])}]; 61 vs 62 floor flip ${fmt(x.floor_61_62_flip_pct)}%; ${fmt(x.direction_older_to_surgeon_pct, 1)}% of flips called the older version "surgeon"`);
-  if (x.versions) out.push(Object.entries(x.versions).map(([r, v]) => `${cap(r)} ${signed(v.shift_pts)} [${fmt(v.ci[0])}, ${fmt(v.ci[1])}]`).join(" · "));
-  if (x.shared_clause_pts !== undefined && x.shared_clause_pts !== null && x.shared_clause_ci) out.push(`shared-clause effect ${signed(x.shared_clause_pts)} pts [${fmt(x.shared_clause_ci[0])}, ${fmt(x.shared_clause_ci[1])}]; spread ${fmt(x.spread_pts)}`);
-  if (x.gender_flip_committed_pct !== undefined) out.push(`gender flip rate: committed order ${fmt(x.gender_flip_committed_pct)}%, reversed ${fmt(x.gender_flip_reversed_pct)}%`);
-  if (x.max_abs_dp !== undefined) out.push(`largest single-bio change in probability ${fmt(x.max_abs_dp, 3)}`);
-  if (x.group_mean_pct !== undefined) out.push(`P(${x.trope_consistent_answer}) with "${x.clause.trim()}" ${fmt(x.group_mean_pct)}%, with the floor "${x.floor_clause.trim()}" ${fmt(x.floor_mean_pct)}%: shift ${signed(x.shift_pts)} pts [${fmt(x.shift_ci[0])}, ${fmt(x.shift_ci[1])}]; ${fmt(x.flip_pct)}% of yes/no verdicts flipped`);
-  if (x.general_effect_pts !== undefined && x.general_effect_pts !== null) out.push(`general "any label" effect on this question ${signed(x.general_effect_pts)} pts [${fmt(x.general_effect_ci[0])}, ${fmt(x.general_effect_ci[1])}] (every group alike; cancelled in the trope score)`);
-  if (x.question && x.groups) out.push(`"${x.question}" Trope-consistent answer: ${x.trope_consistent_answer}.`);
-  if (x.groups) out.push(Object.entries(x.groups).map(([g, v]) => `${cap(g)} ${signed(v.trope_pts)} [${fmt(v.trope_ci[0])}, ${fmt(v.trope_ci[1])}]${v.detected ? "*" : ""}`).join(" · ") + " (trope scores; * interval clears zero)");
+  const pp = (v, d = 2) => `${signed(v, d)} percentage points`;
+  if (x.direction_toward_more_female_pct !== undefined) out.push(`When the answer changed, it moved toward ${q((x.more_female_label || "").replace(/_/g, " "))} for the version that read as a woman ${fmt(x.direction_toward_more_female_pct, 1)} times in 100. Difference in how often it got the right answer for the two versions: ${pp(x.recall_gap_pts)}`);
+  if (x.direction_share_pct !== undefined) out.push(`Of the ${x.n_flips} changed answers, ${fmt(x.direction_share_pct, 1)} in 100 moved toward physician for the Black name`);
+  if (x.signed_shift_pts !== undefined && x.signed_ci) out.push(`Direction of the move${x.positive ? ` in its confidence in ${q(x.positive)}` : ""}: ${pp(x.signed_shift_pts)} (${range(x.signed_ci[0], x.signed_ci[1])})${x.flip_vs_floor_pct !== undefined ? `. Compared with the control edit, the answer itself changed on ${fmt(x.flip_vs_floor_pct)} of every 100 texts` : ""}`);
+  if (x.floor_signed_shift_pts !== undefined) out.push(`The control edit alone moved it ${pp(x.floor_signed_shift_pts, 3)}`);
+  if (x.all_sample) out.push(`Across all ${x.all_sample.n.toLocaleString("en-US")} bios: ${pp(x.all_sample.shift_pts, 3)} (${range(x.all_sample.ci[0], x.all_sample.ci[1], 3)}); the control edit ${pp(x.all_sample.floor_shift_pts, 3)}`);
+  if (x.shift_61_minus_34_pts !== undefined) out.push(`Its confidence in “surgeon” at 61 minus at 34: ${pp(x.shift_61_minus_34_pts)} (${range(x.shift_ci[0], x.shift_ci[1])}). Changing 61 to 62, a control edit, changed the answer on ${fmt(x.floor_61_62_flip_pct)} of every 100 bios. When the answer changed, it called the older version “surgeon” ${fmt(x.direction_older_to_surgeon_pct, 1)} times in 100`);
+  if (x.versions) out.push(Object.entries(x.versions).map(([r, v]) => `${cap(r)}: ${pp(v.shift_pts)} (${range(v.ci[0], v.ci[1])})`).join(" · "));
+  if (x.shared_clause_pts !== undefined && x.shared_clause_pts !== null && x.shared_clause_ci) out.push(`Naming any ${dim.breakdown.group_kind || "group"} at all moved it ${pp(x.shared_clause_pts)} (${range(x.shared_clause_ci[0], x.shared_clause_ci[1])}). The ${plural(dim.breakdown.group_kind || "group")} differ from each other by up to ${fmt(x.spread_pts)}`);
+  if (x.gender_flip_committed_pct !== undefined) out.push(`How often the answer changes when the pronouns swap: ${fmt(x.gender_flip_committed_pct)} of every 100 with the options in the usual order, ${fmt(x.gender_flip_reversed_pct)} with them reversed`);
+  if (x.max_abs_dp !== undefined) out.push(`Largest change in its confidence on any one bio: ${fmt(x.max_abs_dp, 3)}, on a scale from 0 to 1`);
+  if (x.group_mean_pct !== undefined) out.push(`Chance of answering ${q(x.trope_consistent_answer)} with ${q(x.clause.trim().replace(/,$/, ""))}: ${fmt(x.group_mean_pct)} in 100. With the control edit ${q(x.floor_clause.trim().replace(/,$/, ""))}: ${fmt(x.floor_mean_pct)} in 100. Difference: ${pp(x.shift_pts)} (${range(x.shift_ci[0], x.shift_ci[1])}). The yes-or-no answer changed on ${fmt(x.flip_pct)} of every 100 bios`);
+  if (x.general_effect_pts !== undefined && x.general_effect_pts !== null) out.push(`Naming any ${dim.breakdown.group_kind || "group"} at all moved this answer ${pp(x.general_effect_pts)} (${range(x.general_effect_ci[0], x.general_effect_ci[1])}). That part is the same for every group, so it is left out of the stereotype score`);
+  if (x.question && x.groups) out.push(`${q(x.question)} The answer that fits the stereotype: ${x.trope_consistent_answer}.`);
+  if (x.groups) out.push(Object.entries(x.groups).map(([g, v]) => `${cap(g)} ${signed(v.trope_pts)} (${range(v.trope_ci[0], v.trope_ci[1])})${v.detected ? "*" : ""}`).join(" · ") + " (stereotype scores in percentage points; * a clear effect)");
   return out;
 }
 
@@ -345,7 +476,7 @@ export function forestRows(dim, cells, labelOf, hrefOf) {
       top = Math.max(top, f.excess.value);
     }
     const href = hrefOf(c);
-    return { id: `${c.group || ""}/${c.item}`, label: labelOf(c), tag: c.prereg ? "pre-registered" : null, href,
+    return { id: `${c.group || ""}/${c.item}`, label: labelOf(c), tag: null, href,
       hrefs: Object.fromEntries(engines.map((e) => [e.id, `${href}#${e.id}`])), values, _top: top };
   });
   rows.sort((a, b) => b._top - a._top);

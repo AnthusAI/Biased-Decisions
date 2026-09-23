@@ -95,8 +95,8 @@ test("every risk panel links a measured result, a citation, a failure recipe and
     const ev = [...panel.matchAll(/<a class="ev-link" href="([^"]+)"/g)].map((m) => m[1]);
     assert.ok(ev.length, `${path}: panel states no measured result`);
     for (const href of ev) assert.equal(landing(href, path), null);
-    assert.match(text(panel), /\[[−-]?\d+\.\d+, [−-]?\d+\.\d+\]/, `${path}: panel quotes no interval`);
-    assert.match(text(panel), /n = \d/, `${path}: panel quotes no sample size`);
+    assert.match(text(panel), /between [−-]?\d+\.\d+ and [−-]?\d+\.\d+/, `${path}: panel quotes no interval`);
+    assert.match(text(panel), /\d[\d,]* (?:bios|texts|comments|case descriptions|women)\b/, `${path}: panel quotes no sample size`);
     const cites = [...panel.matchAll(/<a class="cite" href="([^"]+)"/g)].map((m) => m[1]);
     assert.ok(cites.length, `${path}: panel cites no rule`);
     for (const c of cites) assert.ok(primary.has(c), `${path}: ${c} is not a verified citation`);
@@ -155,7 +155,7 @@ test("every evidence entry quoted on a page shows the record's number", () => {
       const e = byEv[m[1]];
       assert.ok(e, `${path}: unknown evidence ${m[1]}`);
       const li = text(element(html, m.index, "li")).replace(/−/g, "-");
-      if (e.kind === "cell") assert.ok(li.includes(`[${fmt(e.lo)}, ${fmt(e.hi)}]`) && li.includes(fmt(e.value)), `${path}: ${e.id} shows ${li}`);
+      if (e.kind === "cell") assert.ok(li.includes(`between ${fmt(e.lo)} and ${fmt(e.hi)}`) && li.includes(fmt(e.value)), `${path}: ${e.id} shows ${li}`);
       if (e.kind === "prereg") assert.ok(li.includes(e.observed.replace(/\*/g, "").slice(0, 20)), `${path}: ${e.id}`);
       n++;
     }
