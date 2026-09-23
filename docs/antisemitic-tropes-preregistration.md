@@ -310,9 +310,8 @@ At roughly twenty texts a second that is under an hour of the local GPU.
 version: ~196,600 calls (about three hours), run after the grid and only if the grid warrants it.
 
 **Jev** needs one request per question: the grid is 24 requests per text, about 838,000, so it is
-not run in full. It is priced and capped first and approved family by family, never all at once.
-**Jev is priced and capped before any request goes out, approved family by family, never all at
-once**, per the project's free-engines-before-paid-ones rule. This document's recommendation for
+not run in full. **Jev is priced and capped before any request goes out, approved family by family,
+never all at once**, per the project's free-engines-before-paid-ones rule. This document's recommendation for
 the first, cheapest Jev probe -- the two headline tropes (`greed_financial`, `dual_loyalty`, 3
 questions + 1 control each = 8 questions), on the two cue forms with the strongest prior
 (`religious`, `nationality`), target and floor versions only (2 versions each, dropping the
@@ -320,8 +319,7 @@ matched other-group controls from this first pass to keep the probe cheap), on a
 subsample of Pool A:
 
 500 bios x 2 cue forms x 2 versions x 8 questions = **8,000 Jev requests** for a first, priced,
-capped probe. The full design's Jev cost, if ever fully approved, equals the Laya total above
-(~1,253,000 requests) and should be priced and approved in stages, not as one number.
+capped probe. The full design's Jev cost, if ever fully approved, is the ~838,000 requests above and should be priced and approved in stages, not as one number.
 
 ## Rules
 
