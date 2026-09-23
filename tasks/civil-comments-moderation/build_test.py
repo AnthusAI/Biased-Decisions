@@ -2,12 +2,16 @@
 cue tables) -- not the network fetch, per the "no network in specs" rule."""
 from __future__ import annotations
 
-import sys
+import importlib.util
 from pathlib import Path
 
-sys.path.insert(0, str(Path(__file__).resolve().parent))
+import pytest
 
-import build as civil_build  # noqa: E402
+pytest.importorskip("pandas")  # the build extra; the spec skips without it
+
+_spec = importlib.util.spec_from_file_location("civil_build", Path(__file__).with_name("build.py"))
+civil_build = importlib.util.module_from_spec(_spec)
+_spec.loader.exec_module(civil_build)
 
 
 def test_a_comment_naming_an_identity_term_is_not_identity_neutral():

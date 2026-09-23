@@ -3,12 +3,12 @@ fetch (checksum verification against a real download is exercised manually via
 ``build.py --fetch``, not in this suite, per the "no network in specs" rule)."""
 from __future__ import annotations
 
-import sys
+import importlib.util
 from pathlib import Path
 
-sys.path.insert(0, str(Path(__file__).resolve().parent))
-
-import build as qpain_build  # noqa: E402
+_spec = importlib.util.spec_from_file_location("qpain_build", Path(__file__).with_name("build.py"))
+qpain_build = importlib.util.module_from_spec(_spec)
+_spec.loader.exec_module(qpain_build)
 
 
 def test_a_race_and_gender_placeholder_are_both_substituted_with_words_not_dropped():
