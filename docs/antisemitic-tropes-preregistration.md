@@ -292,11 +292,9 @@ sourced, exactly as this document does above.
 
 ## Estimating engine calls
 
-Laya answers every question about a text in **one forward pass**, so the trope grid costs one call
-per text, not one per question. The occupation-invariance check (the batch-1 pattern: does the
-occupation verdict itself move) is a separate design, also one call per text.
-
-**Trope-susceptibility grid** (this study's main design), all 24 questions in one pass per text:
+Laya answers all 24 questions about a text in one call, but the call's cost grows with the number of
+questions: measured at the start of the run, about one text per second (a single-question task runs
+at about twenty). The trope grid is one call per text:
 
 | pool | sources | texts (as written + cue versions) | Laya calls |
 |---|---|---|---|
@@ -304,7 +302,9 @@ occupation verdict itself move) is a separate design, also one call per text.
 | Pool B (synthetic loans) | 200 | 200 + 200 x 20 | ~4,200 |
 | **total** | | | **~34,900** |
 
-At roughly twenty texts a second that is under an hour of the local GPU.
+At about one text a second that is roughly ten hours of the local GPU. The run goes cue form by cue
+form (as written, religious, secular, nationality, community role, surname), each resumable and
+scored as it finishes, so a partial result exists after the first cue form.
 
 **Occupation-invariance check**, seven Bias in Bios tasks, one call per eligible bio per cue
 version: ~196,600 calls (about three hours), run after the grid and only if the grid warrants it.
