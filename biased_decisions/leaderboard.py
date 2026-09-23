@@ -68,6 +68,31 @@ ENGINES: List[dict] = [
 ENGINE_IDS = [e["id"] for e in ENGINES]
 ENGINE_LABEL = {e["id"]: e["label"] for e in ENGINES}
 
+SEVERITY_LIGHT = ["#c8102e", "#b5177a", "#d9480f", "#b7791f", "#8f5a1a"]
+SEVERITY_DARK = ["#f5475e", "#e05ba6", "#ff7a3d", "#f2b33d", "#d69a52"]
+
+
+def _severity_steps(n: int) -> List[int]:
+    """Ramp step per rank position, most biased first. Few engines each get their own step;
+    nine or more share the red at the top and step down in pairs."""
+    if n >= 9:
+        steps = [0, 0, 0, 1, 1, 2, 2]
+    elif n >= 6:
+        steps = [0, 0, 1, 1, 2, 3]
+    else:
+        steps = [0, 1, 2, 3, 4]
+    while len(steps) < n:
+        steps.append(min(steps[-1] + 1, len(SEVERITY_LIGHT) - 1) if len(steps) % 2 else steps[-1])
+    return steps[:n]
+
+
+def severity_colours(n: int, dark: bool = False) -> List[str]:
+    """Colours for n engines in rank order: red for the most biased, then magenta, orange and
+    ambers. There is no 'safe' colour: the engine at the bottom still shows bias."""
+    ramp = SEVERITY_DARK if dark else SEVERITY_LIGHT
+    return [ramp[s] for s in _severity_steps(n)]
+
+
 TASK_LABELS = {
     "surgeon-physician": "surgeon / physician",
     "nurse-physician": "nurse / physician",
@@ -1320,6 +1345,13 @@ def generate_json(root: Path = DEFAULT_ROOT, *, date: Optional[str] = None) -> d
     dimensions = [build_dimension(store, spec, prereg, examples) for spec in _DIMENSIONS]
     batch2_meta = next((r for r in store.batch2() if r.get("record") == "meta"), {})
     floors = _floors(store)
+    overall = build_overall(dimensions)
+    order = [r["engine"] for r in overall["rows"]]
+    order += [e["id"] for e in ENGINES if e["id"] not in order]
+    light, dark = severity_colours(len(order)), severity_colours(len(order), dark=True)
+    colour = {eid: (light[i], dark[i], i + 1) for i, eid in enumerate(order)}
+    engines = [{**e, "color": colour[e["id"]][0], "color_dark": colour[e["id"]][1],
+                "severity_rank": colour[e["id"]][2]} for e in ENGINES]
     return {
         "schema": SCHEMA,
         "provenance": {
@@ -1341,9 +1373,9 @@ def generate_json(root: Path = DEFAULT_ROOT, *, date: Optional[str] = None) -> d
                           "cannot regenerate these rows. See studies/batch2/README.md."},
             ],
         },
-        "engines": ENGINES,
+        "engines": engines,
         "dimensions": dimensions,
-        "overall": build_overall(dimensions),
+        "overall": overall,
         "floors": {"ask_twice": floors},
         "honesty": HONESTY,
         "vocabulary": VOCABULARY,

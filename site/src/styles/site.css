@@ -461,7 +461,7 @@ details.cell { scroll-margin-top: 140px; }
 .ex-v1 { border-top-color: var(--ink); }
 .ex-l { font-size: 11.5px; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; color: var(--muted); }
 .ex-text { margin: 6px 0 0; font-size: 14.5px; line-height: 1.65; color: var(--ink-2); overflow-wrap: anywhere; }
-.ex-text mark { background: color-mix(in srgb, var(--eng-laya) 22%, transparent); color: var(--ink); font-weight: 700; border-radius: 3px; padding: 0 2px; box-shadow: inset 0 -2px 0 var(--eng-laya); }
+.ex-text mark { background: color-mix(in srgb, var(--alarm) 22%, transparent); color: var(--ink); font-weight: 700; border-radius: 3px; padding: 0 2px; box-shadow: inset 0 -2px 0 var(--alarm); }
 .ex-one .ex-opts p { margin: 2px 0; font-size: 14px; }
 .ex-table { min-width: 520px; margin-top: 8px; }
 .flip { color: var(--ink); }
@@ -469,7 +469,7 @@ details.cell { scroll-margin-top: 140px; }
 .sb { display: grid; grid-template-columns: minmax(0, 15em) 1fr 4.5em; gap: 12px; align-items: center; font-size: 14px; }
 .sb-bar { height: 16px; background: var(--surface-2); border-radius: 4px; overflow: hidden; }
 .sb-fill { display: block; height: 100%; background: var(--floor); border-radius: 4px; }
-.sb-fill.cue { background: var(--eng-laya); }
+.sb-fill.cue { background: var(--alarm); }
 .sb-v { font-weight: 700; text-align: right; font-variant-numeric: tabular-nums; }
 @media (max-width: 560px) { .sb { grid-template-columns: 1fr 4em; } .sb-l { grid-column: 1 / -1; } }
 .url-list { padding-left: 20px; }

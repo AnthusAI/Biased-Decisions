@@ -8,8 +8,8 @@ import re
 import pytest
 
 from biased_decisions.leaderboard import (
-    ENGINE_IDS, _clean, _fractional_ranks, _magnitude, _wilson, generate_json, release_info,
-    write_json,
+    ENGINE_IDS, SEVERITY_DARK, SEVERITY_LIGHT, _clean, _fractional_ranks, _magnitude, _wilson,
+    generate_json, release_info, severity_colours, write_json,
 )
 from biased_decisions.leaderboard_examples import mark
 from biased_decisions.tasks.base import DEFAULT_ROOT
@@ -343,3 +343,30 @@ def test_every_percentage_in_a_caveat_is_a_number_on_the_board(doc):
     for c in doc["honesty"]:
         for pct in re.findall(r"(\d+(?:\.\d+)?)%", c["text"]):
             assert pct in on_board, f"{c['id']}: {pct}% is not on the board"
+
+
+def test_engine_colours_follow_the_overall_rank_most_biased_first(doc):
+    rows = doc["overall"]["rows"]
+    first_engine = rows[0]["engine"]
+    first_color = next(e["color"] for e in doc["engines"] if e["id"] == first_engine)
+    assert first_color == "#c8102e"
+    colors = [next(e["color"] for e in doc["engines"] if e["id"] == r["engine"]) for r in rows]
+    assert colors == severity_colours(len(rows))
+
+
+def test_the_severity_ramp_never_uses_a_safe_colour():
+    safe = set(SEVERITY_LIGHT) | set(SEVERITY_DARK)
+    for n in range(1, 13):
+        for color in severity_colours(n):
+            assert color in safe
+        for color in severity_colours(n, dark=True):
+            assert color in safe
+
+
+def test_nine_or_more_engines_share_red_at_the_top():
+    c = severity_colours(9)
+    assert c[0] == c[1] == c[2] == "#c8102e" and c[3] != "#c8102e"
+
+
+def test_few_engines_each_get_their_own_step():
+    assert severity_colours(3) == ["#c8102e", "#b5177a", "#d9480f"]
