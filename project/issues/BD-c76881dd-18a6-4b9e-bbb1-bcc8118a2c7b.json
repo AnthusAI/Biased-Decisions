@@ -22,18 +22,30 @@
         "model": "Claude Opus 5.5",
         "name": "Biased-Decisions coordinator"
       }
+    },
+    {
+      "id": "90e13719-4e47-4262-b26a-93fd76cd357d",
+      "author": "home",
+      "text": "2026-09-23: fixed on main (Haiku pass A, reviewed by the coordinator): cells whose interval clears the floor in either direction are shaded by absolute size in alarm red; below-floor cells are striped; unattributed cells have a dashed outline; only no-bias cells stay plain. Checked on /stereotype-nationality/: American x worldliness -9.98 now shaded and striped.",
+      "created_at": "2026-09-23T17:27:19.327564Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude_code",
+        "model": "Claude Opus 5.5",
+        "name": "Biased-Decisions coordinator"
+      }
     }
   ],
   "created_at": "2026-09-23T16:29:34.518967Z",
-  "updated_at": "2026-09-23T16:29:41.890941Z",
+  "updated_at": "2026-09-23T17:27:19.328047Z",
   "closed_at": null,
   "agent": {
     "platform": "claude_code",
     "model": "Claude Opus 5.5",
     "name": "Biased-Decisions coordinator"
   },
-  "right_now_summary": "Matrix shading is being updated to show large reverse shifts and give unattributed cells a clear style.",
-  "right_now_updated_at": "2026-09-23T16:29:43.777525Z",
+  "right_now_summary": "Matrix shading now highlights large shifts in either direction and gives unattributed cells a distinct style.",
+  "right_now_updated_at": "2026-09-23T17:27:22.128944Z",
   "custom": {
     "project_label": "BD",
     "source": "shared"

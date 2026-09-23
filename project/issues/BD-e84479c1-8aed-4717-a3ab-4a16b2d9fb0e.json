@@ -34,18 +34,30 @@
         "model": "Claude Opus 5.5",
         "name": "Biased-Decisions coordinator"
       }
+    },
+    {
+      "id": "1b0e4cec-fb9c-4a6b-92bf-a1d858c2d5f4",
+      "author": "home",
+      "text": "2026-09-23: done on main (Haiku pass A, reviewed): Prereg blocks, labels, verdicts and card lines removed from public pages; methods page has one sentence and a repository link.",
+      "created_at": "2026-09-23T17:27:27.805124Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude_code",
+        "model": "Claude Opus 5.5",
+        "name": "Biased-Decisions coordinator"
+      }
     }
   ],
   "created_at": "2026-09-23T16:26:55.783516Z",
-  "updated_at": "2026-09-23T16:28:01.298737Z",
+  "updated_at": "2026-09-23T17:27:27.805145Z",
   "closed_at": null,
   "agent": {
     "platform": "claude_code",
     "model": "Claude Opus 5.5",
     "name": "Biased-Decisions coordinator"
   },
-  "right_now_summary": "The site is replacing the label with results and documenting predictions on the methods page.",
-  "right_now_updated_at": "2026-09-23T16:28:04.306580Z",
+  "right_now_summary": "Public pages now show results only, while the methods page explains pre-registration and links to the repository.",
+  "right_now_updated_at": "2026-09-23T17:27:31.650470Z",
   "custom": {
     "project_label": "BD",
     "source": "shared"

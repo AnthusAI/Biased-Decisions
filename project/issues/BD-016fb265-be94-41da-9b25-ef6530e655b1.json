@@ -22,18 +22,30 @@
         "model": "Claude Opus 5.5",
         "name": "Biased-Decisions coordinator"
       }
+    },
+    {
+      "id": "dbb9118d-5e6a-4f09-95ed-09ee8878bc2e",
+      "author": "home",
+      "text": "2026-09-23: part done: the theme toggle is gone and the site follows the system colour scheme (Haiku pass A). Remaining: light social cards, spider charts on engine cards, bar charts on board cards.",
+      "created_at": "2026-09-23T17:27:38.314752Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude_code",
+        "model": "Claude Opus 5.5",
+        "name": "Biased-Decisions coordinator"
+      }
     }
   ],
   "created_at": "2026-09-23T16:46:55.684448Z",
-  "updated_at": "2026-09-23T16:47:03.113383Z",
+  "updated_at": "2026-09-23T17:27:38.314780Z",
   "closed_at": null,
   "agent": {
     "platform": "claude_code",
     "model": "Claude Opus 5.5",
     "name": "Biased-Decisions coordinator"
   },
-  "right_now_summary": "The site now follows system colours, while social cards use light mode and show charts instead of single scores.",
-  "right_now_updated_at": "2026-09-23T16:47:04.842655Z",
+  "right_now_summary": "The theme toggle is gone, but social cards still need light styling and chart updates.",
+  "right_now_updated_at": "2026-09-23T17:27:40.246703Z",
   "custom": {
     "project_label": "BD",
     "source": "shared"
