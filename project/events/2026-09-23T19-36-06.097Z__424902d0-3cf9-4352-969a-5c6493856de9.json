@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "event_id": "424902d0-3cf9-4352-969a-5c6493856de9",
+  "issue_id": "BD-f50532aa-50e5-4aa5-83d2-0a19f440ca4a",
+  "event_type": "issue_created",
+  "occurred_at": "2026-09-23T19:36:06.097Z",
+  "actor_id": "home",
+  "payload": {
+    "title": "Add Google Analytics 4 tag to the site",
+    "description": "Add the gtag.js snippet (G-31SC26SDGX, same property as anth.us, split by hostname) to site/src/layouts/Base.astro, production builds only. No custom events; contact conversions happen on anth.us.",
+    "issue_type": "chore",
+    "status": "open",
+    "priority": 2,
+    "assignee": null,
+    "parent": "BD-4f83aebd-9fa3-4ac7-b820-e3a1cab1ee8b",
+    "labels": [],
+    "agent": {
+      "platform": "claude_code",
+      "model": "Sonnet 5",
+      "name": "GA4 tag"
+    }
+  }
+}
