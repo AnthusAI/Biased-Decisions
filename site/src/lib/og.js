@@ -1,70 +1,86 @@
-// Open Graph images, rendered at build time: an SVG card per page, rasterised to PNG by resvg
-// (WebAssembly, no native build step) with the site's own fonts, vendored under src/og/fonts
-// (SIL Open Font License). If the fonts are missing the site still builds, without og:image.
-import { existsSync, readFileSync } from "node:fs";
-import { resolve } from "node:path";
-import { engines } from "./site.js";
+// Draws a social card (docs/social-cards.md): Satori lays out the card from lib/cards.js's words
+// and numbers (text becomes outlines, with the fonts embedded), resvg rasterises it to a
+// 1200 x 630 PNG. Both run at build time only.
+import { readFileSync } from "node:fs";
+import { createRequire } from "node:module";
+import satori from "satori";
+import { engineById } from "./site.js";
 
-const FONT_DIR = resolve(process.cwd(), "src/og/fonts");
-const FONTS = ["Jersey25-Regular.ttf", "Montserrat-SemiBold.ttf", "Montserrat-Regular.ttf"];
-export const ogEnabled = FONTS.every((f) => existsSync(resolve(FONT_DIR, f)));
+const require = createRequire(import.meta.url);
+const fontFile = (pkg, file) => readFileSync(require.resolve(`${pkg}/files/${file}`));
 
-let ready = null;
+export const W = 1200;
+export const H = 630;
+
+// Palette tokens from site.css (dark ground), every text colour AA on the ground.
+const C = { ground: "#0c1e2b", ink: "#e8f2f8", ink2: "#bccbd6", muted: "#97a9b6", floor: "#8a949c", rule: "#283b48", accent: "#e8579b" };
+
+let fonts = null;
+function loadFonts() {
+  if (!fonts) {
+    fonts = [
+      { name: "Jersey 25", data: fontFile("@fontsource/jersey-25", "jersey-25-latin-400-normal.woff"), weight: 400, style: "normal" },
+      { name: "Montserrat", data: fontFile("@fontsource/montserrat", "montserrat-latin-500-normal.woff"), weight: 500, style: "normal" },
+      { name: "Montserrat", data: fontFile("@fontsource/montserrat", "montserrat-latin-600-normal.woff"), weight: 600, style: "normal" },
+      { name: "Montserrat", data: fontFile("@fontsource/montserrat", "montserrat-latin-700-normal.woff"), weight: 700, style: "normal" },
+    ];
+  }
+  return fonts;
+}
+
+let resvgReady = null;
 async function resvg() {
-  if (!ready) {
-    ready = (async () => {
+  if (!resvgReady) {
+    resvgReady = (async () => {
       const mod = await import("@resvg/resvg-wasm");
-      const wasm = readFileSync(resolve(process.cwd(), "node_modules/@resvg/resvg-wasm/index_bg.wasm"));
-      await mod.initWasm(wasm);
-      return { Resvg: mod.Resvg, fonts: FONTS.map((f) => readFileSync(resolve(FONT_DIR, f))) };
+      await mod.initWasm(readFileSync(require.resolve("@resvg/resvg-wasm/index_bg.wasm")));
+      return mod.Resvg;
     })();
   }
-  return ready;
+  return resvgReady;
 }
 
-const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+// A tiny element builder for Satori's object form.
+const el = (type, style, ...children) => ({ type, props: { style, children: children.flat().filter((c) => c !== null && c !== false && c !== undefined) } });
 
-// Greedy wrap by an average glyph width; good enough for a card, never overflows by much.
-function wrap(text, size, width, maxLines, avg = 0.52) {
-  const perLine = Math.max(8, Math.floor(width / (size * avg)));
-  const words = String(text).split(/\s+/);
-  const lines = [];
-  let cur = "";
-  for (const w of words) {
-    if ((cur + " " + w).trim().length > perLine && cur) { lines.push(cur); cur = w; } else cur = (cur + " " + w).trim();
-  }
-  if (cur) lines.push(cur);
-  if (lines.length > maxLines) {
-    const kept = lines.slice(0, maxLines);
-    kept[maxLines - 1] = kept[maxLines - 1].replace(/\s*\S*$/, "") + "…";
-    return kept;
-  }
-  return lines;
+function marker(engineId, size) {
+  const e = engineById[engineId];
+  const fill = e.color_dark || e.color;
+  const shape = e.marker === "square" ? { type: "rect", props: { x: 3, y: 3, width: 18, height: 18, rx: 2, fill } }
+    : e.marker === "diamond" ? { type: "path", props: { d: "M12 1 L23 12 L12 23 L1 12 Z", fill } }
+    : { type: "circle", props: { cx: 12, cy: 12, r: 10, fill } };
+  return { type: "svg", props: { width: size, height: size, viewBox: "0 0 24 24", style: { flexShrink: 0 }, children: [shape] } };
 }
 
-export function cardSvg({ kicker = "", title, lead = "" }) {
-  const W = 1200, H = 630, pad = 72;
-  let tSize = 104;
-  let tLines = wrap(title, tSize, W - 2 * pad, 2, 0.42);
-  if (tLines.some((l) => l.length * tSize * 0.42 > W - 2 * pad) || tLines.length > 1) { tSize = 84; tLines = wrap(title, tSize, W - 2 * pad, 2, 0.42); }
-  const lLines = wrap(lead, 30, W - 2 * pad, tLines.length > 1 ? 3 : 4, 0.53);
-  const ty = 250;
-  const ly = ty + (tLines.length - 1) * tSize * 0.95 + 70;
-  const bars = engines.map((e, i) => `<rect x="${pad + i * 118}" y="${H - 64}" width="100" height="10" rx="3" fill="${e.color}"/>`).join("");
-  return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">
-<rect width="${W}" height="${H}" fill="#0c1e2b"/>
-<rect x="0" y="0" width="${W}" height="8" fill="#d03382"/>
-<text x="${pad}" y="104" font-family="Jersey 25" font-size="52" fill="#e8f2f8">Biased<tspan fill="#97a9b6"> Decisions</tspan></text>
-<text x="${pad}" y="164" font-family="Montserrat" font-weight="600" font-size="24" letter-spacing="3" fill="#97a9b6">${esc(kicker.toUpperCase())}</text>
-${tLines.map((l, i) => `<text x="${pad}" y="${ty + i * tSize * 0.95}" font-family="Jersey 25" font-size="${tSize}" fill="#ffffff">${esc(l)}</text>`).join("\n")}
-${lLines.map((l, i) => `<text x="${pad}" y="${ly + i * 42}" font-family="Montserrat" font-size="30" fill="#bccbd6">${esc(l)}</text>`).join("\n")}
-${bars}
-<text x="${W - pad}" y="${H - 52}" text-anchor="end" font-family="Montserrat" font-weight="600" font-size="22" fill="#97a9b6">most biased first · every number replayed from the record</text>
-</svg>`;
+// The card as a Satori tree. Key content (headline, number) sits in the central column.
+export function cardTree(card) {
+  const headSize = card.headline.length > 64 ? 44 : 48;
+  const numberSize = 120;
+  return el("div", { width: W, height: H, display: "flex", flexDirection: "column", alignItems: "center",
+    backgroundColor: C.ground, color: C.ink, fontFamily: "Montserrat", padding: "34px 48px 30px", position: "relative" },
+    // furniture: the wordmark and the release stamp
+    el("div", { position: "absolute", top: 0, left: 0, width: W, height: 8, backgroundColor: C.accent, display: "flex" }),
+    el("div", { position: "absolute", top: 30, left: 48, display: "flex", fontFamily: "Jersey 25", fontSize: 44, color: C.ink },
+      "Biased", el("span", { color: C.muted, marginLeft: 10 }, "Decisions")),
+    el("div", { position: "absolute", top: 44, right: 48, display: "flex", fontSize: 24, fontWeight: 600, color: C.muted, letterSpacing: 1 }, card.stamp),
+    // 1: headline
+    el("div", { display: "flex", marginTop: 66, width: 660, justifyContent: "center", textAlign: "center",
+      fontSize: headSize, fontWeight: 700, lineHeight: 1.14, color: C.ink }, card.headline),
+    // 2: the number with its floor
+    card.number ? el("div", { display: "flex", flexDirection: "column", alignItems: "center", marginTop: 8 },
+      el("div", { display: "flex", fontFamily: "Jersey 25", fontSize: numberSize, lineHeight: 1, color: "#ffffff" }, card.number),
+      el("div", { display: "flex", fontSize: 40, fontWeight: 500, color: C.ink2, marginTop: 2, textAlign: "center" }, card.numberNote)) : null,
+    // 3: the pre-registered outcome, or the runners-up
+    el("div", { display: "flex", flexDirection: "column", alignItems: "center", marginTop: "auto", gap: 6 },
+      card.note ? el("div", { display: "flex", fontSize: 40, fontWeight: 600, color: C.ink, textAlign: "center", maxWidth: 1100 }, card.note) : null,
+      card.rows.map((r) => el("div", { display: "flex", alignItems: "center", fontSize: 40, fontWeight: 500, color: C.ink2, maxWidth: 1100 },
+        r.engine ? marker(r.engine, 34) : null,
+        el("span", { marginLeft: r.engine ? 14 : 0 }, r.text)))),
+  );
 }
 
 export async function renderPng(card) {
-  const { Resvg, fonts } = await resvg();
-  const r = new Resvg(cardSvg(card), { fitTo: { mode: "width", value: 1200 }, font: { fontBuffers: fonts, defaultFontFamily: "Montserrat", loadSystemFonts: false } });
-  return r.render().asPng();
+  const svg = await satori(cardTree(card), { width: W, height: H, fonts: loadFonts() });
+  const Resvg = await resvg();
+  return new Resvg(svg, { fitTo: { mode: "width", value: W } }).render().asPng();
 }

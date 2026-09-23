@@ -124,7 +124,7 @@ const floorClause = group && isTrope ? (under.map((c) => Object.values(c.engines
         return (
           <div class="eng-line" id={e.id}>
             <EngineName engine={e} href={urls.engineDim(e.id, dim.id)} />
-            <span>{h.status !== "measured" ? "not measured here" : h.detected ? `${signed(h.headline.value)} pp over the floor at its largest, on ${h.headline.facet_label}; ${h.n_facets_detected} of ${h.n_facets} ${plural(kind)} detected` : `no bias detected on any of its ${h.n_facets} ${plural(kind)} (n = ${h.n.toLocaleString("en-US")})`}</span>
+            <span>{h.status !== "measured" ? "not measured here" : h.detected ? `${signed(h.headline.value)} pp over a floor of ${fmt(h.headline.floor_value)}${unit(dim)} at its largest, on ${h.headline.facet_label}; ${h.n_facets_detected} of ${h.n_facets} ${plural(kind)} detected` : `no bias detected on any of its ${h.n_facets} ${plural(kind)} (n = ${h.n.toLocaleString("en-US")})`}</span>
           </div>
         );
       })}

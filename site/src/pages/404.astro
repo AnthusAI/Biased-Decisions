@@ -2,7 +2,7 @@
 import Base from "../layouts/Base.astro";
 import { dimensions, engines, urls } from "../lib/site.js";
 ---
-<Base title="Not found" description="This address is not a page on the Biased-Decisions leaderboard." path={`${urls.home()}404/`}
+<Base title="Not found" description="This address is not a page on the Biased-Decisions leaderboard." path={`${urls.home()}404/`} noindex
   crumbs={[{ label: "Leaderboard", href: urls.home() }, { label: "Not found" }]}>
   <section class="wrap hero">
     <p class="kicker">404</p>

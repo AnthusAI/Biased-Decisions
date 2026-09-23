@@ -40,11 +40,6 @@ export const urls = {
     return join(dim.id, bd.groups.length > 1 ? group : null, bd.items.length > 1 ? item : null);
   },
   data: () => `${BASE}data/leaderboard.json`,
-  // og:image for a page path: /og/<path segments joined by "--">.png, "index" for the home page.
-  og: (path) => {
-    const rel = path.slice(BASE.length).replace(/\/$/, "");
-    return `${BASE}og/${rel ? rel.replace(/\//g, "--") : "index"}.png`;
-  },
 };
 
 export const absolute = (path, site) => new URL(path, site).href;
@@ -357,31 +352,5 @@ export function forestRows(dim, cells, labelOf, hrefOf) {
 }
 
 export const siblingsOf = (list, id) => list.filter((x) => x.id !== id);
-
-// Every page's Open Graph card: the og image path it will be served at, and its words.
-export function ogPages() {
-  const out = [];
-  const add = (path, card) => out.push({ slug: urls.og(path).slice(BASE.length + 3).replace(/\.png$/, ""), card });
-  const top = dimensions.map((d) => ({ d, c: d.board.ranked[0] })).filter((x) => x.c).sort((a, b) => b.c.value - a.c.value)[0];
-  add(urls.home(), { kicker: "Bias leaderboard for fast decision models", title: "Change one detail. Watch the verdict move.",
-    lead: `${engines.length} engines, ${dimensions.length} dimensions, most biased first.${top ? ` Largest: ${engineById[top.c.engine].label}, ${signed(top.c.value)} pp over the floor on ${top.d.label.toLowerCase()}.` : ""}` });
-  add(urls.methods(), { kicker: "Methods", title: "How every number is made", lead: "Causal counterfactuals on real bios, each read against an equally trivial edit." });
-  add(urls.engines(), { kicker: "Engines", title: "Every engine", lead: "Most biased first, by mean rank across the contested dimensions." });
-  for (const en of engines) {
-    add(urls.engine(en.id), { kicker: `Engine · ${en.kind}`, title: en.label, lead: en.about });
-    for (const d of dimensions) {
-      const c = d.cells[en.id];
-      add(urls.engineDim(en.id, d.id), { kicker: `${en.label} · engine`, title: d.long,
-        lead: c.status !== "measured" ? "Not measured yet: shown as missing, never as zero." : c.detected ? `${signed(c.headline.value)} pp over the floor at its largest, on ${c.headline.facet_label}.` : "No bias detected at this floor." });
-    }
-  }
-  for (const d of dimensions) {
-    add(urls.dim(d.id), { kicker: "Dimension", title: d.long, lead: `${boardLead(d.board, d)}.` });
-    for (const level of d.breakdown.levels) {
-      add(levelPath(d, level), { kicker: d.long, title: levelTitle(d, level), lead: describeLevel(d, level) });
-    }
-  }
-  return out;
-}
 
 export const plural = (k) => ({ nationality: "nationalities", religion: "religions", "name group": "name groups", engine: "engines" }[k] || `${k}s`);

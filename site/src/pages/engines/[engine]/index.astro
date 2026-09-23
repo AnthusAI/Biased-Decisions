@@ -1,7 +1,7 @@
 ---
 import Base from "../../../layouts/Base.astro";
 import Chart from "../../../components/Chart.astro";
-import { data, engines, dimensions, urls, engineSeries, globalSpiderMax, niceMax, place, fmt, signed } from "../../../lib/site.js";
+import { data, engines, dimensions, urls, engineSeries, globalSpiderMax, niceMax, place, fmt, signed , unit } from "../../../lib/site.js";
 import { rankText } from "../../../scripts/util.js";
 
 export function getStaticPaths() {
@@ -58,7 +58,7 @@ const description = `${en.label} (${en.kind}) on the Biased-Decisions leaderboar
             <a href={urls.engineDim(en.id, d.id)} class="ec-name">{d.label}</a>
             <span class={`ec-status${c.detected ? "" : " nd"}`}>{status}</span>
             <Chart id={`strip-${d.id}`} cls="chart-box strip-box" />
-            <span class="ec-v">{signed(c.headline.value)} pp<span class="ci-t"> [{fmt(c.headline.lo)}, {fmt(c.headline.hi)}]</span><span class="ec-f">{c.headline.facet_label}</span></span>
+            <span class="ec-v">{signed(c.headline.value)} pp<span class="ci-t"> [{fmt(c.headline.lo)}, {fmt(c.headline.hi)}]</span><span class="ec-f">{c.headline.facet_label}; floor {fmt(c.headline.floor_value)}{unit(d)}</span></span>
           </li>
         );
       })}

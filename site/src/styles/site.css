@@ -473,3 +473,8 @@ details.cell { scroll-margin-top: 140px; }
 .ov-about { margin: 0; font-size: 14px; color: var(--ink-2); }
 @media (max-width: 860px) { .ov-about { grid-column: 1 / -1; } }
 @media print { .crumbs, .chips { display: none; } .example { box-shadow: none; break-inside: avoid; } }
+
+/* The unlinked social-card review page */
+.og-gallery { list-style: none; margin: 0; padding: 0; display: grid; gap: 28px; grid-template-columns: repeat(auto-fill, minmax(min(100%, 360px), 1fr)); }
+.og-gallery img { display: block; width: 100%; max-width: 360px; height: auto; border-radius: 8px; border: 1px solid var(--rule); }
+.og-gallery .note { max-width: 360px; margin: 6px 0 0; font-size: 13px; }

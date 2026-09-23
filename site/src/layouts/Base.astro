@@ -3,13 +3,15 @@
 // panel, the colophon, and the page's chart payload. The page body is static HTML.
 import "../styles/site.css";
 import { data, engines, dimensions, urls, absolute, SITE_NAME } from "../lib/site.js";
-import { ogEnabled } from "../lib/og.js";
+import { cardFor } from "../lib/cards.js";
 
-const { title, description, path, current = {}, charts = null, crumbs = [], ogAlt } = Astro.props;
+const { title, description, path, current = {}, charts = null, crumbs = [], noindex = false } = Astro.props;
 const site = Astro.site;
 const fullTitle = title ? `${title} · ${SITE_NAME}` : SITE_NAME;
 const canonical = absolute(path, site);
-const ogImage = absolute(urls.og(path), site);
+const card = noindex ? null : cardFor(path);
+if (!noindex && !card) throw new Error(`no social card for ${path}`);
+const ogImage = card ? absolute(card.url, site) : null;
 const p = data.provenance;
 const rel = p.release;
 const REPO = "https://github.com/AnthusAI/Biased-Decisions";
@@ -30,18 +32,24 @@ const favicon = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' vi
 <title>{fullTitle}</title>
 <meta name="description" content={description}>
 <link rel="canonical" href={canonical}>
+{noindex && <meta name="robots" content="noindex">}
 <meta property="og:type" content="website">
 <meta property="og:site_name" content={SITE_NAME}>
-<meta property="og:title" content={title || SITE_NAME}>
+<meta property="og:title" content={card ? card.headline : (title || SITE_NAME)}>
 <meta property="og:description" content={description}>
 <meta property="og:url" content={canonical}>
-{ogEnabled && <Fragment>
+{card && <Fragment>
 <meta property="og:image" content={ogImage}>
+<meta property="og:image:type" content="image/png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content={ogAlt || title || SITE_NAME}>
+<meta property="og:image:alt" content={card.alt}>
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content={card.headline}>
+<meta name="twitter:description" content={description}>
+<meta name="twitter:image" content={ogImage}>
+<meta name="twitter:image:alt" content={card.alt}>
 </Fragment>}
-<meta name="twitter:card" content={ogEnabled ? "summary_large_image" : "summary"}>
 <meta name="color-scheme" content="light dark">
 <meta name="theme-color" content="#f1f9fe" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0f1a22" media="(prefers-color-scheme: dark)">
