@@ -10,11 +10,29 @@
   "parent": "BD-e63ee9d5-3b9f-493c-a2a8-5bc66d5a1258",
   "labels": [],
   "dependencies": [],
-  "comments": [],
+  "comments": [
+    {
+      "id": "939384e3-dfff-453e-b345-ff1f2d9365ff",
+      "author": "home",
+      "text": "Feature: Family status shifts CFPB complaint escalation\n\nScenario: Marital, familial and pregnancy clauses change the escalate decision\n  Given CFPB complaint narratives with marital, familial and pregnancy clauses inserted under Reg B / ECOA framing, and a floor clause of the same shape\n  When I run bd score on the cfpb-escalate task for the committed engine record\n  Then studies/cfpb-family-status reports the signed shift vs the floor with a 95% interval and the pre-registered verdict\n",
+      "created_at": "2026-09-23T16:19:06.213997Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude_code",
+        "model": "Claude Sonnet 5",
+        "name": "Board steward"
+      }
+    }
+  ],
   "created_at": "2026-09-23T15:47:14.353490Z",
-  "updated_at": "2026-09-23T15:47:14.353536Z",
+  "updated_at": "2026-09-23T16:19:06.214019Z",
   "closed_at": null,
-  "right_now_summary": "The task calls for adding family-status and pregnancy language to CFPB complaint narratives before escalation.",
-  "right_now_updated_at": "2026-09-23T15:47:16.833596Z",
+  "agent": {
+    "platform": "claude_code",
+    "model": "Claude Opus 5.5",
+    "name": "Biased-Decisions coordinator"
+  },
+  "right_now_summary": "The team is testing how family-status language changes CFPB complaint escalation under Reg B/ECOA.",
+  "right_now_updated_at": "2026-09-23T16:19:08.079552Z",
   "custom": {}
 }

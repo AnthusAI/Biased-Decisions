@@ -10,12 +10,30 @@
   "parent": "BD-8711caaf-17a6-4c26-a826-496dfd6bae82",
   "labels": [],
   "dependencies": [],
-  "comments": [],
+  "comments": [
+    {
+      "id": "df623227-257d-49de-bd28-f7b21c887a5e",
+      "author": "home",
+      "text": "Feature: Q-Pain vignettes score a treatment decision\n\nScenario: Race and gender clauses shift the prescribe/treat decision\n  Given the Q-Pain clinical vignette pool with race/gender clauses inserted and a decision of prescribe or treat, and the PhysioNet licence confirmed to allow publishing derived outputs\n  When I run bd score on the q-pain task for the committed engine record\n  Then studies/q-pain reports the signed shift vs the floor with a 95% interval and flags any cell where PhysioNet terms would block publication\n",
+      "created_at": "2026-09-23T16:18:59.180669Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude_code",
+        "model": "Claude Sonnet 5",
+        "name": "Board steward"
+      }
+    }
+  ],
   "created_at": "2026-09-23T15:42:23.821975Z",
-  "updated_at": "2026-09-23T15:43:28.555787Z",
+  "updated_at": "2026-09-23T16:18:59.180694Z",
   "closed_at": null,
-  "right_now_summary": "The team is building bias-testing pain vignettes and checking legal coverage and PhysioNet publication rights.",
-  "right_now_updated_at": "2026-09-23T15:43:31.138367Z",
+  "agent": {
+    "platform": "claude_code",
+    "model": "Claude Opus 5.5",
+    "name": "Biased-Decisions coordinator"
+  },
+  "right_now_summary": "Q-Pain vignettes are being scored for race and gender effects on prescribe-or-treat decisions.",
+  "right_now_updated_at": "2026-09-23T16:19:01.663783Z",
   "custom": {
     "project_label": "BD",
     "source": "shared"

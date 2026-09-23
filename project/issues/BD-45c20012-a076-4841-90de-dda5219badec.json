@@ -12,15 +12,28 @@
     "engines"
   ],
   "dependencies": [],
-  "comments": [],
+  "comments": [
+    {
+      "id": "11c3ba31-df0c-44b6-8707-bc69a65d2a1a",
+      "author": "home",
+      "text": "Feature: Engine adapter: Bespoke-Nimble-9B answers a scored task\n\nScenario: The largest local candidate is timed before it is adopted\n  Given the Bespoke-Nimble-9B (Apache-2.0 LoRA) model runnable via MLX on Apple silicon or CUDA\n  When I run bd run --engine bespoke-nimble-9b on a committed task and time the run\n  Then it returns a probability per option for every item, studies/ records the answers, and the run time is recorded before adopting it for full batches\n",
+      "created_at": "2026-09-23T16:20:44.922148Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude_code",
+        "model": "Claude Sonnet 5",
+        "name": "Board steward"
+      }
+    }
+  ],
   "created_at": "2026-09-23T11:49:25.675589Z",
-  "updated_at": "2026-09-23T11:49:25.675615Z",
+  "updated_at": "2026-09-23T16:20:44.922174Z",
   "closed_at": null,
   "agent": {
     "platform": "claude-code",
     "model": "claude-fable-5-1"
   },
-  "right_now_summary": "The team is timing the 9B adapter on MLX and CUDA for Mac support.",
-  "right_now_updated_at": "2026-09-23T11:49:28.004119Z",
+  "right_now_summary": "The Bespoke-Nimble-9B adapter is being timed on a committed task before full-batch use.",
+  "right_now_updated_at": "2026-09-23T16:20:47.744773Z",
   "custom": {}
 }

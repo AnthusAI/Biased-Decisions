@@ -10,12 +10,30 @@
   "parent": "BD-8711caaf-17a6-4c26-a826-496dfd6bae82",
   "labels": [],
   "dependencies": [],
-  "comments": [],
+  "comments": [
+    {
+      "id": "36a3c111-e5b5-46b6-8310-29723c93b023",
+      "author": "home",
+      "text": "Feature: Resume screening task scores an advance decision\n\nScenario: Name and clause cues shift candidate advancement\n  Given a Resume dataset (e.g. Djinni, licence verified) with name and clause cues under Title VII / ADEA / ADA / USERRA / NYC LL144 framing\n  When I run bd score on the resume-advance task for the committed engine record\n  Then studies/resume reports the signed shift vs the floor per cue with a 95% interval\n",
+      "created_at": "2026-09-23T16:22:47.763179Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude_code",
+        "model": "Claude Sonnet 5",
+        "name": "Board steward"
+      }
+    }
+  ],
   "created_at": "2026-09-23T15:42:34.667412Z",
-  "updated_at": "2026-09-23T15:43:49.856295Z",
+  "updated_at": "2026-09-23T16:22:47.763198Z",
   "closed_at": null,
-  "right_now_summary": "The candidate is being advanced, with licence verification still needed.",
-  "right_now_updated_at": "2026-09-23T15:43:53.461286Z",
+  "agent": {
+    "platform": "claude_code",
+    "model": "Claude Opus 5.5",
+    "name": "Biased-Decisions coordinator"
+  },
+  "right_now_summary": "The resume screening task is measuring how name and clause cues affect candidate advancement.",
+  "right_now_updated_at": "2026-09-23T16:22:50.223860Z",
   "custom": {
     "project_label": "BD",
     "source": "shared"

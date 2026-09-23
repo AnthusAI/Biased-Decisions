@@ -10,16 +10,29 @@
   "parent": "BD-4f83aebd-9fa3-4ac7-b820-e3a1cab1ee8b",
   "labels": [],
   "dependencies": [],
-  "comments": [],
+  "comments": [
+    {
+      "id": "ed12fa0d-c9cb-4d96-af79-81bddfc8c27c",
+      "author": "home",
+      "text": "## Log\n\nReproduced on Linux with Docker (python:3.11-slim, mounting the worktree at /Users/home/Projects/Biased-Decisions-fix). Scored only the affected cell: `bd score jev surgeon-physician --cue race-fullname --sample 500`. Diffed byte-for-byte against the same command run on macOS (Python 3.12).\n\nRuled out (identical between macOS and a fresh Linux container, and stable across PYTHONHASHSEED=0/1/2/42 on both):\n- laya-mlx sample all and sample 500 -- byte-identical everywhere.\n- Set/dict iteration order: every set-typed collection in scoring.py (eligible_ids, complete_ids, subsample) is only ever used for membership/equality; the bios actually scored are always `sorted(by_bio)` in score_arm_race2. Dict insertion order (versions, answers) is file order, which is identical on both platforms.\n- Duplicate ids, case sensitivity, unicode normalisation, gzip decoding: checked directly, no duplicates found for the affected id, same bytes decode identically on both platforms.\n\nRoot cause (confirmed via docker run python:3.12-slim vs python:3.11-slim, same literals):\n`biased_decisions/metrics/shifts.py`'s `group_mean_p` computes `sum(v.p_surgeon for v in verdicts) / len(verdicts)`. Python 3.12 changed the builtin `sum()` for floats to use compensated (Neumaier) summation (bpo-100425); Python 3.11 and earlier accumulate naively. For studies/surgeon-physician-race-fullname.jsonl's jev/500 row, bio `bios-182823`, group `black`: probabilities [0.58, 0.51, 0.49, 0.42] sum to `2.0` under 3.12's sum() (mean exactly `0.5`) but `1.9999999999999998` under 3.11's sum() (mean `0.49999999999999994`). `majority_call`'s 2-2 tie-break (`group_mean_p(verdicts) >= 0.5`) lands on opposite sides depending only on which Python version replayed the record. This is not an OS, hash-seed, ordering, or case-sensitivity bug -- it is purely a CPython 3.11-vs-3.12 `sum()` change, confirmed identical between macOS Python 3.12 and a Linux python:3.12-slim container, and identical between a clean macOS Python-3.11-equivalent test and python:3.11-slim.\n\nFix: `group_mean_p` now uses `math.fsum` instead of the builtin `sum()`. `math.fsum` is exact (correctly rounded) on every supported Python version, so the tie-break is version-independent. Spec added next to the code: `biased_decisions/metrics/shifts_test.py::test_majority_call_does_not_depend_on_pythons_sum_rounding`, which fails on Python 3.11 before the fix and passes after, on both 3.11 and 3.12.\n\nVerification:\n- Full spec suite: 279 passed / 16 skipped on macOS (Python 3.12); 182 passed / 15 skipped on Linux python:3.11-slim (fewer collected there only because 2 leaderboard specs need `git`, unrelated -- installed git and reran to confirm not a regression).\n- `bd replay` on Linux python:3.11-slim now reproduces `studies/` byte-for-byte (`git diff --exit-code -- studies/` passes) -- this was the actual Amplify build failure.\n- macOS's already-committed numbers (Python 3.12) were the correct ones -- Python 3.12's compensated sum() happens to match math.fsum's exact result for this data. No published number changes; confirmed by re-scoring the affected cell on macOS after the fix and diffing against the pre-fix macOS output (identical), and by regenerating RESULTS.md and site/data/leaderboard.json and diffing against the committed versions.\n\nNext: commit fix on fix/replay-determinism, push, merge to main once specs pass there too, kbs commit + push.",
+      "created_at": "2026-09-23T16:26:44.334906Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude_code",
+        "model": "Claude Sonnet 5",
+        "name": "Replay determinism fixer"
+      }
+    }
+  ],
   "created_at": "2026-09-23T16:03:28.648359Z",
-  "updated_at": "2026-09-23T16:03:28.648389Z",
+  "updated_at": "2026-09-23T16:26:44.334945Z",
   "closed_at": null,
   "agent": {
     "platform": "claude_code",
     "model": "Claude Sonnet 5",
     "name": "Replay determinism fixer"
   },
-  "right_now_summary": "Linux and macOS produce different replay results for the surgeon-physician-race-fullname study.",
-  "right_now_updated_at": "2026-09-23T16:03:30.834745Z",
+  "right_now_summary": "The tie-break now uses `math.fsum`, making replay results consistent across Python versions.",
+  "right_now_updated_at": "2026-09-23T16:26:46.458085Z",
   "custom": {}
 }

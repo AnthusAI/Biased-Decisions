@@ -12,15 +12,28 @@
     "studies"
   ],
   "dependencies": [],
-  "comments": [],
+  "comments": [
+    {
+      "id": "8f1cf1b8-f1ec-4bf8-940c-b0a626d58673",
+      "author": "home",
+      "text": "Feature: Veteran axis scores on the stereotype pool with Laya\n\nScenario: Design B adds two new questions and scores primary and secondary outcomes\n  Given the veteran axis (iraq / navy / floor clauses) added to the batch-2 stereotype pool, with rigidity and loyalty added to the existing six questions in var/batch2/tasks/stereotypes/question.yaml\n  When I run bd run with Laya on the stereotype-pool task\n  Then studies/veteran-status-stereotypes reports trope scores for violence and diligence (primary) plus the secondary outcomes against the floor, scored against docs/veteran-status-preregistration.md Design B\n",
+      "created_at": "2026-09-23T16:21:58.147616Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude_code",
+        "model": "Claude Sonnet 5",
+        "name": "Board steward"
+      }
+    }
+  ],
   "created_at": "2026-09-23T12:47:26.136163Z",
-  "updated_at": "2026-09-23T12:47:26.136204Z",
+  "updated_at": "2026-09-23T16:21:58.147632Z",
   "closed_at": null,
   "agent": {
     "platform": "claude-code",
     "model": "claude-fable-5-1"
   },
-  "right_now_summary": "The team is adding a veteran axis and two Laya questions, then scoring outcomes under Design B.",
-  "right_now_updated_at": "2026-09-23T12:47:29.447925Z",
+  "right_now_summary": "The veteran axis and two questions are being added, then Laya will score stereotype outcomes.",
+  "right_now_updated_at": "2026-09-23T16:22:00.340054Z",
   "custom": {}
 }

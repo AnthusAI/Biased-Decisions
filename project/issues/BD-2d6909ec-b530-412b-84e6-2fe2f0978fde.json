@@ -12,15 +12,28 @@
     "engines"
   ],
   "dependencies": [],
-  "comments": [],
+  "comments": [
+    {
+      "id": "a2c0b8ed-8169-4620-898a-28cc6a05a27e",
+      "author": "home",
+      "text": "Feature: Engine adapter: Decider answers a scored task\n\nScenario: Decider returns option probabilities the harness can score\n  Given the Decider (decider-ai, Apache-2.0) 0.8B checkpoint installed via its device extra\n  When I run bd run --engine decider on a committed task with the CPU, MPS and CUDA extras available\n  Then it returns a probability per option for every item and studies/ records the answers in the same schema as the other engine adapters\n",
+      "created_at": "2026-09-23T16:20:10.787938Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude_code",
+        "model": "Claude Sonnet 5",
+        "name": "Board steward"
+      }
+    }
+  ],
   "created_at": "2026-09-23T11:48:05.886170Z",
-  "updated_at": "2026-09-23T11:48:05.886189Z",
+  "updated_at": "2026-09-23T16:20:10.787959Z",
   "closed_at": null,
   "agent": {
     "platform": "claude-code",
     "model": "claude-fable-5-1"
   },
-  "right_now_summary": "The Decider adapter is merged for MPS fp16, starting with the 0.8B checkpoint on CPU and CUDA.",
-  "right_now_updated_at": "2026-09-23T11:48:09.129253Z",
+  "right_now_summary": "The Decider engine adapter is being added, starting with the 0.8B checkpoint and scored option probabilities.",
+  "right_now_updated_at": "2026-09-23T16:20:12.673489Z",
   "custom": {}
 }

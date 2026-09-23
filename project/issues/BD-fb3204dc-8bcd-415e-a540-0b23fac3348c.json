@@ -12,15 +12,28 @@
     "studies"
   ],
   "dependencies": [],
-  "comments": [],
+  "comments": [
+    {
+      "id": "a36ce499-d076-4a89-ab85-b65e572b71c5",
+      "author": "home",
+      "text": "Feature: Jev go/no-go prices design A on two pairs\n\nScenario: A dry-run price and cap gate the sexuality/gender-identity Jev run\n  Given design A of both cues in docs/sexuality-gender-identity-preregistration.md, limited to nurse/physician and architect/interior designer, about 8,000 requests per cue, per the free-engines-before-paid-ones convention\n  When I run a Jev dry-run price on those two pairs\n  Then the price and a cap are agreed before any request is sent, and studies/sexuality-gender-identity reports the subsequent run against the pre-registered predictions\n",
+      "created_at": "2026-09-23T16:24:54.306021Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude_code",
+        "model": "Claude Sonnet 5",
+        "name": "Board steward"
+      }
+    }
+  ],
   "created_at": "2026-09-23T13:05:17.118071Z",
-  "updated_at": "2026-09-23T13:05:17.118096Z",
+  "updated_at": "2026-09-23T16:24:54.306042Z",
   "closed_at": null,
   "agent": {
     "platform": "claude-code",
     "model": "claude-fable-5-1"
   },
-  "right_now_summary": "The team is pricing both cues and setting request caps before any requests are sent.",
-  "right_now_updated_at": "2026-09-23T13:05:19.302506Z",
+  "right_now_summary": "A dry-run price and spending cap are being set before the Jev requests are sent.",
+  "right_now_updated_at": "2026-09-23T16:24:56.444655Z",
   "custom": {}
 }

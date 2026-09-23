@@ -12,15 +12,28 @@
     "site"
   ],
   "dependencies": [],
-  "comments": [],
+  "comments": [
+    {
+      "id": "3ae61e3b-4b55-4ee9-9964-b56f18565f6f",
+      "author": "home",
+      "text": "Feature: Spider charts and cell drill-down show pre-registration outcomes\n\nScenario: Each cell on the site links back to its pre-registered verdict\n  Given scored cells from studies/ with a signed shift, a 95% interval, and a pre-registered verdict\n  When the leaderboard site renders the spider chart for an engine\n  Then clicking a cell drills down to the pre-registration prediction, the observed shift and interval, and the verdict, matching studies/ byte for byte\n",
+      "created_at": "2026-09-23T16:22:33.916755Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude_code",
+        "model": "Claude Sonnet 5",
+        "name": "Board steward"
+      }
+    }
+  ],
   "created_at": "2026-09-23T13:04:05.184923Z",
-  "updated_at": "2026-09-23T13:04:05.184953Z",
+  "updated_at": "2026-09-23T16:22:33.916777Z",
   "closed_at": null,
   "agent": {
     "platform": "claude-code",
     "model": "claude-fable-5-1"
   },
-  "right_now_summary": "No recent activity has been recorded for this issue.",
-  "right_now_updated_at": "2026-09-23T13:04:07.177214Z",
+  "right_now_summary": "The site is adding spider charts and cell drill-downs that link each score to its pre-registered verdict.",
+  "right_now_updated_at": "2026-09-23T16:22:35.442440Z",
   "custom": {}
 }

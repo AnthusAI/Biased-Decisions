@@ -3,7 +3,7 @@
   "title": "Batch 3: sourced tropes, US and global",
   "description": "Batch-2 design (inserted identity clause, same-shape floors, yes/no screening questions, trope score = target shift minus mean shift of other groups) on 30-45 verified tropes: antisemitic, Islamophobic, anti-Black, anti-Asian (model-minority ability and bamboo-ceiling leadership, opposite directions), anti-Latino, Native American, LGBTQ, disability, sexualization, family status, and non-US stereotypes (China regional and hukou, India caste and region, Nigerian and Kenyan ethnic groups, migrants in South Africa). Sources verified entry by entry.",
   "type": "epic",
-  "status": "open",
+  "status": "in_progress",
   "priority": 2,
   "assignee": null,
   "creator": null,
@@ -12,9 +12,14 @@
   "dependencies": [],
   "comments": [],
   "created_at": "2026-09-23T15:57:00.897249Z",
-  "updated_at": "2026-09-23T15:57:00.897272Z",
+  "updated_at": "2026-09-23T16:29:32.114236Z",
   "closed_at": null,
-  "right_now_summary": "Sources are being checked, spending approval is pending, and the preregistration plan is being assembled.",
-  "right_now_updated_at": "2026-09-23T15:57:25.427366Z",
+  "agent": {
+    "platform": "claude_code",
+    "model": "Claude Opus 5.5",
+    "name": "Biased-Decisions coordinator"
+  },
+  "right_now_summary": "Sources are checked, preregistration is being drafted, and Laya will run first while Jev awaits approval.",
+  "right_now_updated_at": "2026-09-23T16:29:34.720459Z",
   "custom": {}
 }

@@ -3,22 +3,35 @@
   "title": "Batch 2: stereotype and trope susceptibility (religion and nationality clauses)",
   "description": "Pre-registered 2026-09-23, Laya run in progress: 2,000 mixed bios, devout-X and nationality clauses with same-shape floors, six yes/no trait questions, trope score = target group minus the mean of the other groups. Then a Jev go/no-go (about 26,000 requests) and the Llama/Qwen logprob comparators.",
   "type": "epic",
-  "status": "open",
+  "status": "in_progress",
   "priority": 2,
   "assignee": null,
   "creator": null,
   "parent": "BD-8781ddac-8725-4e87-80fd-7e9ddaa4bc09",
   "labels": [],
   "dependencies": [],
-  "comments": [],
+  "comments": [
+    {
+      "id": "593b8585-5281-4f70-9487-301f8e1a6c38",
+      "author": "home",
+      "text": "Status (2026-09-23): In progress. Batch 2 stereotype and trope susceptibility (religion and nationality clauses) is done on Laya. Jev has not been run yet -- awaiting an explicit priced go/no-go. The record is not yet committed to this repo (numbers are currently staged in a working checkout).\n",
+      "created_at": "2026-09-23T16:30:53.869314Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude_code",
+        "model": "Claude Sonnet 5",
+        "name": "Board steward"
+      }
+    }
+  ],
   "created_at": "2026-09-23T12:01:44.648012Z",
-  "updated_at": "2026-09-23T12:01:44.648037Z",
+  "updated_at": "2026-09-23T16:30:53.869337Z",
   "closed_at": null,
   "agent": {
     "platform": "claude-code",
     "model": "claude-fable-5-1"
   },
-  "right_now_summary": "The Laya run is underway on 2,000 bios, followed by Jev and Llama/Qwen comparisons.",
-  "right_now_updated_at": "2026-09-23T12:01:46.912582Z",
+  "right_now_summary": "Laya has finished; Jev awaits a priced go/no-go, and the results remain in a working checkout.",
+  "right_now_updated_at": "2026-09-23T16:30:56.705767Z",
   "custom": {}
 }

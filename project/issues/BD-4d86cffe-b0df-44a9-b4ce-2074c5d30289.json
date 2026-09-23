@@ -20,8 +20,8 @@
     "platform": "claude-code",
     "model": "claude-fable-5-1"
   },
-  "right_now_summary": "The team is building adapters and testing open decision models across CPU, CUDA, and MPS.",
-  "right_now_updated_at": "2026-09-23T12:00:39.080306Z",
+  "right_now_summary": "Adapters and the cross-hardware runner are being built to benchmark open decision models on shared tasks.",
+  "right_now_updated_at": "2026-09-23T16:24:28.550245Z",
   "custom": {
     "project_label": "BD",
     "source": "shared"

@@ -12,15 +12,28 @@
     "site"
   ],
   "dependencies": [],
-  "comments": [],
+  "comments": [
+    {
+      "id": "d647e003-19a4-4a15-acc3-9b7ee8669d6a",
+      "author": "home",
+      "text": "Feature: bd report --json builds one leaderboard.json\n\nScenario: Scored cells collapse into a single machine-readable leaderboard\n  Given scored cells already committed under studies/ for one or more engines\n  When I run bd report --json\n  Then it writes one leaderboard.json containing every scored cell's engine, task, dimension, signed shift, interval and verdict, matching the studies/ records byte for byte\n",
+      "created_at": "2026-09-23T16:20:51.956313Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude_code",
+        "model": "Claude Sonnet 5",
+        "name": "Board steward"
+      }
+    }
+  ],
   "created_at": "2026-09-23T13:03:32.659009Z",
-  "updated_at": "2026-09-23T13:03:32.659033Z",
+  "updated_at": "2026-09-23T16:20:51.956334Z",
   "closed_at": null,
   "agent": {
     "platform": "claude-code",
     "model": "claude-fable-5-1"
   },
-  "right_now_summary": "The report needs to combine scored cells into one leaderboard.json file.",
-  "right_now_updated_at": "2026-09-23T13:03:35.273349Z",
+  "right_now_summary": "`bd report --json` is being built to combine scored cells into one byte-accurate `leaderboard.json`.",
+  "right_now_updated_at": "2026-09-23T16:20:54.229354Z",
   "custom": {}
 }

@@ -10,12 +10,30 @@
   "parent": "BD-8711caaf-17a6-4c26-a826-496dfd6bae82",
   "labels": [],
   "dependencies": [],
-  "comments": [],
+  "comments": [
+    {
+      "id": "396c5368-df32-478c-b3a3-c003e72ee36b",
+      "author": "home",
+      "text": "Feature: Civil Comments identity subset scores a moderation decision\n\nScenario: Identity-annotated comments shift the remove/keep decision\n  Given the Jigsaw Civil Comments identity subset (sexual orientation, religion, race, disability annotations) and a decision of remove or keep under EU DSA framing\n  When I run bd score on the civil-comments task for the committed engine record\n  Then studies/civil-comments reports the signed shift vs the floor by identity dimension with a 95% interval\n",
+      "created_at": "2026-09-23T16:19:19.401618Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude_code",
+        "model": "Claude Sonnet 5",
+        "name": "Board steward"
+      }
+    }
+  ],
   "created_at": "2026-09-23T15:42:39.241683Z",
-  "updated_at": "2026-09-23T15:43:35.293459Z",
+  "updated_at": "2026-09-23T16:19:19.401643Z",
   "closed_at": null,
-  "right_now_summary": "The team is deciding whether to keep or remove the Civil Comments identity subset.",
-  "right_now_updated_at": "2026-09-23T15:43:37.615057Z",
+  "agent": {
+    "platform": "claude_code",
+    "model": "Claude Opus 5.5",
+    "name": "Biased-Decisions coordinator"
+  },
+  "right_now_summary": "The Civil Comments identity subset is being scored for moderation shifts by identity under the EU DSA.",
+  "right_now_updated_at": "2026-09-23T16:19:21.408416Z",
   "custom": {
     "project_label": "BD",
     "source": "shared"

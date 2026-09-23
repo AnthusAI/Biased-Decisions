@@ -12,15 +12,28 @@
     "engines"
   ],
   "dependencies": [],
-  "comments": [],
+  "comments": [
+    {
+      "id": "b8b88ed4-7378-410b-b2ec-a702dc43de14",
+      "author": "home",
+      "text": "Feature: Cross-hardware runner auto-detects the device with one command\n\nScenario: Each installed engine passes a one-text smoke test\n  Given named backends with a pip extra per engine, and CUDA-only engines (NanoJev, Geni-S1-Ops, DiffusionGemma-derived) documented as not runnable here\n  When I run bd run --device auto on a task with a given engine installed\n  Then it selects mps, cpu or cuda automatically, falls back to ONNX or GGUF where the model ships one, and the smoke test loads each installed engine on one text before the full run starts\n",
+      "created_at": "2026-09-23T16:22:05.834810Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude_code",
+        "model": "Claude Sonnet 5",
+        "name": "Board steward"
+      }
+    }
+  ],
   "created_at": "2026-09-23T11:49:51.798667Z",
-  "updated_at": "2026-09-23T11:49:51.798687Z",
+  "updated_at": "2026-09-23T16:22:05.834837Z",
   "closed_at": null,
   "agent": {
     "platform": "claude-code",
     "model": "claude-fable-5-1"
   },
-  "right_now_summary": "The runner is being built with backend extras, device auto-detection, fallbacks, and engine smoke tests.",
-  "right_now_updated_at": "2026-09-23T11:49:53.950810Z",
+  "right_now_summary": "The runner is being built to auto-select hardware, support engine extras, and smoke-test each installed backend.",
+  "right_now_updated_at": "2026-09-23T16:22:07.443390Z",
   "custom": {}
 }

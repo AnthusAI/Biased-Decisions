@@ -3,7 +3,7 @@
   "title": "Veteran status: invariance where the law requires a stated preference",
   "description": "Veteran status is the one attribute in this benchmark where regulated processes require a stated preference: USERRA forbids using service against a candidate in hiring (motivating-factor standard, so a counterfactual flip is direct evidence), VEVRAA requires federal contractors to take affirmative action for protected veterans against an OFCCP hiring benchmark, and federal and most state veterans'-preference laws add statutory points in public hiring. The correct behavior of a snap decision model is still invariance: any preference belongs in the openly applied rule layer around the model, not inside it, and a hidden pro-veteran halo is as much a compliance problem under USERRA as a hidden PTSD trope would be. Design A measures occupation invariance on all seven Bias in Bios tasks with an iraq/navy/floor veteran-status cue, following the batch-1 insertion-cue pattern. Design B measures trope susceptibility on the batch-2 stereotype pool with a new veteran axis (same three clauses) against the existing six noul questions plus two new ones, rigidity and loyalty, with violence and diligence as the primary outcomes. Full framing, clause text, predictions and rules are pre-registered in docs/veteran-status-preregistration.md.",
   "type": "epic",
-  "status": "open",
+  "status": "in_progress",
   "priority": 2,
   "assignee": null,
   "creator": null,
@@ -12,15 +12,28 @@
     "studies"
   ],
   "dependencies": [],
-  "comments": [],
+  "comments": [
+    {
+      "id": "e017f914-b1df-4c47-848d-761afafe2404",
+      "author": "home",
+      "text": "Status (2026-09-23): In progress. Laya has run both veteran-status designs (all seven Bias-in-Bios tasks, and the two new stereotype-pool questions); every pre-registered prediction came back wrong. Results currently sit in the tooling checkout's var/veteran and are not yet committed to this repo. Jev has not been run. The two Laya-run stories (BD-4c5d8a, BD-86387b) are closed below; the Jev go/no-go pricing story (BD-f75288) remains open pending a priced approval.\n",
+      "created_at": "2026-09-23T16:31:03.871293Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude_code",
+        "model": "Claude Sonnet 5",
+        "name": "Board steward"
+      }
+    }
+  ],
   "created_at": "2026-09-23T12:46:50.933055Z",
-  "updated_at": "2026-09-23T12:46:50.933113Z",
+  "updated_at": "2026-09-23T16:31:03.871311Z",
   "closed_at": null,
   "agent": {
     "platform": "claude-code",
     "model": "claude-fable-5-1"
   },
-  "right_now_summary": "The team is preparing veteran-status tests and setting the budget before the run.",
-  "right_now_updated_at": "2026-09-23T12:47:44.334844Z",
+  "right_now_summary": "Laya’s runs contradicted every prediction; results await commit, while Jev awaits priced approval.",
+  "right_now_updated_at": "2026-09-23T16:31:06.763498Z",
   "custom": {}
 }

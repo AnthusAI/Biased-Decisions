@@ -12,15 +12,28 @@
     "site"
   ],
   "dependencies": [],
-  "comments": [],
+  "comments": [
+    {
+      "id": "c2bcdf30-1054-41f0-9736-22b1d86d67e7",
+      "author": "home",
+      "text": "Feature: The static site renders per-dimension and overall boards\n\nScenario: Not-detected dimensions appear in their own list\n  Given scored cells committed under studies/ for every engine and dimension\n  When the static site build runs\n  Then it renders a board per dimension, an overall mean-rank board across dimensions, and a not-detected list for dimensions with no significant shift, all matching studies/ byte for byte\n",
+      "created_at": "2026-09-23T16:21:05.816652Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude_code",
+        "model": "Claude Sonnet 5",
+        "name": "Board steward"
+      }
+    }
+  ],
   "created_at": "2026-09-23T13:03:47.123590Z",
-  "updated_at": "2026-09-23T13:03:47.123623Z",
+  "updated_at": "2026-09-23T16:21:05.816671Z",
   "closed_at": null,
   "agent": {
     "platform": "claude-code",
     "model": "claude-fable-5-1"
   },
-  "right_now_summary": "The site is adding boards by dimension, an overall mean-rank board, and not-detected lists.",
-  "right_now_updated_at": "2026-09-23T13:04:00.615906Z",
+  "right_now_summary": "The static site now renders per-dimension and overall boards plus lists for dimensions with no detected shift.",
+  "right_now_updated_at": "2026-09-23T16:21:08.292624Z",
   "custom": {}
 }

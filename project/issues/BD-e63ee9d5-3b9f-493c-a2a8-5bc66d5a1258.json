@@ -12,9 +12,14 @@
   "dependencies": [],
   "comments": [],
   "created_at": "2026-09-23T15:46:59.570228Z",
-  "updated_at": "2026-09-23T15:46:59.570272Z",
+  "updated_at": "2026-09-23T16:16:08.191251Z",
   "closed_at": null,
-  "right_now_summary": "The team is adding family-status and pregnancy language and turning sexualization tropes into screening questions.",
-  "right_now_updated_at": "2026-09-23T15:47:34.922866Z",
+  "agent": {
+    "platform": "claude_code",
+    "model": "Claude Opus 5.5",
+    "name": "Biased-Decisions coordinator"
+  },
+  "right_now_summary": "The team is testing family-status language and sexualization tropes in complaint, housing, and professional judgment",
+  "right_now_updated_at": "2026-09-23T16:24:36.073149Z",
   "custom": {}
 }

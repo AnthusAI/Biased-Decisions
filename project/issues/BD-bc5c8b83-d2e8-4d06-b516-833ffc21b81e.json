@@ -3,7 +3,7 @@
   "title": "Gendered language in performance evaluations",
   "description": "Tests whether engines penalise loaded words more for women than men, and whether they pick loaded words for women describing identical behaviour. Regulated decisions: performance evaluation and promotion (Title VII; NYC Local Law 144 covers promotion tools; EU AI Act Annex III lists evaluating performance and behaviour and promotion/termination decisions). Word pairs sourced from published research (Snyder 2014 on reviews; Madera et al. and Schmader et al. on recommendation letters; Gaucher, Friesen and Kay 2011 on gendered wording). Designs run on real Bias in Bios text with inserted sentences.",
   "type": "epic",
-  "status": "open",
+  "status": "in_progress",
   "priority": 2,
   "assignee": null,
   "creator": null,
@@ -12,9 +12,14 @@
   "dependencies": [],
   "comments": [],
   "created_at": "2026-09-23T15:55:43.187030Z",
-  "updated_at": "2026-09-23T15:55:43.187067Z",
+  "updated_at": "2026-09-23T16:29:14.706925Z",
   "closed_at": null,
-  "right_now_summary": "The team is defining word pairs, predictions, and decision rules before running the tests.",
-  "right_now_updated_at": "2026-09-23T15:56:12.614165Z",
+  "agent": {
+    "platform": "claude_code",
+    "model": "Claude Opus 5.5",
+    "name": "Biased-Decisions coordinator"
+  },
+  "right_now_summary": "The team is preregistering tests of gendered wording in performance and promotion judgments.",
+  "right_now_updated_at": "2026-09-23T16:29:17.112023Z",
   "custom": {}
 }

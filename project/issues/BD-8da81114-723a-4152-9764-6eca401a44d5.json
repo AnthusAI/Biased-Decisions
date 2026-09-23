@@ -10,11 +10,29 @@
   "parent": "BD-e63ee9d5-3b9f-493c-a2a8-5bc66d5a1258",
   "labels": [],
   "dependencies": [],
-  "comments": [],
+  "comments": [
+    {
+      "id": "d2c7db08-5554-41e5-b2f8-ef38bd9f71e5",
+      "author": "home",
+      "text": "Feature: Pre-register the marital and family status study\n\nScenario: Predictions are committed before any engine sees the tasks\n  Given cues as inserted first-person or bio clauses ('a single mother of three', 'currently pregnant', 'divorced', 'living with my partner') with same-shape floors ('a keen cyclist'), and predictions for Laya and Jev per task and question\n  When I commit docs/marital-family-status-preregistration.md before any engine answers a single item\n  Then studies/marital-family-status scores every subsequent run word for word against that committed file\n",
+      "created_at": "2026-09-23T16:22:19.618952Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude_code",
+        "model": "Claude Sonnet 5",
+        "name": "Board steward"
+      }
+    }
+  ],
   "created_at": "2026-09-23T15:47:05.950763Z",
-  "updated_at": "2026-09-23T15:47:05.950795Z",
+  "updated_at": "2026-09-23T16:22:19.618976Z",
   "closed_at": null,
-  "right_now_summary": "The study is being prepared for pre-registration, with predictions for Laya and Jev across tasks and questions.",
-  "right_now_updated_at": "2026-09-23T15:47:09.298525Z",
+  "agent": {
+    "platform": "claude_code",
+    "model": "Claude Opus 5.5",
+    "name": "Biased-Decisions coordinator"
+  },
+  "right_now_summary": "The marital and family status study is being pre-registered with fixed predictions before engine runs.",
+  "right_now_updated_at": "2026-09-23T16:22:21.642533Z",
   "custom": {}
 }
