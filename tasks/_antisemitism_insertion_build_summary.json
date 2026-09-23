@@ -1,0 +1,191 @@
+{
+  "paralegal-attorney": {
+    "antisemitism-secular": {
+      "rows": 6925,
+      "excluded": 615,
+      "path": "/Users/home/Projects/Biased-Decisions-antisemitism/tasks/paralegal-attorney/versions/antisemitism-secular.jsonl"
+    },
+    "antisemitism-religious": {
+      "rows": 5540,
+      "excluded": 615,
+      "path": "/Users/home/Projects/Biased-Decisions-antisemitism/tasks/paralegal-attorney/versions/antisemitism-religious.jsonl"
+    },
+    "antisemitism-nationality": {
+      "rows": 6925,
+      "excluded": 615,
+      "path": "/Users/home/Projects/Biased-Decisions-antisemitism/tasks/paralegal-attorney/versions/antisemitism-nationality.jsonl"
+    },
+    "antisemitism-role": {
+      "rows": 5540,
+      "excluded": 615,
+      "path": "/Users/home/Projects/Biased-Decisions-antisemitism/tasks/paralegal-attorney/versions/antisemitism-role.jsonl"
+    },
+    "antisemitism-surname": {
+      "rows": 3868,
+      "excluded": 66,
+      "path": "/Users/home/Projects/Biased-Decisions-antisemitism/tasks/paralegal-attorney/versions/antisemitism-surname.jsonl"
+    }
+  },
+  "surgeon-physician": {
+    "antisemitism-secular": {
+      "rows": 6855,
+      "excluded": 629,
+      "path": "/Users/home/Projects/Biased-Decisions-antisemitism/tasks/surgeon-physician/versions/antisemitism-secular.jsonl"
+    },
+    "antisemitism-religious": {
+      "rows": 5484,
+      "excluded": 629,
+      "path": "/Users/home/Projects/Biased-Decisions-antisemitism/tasks/surgeon-physician/versions/antisemitism-religious.jsonl"
+    },
+    "antisemitism-nationality": {
+      "rows": 6855,
+      "excluded": 629,
+      "path": "/Users/home/Projects/Biased-Decisions-antisemitism/tasks/surgeon-physician/versions/antisemitism-nationality.jsonl"
+    },
+    "antisemitism-role": {
+      "rows": 5484,
+      "excluded": 629,
+      "path": "/Users/home/Projects/Biased-Decisions-antisemitism/tasks/surgeon-physician/versions/antisemitism-role.jsonl"
+    },
+    "antisemitism-surname": {
+      "rows": 3936,
+      "excluded": 32,
+      "path": "/Users/home/Projects/Biased-Decisions-antisemitism/tasks/surgeon-physician/versions/antisemitism-surname.jsonl"
+    }
+  },
+  "teacher-professor": {
+    "antisemitism-secular": {
+      "rows": 7010,
+      "excluded": 598,
+      "path": "/Users/home/Projects/Biased-Decisions-antisemitism/tasks/teacher-professor/versions/antisemitism-secular.jsonl"
+    },
+    "antisemitism-religious": {
+      "rows": 5608,
+      "excluded": 598,
+      "path": "/Users/home/Projects/Biased-Decisions-antisemitism/tasks/teacher-professor/versions/antisemitism-religious.jsonl"
+    },
+    "antisemitism-nationality": {
+      "rows": 7010,
+      "excluded": 598,
+      "path": "/Users/home/Projects/Biased-Decisions-antisemitism/tasks/teacher-professor/versions/antisemitism-nationality.jsonl"
+    },
+    "antisemitism-role": {
+      "rows": 5608,
+      "excluded": 598,
+      "path": "/Users/home/Projects/Biased-Decisions-antisemitism/tasks/teacher-professor/versions/antisemitism-role.jsonl"
+    },
+    "antisemitism-surname": {
+      "rows": 3838,
+      "excluded": 81,
+      "path": "/Users/home/Projects/Biased-Decisions-antisemitism/tasks/teacher-professor/versions/antisemitism-surname.jsonl"
+    }
+  },
+  "nurse-physician": {
+    "antisemitism-secular": {
+      "rows": 6835,
+      "excluded": 633,
+      "path": "/Users/home/Projects/Biased-Decisions-antisemitism/tasks/nurse-physician/versions/antisemitism-secular.jsonl"
+    },
+    "antisemitism-religious": {
+      "rows": 5468,
+      "excluded": 633,
+      "path": "/Users/home/Projects/Biased-Decisions-antisemitism/tasks/nurse-physician/versions/antisemitism-religious.jsonl"
+    },
+    "antisemitism-nationality": {
+      "rows": 6835,
+      "excluded": 633,
+      "path": "/Users/home/Projects/Biased-Decisions-antisemitism/tasks/nurse-physician/versions/antisemitism-nationality.jsonl"
+    },
+    "antisemitism-role": {
+      "rows": 5468,
+      "excluded": 633,
+      "path": "/Users/home/Projects/Biased-Decisions-antisemitism/tasks/nurse-physician/versions/antisemitism-role.jsonl"
+    },
+    "antisemitism-surname": {
+      "rows": 3954,
+      "excluded": 23,
+      "path": "/Users/home/Projects/Biased-Decisions-antisemitism/tasks/nurse-physician/versions/antisemitism-surname.jsonl"
+    }
+  },
+  "dietitian-physician": {
+    "antisemitism-secular": {
+      "rows": 6690,
+      "excluded": 662,
+      "path": "/Users/home/Projects/Biased-Decisions-antisemitism/tasks/dietitian-physician/versions/antisemitism-secular.jsonl"
+    },
+    "antisemitism-religious": {
+      "rows": 5352,
+      "excluded": 662,
+      "path": "/Users/home/Projects/Biased-Decisions-antisemitism/tasks/dietitian-physician/versions/antisemitism-religious.jsonl"
+    },
+    "antisemitism-nationality": {
+      "rows": 6690,
+      "excluded": 662,
+      "path": "/Users/home/Projects/Biased-Decisions-antisemitism/tasks/dietitian-physician/versions/antisemitism-nationality.jsonl"
+    },
+    "antisemitism-role": {
+      "rows": 5352,
+      "excluded": 662,
+      "path": "/Users/home/Projects/Biased-Decisions-antisemitism/tasks/dietitian-physician/versions/antisemitism-role.jsonl"
+    },
+    "antisemitism-surname": {
+      "rows": 3910,
+      "excluded": 45,
+      "path": "/Users/home/Projects/Biased-Decisions-antisemitism/tasks/dietitian-physician/versions/antisemitism-surname.jsonl"
+    }
+  },
+  "architect-interior-designer": {
+    "antisemitism-secular": {
+      "rows": 5355,
+      "excluded": 827,
+      "path": "/Users/home/Projects/Biased-Decisions-antisemitism/tasks/architect-interior-designer/versions/antisemitism-secular.jsonl"
+    },
+    "antisemitism-religious": {
+      "rows": 4284,
+      "excluded": 827,
+      "path": "/Users/home/Projects/Biased-Decisions-antisemitism/tasks/architect-interior-designer/versions/antisemitism-religious.jsonl"
+    },
+    "antisemitism-nationality": {
+      "rows": 5355,
+      "excluded": 827,
+      "path": "/Users/home/Projects/Biased-Decisions-antisemitism/tasks/architect-interior-designer/versions/antisemitism-nationality.jsonl"
+    },
+    "antisemitism-role": {
+      "rows": 4284,
+      "excluded": 827,
+      "path": "/Users/home/Projects/Biased-Decisions-antisemitism/tasks/architect-interior-designer/versions/antisemitism-role.jsonl"
+    },
+    "antisemitism-surname": {
+      "rows": 3574,
+      "excluded": 111,
+      "path": "/Users/home/Projects/Biased-Decisions-antisemitism/tasks/architect-interior-designer/versions/antisemitism-surname.jsonl"
+    }
+  },
+  "journalist-professor": {
+    "antisemitism-secular": {
+      "rows": 6955,
+      "excluded": 609,
+      "path": "/Users/home/Projects/Biased-Decisions-antisemitism/tasks/journalist-professor/versions/antisemitism-secular.jsonl"
+    },
+    "antisemitism-religious": {
+      "rows": 5564,
+      "excluded": 609,
+      "path": "/Users/home/Projects/Biased-Decisions-antisemitism/tasks/journalist-professor/versions/antisemitism-religious.jsonl"
+    },
+    "antisemitism-nationality": {
+      "rows": 6955,
+      "excluded": 609,
+      "path": "/Users/home/Projects/Biased-Decisions-antisemitism/tasks/journalist-professor/versions/antisemitism-nationality.jsonl"
+    },
+    "antisemitism-role": {
+      "rows": 5564,
+      "excluded": 609,
+      "path": "/Users/home/Projects/Biased-Decisions-antisemitism/tasks/journalist-professor/versions/antisemitism-role.jsonl"
+    },
+    "antisemitism-surname": {
+      "rows": 3806,
+      "excluded": 97,
+      "path": "/Users/home/Projects/Biased-Decisions-antisemitism/tasks/journalist-professor/versions/antisemitism-surname.jsonl"
+    }
+  }
+}

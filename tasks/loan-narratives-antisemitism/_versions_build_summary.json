@@ -1,0 +1,22 @@
+{
+  "antisemitism-secular": {
+    "rows": 1000,
+    "excluded": 0
+  },
+  "antisemitism-religious": {
+    "rows": 800,
+    "excluded": 0
+  },
+  "antisemitism-nationality": {
+    "rows": 1000,
+    "excluded": 0
+  },
+  "antisemitism-role": {
+    "rows": 800,
+    "excluded": 0
+  },
+  "antisemitism-surname": {
+    "rows": 400,
+    "excluded": 0
+  }
+}
