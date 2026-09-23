@@ -1,0 +1,25 @@
+{
+  "id": "BD-ae9580ec-a620-437c-81ea-a70a4b86d8d3",
+  "title": "bd replay is non-deterministic across platforms for surgeon-physician-race-fullname",
+  "description": "## Bug\n\nAWS Amplify builds (Amazon Linux 2023, Python 3.11 from pyenv) run scripts/site-build.sh, which runs `bd replay` and then `git diff --exit-code -- studies/`. Only studies/surgeon-physician-race-fullname.jsonl differs. On macOS (Python 3.12, and a clean Python 3.11 clone) the replay reproduces byte for byte.\n\nThe build log's word diff shows changes in floor_shift_ci, shift_ci, flip_majority (e.g. 0.004 -> 0.002), direction_share (0.5 -> 1.0, 0.0 -> null) and flip_majority_ratio_vs_floor (e.g. black 1.0 -> 0.5). This indicates the Linux run sees different verdicts or bios for some rows, not just float noise.\n\n## Relevant code\n\n- biased_decisions/scoring.py score_race_fullname (slot filling from versions metadata source_id/group/k, subsample from race-fullname_jev-subsample.txt, sets)\n- biased_decisions/metrics/shifts.py (majority_call, _floor_shift uses white[0:2] vs white[2:4], score_arm_race2, bootstrap)\n- biased_decisions/record.py load_answers\n\n## Suspects\n\n- set or dict iteration order reaching output (PYTHONHASHSEED differs per process)\n- a filesystem listing or glob that is unsorted (Linux returns directory order, macOS happens to sort)\n- case-sensitivity (Linux is case-sensitive, macOS is not) in ids or paths\n- duplicate version ids or answers where the last one wins\n- line endings or unicode normalisation in ids (NFC vs NFD; macOS normalises filenames)\n- gzip reading differences\n\n## Plan\n\nReproduce on Linux (Docker: amazonlinux:2023 or python:3.11-slim), score only the affected cell, diff against macOS output. Try PYTHONHASHSEED=0 vs 1 on macOS too. Find root cause, write a sentence-named spec next to the module that fails before the fix, fix minimally, confirm which committed studies/ numbers are correct, regenerate RESULTS.md and leaderboard data via bd report if numbers change.\n\nBranch: fix/replay-determinism, worktree at /Users/home/Projects/Biased-Decisions-fix.",
+  "type": "bug",
+  "status": "open",
+  "priority": 1,
+  "assignee": null,
+  "creator": null,
+  "parent": "BD-4f83aebd-9fa3-4ac7-b820-e3a1cab1ee8b",
+  "labels": [],
+  "dependencies": [],
+  "comments": [],
+  "created_at": "2026-09-23T16:03:28.648359Z",
+  "updated_at": "2026-09-23T16:03:28.648389Z",
+  "closed_at": null,
+  "agent": {
+    "platform": "claude_code",
+    "model": "Claude Sonnet 5",
+    "name": "Replay determinism fixer"
+  },
+  "right_now_summary": "Linux and macOS produce different replay results for the surgeon-physician-race-fullname study.",
+  "right_now_updated_at": "2026-09-23T16:03:30.834745Z",
+  "custom": {}
+}
