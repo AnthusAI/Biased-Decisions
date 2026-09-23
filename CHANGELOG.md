@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/AnthusAI/Biased-Decisions/compare/v1.0.0...v1.0.1) (2026-09-23)
+
+
+### Bug Fixes
+
+* **amplify:** select the build image's pyenv Python 3.11 before creating the venv ([a939cf3](https://github.com/AnthusAI/Biased-Decisions/commit/a939cf308a505b6de2d141a0744ce6f82957f937))
+
 # 1.0.0 (2026-09-23)
 
 

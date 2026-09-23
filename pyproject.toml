@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "biased-decisions"
-version = "1.0.0"
+version = "1.0.1"
 description = "A benchmark harness for bias in fast decision models: causal counterfactuals on real text, with control floors, reported in the decision's own currency."
 readme = "README.md"
 requires-python = ">=3.10"
