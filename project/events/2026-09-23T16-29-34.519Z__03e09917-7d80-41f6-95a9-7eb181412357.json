@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "event_id": "03e09917-7d80-41f6-95a9-7eb181412357",
+  "issue_id": "BD-c76881dd-18a6-4b9e-bbb1-bcc8118a2c7b",
+  "event_type": "issue_created",
+  "occurred_at": "2026-09-23T16:29:34.519Z",
+  "actor_id": "home",
+  "payload": {
+    "title": "Matrix shading ignores large shifts that are negative or unattributed",
+    "description": "On two-axis dimension pages (e.g. /religion-v2/, 'Every religion, every task'), site/src/components/Matrix.astro shades only cells whose interval lies ABOVE the floor ('detected'). Cells whose interval lies below the floor ('reverse of the trope') and cells marked 'unattributed' render white regardless of size, so large shifts look like no bias. The leaderboard counts bias in either direction, so shading must follow the size of the shift whenever its interval excludes the floor, in either direction, with direction shown by sign and a non-colour cue. Unattributed cells need their own clearly explained style, not white. The pre-registered outline also goes (results-first story BD-e84479). Reported by the author 2026-09-23.",
+    "issue_type": "bug",
+    "status": "open",
+    "priority": 2,
+    "assignee": null,
+    "parent": "BD-4f83aebd-9fa3-4ac7-b820-e3a1cab1ee8b",
+    "labels": [],
+    "agent": {
+      "platform": "claude_code",
+      "model": "Claude Opus 5.5",
+      "name": "Biased-Decisions coordinator"
+    }
+  }
+}
