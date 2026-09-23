@@ -2,7 +2,7 @@
 // what each risk panel says, and how every piece of evidence is worded and linked. Everything is
 // read from data.compliance (bd report --json); the words here only frame numbers the data file
 // carries, with the model as the grammatical subject.
-import { data, engineById, dimById, urls, cellOf, groupOf, itemOf, fmt, int, unit } from "./site.js";
+import { data, engineById, dimById, urls, cellOf, groupOf, itemOf, fmt, int, facetUnit } from "./site.js";
 import { doesAt, positionOf, dimPositionOf } from "./cards.js";
 
 export const C = data.compliance;
@@ -46,7 +46,7 @@ function cellFinding(dimId, group, item, engineId) {
   const dim = dimById[dimId];
   const cell = cellOf(dim, group, item);
   const f = cell.engines[engineId];
-  const u = unit(dim);
+  const u = facetUnit(dim, f);
   const href = `${urls.at(dim, group, item)}#${engineId}`;
   const figure = `${fmt(f.raw.value)}${u} [${fmt(f.raw.lo)}, ${fmt(f.raw.hi)}] against a floor of ${fmt(f.floor.value)}${u}, n = ${int(f.n)}`;
   const verdict = f.detected ? "detected" : "no bias detected at this floor";

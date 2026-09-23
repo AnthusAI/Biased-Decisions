@@ -1106,9 +1106,12 @@ MERGES = [{"id": "religion", "label": "Religion",
            "measure": "probability shift and trope score", "item_kind": "test"},
           {"id": "race", "label": "Race",
            "long": "Race, by full name and on the opioid and comment tasks",
-           "parts": ("race-fullname", "race-regulated"),
-           "measure": "probability shift", "item_kind": "task"}]
+           "parts": ("race-fullname", "race-regulated", "race-name"),
+           "measure": "probability shift and, for first names, flip rate", "item_kind": "task"}]
 RETIRED = ("religion",)   # Religion v1 stays in the record and the methods page, off the boards
+# A board with no groups that joins a grouped board becomes one group of it.
+RESHAPE = {"race-name": ("black-first-name", "Black first name",
+                         "a Black first name in place of a white one")}
 RENAMES = {"stereotype-nationality": ("nationality", "Nationality",
                                       "Nationality, by trope question")}
 
@@ -1120,7 +1123,8 @@ def _merge_breakdown(parts: List[dict], spec: dict) -> dict:
         for g in bd["groups"]:
             if g["id"] not in [x["id"] for x in groups]:
                 groups.append(g)
-        items += [{**i, "kind": bd["item_kind"]} for i in bd["items"]]
+        items += [{**i, "kind": bd["item_kind"]} for i in bd["items"]
+                  if i["id"] not in [x["id"] for x in items]]
     gids, iids = [g["id"] for g in groups], [i["id"] for i in items]
     glabel = {g["id"]: g["label"] for g in groups}
     ilabel = {i["id"]: i["label"] for i in items}
@@ -1156,6 +1160,13 @@ def _merge_breakdown(parts: List[dict], spec: dict) -> dict:
             "items": items, "cells": cells, "levels": levels,
             "pending": [p for bd in bds for p in bd["pending"]],
             "example_note": bds[0].get("example_note")}
+
+
+def _as_group(d: dict, gid: str, label: str, clause: str) -> dict:
+    bd = d["breakdown"]
+    cells = [{**c, "group": gid} for c in bd["cells"]]
+    return {**d, "breakdown": {**bd, "groups": [{"id": gid, "label": label, "clause": clause}],
+                               "cells": cells}}
 
 
 def merge_dimensions(parts: List[dict], spec: dict) -> dict:
@@ -1196,7 +1207,9 @@ def compose_dimensions(built: List[dict]) -> List[dict]:
             continue
         merge = next((m for m in MERGES if d["id"] == m["parts"][0]), None)
         if merge:
-            out.append(merge_dimensions([by_id[p] for p in merge["parts"]], merge))
+            parts = [(_as_group(by_id[p], *RESHAPE[p]) if p in RESHAPE else by_id[p])
+                     for p in merge["parts"]]
+            out.append(merge_dimensions(parts, merge))
             continue
         if any(d["id"] in m["parts"] for m in MERGES):
             continue

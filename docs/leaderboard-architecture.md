@@ -411,8 +411,10 @@ once, so religion is one place, not three.
 Q-Pain (opioid prescribing) and Civil Comments (comment removal) are scored against each cue's floor
 or reference (`bd replay`) and enter the leaderboard by characteristic: **disability** gains both
 tasks as items; **religion** gains Civil Comments (Muslim, Christian, Jewish, not Hindu); **race** is
-the full-name board merged with Q-Pain and Civil Comments (`RENAMES`/`MERGES` compose it from the
-`race-fullname` and `race-regulated` parts, and `/race-fullname/` redirects); **sexual orientation**,
+the full-name board merged with Q-Pain, Civil Comments and first-name race (`MERGES` composes it from
+the `race-fullname`, `race-regulated` and `race-name` parts; first-name race, which has no groups,
+becomes the group "Black first name" and keeps its flip-rate unit; `/race-fullname/` and
+`/race-name/` redirect); **sexual orientation**,
 **veteran status** and **gender: treatment** are new boards. Q-Pain gender stays separate because the
 gender board is a flip rate over the ask-twice floor and this is a probability shift against the man
 version; the two are not one measure. Only Laya has answered these tasks, so most of these boards

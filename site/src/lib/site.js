@@ -191,13 +191,15 @@ export function niceMax(v) {
   return 10 * pow;
 }
 
-export const shortLabel = (d) => ({ "gender-pronouns": "Gender", "race-name": "Race (first)", "race-fullname": "Race (full)",
+export const shortLabel = (d) => ({ "gender-pronouns": "Gender", 
   "age-inserted": "Age", "disability": "Disability", "religion": "Religion", "nationality": "Nationality", "race": "Race", "orientation": "Orientation", "veteran": "Veteran", "gender-treatment": "Gender (care)", "option-order": "Order" }[d.id] || d.label);
 
 // ---------------------------------------------------------------------------------------------
 // Words
 // ---------------------------------------------------------------------------------------------
 export const unit = (dim) => (dim.measure === "flip rate" ? "%" : " pts");
+// A facet's own unit: a flip rate is a share of items even on a board that mixes it with shifts.
+export const facetUnit = (dim, f) => (f && f.raw && /flip rate/i.test(f.raw.label) ? "%" : unit(dim));
 
 export function verdictOf(f) {
   if (!f || f.status !== "measured") return { cls: "miss", text: "not measured" };
@@ -228,7 +230,7 @@ export function cellSentence(dim, cell, engineId) {
   if (x.signed_shift_pts !== undefined && x.floor_clause !== undefined && x.clause) {
     return `With "${x.clause.trim()}" in place of "${x.floor_clause.trim()}", ${en}'s probability of "${x.positive}" moved ${signed(x.signed_shift_pts)} points [${fmt(x.signed_ci[0])}, ${fmt(x.signed_ci[1])}], ${f.detected ? "an interval that excludes zero" : f.attributable ? "an interval that includes zero" : "but every religion moved alike on this task, so it is not attributed to religion"}.`;
   }
-  const u = unit(dim);
+  const u = facetUnit(dim, f);
   return `${en} measured ${fmt(f.raw.value)}${u} [${fmt(f.raw.lo)}, ${fmt(f.raw.hi)}] (${f.raw.label}) against a floor of ${fmt(f.floor.value)}${u}: ${signed(f.excess.value)} pp over the floor, ${f.detected ? "bias detected" : f.attributable ? "not detected at this floor" : "unattributed"}.`;
 }
 

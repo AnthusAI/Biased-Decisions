@@ -2,7 +2,7 @@
 // One engine's facets as a table: every number with its interval, the floor it is read against,
 // the verdict, n, and underneath each row the record's other numbers and the files it replays from.
 import Chip from "./Chip.astro";
-import { extraLines, filesOf, fmt, int, signed, unit } from "../lib/site.js";
+import { extraLines, filesOf, fmt, int, signed, unit, facetUnit } from "../lib/site.js";
 
 const { dim, facets, headline = null, detected = false, facetKind, caption, rowHref = null, rowId = null, extras = true } = Astro.props;
 const u = unit(dim);
@@ -22,6 +22,7 @@ const u = unit(dim);
           return <tr class="row-miss" id={rowId ? rowId(f) : undefined}><th scope="row">{name}</th><td colspan="3" class="muted">not measured ({f.why})</td><td><Chip facet={f} /></td><td>—</td></tr>;
         }
         const lines = extras ? extraLines(dim, f) : [];
+        const u = facetUnit(dim, f);
         const isHead = headline && f.id === headline;
         return (
           <Fragment>
