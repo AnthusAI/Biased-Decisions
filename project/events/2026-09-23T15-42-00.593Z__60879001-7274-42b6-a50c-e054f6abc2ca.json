@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "event_id": "60879001-7274-42b6-a50c-e054f6abc2ca",
+  "issue_id": "BD-3db02b40-ea96-4eda-9aa6-c7b563c3db77",
+  "event_type": "issue_created",
+  "occurred_at": "2026-09-23T15:42:00.593Z",
+  "actor_id": "home",
+  "payload": {
+    "title": "CFPB complaint narratives: escalate / valid-dispute tasks",
+    "description": "Consumer Complaint Database narratives (public domain). Decision: should this complaint be escalated; is the dispute valid. Regulation: UDAAP, Reg E/Z dispute handling. Native Servicemember and Older American tags (veteran, age); inserted-clause cues for religion, disability, nationality, sexuality. Verify licence and PII scrubbing first.",
+    "issue_type": "story",
+    "status": "open",
+    "priority": 2,
+    "assignee": null,
+    "parent": "BD-250c97a3-6ae4-4061-8d67-dbfd02bf9549",
+    "labels": []
+  }
+}

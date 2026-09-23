@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "event_id": "14d40f65-df3a-49f0-a799-7def3703d05c",
+  "issue_id": "BD-6b2a7768-e858-48da-ae77-f7c225bc5926",
+  "event_type": "issue_created",
+  "occurred_at": "2026-09-23T15:42:29.503Z",
+  "actor_id": "home",
+  "payload": {
+    "title": "Tenant inquiries in the HUD paired-testing form",
+    "description": "Synthetic rental inquiries modelled on paired-testing audits; decision: offer a viewing / approve the application. Fair Housing Act. Name and clause cues for every dimension. Clearly labelled synthetic; document templates.",
+    "issue_type": "story",
+    "status": "open",
+    "priority": 2,
+    "assignee": null,
+    "parent": "BD-250c97a3-6ae4-4061-8d67-dbfd02bf9549",
+    "labels": []
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "event_id": "d068dad8-327a-401c-b68d-9edd410145a4",
+  "issue_id": "BD-0999bd12-bb5f-43e1-92fd-1abffda4bbbb",
+  "event_type": "issue_created",
+  "occurred_at": "2026-09-23T15:42:06.166Z",
+  "actor_id": "home",
+  "payload": {
+    "title": "discrim-eval: templated approve/deny decisions",
+    "description": "Anthropic discrim-eval (Tamkin et al. 2023), 70 yes/no decision scenarios across loans, housing, insurance, hiring, medical, with age/gender/race templating. Fits noul yes/no engines directly. Extend with our inserted-clause cues and same-shape floors. Verify licence.",
+    "issue_type": "story",
+    "status": "open",
+    "priority": 2,
+    "assignee": null,
+    "parent": "BD-250c97a3-6ae4-4061-8d67-dbfd02bf9549",
+    "labels": []
+  }
+}

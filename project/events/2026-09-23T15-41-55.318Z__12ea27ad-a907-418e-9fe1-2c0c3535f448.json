@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "event_id": "12ea27ad-a907-418e-9fe1-2c0c3535f448",
+  "issue_id": "BD-8711caaf-17a6-4c26-a826-496dfd6bae82",
+  "event_type": "issue_created",
+  "occurred_at": "2026-09-23T15:41:55.318Z",
+  "actor_id": "home",
+  "payload": {
+    "title": "Task coverage: at least three tasks per dimension, across regulated-decision domains",
+    "description": "Today gender has seven tasks and most other dimensions one or two, all on Bias in Bios with one task type (occupation choice). Add tasks from other datasets and decision types (approve/deny, prioritise, risk rating) tied to regulated decisions: lending (ECOA/Reg B), housing (Fair Housing Act), employment (Title VII, ADEA, ADA, USERRA), healthcare (ACA 1557), complaint handling (UDAAP, Reg E/Z), content moderation (EU DSA). Target: every dimension measured on at least three tasks from at least two domains. Dataset survey: docs/datasets-survey.md. Every dataset needs a verified licence that allows publishing edited items and model outputs.",
+    "issue_type": "epic",
+    "status": "open",
+    "priority": 2,
+    "assignee": null,
+    "parent": "BD-250c97a3-6ae4-4061-8d67-dbfd02bf9549",
+    "labels": []
+  }
+}

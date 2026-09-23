@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "event_id": "f1396b0f-e4ff-4c0f-a469-06e011406b56",
+  "issue_id": "BD-8cdcc38c-9d2a-41f2-9df2-b7db452feb9b",
+  "event_type": "issue_created",
+  "occurred_at": "2026-09-23T15:42:16.806Z",
+  "actor_id": "home",
+  "payload": {
+    "title": "HMDA applications rendered as narratives",
+    "description": "Loan-level mortgage data with race, ethnicity, sex, age and real actions. Render as application narratives; decision: approve. Compare engine decisions with recorded lender actions. Public data. Synthetic rendering must be labelled.",
+    "issue_type": "story",
+    "status": "open",
+    "priority": 2,
+    "assignee": null,
+    "parent": "BD-250c97a3-6ae4-4061-8d67-dbfd02bf9549",
+    "labels": []
+  }
+}

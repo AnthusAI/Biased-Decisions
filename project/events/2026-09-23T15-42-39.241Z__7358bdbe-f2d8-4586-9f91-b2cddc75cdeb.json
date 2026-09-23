@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "event_id": "7358bdbe-f2d8-4586-9f91-b2cddc75cdeb",
+  "issue_id": "BD-050a4ce0-a79c-4921-9f10-f88bea159b5b",
+  "event_type": "issue_created",
+  "occurred_at": "2026-09-23T15:42:39.241Z",
+  "actor_id": "home",
+  "payload": {
+    "title": "Civil Comments identity subset: moderation decision",
+    "description": "Jigsaw Civil Comments with identity annotations (sexual orientation, religion, race, disability). Decision: remove / keep. EU DSA. Broadens sexuality and religion coverage.",
+    "issue_type": "story",
+    "status": "open",
+    "priority": 2,
+    "assignee": null,
+    "parent": "BD-250c97a3-6ae4-4061-8d67-dbfd02bf9549",
+    "labels": []
+  }
+}

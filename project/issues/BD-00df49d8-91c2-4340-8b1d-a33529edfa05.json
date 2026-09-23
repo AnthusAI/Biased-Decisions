@@ -1,0 +1,20 @@
+{
+  "id": "BD-00df49d8-91c2-4340-8b1d-a33529edfa05",
+  "title": "Q-Pain clinical vignettes: treatment decision",
+  "description": "Vignettes built to test race/gender bias in pain management. Decision: prescribe / treat. ACA Section 1557. Add disability, veteran, sexuality clauses. Verify PhysioNet licence allows publishing derived outputs.",
+  "type": "story",
+  "status": "open",
+  "priority": 2,
+  "assignee": null,
+  "creator": null,
+  "parent": "BD-250c97a3-6ae4-4061-8d67-dbfd02bf9549",
+  "labels": [],
+  "dependencies": [],
+  "comments": [],
+  "created_at": "2026-09-23T15:42:23.821975Z",
+  "updated_at": "2026-09-23T15:42:23.822002Z",
+  "closed_at": null,
+  "right_now_summary": "The team is building bias-testing pain vignettes and checking legal coverage and PhysioNet licensing.",
+  "right_now_updated_at": "2026-09-23T15:42:26.490122Z",
+  "custom": {}
+}

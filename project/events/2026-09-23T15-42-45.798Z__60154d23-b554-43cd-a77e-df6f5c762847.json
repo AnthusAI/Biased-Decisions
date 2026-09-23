@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "event_id": "60154d23-b554-43cd-a77e-df6f5c762847",
+  "issue_id": "BD-aa51f02a-5f42-496d-b0af-a1758cd2f715",
+  "event_type": "issue_created",
+  "occurred_at": "2026-09-23T15:42:45.798Z",
+  "actor_id": "home",
+  "payload": {
+    "title": "BBQ as a secondary check",
+    "description": "Bias Benchmark for QA, nine social dimensions incl. sexual orientation, SES, appearance. Not a business decision; secondary cross-check only.",
+    "issue_type": "story",
+    "status": "open",
+    "priority": 2,
+    "assignee": null,
+    "parent": "BD-250c97a3-6ae4-4061-8d67-dbfd02bf9549",
+    "labels": []
+  }
+}

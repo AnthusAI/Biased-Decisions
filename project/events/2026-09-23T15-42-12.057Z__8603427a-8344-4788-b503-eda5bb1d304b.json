@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "event_id": "8603427a-8344-4788-b503-eda5bb1d304b",
+  "issue_id": "BD-85ecc22b-fdeb-49c1-9008-485ae9465789",
+  "event_type": "issue_created",
+  "occurred_at": "2026-09-23T15:42:12.057Z",
+  "actor_id": "home",
+  "payload": {
+    "title": "Kiva loan descriptions: fund-this-loan task",
+    "description": "Real borrower stories with native country and gender. Decision: fund / approve. Lending. Strong nationality coverage, including an American-borrower condition. Verify API/data terms for redistribution.",
+    "issue_type": "story",
+    "status": "open",
+    "priority": 2,
+    "assignee": null,
+    "parent": "BD-250c97a3-6ae4-4061-8d67-dbfd02bf9549",
+    "labels": []
+  }
+}
