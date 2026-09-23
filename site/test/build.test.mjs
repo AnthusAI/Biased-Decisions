@@ -145,3 +145,18 @@ test("the first build's addresses still land: redirect stubs and the review gall
   const cards = [...gallery.html.matchAll(/<img src="([^"]+\.png)"/g)].map((m) => m[1]);
   assert.equal(new Set(cards).size, content.length, "the gallery does not show every card");
 });
+
+test("every page carries the caveats panel: four or six cards, open on the home page, folded elsewhere", () => {
+  const n = DATA.honesty.length;
+  assert.ok(n === 4 || n === 6, `${n} caveats: an odd count leaves an orphan card`);
+  for (const p of content) {
+    const m = /<details[^>]*id="read-first"[^>]*>([\s\S]*?)<\/details>/.exec(p.html);
+    assert.ok(m, `${p.path}: no #read-first panel`);
+    const cards = m[1].match(/<li class="caveat"/g) || [];
+    assert.equal(cards.length, n, `${p.path}: ${cards.length} cards`);
+    const open = /<details[^>]*id="read-first"[^>]*\bopen\b/.test(p.html);
+    assert.equal(open, p.path === "/", `${p.path}: panel ${open ? "open" : "folded"}`);
+    const panel = unescape(m[1].replace(/<[^>]+>/g, " ")).replace(/\s+/g, " ");
+    for (const c of DATA.honesty) assert.ok(panel.includes(c.title), `${p.path}: missing "${c.title}"`);
+  }
+});

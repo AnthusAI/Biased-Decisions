@@ -167,7 +167,8 @@ overall        {rule, n_dimensions, rows[{engine, mean_rank, ranked_on, position
                 sole_engine[], unmeasured[], not_detected[], incomplete, measured_on}]}
 floors         {ask_twice[{engine, task, task_label, flip_pct, mean_abs_dp, max_abs_dp, n,
                 record, study}]}
-honesty[]      {id, title, text}          vocabulary[] {term, text}
+honesty[]      {id, title, text, link?{to, label}}  (four or six cards)
+vocabulary[]   {term, text}
 ```
 
 Missing is always explicit: a missing cell has no `headline`, a missing facet has no numbers.

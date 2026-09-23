@@ -15,6 +15,11 @@ const ogImage = card ? absolute(card.url, site) : null;
 const p = data.provenance;
 const rel = p.release;
 const REPO = "https://github.com/AnthusAI/Biased-Decisions";
+// The caveats panel: four or six cards (never five: the grid would leave an orphan), open on the
+// home page and folded to one line everywhere else.
+const caveatCount = { 4: "Four", 6: "Six" }[data.honesty.length];
+if (!caveatCount) throw new Error(`the caveats panel needs four or six cards, not ${data.honesty.length}`);
+const caveatLinks = { data: urls.data() };
 const light = engines.map((e) => `--eng-${e.id}: ${e.color};`).join(" ");
 const dark = engines.map((e) => `--eng-${e.id}: ${e.color_dark || e.color};`).join(" ");
 const engineCss = `:root { ${light} }
@@ -101,11 +106,13 @@ const favicon = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' vi
     </nav>
   )}
   <slot />
-  <aside class="wrap honesty" id="read-first" aria-labelledby="honesty-h">
-    <h2 id="honesty-h" class="display sm">Read this before the board</h2>
-    <ol>
-      {data.honesty.map((x) => <li><strong>{x.title}</strong><span>{x.text}</span></li>)}
-    </ol>
+  <aside class="wrap honesty" aria-labelledby="honesty-h">
+    <details id="read-first" open={current.page === "overview"}>
+      <summary><h2 id="honesty-h" class="display sm">{caveatCount} things to know before you read the board</h2></summary>
+      <ol data-count={data.honesty.length}>
+        {data.honesty.map((x) => <li class="caveat"><strong>{x.title}</strong><span>{x.text}{x.link && <Fragment> <a href={caveatLinks[x.link.to]}>{x.link.label}</a>.</Fragment>}</span></li>)}
+      </ol>
+    </details>
   </aside>
 </main>
 <footer class="colophon">

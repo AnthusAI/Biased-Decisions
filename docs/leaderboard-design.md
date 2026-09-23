@@ -65,18 +65,22 @@ Clicking any bar or polygon vertex opens a task-level table for that engine/dime
 
 ## Honesty panel
 
-Every page on the site carries a fixed panel stating:
+Every page on the site carries the panel (`#read-first`), written for a general reader: four or
+six short cards, never five, so its grid fills one, two or three columns with no orphan. It is
+open on the home page and folded to its heading elsewhere. Each card is a claim with one to three
+sentences and, where it helps, one example from the board. The cards must keep saying:
 
-- Flip rates are lower bounds, not the full extent of any bias, given the tasks and cues actually
-  run.
-- Option order is part of each task's design; it is not varied out, and results are conditional on
-  the order used.
-- Where an LLM logprob comparator stands in for an engine's own probabilities, it is labelled as a
-  stand-in, not as that engine's native output.
-- Every number on the site replays offline from the committed record with one command (`bd report
-  --json`); nothing here is live-scored against a model.
-- The stimuli disclaimer for the stereotype axes: trope questions probe association, not truth,
-  and a high trope score is evidence about the model, not about the people described in the bios.
+- Each test changes one detail and leaves every other clue in place, so an effect is the least a
+  model reacts to a trait, not the full extent of it.
+- The order in which the two options are listed changes the answers; every other number is
+  conditional on each task's fixed order.
+- Every number replays from the committed record; nothing is live-scored and nothing is left out
+  (with a link to the data file).
+- Trope questions measure the model, not the people described in the bios.
+
+The rest explain the floor and why small percentages matter at scale. Every percentage in a card
+is a number on the board (`leaderboard_test`). No stand-in comparator is on the board, so the
+panel does not mention one.
 
 ## Build
 
