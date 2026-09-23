@@ -24,7 +24,7 @@ const description = `Charlie Munger's inversion applied to fast decision models:
       <figcaption>{inv.attribution}. <a href={inv.source_url}>Transcript</a>.</figcaption>
     </figure>
     <p class="deck">{inv.lede}</p>
-    <p class="finding inv-finding"><span class="finding-num">{lead.ratio}</span><span class="finding-txt"><a href={lead.href}>{lead.sentence}</a>: the four-fifths ratio of a shortlist built the first way below. The line is {C.shortlist.line.toFixed(2)}.</span></p>
+    <p class="finding inv-finding"><span class="finding-num">{lead.ratio}</span><span class="finding-txt"><a href={lead.href}>{lead.sentence}</a>: the four-fifths ratio of a shortlist built the first two ways below. The line is {C.shortlist.line.toFixed(2)}.</span></p>
     <div class="footnote risk-notice" role="note"><p>{C.notice}</p></div>
   </section>
 
@@ -44,7 +44,7 @@ const description = `Charlie Munger's inversion applied to fast decision models:
           <h3>The deployment pattern</h3>
           <p>{r.pattern}</p>
           <h3>The regulated decision it hits</h3>
-          <p>{r.practices.map(practiceLabel).join("; ")}.{dimsFor(r.id).length > 0 && <Fragment> Measured on: {dimsFor(r.id).map((d, k) => <Fragment>{k ? ", " : ""}<a href={urls.dim(d.id)}>{d.label.toLowerCase()}</a></Fragment>)}.</Fragment>}</p>
+          <p>{r.practices.map(practiceLabel).join("; ")}.{dimsFor(r.id).length > 0 && <Fragment> Flagged on these boards: {dimsFor(r.id).map((d, k) => <Fragment>{k ? ", " : ""}<a href={urls.dim(d.id)}>{d.label.toLowerCase()}</a></Fragment>)}.</Fragment>}</p>
           {citesFor(r.id).length > 0 && <p class="cite-line">Could create exposure under {citesFor(r.id).map((c, k) => <Fragment>{k ? ", " : ""}<a class="cite" href={c.primary_url}>{c.short}</a></Fragment>)}.</p>}
         </div>
         <div class="recipe-ev">

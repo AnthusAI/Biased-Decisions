@@ -34,7 +34,7 @@ export const shortlistBlock = (task) => C.shortlist.pairs.find((b) => b.task ===
 export const shortlistRowId = (r) => `shortlist-${r.engine}-${r.variant.replace(/_/g, "-")}-${r.cut}`;
 export const shortlistHref = (task, r) => `${urls.dim("gender-pronouns")}${task}/#${shortlistRowId(r)}`;
 const shortRow = (ev) => shortlistBlock(ev.task).rows.find((r) => r.engine === ev.engine && r.variant === ev.variant && r.cut === ev.cut);
-const plain = (t) => String(t).replace(/\*/g, "");
+const plain = (t) => String(t).replace(/\*/g, "").replace(/\s*\(see [^)]*above\)/g, "");
 const per100 = (rate) => fmt(rate * 100, 1);
 const role = (task) => (task === "paralegal-attorney" ? "attorneys" : "physicians");
 
@@ -65,9 +65,8 @@ export function describeEvidence(ev) {
     const en = engineById[ev.engine].label;
     const who = role(ev.task);
     const twin = ev.variant === "twin_averaged";
-    const sentence = twin
-      ? `${en}, scoring each bio and its pronoun-swapped twin and averaging, shortlisted women ${who} at ${per100(r.women_shortlist_rate)} per 100 and men at ${per100(r.men_shortlist_rate)} (top ${int(r.cut)} of 2,000)`
-      : `${en} shortlisted women ${who} at ${per100(r.women_shortlist_rate)} per 100 and men at ${per100(r.men_shortlist_rate)} (top ${int(r.cut)} of 2,000)`;
+    const put = `put ${per100(r.women_shortlist_rate)} of every 100 women ${who} in the top ${int(r.cut)} of 2,000, and ${per100(r.men_shortlist_rate)} of every 100 men`;
+    const sentence = twin ? `${en}'s ranking, averaged over each bio and its pronoun-swapped twin, ${put}` : `${en}'s ranking ${put}`;
     const figure = `four-fifths ratio ${fmt(r.four_fifths_ratio)} [${fmt(r.ratio_ci[0])}, ${fmt(r.ratio_ci[1])}], tie-fair ${fmt(r.tie_fair_ratio)}; accuracy ${fmt(r.accuracy * 100, 1)}%; n = ${int(r.n_women_positive)} women and ${int(r.n_men_positive)} men`;
     const counter = twin ? null
       : `${int(r.women_who_gain_place_read_as_men)} of ${int(r.n_women_positive)} women ${who} made the list only when read as men; ${int(r.men_who_gain_place_read_as_women)} men made it only when read as women`;
@@ -81,8 +80,8 @@ export function describeEvidence(ev) {
   }
   if (ev.kind === "floor") {
     const en = engineById[ev.engine].label;
-    return { id: ev.id, kind: ev.kind, sentence: `${en} changes its ${ev.task_label} call when the same bio is asked twice`,
-      figure: `${fmt(ev.value)}% of bios, n = ${int(ev.n)} (the ask-twice floor)`, verdict: "floor",
+    return { id: ev.id, kind: ev.kind, sentence: `Asked the same ${ev.task_label} question twice, ${en} changes its call`,
+      figure: `on ${fmt(ev.value)}% of bios, n = ${int(ev.n)} (the ask-twice floor)`, verdict: "floor",
       href: `${urls.dim("option-order")}${ev.task}/#${ev.engine}`, example: null, direction: null };
   }
   throw new Error(`unknown evidence kind ${ev.kind}`);

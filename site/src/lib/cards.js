@@ -219,16 +219,16 @@ const shortRow = (task, engine, variant, cut) => COMP.shortlist.pairs.find((b) =
 function inversionCard() {
   const r = shortRow("paralegal-attorney", "laya", "engine_alone", 500);
   return { template: "inversion", alarm: true, headline: "How to cause a compliance failure with a fast decision model",
-    number: fmt(r.four_fifths_ratio), numberNote: `Laya's four-fifths ratio for women attorneys; the line is ${fmt(COMP.shortlist.line)}`,
-    rows: [{ text: `Invert, always invert: ${COMP.recipes.length} recipes, each tied to a measured result` }] };
+    number: fmt(r.four_fifths_ratio), numberNote: `Laya's shortlist ratio, women attorneys; line ${fmt(COMP.shortlist.line)}`,
+    rows: [{ text: `${COMP.recipes.length} recipes, each tied to a measured result` }] };
 }
 
 function guidanceCard() {
   const before = shortRow("paralegal-attorney", "laya", "engine_alone", 500);
   const after = shortRow("paralegal-attorney", "laya", "twin_averaged", 500);
   return { template: "guidance", alarm: true, headline: "Measuring and avoiding bias risk in fast decision models",
-    number: fmt(after.four_fifths_ratio), numberNote: `Laya's four-fifths ratio after twin averaging, up from ${fmt(before.four_fifths_ratio)}`,
-    rows: [{ text: "A pre-deployment checklist, every step linked to evidence" }] };
+    number: fmt(after.four_fifths_ratio), numberNote: `Laya's ratio after twin averaging, from ${fmt(before.four_fifths_ratio)}`,
+    rows: [{ text: "A checklist, every step linked to evidence" }] };
 }
 
 function titledCard(template, headline) {

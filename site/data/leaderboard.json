@@ -32792,7 +32792,7 @@
     "id": "udaap",
     "short": "UDAAP",
     "decision": "Escalating a consumer complaint",
-    "status": "surveyed; task pre-registration on a branch",
+    "status": "surveyed, not yet measured",
     "repo_ref": {
      "path": "docs/datasets-survey.md",
      "text": "UDAAP (unfair, deceptive, or abusive acts and practices) for complaint"
@@ -34676,7 +34676,7 @@
      "hiring"
     ],
     "pattern": "Build every screening product on the same rented model, so every employer that buys one inherits the same verdicts for the same reasons.",
-    "what_happens": "A model's tilt is systematic, not random: the same bios lose their place every time. The women attorneys who make the list only when read as men would meet the same verdict at every firm using the same model, and no single firm's audit would see the pattern across firms.",
+    "what_happens": "A model's tilt is systematic, not random: the same bios lose their place every time. The women attorneys who make the list only when read as men would meet the same verdict at every firm using the same model, while each firm's audit covers only its own applicants.",
     "inverse": "Measure your own deployment on your own applicants, prefer vendors that publish paired-edit results per version, and do not assume that a model many firms use has been checked by any of them.",
     "evidence": [
      "shortlist-laya-attorney-500",
@@ -34724,7 +34724,7 @@
      "any"
     ],
     "pattern": "Hard-code the two answers in one order, audit in that order, and never ask which verdicts depend on it.",
-    "what_happens": "Swapping the order of the two options changes verdicts that asking the same question twice never changes. The audit then describes one arbitrary order, and the decisions that depend on it are arbitrary too.",
+    "what_happens": "Swapping the order of the two options changes more verdicts than asking the same question twice does. The audit then describes one arbitrary order, and the decisions that depend on it are arbitrary too.",
     "inverse": "Counterbalance: ask in both orders and average, report the order flip rate beside every bias measure, and fix the order in the deployed tool to the one you audited.",
     "evidence": [
      "order-laya-teacher",
@@ -34741,7 +34741,7 @@
      "hiring"
     ],
     "pattern": "Report how often a protected edit changes the verdict, without measuring how often an edit that changes nothing protected does.",
-    "what_happens": "Without a floor, noise reads as bias and bias hides in noise. A flip rate that looks like a race effect sits inside what swapping one white name for another already does; the same arithmetic can also hide a real effect.",
+    "what_happens": "Without a floor, noise reads as bias and bias hides in noise. A flip rate that looks like a race effect is mostly what swapping one white name for another already does, and its interval reaches that floor; the same arithmetic can also hide a real effect.",
     "inverse": "Read every protected edit against an equally trivial edit on the same text: ask twice, swap one name for another of the same group, change a hobby.",
     "evidence": [
      "race-name-mlx",
@@ -34756,7 +34756,7 @@
      "hiring"
     ],
     "pattern": "Run a test too small to find the effect, see no significant result, and file it as evidence that the model does not discriminate.",
-    "what_happens": "No bias detected at this floor is absence of evidence at that sample size. The age test's interval still allows an effect of real size, so it neither clears nor convicts the model.",
+    "what_happens": "No bias detected at this floor is absence of evidence at that sample size. The age test's interval still allows an effect as large as the floor itself, so it neither clears nor convicts the model.",
     "inverse": "Report the interval and the sample size with every null result, and size the test to rule out an effect you would care about.",
     "evidence": [
      "age-jev",
@@ -34847,7 +34847,7 @@
    {
     "id": "twin-averaging",
     "title": "Average each text with its twin, then check again",
-    "text": "For a cue you can swap, score the text and its swapped twin and average the two. In the replayed shortlist this lifted the ratio for both engines at a small cost in accuracy. It is not a guarantee: on the nurse task it overshot to favour women, which says the bios' content differs by gender, and averaging inside a fitted head moved one engine's ratio the other way. Check the outcome after the mitigation too.",
+    "text": "For a cue you can swap, score the text and its swapped twin and average the two. In the replayed shortlist this lifted the ratio for both engines, at a cost in accuracy. It is not a guarantee: on the nurse task Laya's averaged ranking overshot to favour women, which says it reads women physicians' bios as more physician-like once the pronouns are neutralised, and averaging inside a fitted head moved one engine's ratio the other way. Check the outcome after the mitigation too.",
     "evidence": [
      "twin-laya-attorney-500",
      "twin-jev-attorney-500",
