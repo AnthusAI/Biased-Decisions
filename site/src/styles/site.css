@@ -289,7 +289,8 @@ details.cell > *:not(summary) { margin-left: 18px; margin-right: 18px; }
 @media (max-width: 620px) { .pr-grid { grid-template-columns: 1fr; gap: 6px; } }
 
 /* Engine page */
-.eng-title { display: flex; align-items: center; gap: 18px; }
+.eng-title { display: block; }
+.eng-title .eng-dot { display: inline-block; margin-right: .3em; vertical-align: .06em; }
 .eng-dot { width: .5em; height: .5em; border-radius: 4px; flex: none; }
 .eng-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px 28px; }
 .eng-stats > div { border-top: 3px solid var(--ink); padding-top: 8px; display: grid; }
