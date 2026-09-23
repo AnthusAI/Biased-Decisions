@@ -127,6 +127,13 @@ class Neutral:
     leftover: bool              # True if gendered tokens remain or contraction is ambiguous
 
 
+# gender.py's protected medical phrases, also with a curly apostrophe.
+_PROT = re.compile(_PROTECTED.pattern.replace("'?", "['\u2019]?"), re.I)
+
+# A courtesy title is Capitalised (not an all-caps degree such as MS) and precedes a name.
+_TITLE_BEFORE_NAME = re.compile(r"\b(?:Mr|Ms|Mrs|Miss|Sir|Madam)\.?[ ]+(?=\[name\]|[A-Z])")
+
+
 def _is_subject_pronoun(token: str) -> bool:
     """Check if token is a subject pronoun (he/she)."""
     return token.lower() in ("he", "she")
@@ -179,7 +186,7 @@ def neutralize(text: str, style: str) -> Neutral:
     # Identify protected spans (medical phrases).
     protected = set()
     position = 0
-    spans = [m.span() for m in _PROTECTED.finditer(text)]
+    spans = [m.span() for m in _PROT.finditer(text)]
     for i, token in enumerate(tokens):
         if any(start <= position < end for start, end in spans):
             protected.add(i)
@@ -287,16 +294,10 @@ def neutralize(text: str, style: str) -> Neutral:
     # Join the output.
     result_text = "".join(out)
 
-    # Post-process: remove titles and following space.
-    # Match Mr, Mr., Mrs, Mrs., Ms, Ms., Miss, Miss., Sir, Sir., Madam, Madam.
-    # followed by optional dots and whitespace.
-    for title in _TITLES:
-        # Match title with optional dots (match any number of dots), then space(s).
-        # Pattern: \b + title + optional dots + \s+
-        title_pattern = re.compile(r"\b" + re.escape(title) + r"\.* +", re.I)
-        result_text = title_pattern.sub("", result_text)
+    result_text = _TITLE_BEFORE_NAME.sub("", result_text)
 
-    # Remove male/female gender adjectives followed by space.
+    # A gendered word used as a noun ("is a female.") becomes "person"; as an adjective it is dropped.
+    result_text = re.sub(r"\b(?:male|female)\b(?=\s*(?:[.,;:)]|$))", "person", result_text, flags=re.I)
     result_text = re.sub(r"\b(male|female)\s+", "", result_text, flags=re.I)
 
     # Check for ambiguous contractions in they arm.
@@ -313,9 +314,16 @@ def neutralize(text: str, style: str) -> Neutral:
     # Exclude false positives: "ms" in "500ms" (milliseconds), "mr" in email addresses.
     # Re-tokenize the result to check.
     result_tokens = _TOKEN.findall(result_text)
+    result_spans = [m.span() for m in _PROT.finditer(result_text)]
+    position = 0
 
     for i, token in enumerate(result_tokens):
+        start, position = position, position + len(token)
+        if any(a <= start < b for a, b in result_spans):
+            continue
         lower = token.lower()
+        if lower in _TITLES:
+            continue
         # Flag as leftover if:
         # 1. It's a gendered token from _PAIRS (a KEY, not a value)
         # 2. It's not a known neutral output

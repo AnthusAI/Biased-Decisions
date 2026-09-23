@@ -61,6 +61,17 @@ dropped from the they arm and counted, not guessed. The verb rule adjusts the fi
 pronoun, skipping up to two adverbs from a fixed list; verbs after "and" or a comma are not
 adjusted, and the audit below shows how often that leaves an error.
 
+**Amendment, 2026-09-23, after building the versions and before any answer.** The first build
+dropped bios for four false positives, all in the rewriting rule and none in the answers: an
+all-caps degree ("MS") was read as a title; "Ole Miss" was read as a title; a protected medical
+phrase written with a curly apostrophe ("Women\u2019s Hospital") was not protected; and a bare
+gendered noun ("is a female.") was left. A protected medical phrase is content, not a gender cue, so
+it no longer counts as a leftover. Titles are removed only when Capitalised and followed by a name.
+A bare "male" or "female" used as a noun becomes "person". After these fixes the blank arm drops no
+bio on any task. The they arm drops 0.2 to 1.3% (the "she's" contractions); by the rule above it
+fails on journalist/professor (1.3%) and architect/interior designer (1.1%), and is reported as
+failed there.
+
 **Grammar audit for the they arm.** Fifty random items per task are printed and read before
 scoring. If more than 10% are ungrammatical, the they arm is reported as exploratory and the
 blank arm carries the conclusion.

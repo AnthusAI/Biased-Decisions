@@ -219,19 +219,17 @@ def test_they_arm_reflexive_herself_to_themself():
 
 
 def test_blank_arm_medical_phrase_protected():
-    """Medical phrase 'women's health' is not rewritten but flags leftover in blank arm."""
+    """Medical phrase 'women's health' is content, not a gender cue: kept, and not a leftover."""
     result = neutralize("She directs the women's health clinic.", "blank")
     assert "women's health" in result.text
-    # Medical phrase is protected from rewriting, but "women" is a gendered token, so leftover=True.
-    assert result.leftover
+    assert not result.leftover
 
 
 def test_they_arm_medical_phrase_protected():
-    """Medical phrase 'women's health' is not rewritten but flags leftover in they arm."""
+    """Medical phrase 'women's health' is not rewritten and not a leftover."""
     result = neutralize("She directs the women's health clinic.", "they")
     assert "women's health" in result.text
-    # Medical phrase is protected from rewriting, but "women" is a gendered token, so leftover=True.
-    assert result.leftover
+    assert not result.leftover
 
 
 def test_text_with_no_gendered_words_unchanged():
@@ -295,12 +293,11 @@ def test_they_arm_hers_possessive():
     assert not result.leftover
 
 
-def test_leftover_true_when_pair_table_token_remains():
+def test_a_fully_rewritten_text_has_no_leftover():
     """Leftover is True when a gendered token from pair table remains in output."""
     # Construct a case where a medical phrase keeps a gendered word (testing the logic)
-    result = neutralize("the women's health clinic", "blank")
-    # The word 'women' inside the protected phrase should remain, so leftover=True
-    assert result.leftover is True
+    result = neutralize("the woman's husband and the gentlemen", "blank")
+    assert result.leftover is False
 
 
 def test_verb_not_adjusted_after_and():
@@ -317,3 +314,29 @@ def test_verb_not_adjusted_after_comma():
     # Only the first "teaches" should become "teach"; the others after comma should stay
     assert "they teach" in result.text.lower()
     assert not result.leftover
+
+
+# --- false positives found on the dietitian and nurse bios before any answer was collected -------
+
+def test_an_all_caps_degree_is_not_a_courtesy_title():
+    r = neutralize("She holds an MS in nutrition. [name] Gunn, MS, CNS, LDN.", "blank")
+    assert "MS in nutrition" in r.text and "Gunn, MS, CNS" in r.text and r.leftover is False
+
+
+def test_a_place_name_that_ends_in_miss_is_left_alone():
+    r = neutralize("She studied biology at Ole Miss, and then medicine.", "blank")
+    assert "Ole Miss," in r.text and r.leftover is False
+
+
+def test_a_courtesy_title_before_a_name_is_still_removed():
+    assert neutralize("Ms. [name] joined. Mr [name] left.", "blank").text == "[name] joined. [name] left."
+
+
+def test_a_curly_apostrophe_protects_a_medical_phrase_too():
+    r = neutralize("She is affiliated with Brigham and Women\u2019s Hospital.", "they")
+    assert "Women\u2019s Hospital" in r.text and r.leftover is False
+
+
+def test_a_gendered_word_used_as_a_noun_becomes_person():
+    r = neutralize("The NPI record indicates the provider is a female.", "blank")
+    assert r.text.endswith("is a person.") and r.leftover is False
