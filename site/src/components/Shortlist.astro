@@ -8,6 +8,8 @@ const { task, positive } = Astro.props;
 const block = shortlistBlock(task);
 const alone = block ? block.rows.filter((r) => r.variant === "engine_alone") : [];
 const twin = block ? block.rows.filter((r) => r.variant === "twin_averaged") : [];
+const neutral = block ? block.rows.filter((r) => r.variant.startsWith("neutral_")) : [];
+const armLabel = { neutral_blank: "\u201cthe person\u201d", neutral_they: "\u201cthey\u201d" };
 const ff = citationById["four-fifths"];
 const p100 = (x) => fmt(x * 100, 1);
 const who = `${positive}s`;
@@ -53,6 +55,29 @@ const who = `${positive}s`;
         </tbody>
       </table>
     </div>
+    {neutral.length > 0 && (
+      <Fragment>
+        <h3>With the gender signal removed</h3>
+        <p class="note">Every gendered pronoun and role noun rewritten as <q>the person</q> or as <q>they</q>, and the shortlist ranked on those versions. This removes the signal rather than averaging it, and it shows what removing it costs: the ratio moves toward or past the line, and accuracy against the corpus label moves with it. The <q>they</q> rewrite leaves some verbs after <q>and</q> or a comma uninflected, so read it as a check on the first.</p>
+        <div class="table-scroll" tabindex="0" role="region" aria-label={`Shortlist rates for ${who} with the gender signal removed`}>
+          <table class="cell-table sl-table">
+            <thead><tr><th scope="col">engine, wording, cut</th><th scope="col">women per 100</th><th scope="col">men per 100</th><th scope="col">four-fifths ratio [95% CI]</th><th scope="col">tie-fair ratio</th><th scope="col">accuracy</th></tr></thead>
+            <tbody>
+              {neutral.map((r) => (
+                <tr id={shortlistRowId(r)} class={r.four_fifths_ratio < C.shortlist.line ? "sl-under" : null}>
+                  <th scope="row"><EngineName engine={engineById[r.engine]} /> {armLabel[r.variant]}, top {int(r.cut)}</th>
+                  <td class="num">{p100(r.women_shortlist_rate)}</td>
+                  <td class="num">{p100(r.men_shortlist_rate)}</td>
+                  <td class="num"><strong>{fmt(r.four_fifths_ratio)}</strong> <span class="ci-t">[{fmt(r.ratio_ci[0])}, {fmt(r.ratio_ci[1])}]</span>{r.four_fifths_ratio < C.shortlist.line && <span class="sl-flag"> under the line</span>}</td>
+                  <td class="num">{fmt(r.tie_fair_ratio)}</td>
+                  <td class="num">{fmt(r.accuracy * 100, 1)}%</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </Fragment>
+    )}
     <p class="note">Rows from <code>{block.study}</code>, replayed by <code>bd replay</code>; predictions and outcome in <a href={`${REPO_BLOB}studies/PREREGISTERED.md`}>{C.shortlist.prereg_section}</a>. Not legal advice: the ratio is the number a compliance review would compute, not a finding.</p>
   </section>
 )}

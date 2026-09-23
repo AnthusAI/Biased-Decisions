@@ -520,6 +520,19 @@ def score_shortlist(engine: str, task: Task) -> List[dict]:
     averaged = shortlist_metrics.twin_averaged_scores(items_map, scores)
     rows += shortlist_metrics.score(items_map, averaged, task.positive, engine, pair_key,
                                     "twin_averaged")
+    if record_path(engine, task.slug, "neutral", root=task.root).exists():
+        neutral = load_answers(engine, task.slug, "neutral", root=task.root)
+        for version in ("blank", "they"):
+            arm_scores = {}
+            for item_id in items_map:
+                answer = neutral.get(f"{item_id}-neutral-{version}")
+                if answer is not None:
+                    arm_scores[item_id] = float(answer["probabilities"][task.positive])
+            arm_items = {i: items_map[i] for i in arm_scores}
+            # No twin exists for a neutral rewrite: the counterfactual columns are not meaningful.
+            arm_scores.update({f"{i}-swapped": arm_scores[i] for i in arm_items})
+            rows += shortlist_metrics.score(arm_items, arm_scores, task.positive, engine, pair_key,
+                                            f"neutral_{version}")
     return rows
 
 
