@@ -1,3 +1,20 @@
+# [1.12.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.11.0...v1.12.0) (2026-09-23)
+
+
+### Bug Fixes
+
+* **cues:** neutral rewrites no longer drop bios for degrees, place names, curly apostrophes or bare nouns ([5d3de09](https://github.com/AnthusAI/Biased-Decisions/commit/5d3de0904b24f41963998d1f15827a7ac4ddeb00))
+* **scripts:** answer bios tasks under the Occupation question name the scorer reads ([74941a9](https://github.com/AnthusAI/Biased-Decisions/commit/74941a99c3f8814f0027997243c1a902592e4995))
+
+
+### Features
+
+* **cues:** neutral-pronoun rewrites in blank and they forms ([dbc8b70](https://github.com/AnthusAI/Biased-Decisions/commit/dbc8b70225a5ef7a520a52c263720cb898432e8a))
+* neutral-pronoun shortlist rows, and a table for them on the gender pages ([33d0fdf](https://github.com/AnthusAI/Biased-Decisions/commit/33d0fdfd279cf6a7c118783e6fb3aa449f630ec5))
+* **scoring:** the neutral-pronoun control, and Laya's answers on it ([00aceeb](https://github.com/AnthusAI/Biased-Decisions/commit/00aceeba0b2f581cf5a02aa3c400fd40bd377310))
+* **scripts:** --skip-as-written for the answer runner, and a neutral audit helper ([fcfeae1](https://github.com/AnthusAI/Biased-Decisions/commit/fcfeae1989b6f0503890fb5b85d6284e4cc571b4))
+* **site:** which way the bias runs and what removing the gender signal costs ([40ae3cf](https://github.com/AnthusAI/Biased-Decisions/commit/40ae3cf226119e141f8ab271f6cf743ae3822244))
+
 # [1.11.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.10.0...v1.11.0) (2026-09-23)
 
 
