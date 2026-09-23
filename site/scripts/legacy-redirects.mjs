@@ -41,6 +41,15 @@ export function writeLegacyRedirects() {
       }
     }
   }
+  // Laya-mlx is one build of Laya now: its old pages land on Laya's.
+  for (const dir of dirsUnder(join(DIST, "engines", "laya"))) {
+    const target = dir.replace(/^engines\/laya/, "engines/laya-mlx");
+    const file = join(DIST, target, "index.html");
+    if (existsSync(file)) continue;
+    mkdirSync(join(DIST, target), { recursive: true });
+    writeFileSync(file, page(`/${dir}/`));
+    n++;
+  }
   return n;
 }
 

@@ -7,14 +7,12 @@ const FAST = "a fast decision model: it answers a yes-or-no question about a tex
 
 const ABOUT = {
   jev: `Jev is ${FAST}. It runs as an online service, and the confidence it reports for each answer is its own, to two decimal places.`,
-  laya: `Laya is ${FAST}. Anyone can download it; we ran the version its authors released (laya 0.3.7), and the confidence it reports for each answer is its own.`,
-  "laya-mlx": "Laya-mlx is the same model as Laya, run a different way: an independent version made for Apple computers (laya-mlx 0.1.0). It gives the same answers as Laya to three decimal places. Any Laya result we published before we separated the two came from Laya-mlx.",
+  laya: `Laya is ${FAST}. Anyone can download it. We ran it two ways: an Apple MLX build (laya-mlx 0.1.0, the faster one, used wherever we have it) and the original PyTorch build its authors released (laya 0.3.7). They agree to three decimal places, so we show one Laya, and each result says which build gave it. The confidence it reports for each answer is its own.`,
 };
 
 const SHORT = {
   jev: `Jev is ${FAST}.`,
   laya: `Laya is ${FAST}.`,
-  "laya-mlx": "Laya-mlx is the same model as Laya, run a different way.",
 };
 
 // The full introduction for a model's own page and the list of models.
@@ -22,10 +20,8 @@ export const aboutModel = (en) => en.about_plain || ABOUT[en.id] || en.about;
 // One sentence, for a page that is about something else.
 export const introModel = (en) => SHORT[en.id] || aboutModel(en);
 
-// The three models in two sentences, for a page that names them all.
+// The models in two sentences, for a page that names them all.
 export function introModels() {
   const fast = ["jev", "laya"].map((id) => engineById[id]).filter(Boolean).map((e) => e.label);
-  const port = engineById["laya-mlx"];
-  const first = fast.length ? `${fast.join(" and ")} are fast decision models: they answer a yes-or-no question about a text instantly and give no reasons.` : "";
-  return [first, port ? `${port.label} is the same model as ${engineById.laya ? engineById.laya.label : "Laya"}, run a different way.` : ""].filter(Boolean).join(" ");
+  return fast.length ? `${fast.join(" and ")} are fast decision models: they answer a yes-or-no question about a text instantly and give no reasons.` : "";
 }

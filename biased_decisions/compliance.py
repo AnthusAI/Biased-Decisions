@@ -321,13 +321,12 @@ _CELL_EVIDENCE = [
     ("gender-laya-surgeon", "gender", None, "surgeon-physician", "laya"),
     ("gender-jev-surgeon", "gender", None, "surgeon-physician", "jev"),
     ("gender-jev-journalist", "gender", None, "journalist-professor", "jev"),
-    ("gender-mlx-paralegal", "gender", None, "paralegal-attorney", "laya-mlx"),
-    ("race-name-mlx", "race", "black-first-name", "surgeon-physician", "laya-mlx"),
+    ("race-name-mlx", "race", "black-first-name", "surgeon-physician", "laya"),
     ("race-name-jev", "race", "black-first-name", "surgeon-physician", "jev"),
     ("race-fullname-jev-black", "race", "black", "surgeon-physician", "jev"),
-    ("race-fullname-mlx-hispanic", "race", "hispanic", "surgeon-physician", "laya-mlx"),
+    ("race-fullname-mlx-hispanic", "race", "hispanic", "surgeon-physician", "laya"),
     ("age-jev", "age", None, "surgeon-physician", "jev"),
-    ("age-mlx", "age", None, "surgeon-physician", "laya-mlx"),
+    ("age-mlx", "age", None, "surgeon-physician", "laya"),
     ("disability-laya-architect", "disability", None, "architect-interior-designer", "laya"),
     ("disability-jev-surgeon", "disability", None, "surgeon-physician", "jev"),
     ("religion-laya-jewish-journalist", "religion", "jewish", "journalist-professor", "laya"),
@@ -488,7 +487,7 @@ RECIPES: List[dict] = [
                      "nothing after it.",
      "inverse": "Fix the model version you use, and treat any change as a new model. Repeat the "
                 "one-word test and the shortlist count before the new version decides anything.",
-     "evidence": ["gate-j2-ratio", "gender-laya-paralegal", "gender-mlx-paralegal"],
+     "evidence": ["gate-j2-ratio", "gender-laya-paralegal"],
      "insight": "pin-versions"},
     {"id": "fixed-option-order",
      "title": "Always offer the two answers in the same order, and never test the other",
@@ -616,9 +615,9 @@ INSIGHTS: List[dict] = [
     {"id": "pin-versions", "title": "Fix the version: a new version is a new model",
      "text": "Record the exact model and version behind every decision. Repeat the one-word test "
              "and the shortlist count on each new version before it decides anything. When a new "
-             "test gives the same numbers as the old one, say so, as we did for Laya-mlx, the "
-             "same model as Laya run a different way.",
-     "evidence": ["gender-laya-paralegal", "gender-mlx-paralegal", "gate-j2-ratio"],
+             "test gives the same numbers as the old one, say so, as we did when we ran Laya two "
+             "ways, an Apple MLX build and the original PyTorch build, and the numbers agreed to three decimals.",
+     "evidence": ["gender-laya-paralegal", "gate-j2-ratio"],
      "links": []},
     {"id": "human-review", "title": "Put the reviewer where the harm happens",
      "text": "A person who reviews only the shortlist does not see the people the model left off "
@@ -703,13 +702,28 @@ def _cell_evidence(dimensions: List[dict]) -> List[dict]:
     return out
 
 
+def _one_laya(rows: List[dict]) -> List[dict]:
+    """Laya is one model on the site. For each (variant, cut) take the MLX build's row where it has
+    one and the original build's row otherwise, and say which build gave it."""
+    order = {"laya-mlx": 0, "laya": 1}
+    chosen: Dict[tuple, dict] = {}
+    for r in rows:
+        if r["engine"] not in order:
+            chosen[(r["engine"], r["variant"], r["cut"])] = {**r, "build": r["engine"]}
+            continue
+        key = ("laya", r["variant"], r["cut"])
+        if key not in chosen or order[r["engine"]] < order[chosen[key]["build"]]:
+            chosen[key] = {**r, "engine": "laya", "build": r["engine"]}
+    return list(chosen.values())
+
+
 def _shortlist(root: Path) -> dict:
     pairs = []
     for task in SHORTLIST_TASKS:
         study = f"studies/{task}-shortlist.jsonl"
-        rows = [json.loads(line) for line in
-                (root / study).read_text(encoding="utf-8").splitlines() if line]
-        pairs.append({"task": task, "study": study, "rows": rows})
+        raw = [json.loads(line) for line in
+               (root / study).read_text(encoding="utf-8").splitlines() if line]
+        pairs.append({"task": task, "study": study, "rows": _one_laya(raw)})
     return {"line": FOUR_FIFTHS, "pairs": pairs,
             "prereg_section": "The shortlist, in our study notes",
             "scenario": "Picture an employer with two thousand applications. It asks the model "

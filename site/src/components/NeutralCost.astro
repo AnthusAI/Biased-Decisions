@@ -9,7 +9,7 @@ const { task, positive } = Astro.props;
 const block = shortlistBlock(task);
 const VARIANTS = [["engine_alone", "as written", false], ["twin_averaged", "averaged both ways", true],
   ["neutral_blank", "“the person”", true], ["neutral_they", "“they”", true]];
-const pts = block ? block.rows.filter((r) => r.cut === 500 && r.engine !== "laya-mlx" && VARIANTS.some((v) => v[0] === r.variant)) : [];
+const pts = block ? block.rows.filter((r) => r.cut === 500 && VARIANTS.some((v) => v[0] === r.variant)) : [];
 const W = 600, H = 380, L = 62, R = 24, T = 20, B = 58;
 const xs = pts.map((p) => p.four_fifths_ratio), ys = pts.map((p) => p.accuracy);
 const xlo = Math.max(0, Math.floor((Math.min(...xs, C.shortlist.line) - 0.1) * 10) / 10), xhi = Math.ceil((Math.max(...xs, C.shortlist.line) + 0.1) * 10) / 10;
