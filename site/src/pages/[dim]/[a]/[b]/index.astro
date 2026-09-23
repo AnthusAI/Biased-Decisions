@@ -3,6 +3,8 @@
 // the breakdown: its board, every engine's full measurement, what was asked, and the
 // pre-registered prediction where there is one.
 import Base from "../../../../layouts/Base.astro";
+import RegWarn from "../../../../components/RegWarn.astro";
+import RiskPanel from "../../../../components/RiskPanel.astro";
 import Board from "../../../../components/Board.astro";
 import Chart from "../../../../components/Chart.astro";
 import EngineName from "../../../../components/EngineName.astro";
@@ -48,6 +50,7 @@ const leadFacet = lead ? cell.engines[lead.engine] : null;
   <section class="wrap hero dim-hero">
     <p class="kicker">{dim.long} · {bd.group_kind} × {bd.item_kind}{cell.prereg ? " · pre-registered" : ""}</p>
     <h1 class="display xl"><a class="h-link" href={urls.at(dim, group.id, null)}>{group.label}</a> <span class="h-x">×</span> <a class="h-link" href={urls.at(dim, null, item.id)}>{item.label}</a></h1>
+    <RegWarn dim={dim} />
     {lead ? <p class="deck lead-sentence">{cellSentence(dim, cell, lead.engine)}</p>
           : <p class="deck">No engine has been measured on this cell yet.</p>}
     <dl class="defs">
@@ -67,6 +70,8 @@ const leadFacet = lead ? cell.engines[lead.engine] : null;
   )}
 
   <Board board={level.board} heads={level.heads} unit={unit(dim)} facetKind={null} chartId="board" hrefFor={(e) => `${path}#${e}`} />
+
+  <RiskPanel dim={dim} level={level} place={title} />
 
   <section class="wrap section" id="measurements">
     <h2 class="display">Every engine, measured</h2>

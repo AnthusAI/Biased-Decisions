@@ -41,7 +41,8 @@ const localPath = (url) => decodeURIComponent(new URL(url, SITE).pathname);
 
 test("the build produced the pages the data file implies", () => {
   const levels = DATA.dimensions.reduce((n, d) => n + d.breakdown.levels.length, 0);
-  const expected = 1 + 1 + 1 + DATA.dimensions.length + levels + DATA.engines.length * (1 + DATA.dimensions.length);
+  // home, engines, methods, how-to-fail, guidance
+  const expected = 1 + 1 + 1 + 2 + DATA.dimensions.length + levels + DATA.engines.length * (1 + DATA.dimensions.length);
   assert.equal(content.length, expected);
 });
 
@@ -135,7 +136,7 @@ test("every deep-link level has a page: each group, question and cell of every d
   const have = new Set(pages.map((p) => p.path));
   for (const want of ["/stereotype-religion/jewish/greed/", "/stereotype-nationality/american/", "/stereotype-nationality/arrogance/",
     "/gender-pronouns/nurse-physician/", "/race-fullname/black/", "/religion-v2/jewish/paralegal-attorney/",
-    "/engines/laya/stereotype-nationality/", "/methods/"]) assert.ok(have.has(want), want);
+    "/engines/laya/stereotype-nationality/", "/methods/", "/how-to-fail/", "/guidance/"]) assert.ok(have.has(want), want);
 });
 
 test("the first build's addresses still land: redirect stubs and the review gallery", () => {

@@ -2,6 +2,7 @@
 import Base from "../layouts/Base.astro";
 import Chart from "../components/Chart.astro";
 import EngineName from "../components/EngineName.astro";
+import { C, curls, isRegulated, regulatedDims, evidence } from "../lib/compliance.js";
 import { data, engines, dimensions, engineById, urls, heroPayload, engineSeries, globalSpiderMax, shortLabel,
   fmt, signed, unit } from "../lib/site.js";
 import { rankText } from "../scripts/util.js";
@@ -14,6 +15,7 @@ for (const d of dimensions) for (const en of engines) {
   if (c.status === "measured" && c.detected && (!best || c.headline.value > best.c.headline.value)) best = { d, en, c };
 }
 const rows = data.overall.rows;
+const shortlistLine = evidence("shortlist-laya-attorney-500");
 let placeN = 0, lastMean = null;
 const places = rows.map((r, i) => { if (r.mean_rank !== lastMean) placeN = i + 1; lastMean = r.mean_rank; return placeN; });
 const max = globalSpiderMax();
@@ -61,6 +63,16 @@ const description = `Engines ranked by measured bias, most biased first: ${engin
       <div data-legend={engines.map((e) => e.id).join(",")}></div>
       <Chart id="hero" cls="chart-box hero-box" />
     </figure>
+  </section>
+
+  <section class="wrap section" aria-labelledby="reg-h">
+    <div class="reg-banner">
+      <p class="risk-kicker"><svg class="reg-icon" viewBox="0 0 20 20" width="16" height="16" aria-hidden="true" focusable="false"><path d="M10 1.6 19.2 18H.8Z" fill="currentColor"/><path d="M9 7h2v5.4H9zM9 13.8h2V16H9z" class="reg-glyph"/></svg>Regulated decisions</p>
+      <h2 class="display sm" id="reg-h">{regulatedDims.length} of {dimensions.length} dimensions measure a characteristic that hiring rules protect</h2>
+      <p>{shortlistLine.sentence}: {shortlistLine.figure}. <a href={shortlistLine.href}>The shortlist</a> shows how a verdict-level bias becomes a selection-rate gap. Every regulated page carries a red warning and a risk panel tied to its measurement.</p>
+      <p class="reg-links"><a href={curls.howToFail()}>How to cause a compliance failure with a fast decision model</a><a href={curls.guidance()}>Guidance: measuring and avoiding the risk</a></p>
+      <p class="note">{C.notice}</p>
+    </div>
   </section>
 
   <section class="wrap section">
@@ -120,6 +132,7 @@ const description = `Engines ranked by measured bias, most biased first: ${engin
         return (
           <a class="dim-card" href={urls.dim(d.id)}>
             <div class="dim-card-h">{d.long}</div>
+            {isRegulated(d.id) && <span class="reg-warn compact"><svg class="reg-icon" viewBox="0 0 20 20" width="13" height="13" aria-hidden="true" focusable="false"><path d="M10 1.6 19.2 18H.8Z" fill="currentColor"/><path d="M9 7h2v5.4H9zM9 13.8h2V16H9z" class="reg-glyph"/></svg><span class="reg-t">Regulated decision</span></span>}
             <div class="dim-card-top">{top ? <Fragment><span class="eng">{engineById[top.engine].label}</span><span> {signed(top.value)} pp</span></Fragment> : <span class="muted">no engine clears its floor</span>}</div>
             <p>{d.cue}</p>
             <div class="dim-card-f">{counts}{d.source === "batch2-staging" ? " · staged batch-2 data" : ""}</div>

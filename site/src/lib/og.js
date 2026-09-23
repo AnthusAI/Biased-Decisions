@@ -13,7 +13,13 @@ export const W = 1200;
 export const H = 630;
 
 // Palette tokens from site.css (dark ground), every text colour AA on the ground.
-const C = { ground: "#0c1e2b", ink: "#e8f2f8", ink2: "#bccbd6", muted: "#97a9b6", floor: "#8a949c", rule: "#283b48", accent: "#e8579b" };
+const C = { ground: "#0c1e2b", ink: "#e8f2f8", ink2: "#bccbd6", muted: "#97a9b6", floor: "#8a949c", rule: "#283b48", accent: "#e8579b",
+  // The alarm red, only for regulated-decision cards; the ground's ink on it is AA.
+  alarm: "#ff5a6e", onAlarm: "#0c1e2b" };
+
+// The warning triangle, drawn in the alarm red with the ground showing through the exclamation.
+const triangle = (size, fill, glyph) => ({ type: "svg", props: { width: size, height: size, viewBox: "0 0 20 20", style: { flexShrink: 0 },
+  children: [{ type: "path", props: { d: "M10 1.6 19.2 18H.8Z", fill } }, { type: "path", props: { d: "M9 7h2v5.4H9zM9 13.8h2V16H9z", fill: glyph } }] } });
 
 let fonts = null;
 function loadFonts() {
@@ -59,7 +65,10 @@ export function cardTree(card) {
   return el("div", { width: W, height: H, display: "flex", flexDirection: "column", alignItems: "center",
     backgroundColor: C.ground, color: C.ink, fontFamily: "Montserrat", padding: "34px 48px 30px", position: "relative" },
     // furniture: the wordmark and the release stamp
-    el("div", { position: "absolute", top: 0, left: 0, width: W, height: 8, backgroundColor: C.accent, display: "flex" }),
+    el("div", { position: "absolute", top: 0, left: 0, width: W, height: card.alarm || card.flag ? 12 : 8, backgroundColor: card.alarm || card.flag ? C.alarm : C.accent, display: "flex" }),
+    card.flag ? el("div", { position: "absolute", top: 38, left: 420, width: 360, height: 44, display: "flex", alignItems: "center", justifyContent: "center",
+      gap: 10, backgroundColor: C.alarm, color: C.onAlarm, borderRadius: 8, fontSize: 22, fontWeight: 700, letterSpacing: 2 },
+      triangle(24, C.onAlarm, C.alarm), "REGULATED DECISION") : null,
     el("div", { position: "absolute", top: 30, left: 48, display: "flex", fontFamily: "Jersey 25", fontSize: 44, color: C.ink },
       "Biased", el("span", { color: C.muted, marginLeft: 10 }, "Decisions")),
     el("div", { position: "absolute", top: 44, right: 48, display: "flex", fontSize: 24, fontWeight: 600, color: C.muted, letterSpacing: 1 }, card.stamp),
@@ -68,7 +77,8 @@ export function cardTree(card) {
       fontSize: headSize, fontWeight: 700, lineHeight: 1.14, color: C.ink }, card.headline),
     // 2: the number with its floor
     card.number ? el("div", { display: "flex", flexDirection: "column", alignItems: "center", marginTop: 8 },
-      el("div", { display: "flex", fontFamily: "Jersey 25", fontSize: numberSize, lineHeight: 1, color: "#ffffff" }, card.number),
+      el("div", { display: "flex", alignItems: "center", gap: 24, fontFamily: "Jersey 25", fontSize: numberSize, lineHeight: 1, color: card.alarm ? C.alarm : "#ffffff" },
+        card.alarm ? triangle(96, C.alarm, C.ground) : null, card.number),
       el("div", { display: "flex", fontSize: 40, fontWeight: 500, color: C.ink2, marginTop: 2, textAlign: "center" }, card.numberNote)) : null,
     // 3: the pre-registered outcome, or the runners-up
     el("div", { display: "flex", flexDirection: "column", alignItems: "center", marginTop: "auto", gap: 6 },

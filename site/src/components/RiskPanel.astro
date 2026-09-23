@@ -1,0 +1,45 @@
+---
+// The risk panel on a page whose decision maps to a regulated practice: the rules, the failure
+// our tests show (with numbers, intervals and links), who is harmed, and how to avoid it.
+import EvidenceItem from "./EvidenceItem.astro";
+import Citation from "./Citation.astro";
+import { C, mappingOf, practiceById, citationsOf, recipesOf, insightsOf, panelFindings, panelShortlist, curls } from "../lib/compliance.js";
+const { dim, level = null, engineId = null, place = null } = Astro.props;
+const m = mappingOf(dim.id);
+const findings = m && m.regulated ? panelFindings(dim, { level, engineId }) : [];
+const shortlist = m && m.regulated ? panelShortlist(dim, { level, engineId }) : [];
+const anyDetected = findings.some((f) => f.detected);
+---
+{m && m.regulated && (
+  <section class="wrap section" id="risk" aria-labelledby="risk-h">
+    <div class="risk-panel">
+      <p class="risk-kicker"><svg class="reg-icon" viewBox="0 0 20 20" width="16" height="16" aria-hidden="true" focusable="false"><path d="M10 1.6 19.2 18H.8Z" fill="currentColor"/><path d="M9 7h2v5.4H9zM9 13.8h2V16H9z" class="reg-glyph"/></svg>Regulated decision · {practiceById[m.practice].label}</p>
+      <h2 class="display" id="risk-h">The compliance risk{place ? ` on ${place}` : ""}</h2>
+      <p class="risk-decision"><strong>The decision.</strong> {m.decision}. A screening tool that uses a model for it is {practiceById[m.practice].decision}.</p>
+      <div class="risk-grid">
+        <div>
+          <h3>What our test shows</h3>
+          <ul class="ev-list">
+            {findings.map((f) => <EvidenceItem found={f} />)}
+            {shortlist.map((f) => <EvidenceItem found={f} />)}
+          </ul>
+          {!anyDetected && <p class="note">No engine clears the floor here. That is absence of evidence at this sample size, not a clean bill of health: see <a href={curls.howToFail("not-detected-means-clean")}>treat no bias detected as no bias</a>.</p>}
+          <h3>The failure</h3>
+          <p>{m.failure_mode}</p>
+          <h3>Who is harmed</h3>
+          <p>{m.who_harmed}</p>
+        </div>
+        <div>
+          <h3>Could create exposure under</h3>
+          <ul class="cite-list">{citationsOf(dim.id).map((c) => <Citation c={c} />)}</ul>
+          <h3>How it goes wrong, and how to avoid it</h3>
+          <ul class="how-list">
+            {recipesOf(dim.id).map((r) => <li><a href={curls.howToFail(r.id)}>How to fail: {r.title.toLowerCase()}</a></li>)}
+            {insightsOf(dim.id).map((i) => <li><a href={curls.guidance(i.id)}>Guidance: {i.title.toLowerCase()}</a></li>)}
+          </ul>
+        </div>
+      </div>
+      <p class="risk-notice">{C.notice}</p>
+    </div>
+  </section>
+)}
