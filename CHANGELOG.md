@@ -1,3 +1,10 @@
+# [1.5.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.4.0...v1.5.0) (2026-09-23)
+
+
+### Features
+
+* **site:** colour means severity rank, shape means engine ([b48ab5d](https://github.com/AnthusAI/Biased-Decisions/commit/b48ab5d298373f8555da8dec3a8a56ab2772e87e))
+
 # [1.4.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.3.1...v1.4.0) (2026-09-23)
 
 
