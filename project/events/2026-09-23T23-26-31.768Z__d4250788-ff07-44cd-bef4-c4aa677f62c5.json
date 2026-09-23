@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "event_id": "d4250788-ff07-44cd-bef4-c4aa677f62c5",
+  "issue_id": "BD-bd30a1aa-3a38-4007-96e4-ca53bad3de64",
+  "event_type": "issue_created",
+  "occurred_at": "2026-09-23T23:26:31.768Z",
+  "actor_id": "home",
+  "payload": {
+    "title": "Plain-language copy for the whole site, checked by Limatus and a jargon test",
+    "description": "The site used builder jargon (engine, floor, cue, excess, trope, twin) a reader could not follow. Rewrite all public copy in plain language, set up Limatus from the Anth.us profile, and fail the build on jargon.",
+    "issue_type": "story",
+    "status": "open",
+    "priority": 1,
+    "assignee": null,
+    "parent": "BD-4f83aebd-9fa3-4ac7-b820-e3a1cab1ee8b",
+    "labels": [],
+    "agent": {
+      "platform": "claude_code",
+      "model": "claude-sonnet-5",
+      "name": "claude"
+    }
+  }
+}
