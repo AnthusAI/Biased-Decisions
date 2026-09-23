@@ -23,6 +23,7 @@ from typing import Dict, List, Optional, Sequence, Set, Tuple
 
 from biased_decisions.cues.insertion import RELIGIONS
 from biased_decisions.metrics import insertion as insertion_metrics
+from biased_decisions.metrics import neutral as neutral_metrics
 from biased_decisions.metrics import shortlist as shortlist_metrics
 from biased_decisions.metrics.flips import Verdict, score_arm_race, score_pair
 from biased_decisions.metrics.shifts import score_arm_age, score_arm_race2
@@ -43,15 +44,16 @@ FULLNAME_GROUPS = ("white", "black", "hispanic", "asian")
 # for surgeon-physician and paralegal-attorney, and religion/religion-v2 were never sent to Jev.
 INSERTION_CUES: tuple = ("disability", "religion", "religion-v2")
 NOISE_FLOOR_CUES: tuple = ("ask-twice", "option-order")
+NEUTRAL_CUES: tuple = ("neutral",)
 TASK_CUES: Dict[str, tuple] = {
     "surgeon-physician": (("gender-pronouns", "race-name", "race-fullname", "age-inserted")
-                         + INSERTION_CUES + NOISE_FLOOR_CUES),
-    "nurse-physician": ("gender-pronouns",) + INSERTION_CUES + NOISE_FLOOR_CUES,
-    "teacher-professor": ("gender-pronouns",) + INSERTION_CUES + NOISE_FLOOR_CUES,
-    "paralegal-attorney": ("gender-pronouns",) + INSERTION_CUES + NOISE_FLOOR_CUES,
-    "journalist-professor": ("gender-pronouns",) + INSERTION_CUES,
-    "architect-interior-designer": ("gender-pronouns",) + INSERTION_CUES,
-    "dietitian-physician": ("gender-pronouns",) + INSERTION_CUES,
+                         + INSERTION_CUES + NOISE_FLOOR_CUES + NEUTRAL_CUES),
+    "nurse-physician": ("gender-pronouns",) + INSERTION_CUES + NOISE_FLOOR_CUES + NEUTRAL_CUES,
+    "teacher-professor": ("gender-pronouns",) + INSERTION_CUES + NOISE_FLOOR_CUES + NEUTRAL_CUES,
+    "paralegal-attorney": ("gender-pronouns",) + INSERTION_CUES + NOISE_FLOOR_CUES + NEUTRAL_CUES,
+    "journalist-professor": ("gender-pronouns",) + INSERTION_CUES + NEUTRAL_CUES,
+    "architect-interior-designer": ("gender-pronouns",) + INSERTION_CUES + NEUTRAL_CUES,
+    "dietitian-physician": ("gender-pronouns",) + INSERTION_CUES + NEUTRAL_CUES,
 }
 
 # The pairs bios_shortlist.jsonl (and this package's shortlist replay) studies: the two
@@ -404,7 +406,40 @@ def score_race_fullname(engine: str, task: Task, *, sample: Optional[str] = None
                            excluded=excluded).as_row()
 
 
+def score_neutral(engine: str, task: Task) -> dict:
+    """The neutral-pronoun control: the male-pronoun and female-pronoun versions (the as-written bio
+    and its pronoun-swapped twin, by the bio's own gender) against the two neutral rewrites."""
+    test_items = [item for item in task.load_items() if item.metadata.get("split") == "test"]
+    gender = load_answers(engine, task.slug, "gender-pronouns", root=task.root)
+    neutral = load_answers(engine, task.slug, "neutral", root=task.root)
+    by_source: Dict[str, Dict[str, float]] = {}
+    for item in test_items:
+        g = item.metadata.get("gender")
+        if g not in ("male", "female"):
+            continue
+        written, swapped = gender.get(item.id), gender.get(f"{item.id}-swapped")
+        if written is None or swapped is None:
+            continue
+        p_written = float(written["probabilities"][task.positive])
+        p_swapped = float(swapped["probabilities"][task.positive])
+        arms = {"he": p_written, "she": p_swapped} if g == "male" else {"he": p_swapped, "she": p_written}
+        for version in ("blank", "they"):
+            answer = neutral.get(f"{item.id}-neutral-{version}")
+            if answer is not None:
+                arms[version] = float(answer["probabilities"][task.positive])
+        by_source[item.id] = arms
+    if not by_source:
+        raise ScoreError(f"no gender-pronouns answers for ({engine!r}, {task.slug!r})")
+    dropped = {v: sum(1 for arms in by_source.values() if v not in arms) for v in ("blank", "they")}
+    metrics = neutral_metrics.score_neutral_cue(engine=engine, task=task.slug, positive=task.positive,
+                                                by_source=by_source, dropped=dropped)
+    if metrics.n == 0:
+        raise ScoreError(f"no bio has all four arms for ({engine!r}, {task.slug!r})")
+    return metrics.as_row()
+
+
 SCORERS = {
+    "neutral": score_neutral,
     "gender-pronouns": score_gender_pronouns,
     "race-name": score_race_name,
     "race-fullname": score_race_fullname,
