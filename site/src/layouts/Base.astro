@@ -24,9 +24,8 @@ const caveatLinks = { data: urls.data() };
 const light = engines.map((e) => `--eng-${e.id}: ${e.color};`).join(" ");
 const dark = engines.map((e) => `--eng-${e.id}: ${e.color_dark || e.color};`).join(" ");
 const engineCss = `:root { ${light} }
-@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { ${dark} } }
-:root[data-theme="dark"] { ${dark} }
-@media print { :root, :root:not([data-theme="light"]), :root[data-theme="dark"] { ${light} } }`;
+@media (prefers-color-scheme: dark) { :root { ${dark} } }
+@media print { :root { ${light} } }`;
 const payload = charts ? JSON.stringify({ engines: engines.map(({ id, label, marker }) => ({ id, label, marker })), charts }).replace(/</g, "\\u003c") : null;
 const favicon = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' rx='3' fill='%230c1e2b'/%3E%3Crect x='3' y='9' width='3' height='4' fill='%230389d7'/%3E%3Crect x='7' y='3' width='3' height='10' fill='%23d03382'/%3E%3Crect x='11' y='6' width='2' height='7' fill='%238a949c'/%3E%3C/svg%3E";
 ---
@@ -64,7 +63,6 @@ const favicon = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' vi
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jersey+25&family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap">
 <link rel="icon" href={favicon}>
 <link rel="alternate" type="application/json" href={urls.data()} title="The leaderboard data file">
-<script is:inline>try{var t=localStorage.getItem("bd-theme");if(t==="light"||t==="dark")document.documentElement.dataset.theme=t}catch(e){}</script>
 <style is:inline set:html={engineCss}></style>
 </head>
 <body>
@@ -85,7 +83,6 @@ const favicon = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' vi
         <a href={urls.methods()} class={current.page === "methods" ? "on" : null} aria-current={current.page === "methods" ? "page" : undefined}>Methods</a>
         <a href={curls.howToFail()} class={current.page === "how-to-fail" ? "on" : null} aria-current={current.page === "how-to-fail" ? "page" : undefined}>How to fail</a>
         <a href={curls.guidance()} class={current.page === "guidance" ? "on" : null} aria-current={current.page === "guidance" ? "page" : undefined}>Guidance</a>
-        <button type="button" class="theme-toggle" aria-pressed="false">Dark</button>
       </nav>
     </div>
     <div class="wrap">

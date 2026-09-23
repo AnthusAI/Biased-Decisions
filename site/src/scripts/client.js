@@ -1,31 +1,7 @@
 // The only script every page runs. The page itself is static HTML built from the data contract;
-// this draws its charts (from the JSON payload the page carries, so nothing is fetched), wires the
-// theme toggle, and opens a <details> the URL's #fragment points at.
+// this draws its charts (from the JSON payload the page carries, so nothing is fetched) and opens
+// a <details> the URL's #fragment points at.
 import { responsive, heroMatrix, boardChart, spider, intervalStrip, legend, versusFloor, forest } from "./charts.js";
-
-function currentTheme() {
-  const t = document.documentElement.dataset.theme;
-  if (t) return t;
-  return window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
-}
-
-function initThemeToggle() {
-  const btn = document.querySelector(".theme-toggle");
-  if (!btn) return;
-  const sync = () => {
-    const dark = currentTheme() === "dark";
-    btn.setAttribute("aria-pressed", String(dark));
-    btn.setAttribute("aria-label", dark ? "Switch to light theme" : "Switch to dark theme");
-    btn.textContent = dark ? "Light" : "Dark";
-  };
-  btn.addEventListener("click", () => {
-    const next = currentTheme() === "dark" ? "light" : "dark";
-    document.documentElement.dataset.theme = next;
-    try { localStorage.setItem("bd-theme", next); } catch (_) { /* storage blocked */ }
-    sync();
-  });
-  sync();
-}
 
 function mountCharts() {
   const node = document.getElementById("bd-charts");
@@ -69,7 +45,6 @@ function openFragment() {
   if (target && target.tagName === "DETAILS") target.open = true;
 }
 
-initThemeToggle();
 mountCharts();
 openFragment();
 window.addEventListener("hashchange", openFragment);
