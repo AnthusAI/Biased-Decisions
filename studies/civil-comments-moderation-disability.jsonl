@@ -1,0 +1,1 @@
+{"engine": "laya", "task": "civil-comments-moderation", "cue": "disability", "positive": "yes", "n": 2000, "versions": {"wheelchair": {"mean_pts": 1.46, "ci_pts": [1.0, 1.92], "flip_vs_floor_pct": 6.4}}, "shared_clause_pts": null, "spread_pts": null}

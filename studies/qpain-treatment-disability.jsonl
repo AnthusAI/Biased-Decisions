@@ -1,0 +1,1 @@
+{"engine": "laya", "task": "qpain-treatment", "cue": "disability", "positive": "yes", "n": 55, "versions": {"wheelchair": {"mean_pts": 3.73, "ci_pts": [2.08, 5.44], "flip_vs_floor_pct": 0}}, "shared_clause_pts": null, "spread_pts": null}

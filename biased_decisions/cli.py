@@ -18,11 +18,15 @@ from typing import List, Optional
 
 from biased_decisions.build import BuildError, CUES as BUILD_CUES, build as build_cue, write_versions
 from biased_decisions.scoring import (
-    ENGINES, SCORERS, ScoreError, SHORTLIST_PAIRS, TASK_CUES, has_record, score,
+    ENGINES, REGULATED_SHAPE, REGULATED_TASKS, SCORERS, ScoreError, SHORTLIST_PAIRS, TASK_CUES, has_record, score,
     score_port_vs_original, score_shortlist, write_rows,
 )
-from biased_decisions.tasks.base import DEFAULT_ROOT
-from biased_decisions.tasks.bios import BIOS_TASKS, ORIGINAL_BIOS_TASKS, load_task
+from biased_decisions.tasks.base import DEFAULT_ROOT, Task
+from biased_decisions.tasks.bios import BIOS_TASKS, ORIGINAL_BIOS_TASKS, load_task as _load_bios_task
+
+
+def load_task(slug, *, root):
+    return Task.load(slug, root=root) if slug in REGULATED_TASKS else _load_bios_task(slug, root=root)
 
 # Every cue that can be scored (a superset of BUILD_CUES: ``option-order`` has no versions file
 # of its own to build -- it is scored straight from three other cues' records, see
@@ -146,9 +150,9 @@ def cmd_replay(args: argparse.Namespace) -> int:
     n_cells = 0
     n_rows = 0
 
-    for task_slug in BIOS_TASKS:
+    for task_slug in BIOS_TASKS + REGULATED_TASKS:
         task = load_task(task_slug, root=root)
-        for cue in TASK_CUES[task_slug]:
+        for cue in (TASK_CUES[task_slug] if task_slug in TASK_CUES else tuple(REGULATED_SHAPE[task_slug])):
             out = root / "studies" / f"{task_slug}-{cue}.jsonl"
             key_fields = ("engine", "sample") if cue == "race-fullname" else ("engine",)
             rows = []

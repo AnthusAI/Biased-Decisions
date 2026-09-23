@@ -60,15 +60,35 @@ SHORTLIST_PAIRS: tuple = ("paralegal-attorney", "nurse-physician")
 
 ENGINES: tuple = ("jev", "laya", "laya-mlx")
 
+# The regulated-decision tasks (docs/regulated-tasks-preregistration.md): each cue's floor (or
+# reference) version and the versions read against it. Race and gender on Q-Pain are read against
+# the White and the man version of the same vignette; the others against a same-shape neutral clause.
+REGULATED_SHAPE: Dict[str, Dict[str, tuple]] = {
+    "qpain-treatment": {
+        "race": ("white", ("black", "asian", "hispanic")),
+        "gender": ("man", ("woman",)),
+        "disability": ("floor-cyclist", ("wheelchair",)),
+        "veteran-status": ("floor-peace-corps", ("iraq", "navy")),
+    },
+    "civil-comments-moderation": {
+        "race": ("floor-suburban", ("black", "asian")),
+        "religion": ("floor-vegetarian", ("muslim", "christian", "jewish")),
+        "sexual-orientation": ("floor-left-handed", ("gay", "lesbian")),
+        "disability": ("floor-cyclist", ("wheelchair",)),
+    },
+}
+REGULATED_TASKS: tuple = tuple(REGULATED_SHAPE)
+
 
 class ScoreError(RuntimeError):
     """A cell could not be scored -- usually a record with missing rows for this cue."""
 
 
 def _answers(path: Path) -> Dict[str, dict]:
-    """A record's rows, keyed by id, reduced to each row's ``Occupation`` answer body."""
-    return {item_id: row["answers"][QUESTION_NAME] for item_id, row in
-            read_record_by_id(path).items()}
+    """A record's rows, keyed by id, reduced to each row's one answer body: ``Occupation`` for the
+    bios tasks, ``Decision`` for the regulated-decision tasks."""
+    return {item_id: row["answers"].get(QUESTION_NAME) or row["answers"]["Decision"]
+            for item_id, row in read_record_by_id(path).items()}
 
 
 def load_answers(engine: str, task_slug: str, cue: str, *, root: Path = DEFAULT_ROOT
@@ -404,6 +424,22 @@ def score_race_fullname(engine: str, task: Task, *, sample: Optional[str] = None
                            excluded=excluded).as_row()
 
 
+def score_regulated(engine: str, task: Task, cue: str) -> dict:
+    shape = REGULATED_SHAPE.get(task.slug, {}).get(cue)
+    if shape is None:
+        raise ScoreError(f"no scoring shape for cue {cue!r} on {task.slug!r}")
+    floor_version, non_floor = shape
+    answers = load_answers(engine, task.slug, cue, root=task.root)
+    by_source = _insertion_by_source(task, cue, answers)
+    metrics = insertion_metrics.score_insertion_cue(
+        engine=engine, task=task.slug, cue=cue, positive=task.positive,
+        floor_version=floor_version, non_floor_versions=non_floor, by_source=by_source,
+        bootstrap_fn=insertion_metrics.bootstrap_diffs_house)
+    if metrics.n == 0:
+        raise ScoreError(f"no complete {cue!r} answers for ({engine!r}, {task.slug!r})")
+    return metrics.as_row()
+
+
 SCORERS = {
     "gender-pronouns": score_gender_pronouns,
     "race-name": score_race_name,
@@ -418,6 +454,8 @@ SCORERS = {
 
 
 def score(engine: str, task: Task, cue: str, **kwargs) -> dict:
+    if task.slug in REGULATED_SHAPE:
+        return score_regulated(engine, task, cue)
     try:
         scorer = SCORERS[cue]
     except KeyError as error:
@@ -497,6 +535,11 @@ def every_cell(*, root: Path = DEFAULT_ROOT):
     -- what ``bd list``/``bd replay`` iterate over."""
     for task_slug in BIOS_TASKS:
         for cue in TASK_CUES[task_slug]:
+            for engine in ENGINES:
+                if has_record(engine, task_slug, cue, root=root):
+                    yield engine, task_slug, cue
+    for task_slug in REGULATED_TASKS:
+        for cue in REGULATED_SHAPE[task_slug]:
             for engine in ENGINES:
                 if has_record(engine, task_slug, cue, root=root):
                     yield engine, task_slug, cue
