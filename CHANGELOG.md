@@ -1,3 +1,10 @@
+# [1.16.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.15.1...v1.16.0) (2026-09-23)
+
+
+### Features
+
+* Limatus for the site's copy, set up from the Anth.us profile ([a9a2320](https://github.com/AnthusAI/Biased-Decisions/commit/a9a232067496311892e02d079332a5fc38cc3360))
+
 ## [1.15.1](https://github.com/AnthusAI/Biased-Decisions/compare/v1.15.0...v1.15.1) (2026-09-23)
 
 
