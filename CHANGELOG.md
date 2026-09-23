@@ -1,3 +1,10 @@
+# [1.3.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.2.0...v1.3.0) (2026-09-23)
+
+
+### Features
+
+* **site:** rewrite the caveats panel as six plain-language cards ([e577146](https://github.com/AnthusAI/Biased-Decisions/commit/e577146c19caa41f56b7cc17b0dd1e635e7b9d04)), closes [#read-first](https://github.com/AnthusAI/Biased-Decisions/issues/read-first)
+
 # [1.2.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.1.0...v1.2.0) (2026-09-23)
 
 
