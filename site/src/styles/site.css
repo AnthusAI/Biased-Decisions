@@ -407,15 +407,19 @@ details.cell > *:not(summary) { margin-left: 18px; margin-right: 18px; }
 .mx.det { background: color-mix(in srgb, var(--c) calc(var(--v) * 70%), var(--surface)); border-color: color-mix(in srgb, var(--c) 60%, var(--rule)); }
 .mx.det .mx-e { color: var(--ink); }
 .mx.nd { border-style: dashed; }
-.mx.nd .mx-v, .mx.rev .mx-v { color: var(--muted); }
-.mx.rev { background: var(--below-floor); border-style: dotted; }
+.mx.nd .mx-v { color: var(--muted); }
+.mx.rev { background: repeating-linear-gradient(135deg, color-mix(in srgb, var(--c) calc(var(--v) * 70%), var(--surface)) 0 6px, color-mix(in srgb, var(--c) calc(var(--v) * 45%), var(--surface)) 6px 9px); border-color: color-mix(in srgb, var(--c) 60%, var(--rule)); border-style: solid; }
+.mx.rev .mx-v { color: var(--ink); }
+.mx.unat { background: var(--surface); border: 2px dashed var(--muted); }
+.mx.unat .mx-v { color: var(--ink); }
 .mx.miss { background: repeating-linear-gradient(135deg, var(--hatch-a) 0 2px, transparent 2px 7px); border-style: dashed; }
 .mx.miss .mx-v { color: var(--muted); }
 .mx-key { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; }
 .mx-sw { display: inline-block; width: 16px; height: 12px; border-radius: 3px; border: 1px solid var(--rule); background: var(--surface); vertical-align: -1px; }
-.mx-sw.det { background: color-mix(in srgb, var(--eng-laya) 55%, var(--surface)); }
+.mx-sw.det { background: color-mix(in srgb, var(--alarm) 55%, var(--surface)); }
+.mx-sw.rev { background: repeating-linear-gradient(135deg, color-mix(in srgb, var(--alarm) 55%, var(--surface)) 0 3px, color-mix(in srgb, var(--alarm) 30%, var(--surface)) 3px 5px); }
+.mx-sw.unat { border: 2px dashed var(--muted); }
 .mx-sw.nd { border-style: dashed; }
-.mx-sw.rev { background: var(--below-floor); border-style: dotted; border-color: var(--floor); }
 .mx-sw.miss { background: repeating-linear-gradient(135deg, var(--hatch-a) 0 2px, transparent 2px 5px); border-style: dashed; }
 
 /* Forest chart */
