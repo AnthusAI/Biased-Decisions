@@ -7,14 +7,17 @@
   "priority": 2,
   "assignee": null,
   "creator": null,
-  "parent": "BD-250c97a3-6ae4-4061-8d67-dbfd02bf9549",
+  "parent": "BD-8711caaf-17a6-4c26-a826-496dfd6bae82",
   "labels": [],
   "dependencies": [],
   "comments": [],
   "created_at": "2026-09-23T15:42:06.166924Z",
-  "updated_at": "2026-09-23T15:42:06.166950Z",
+  "updated_at": "2026-09-23T15:44:04.366301Z",
   "closed_at": null,
-  "right_now_summary": "The evaluation is being extended with clause cues and same-shape floors while its licence is checked.",
-  "right_now_updated_at": "2026-09-23T15:42:09.537024Z",
-  "custom": {}
+  "right_now_summary": "The team plans to extend discrim-eval with cue and floor tests and verify its license.",
+  "right_now_updated_at": "2026-09-23T15:44:07.090303Z",
+  "custom": {
+    "project_label": "BD",
+    "source": "shared"
+  }
 }

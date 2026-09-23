@@ -10,11 +10,22 @@
   "parent": "BD-250c97a3-6ae4-4061-8d67-dbfd02bf9549",
   "labels": [],
   "dependencies": [],
-  "comments": [],
+  "comments": [
+    {
+      "id": "3bc76c5b-e238-45a4-a3c7-5e48e4ebc911",
+      "author": "home",
+      "text": "Licence-verified ranking from docs/datasets-survey.md: 1 CFPB Servicemember (veteran, native), 2 CFPB Older American (age, native), 3 Q-Pain (CC BY-SA 4.0, ShareAlike on derived files), 4 Civil Comments (CC0; moderation task type), 5 discrim-eval loan/lease scenarios (CC-BY-4.0, templated, companion arm only), 6 South German Credit (CC BY 4.0, triangulation), 7 Lending Club desc text (blocked: confirm licence), 8 HUD same-sex/transgender paired-testing files (contingent on narrative text). Kiva licence unconfirmed. Start with 1-4.",
+      "created_at": "2026-09-23T15:44:19.993487Z",
+      "comment_type": "default"
+    }
+  ],
   "created_at": "2026-09-23T15:41:55.318382Z",
-  "updated_at": "2026-09-23T15:41:55.318651Z",
+  "updated_at": "2026-09-23T15:44:19.993505Z",
   "closed_at": null,
-  "right_now_summary": "The team is expanding tasks across dimensions, datasets, and regulated decision domains.",
-  "right_now_updated_at": "2026-09-23T15:41:58.129354Z",
-  "custom": {}
+  "right_now_summary": "The team is selecting licensed datasets to add regulated decision tasks across more domains and dimensions.",
+  "right_now_updated_at": "2026-09-23T15:44:22.526487Z",
+  "custom": {
+    "project_label": "BD",
+    "source": "shared"
+  }
 }
