@@ -1,3 +1,10 @@
+# [1.10.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.9.0...v1.10.0) (2026-09-23)
+
+
+### Features
+
+* **site:** add Google Analytics 4 tag in production builds ([d1298c3](https://github.com/AnthusAI/Biased-Decisions/commit/d1298c33e9762ba5d8559e991efbfb3190044b5c))
+
 # [1.9.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.8.0...v1.9.0) (2026-09-23)
 
 
