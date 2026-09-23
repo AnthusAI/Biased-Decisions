@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "built_at": "2026-09-23T11:49:55Z",
+  "built_at": "2026-09-23T11:59:39Z",
   "file_mtimes": {
     "BD-2d6909ec-b530-412b-84e6-2fe2f0978fde.json": 1790164089.129412,
     "BD-431125d5-7275-4ffc-bafe-b13212a0dfe5.json": 1790164123.333002,
@@ -8,8 +8,9 @@
     "BD-45c20012-a076-4841-90de-dda5219badec.json": 1790164168.004249,
     "BD-4d86cffe-b0df-44a9-b4ce-2074c5d30289.json": 1790164195.424731,
     "BD-5dadcd25-19ca-434f-8ee1-1392bd38ad2b.json": 1790164084.186215,
+    "BD-8781ddac-8725-4e87-80fd-7e9ddaa4bc09.json": 1790164779.090578,
     "BD-87d960e1-975a-46c6-8114-7d66cbbd8afa.json": 1790164193.95101,
-    "BD-a2738191-15f6-4c20-b616-e7a45ab75822.json": 1790163510.983353,
+    "BD-a2738191-15f6-4c20-b616-e7a45ab75822.json": 1790164205.542166,
     "BD-a6f0268a-82ca-4017-9b8e-44a27dd9fde5.json": 1790164152.980518,
     "BD-b5d1254a-7b4d-4703-920a-5d3e4965c796.json": 1790164138.838504,
     "BD-bfec5ea5-f4f4-4a1a-8c07-97ec1afa1cd0.json": 1790164091.107743,
@@ -175,6 +176,30 @@
       "custom": {}
     },
     {
+      "id": "BD-8781ddac-8725-4e87-80fd-7e9ddaa4bc09",
+      "title": "Measure bias in fast decision models, on any hardware, with replayable evidence",
+      "description": "The whole programme. A public benchmark of System 1 decision models (text in, typed question, a probability per option, no reasoning): causal counterfactuals on real text with control floors, reported in the decision's own currency, replayed offline from a committed answer record. Three strands: the harness and its record, the studies that produce the numbers, and the engines it covers.",
+      "type": "initiative",
+      "status": "open",
+      "priority": 2,
+      "assignee": null,
+      "creator": null,
+      "parent": null,
+      "labels": [],
+      "dependencies": [],
+      "comments": [],
+      "created_at": "2026-09-23T11:59:36.415262Z",
+      "updated_at": "2026-09-23T11:59:36.415306Z",
+      "closed_at": null,
+      "agent": {
+        "platform": "claude-code",
+        "model": "claude-fable-5-1"
+      },
+      "right_now_summary": "The programme is defining a replayable benchmark to measure bias in fast decision models.",
+      "right_now_updated_at": "2026-09-23T11:59:39.090370Z",
+      "custom": {}
+    },
+    {
       "id": "BD-87d960e1-975a-46c6-8114-7d66cbbd8afa",
       "title": "Cross-hardware runner: engine extras, device auto-detect, one command",
       "description": "Copy the lm-evaluation-harness pattern: named backends, pip extras per engine, --device auto/mps/cpu/cuda, ONNX or GGUF fallback where a model ships one, a smoke test that loads each installed engine on one text. Document CUDA-only engines (NanoJev, Geni-S1-Ops, DiffusionGemma-derived) as not runnable here.",
@@ -212,17 +237,29 @@
       "parent": null,
       "labels": [],
       "dependencies": [],
-      "comments": [],
+      "comments": [
+        {
+          "id": "0d043145-44d3-43f0-b33c-9d1e653925ca",
+          "author": "home",
+          "text": "Shape is fixed: tasks/<slug>/items.jsonl plus question.yaml with ordered options; the CLI does not yet ingest an arbitrary corpus.",
+          "created_at": "2026-09-23T11:50:03.268999Z",
+          "comment_type": "default",
+          "agent": {
+            "platform": "claude-code",
+            "model": "claude-fable-5-1"
+          }
+        }
+      ],
       "created_at": "2026-09-23T11:38:27.752625Z",
-      "updated_at": "2026-09-23T11:38:30.983198Z",
+      "updated_at": "2026-09-23T11:50:03.269025Z",
       "closed_at": null,
       "agent": {
         "platform": "claude-code",
         "model": "claude-fable-5-1",
         "name": "Kanbus Setup Agent"
       },
-      "right_now_summary": null,
-      "right_now_updated_at": null,
+      "right_now_summary": "The input format is set, but the CLI still cannot run evaluations on arbitrary datasets.",
+      "right_now_updated_at": "2026-09-23T11:50:05.541977Z",
       "custom": {}
     },
     {
