@@ -5,7 +5,6 @@ import EngineName from "../components/EngineName.astro";
 import { C, curls, isRegulated, regulatedDims, evidence } from "../lib/compliance.js";
 import { data, engines, dimensions, engineById, urls, heroPayload, engineSeries, globalSpiderMax, shortLabel,
   fmt, signed, unit, largestBias } from "../lib/site.js";
-import { rankText } from "../scripts/util.js";
 
 const nDims = dimensions.length;
 const nCells = dimensions.reduce((a, d) => a + Object.values(d.cells).filter((c) => c.status === "measured").length, 0);
@@ -25,21 +24,35 @@ const charts = {
   ...Object.fromEntries(engines.map((en) => [`spider-${en.id}`, { type: "spider", axes, series: [engineSeries(en.id)], max, compact: true,
     label: `${en.label}: excess over the floor on every dimension` }])),
 };
+const topValue = {};
+for (const d of dimensions) topValue[d.id] = Math.max(0, ...engines.map((e) => (d.cells[e.id].status === "measured" && d.cells[e.id].detected ? d.cells[e.id].headline.value : 0)));
 function coverage(row) {
+  const en = engineById[row.engine].label;
   return dimensions.map((d) => {
-    let cls, txt, desc;
-    if (row.unmeasured.includes(d.id)) { cls = "miss"; txt = ""; desc = "not measured"; }
-    else if (row.sole_engine.includes(d.id)) { cls = "sole"; txt = "only"; desc = "only engine measured, not ranked"; }
-    else {
-      const pos = row.positions[d.id];
-      const nd = row.not_detected.includes(d.id);
-      cls = nd ? "nd" : pos <= 1.5 ? "r1" : "r2";
-      txt = rankText(pos);
-      desc = nd ? `no bias detected, rank ${txt}` : `rank ${txt}`;
+    const c = d.cells[row.engine];
+    let cls, txt = "", desc, worst = false, sole = false, v = 0;
+    if (row.unmeasured.includes(d.id)) { cls = "miss"; desc = "not measured"; }
+    else if (row.sole_engine.includes(d.id)) {
+      sole = true;
+      if (c.detected) {
+        const val = c.headline.value, all = Math.max(...Object.values(topValue));
+        v = Math.max(0.12, val / all);
+        cls = `det${v > 0.55 ? " hi" : ""}`; txt = signed(val);
+        desc = `${en} ${signed(val)} points over the floor; the only engine measured here, so not ranked`;
+      } else { cls = "nd"; txt = "none"; desc = "the only engine measured here; no bias detected at this floor"; }
     }
-    return { d, cls, txt, desc };
+    else if (c.detected) {
+      const val = c.headline.value;
+      v = topValue[d.id] > 0 ? Math.max(0.12, val / topValue[d.id]) : 0;
+      worst = val === topValue[d.id];
+      cls = `det${v > 0.55 ? " hi" : ""}`;
+      txt = signed(val);
+      desc = `${en} ${signed(val)} points over the floor${worst ? ", the most biased engine here" : ""}`;
+    } else { cls = "nd"; txt = "none"; desc = "no bias detected at this floor"; }
+    return { d, cls, txt, desc, worst, sole, v };
   });
 }
+const worstCount = (row) => coverage(row).filter((x) => x.worst).length;
 const description = `Engines ranked by measured bias, most biased first: ${engines.length} engines, ${nDims} dimensions, every number replayed from a committed record.${best ? ` Largest: ${best.en.label}, ${signed(best.c.headline.value)} pp over the floor on ${best.d.label.toLowerCase()}.` : ""}`;
 ---
 <Base title={null} description={description} path={urls.home()} current={{ page: "overview" }} charts={charts}>
@@ -77,7 +90,7 @@ const description = `Engines ranked by measured bias, most biased first: ${engin
 
   <section class="wrap section">
     <h2 class="display">The overall board</h2>
-    <p class="lede">Engines ordered by their mean rank across the dimensions where they could be compared with another engine; rank 1 means most biased. Nothing is averaged in for a dimension an engine was never measured on.</p>
+    <p class="lede">Most biased first. Each box is the engine's largest detected bias on that board, in percentage points over its floor: <strong>darker red is worse</strong>, and "worst" marks the most biased engine there. The order is by mean rank across the boards where an engine could be compared with another; nothing is averaged in for a board it was never measured on.</p>
     <ol class="overall">
       {rows.map((r, i) => {
         const en = engineById[r.engine];
@@ -86,13 +99,13 @@ const description = `Engines ranked by measured bias, most biased first: ${engin
             <div class="ov-place" aria-label={`Place ${places[i]}`}>{places[i]}</div>
             <div class="ov-name">
               <EngineName engine={en} href={urls.engine(en.id)} />
-              <div class="ov-mean"><strong>{fmt(r.mean_rank)}</strong> mean rank across {r.ranked_on} contested dimension{r.ranked_on === 1 ? "" : "s"}</div>
+              <div class="ov-mean" title={`Ordered by mean rank ${fmt(r.mean_rank)} across ${r.ranked_on} contested boards`}>{worstCount(r) > 0 ? <Fragment>most biased on <strong>{worstCount(r)} of {r.ranked_on}</strong> boards</Fragment> : `not the most biased on any of ${r.ranked_on} boards`}</div>
               <div class="ov-mean">{largestBias(r.engine) > 0 ? <Fragment>largest bias found: <strong>{signed(largestBias(r.engine))} pts</strong></Fragment> : "no bias detected at this floor on any dimension"}</div>
               {r.incomplete && <div class="flag">Incomplete: not measured on {r.unmeasured.length} of {data.overall.n_dimensions}</div>}
             </div>
             <div class="cov">
-              {coverage(r).map(({ d, cls, txt, desc }) => (
-                <a href={urls.engineDim(r.engine, d.id)} class={`cv ${cls}`} aria-label={`${d.label}: ${desc}`}><span class="cv-d">{shortLabel(d)}</span><span class="cv-v">{txt}</span></a>
+              {coverage(r).map(({ d, cls, txt, desc, worst, sole, v }) => (
+                <a href={urls.engineDim(r.engine, d.id)} class={`cv ${cls}`} style={v > 0 ? `--v:${v.toFixed(3)}` : null} aria-label={`${d.label}: ${desc}`}><span class="cv-d">{shortLabel(d)}{worst && <span class="cv-w">worst</span>}{sole && <span class="cv-w">only one</span>}</span><span class="cv-v">{txt}</span></a>
               ))}
             </div>
           </li>
@@ -100,9 +113,10 @@ const description = `Engines ranked by measured bias, most biased first: ${engin
       })}
     </ol>
     <div class="cov-key" aria-hidden="true">
-      <span><i class="cv r1">1</i>rank on that board</span>
-      <span><i class="cv nd">1.5</i>no bias detected: shares the bottom places</span>
-      <span><i class="cv sole">only</i>only engine measured: not ranked</span>
+      <span><i class="cv det">+4</i>bias over the floor, in points; darker is worse</span>
+      <span><i class="cv det hi">+18</i>the largest on its board, tagged "worst"</span>
+      <span><i class="cv nd">none</i>no bias detected at this floor</span>
+      <span><i class="cv det">+11</i>tagged "only one": the only engine measured, so not ranked</span>
       <span><i class="cv miss"></i>not measured</span>
     </div>
     <p class="note">{data.overall.rule}</p>

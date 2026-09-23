@@ -1,0 +1,1 @@
+{"engine": "laya", "task": "civil-comments-moderation", "cue": "sexual-orientation", "positive": "yes", "n": 2000, "versions": {"gay": {"mean_pts": 2.64, "ci_pts": [2.0, 3.3], "flip_vs_floor_pct": 10.75}, "lesbian": {"mean_pts": -0.68, "ci_pts": [-1.28, -0.08], "flip_vs_floor_pct": 8.3}}, "shared_clause_pts": {"mean_pts": 0.98, "ci_pts": [0.45, 1.61]}, "spread_pts": 3.32}

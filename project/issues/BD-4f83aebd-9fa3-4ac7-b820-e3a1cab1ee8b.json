@@ -45,7 +45,7 @@
     "platform": "claude-code",
     "model": "claude-fable-5-1"
   },
-  "right_now_summary": "The site is built, but replay checks fail on race values while the team works on a fix.",
-  "right_now_updated_at": "2026-09-23T18:55:51.229518Z",
+  "right_now_summary": "The site is built, but releases fail the replay check while a race-value fix is underway.",
+  "right_now_updated_at": "2026-09-23T20:10:02.253265Z",
   "custom": {}
 }

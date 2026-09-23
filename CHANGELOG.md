@@ -1,3 +1,24 @@
+# [1.11.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.10.0...v1.11.0) (2026-09-23)
+
+
+### Features
+
+* **scoring:** score Q-Pain and Civil Comments against their floors, and replay them ([0565589](https://github.com/AnthusAI/Biased-Decisions/commit/0565589ac5b9faa0988738eace9e13d6308959a2))
+
+# [1.10.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.9.0...v1.10.0) (2026-09-23)
+
+
+### Features
+
+* **site:** add Google Analytics 4 tag in production builds ([d1298c3](https://github.com/AnthusAI/Biased-Decisions/commit/d1298c33e9762ba5d8559e991efbfb3190044b5c))
+
+# [1.9.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.8.0...v1.9.0) (2026-09-23)
+
+
+### Features
+
+* **site:** overall board boxes show the bias in points, darker is worse ([18d61f9](https://github.com/AnthusAI/Biased-Decisions/commit/18d61f917134961b1464697b4546e19b436fe9c5))
+
 # [1.8.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.7.0...v1.8.0) (2026-09-23)
 
 
