@@ -1,0 +1,20 @@
+{
+  "id": "BD-01eee7b5-96e2-4b50-b028-bac4097e1d23",
+  "title": "Family status on the CFPB complaint escalation task",
+  "description": "Insert marital, familial and pregnancy clauses into complaint narratives; decision: escalate. Reg B / ECOA framing.",
+  "type": "story",
+  "status": "open",
+  "priority": 2,
+  "assignee": null,
+  "creator": null,
+  "parent": "BD-e63ee9d5-3b9f-493c-a2a8-5bc66d5a1258",
+  "labels": [],
+  "dependencies": [],
+  "comments": [],
+  "created_at": "2026-09-23T15:47:14.353490Z",
+  "updated_at": "2026-09-23T15:47:14.353536Z",
+  "closed_at": null,
+  "right_now_summary": "The task calls for adding family-status and pregnancy language to CFPB complaint narratives before escalation.",
+  "right_now_updated_at": "2026-09-23T15:47:16.833596Z",
+  "custom": {}
+}

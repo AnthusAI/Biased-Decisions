@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "event_id": "6d9db59f-2a8d-4d33-9e14-f12794c044a8",
+  "issue_id": "BD-e63ee9d5-3b9f-493c-a2a8-5bc66d5a1258",
+  "event_type": "issue_created",
+  "occurred_at": "2026-09-23T15:46:59.570Z",
+  "actor_id": "home",
+  "payload": {
+    "title": "Marital and family status, and sexualization tropes",
+    "description": "A new dimension covering characteristics protected in regulated decisions: marital status (ECOA, Reg B), familial status (Fair Housing Act), pregnancy (Pregnancy Discrimination Act). Also sexualization tropes as they reach professional and financial judgements: hypersexualization of Black men and women, exoticization of Latina and Asian women, desexualization of Asian men, the promiscuity stereotype of bisexual people, asexual erasure, and stereotypes about single mothers, unmarried couples, pregnancy and large families. Source list: var/tropes/us-advocacy.md (to be summarised into docs).",
+    "issue_type": "epic",
+    "status": "open",
+    "priority": 2,
+    "assignee": null,
+    "parent": "BD-8781ddac-8725-4e87-80fd-7e9ddaa4bc09",
+    "labels": []
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "event_id": "bf4426d1-1e32-49f3-bb33-13197580d4b2",
+  "issue_id": "BD-f229cc17-aac2-4dae-9c22-8e0cefa8f368",
+  "event_type": "issue_created",
+  "occurred_at": "2026-09-23T15:47:22.493Z",
+  "actor_id": "home",
+  "payload": {
+    "title": "Family status on the tenant-inquiry task",
+    "description": "Insert familial status and pregnancy clauses into synthetic paired-testing rental inquiries; decision: offer a viewing. Fair Housing Act.",
+    "issue_type": "story",
+    "status": "open",
+    "priority": 2,
+    "assignee": null,
+    "parent": "BD-e63ee9d5-3b9f-493c-a2a8-5bc66d5a1258",
+    "labels": []
+  }
+}
