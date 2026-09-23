@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "event_id": "4e24e1ea-420e-4d76-b846-d371f72613ac",
+  "issue_id": "BD-ae9580ec-a620-437c-81ea-a70a4b86d8d3",
+  "event_type": "comment_added",
+  "occurred_at": "2026-09-23T16:26:44.334Z",
+  "actor_id": "home",
+  "payload": {
+    "comment_id": "ed12fa0d-c9cb-4d96-af79-81bddfc8c27c",
+    "comment_author": "home",
+    "agent": {
+      "platform": "claude_code",
+      "model": "Claude Sonnet 5",
+      "name": "Replay determinism fixer"
+    }
+  }
+}

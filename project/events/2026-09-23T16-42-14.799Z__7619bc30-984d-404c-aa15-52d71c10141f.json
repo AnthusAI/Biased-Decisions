@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "event_id": "7619bc30-984d-404c-aa15-52d71c10141f",
+  "issue_id": "BD-46601366-1119-4d0f-ad88-1de3e6b63349",
+  "event_type": "comment_added",
+  "occurred_at": "2026-09-23T16:42:14.799Z",
+  "actor_id": "home",
+  "payload": {
+    "comment_id": "8d0975e6-1021-4c44-b934-182e43c5c7ee",
+    "comment_author": "home",
+    "agent": {
+      "platform": "claude_code",
+      "model": "Claude Sonnet 5",
+      "name": "Board steward"
+    }
+  }
+}
