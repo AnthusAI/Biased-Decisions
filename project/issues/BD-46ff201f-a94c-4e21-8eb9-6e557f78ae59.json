@@ -3,7 +3,7 @@
   "title": "bd report --json: one leaderboard.json from the scored cells",
   "description": "",
   "type": "story",
-  "status": "open",
+  "status": "closed",
   "priority": 2,
   "assignee": null,
   "creator": null,
@@ -27,13 +27,13 @@
     }
   ],
   "created_at": "2026-09-23T13:03:32.659009Z",
-  "updated_at": "2026-09-23T16:20:51.956334Z",
-  "closed_at": null,
+  "updated_at": "2026-09-23T16:36:20.299948Z",
+  "closed_at": "2026-09-23T16:36:20.299916Z",
   "agent": {
     "platform": "claude-code",
     "model": "claude-fable-5-1"
   },
-  "right_now_summary": "`bd report --json` is being built to combine scored cells into one byte-accurate `leaderboard.json`.",
-  "right_now_updated_at": "2026-09-23T16:20:54.229354Z",
+  "right_now_summary": "bd report --json is being built to combine scored cells into one byte-accurate leaderboard.json.",
+  "right_now_updated_at": "2026-09-23T16:36:22.956881Z",
   "custom": {}
 }

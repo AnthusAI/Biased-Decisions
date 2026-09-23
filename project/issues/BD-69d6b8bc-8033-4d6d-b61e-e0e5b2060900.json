@@ -33,7 +33,7 @@
     "platform": "claude-code",
     "model": "claude-fable-5-1"
   },
-  "right_now_summary": "Laya’s tests ran, but all predictions failed; results are uncommitted, and Jev awaits priced approval.",
-  "right_now_updated_at": "2026-09-23T16:35:47.668Z",
+  "right_now_summary": "Laya’s tests found no predicted effects; results await commit, and Jev awaits priced approval.",
+  "right_now_updated_at": "2026-09-23T16:36:00.171661Z",
   "custom": {}
 }

@@ -3,7 +3,7 @@
   "title": "Verify the trope surveys against their sources",
   "description": "Check every cited URL in the US and global surveys; keep only supported entries; record removals.",
   "type": "story",
-  "status": "open",
+  "status": "closed",
   "priority": 2,
   "assignee": null,
   "creator": null,
@@ -25,14 +25,14 @@
     }
   ],
   "created_at": "2026-09-23T15:57:05.418280Z",
-  "updated_at": "2026-09-23T16:22:27.191768Z",
-  "closed_at": null,
+  "updated_at": "2026-09-23T16:36:07.325025Z",
+  "closed_at": "2026-09-23T16:36:07.324977Z",
   "agent": {
     "platform": "claude_code",
     "model": "Claude Opus 5.5",
     "name": "Biased-Decisions coordinator"
   },
-  "right_now_summary": "The US and global trope surveys are checked against sources, and unsupported entries are removed and logged.",
-  "right_now_updated_at": "2026-09-23T16:22:29.757312Z",
+  "right_now_summary": "The US and global trope surveys are checked against their sources, with unsupported entries removed and logged.",
+  "right_now_updated_at": "2026-09-23T16:36:09.889978Z",
   "custom": {}
 }

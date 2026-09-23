@@ -18,8 +18,8 @@
     "platform": "claude-code",
     "model": "claude-fable-5-1"
   },
-  "right_now_summary": "The benchmark is live with published studies, while a race-fullname build bug is being fixed.",
-  "right_now_updated_at": "2026-09-23T16:35:51.335347Z",
+  "right_now_summary": "The benchmark is live, with published results and replay checks, while new studies and a build fix continue.",
+  "right_now_updated_at": "2026-09-23T16:36:14.846359Z",
   "custom": {
     "project_label": "BD",
     "source": "shared"
