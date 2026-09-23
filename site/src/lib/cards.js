@@ -1,19 +1,21 @@
 // The words and numbers on every page's social card (docs/social-cards.md). og.js draws them;
 // Base.astro puts the card's URL, alt text, title and description in the page's metadata.
 //
-// A card is { template, headline, number?, numberNote?, rows[{engine?, text}], note?, stamp }:
-// the headline (element 1), the number with its floor (element 2), and either runners-up or the
-// pre-registered outcome (element 3). The model is always the grammatical subject; the floor is
-// always stated; an engine whose interval includes the floor is "no bias detected at this floor",
-// never zero.
+// A card is { template, headline, number?, numberNote?, bars?, rows[{engine?, text}], note?, stamp }:
+// the headline (element 1), the number with the harmless edit it is read against, or bars
+// (element 2), and a line or two of context (element 3). The model is always the grammatical
+// subject and the sentence says what it did; a model whose range includes zero is "no clear
+// effect", never zero. Words follow docs/plain-language.md.
 import { createHash } from "node:crypto";
 import { data, engines, engineById, dimensions, urls, levelPath, groupOf, itemOf, cellOf, multiGroup,
-  multiItem, unit, fmt, signed, int, plural, largestBias, isNonHiring, NON_HIRING_ITEMS } from "./site.js";
+  multiItem, unit, fmt, signed, int, plural, largestBias, isNonHiring, cellOf as cellAt, facetUnit, isRate, taskWord, taskLabel,
+  changeWhen, textsOf, kindWord } from "./site.js";
 
 const rel = data.provenance.release;
 export const STAMP = rel.released ? `v${rel.version} · ${rel.date}` : `v${rel.version} · unreleased`;
 
 const E = (id) => engineById[id].label;
+const cap = (s) => s.charAt(0).toUpperCase() + s.slice(1);
 const lower = (s) => s.charAt(0).toLowerCase() + s.slice(1);
 const ordinal = (n) => `${n}${n % 10 === 1 && n % 100 !== 11 ? "st" : n % 10 === 2 && n % 100 !== 12 ? "nd" : n % 10 === 3 && n % 100 !== 13 ? "rd" : "th"}`;
 const q = (s) => `“${s}”`;
@@ -22,30 +24,20 @@ const q = (s) => `“${s}”`;
 const TROPE_WORD = { greed: "greedy", violence: "violent", arrogance: "arrogant",
   worldliness: "ignorant of the world", diligence: "hardworking", honesty: "honest" };
 
-// What an engine does at one (group, item) position of a dimension, with the engine as subject.
+// What an engine does at one (group, item) position of a dimension, with the engine as subject:
+// "Laya changes its paralegal-or-attorney answer when only the pronouns change".
 export function doesAt(dim, groupId, itemId, engineId) {
   const en = E(engineId);
   const g = groupId ? groupOf(dim, groupId).label : null;
-  const task = itemId ? itemOf(dim, itemId).label : null;
-  switch (dim.id) {
-    case "religion":
-    case "nationality":
-      if (itemId && itemOf(dim, itemId).trope) return `${en} moves toward ${q(TROPE_WORD[itemId] || itemOf(dim, itemId).label)} when a bio says ${q(g)}`;
-      return `${en} shifts its ${task} call when a bio says ${q(g)}`;
-    case "race":
-      if (groupId === "black-first-name") return `${en} flips its ${task} call when a white first name becomes a Black one`;
-      if (itemId === "surgeon-physician") return `${en} shifts its ${task} call for ${g} full names`;
-      return `${en} shifts its ${task} answer when the ${itemId === "civil-comments-moderation" ? "comment opens" : "vignette names"} ${g}`;
-    case "sexuality": return `${en} shifts its comment-removal call when a comment opens "As a ${g.toLowerCase()} person,"`;
-    case "veteran": return `${en} shifts its prescribing call for a ${g.toLowerCase()}`;
-    case "gender":
-      if (itemId === "qpain-treatment") return `${en} shifts its prescribing call when the vignette's patient is a woman`;
-      return `${en} flips its ${task} call when the pronouns swap`;
-    case "age": return `${en} flips its ${task} call when a bio says 61, not 34`;
-    case "disability": return `${en} shifts its ${task} call when a ${NON_HIRING_ITEMS.includes(itemId) ? "text" : "bio"} says ${q("a wheelchair user")}`;
-    case "option-order": return `${en} changes its ${task} call when the options swap places`;
-    default: return `${en} moves on ${dim.label.toLowerCase()}${task ? `, ${task}` : ""}`;
-  }
+  const item = itemId ? itemOf(dim, itemId) : null;
+  if (item && item.trope && g) return `${en} leans toward calling a person ${q(TROPE_WORD[itemId] || item.label)} when a bio says ${q(g)}`;
+  const task = item ? taskWord(itemId, item.label) : null;
+  const when = changeWhen(dim, groupId, itemId);
+  const cell = itemId ? cellAt(dim, groupId, itemId) : null;
+  const f = cell ? cell.engines[engineId] : null;
+  const answer = task ? `its ${task} answer` : "its answer";
+  if (isRate(facetUnit(dim, f))) return `${en} changes ${answer} ${when}`;
+  return `${en} changes how sure it is of ${answer} ${when}`;
 }
 
 // The (group, item) a level head's headline facet points at.
@@ -76,42 +68,43 @@ export function dimPositionOf(dim, engineId) {
   return [null, f || (bd.items[0] && bd.items[0].id)];
 }
 
-const floorText = (dim, floorValue) => `over a floor of ${fmt(floorValue)}${unit(dim) === "%" ? "%" : " pts"}`;
+// The number's note: what the number counts, the harmless edit it is read against, and where.
+const floorText = (dim, floorValue) => `percentage points beyond a harmless edit, which moved ${fmt(floorValue)}`;
 
 // Runners-up from a board: every engine but the leader, ranked, then not detected, then missing.
 function runners(board, skip, withN = true) {
   const rows = [];
-  for (const r of board.ranked) if (r.engine !== skip) rows.push({ engine: r.engine, text: `${E(r.engine)} ${signed(r.value)} pts` });
-  for (const r of board.not_detected) if (r.engine !== skip) rows.push({ engine: r.engine, text: `${E(r.engine)}: no bias detected at this floor${withN ? ` (n = ${int(r.n)})` : ""}` });
-  for (const id of board.unmeasured) if (id !== skip) rows.push({ engine: id, text: `${E(id)}: not measured` });
+  for (const r of board.ranked) if (r.engine !== skip) rows.push({ engine: r.engine, text: `${E(r.engine)} ${signed(r.value)} points` });
+  for (const r of board.not_detected) if (r.engine !== skip) rows.push({ engine: r.engine, text: `${E(r.engine)}: no clear effect${withN ? `, in ${int(r.n)} texts` : ""}` });
+  for (const id of board.unmeasured) if (id !== skip) rows.push({ engine: id, text: `${E(id)}: not tested` });
   return rows;
 }
 
 function barsOf(board, limit = 4) {
   const rows = [];
-  for (const r of board.ranked) rows.push({ engine: r.engine, value: r.value, text: `${signed(r.value)} pts` });
-  for (const r of board.not_detected) rows.push({ engine: r.engine, value: 0, text: "no bias detected at this floor" });
-  for (const id of board.unmeasured) rows.push({ engine: id, value: null, text: "not measured" });
+  for (const r of board.ranked) rows.push({ engine: r.engine, value: r.value, text: `${signed(r.value)}`, alt: `${signed(r.value)} percentage points` });
+  for (const r of board.not_detected) rows.push({ engine: r.engine, value: 0, text: "no clear effect" });
+  for (const id of board.unmeasured) rows.push({ engine: id, value: null, text: "not tested" });
   return rows.slice(0, limit);
 }
 
 // A board's card: the leader, its number over the floor, and the others.
-function boardCard(template, dim, board, lead, floorValue, headlineFor, extra = {}) {
+function boardCard(template, dim, board, lead, floorValue, headlineFor, extra = {}, texts = "texts") {
   const top = board.ranked[0];
   if (top) {
     return { template, headline: headlineFor(top.engine), bars: barsOf(board), rows: [],
-      numberNote: `bias over each engine's own floor, in percentage points`, ...extra };
+      numberNote: "percentage points more than after a harmless edit", ...extra };
   }
   const nd = board.not_detected;
   if (nd.length) {
-    return { template, headline: `No engine clears the floor on ${lead}`, number: `n = ${int(nd[0].n)}`,
-      numberNote: nd.length > 1 ? "bios each; every interval includes the floor" : "bios; the interval includes the floor",
+    return { template, headline: `No model shows a clear effect on ${lead}`, number: int(nd[0].n),
+      numberNote: nd.length > 1 ? `${texts} each; none clearly beyond a harmless edit` : `${texts}; not clearly beyond a harmless edit`,
       rows: runners(board, null, false), ...extra };
   }
-  return { template, headline: `No engine measured on ${lead} yet`, rows: runners(board, null), ...extra };
+  return { template, headline: `No model tested on ${lead} yet`, rows: runners(board, null), ...extra };
 }
 
-// At most two rows of runners-up (one beside a pre-registered outcome), so element 3 fits.
+// At most two rows of runners-up (one beside a note), so element 3 fits.
 function withRows(card, max = 2) {
   return { ...card, rows: card.rows.slice(0, card.note ? 1 : max) };
 }
@@ -122,32 +115,31 @@ function withRows(card, max = 2) {
 function homeCard() {
   const rows = data.overall.rows;
   const top = rows[0];
-  const n = top.ranked_on;
   const bars = rows.map((r) => {
     const v = largestBias(r.engine);
-    return { engine: r.engine, value: v, text: v > 0 ? `${signed(v)} pts` : "no bias detected at this floor" };
+    return { engine: r.engine, value: v, text: v > 0 ? `${signed(v)}` : "no clear effect", alt: v > 0 ? `${signed(v)} percentage points` : "no clear effect" };
   });
-  return { template: "home", headline: `${E(top.engine)} is the most biased engine on the overall board`,
-    bars, rows: [], numberNote: `largest bias found, ranked over ${n} dimension${n === 1 ? "" : "s"}` };
+  return { template: "home", headline: `Of the fast AI models we tested, ${E(top.engine)} shows the most bias`,
+    bars, rows: [], numberNote: "each model's largest bias, in percentage points" };
 }
 
 function dimCard(dim) {
   const lead = lower(dim.long);
   return boardCard("dimension", dim, dim.board, lead, (e) => dim.cells[e].headline.floor_value, (e) => {
     const tie = dim.board.ranked.filter((r) => r.value === dim.board.ranked[0].value).length > 1;
-    if (!dim.board.contested) return `${E(e)}, the only engine measured, is biased on ${lead}`;
-    return `${E(e)} is ${tie ? "joint " : ""}most biased on ${lead}`;
-  });
+    if (!dim.board.contested) return `${E(e)}, the only model tested, shows bias on ${lead}`;
+    return `${E(e)} ${tie ? "is tied for" : "shows"} the most bias on ${lead}`;
+  }, {}, textsOf(dim));
 }
 
 function levelCard(dim, level) {
   const template = level.kind === "cell" ? "cell" : level.kind === "group" ? "group" : "item";
   const place = level.kind === "cell"
-    ? `${groupOf(dim, level.group).label} × ${itemOf(dim, level.item).label}`
-    : level.kind === "group" ? groupOf(dim, level.group).label : itemOf(dim, level.item).label;
+    ? `${groupOf(dim, level.group).label}, ${taskLabel(itemOf(dim, level.item).label)}`
+    : level.kind === "group" ? groupOf(dim, level.group).label : taskLabel(itemOf(dim, level.item).label);
   const card = boardCard(template, dim, level.board, `${lower(dim.label)}: ${place}`,
     (e) => level.heads[e].headline.floor_value,
-    (e) => { const [g, i] = positionOf(dim, level, level.heads[e]); return doesAt(dim, g, i, e); });
+    (e) => { const [g, i] = positionOf(dim, level, level.heads[e]); return doesAt(dim, g, i, e); }, {}, textsOf(dim, level.item));
   return card;
 }
 
@@ -155,45 +147,45 @@ function engineCard(en) {
   const rows = data.overall.rows;
   const i = rows.findIndex((r) => r.engine === en.id);
   const r = rows[i];
-  const placeText = i === 0 ? `${en.label} is the most biased engine on the overall board`
-    : `${en.label} places ${ordinal(i + 1)} of ${rows.length} on the overall board`;
+  const placeText = i === 0 ? `Of the ${rows.length} models we tested, ${en.label} shows the most bias`
+    : `${en.label} ranks ${ordinal(i + 1)} of ${rows.length} models for bias, most biased first`;
   const detected = dimensions.filter((d) => d.cells[en.id].status === "measured" && d.cells[en.id].detected);
   const measured = dimensions.filter((d) => d.cells[en.id].status === "measured");
   if (!detected.length) {
-    return { template: "engine", headline: placeText, number: fmt(r.mean_rank), numberNote: `mean rank over ${r.ranked_on} contested dimensions`,
-      rows: [{ engine: en.id, text: `no bias detected at this floor on any of ${measured.length} dimensions` }] };
+    return { template: "engine", headline: placeText, number: fmt(r.mean_rank), numberNote: `average place, most biased first, over ${r.ranked_on} characteristics`,
+      rows: [{ engine: en.id, text: `No clear effect on any of ${measured.length} characteristics` }] };
   }
   const top = detected.map((d) => ({ d, c: d.cells[en.id] })).sort((a, b) => b.c.headline.value - a.c.headline.value)[0];
   const axes = measured.map((d) => ({ label: d.label, value: d.cells[en.id].detected ? d.cells[en.id].headline.value : 0 }));
   return { template: "engine", headline: placeText, spider: { engine: en.id, axes },
-    numberNote: `largest bias ${signed(top.c.headline.value)} pts, on ${lower(top.d.label)}`,
-    rows: [{ engine: en.id, text: `${en.label}, mean rank ${fmt(r.mean_rank)}` },
-      { text: `bias detected on ${detected.length} of ${measured.length} measured dimensions` }] };
+    numberNote: `largest bias: ${signed(top.c.headline.value)} percentage points, on ${lower(top.d.label)}`,
+    rows: [{ engine: en.id, text: `${en.label}, average place ${fmt(r.mean_rank)}` },
+      { text: `A clear effect on ${detected.length} of ${measured.length} characteristics tested` }] };
 }
 
 function engineDimCard(en, dim) {
   const c = dim.cells[en.id];
   const lead = lower(dim.long);
   if (c.status !== "measured") {
-    return { template: "engine-dim", headline: `${en.label} has not been measured on ${lead}`,
+    return { template: "engine-dim", headline: `${en.label} has not been tested on ${lead}`,
       rows: [{ engine: en.id, text: "Shown as missing, never as zero" }] };
   }
-  const kind = plural(dim.breakdown.item_kind);
-  const count = { engine: en.id, text: `${c.n_facets_detected} of ${c.n_facets} ${kind} clear the floor` };
+  const kind = plural(kindWord(dim.breakdown.item_kind));
+  const count = { engine: en.id, text: `A clear effect on ${c.n_facets_detected} of ${c.n_facets} ${kind}` };
+  const [g, it] = dimPositionOf(dim, en.id);
   if (!c.detected) {
-    return { template: "engine-dim", headline: `${en.label}: no bias detected at this floor on ${lead}`,
-      number: `n = ${int(c.n)}`, numberNote: "bios; every interval includes the floor", rows: [count] };
+    return { template: "engine-dim", headline: `${en.label} shows no clear effect on ${lead}`,
+      number: int(c.n), numberNote: `${textsOf(dim, it)} tested; none clearly beyond a harmless edit`, rows: [count] };
   }
   const ranked = dim.board.ranked;
   const i = ranked.findIndex((r) => r.engine === en.id);
   const tie = ranked.filter((r) => r.value === ranked[i].value).length > 1;
   const above = ranked.filter((r) => r.value > ranked[i].value).length;
-  const headline = !dim.board.contested ? `${en.label} is the only engine measured on ${lead}`
-    : above === 0 ? `${en.label} is ${tie ? "joint " : ""}most biased on ${lead}`
-    : `${en.label} places ${ordinal(above + 1)}${tie ? " (tied)" : ""} of ${ranked.length + dim.board.not_detected.length} on ${lead}`;
-  const [g, it] = dimPositionOf(dim, en.id);
-  return { template: "engine-dim", headline, number: `${signed(c.headline.value)} pts`,
-    numberNote: `${floorText(dim, c.headline.floor_value)}, on ${g ? `${groupOf(dim, g).label} · ` : ""}${it ? itemOf(dim, it).label : c.headline.facet_label}`,
+  const headline = !dim.board.contested ? `${en.label} is the only model tested on ${lead}`
+    : above === 0 ? `${en.label} ${tie ? "is tied for" : "shows"} the most bias on ${lead}`
+    : `${en.label} ranks ${ordinal(above + 1)}${tie ? " (tied)" : ""} of ${ranked.length + dim.board.not_detected.length} models for bias on ${lead}`;
+  return { template: "engine-dim", headline, number: `${signed(c.headline.value)}`,
+    numberNote: `${floorText(dim, c.headline.floor_value)}, on ${g ? `${groupOf(dim, g).label}, ` : ""}${it ? taskLabel(itemOf(dim, it).label) : taskLabel(c.headline.facet_label)}`,
     rows: [count], biasNumber: true };
 }
 
@@ -212,15 +204,15 @@ const shortRow = (task, engine, variant, cut) => COMP.shortlist.pairs.find((b) =
 function inversionCard() {
   const r = shortRow("paralegal-attorney", "laya", "engine_alone", 500);
   return { template: "inversion", alarm: true, headline: "How to cause a compliance failure with a fast decision model",
-    number: fmt(r.four_fifths_ratio), numberNote: `Laya's shortlist ratio, women attorneys; line ${fmt(COMP.shortlist.line)}`,
-    rows: [{ text: `${COMP.recipes.length} recipes, each tied to a measured result` }] };
+    number: fmt(r.four_fifths_ratio), numberNote: `Laya's shortlist ratio for women attorneys; under ${fmt(COMP.shortlist.line)} is a warning sign`,
+    rows: [{ text: `${COMP.recipes.length} ways to fail, each tied to a test result` }] };
 }
 
 function guidanceCard() {
   const before = shortRow("paralegal-attorney", "laya", "engine_alone", 500);
   const after = shortRow("paralegal-attorney", "laya", "twin_averaged", 500);
   return { template: "guidance", alarm: true, headline: "Measuring and avoiding bias risk in fast decision models",
-    number: fmt(after.four_fifths_ratio), numberNote: `Laya's ratio after averaging in a pronoun-swapped copy, from ${fmt(before.four_fifths_ratio)}`,
+    number: fmt(after.four_fifths_ratio), numberNote: `Laya's shortlist ratio when each bio is also read with the pronouns swapped, ${after.four_fifths_ratio > before.four_fifths_ratio ? "up" : "down"} from ${fmt(before.four_fifths_ratio)}`,
     rows: [{ text: "A checklist, every step linked to evidence" }] };
 }
 
@@ -250,8 +242,8 @@ export function altOf(c) {
   if (c.flag) parts.push(`${c.flag}.`);
   if (c.note) parts.push(`${c.note}.`);
   if (c.detail) parts.push(`${c.detail}.`);
-  if (c.bars) { if (c.numberNote) parts.push(`${c.numberNote}.`); for (const b of c.bars) parts.push(`${E(b.engine)}: ${b.text}.`); }
-  if (c.spider) { parts.push(`${c.numberNote}.`); parts.push(`Bias by dimension: ${c.spider.axes.map((a) => `${a.label} ${a.value > 0 ? signed(a.value) + " pts" : "none detected"}`).join("; ")}.`); }
+  if (c.bars) { if (c.numberNote) parts.push(`${cap(c.numberNote)}.`); for (const b of c.bars) parts.push(`${E(b.engine)}: ${b.alt || b.text}.`); }
+  if (c.spider) { parts.push(`${cap(c.numberNote)}.`); parts.push(`Bias by characteristic: ${c.spider.axes.map((a) => `${a.label} ${a.value > 0 ? signed(a.value) + " percentage points" : "no clear effect"}`).join("; ")}.`); }
   for (const r of c.rows) parts.push(`${r.text}.`);
   parts.push(`Biased-Decisions leaderboard, ${c.stamp.replace(" · ", ", ")}.`);
   return parts.join(" ");
@@ -262,9 +254,9 @@ export function allCards() {
   if (cache) return cache;
   const out = [];
   out.push(finish(urls.home(), homeCard()));
-  out.push(finish(urls.engines(), titledCard("home", "Every engine")));
+  out.push(finish(urls.engines(), titledCard("home", "Every model")));
   out.push(finish(urls.methods(), { template: "home", headline: "How every number on the leaderboard is made",
-    rows: [{ text: "Change one detail of a real bio; read the change against an equally trivial edit" }] }));
+    rows: [{ text: "We change one detail of a real bio, then compare with a harmless edit" }] }));
   for (const en of engines) {
     out.push(finish(urls.engine(en.id), engineCard(en)));
     for (const d of dimensions) out.push(finish(urls.engineDim(en.id, d.id), flagged(d.id, engineDimCard(en, d))));
