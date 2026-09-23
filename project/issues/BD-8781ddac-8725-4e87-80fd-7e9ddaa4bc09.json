@@ -18,8 +18,8 @@
     "platform": "claude-code",
     "model": "claude-fable-5-1"
   },
-  "right_now_summary": "Published studies are replayable; new studies are being prepared, while the leaderboard fix is underway.",
-  "right_now_updated_at": "2026-09-23T17:27:47.531876Z",
+  "right_now_summary": "The benchmark publishes results, builds new studies, pins model runs, and fixes leaderboard replay failures.",
+  "right_now_updated_at": "2026-09-23T17:29:21.187322Z",
   "custom": {
     "project_label": "BD",
     "source": "shared"

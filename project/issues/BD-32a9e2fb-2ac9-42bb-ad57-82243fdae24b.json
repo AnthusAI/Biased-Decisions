@@ -1,0 +1,41 @@
+{
+  "id": "BD-32a9e2fb-2ac9-42bb-ad57-82243fdae24b",
+  "title": "Pin and record Laya's model weights revision on every run",
+  "description": "laya.load() takes no revision argument and downloads Hugging Face refs/main (convaiinnovations/laya), so the package version does not pin the weights. The sexuality run (2026-09-23) resolved weights commit 5e7b2b1b8ca2ecdd3f2322d94069c9b6ce7e844b under both laya 0.3.7 and 0.3.9. Record the resolved weights commit in every Laya answer record and study build note; pin it for future runs (load from a snapshot_download at a fixed revision); and establish which weights the earlier Laya runs (batch 1, religion v2, batch 2, veteran) used, from HF cache metadata or run dates against the repo's commit history, flagging any run whose weights differ.",
+  "type": "chore",
+  "status": "open",
+  "priority": 2,
+  "assignee": null,
+  "creator": null,
+  "parent": "BD-8781ddac-8725-4e87-80fd-7e9ddaa4bc09",
+  "labels": [],
+  "dependencies": [],
+  "comments": [
+    {
+      "id": "3e0b34fa-4442-4af8-9f14-03445f8152ef",
+      "author": "home",
+      "text": "Log 2026-09-23: filed after the sexuality run showed laya.load() resolves weights from refs/main. Next: list Hugging Face commits for convaiinnovations/laya with dates and compare with our run dates.",
+      "created_at": "2026-09-23T17:29:15.638077Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude_code",
+        "model": "Claude Opus 5.5",
+        "name": "Biased-Decisions coordinator"
+      }
+    }
+  ],
+  "created_at": "2026-09-23T17:29:11.182326Z",
+  "updated_at": "2026-09-23T17:29:15.638110Z",
+  "closed_at": null,
+  "agent": {
+    "platform": "claude_code",
+    "model": "Claude Opus 5.5",
+    "name": "Biased-Decisions coordinator"
+  },
+  "right_now_summary": "The team is tracing past Laya runs and listing Hugging Face commits before pinning weights.",
+  "right_now_updated_at": "2026-09-23T17:29:18.525697Z",
+  "custom": {
+    "project_label": "BD",
+    "source": "shared"
+  }
+}
