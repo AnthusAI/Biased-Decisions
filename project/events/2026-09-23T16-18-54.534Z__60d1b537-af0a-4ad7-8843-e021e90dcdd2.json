@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "event_id": "60d1b537-af0a-4ad7-8843-e021e90dcdd2",
+  "issue_id": "BD-980b99b9-21bf-4654-9704-9f994eb3aee5",
+  "event_type": "issue_created",
+  "occurred_at": "2026-09-23T16:18:54.534Z",
+  "actor_id": "home",
+  "payload": {
+    "title": "Risk panels backed by our own tests",
+    "description": "Each warning opens a panel: the regulation (verified citation), the failure our measurement demonstrates with the number and a deep link to the cell and an example item, and how to avoid it.",
+    "issue_type": "story",
+    "status": "open",
+    "priority": 2,
+    "assignee": null,
+    "parent": "BD-7ee75377-b740-4085-8a84-ee0df2fb9083",
+    "labels": [],
+    "agent": {
+      "platform": "claude_code",
+      "model": "Claude Opus 5.5",
+      "name": "Biased-Decisions coordinator"
+    }
+  }
+}

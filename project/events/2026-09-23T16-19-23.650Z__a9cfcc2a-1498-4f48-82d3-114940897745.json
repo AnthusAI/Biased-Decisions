@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "event_id": "a9cfcc2a-1498-4f48-82d3-114940897745",
+  "issue_id": "BD-3da5fe30-0d1d-4b4a-9053-648329c61599",
+  "event_type": "issue_created",
+  "occurred_at": "2026-09-23T16:19:23.650Z",
+  "actor_id": "home",
+  "payload": {
+    "title": "Guidance page: current insights on measuring and avoiding the risk",
+    "description": "Measuring before deploying; floors and paired edits; outcome checks such as the four-fifths ratio; twin averaging; option-order counterbalancing; version pinning; human review; why gating on the cue is not enough (from the earlier gating results). Each insight links to its evidence.",
+    "issue_type": "story",
+    "status": "open",
+    "priority": 2,
+    "assignee": null,
+    "parent": "BD-7ee75377-b740-4085-8a84-ee0df2fb9083",
+    "labels": [],
+    "agent": {
+      "platform": "claude_code",
+      "model": "Claude Opus 5.5",
+      "name": "Biased-Decisions coordinator"
+    }
+  }
+}

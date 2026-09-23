@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "event_id": "320a408a-62e8-4311-b07d-85e60599df45",
+  "issue_id": "BD-1c8487f2-ee15-486a-8aa9-4eb5e33afe86",
+  "event_type": "issue_created",
+  "occurred_at": "2026-09-23T16:19:08.316Z",
+  "actor_id": "home",
+  "payload": {
+    "title": "Inversion page: how to cause a compliance failure with a fast decision model",
+    "description": "A page applying Charlie Munger's inversion: deployment patterns that would reliably create violations (e.g. using the verdict as the decision, one model for every firm, gating on the cue, unpinned versions, no outcome check), each tied to a measured result and paired with the inverse practice.",
+    "issue_type": "story",
+    "status": "open",
+    "priority": 2,
+    "assignee": null,
+    "parent": "BD-7ee75377-b740-4085-8a84-ee0df2fb9083",
+    "labels": [],
+    "agent": {
+      "platform": "claude_code",
+      "model": "Claude Opus 5.5",
+      "name": "Biased-Decisions coordinator"
+    }
+  }
+}
