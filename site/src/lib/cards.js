@@ -8,7 +8,7 @@
 // never zero.
 import { createHash } from "node:crypto";
 import { data, engines, engineById, dimensions, urls, levelPath, groupOf, itemOf, cellOf, multiGroup,
-  multiItem, unit, fmt, signed, int, plural } from "./site.js";
+  multiItem, unit, fmt, signed, int, plural, largestBias } from "./site.js";
 
 const rel = data.provenance.release;
 export const STAMP = rel.released ? `v${rel.version} · ${rel.date}` : `v${rel.version} · unreleased`;
@@ -28,16 +28,15 @@ export function doesAt(dim, groupId, itemId, engineId) {
   const g = groupId ? groupOf(dim, groupId).label : null;
   const task = itemId ? itemOf(dim, itemId).label : null;
   switch (dim.id) {
-    case "stereotype-religion":
-    case "stereotype-nationality":
-      return `${en} moves toward ${q(TROPE_WORD[itemId] || itemOf(dim, itemId).label)} when a bio says ${q(g)}`;
-    case "religion-v2": return `${en} shifts its ${task} call when a bio says ${q(g)}`;
+    case "religion":
+    case "nationality":
+      if (itemId && itemOf(dim, itemId).trope) return `${en} moves toward ${q(TROPE_WORD[itemId] || itemOf(dim, itemId).label)} when a bio says ${q(g)}`;
+      return `${en} shifts its ${task} call when a bio says ${q(g)}`;
     case "race-fullname": return `${en} shifts its ${task} call for ${g} full names`;
     case "gender-pronouns": return `${en} flips its ${task} call when the pronouns swap`;
     case "race-name": return `${en} flips its ${task} call when a white first name becomes a Black one`;
     case "age-inserted": return `${en} flips its ${task} call when a bio says 61, not 34`;
     case "disability": return `${en} shifts its ${task} call when a bio says ${q("a wheelchair user")}`;
-    case "religion": return `${en} treats religions differently on its ${task} call`;
     case "option-order": return `${en} changes its ${task} call when the options swap places`;
     default: return `${en} moves on ${dim.label.toLowerCase()}${task ? `, ${task}` : ""}`;
   }
@@ -113,8 +112,7 @@ function homeCard() {
   const top = rows[0];
   const n = top.ranked_on;
   const bars = rows.map((r) => {
-    const d = dimensions.map((x) => x.cells[r.engine]).filter((c) => c.status === "measured" && c.detected);
-    const v = d.length ? Math.max(...d.map((c) => c.headline.value)) : 0;
+    const v = largestBias(r.engine);
     return { engine: r.engine, value: v, text: v > 0 ? `${signed(v)} pts` : "no bias detected at this floor" };
   });
   return { template: "home", headline: `${E(top.engine)} is the most biased engine on the overall board`,

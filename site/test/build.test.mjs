@@ -19,7 +19,8 @@ function walk(dir, out = []) {
 }
 const files = walk(DIST);
 const urlOf = (file) => "/" + relative(DIST, file).split(sep).join("/").replace(/index\.html$/, "");
-const pages = files.filter((f) => f.endsWith("index.html")).map((f) => ({ file: f, path: urlOf(f), html: readFileSync(f, "utf8") }));
+const pages = files.filter((f) => f.endsWith("index.html")).map((f) => ({ file: f, path: urlOf(f), html: readFileSync(f, "utf8") }))
+  .filter((p) => !p.html.includes('http-equiv="refresh"'));
 const noindex = (p) => /<meta name="robots" content="noindex">/.test(p.html);
 const content = pages.filter((p) => !noindex(p));
 
@@ -134,9 +135,9 @@ test("every internal link resolves to a built page or file", () => {
 
 test("every deep-link level has a page: each group, question and cell of every dimension", () => {
   const have = new Set(pages.map((p) => p.path));
-  for (const want of ["/stereotype-religion/jewish/greed/", "/stereotype-nationality/american/", "/stereotype-nationality/arrogance/",
-    "/gender-pronouns/nurse-physician/", "/race-fullname/black/", "/religion-v2/jewish/paralegal-attorney/",
-    "/engines/laya/stereotype-nationality/", "/methods/", "/how-to-fail/", "/guidance/"]) assert.ok(have.has(want), want);
+  for (const want of ["/religion/jewish/greed/", "/nationality/american/", "/nationality/arrogance/",
+    "/gender-pronouns/nurse-physician/", "/race-fullname/black/", "/religion/jewish/paralegal-attorney/",
+    "/engines/laya/nationality/", "/methods/", "/how-to-fail/", "/guidance/"]) assert.ok(have.has(want), want);
 });
 
 test("the first build's addresses still land: redirect stubs and the review gallery", () => {

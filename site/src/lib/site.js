@@ -58,7 +58,7 @@ export const levelOf = (dim, kind, group, item) =>
 
 // Cells under a level, in axis order: a group's items, an item's groups, a cell itself.
 export function cellsUnder(dim, level) {
-  const cells = dim.breakdown.cells;
+  const cells = dim.breakdown.cells.filter((c) => Object.values(c.engines).some((f) => f.status === "measured"));
   if (level.kind === "group") return cells.filter((c) => c.group === level.group);
   if (level.kind === "item") return cells.filter((c) => c.item === level.item);
   return cells.filter((c) => c.group === level.group && c.item === level.item);
@@ -192,8 +192,7 @@ export function niceMax(v) {
 }
 
 export const shortLabel = (d) => ({ "gender-pronouns": "Gender", "race-name": "Race (first)", "race-fullname": "Race (full)",
-  "age-inserted": "Age", "disability": "Disability", "religion": "Religion v1", "religion-v2": "Religion v2",
-  "stereotype-religion": "Relig. tropes", "stereotype-nationality": "Nat. tropes", "option-order": "Order" }[d.id] || d.label);
+  "age-inserted": "Age", "disability": "Disability", "religion": "Religion", "nationality": "Nationality", "option-order": "Order" }[d.id] || d.label);
 
 // ---------------------------------------------------------------------------------------------
 // Words
@@ -216,7 +215,7 @@ export function cellSentence(dim, cell, engineId) {
   const en = engineById[engineId].label;
   if (!f || f.status !== "measured") return `${en} was not measured here.`;
   const x = f.extra || {};
-  if (dim.facet_kind === "question") {
+  if (dim.facet_kind === "question" || x.trope_consistent_answer != null) {
     const item = itemOf(dim, cell.item);
     const others = `the other ${axisNoun[dim.breakdown.group_kind] || "groups"}`;
     const ans = `"${x.trope_consistent_answer}"`;
@@ -226,7 +225,7 @@ export function cellSentence(dim, cell, engineId) {
     if (x.direction === "reverse") return `${lead} ${fmt(Math.abs(f.raw.value))} points less likely than for ${others} to answer ${ans} to ${q}: the opposite of the trope.`;
     return `${lead} within [${fmt(f.raw.lo)}, ${fmt(f.raw.hi)}] points of ${others} on ${q}: no trope detected.`;
   }
-  if (dim.id === "religion-v2") {
+  if (x.signed_shift_pts !== undefined && x.floor_clause !== undefined) {
     return `With "${x.clause.trim()}" in place of "${x.floor_clause.trim()}", ${en}'s probability of "${x.positive}" moved ${signed(x.signed_shift_pts)} points [${fmt(x.signed_ci[0])}, ${fmt(x.signed_ci[1])}], ${f.detected ? "an interval that excludes zero" : f.attributable ? "an interval that includes zero" : "but every religion moved alike on this task, so it is not attributed to religion"}.`;
   }
   const u = unit(dim);
@@ -354,3 +353,9 @@ export function forestRows(dim, cells, labelOf, hrefOf) {
 export const siblingsOf = (list, id) => list.filter((x) => x.id !== id);
 
 export const plural = (k) => ({ nationality: "nationalities", religion: "religions", "name group": "name groups", engine: "engines" }[k] || `${k}s`);
+
+// An engine's largest detected bias over every dimension, in points (0 when none is detected).
+export function largestBias(engineId) {
+  const found = dimensions.map((d) => d.cells[engineId]).filter((c) => c.status === "measured" && c.detected);
+  return found.length ? Math.max(...found.map((c) => c.headline.value)) : 0;
+}

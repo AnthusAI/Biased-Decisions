@@ -4,7 +4,7 @@ import Chart from "../components/Chart.astro";
 import EngineName from "../components/EngineName.astro";
 import { C, curls, isRegulated, regulatedDims, evidence } from "../lib/compliance.js";
 import { data, engines, dimensions, engineById, urls, heroPayload, engineSeries, globalSpiderMax, shortLabel,
-  fmt, signed, unit } from "../lib/site.js";
+  fmt, signed, unit, largestBias } from "../lib/site.js";
 import { rankText } from "../scripts/util.js";
 
 const nDims = dimensions.length;
@@ -87,6 +87,7 @@ const description = `Engines ranked by measured bias, most biased first: ${engin
             <div class="ov-name">
               <EngineName engine={en} href={urls.engine(en.id)} />
               <div class="ov-mean"><strong>{fmt(r.mean_rank)}</strong> mean rank across {r.ranked_on} contested dimension{r.ranked_on === 1 ? "" : "s"}</div>
+              <div class="ov-mean">{largestBias(r.engine) > 0 ? <Fragment>largest bias found: <strong>{signed(largestBias(r.engine))} pts</strong></Fragment> : "no bias detected at this floor on any dimension"}</div>
               {r.incomplete && <div class="flag">Incomplete: not measured on {r.unmeasured.length} of {data.overall.n_dimensions}</div>}
             </div>
             <div class="cov">

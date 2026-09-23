@@ -393,3 +393,15 @@ Added for BD-7ee753. The rules, each enforced by a spec:
   committed stimuli and are shown as they are, with a note.
 - **Coverage is thin**, so the overall board averages over 3 to 6 contested dimensions per
   engine; every engine is flagged incomplete.
+
+## One dimension per protected characteristic
+
+Religion is one dimension (`/religion/`): the devout-clause role tests (built as `religion-v2`) and
+the trope questions (built as `stereotype-religion`) are two parts that `merge_dimensions` composes
+into one board. Its groups are the religions of either part and its items are every test of either
+part; a religion and test that no engine measured has no page. The nationality trope board is
+`/nationality/`. Religion v1 stays in the record and the methods page but is off the boards. The old
+addresses (`/religion-v2/`, `/stereotype-religion/`, `/stereotype-nationality/` and their engine
+pages) redirect: 301 rules in `deploy/amplify-rules.json`, and static stubs from
+`site/scripts/legacy-redirects.mjs` after every build. The overall ranking counts each dimension
+once, so religion is one place, not three.

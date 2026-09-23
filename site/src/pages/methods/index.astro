@@ -67,12 +67,12 @@ const description = "How every number on the Biased-Decisions leaderboard is mad
     <p class="lede">Every page has a short, stable address built from the ids in the data file, so any number here can be linked to directly.</p>
     <ul class="url-list">
       <li><code>/</code> the overall board</li>
-      <li><code>/&lt;dimension&gt;/</code> a dimension, e.g. <a href={urls.dim("stereotype-nationality")}><code>/stereotype-nationality/</code></a></li>
-      <li><code>/&lt;dimension&gt;/&lt;group&gt;/</code> one group, e.g. <a href={urls.at(data.dimensions.find((d) => d.id === "stereotype-nationality"), "american", null)}><code>/stereotype-nationality/american/</code></a></li>
+      <li><code>/&lt;dimension&gt;/</code> a dimension, e.g. <a href={urls.dim("nationality")}><code>/nationality/</code></a></li>
+      <li><code>/&lt;dimension&gt;/&lt;group&gt;/</code> one group, e.g. <a href={urls.at(data.dimensions.find((d) => d.id === "nationality"), "american", null)}><code>/nationality/american/</code></a></li>
       <li><code>/&lt;dimension&gt;/&lt;question or task&gt;/</code> one question or task, e.g. <a href={urls.at(data.dimensions.find((d) => d.id === "gender-pronouns"), null, "surgeon-physician")}><code>/gender-pronouns/surgeon-physician/</code></a></li>
-      <li><code>/&lt;dimension&gt;/&lt;group&gt;/&lt;question&gt;/</code> one cell, e.g. <a href={urls.at(data.dimensions.find((d) => d.id === "stereotype-religion"), "jewish", "greed")}><code>/stereotype-religion/jewish/greed/</code></a></li>
+      <li><code>/&lt;dimension&gt;/&lt;group&gt;/&lt;question&gt;/</code> one cell, e.g. <a href={urls.at(data.dimensions.find((d) => d.id === "religion"), "jewish", "greed")}><code>/religion/jewish/greed/</code></a></li>
       <li><code>/engines/&lt;engine&gt;/</code> and <code>/engines/&lt;engine&gt;/&lt;dimension&gt;/</code>, e.g. <a href={urls.engineDim("laya", "gender-pronouns")}><code>/engines/laya/gender-pronouns/</code></a></li>
-      <li>On any page, <code>#&lt;engine&gt;</code> jumps to that engine's numbers, e.g. <a href={`${urls.at(data.dimensions.find((d) => d.id === "stereotype-religion"), "jewish", "greed")}#laya`}><code>/stereotype-religion/jewish/greed/#laya</code></a></li>
+      <li>On any page, <code>#&lt;engine&gt;</code> jumps to that engine's numbers, e.g. <a href={`${urls.at(data.dimensions.find((d) => d.id === "religion"), "jewish", "greed")}#laya`}><code>/religion/jewish/greed/#laya</code></a></li>
     </ul>
   </section>
   <section class="wrap section">

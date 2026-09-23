@@ -27,16 +27,17 @@ const title = levelTitle(dim, level);
 const path = levelPath(dim, level);
 const payload = levelPayload(dim, level);
 const charts = { board: { type: "board", dim: payload }, versus: { type: "versus", dim: payload } };
-const isTrope = dim.facet_kind === "question";
+const isTrope = dim.facet_kind === "question" || !!item.trope;
+const live = (g, i) => Object.values(cellOf(dim, g, i).engines).some((f) => f.status === "measured");
 const measured = engines.filter((e) => cell.engines[e.id].status === "measured");
 const lead = level.board.ranked[0] || level.board.not_detected[0];
 const facets = engines.map((e) => ({ ...cell.engines[e.id], label: e.label, _engine: e.id }));
-const otherItems = bd.items.filter((i) => i.id !== item.id).map((i) => {
+const otherItems = bd.items.filter((i) => i.id !== item.id && live(group.id, i.id)).map((i) => {
   const c = cellOf(dim, group.id, i.id);
   const f = lead ? c.engines[lead.engine] : null;
   return { label: i.label, href: urls.at(dim, group.id, i.id), f, pre: c.prereg };
 });
-const otherGroups = bd.groups.filter((g) => g.id !== group.id).map((g) => {
+const otherGroups = bd.groups.filter((g) => g.id !== group.id && live(g.id, item.id)).map((g) => {
   const c = cellOf(dim, g.id, item.id);
   const f = lead ? c.engines[lead.engine] : null;
   return { label: g.label, href: urls.at(dim, g.id, item.id), f, pre: c.prereg };

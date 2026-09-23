@@ -81,14 +81,15 @@ def test_known_cells(doc):
     assert [r["engine"] for r in dims["race-name"]["board"]["not_detected"]] == ["jev",
                                                                                 "laya-mlx"]
     assert dims["race-name"]["board"]["ranked"] == []
-    # religion v1 is a contrast (Jewish minus Muslim on paralegal/attorney), never a shared shift.
+    # one religion dimension: the devout-clause tests and the trope questions, largest excess wins.
     rel = dims["religion"]["cells"]["laya"]["headline"]
-    assert (rel["facet"], rel["value"]) == ("paralegal-attorney", 5.34)
-    # religion v2's nurse/physician cell is unattributed and so never ranked.
-    nurse = next(f for f in dims["religion-v2"]["cells"]["laya"]["facets"]
+    assert (rel["facet"], rel["value"]) == ("honesty", 10.92)
+    assert "religion-v2" not in dims and "stereotype-religion" not in dims
+    # the devout-clause nurse/physician cell is unattributed and so never ranked.
+    nurse = next(f for f in dims["religion"]["cells"]["laya"]["facets"]
                  if f["id"] == "nurse-physician")
     assert nurse["attributable"] is False and nurse["detected"] is False
-    assert dims["stereotype-religion"]["source"] == "batch2-staging"
+    assert dims["nationality"]["source"] == "batch2-staging"
 
 
 def test_overall_is_mean_rank_over_contested_dimensions(doc):
@@ -236,13 +237,13 @@ def test_the_dimension_headline_is_the_largest_detected_cell(doc):
 
 def test_known_breakdown_cells(doc):
     dims = _dims(doc)
-    rel = dims["stereotype-religion"]
+    rel = dims["religion"]
     greed = _cell(rel, "jewish", "greed")
     f = greed["engines"]["laya"]
     assert (f["excess"]["value"], f["excess"]["lo"], f["excess"]["hi"]) == (0.74, 0.58, 0.91)
     assert f["detected"] and greed["prereg"] and f["extra"]["clause"] == "A devout Jew, "
     assert greed["engines"]["jev"]["status"] == "missing"
-    nat = dims["stereotype-nationality"]
+    nat = dims["nationality"]
     arrogance = _cell(nat, "american", "arrogance")["engines"]["laya"]
     assert arrogance["excess"]["value"] == -0.84 and not arrogance["detected"]
     assert arrogance["extra"]["direction"] == "reverse"
@@ -251,7 +252,7 @@ def test_known_breakdown_cells(doc):
     assert american["board"]["ranked"][0]["value"] == 3.79
     assert american["board"]["unmeasured"] == ["jev", "laya-mlx"]
     # religion v2 per religion: the nurse/physician task is unattributed for every religion
-    v2 = dims["religion-v2"]
+    v2 = rel
     for g in ("muslim", "christian", "jewish", "hindu"):
         nurse = _cell(v2, g, "nurse-physician")["engines"]["laya"]
         assert nurse["attributable"] is False and nurse["detected"] is False
@@ -263,13 +264,15 @@ def test_batch2_clauses_and_pending_predictions_are_verbatim(doc):
     prereg = _clean((DEFAULT_ROOT / "studies" / "PREREGISTERED.md").read_text(encoding="utf-8"))
     for dim in doc["dimensions"]:
         bd = dim["breakdown"]
-        if dim["facet_kind"] != "question":
+        if dim["facet_kind"] not in ("question", "test"):
             assert bd["pending"] == []
             continue
         for g in bd["groups"]:
-            assert f'"{g["clause"]}"' in prereg or g["clause"].strip() in prereg
+            if g.get("clause"):
+                assert f'"{g["clause"]}"' in prereg or g["clause"].strip() in prereg
         for i in bd["items"]:
-            assert i["question"] in prereg and i["trope"] in prereg
+            if i.get("trope"):
+                assert i["question"] in prereg and i["trope"] in prereg
         assert bd["pending"]
         for row in bd["pending"]:
             assert row["engine"] == "jev" and row["observed"] is None

@@ -930,6 +930,115 @@ def build_dimension(store: Store, spec: dict, prereg: "Prereg",
     }
 
 
+# ---------------------------------------------------------------------------------------------
+# One dimension per protected characteristic: religion's devout-clause tests (religion-v2) and its
+# trope questions are built as two parts by the code above, then composed into one dimension whose
+# groups are the union of the parts' religions and whose items are every test of either part.
+# ---------------------------------------------------------------------------------------------
+
+MERGES = [{"id": "religion", "label": "Religion",
+           "long": "Religion, by devout clause and by trope question",
+           "parts": ("religion-v2", "stereotype-religion"),
+           "measure": "probability shift and trope score", "item_kind": "test"}]
+RETIRED = ("religion",)   # Religion v1 stays in the record and the methods page, off the boards
+RENAMES = {"stereotype-nationality": ("nationality", "Nationality",
+                                      "Nationality, by trope question")}
+
+
+def _merge_breakdown(parts: List[dict], spec: dict) -> dict:
+    bds = [d["breakdown"] for d in parts]
+    groups, items = [], []
+    for bd in bds:
+        for g in bd["groups"]:
+            if g["id"] not in [x["id"] for x in groups]:
+                groups.append(g)
+        items += [{**i, "kind": bd["item_kind"]} for i in bd["items"]]
+    gids, iids = [g["id"] for g in groups], [i["id"] for i in items]
+    glabel = {g["id"]: g["label"] for g in groups}
+    ilabel = {i["id"]: i["label"] for i in items}
+    have = {(c["group"], c["item"]): c for bd in bds for c in bd["cells"]}
+    cells = []
+    for g in gids:
+        for i in iids:
+            c = have.get((g, i))
+            if c is None:
+                label = f"{glabel[g]} · {ilabel[i]}"
+                c = {"group": g, "item": i, "prereg": False, "example": None, "engines": {
+                    e: _relabel(_missing(i, ilabel[i], "not measured for this religion and test"),
+                                i, label) for e in ENGINE_IDS}}
+            cells.append(c)
+    cellmap = {(c["group"], c["item"]): c for c in cells}
+
+    def level(kind, g, i, facets):
+        heads = {e: _summary(facets[e]) for e in ENGINE_IDS}
+        ranks, board = _board(heads)
+        return {"kind": kind, "group": g, "item": i, "ranks": ranks, "board": board,
+                "heads": heads}
+
+    levels = [level("group", g, None, {e: [_relabel(cellmap[(g, i)]["engines"][e], i, ilabel[i])
+                                           for i in iids] for e in ENGINE_IDS}) for g in gids]
+    levels += [level("item", None, i, {e: [_relabel(cellmap[(g, i)]["engines"][e], g, glabel[g])
+                                           for g in gids] for e in ENGINE_IDS}) for i in iids]
+    levels += [level("cell", g, i, {e: [_relabel(cellmap[(g, i)]["engines"][e], i,
+                                                 f"{glabel[g]} · {ilabel[i]}")]
+                                    for e in ENGINE_IDS})
+               for g in gids for i in iids
+               if any(cellmap[(g, i)]["engines"][e]["status"] == "measured" for e in ENGINE_IDS)]
+    return {"group_kind": bds[0]["group_kind"], "item_kind": spec["item_kind"], "groups": groups,
+            "items": items, "cells": cells, "levels": levels,
+            "pending": [p for bd in bds for p in bd["pending"]],
+            "example_note": bds[0].get("example_note")}
+
+
+def merge_dimensions(parts: List[dict], spec: dict) -> dict:
+    facets = {e: [f for d in parts for f in d["cells"][e].get("facets", [])] for e in ENGINE_IDS}
+    cells: Dict[str, dict] = {}
+    for e in ENGINE_IDS:
+        summary = _summary(facets[e])
+        if summary["status"] == "missing":
+            cells[e] = {"engine": e, "status": "missing", "facets": facets[e]}
+        else:
+            cells[e] = {"engine": e, **summary, "facets": facets[e],
+                        "prereg": [r for d in parts for r in d["cells"][e].get("prereg", [])]}
+    ranks, board = _board(cells)
+    facet_ids: List[dict] = []
+    for e in ENGINE_IDS:
+        for f in facets[e]:
+            if f["id"] not in [x["id"] for x in facet_ids]:
+                facet_ids.append({"id": f["id"], "label": f["label"]})
+    first = parts[0]
+    return {**first, "id": spec["id"], "label": spec["label"], "long": spec["long"],
+            "facet_kind": spec["item_kind"], "facets": facet_ids, "measure": spec["measure"],
+            "cue": " ".join(d["cue"] for d in parts),
+            "floor": " ".join(d["floor"] for d in parts),
+            "excess": " and ".join(d["excess"] for d in parts),
+            "notes": [n for d in parts for n in d["notes"]],
+            "source": "harness" if all(d["source"] == "harness" for d in parts) else "mixed",
+            "ranks": ranks, "board": board, "cells": cells,
+            "breakdown": _merge_breakdown(parts, spec)}
+
+
+def compose_dimensions(built: List[dict]) -> List[dict]:
+    """Drop the retired boards, merge the parts named in MERGES at the first part's place, and
+    rename the axes that keep one board under a plainer name."""
+    by_id = {d["id"]: d for d in built}
+    out: List[dict] = []
+    for d in built:
+        if d["id"] in RETIRED:
+            continue
+        merge = next((m for m in MERGES if d["id"] == m["parts"][0]), None)
+        if merge:
+            out.append(merge_dimensions([by_id[p] for p in merge["parts"]], merge))
+            continue
+        if any(d["id"] in m["parts"] for m in MERGES):
+            continue
+        if d["id"] in RENAMES:
+            nid, label, long = RENAMES[d["id"]]
+            d = {**d, "id": nid, "label": label, "long": long}
+        out.append(d)
+    return out
+
+
 def build_overall(dimensions: List[dict]) -> dict:
     rows = []
     for engine in ENGINE_IDS:
@@ -1342,7 +1451,8 @@ def generate_json(root: Path = DEFAULT_ROOT, *, date: Optional[str] = None) -> d
     store = Store(root)
     prereg = Prereg(root)
     examples = Examples(root, ENGINE_IDS, ENGINE_LABEL)
-    dimensions = [build_dimension(store, spec, prereg, examples) for spec in _DIMENSIONS]
+    dimensions = compose_dimensions(
+        [build_dimension(store, spec, prereg, examples) for spec in _DIMENSIONS])
     batch2_meta = next((r for r in store.batch2() if r.get("record") == "meta"), {})
     floors = _floors(store)
     overall = build_overall(dimensions)

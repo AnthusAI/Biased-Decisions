@@ -37,7 +37,8 @@ if (!leaf) {
 }
 const group = level.group ? groupOf(dim, level.group) : null;
 const item = level.item ? itemOf(dim, level.item) : null;
-const isTrope = dim.facet_kind === "question";
+const isMixed = dim.facet_kind === "test";
+const isTrope = dim.facet_kind === "question" || (!!item && !!item.trope);
 const measuredEngines = engines.filter((e) => under.some((c) => c.engines[e.id].status === "measured"));
 const siblings = level.kind === "group"
   ? bd.groups.filter((g) => g.id !== level.group).map((g) => ({ label: g.label, href: urls.at(dim, g.id, null) }))
@@ -53,13 +54,13 @@ const floorClause = group && isTrope ? (under.map((c) => Object.values(c.engines
     <p class="kicker">{kicker}</p>
     <h1 class="display xl">{title}</h1>
     <RegWarn dim={dim} />
-    {group && isTrope && (
+    {group && isMixed && (
+      <p class="deck">How each engine's answers moved when a bio opened with <q>{group.clause.trim()}</q>, test by test: the role decisions and the character questions alike.</p>
+    )}
+    {group && isTrope && !isMixed && (
       <p class="deck">How each engine's answers moved when a bio opened with <q>{group.clause.trim()}</q> instead of the floor <q>{floorClause}</q>, question by question. A trope score is this {bd.group_kind}'s shift minus the other {plural(bd.group_kind)}' mean shift, in points of probability: zero means no trope.</p>
     )}
-    {group && !isTrope && dim.id === "religion-v2" && (
-      <p class="deck">How far each engine's decision moved when <q>{group.clause.trim()}</q> was inserted in place of <q>A devoted gardener,</q>, task by task.</p>
-    )}
-    {group && !isTrope && dim.id !== "religion-v2" && (
+    {group && !isTrope && !isMixed && (
       <p class="deck">{dim.cue} This page: {group.label} names against white names.</p>
     )}
     {item && isTrope && (

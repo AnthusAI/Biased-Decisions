@@ -20,7 +20,7 @@ function walk(dir, out = []) {
   return out;
 }
 const urlOf = (file) => "/" + relative(DIST, file).split(sep).join("/").replace(/index\.html$/, "");
-const pages = new Map(walk(DIST).filter((f) => f.endsWith("index.html")).map((f) => [urlOf(f), readFileSync(f, "utf8")]));
+const pages = new Map(walk(DIST).filter((f) => f.endsWith("index.html")).map((f) => [urlOf(f), readFileSync(f, "utf8")]).filter(([, h]) => !h.includes('http-equiv="refresh"')));
 const unescape = (s) => s.replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&amp;/g, "&");
 const text = (html) => unescape(html.replace(/<script[\s\S]*?<\/script>/g, " ").replace(/<[^>]+>/g, " ")).replace(/\s+/g, " ");
 const ids = (html) => new Set([...html.matchAll(/\sid="([^"]+)"/g)].map((m) => m[1]));
