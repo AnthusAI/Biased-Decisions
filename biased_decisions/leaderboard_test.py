@@ -338,7 +338,7 @@ def test_the_caveats_that_matter_survive_in_plain_words(doc):
     assert "the least" in by_id["one-detail"]["text"]
     assert "order" in by_id["option-order"]["title"].lower()
     replay = by_id["replay"]
-    assert "record" in replay["text"] and replay["link"] == {"to": "data", "label": "the data file"}
+    assert "saved answers" in replay["text"] and replay["link"] == {"to": "data", "label": "the data file"}
     assert "not the people" in by_id["tropes"]["title"]
     assert "stand-in" not in json.dumps(doc["honesty"])
 
@@ -381,7 +381,7 @@ def test_the_neutral_pronoun_rows_are_in_the_data_for_every_task_laya_answered(d
     rows = doc["neutral"]["rows"]
     assert {r["task"] for r in rows} == set(BIOS_TASKS) and {r["engine"] for r in rows} == {"laya"}
     nurse = next(r for r in rows if r["task"] == "nurse-physician")
-    assert nurse["task_label"] == "nurse / physician" and nurse["reportable"] is True
+    assert nurse["task_label"] == "nurse or physician" and nurse["reportable"] is True
     assert 0.1 < nurse["position"]["blank"]["lambda"] < 0.3 and nurse["positive"] == "physician"
     journalist = next(r for r in rows if r["task"] == "journalist-professor")
     assert journalist["reportable"] is False and journalist["position"]["blank"] is None
@@ -417,7 +417,7 @@ def test_first_name_race_is_a_group_of_the_race_board_and_its_flip_rate_keeps_it
     assert [i["id"] for i in race["items"]] == ["surgeon-physician", "qpain-treatment", "civil-comments-moderation"]
     cell = next(c for c in race["cells"] if c["group"] == "black-first-name" and c["item"] == "surgeon-physician")
     jev = cell["engines"]["jev"]
-    assert jev["status"] == "measured" and "flip rate" in jev["raw"]["label"]
+    assert jev["status"] == "measured" and "how often the answer changes" in jev["raw"]["label"]
     other = next(c for c in race["cells"] if c["group"] == "black-first-name" and c["item"] == "qpain-treatment")
     assert all(f["status"] == "missing" for f in other["engines"].values())
 
@@ -429,4 +429,50 @@ def test_gender_is_one_board_for_the_pronoun_swap_and_the_opioid_task(doc):
     laya = dims["gender"]["cells"]["laya"]
     assert (laya["headline"]["facet"], laya["headline"]["value"]) == ("paralegal-attorney", 17.85)
     q = next(f for f in laya["facets"] if f["id"] == "qpain-treatment")
-    assert q["status"] == "measured" and "shift" in q["raw"]["label"] and q["detected"] is True
+    assert q["status"] == "measured" and "confidence" in q["raw"]["label"] and q["detected"] is True
+
+
+# --- the words a reader sees ------------------------------------------------------------------
+
+BUILDER_WORDS = re.compile(
+    r"\b(?:engines?|cues?|floors?|excess|tropes?|flip(?:s|ped| rates?)?|vignettes?|twins?|pp|"
+    r"dimensions?|facets?|cells?|corpus|counterfactuals?|stimul(?:us|i)|bootstrap(?:ped)?|"
+    r"resamples?|seed|replay(?:ed|s)?|records?|harness|committed|staged|unattributed|"
+    r"attributable|pre-?regist\w*|batch[- ]?\d)\b", re.I)
+
+
+def _reader_strings(doc):
+    """Every string this module writes that a page shows as text (not ids, keys or quotes)."""
+    out = [doc["overall"]["rule"]]
+    out += [s["about"] for s in doc["provenance"]["sources"]]
+    for e in doc["engines"]:
+        out += [e["kind"], e["about"]]
+    for v in doc["vocabulary"]:
+        out += [v["term"], v["text"]]
+    for c in doc["honesty"]:
+        out += [c["title"], c["text"]]
+    for d in doc["dimensions"]:
+        out += [d["label"], d["long"], d["cue"], d["floor"], d["excess"], d["measure_plain"],
+                *d["notes"]]
+        bd = d["breakdown"]
+        out += [bd["example_note"] or ""] + [i["label"] for i in bd["items"]]
+        out += [i.get("note") or "" for i in bd["items"]]
+        for cell in d["cells"].values():
+            out += [r.get("note") or "" for r in cell.get("prereg", [])]
+            for f in cell["facets"]:
+                if f["status"] == "missing":
+                    out.append(f["why"])
+                    continue
+                out += [f["raw"]["label"], f["floor"]["label"], f["note"] or "",
+                        f["interval_method"]]
+    return out
+
+
+def test_no_builder_word_reaches_a_page_from_the_data(doc):
+    found = sorted({m.group(0).lower() for s in _reader_strings(doc) for m in BUILDER_WORDS.finditer(s)})
+    assert found == []
+
+
+def test_every_characteristic_says_what_it_measures_in_plain_words(doc):
+    for d in doc["dimensions"]:
+        assert d["measure_plain"] and d["measure_plain"] != d["measure"], d["id"]

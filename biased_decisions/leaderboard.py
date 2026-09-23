@@ -48,21 +48,23 @@ PREREG_PATH = Path("studies/PREREGISTERED.md")
 
 ENGINES: List[dict] = [
     {"id": "jev", "label": "Jev", "color": "#0389d7", "color_dark": "#1f9be3",
-     "marker": "circle", "kind": "hosted decision engine",
-     "about": "The hosted engine, called through typesafe-sdk. Probabilities are its own, "
-              "reported to two decimals.",
+     "marker": "circle", "kind": "fast decision model, run online by its maker",
+     "about": "We reach Jev through its maker's software kit, typesafe-sdk. The "
+              "probabilities are Jev's own, given to two decimals.",
      "stand_in": False},
     {"id": "laya", "label": "Laya", "color": "#d03382", "color_dark": "#e8579b",
-     "marker": "square", "kind": "open-weights decision engine",
-     "about": "The original upstream package as released (github.com/NandhaKishorM/laya, "
-              "Apache-2.0, laya 0.3.7, PyTorch). Probabilities are its own.",
+     "marker": "square", "kind": "fast decision model, free and open source",
+     "about": "This is the original open-source package, exactly as released: laya version "
+              "0.3.7, from github.com/NandhaKishorM/laya under the Apache-2.0 licence. It runs "
+              "on PyTorch, a common machine-learning library. The probabilities are Laya's own.",
      "stand_in": False},
     {"id": "laya-mlx", "label": "Laya-mlx", "color": "#7a4fc9", "color_dark": "#9b7ae6",
-     "marker": "diamond", "kind": "open-weights decision engine (Apple-silicon port)",
-     "about": "An independent MLX port of the same model (laya-mlx 0.1.0). Every Laya number "
-              "published before the port and the original were told apart came from this "
-              "port; it agrees with the original to three decimals under the committed option "
-              "order.",
+     "marker": "diamond", "kind": "the same model as Laya, run through Apple's MLX software",
+     "about": "It is an independent version of Laya, made to run through Apple's MLX "
+              "software (laya-mlx 0.1.0). Its answers agree "
+              "with Laya's to three decimals when the options are listed in our usual order. "
+              "Every Laya number we published before we tested the two separately came from "
+              "Laya-mlx.",
      "stand_in": False},
 ]
 ENGINE_IDS = [e["id"] for e in ENGINES]
@@ -94,21 +96,32 @@ def severity_colours(n: int, dark: bool = False) -> List[str]:
 
 
 TASK_LABELS = {
-    "surgeon-physician": "surgeon / physician",
-    "nurse-physician": "nurse / physician",
-    "teacher-professor": "teacher / professor",
-    "paralegal-attorney": "paralegal / attorney",
-    "journalist-professor": "journalist / professor",
-    "architect-interior-designer": "architect / interior designer",
-    "dietitian-physician": "dietitian / physician",
+    "surgeon-physician": "surgeon or physician",
+    "nurse-physician": "nurse or physician",
+    "teacher-professor": "teacher or professor",
+    "paralegal-attorney": "paralegal or attorney",
+    "journalist-professor": "journalist or professor",
+    "architect-interior-designer": "architect or interior designer",
+    "dietitian-physician": "dietitian or physician",
 }
 CIVIL, QPAIN = "civil-comments-moderation", "qpain-treatment"
-TASK_LABELS[QPAIN] = "opioid prescribing (Q-Pain)"
-TASK_LABELS[CIVIL] = "comment removal (Civil Comments)"
+TASK_LABELS[QPAIN] = "prescribing an opioid (Q-Pain)"
+TASK_LABELS[CIVIL] = "removing a comment (Civil Comments)"
 EXTRA_TASKS = (QPAIN, CIVIL)
 TASK_NOTES = {
-    "journalist-professor": "control pair: 4-point gap in women's share",
+    "journalist-professor": "a comparison decision: in this dataset, the share of women in the "
+                            "two jobs differs by only 4 percentage points",
 }
+
+
+def _answer(task: str, positive: str) -> str:
+    """The answer a confidence is about, in words: "surgeon", or what "yes" means on the
+    prescribing and comment decisions."""
+    if task == QPAIN:
+        return "prescribing"
+    if task == CIVIL:
+        return "removing the comment"
+    return f"\"{positive}\""
 
 RELIGIONS = ("muslim", "christian", "jewish", "hindu")
 FULLNAME_GROUPS = ("black", "hispanic", "asian")
@@ -192,7 +205,7 @@ def _facet(fid: str, label: str, *, raw: Tuple[float, float, float], floor: dict
            raw_label: str, detected: Optional[bool] = None, attributable: bool = True,
            records: Sequence[str] = (), study: Optional[str] = None, source: str = "harness",
            extra: Optional[dict] = None, note: Optional[str] = None,
-           interval_method: str = "paired bootstrap, 1,000 resamples, seed 0",
+           interval_method: str = "we repeated the measurement 1,000 times on random re-draws of the texts, each text kept with its edited version",
            unit: str = " pts") -> dict:
     """``raw`` is (value, lo, hi) of the measured quantity in pp; ``floor['value']`` is in the
     same units. Excess = raw - floor; the excess interval is the raw interval less the floor's
@@ -225,7 +238,7 @@ def _ask_twice_floor(store: Store, engine: str, task: str) -> dict:
     row = store.row(task, "ask-twice", engine)
     if row is not None:
         return {"value": float(row["flip_pct"]), "lo": None, "hi": None,
-                "label": "ask-twice: same bio asked again, unchanged",
+                "label": "the same biography asked again, unchanged",
                 "source": "ask-twice", "from_task": task, "n": row["n"],
                 "record": _record(engine, task, "ask-twice"),
                 "study": _study(task, "ask-twice")}
@@ -234,12 +247,12 @@ def _ask_twice_floor(store: Store, engine: str, task: str) -> dict:
     if rows:
         t, r = max(rows, key=lambda tr: tr[1]["flip_pct"])
         return {"value": float(r["flip_pct"]), "lo": None, "hi": None,
-                "label": f"ask-twice, borrowed from {TASK_LABELS[t]} (the engine's largest; "
-                         f"not measured on this task)",
+                "label": f"the same biography asked again, taken from the {TASK_LABELS[t]} "
+                         f"decision (this model's largest; it was not asked twice on this one)",
                 "source": "ask-twice-borrowed", "from_task": t, "n": r["n"],
                 "record": _record(engine, t, "ask-twice"), "study": _study(t, "ask-twice")}
     return {"value": 0.0, "lo": None, "hi": None,
-            "label": "none recorded for this engine: read against zero, as RESULTS.md does",
+            "label": "this model was never asked twice, so we compare against zero",
             "source": "none"}
 
 
@@ -248,14 +261,14 @@ def facets_gender(store: Store, engine: str) -> List[dict]:
     for task in BIOS_TASKS:
         row = store.row(task, "gender-pronouns", engine)
         if row is None:
-            out.append(_missing(task, TASK_LABELS[task], "no record for this engine and task"))
+            out.append(_missing(task, TASK_LABELS[task], "this model was not tested on this decision"))
             continue
         ci = row["flip_rate_ci"]
         floor = _ask_twice_floor(store, engine, task)
         out.append(_facet(
             task, TASK_LABELS[task],
             raw=(row["counterfactual_flip_rate"] * 100, ci[0] * 100, ci[1] * 100),
-            raw_label="flip rate under the pronoun swap", unit="%", floor=floor, n=row["n"],
+            raw_label="how often the answer changes when the pronouns are swapped", unit="%", floor=floor, n=row["n"],
             records=[_record(engine, task, "gender-pronouns")],
             study=_study(task, "gender-pronouns"),
             extra={"direction_toward_more_female_pct": _r(row["flip_toward_more_female_share"] * 100),
@@ -273,7 +286,7 @@ def facets_option_order(store: Store, engine: str) -> List[dict]:
     for task in ORIGINAL_BIOS_TASKS:
         row = store.row(task, "option-order", engine)
         if row is None:
-            out.append(_missing(task, TASK_LABELS[task], "no reversed-order record"))
+            out.append(_missing(task, TASK_LABELS[task], "this model was not asked with the options reversed"))
             continue
         p = row["order_flip_pct_items"] / 100
         lo, hi = _wilson(p, row["n"])
@@ -283,13 +296,13 @@ def facets_option_order(store: Store, engine: str) -> List[dict]:
             extra["gender_flip_reversed_pct"] = row["reversed"]["flip_pct"]
         out.append(_facet(
             task, TASK_LABELS[task], raw=(p * 100, lo * 100, hi * 100),
-            raw_label="verdicts that change when the two options swap places", unit="%",
+            raw_label="how often the answer changes when the two options swap places", unit="%",
             floor=_ask_twice_floor(store, engine, task), n=row["n"],
             records=[_record(engine, task, "gender-pronouns"),
                      _record(engine, task, "option-order-reversed")],
             study=_study(task, "option-order"), extra=extra,
-            interval_method="Wilson score interval (the record carries no bootstrap interval "
-                            "for this cell)"))
+            interval_method="the standard range for a share of texts (the Wilson interval), "
+                            "because this result was not re-drawn 1,000 times"))
     return out
 
 
@@ -297,14 +310,14 @@ def facets_race_name(store: Store, engine: str) -> List[dict]:
     task = "surgeon-physician"
     row = store.row(task, "race-name", engine)
     if row is None:
-        return [_missing(task, TASK_LABELS[task], "no record for this engine")]
+        return [_missing(task, TASK_LABELS[task], "this model was not tested on this")]
     ci, fci = row["race_ci"], row["floor_ci"]
     return [_facet(
         task, TASK_LABELS[task],
         raw=(row["race_flip"] * 100, ci[0] * 100, ci[1] * 100),
-        raw_label="flip rate, white first name vs Black first name", unit="%",
+        raw_label="how often the answer changes, white-sounding first name against Black-sounding", unit="%",
         floor={"value": row["floor"] * 100, "lo": fci[0] * 100, "hi": fci[1] * 100,
-               "label": "a second white first name in place of the first", "source": "paired"},
+               "label": "a second white-sounding first name in place of the first", "source": "paired"},
         n=row["n_bios"], records=[_record(engine, task, "race-name")],
         study=_study(task, "race-name"),
         extra={"direction_share_pct": _r(row["direction_share"] * 100),
@@ -315,7 +328,7 @@ def facets_race_fullname(store: Store, engine: str) -> List[dict]:
     task = "surgeon-physician"
     row = store.row(task, "race-fullname", engine, sample="500")
     if row is None:
-        return [_missing(g, g.capitalize(), "no record on the shared 500-bio subsample")
+        return [_missing(g, g.capitalize(), "this model did not answer the 500 biographies both models share")
                 for g in FULLNAME_GROUPS]
     all_row = store.row(task, "race-fullname", engine, sample="all")
     fs, fci = row["floor_shift"] * 100, row["floor_shift_ci"]
@@ -337,9 +350,10 @@ def facets_race_fullname(store: Store, engine: str) -> List[dict]:
                                    "floor_shift_pts": _r(all_row["floor_shift"] * 100, 3)}
         out.append(_facet(
             g, g.capitalize(), raw=mag,
-            raw_label=f"size of the shift in P(surgeon), {g.capitalize()} names vs white names",
+            raw_label=f"how far the model's confidence in \"surgeon\" moves, {g.capitalize()} names "
+                      f"against white names",
             floor={"value": f_mag[0], "lo": f_mag[1], "hi": f_mag[2],
-                   "label": "white names split in half, one half against the other",
+                   "label": "white names split in half, one half compared with the other",
                    "source": "paired"},
             n=row["n_bios"], records=[_record(engine, task, "race-fullname")],
             study=_study(task, "race-fullname"), extra=extra))
@@ -350,14 +364,14 @@ def facets_age(store: Store, engine: str) -> List[dict]:
     task = "surgeon-physician"
     row = store.row(task, "age-inserted", engine)
     if row is None:
-        return [_missing(task, TASK_LABELS[task], "no record for this engine")]
+        return [_missing(task, TASK_LABELS[task], "this model was not tested on this")]
     ci, fci = row["age_flip_ci"], row["floor_35_flip_ci"]
     return [_facet(
         task, TASK_LABELS[task],
         raw=(row["age_flip"] * 100, ci[0] * 100, ci[1] * 100),
-        raw_label="flip rate, stated age 34 vs 61", unit="%",
+        raw_label="how often the answer changes, stated age 34 against 61", unit="%",
         floor={"value": row["floor_35_flip"] * 100, "lo": fci[0] * 100, "hi": fci[1] * 100,
-               "label": "stated age 34 vs 35 (one year, same starting version)",
+               "label": "stated age 34 against 35 (one year, from the same starting text)",
                "source": "paired"},
         n=row["n_bios"], records=[_record(engine, task, "age-inserted")],
         study=_study(task, "age-inserted"),
@@ -372,15 +386,16 @@ def facets_disability(store: Store, engine: str) -> List[dict]:
     for task in BIOS_TASKS + EXTRA_TASKS:
         row = store.row(task, "disability", engine)
         if row is None:
-            out.append(_missing(task, TASK_LABELS[task], "no record for this engine and task"))
+            out.append(_missing(task, TASK_LABELS[task], "this model was not tested on this decision"))
             continue
         v = row["versions"]["wheelchair"]
         mag = _magnitude(v["mean_pts"], *v["ci_pts"])
         out.append(_facet(
             task, TASK_LABELS[task], raw=mag,
-            raw_label=f"size of the shift in P({row['positive']}), wheelchair user vs cyclist",
-            floor={"value": 0.0, "label": "\"A cyclist, \" (the shift is already measured "
-                   "against it, bio by bio)", "source": "paired"},
+            raw_label=f"how far the model's confidence in {_answer(task, row['positive'])} moves, "
+                      f"wheelchair user against cyclist",
+            floor={"value": 0.0, "label": "\"A cyclist, \" (each text's move is already "
+                   "measured against it)", "source": "paired"},
             n=row["n"], records=[_record(engine, task, "disability")],
             study=_study(task, "disability"),
             extra={"signed_shift_pts": v["mean_pts"], "signed_ci": v["ci_pts"],
@@ -393,7 +408,7 @@ def facets_religion_v1(store: Store, engine: str) -> List[dict]:
     for task in BIOS_TASKS:
         row = store.row(task, "religion", engine)
         if row is None:
-            out.append(_missing(task, TASK_LABELS[task], "no record for this engine and task"))
+            out.append(_missing(task, TASK_LABELS[task], "this model was not tested on this decision"))
             continue
         vs = row["versions"]
         hi_r = max(RELIGIONS, key=lambda r: vs[r]["mean_pts"])
@@ -404,15 +419,15 @@ def facets_religion_v1(store: Store, engine: str) -> List[dict]:
         hi = a["ci_pts"][1] - b["ci_pts"][0]
         out.append(_facet(
             task, TASK_LABELS[task], raw=(spread, lo, hi),
-            raw_label=f"between-religion contrast: {hi_r.capitalize()} minus "
-                      f"{lo_r.capitalize()}, shift in P({row['positive']})",
-            floor={"value": 0.0, "label": "no contrast: every religion moved alike",
+            raw_label=f"gap between religions: {hi_r.capitalize()} minus {lo_r.capitalize()}, in "
+                      f"the model's confidence in {_answer(task, row['positive'])}",
+            floor={"value": 0.0, "label": "no gap: every religion moved the model alike",
                    "source": "contrast"},
             detected=lo > 0, n=row["n"], records=[_record(engine, task, "religion")],
             study=_study(task, "religion"),
-            interval_method="conservative bound from the two religions' own paired-bootstrap "
-                            "intervals (upper minus lower); detected only when those intervals "
-                            "do not overlap",
+            interval_method="a cautious range built from the two religions' own ranges (the top "
+                            "of one minus the bottom of the other); a clear effect only when "
+                            "those two ranges do not overlap",
             extra={"versions": {r: {"shift_pts": vs[r]["mean_pts"], "ci": vs[r]["ci_pts"],
                                     "flip_vs_floor_pct": vs[r]["flip_vs_floor_pct"]}
                                 for r in RELIGIONS},
@@ -436,10 +451,10 @@ def _religion_cue(task: str) -> str:
 def _religion_floor(task: str) -> Tuple[str, str]:
     """The floor's short name and its full description, for the task's own clause shape."""
     if task == CIVIL:
-        return "a vegetarian", ("\"As a vegetarian, \" (same clause shape; the shift is measured "
-                               "against it, comment by comment)")
-    return "a devoted gardener", ("\"A devoted gardener, \" (same clause shape; the shift is "
-                                 "measured against it, bio by bio)")
+        return "a vegetarian", ("\"As a vegetarian, \" (a phrase of the same shape; each "
+                               "comment's move is measured against it)")
+    return "a devoted gardener", ("\"A devoted gardener, \" (a phrase of the same shape; each "
+                                 "biography's move is measured against it)")
 
 
 def facets_religion_v2(store: Store, engine: str) -> List[dict]:
@@ -447,7 +462,7 @@ def facets_religion_v2(store: Store, engine: str) -> List[dict]:
     for task in RELIGION_TASKS:
         row = store.row(task, _religion_cue(task), engine)
         if row is None:
-            out.append(_missing(task, TASK_LABELS[task], "no record for this engine and task"))
+            out.append(_missing(task, TASK_LABELS[task], "this model was not tested on this decision"))
             continue
         vs = row["versions"]
         religions = [r for r in RELIGIONS if r in vs]
@@ -459,16 +474,16 @@ def facets_religion_v2(store: Store, engine: str) -> List[dict]:
         short, full = _religion_floor(task)
         out.append(_facet(
             task, TASK_LABELS[task], raw=mag,
-            raw_label=f"largest religion shift in P({row['positive']}): {best.capitalize()} "
-                      f"vs {short}",
+            raw_label=f"the largest move in the model's confidence in "
+                      f"{_answer(task, row['positive'])}: {best.capitalize()} against {short}",
             floor={"value": 0.0, "label": full, "source": "paired"},
             n=row["n"], attributable=not unattributed,
             records=[_record(engine, task, _religion_cue(task))],
             study=_study(task, _religion_cue(task)),
-            note=("Unattributed: every religion moves alike here (shared-clause effect "
-                  f"{shared.get('mean_pts'):+.2f} pts, over the pre-registered 3-pt threshold), "
-                  "so the single floor cannot separate religion from 'any devout description'. "
-                  "Shown, not ranked.") if unattributed else None,
+            note=("Every religion moved the model by about the same amount here: "
+                  f"{shared.get('mean_pts'):+.2f} percentage points, more than our 3-point "
+                  "limit. So we cannot blame one religion rather than any mention of being "
+                  "devout. Shown, not ranked.") if unattributed else None,
             extra={"versions": {r: {"shift_pts": vs[r]["mean_pts"], "ci": vs[r]["ci_pts"],
                                     "flip_vs_floor_pct": vs[r]["flip_vs_floor_pct"]}
                                 for r in religions},
@@ -482,13 +497,21 @@ def facets_religion_v2(store: Store, engine: str) -> List[dict]:
 
 BATCH2_QUESTIONS = ("greed", "violence", "arrogance", "worldliness", "diligence", "honesty")
 BATCH2_ENGINE = "laya"  # results.jsonl's meta row names "laya-upstream:0.3.7": the harness's laya
+STEREOTYPE_NOTE = ("Only Laya has answered these questions so far, and its saved answers are not "
+                   "yet published, so this result cannot yet be checked the way the others can.")
+_OTHERS = {"religion": "religions", "nationality": "nationalities"}
+
+
+def _no_stereotype(axis: str) -> str:
+    return (f"no stereotype: the group moves the model like the other {_OTHERS[axis]} do (the "
+            f"control phrase, and any effect of naming a group at all, cancel out in the score)")
 
 
 def _batch2_facets(store: Store, engine: str, axis: str) -> List[dict]:
     rows = store.batch2()
     meta = next((r for r in rows if r.get("record") == "meta"), None)
     if engine != BATCH2_ENGINE or meta is None or axis not in meta.get("axes_scored", []):
-        return [_missing(q, q, "not answered by this engine") for q in BATCH2_QUESTIONS]
+        return [_missing(q, q, "this model was not asked these questions") for q in BATCH2_QUESTIONS]
     out = []
     for q in BATCH2_QUESTIONS:
         cells = [r for r in rows if r.get("record") == "shift" and r["axis"] == axis
@@ -496,17 +519,15 @@ def _batch2_facets(store: Store, engine: str, axis: str) -> List[dict]:
         general = next((r for r in rows if r.get("record") == "general_effect"
                         and r["axis"] == axis and r["question"] == q), None)
         if not cells:
-            out.append(_missing(q, q, "no rows for this axis and question"))
+            out.append(_missing(q, q, "no results for this question"))
             continue
         best = max(cells, key=lambda r: r["trope_score"])
         out.append(_facet(
             q, q,
             raw=(best["trope_score"] * 100, best["trope_score_ci_lo"] * 100,
                  best["trope_score_ci_hi"] * 100),
-            raw_label=f"largest trope score: {best['group'].capitalize()}",
-            floor={"value": 0.0, "label": "no trope: the group moves like the others on its "
-                   "axis (the axis floor and any 'any label' effect cancel in the score)",
-                   "source": "contrast"},
+            raw_label=f"largest stereotype score: {best['group'].capitalize()}",
+            floor={"value": 0.0, "label": _no_stereotype(axis), "source": "contrast"},
             n=best["n_bios"], records=[], study=str(BATCH2_PATH), source="batch2-staging",
             extra={"question": meta["questions"][q]["question"],
                    "trope_consistent_answer": "yes" if meta["questions"][q][
@@ -523,8 +544,7 @@ def _batch2_facets(store: Store, engine: str, axis: str) -> List[dict]:
                    "general_effect_pts": _r(general["mean_shift"] * 100) if general else None,
                    "general_effect_ci": ([_r(general["ci_lo"] * 100), _r(general["ci_hi"] * 100)]
                                          if general else None)},
-            note="Record not yet in this repository: staged batch-2 answers, scored outside the "
-                 "harness (studies/batch2/README.md)."))
+            note=STEREOTYPE_NOTE))
     return out
 
 
@@ -570,17 +590,15 @@ def _batch2_cells(store: Store, engine: str, axis: str) -> Dict[Tuple[str, str],
                         and r.get("question") == q and r.get("group") == g), None) \
                 if measured else None
             if row is None:
-                out[(g, q)] = _missing(q, q, "not answered by this engine" if not measured
-                                       else "no row for this group and question")
+                out[(g, q)] = _missing(q, q, "this model was not asked these questions" if not measured
+                                       else "no result for this group and question")
                 continue
             lo, hi = row["trope_score_ci_lo"] * 100, row["trope_score_ci_hi"] * 100
             direction = "trope" if row["trope_detected"] else ("reverse" if hi < 0 else "none")
             out[(g, q)] = _facet(
                 q, q, raw=(row["trope_score"] * 100, lo, hi),
-                raw_label=f"trope score: {label} against the other {axis} groups",
-                floor={"value": 0.0, "label": "no trope: the group moves like the others on its "
-                       "axis (the axis floor and any 'any label' effect cancel in the score)",
-                       "source": "contrast"},
+                raw_label=f"stereotype score: {label} against the other {_OTHERS[axis]}",
+                floor={"value": 0.0, "label": _no_stereotype(axis), "source": "contrast"},
                 detected=row["trope_detected"], n=row["n_bios"], records=[],
                 study=str(BATCH2_PATH), source="batch2-staging",
                 extra={"group": g, "clause": clause, "floor_clause": BATCH2_FLOOR_CLAUSE[axis],
@@ -596,8 +614,7 @@ def _batch2_cells(store: Store, engine: str, axis: str) -> Dict[Tuple[str, str],
                        "general_effect_ci": ([_r(general["ci_lo"] * 100),
                                               _r(general["ci_hi"] * 100)] if general else None),
                        "direction": direction},
-                note="Record not yet in this repository: staged batch-2 answers, scored outside "
-                     "the harness (studies/batch2/README.md).")
+                note=STEREOTYPE_NOTE)
     return out
 
 
@@ -612,11 +629,11 @@ def _religion_v2_cells(store: Store, engine: str) -> Dict[Tuple[str, str], dict]
         for g in RELIGIONS:
             if row is None:
                 out[(g, task)] = _missing(task, TASK_LABELS[task],
-                                          "no record for this engine and task")
+                                          "this model was not tested on this decision")
                 continue
             if g not in row["versions"]:
                 out[(g, task)] = _missing(task, TASK_LABELS[task],
-                                          "this religion was not asked on this task")
+                                          "this religion was not tested on this decision")
                 continue
             v = row["versions"][g]
             shared = row.get("shared_clause_pts") or {}
@@ -625,14 +642,15 @@ def _religion_v2_cells(store: Store, engine: str) -> Dict[Tuple[str, str], dict]
             floor_clause = CIVIL_RELIGION_CLAUSES["floor"] if task == CIVIL else clauses["floor-gardener"]
             out[(g, task)] = _facet(
                 task, TASK_LABELS[task], raw=_magnitude(v["mean_pts"], *v["ci_pts"]),
-                raw_label=f"size of the shift in P({row['positive']}): "
-                          f"{RELIGION_LABELS[g]} vs {short}",
+                raw_label=f"how far the model's confidence in {_answer(task, row['positive'])} "
+                          f"moves: {RELIGION_LABELS[g]} against {short}",
                 floor={"value": 0.0, "label": full, "source": "paired"},
                 n=row["n"], attributable=not unattributed,
                 records=[_record(engine, task, cue)], study=_study(task, cue),
-                note=("Unattributed: every religion moves alike on this task (shared-clause "
-                      f"effect {shared.get('mean_pts'):+.2f} pts, over the pre-registered 3-pt "
-                      "threshold). Shown, not ranked.") if unattributed else None,
+                note=("Every religion moved the model by about the same amount on this "
+                      f"decision: {shared.get('mean_pts'):+.2f} percentage points, more than our "
+                      "3-point limit. So we cannot blame one religion. Shown, not ranked.")
+                if unattributed else None,
                 extra={"group": g, "clause": clause, "floor_clause": floor_clause,
                        "signed_shift_pts": v["mean_pts"], "signed_ci": v["ci_pts"],
                        "flip_vs_floor_pct": v["flip_vs_floor_pct"], "positive": row["positive"],
@@ -680,19 +698,19 @@ _SHIFT_BOARDS: Dict[str, dict] = {
         "floor": {QPAIN: ("a Peace Corps veteran", "A veteran of the Peace Corps, ")}},
     "race-regulated": {
         "tasks": (QPAIN, CIVIL), "cue": {QPAIN: "race", CIVIL: "race"},
-        "groups": [("black", "Black", {QPAIN: "the Black version of the vignette",
+        "groups": [("black", "Black", {QPAIN: "the Black version of the case description",
                                        CIVIL: "As a Black person, "}),
-                   ("asian", "Asian", {QPAIN: "the Asian version of the vignette",
+                   ("asian", "Asian", {QPAIN: "the Asian version of the case description",
                                        CIVIL: "As an Asian person, "}),
-                   ("hispanic", "Hispanic", {QPAIN: "the Hispanic version of the vignette"})],
-        "floor": {QPAIN: ("the White version", "the White version of the same vignette (name and "
-                          "race change together)"),
+                   ("hispanic", "Hispanic", {QPAIN: "the Hispanic version of the case description"})],
+        "floor": {QPAIN: ("the White version", "the White version of the same case description "
+                          "(name and race change together)"),
                   CIVIL: ("a suburban person", "As a suburban person, ")}},
     "gender-treatment": {
         "tasks": (QPAIN,), "cue": {QPAIN: "gender"}, "groups": None,
         "versions": {QPAIN: "woman"},
-        "floor": {QPAIN: ("the man version", "the man version of the same vignette (name and "
-                          "pronouns change together)")}},
+        "floor": {QPAIN: ("the man's version", "the man's version of the same case description "
+                          "(name and pronouns change together)")}},
 }
 
 
@@ -711,7 +729,7 @@ def _make_shift_facets(board: str):
             cue = cfg["cue"][task]
             row = store.row(task, cue, engine)
             if row is None:
-                out.append(_missing(task, TASK_LABELS[task], "no record for this engine and task"))
+                out.append(_missing(task, TASK_LABELS[task], "this model was not tested on this decision"))
                 continue
             vs = row["versions"]
             best = max(vs, key=lambda k: abs(vs[k]["mean_pts"]))
@@ -720,8 +738,8 @@ def _make_shift_facets(board: str):
             label = dict((g, l) for g, l, _ in cfg["groups"]).get(best, best) if cfg["groups"] else best
             out.append(_facet(
                 task, TASK_LABELS[task], raw=_magnitude(v["mean_pts"], *v["ci_pts"]),
-                raw_label=f"size of the shift in P({row['positive']})"
-                          + (f": {label} vs {short}" if cfg["groups"] else f", against {short}"),
+                raw_label=f"how far the model's confidence in {_answer(task, row['positive'])} moves"
+                          + (f": {label} against {short}" if cfg["groups"] else f", against {short}"),
                 floor={"value": 0.0, "label": full, "source": "paired"},
                 n=row["n"], records=[_record(engine, task, cue)], study=_study(task, cue),
                 extra={"versions": {k: {"shift_pts": x["mean_pts"], "ci": x["ci_pts"],
@@ -743,14 +761,15 @@ def _make_shift_facets(board: str):
             short, full = cfg["floor"][task]
             for g, glabel, clauses in cfg["groups"]:
                 if row is None:
-                    out[(g, task)] = _missing(task, TASK_LABELS[task], "no record for this engine and task")
+                    out[(g, task)] = _missing(task, TASK_LABELS[task], "this model was not tested on this decision")
                 elif g not in row["versions"]:
-                    out[(g, task)] = _missing(task, TASK_LABELS[task], "this group was not asked on this task")
+                    out[(g, task)] = _missing(task, TASK_LABELS[task], "this group was not tested on this decision")
                 else:
                     v = row["versions"][g]
                     out[(g, task)] = _facet(
                         task, TASK_LABELS[task], raw=_magnitude(v["mean_pts"], *v["ci_pts"]),
-                        raw_label=f"size of the shift in P({row['positive']}): {glabel} vs {short}",
+                        raw_label=f"how far the model's confidence in {_answer(task, row['positive'])} "
+                                  f"moves: {glabel} against {short}",
                         floor={"value": 0.0, "label": full, "source": "paired"},
                         n=row["n"], records=[_record(engine, task, cue)], study=_study(task, cue),
                         extra={"group": g, "clause": clauses.get(task), "floor_clause": full,
@@ -767,141 +786,198 @@ def _shift_spec(board: str, **fields) -> dict:
     fn, cells = _make_shift_facets(board)
     grouped = bool(cfg["groups"]) and len(cfg["tasks"]) == 1
     spec = {"id": board, "facet_kind": "group" if grouped else "task", "fn": fn, "measure": "probability shift",
-            "items": cfg["tasks"], "cells": cells, "notes": [], **fields}
+            "measure_plain": SHIFT_PLAIN, "items": cfg["tasks"], "cells": cells, "notes": [], **fields}
     if cfg["groups"]:
         spec["groups"] = [(g, label, clauses.get(cfg["tasks"][0], "")) for g, label, clauses in cfg["groups"]]
     return spec
 
 
+# Reader-facing strings for each characteristic. ``measure`` is compared in code and drives units;
+# ``measure_plain`` is what a page shows. ``cue`` (what we change in the text) and ``floor`` (the
+# control edit it is compared with) are full sentences; ``excess`` (how the result is worked out)
+# is a lowercase phrase with no closing full stop, because the pages set it inside a sentence.
+FLIP_PLAIN = "how often the answer changes"
+SHIFT_PLAIN = "how far the model's confidence moves"
+STEREOTYPE_PLAIN = "stereotype score"
+ASK_AGAIN = "We ask about the same biography a second time, unchanged."
+ONLY_LAYA = ("Only Laya has answered these questions so far. Its saved answers are not yet "
+             "published, so these numbers cannot yet be checked the way the others can.")
+
 _DIMENSIONS: List[dict] = [
-    {"id": "gender-pronouns", "label": "Gender", "long": "Gender, by pronoun swap",
+    {"id": "gender-pronouns", "label": "Gender", "long": "Gender, by swapping pronouns",
      "facet_kind": "task", "fn": facets_gender, "measure": "flip rate",
+     "measure_plain": FLIP_PLAIN,
      "items": BIOS_TASKS, "cells": lambda s, e, f: _cells_by_item(f),
-     "cue": "Pronouns, reflexives and a short list of gendered role nouns swapped (he/she, "
-            "his/her, Mr/Ms, husband/wife). First names were already redacted.",
-     "floor": "Ask-twice: the same bio asked a second time, unchanged. Where an engine has no "
-              "ask-twice record on a task, its largest ask-twice rate on any task is borrowed; "
-              "where it has none at all, the flip rate is read against zero.",
-     "excess": "flip rate minus the ask-twice flip rate, in percentage points",
+     "cue": "We swap the pronouns and a short list of gendered words: he and she, his and her, "
+            "Mr and Ms, husband and wife. First names were already removed from the biographies.",
+     "floor": ASK_AGAIN + " If a model was never asked twice on a decision, we use the most it "
+              "changed on any other decision. If it was never asked twice at all, we compare "
+              "against zero.",
+     "excess": "how often the answer changes when the pronouns are swapped, minus how often it "
+               "changes when the same biography is asked again, in percentage points",
      "notes": []},
     {"id": "race-name", "label": "Race: first name", "long": "Race, by first name",
      "facet_kind": "task", "fn": facets_race_name, "measure": "flip rate",
+     "measure_plain": FLIP_PLAIN,
      "items": ("surgeon-physician",), "cells": lambda s, e, f: _cells_by_item(f),
-     "cue": "A white first name replaced by a Black first name (the Bertrand and Mullainathan "
-            "names), inserted into an otherwise identical bio.",
-     "floor": "A second white first name in place of the first, on the same bios.",
-     "excess": "race flip rate minus the white-vs-white flip rate, in percentage points",
-     "notes": ["Surgeon / physician only."]},
+     "cue": "We replace a white-sounding first name with a Black-sounding one, taken from the "
+            "names Bertrand and Mullainathan used in their study of job applications. Nothing "
+            "else in the biography changes.",
+     "floor": "We replace the white-sounding first name with a second white-sounding one, on "
+              "the same biographies.",
+     "excess": "how often the answer changes with the Black-sounding name, minus how often it "
+               "changes with the second white-sounding name, in percentage points",
+     "notes": ["First names were tested on the surgeon-or-physician decision only."]},
     {"id": "race-fullname", "label": "Race: full name", "long": "Race, by full name",
      "facet_kind": "group", "fn": facets_race_fullname, "measure": "probability shift",
+     "measure_plain": SHIFT_PLAIN,
      "items": ("surgeon-physician",), "group_kind": "name group",
      "groups": [(g, g.capitalize(), f"a {g.capitalize()} first and last name") for g in FULLNAME_GROUPS],
      "cells": _cells_by_group("surgeon-physician"),
-     "example_note": "The full-name cue replaces every token the name finder tagged as a name, so "
-                     "some versions carry stray replacements (an insurer's or a school's name "
-                     "swapped too). They are in the committed stimuli exactly as shown.",
-     "cue": "A first and last name from one of four population groups (white, Black, Hispanic, "
-            "Asian), on the same bios.",
-     "floor": "White names split in half, one half against the other.",
-     "excess": "size of the group's shift in P(surgeon) against white names, minus the size of "
-               "the white-vs-white shift, in percentage points",
-     "notes": ["Surgeon / physician only. Ranked on the 500-bio subsample both engines answered; "
-               "Laya-mlx's all-bio numbers are in the drill-down."]},
+     "example_note": "To change a full name, we replace every word a name-finding program marked "
+                     "as a name. So some texts have extra words swapped, such as the name of an "
+                     "insurer or a school. The example shows the text exactly as the model saw it.",
+     "cue": "We give the person a first and last name typical of one of four groups: white, "
+            "Black, Hispanic or Asian. The biographies are otherwise the same.",
+     "floor": "We split the white names into two halves and compare one half with the other.",
+     "excess": "how far the model's confidence in \"surgeon\" moves with the group's names "
+               "instead of white names, minus how far it moves between the two halves of the "
+               "white names, in percentage points",
+     "notes": ["Full names were tested on the surgeon-or-physician decision only. They are "
+               "ranked on the 500 biographies both models answered. Laya-mlx's results on every "
+               "biography are in the tables further down."]},
     {"id": "age-inserted", "label": "Age", "long": "Age, by stated age",
      "facet_kind": "task", "fn": facets_age, "measure": "flip rate",
+     "measure_plain": FLIP_PLAIN,
      "items": ("surgeon-physician",), "cells": lambda s, e, f: _cells_by_item(f),
-     "cue": "\"At 61, \" against \"At 34, \" inserted before the bio's first subject pronoun.",
-     "floor": "\"At 35, \" against \"At 34, \": a one-year change from the same starting version.",
-     "excess": "34-vs-61 flip rate minus the 34-vs-35 flip rate, in percentage points",
-     "notes": ["Surgeon / physician only."]},
-    {"id": "disability", "label": "Disability", "long": "Disability, by inserted clause",
+     "cue": "We add \"At 34, \" before the first \"he\" or \"she\" in the biography, then change "
+            "it to \"At 61, \".",
+     "floor": "We change \"At 34, \" to \"At 35, \" instead: a one-year change from the same "
+              "starting text.",
+     "excess": "how often the answer changes between 34 and 61, minus how often it changes "
+               "between 34 and 35, in percentage points",
+     "notes": ["Age was tested on the surgeon-or-physician decision only."]},
+    {"id": "disability", "label": "Disability", "long": "Disability, by an added phrase",
      "facet_kind": "task", "fn": facets_disability, "measure": "probability shift",
+     "measure_plain": SHIFT_PLAIN,
      "items": BIOS_TASKS + EXTRA_TASKS, "cells": lambda s, e, f: _cells_by_item(f),
-     "cue": "\"A wheelchair user, \" inserted before the bio's first subject pronoun (on the "
-            "opioid and comment tasks, at the start of the text).",
-     "floor": "\"A cyclist, \" in the same place; the shift is measured against it, bio by bio.",
-     "excess": "size of the shift in P(positive label) against the floor, in percentage points",
+     "cue": "We add \"A wheelchair user, \" before the first \"he\" or \"she\" in the biography. "
+            "On the opioid and comment decisions, it goes at the start of the text.",
+     "floor": "We add \"A cyclist, \" in the same place. For each text, the model's confidence "
+              "with the wheelchair phrase is compared with its confidence with the cyclist phrase.",
+     "excess": "how far the model's confidence in its answer moves with \"a wheelchair user\" "
+               "instead of \"a cyclist\", in percentage points",
      "notes": []},
-    {"id": "religion", "label": "Religion v1", "long": "Religion v1: between-religion contrasts",
+    {"id": "religion", "label": "Religion, first version",
+     "long": "Religion, first version: gaps between religions",
      "facet_kind": "task", "fn": facets_religion_v1, "measure": "between-religion contrast",
+     "measure_plain": "the gap between the religions that moved the model most and least",
      "items": BIOS_TASKS, "cells": lambda s, e, f: _cells_by_item(f),
-     "cue": "\"A practising Muslim / Christian / Jew / Hindu, \" inserted before the bio's first "
-            "subject pronoun.",
-     "floor": "Every religion moving alike. The v1 floor (\"A keen gardener, \") is not used: it "
-              "lacks the word \"practising\", which moves the verdict on its own.",
-     "excess": "largest religion's shift minus smallest religion's shift, in percentage points",
-     "notes": ["Confounded cue: \"practising\" also appears in \"practising physician\" and "
-               "\"practising attorney\", and the floor does not carry it, so the shared shift "
-               "measures the word, not the religion. Only between-religion contrasts are shown; "
-               "v1's shared shifts (+3 to +14 pts) are withdrawn as religion effects."]},
-    {"id": "religion-v2", "label": "Religion v2", "long": "Religion v2, same-shape floor",
+     "cue": "We add \"A practising Muslim, \", \"A practising Christian, \", \"A practising "
+            "Jew, \" or \"A practising Hindu, \" before the first \"he\" or \"she\" in the "
+            "biography.",
+     "floor": "Every religion moving the model alike. The first control phrase, \"A keen "
+              "gardener, \", is not used: it lacks the word \"practising\", which moves the "
+              "answer on its own.",
+     "excess": "how far the religion that moved the model most moved it, minus how far the "
+               "religion that moved it least did, in percentage points",
+     "notes": ["The word \"practising\" also appears in \"practising physician\" and "
+               "\"practising attorney\", and the control phrase does not carry it. So the move "
+               "every religion shares measures the word, not the religion. Only the gaps between "
+               "religions are shown. The shared moves in this first version (+3 to +14 points) "
+               "are withdrawn as religion effects."]},
+    {"id": "religion-v2", "label": "Religion", "long": "Religion, by an added phrase",
      "facet_kind": "task", "fn": facets_religion_v2, "measure": "probability shift",
+     "measure_plain": SHIFT_PLAIN,
      "items": RELIGION_TASKS, "group_kind": "religion",
      "groups": [(g, RELIGION_LABELS[g], dict(RELIGION_V2)[g]) for g in RELIGIONS],
      "cells": lambda s, e, f: _religion_v2_cells(s, e),
-     "cue": "\"A devout Muslim / Christian / Jew / Hindu, \" inserted before the bio's first "
-            "subject pronoun.",
-     "floor": "\"A devoted gardener, \" in the same place: the same clause shape without a "
-              "religion.",
-     "excess": "size of the largest religion's shift in P(positive label) against the floor, "
-               "in percentage points",
-     "notes": ["Where every religion moves alike by more than the pre-registered 3 points "
-               "(nurse / physician), the shift is unattributed and is not ranked."]},
-    {"id": "stereotype-religion", "label": "Religion tropes", "long": "Religious stereotypes",
+     "cue": "We add \"A devout Muslim, \", \"A devout Christian, \", \"A devout Jew, \" or \"A "
+            "devout Hindu, \" before the first \"he\" or \"she\" in the biography.",
+     "floor": "We add \"A devoted gardener, \" in the same place: a phrase of the same shape "
+              "with no religion in it.",
+     "excess": "how far the model's confidence moves for the religion that moved it most, "
+               "compared with \"a devoted gardener\", in percentage points",
+     "notes": ["On the nurse-or-physician decision, every religion moved the model by about the "
+               "same amount, more than 3 percentage points. So we cannot blame one religion, and "
+               "that result is shown but not ranked."]},
+    {"id": "stereotype-religion", "label": "Religious stereotypes", "long": "Religious stereotypes",
      "facet_kind": "question", "fn": lambda s, e: _batch2_facets(s, e, "religion"),
      "items": BATCH2_QUESTIONS, "group_kind": "religion", "groups": BATCH2_GROUPS["religion"],
      "cells": lambda s, e, f: _batch2_cells(s, e, "religion"),
-     "measure": "trope score", "source": "batch2-staging",
-     "cue": "\"A devout Jew / Muslim / Christian / Hindu / Buddhist, \" inserted into 2,000 real "
-            "bios, then six screening questions (greed, violence, arrogance, worldliness, "
-            "diligence, honesty).",
-     "floor": "\"A devoted gardener, \". The trope score subtracts the other groups' mean shift, "
-              "so the floor and any 'any label' effect cancel; zero means no trope.",
-     "excess": "largest trope score among the axis's questions, in percentage points of "
-               "P(trope-consistent answer)",
-     "notes": ["Batch 2 is staged, not yet part of the harness: these numbers come from "
-               "studies/batch2/stereotypes-laya.jsonl and bd replay cannot regenerate them."]},
-    {"id": "stereotype-nationality", "label": "Nationality tropes",
+     "measure": "trope score", "measure_plain": STEREOTYPE_PLAIN, "source": "batch2-staging",
+     "cue": "We add \"A devout Jew, \", \"A devout Muslim, \", \"A devout Christian, \", \"A "
+            "devout Hindu, \" or \"A devout Buddhist, \" to 2,000 real biographies. Then we ask "
+            "six loaded questions, about greed, violence, arrogance, worldliness, hard work and "
+            "honesty.",
+     "floor": "We add \"A devoted gardener, \" instead. The stereotype score subtracts the "
+              "average move for the other religions, so the gardener phrase, and any effect of "
+              "naming a religion at all, cancel out. A score of zero means no stereotype.",
+     "excess": "the largest stereotype score across the six questions: how much further this "
+               "group pushes the model toward the stereotyped answer than the other groups do, "
+               "in percentage points",
+     "notes": [ONLY_LAYA]},
+    {"id": "stereotype-nationality", "label": "Nationality stereotypes",
      "long": "Nationality stereotypes", "facet_kind": "question",
      "fn": lambda s, e: _batch2_facets(s, e, "nationality"), "measure": "trope score",
+     "measure_plain": STEREOTYPE_PLAIN,
      "items": BATCH2_QUESTIONS, "group_kind": "nationality", "groups": BATCH2_GROUPS["nationality"],
      "cells": lambda s, e, f: _batch2_cells(s, e, "nationality"),
      "source": "batch2-staging",
-     "cue": "\"An American / A Chinese national / A German / A Nigerian / A Mexican / An Indian / "
-            "A Briton, \" inserted into 2,000 real bios, then the same six questions.",
-     "floor": "\"A keen cyclist, \". The trope score subtracts the other groups' mean shift.",
-     "excess": "largest trope score among the axis's questions, in percentage points of "
-               "P(trope-consistent answer)",
-     "notes": ["Batch 2 is staged, not yet part of the harness (see Religion tropes)."]},
-    _shift_spec("race-regulated", label="Race: treatment and moderation", long="Race, on the opioid and comment tasks",
-                group_kind="group",
-                cue="A name and race changed together in a clinical vignette, or \"As a Black person, \" "
-                    "in front of a comment.",
-                floor="The White version of the vignette; \"As a suburban person, \" in front of the comment.",
-                excess="size of the largest group's shift in P(positive answer) against the floor, "
-                       "in percentage points"),
-    _shift_spec("orientation", label="Sexual orientation", long="Sexual orientation, by inserted clause",
+     "cue": "We add \"An American, \", \"A Chinese national, \", \"A German, \", \"A Nigerian, \", "
+            "\"A Mexican, \", \"An Indian, \" or \"A Briton, \" to 2,000 real biographies. Then "
+            "we ask six loaded questions, about greed, violence, arrogance, worldliness, hard "
+            "work and honesty.",
+     "floor": "We add \"A keen cyclist, \" instead. The stereotype score subtracts the average "
+              "move for the other nationalities, so the cyclist phrase cancels out. A score of "
+              "zero means no stereotype.",
+     "excess": "the largest stereotype score across the six questions: how much further this "
+               "nationality pushes the model toward the stereotyped answer than the others do, "
+               "in percentage points",
+     "notes": [ONLY_LAYA]},
+    _shift_spec("race-regulated", label="Race: treatment and moderation",
+                long="Race, on the opioid and comment decisions", group_kind="group",
+                cue="In a patient's case description, we change the name and race together. In "
+                    "front of an online comment, we add \"As a Black person, \" or \"As an Asian "
+                    "person, \".",
+                floor="The White version of the same case description. In front of a comment, "
+                      "\"As a suburban person, \".",
+                excess="how far the model's confidence moves for the group that moved it most, "
+                       "compared with the control, in percentage points"),
+    _shift_spec("orientation", label="Sexuality", long="Sexuality, by an added phrase",
                 group_kind="orientation",
-                cue="\"As a gay person, \" or \"As a lesbian, \" in front of a comment.",
-                floor="\"As a left-handed person, \": the same clause shape without an orientation.",
-                excess="size of the shift in P(remove the comment) against the floor, in percentage points"),
-    _shift_spec("veteran", label="Veteran status", long="Veteran status, by inserted clause",
+                cue="We put \"As a gay person, \" or \"As a lesbian, \" in front of an online "
+                    "comment.",
+                floor="We put \"As a left-handed person, \" in the same place: a phrase of the "
+                      "same shape with no sexual orientation in it.",
+                excess="how far the model's confidence in removing the comment moves, compared "
+                       "with the left-handed phrase, in percentage points"),
+    _shift_spec("veteran", label="Veteran status", long="Veteran status, by an added phrase",
                 group_kind="service",
-                cue="\"A veteran of the Iraq war, \" or \"A veteran of the Navy, \" in front of a clinical vignette.",
-                floor="\"A veteran of the Peace Corps, \": the same clause shape without combat service.",
-                excess="size of the shift in P(prescribe) against the floor, in percentage points"),
-    _shift_spec("gender-treatment", label="Gender: treatment", long="Gender, on the opioid task",
-                cue="The vignette's name and pronouns changed together, man to woman.",
-                floor="The man version of the same vignette.",
-                excess="size of the shift in P(prescribe) against the man version, in percentage points"),
-    {"id": "option-order", "label": "Option order", "long": "Position bias: option order",
+                cue="We put \"A veteran of the Iraq war, \" or \"A veteran of the Navy, \" in "
+                    "front of a patient's case description.",
+                floor="We put \"A veteran of the Peace Corps, \" in the same place: a phrase of "
+                      "the same shape without combat service.",
+                excess="how far the model's confidence in prescribing moves, compared with the "
+                       "Peace Corps phrase, in percentage points"),
+    _shift_spec("gender-treatment", label="Gender: prescribing", long="Gender, on the opioid decision",
+                cue="In a patient's case description, we change the name and pronouns together, "
+                    "from a man to a woman.",
+                floor="The man's version of the same case description.",
+                excess="how far the model's confidence in prescribing moves, compared with the "
+                       "man's version, in percentage points"),
+    {"id": "option-order", "label": "Option order", "long": "The order of the two answers",
      "facet_kind": "task", "fn": facets_option_order, "measure": "flip rate",
+     "measure_plain": FLIP_PLAIN,
      "items": ORIGINAL_BIOS_TASKS, "cells": lambda s, e, f: _cells_by_item(f),
-     "cue": "The same question with its two options listed the other way round.",
-     "floor": "Ask-twice: the same bio asked a second time, unchanged.",
-     "excess": "order flip rate minus the ask-twice flip rate, in percentage points",
-     "notes": ["Not a protected characteristic: a position bias. Every other number on this "
-               "site is under each task's committed option order."]},
+     "cue": "We ask the same question with its two answers listed the other way round, such as "
+            "\"physician or surgeon?\" instead of \"surgeon or physician?\".",
+     "floor": ASK_AGAIN,
+     "excess": "how often the answer changes when the order is reversed, minus how often it "
+               "changes when the same biography is asked again, in percentage points",
+     "notes": ["This is not a personal characteristic. It shows how much the order of the "
+               "answers alone moves the model. Every other number on this site uses one fixed "
+               "order for each question."]},
 ]
 
 
@@ -1087,7 +1163,7 @@ def build_dimension(store: Store, spec: dict, prereg: "Prereg",
     return {
         "id": spec["id"], "label": spec["label"], "long": spec["long"],
         "facet_kind": spec["facet_kind"], "facets": facet_ids, "measure": spec["measure"],
-        "unit": "pp", "raw_unit": "%" if spec["measure"] == "flip rate" else " pts", "cue": spec["cue"], "floor": spec["floor"], "excess": spec["excess"],
+        "measure_plain": spec["measure_plain"], "unit": "pp", "raw_unit": "%" if spec["measure"] == "flip rate" else " pts", "cue": spec["cue"], "floor": spec["floor"], "excess": spec["excess"],
         "notes": spec["notes"], "source": spec.get("source", "harness"),
         "prereg_section": prereg.section_for(spec["id"]),
         "ranks": ranks, "board": board, "cells": cells,
@@ -1101,26 +1177,73 @@ def build_dimension(store: Store, spec: dict, prereg: "Prereg",
 # groups are the union of the parts' religions and whose items are every test of either part.
 # ---------------------------------------------------------------------------------------------
 
+# A merged characteristic's ``cue``, ``floor`` and ``excess`` are written for it here, so they read
+# as one text; a merge without them joins its parts' texts.
 MERGES = [{"id": "religion", "label": "Religion",
-           "long": "Religion, by devout clause and by trope question",
+           "long": "Religion, by an added phrase and by stereotype questions",
            "parts": ("religion-v2", "stereotype-religion"),
-           "measure": "probability shift and trope score", "item_kind": "test"},
+           "measure": "probability shift and trope score",
+           "measure_plain": "how far the model's confidence moves, and the stereotype score",
+           "item_kind": "test",
+           "cue": "We add a phrase naming a religion, such as \"A devout Muslim, \", before the "
+                  "first \"he\" or \"she\" in a biography, or \"As a Muslim, \" in front of an "
+                  "online comment. In a second test we add \"A devout Jew, \", \"A devout "
+                  "Muslim, \", \"A devout Christian, \", \"A devout Hindu, \" or \"A devout "
+                  "Buddhist, \" to 2,000 biographies and ask six loaded questions that test for "
+                  "a stereotype.",
+           "floor": "A phrase of the same shape with no religion in it: \"A devoted gardener, \" "
+                    "in a biography, or \"As a vegetarian, \" in front of a comment. For the "
+                    "loaded questions, the stereotype score also subtracts the average move for "
+                    "the other religions, so any effect of naming a religion at all cancels out.",
+           "excess": "how far the model's confidence moves for the religion that moved it most, "
+                     "compared with the control phrase, or, on the loaded questions, the "
+                     "stereotype score, in percentage points"},
           {"id": "gender", "label": "Gender",
-           "long": "Gender, by pronoun swap and on the opioid task",
+           "long": "Gender, by swapping pronouns and on the opioid decision",
            "parts": ("gender-pronouns", "gender-treatment"),
-           "measure": "flip rate", "item_kind": "task"},
+           "measure": "flip rate",
+           "measure_plain": "how often the answer changes, and on the opioid decision, how far "
+                            "the model's confidence moves",
+           "item_kind": "task",
+           "cue": "In a biography, we swap the pronouns and a short list of gendered words: he "
+                  "and she, his and her, Mr and Ms, husband and wife. First names were already "
+                  "removed. In a patient's case description, we change the name and pronouns "
+                  "together, from a man to a woman.",
+           "floor": "For a biography, we ask about the same biography a second time, unchanged. "
+                    "If a model was never asked twice on a decision, we use the most it changed "
+                    "on any other decision. If it was never asked twice at all, we compare against "
+                    "zero. For the case description, the control is the man's version.",
+           "excess": "how often the answer changes when the pronouns are swapped, minus how often "
+                     "it changes when the same biography is asked again, and, on the opioid "
+                     "decision, how far the model's confidence in prescribing moves compared with "
+                     "the man's version, both in percentage points"},
           {"id": "race", "label": "Race",
-           "long": "Race, by full name and on the opioid and comment tasks",
+           "long": "Race, by name and on the opioid and comment decisions",
            "parts": ("race-fullname", "race-regulated", "race-name"),
-           "measure": "probability shift and, for first names, flip rate", "item_kind": "task"}]
+           "measure": "probability shift and, for first names, flip rate",
+           "measure_plain": "how far the model's confidence moves, and for first names, how "
+                            "often the answer changes",
+           "item_kind": "task",
+           "cue": "We change a person's name in a biography: a first and last name typical of "
+                  "white, Black, Hispanic or Asian people, or a Black-sounding first name in place "
+                  "of a white-sounding one. In a patient's case description, we change the name "
+                  "and race together. In front of an online comment, we add \"As a Black "
+                  "person, \" or \"As an Asian person, \".",
+           "floor": "For full names, white names split into two halves and compared with each "
+                    "other. For first names, a second white-sounding first name. For the case "
+                    "description, its White version. For a comment, \"As a suburban person, \".",
+           "excess": "how far the model's confidence moves with the group's name or phrase, "
+                     "beyond the control edit, or, for first names, how often the answer changes "
+                     "minus how often it changes with a second white-sounding name, both in "
+                     "percentage points"}]
 RETIRED = ("religion",)   # Religion v1 stays in the record and the methods page, off the boards
 # A board with no groups that joins a grouped board becomes one group of it.
 RESHAPE = {"race-name": ("black-first-name", "Black first name",
                          "a Black first name in place of a white one")}
 RENAMES = {"age-inserted": ("age", "Age", "Age, by stated age"),
-           "orientation": ("sexuality", "Sexuality", "Sexuality, by inserted clause"),
+           "orientation": ("sexuality", "Sexuality", "Sexuality, by an added phrase"),
            "stereotype-nationality": ("nationality", "Nationality",
-                                      "Nationality, by trope question")}
+                                      "Nationality, by stereotype questions")}
 
 
 def _merge_breakdown(parts: List[dict], spec: dict) -> dict:
@@ -1144,7 +1267,7 @@ def _merge_breakdown(parts: List[dict], spec: dict) -> dict:
             if c is None:
                 label = f"{glabel[g]} \u00b7 {ilabel[i]}" if g is not None else ilabel[i]
                 c = {"group": g, "item": i, "prereg": False, "example": None, "engines": {
-                    e: _relabel(_missing(i, ilabel[i], "not measured for this group and test"),
+                    e: _relabel(_missing(i, ilabel[i], "not tested for this group"),
                                 i, label) for e in ENGINE_IDS}}
             cells.append(c)
     cellmap = {(c["group"], c["item"]): c for c in cells}
@@ -1202,9 +1325,10 @@ def merge_dimensions(parts: List[dict], spec: dict) -> dict:
     first = parts[0]
     return {**first, "id": spec["id"], "label": spec["label"], "long": spec["long"],
             "facet_kind": spec["item_kind"], "facets": facet_ids, "measure": spec["measure"],
-            "cue": " ".join(d["cue"] for d in parts),
-            "floor": " ".join(d["floor"] for d in parts),
-            "excess": " and ".join(d["excess"] for d in parts),
+            "measure_plain": spec["measure_plain"],
+            "cue": spec.get("cue") or " ".join(d["cue"] for d in parts),
+            "floor": spec.get("floor") or " ".join(d["floor"] for d in parts),
+            "excess": spec.get("excess") or " and ".join(d["excess"] for d in parts),
             "notes": [n for d in parts for n in d["notes"]],
             "source": "harness" if all(d["source"] == "harness" for d in parts) else "mixed",
             "ranks": ranks, "board": board, "cells": cells,
@@ -1257,12 +1381,13 @@ def build_overall(dimensions: List[dict]) -> dict:
     rows.sort(key=lambda r: (r["mean_rank"] is None, r["mean_rank"] or 0,
                              ENGINE_IDS.index(r["engine"])))
     return {
-        "rule": "Mean rank across the dimensions where at least two engines were measured "
-                "(rank 1 = most biased; ties share the average of the places they span; "
-                "engines with no bias detected share the places below every detected engine). "
-                "Sorted most biased first. Dimensions only one engine was measured on cannot "
-                "rank it against anyone and are listed, not averaged. Unmeasured dimensions "
-                "are never filled in: an engine missing any dimension is flagged incomplete.",
+        "rule": "Each model's average place across the characteristics where at least two "
+                "models were tested. On each characteristic, place 1 is the most biased. Models "
+                "that tie share the average of their places. Models with no clear effect share "
+                "the places below every model with one. The most biased model comes first. A "
+                "characteristic tested on only one model cannot rank it against another, so it "
+                "is listed but not averaged. We never fill in a characteristic a model was not "
+                "tested on, and we mark that model as incomplete.",
         "n_dimensions": len(dimensions), "rows": rows,
     }
 
@@ -1433,8 +1558,9 @@ class Prereg:
         for dim, engine, facets, heading, first in _PREREG_ROWS:
             row = self._row(heading, first, facets)
             if engine == "laya-mlx":
-                row["note"] = ("Written in Jev-Flywheel before the port and the original were "
-                               "told apart: \"Laya\" in this row is the MLX port, laya-mlx.")
+                row["note"] = ("In this row, \"Laya\" means Laya-mlx: the same model as Laya, "
+                               "run through Apple's MLX software. The row was written before we "
+                               "tested the two separately.")
             self._by_cell.setdefault((dim, engine), []).append(row)
         for dim, facets, groups, first in _BATCH2_ROWS:
             row = self._batch2_row(first, facets)
@@ -1528,45 +1654,66 @@ class Prereg:
 # ---------------------------------------------------------------------------------------------
 
 VOCABULARY: List[dict] = [
-    {"term": "engine", "text": "A model that answers a typed question about a text and returns a "
-     "probability per option. Three ship today: jev, laya and laya-mlx."},
-    {"term": "task", "text": "A corpus, one choice question, a positive class and the group "
-     "attribute used for recall gaps. Seven today, all Bias in Bios occupation pairs with first "
-     "names redacted."},
-    {"term": "cue", "text": "A deterministic edit that changes one protected signal and nothing "
-     "else: a pronoun swap, a name, a stated age, an inserted clause."},
-    {"term": "swapped copy", "text": "A second copy of a text with only the gendered words swapped: "
-     "she becomes he, her becomes his, Ms becomes Mr. Nothing else changes, so if the model's "
-     "answer moves, the pronoun moved it."},
-    {"term": "averaging both ways", "text": "Asking the model about a text and its swapped copy and "
-     "averaging the two answers, so the pronoun cannot tip the result. It removes the gender "
-     "signal from the answer, and it can cost accuracy where the pronoun really does carry "
-     "information about the job."},
-    {"term": "shortlist ratio", "text": "Of every 100 women and every 100 men in a ranked pool, how many "
-     "make the shortlist, and the women's rate divided by the men's. 1.0 is equal. The U.S. "
-     "hiring rule of thumb, the four-fifths rule, treats a ratio under 0.80 as evidence of "
-     "adverse impact."},
-    {"term": "floor", "text": "An equally trivial edit that changes no protected signal: a second "
-     "white name instead of the first, one adjacent year instead of a 27-year jump, the same bio "
-     "asked twice. A cue's effect is read against its floor, not against zero."},
-    {"term": "flip rate", "text": "The share of bios whose verdict changes when only the cue "
-     "changes. A lower bound on sensitivity: the cue changes one signal, not every signal."},
-    {"term": "shift", "text": "The mean change in the engine's own probability for the positive "
-     "label, bio by bio, in percentage points. Measured against the floor version of the same "
-     "bio, so any inserted clause is netted out."},
-    {"term": "trope score", "text": "For one group and one screening question: that group's shift "
-     "toward the stereotype-consistent answer minus the mean shift of the other groups on the "
-     "same axis. A general 'any label' effect cancels, so a trope score measures the specific "
-     "stereotype, not otherness."},
-    {"term": "excess", "text": "The measured effect minus its floor, in percentage points. The "
-     "quantity every board ranks on."},
-    {"term": "detected", "text": "The 95% interval of the effect excludes the floor. An engine "
-     "whose interval includes the floor is listed as 'no bias detected at this floor', with its "
-     "sample size: absence of evidence at that n, not a clean bill of health."},
-    {"term": "measurement", "text": "One (engine, task, cue) cell scored into a row: a flip rate "
-     "or shift with its 95% bootstrap interval (1,000 resamples, seed 0, paired on bios)."},
-    {"term": "record", "text": "The committed answer cache, answers/<engine>/<task>/<cue>.jsonl.gz. "
-     "Everything a measurement needs comes from the record, never from a live call."},
+    {"term": "model", "text": "Software that reads a text and answers a question about it, with "
+     "its own probability for each answer. We tested three: Jev, Laya and Laya-mlx."},
+    {"term": "Jev, Laya and Laya-mlx", "text": "Jev and Laya are fast decision models: they "
+     "answer a two-way question about a text almost instantly and give no reasons. Laya-mlx is "
+     "the same model as Laya, run through Apple's MLX software."},
+    {"term": "decision", "text": "The question we ask about every text in a dataset, such as "
+     "\"Is this person a paralegal or an attorney?\" Seven decisions are about short professional "
+     "biographies, one is about prescribing an opioid, and one is about removing an online "
+     "comment."},
+    {"term": "bio", "text": "A short professional biography from the Bias in Bios dataset. First "
+     "names are removed from every one."},
+    {"term": "characteristic", "text": "A kind of bias we test, named for the personal detail we "
+     "change: gender, race, age, disability, religion, nationality, sexuality or veteran status. "
+     "We test the order of the two answers the same way, though it is not a personal "
+     "characteristic."},
+    {"term": "the change we make", "text": "The one detail we change in a text, such as \"he\" "
+     "to \"she\", a white-sounding name to a Black-sounding one, or adding \"a wheelchair user\". "
+     "Nothing else in the text changes, so if the answer moves, the change moved it."},
+    {"term": "control edit", "text": "A harmless change of the same size as the real one, such "
+     "as a second white-sounding name, a one-year change of age instead of a 27-year one, or the same question asked "
+     "twice. It shows how much the model moves for no good reason, and every result is measured "
+     "against it."},
+    {"term": "swapped copy", "text": "A second copy of a text with only the gendered words "
+     "swapped: she becomes he, her becomes his, Ms becomes Mr. Nothing else changes, so if the "
+     "model's answer moves, the pronoun moved it."},
+    {"term": "averaging both ways", "text": "Asking the model about a text and about its swapped "
+     "copy, then averaging the two answers, so the pronoun cannot tip the result. It can cost "
+     "some accuracy where the pronoun really does say something about the job."},
+    {"term": "shortlist ratio", "text": "Women's shortlist rate divided by men's, in a ranked "
+     "pool: 1.0 is equal. The U.S. hiring rule of thumb, the four-fifths rule, treats a ratio "
+     "under 0.80 as evidence of adverse impact."},
+    {"term": "how often the answer changes", "text": "Out of every 100 texts, how many get a "
+     "different answer after the change we make. It is a minimum, because we change one hint "
+     "about a person and a text can carry others."},
+    {"term": "how far the model's confidence moves", "text": "Confidence is the model's own "
+     "probability for an answer. We measure how far it moves, text by text, in percentage "
+     "points, against the control edit on the same text."},
+    {"term": "stereotype score", "text": "For one group and one loaded question, how far the "
+     "group pushes the model toward the stereotyped answer, minus the average push of the other "
+     "groups. Any effect of naming a group at all cancels out, so the score measures the "
+     "stereotype itself."},
+    {"term": "percentage points", "text": "The plain difference between two percentages. Going "
+     "from 5% to 8% is a rise of 3 percentage points."},
+    {"term": "beyond the control edit", "text": "How much bigger the effect of the real change "
+     "is than the effect of the control edit, in percentage points. Every ranking on this site "
+     "uses this number."},
+    {"term": "a clear effect", "text": "An effect is clear when the range we are 95% sure of "
+     "lies wholly above the result of the control edit. \"No clear effect\" comes with the number of texts we "
+     "tested: it means we could not tell at that size, not that the model is fair."},
+    {"term": "range", "text": "The span we are 95% sure the true number falls in. We find it by "
+     "repeating the measurement 1,000 times on random re-draws of the texts."},
+    {"term": "average place", "text": "A model's place on each characteristic's ranking, "
+     "averaged over the characteristics where at least two models were tested. Place 1 is the "
+     "most biased."},
+    {"term": "regulated decision", "text": "A decision about a person, such as hiring, where the "
+     "law already forbids treating people differently because of a characteristic like sex, race "
+     "or age."},
+    {"term": "saved answers", "text": "Every answer every model gave, stored once. Every number "
+     "on this site is worked out again from these saved answers, never from a fresh call to a "
+     "model."},
 ]
 
 HONESTY: List[dict] = [
@@ -1574,32 +1721,35 @@ HONESTY: List[dict] = [
     # so the grid fills one, two or three columns with no orphan. Every percentage in a card is a
     # number on the board (leaderboard_test checks it).
     {"id": "one-detail", "title": "One small edit, and the answer changes",
-     "text": "Each test changes one detail, such as \"he\" to \"she\", and leaves every other "
-             "clue in the bio alone. Laya changed its answer on 17.85% of paralegal-vs-attorney "
-             "bios when only that word changed, and that is the least Laya reacts to gender, "
-             "not the most."},
-    {"id": "floor", "title": "A shift has to beat the floor to count",
-     "text": "A model can wobble even when nothing changes: Jev gives a different answer to the "
-             "same bio, asked twice, up to 6 times in 1,000. That wobble is the floor, and the "
-             "board counts an effect as bias only when it clearly clears it."},
+     "text": "Each test changes one detail, such as \"he\" to \"she\", and leaves the rest of the "
+             "biography alone. Laya changed its answer on 17.85% of paralegal-or-attorney "
+             "biographies when only that word changed. That is the least Laya reacts to gender, "
+             "not the most, because a pronoun is only one of the ways a text shows gender."},
+    {"id": "floor", "title": "A change has to beat a harmless one to count",
+     "text": "A model can change its answer even when nothing in the text changes: asked about the same "
+             "biography twice, Jev answers differently up to 6 times in 1,000. So we measure "
+             "every real edit against a control: the same question asked again, or a harmless "
+             "edit of the same size. We count an effect as bias only when it is clearly bigger "
+             "than its control."},
     {"id": "scale", "title": "Small percentages are big at scale",
      "text": "Jev reacts less than Laya: swapping \"he\" for \"she\" changes its answer on about "
-             "1 to 4 bios in 100. But on nurse-vs-physician bios, Jev moved toward \"nurse\" for "
-             "the woman every time it changed its answer, and 3.3% of a million screening "
-             "decisions is 33,000 people."},
+             "1 to 4 biographies in 100. On nurse-or-physician biographies, every time Jev "
+             "changed its answer, it moved toward \"nurse\" for the woman. Across a million "
+             "screening decisions, 3.3% is 33,000 people."},
     {"id": "option-order", "title": "The order of the options changes the answers",
      "text": "Ask Laya \"physician or surgeon?\" instead of \"surgeon or physician?\" about the "
-             "same bio, and Laya changes its answer on 6.6% of bios. Every other number here "
-             "uses one fixed order per question, and the Option order board shows how much it "
-             "matters."},
-    {"id": "tropes", "title": "Trope questions test the model, not the people",
-     "text": "Some tests ask a loaded question, such as \"Is this person greedy?\", about bios "
-             "that mention a religion or a nationality. A high score shows that the model has "
-             "learned a stereotype; it says nothing about the people in the bios."},
+             "same biography, and Laya changes its answer on 6.6% of biographies. Every other "
+             "number here keeps one fixed order for each question. The Option order results "
+             "show how much the order matters."},
+    {"id": "tropes", "title": "Stereotype questions test the model, not the people",
+     "text": "Some tests ask a loaded question, such as \"Is this person greedy?\", about "
+             "biographies that mention a religion or a nationality. A high stereotype score shows "
+             "that the model has learned a stereotype. It says nothing about the people in the "
+             "biographies."},
     {"id": "replay", "title": "Nothing here is live, and nothing is hand-picked",
-     "text": "Every answer every model gave is saved in the record, and every number on this "
-             "site is recomputed from it, the same way each time, with nothing left out. You can "
-             "check any figure in",
+     "text": "We saved every answer every model gave. Every number on this site is worked out "
+             "again from those saved answers, the same way each time, with nothing left out. You "
+             "can check any figure in",
      "link": {"to": "data", "label": "the data file"}},
 ]
 
@@ -1695,13 +1845,13 @@ def generate_json(root: Path = DEFAULT_ROOT, *, date: Optional[str] = None) -> d
             "sources": [
                 {"id": "harness", "path": "studies/<task>-<cue>.jsonl",
                  "regenerated_by": "bd replay",
-                 "about": "Scored cells replayed from the committed record under answers/."},
+                 "about": "Every result, worked out again from the saved answers."},
                 {"id": "batch2-staging", "path": str(BATCH2_PATH),
                  "regenerated_by": None,
                  "engine": batch2_meta.get("engine"), "n_bios": batch2_meta.get("n_bios"),
-                 "about": "Batch 2's stereotype axes, answered by laya 0.3.7 and scored outside "
-                          "the harness; the record is not yet in this repository and bd replay "
-                          "cannot regenerate these rows. See studies/batch2/README.md."},
+                 "about": "The stereotype questions, answered by Laya (laya 0.3.7) and scored "
+                          "separately. Laya's saved answers to them are not yet published, so "
+                          "these results cannot yet be worked out again from them."},
             ],
         },
         "engines": engines,
