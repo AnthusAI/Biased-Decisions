@@ -1,0 +1,5 @@
+---
+// A placeholder the client draws a chart into, from the page's payload entry `id`.
+const { id, cls = "chart-box", label = null } = Astro.props;
+---
+<div class={cls} data-chart={id} role={label ? "region" : undefined} aria-label={label || undefined}><noscript><p class="note">This chart is drawn in the browser; every number in it is in the table below.</p></noscript></div>

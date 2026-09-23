@@ -16,12 +16,14 @@ studies/batch2/stereotypes-laya.jsonl    batch 2, staged (second source, see bel
 studies/PREREGISTERED.md                 predictions and outcomes, quoted verbatim
         | bd report --json --date YYYY-MM-DD      (biased_decisions/leaderboard.py)
 site/data/leaderboard.json               the data contract
-        | fetch, relative URL
-site/*.html + site/js/*.js               static pages, hand-drawn SVG, no build step
+        | astro build (site/, static output)
+site/dist/<path>/index.html              one static page per path, charts drawn in the browser
+                                         from a JSON payload inlined in each page
 ```
 
-`bd report --json` reads the scored cells rather than rescoring the record: it runs in a tenth
-of a second, and every number it emits is one a committed file already carries, so any value on
+`bd report --json` reads the scored cells rather than rescoring the record (the only files it
+opens besides them are the committed bios and answers it quotes as examples), and every number it
+emits is one a committed file already carries, so any value on
 the site can be found by hand in `studies/`. It computes no new bootstrap. The Pages workflow
 closes the loop by running `bd replay` first and failing if the replay does not reproduce
 `studies/` byte for byte, so the published data is always the record's.
@@ -122,7 +124,10 @@ found raises, and the unit test asserts every quoted string occurs in its source
 never drift from the file. Rows written in Jev-Flywheel, where "Laya" meant the MLX port, are
 attached to `laya-mlx` with a note saying so.
 
-## Data contract (`site/data/leaderboard.json`, schema `biased-decisions/leaderboard@1`)
+## Data contract (`site/data/leaderboard.json`, schema `biased-decisions/leaderboard@2`)
+
+Version 2 adds `dimensions[].breakdown` (below) and a `groups` field on batch-2 pre-registration
+rows; every version-1 field is unchanged, value for value.
 
 ```
 schema, provenance {record_commit, record_commit_short, generated, command, sources[]}
@@ -141,7 +146,18 @@ facet          {id, label, status:"missing", why}
              | {id, label, status:"measured", attributable, detected, n, interval_method,
                 raw {value, lo, hi, label}, floor {value, lo, hi, label, source, ...},
                 excess {value, lo, hi}, records[], study, source, extra {...}, note}
-prereg row     {section, measurement, prediction, observed, verdict, facets, source, note?}
+prereg row     {section, measurement, prediction, observed, verdict, facets, groups?, source, note?}
+breakdown      {group_kind: "religion"|"nationality"|"name group"|null, item_kind: "task"|"question",
+                groups[{id, label, clause}], items[{id, label, question, options?, positive?,
+                trope?, trope_consistent_answer?, note?}],
+                cells[{group|null, item, prereg: bool, engines {engine: facet}, example|null}],
+                levels[{kind: "group"|"item"|"cell", group|null, item|null,
+                        ranks, board, heads {engine: headline summary as in cells}}],
+                pending[prereg row with engine, observed: null, verdict: "not yet measured"],
+                example_note|null}
+example        {task, source_id, engine, positive, question, chosen,
+                versions[{id, label, segments[[text, changed 0|1]], options[]}] (two),
+                answers {engine: [{p, choice}, {p, choice}]}, records[], texts[]}
 overall        {rule, n_dimensions, rows[{engine, mean_rank, ranked_on, positions{dim: rank},
                 sole_engine[], unmeasured[], not_detected[], incomplete, measured_on}]}
 floors         {ask_twice[{engine, task, task_label, flip_pct, mean_abs_dp, max_abs_dp, n,
@@ -152,12 +168,121 @@ honesty[]      {id, title, text}          vocabulary[] {term, text}
 Missing is always explicit: a missing cell has no `headline`, a missing facet has no numbers.
 The site never draws a missing value; it hatches it or dashes its axis.
 
+### The breakdown
+
+Every dimension has two axes: **groups** (a religion, a nationality, a name group; empty where the
+cue has no group, as for the pronoun swap) and **items** (the tasks, or batch 2's trope
+questions). A **cell** is one (group, item) pair and carries one facet per engine, in the same
+shape as a dimension facet. The dimension's own `facets` are one reading of the cells: for a
+two-axis dimension, each item's largest cell over the groups (the rule the author kept for the
+stereotype headlines), so the dimension headline always equals the largest detected cell (a unit
+test checks it).
+
+`levels` holds a board for every level that gets a page: each group and each item when its axis
+has more than one value, and each cell when both do. A level's board is built by the same
+`_summary` and `_board` functions as the dimension board: its facets are the cells under it, the
+headline is the largest detected excess among them, not-detected engines are listed with n and
+never ranked, unmeasured engines are named. A dimension with a single cell (race by first name,
+age) has no levels: its own page is the leaf.
+
+Per-cell additions, all taken from files already committed:
+
+- **Batch-2 cells** (`_batch2_cells`): the trope score as the measurement, with the identity
+  clause, the floor clause, the question wording, both mean probabilities of the trope-consistent
+  answer, the raw shift against the floor, the flip rate, the axis's general "any label" effect,
+  and `direction`: `trope` (detected), `reverse` (the interval lies below zero: the opposite of the
+  trope, shown and labelled, never ranked) or `none`. The clauses are quoted from the
+  pre-registration and the unit test checks they occur there verbatim; so do each question's
+  "trope it tests" and the pending Jev predictions, which have no outcome yet.
+- **Religion v2 cells**: each religion's own shift against "A devoted gardener," per task, with
+  the unattributed rule applied to every religion on nurse / physician.
+- **`prereg`** marks a cell a pre-registered prediction names by group and question (Jewish x
+  greed, Muslim x violence, American x arrogance and worldliness, German and Chinese x
+  diligence).
+- **`example`** (`biased_decisions/leaderboard_examples.py`): one committed bio in the two versions
+  the cue compares, a word-level diff marking the edited words, and every engine's answers to both
+  versions from `answers/`. The bio is chosen by a fixed rule, stated on the page: for the engine
+  most biased on that cell (else the largest excess), the largest change in its probability of
+  the task's positive label among bios whose verdict flipped, in the direction of its average
+  shift for shift measures. It is the clearest case, not a typical one, and the page says so.
+  Batch-2 cells have no example: their record is not in this repository, so their pages show the
+  question, the clause and the two mean probabilities instead.
+
+## URLs
+
+Every page has a real path, built from ids in the data contract. The scheme:
+
+```
+/                                         the overall board
+/<dimension>/                             a dimension's board and its breakdown
+/<dimension>/<group>/                     one group            /stereotype-nationality/american/
+/<dimension>/<item>/                      one question or task /stereotype-religion/greed/
+/<dimension>/<group>/<item>/              one cell             /stereotype-religion/jewish/greed/
+/engines/   /engines/<engine>/   /engines/<engine>/<dimension>/
+/methods/
+/data/leaderboard.json                    the data contract itself
+/og/<path with "--" for "/">.png          each page's Open Graph image
+```
+
+The reasoning:
+
+- **Ids, not indexes.** Every segment is an id the data contract already uses (`gender-pronouns`,
+  `jewish`, `greed`, `surgeon-physician`, `laya-mlx`): lowercase, hyphenated, readable aloud,
+  and stable as long as the id is. A unit test checks each is a URL-safe slug, that none collides
+  with a reserved top-level name (`engines`, `methods`, `data`, `og`), and that group ids and item
+  ids never collide within a dimension.
+- **Only axes that vary are in the path.** A group and an item share the second segment because
+  their id sets are disjoint; the third segment exists only where both axes vary. So race by full
+  name is `/race-fullname/black/` (it has one task), gender is `/gender-pronouns/nurse-physician/`
+  (it has no group), and a single-cell dimension is just `/age-inserted/`. The shortest path that
+  names a thing is its address, and every prefix of an address is itself a page.
+- **Group before item.** `/stereotype-religion/jewish/greed/` reads as "Jewish, asked about
+  greed", and its parent `/stereotype-religion/jewish/` is the group page, which is the question a
+  reader from that group arrives with. The item page (`/stereotype-religion/greed/`) is a sibling,
+  reached from the cell's breadcrumb-adjacent links.
+- **Dimensions at the root.** They are the site's main subject, and `/stereotype-nationality/` is
+  shorter than `/dimensions/stereotype-nationality/`. Engines get a prefix because an engine id
+  could one day equal a dimension id.
+- **Trailing slash, always.** Astro builds `/<path>/index.html` (`build.format: "directory"`,
+  `trailingSlash: "always"`), which every static host serves at the slash path without rewrites.
+  Canonical URLs, Open Graph URLs and every internal link use the slash form.
+- **`#` only for a position within a page.** On any page, `#<engine>` is that engine's row or
+  block (`/stereotype-religion/jewish/greed/#laya`), and a `<details>` it names opens on arrival.
+  Nothing is routed by fragment or query string.
+- **Legacy addresses redirect.** `dimension.html?d=<dim>#cell-<engine>` goes to `/<dim>/#<engine>`,
+  `engine.html?e=<engine>` to `/engines/<engine>/`, `methods.html` to `/methods/`. A static host
+  cannot redirect on a query string, so these are three small static pages (`site/public/`) that
+  redirect in the browser, with a no-JavaScript fallback to the board.
+- **Every page carries** a `<title>` naming the thing and its dimension, a description that leads
+  with the finding (for a cell, the plain-language sentence), a canonical URL, Open Graph and
+  Twitter tags, and an Open Graph image. The images are 1200 x 630 cards rendered at build time
+  from an SVG template by resvg (WebAssembly; no native dependency) with the site's own fonts,
+  vendored under `site/src/og/fonts/` (SIL OFL). If those fonts are missing the build still
+  succeeds and pages simply omit `og:image`.
+- **`SITE_URL`** (build environment) is the public origin for canonical and Open Graph URLs;
+  `BASE_PATH` serves the site from a sub-path. Internal links are root-relative with the base.
+
 ## The site
 
-Four page types (`index.html`, `dimension.html?d=`, `engine.html?e=`, `methods.html`) share one
-module (`js/app.js`) that fetches the data by relative URL, so the site runs from a sub-path.
-There is no charting library: the three chart forms (`js/charts.js`) are small SVG builders,
-re-rendered on resize so text stays legible at phone width.
+An Astro project in `site/` (static output only, dependencies pinned by `package-lock.json`).
+Every page is generated at build time from the data file: its text, tables, rankings, examples
+and metadata are static HTML; `src/lib/site.js` holds every rule the pages need (lookups, the URL
+scheme, chart payloads, titles, descriptions and the plain-language sentences), so the page
+templates hold markup only. Charts are drawn in the browser by `src/scripts/charts.js` (no
+charting library, re-rendered on resize so text stays legible at phone width) from a small JSON
+payload inlined in each page, with every link precomputed; nothing is fetched at runtime.
+
+Page types: the overall board; a dimension (board, then the breakdown as a group x item matrix
+or a ranked forest, the spider or measurement-vs-floor chart, each engine's table); a group or
+item (its own board, a forest of every row ranked most biased first, a table); a leaf (a cell, or
+an item or group with a single cell: the board, the plain-language sentence per engine, the full
+measurement table, the measurement-vs-floor chart, the example or the stimulus, the
+pre-registered prediction and outcome, links to the neighbouring cells); an engine; an engine on
+one dimension; methods; 404.
+
+- **Forests** are the new chart form: one row per question, group or task, every engine's value
+  with its interval on one signed axis around the floor, sorted most biased first. A solid
+  whisker below zero is the reverse of the trope; a dashed one includes the floor.
 
 - **Hero**: every dimension on one shared excess axis, each engine's headline with its interval.
   One scale on purpose: it shows that gender and the stereotype axes are where the measured
@@ -174,8 +299,8 @@ re-rendered on resize so text stays legible at phone width.
   tooltip.
 - Dimensions with fewer than three facets get a measurement-against-floor chart instead, which
   shows why an engine was or was not detected.
-- Every mark is a link to its drill-down (`dimension.html?d=...#cell-<engine>`, a `<details>`
-  element opened on arrival), focusable from the keyboard, with a tooltip on hover and focus.
+- Every mark is a link to its drill-down page, focusable from the keyboard, with a tooltip on
+  hover and focus.
 - Identity is never colour alone: each engine has a marker shape (circle, square, diamond) and
   is labelled wherever it appears; detection is also encoded by fill (hollow = not detected) and
   dashing. The engine palette was checked with the dataviz skill's validator in both themes
@@ -194,9 +319,13 @@ re-rendered on resize so text stays legible at phone width.
 - **Religion v1's spread and option order** carry non-bootstrap intervals (conservative bound,
   Wilson). Same fix.
 - **Laya-mlx has no ask-twice record**; its gender flip rates are read against zero.
-- **Trope headline choice.** Taking the largest trope score over every group follows the brief
-  literally; restricting it to the pre-registered named tropes would change both stereotype
-  headlines (and nationality would become "not detected": every named nationality trope is
-  negative). The author should confirm which reading is intended.
+- **Trope headline choice.** Decided: the dimension headline stays the largest trope score over
+  every group and question. The pre-registered tropes are labelled and each has its own page
+  (`/stereotype-religion/jewish/greed/`, `/stereotype-nationality/american/arrogance/`).
+- **Examples are extreme by construction.** The rule picks the largest change, and the page says
+  it is not typical. A "median bio" example beside it would show the typical case.
+- **Stimulus artefacts show in examples.** The full-name cue also replaced some non-name tokens
+  (an insurer's name); first-name redaction in Bias in Bios misses some names. Both are in the
+  committed stimuli and are shown as they are, with a note.
 - **Coverage is thin**, so the overall board averages over 3 to 6 contested dimensions per
   engine; every engine is flagged incomplete.

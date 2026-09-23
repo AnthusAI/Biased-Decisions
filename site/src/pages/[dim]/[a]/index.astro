@@ -1,0 +1,164 @@
+---
+// One group (a religion, a nationality, a name group) or one item (a trope question, a task) of a
+// dimension: its own board, every row under it ranked, and, where it is a leaf, the full
+// measurement per engine and a real example.
+import Base from "../../../layouts/Base.astro";
+import Board from "../../../components/Board.astro";
+import Chart from "../../../components/Chart.astro";
+import Chip from "../../../components/Chip.astro";
+import EngineName from "../../../components/EngineName.astro";
+import FacetTable from "../../../components/FacetTable.astro";
+import Prereg from "../../../components/Prereg.astro";
+import Example from "../../../components/Example.astro";
+import { engines, urls, levelPages, levelPayload, levelTitle, levelPath, describeLevel, cellsUnder, rowKind, rowLabel,
+  forestRows, preregAt, groupOf, itemOf, multiGroup, cellSentence, unit, fmt, signed, cap, plural } from "../../../lib/site.js";
+
+export function getStaticPaths() {
+  return levelPages().filter(({ level }) => level.kind !== "cell")
+    .map(({ dim, level }) => ({ params: { dim: dim.id, a: level.group || level.item }, props: { dim, level } }));
+}
+const { dim, level } = Astro.props;
+const bd = dim.breakdown;
+const title = levelTitle(dim, level);
+const path = levelPath(dim, level);
+const under = cellsUnder(dim, level);
+const leaf = under.length === 1;
+const cell = leaf ? under[0] : null;
+const kind = rowKind(dim, level);
+const payload = levelPayload(dim, level);
+const charts = { board: { type: "board", dim: payload } };
+if (!leaf) {
+  charts.forest = { type: "forest", rows: forestRows(dim, under, (c) => rowLabel(dim, level, c), (c) => urls.at(dim, c.group, c.item)),
+    label: `${dim.long}, ${title}: every ${kind}, every engine`, axisLabel: "excess over the floor, points" };
+} else {
+  charts.versus = { type: "versus", dim: payload };
+}
+const group = level.group ? groupOf(dim, level.group) : null;
+const item = level.item ? itemOf(dim, level.item) : null;
+const isTrope = dim.facet_kind === "question";
+const prereg = preregAt(dim, { group: level.group, item: level.item });
+const measuredEngines = engines.filter((e) => under.some((c) => c.engines[e.id].status === "measured"));
+const siblings = level.kind === "group"
+  ? bd.groups.filter((g) => g.id !== level.group).map((g) => ({ label: g.label, href: urls.at(dim, g.id, null) }))
+  : bd.items.filter((i) => i.id !== level.item).map((i) => ({ label: i.label, href: urls.at(dim, null, i.id) }));
+const preGroups = item ? bd.cells.filter((c) => c.item === item.id && c.prereg).map((c) => groupOf(dim, c.group).label) : [];
+const siblingKind = level.kind === "group" ? (bd.group_kind || "group") : bd.item_kind;
+const kicker = `${dim.long} · ${siblingKind}`;
+const leafFacets = leaf ? engines.map((e) => ({ ...cell.engines[e.id], label: e.label, _engine: e.id })) : [];
+const floorClause = group && isTrope ? (under.map((c) => Object.values(c.engines).find((f) => f.extra && f.extra.floor_clause)).find(Boolean)?.extra.floor_clause || "").trim() : "";
+---
+<Base title={`${title} · ${dim.long}`} description={describeLevel(dim, level)} path={path} current={{ page: "level", dim: dim.id }} charts={charts}
+  crumbs={[{ label: "Leaderboard", href: urls.home() }, { label: dim.long, href: urls.dim(dim.id) }, { label: title }]}>
+  <section class="wrap hero dim-hero">
+    <p class="kicker">{kicker}{item && preGroups.length > 0 ? " · pre-registered" : ""}</p>
+    <h1 class="display xl">{title}</h1>
+    {group && isTrope && (
+      <p class="deck">How each engine's answers moved when a bio opened with <q>{group.clause.trim()}</q> instead of the floor <q>{floorClause}</q>, question by question. A trope score is this {bd.group_kind}'s shift minus the other {plural(bd.group_kind)}' mean shift, in points of probability: zero means no trope.</p>
+    )}
+    {group && !isTrope && dim.id === "religion-v2" && (
+      <p class="deck">How far each engine's decision moved when <q>{group.clause.trim()}</q> was inserted in place of <q>A devoted gardener,</q>, task by task.</p>
+    )}
+    {group && !isTrope && dim.id !== "religion-v2" && (
+      <p class="deck">{dim.cue} This page: {group.label} names against white names.</p>
+    )}
+    {item && isTrope && (
+      <Fragment>
+        <p class="deck"><q>{item.question}</q></p>
+        <dl class="defs">
+          <div><dt>Trope it tests</dt><dd>{item.trope}</dd></div>
+          <div><dt>Trope-consistent answer</dt><dd>{item.trope_consistent_answer}</dd></div>
+          <div><dt>Pre-registered for</dt><dd>{preGroups.length ? preGroups.join(", ") : prereg.length ? "the general \"any label\" effect on this question" : "no single group; measured for every group"}</dd></div>
+        </dl>
+      </Fragment>
+    )}
+    {item && !isTrope && (
+      <Fragment>
+        <p class="deck">The task: <q>{item.question}</q>{multiGroup(dim) ? ` Every ${bd.group_kind}, ranked on this task.` : ""}</p>
+        <dl class="defs">
+          <div><dt>The cue</dt><dd>{dim.cue}</dd></div>
+          <div><dt>The floor</dt><dd>{dim.floor}</dd></div>
+          {item.note && <div><dt>About this task</dt><dd>{cap(item.note)}.</dd></div>}
+        </dl>
+      </Fragment>
+    )}
+    {dim.source === "batch2-staging" && <div class="footnote" role="note"><p>Staged batch-2 data: answered by Laya only, scored outside the harness; <code>bd replay</code> cannot regenerate these numbers yet.</p></div>}
+  </section>
+
+  <Board board={level.board} heads={level.heads} unit={unit(dim)} facetKind={leaf ? null : kind} chartId="board"
+    hrefFor={(e) => `${path}#${e}`} heading={leaf ? "The board" : `The board for ${title}`}
+    lede={leaf ? null : `Most biased first, each engine placed by its largest excess among ${title}'s ${plural(kind)}: the same rule as every board. Thin ticks: its other ${plural(kind)}. Select a row for that engine's numbers below.`} />
+
+  {!leaf && (
+    <section class="wrap section" id="rows">
+      <h2 class="display">Every {kind}, ranked</h2>
+      <p class="lede">Most biased first. Each row is one {kind}: every engine's excess over the floor with its 95% interval. Filled: detected. Hollow with a dashed whisker: the interval includes the floor. Hollow with a solid whisker below zero: the reverse direction. Select a row for its full measurement.</p>
+      <div data-legend={measuredEngines.map((e) => e.id).join(",")}></div>
+      <Chart id="forest" />
+      <div class="table-scroll" tabindex="0" role="region" aria-label={`${title}: every ${kind}`}>
+        <table class="cell-table rows-table">
+          <thead><tr><th scope="col">{kind}</th>{measuredEngines.map((e) => <th scope="col"><EngineName engine={e} size={10} /> excess [95% CI]</th>)}</tr></thead>
+          <tbody>
+            {under.map((c) => (
+              <tr>
+                <th scope="row"><a href={urls.at(dim, c.group, c.item)}>{rowLabel(dim, level, c)}</a>{c.prereg && <span class="hl">pre-registered</span>}
+                  {isTrope && level.kind === "group" && <div class="sub">{itemOf(dim, c.item).question}</div>}</th>
+                {measuredEngines.map((e) => {
+                  const f = c.engines[e.id];
+                  return f.status === "measured"
+                    ? <td class="num" id={level.kind === "group" ? undefined : undefined}><strong>{signed(f.excess.value)}</strong><span class="ci-t"> [{fmt(f.excess.lo)}, {fmt(f.excess.hi)}]</span> <Chip facet={f} /></td>
+                    : <td class="muted">not measured</td>;
+                })}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+  )}
+
+  {!leaf && (
+    <section class="wrap section" id="engines">
+      <h2 class="display sm">Each engine</h2>
+      {engines.map((e) => {
+        const h = level.heads[e.id];
+        return (
+          <div class="eng-line" id={e.id}>
+            <EngineName engine={e} href={urls.engineDim(e.id, dim.id)} />
+            <span>{h.status !== "measured" ? "not measured here" : h.detected ? `${signed(h.headline.value)} pp over the floor at its largest, on ${h.headline.facet_label}; ${h.n_facets_detected} of ${h.n_facets} ${plural(kind)} detected` : `no bias detected on any of its ${h.n_facets} ${plural(kind)} (n = ${h.n.toLocaleString("en-US")})`}</span>
+          </div>
+        );
+      })}
+    </section>
+  )}
+
+  {leaf && (
+    <section class="wrap section" id="measurements">
+      <h2 class="display">Every engine, measured</h2>
+      {measuredEngines.map((e) => <p class="lede plain">{cellSentence(dim, cell, e.id)}</p>)}
+      <FacetTable dim={dim} facets={leafFacets} facetKind="engine" caption={`${dim.long}, ${title}: every engine`}
+        rowId={(f) => f._engine} rowHref={(f) => urls.engineDim(f._engine, dim.id)} />
+      <h3>Measurement against floor</h3>
+      <p class="note">Each engine's measurement (coloured, with its 95% interval) above the floor it is read against (grey band: the floor's own interval).</p>
+      <Chart id="versus" />
+    </section>
+  )}
+
+  {leaf && cell.example && (
+    <section class="wrap section"><Example example={cell.example} note={bd.example_note} /></section>
+  )}
+
+  {prereg.length > 0 && (
+    <section class="wrap section">
+      <h2 class="display sm">Predicted before measuring</h2>
+      <Prereg dim={dim} rows={prereg} heading="Pre-registered predictions that name this" />
+    </section>
+  )}
+
+  <section class="wrap section">
+    <nav class="chips" aria-label={`Other ${plural(siblingKind)}`}>
+      <span class="chips-h">Other {plural(siblingKind)}</span>
+      {siblings.map((s) => <a href={s.href}>{s.label}</a>)}
+    </nav>
+    <p class="more-link"><a href={urls.dim(dim.id)}>Back to the {dim.long.toLowerCase()} board</a></p>
+  </section>
+</Base>

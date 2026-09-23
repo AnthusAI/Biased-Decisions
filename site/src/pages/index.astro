@@ -1,0 +1,131 @@
+---
+import Base from "../layouts/Base.astro";
+import Chart from "../components/Chart.astro";
+import EngineName from "../components/EngineName.astro";
+import { data, engines, dimensions, engineById, urls, heroPayload, engineSeries, globalSpiderMax, shortLabel,
+  fmt, signed, unit } from "../lib/site.js";
+import { rankText } from "../scripts/util.js";
+
+const nDims = dimensions.length;
+const nCells = dimensions.reduce((a, d) => a + Object.values(d.cells).filter((c) => c.status === "measured").length, 0);
+let best = null;
+for (const d of dimensions) for (const en of engines) {
+  const c = d.cells[en.id];
+  if (c.status === "measured" && c.detected && (!best || c.headline.value > best.c.headline.value)) best = { d, en, c };
+}
+const rows = data.overall.rows;
+let placeN = 0, lastMean = null;
+const places = rows.map((r, i) => { if (r.mean_rank !== lastMean) placeN = i + 1; lastMean = r.mean_rank; return placeN; });
+const max = globalSpiderMax();
+const axes = dimensions.map((d) => ({ id: d.id, label: d.label, short: shortLabel(d), href: urls.dim(d.id) }));
+const charts = {
+  hero: { type: "hero", dims: heroPayload() },
+  ...Object.fromEntries(engines.map((en) => [`spider-${en.id}`, { type: "spider", axes, series: [engineSeries(en.id)], max, compact: true,
+    label: `${en.label}: excess over the floor on every dimension` }])),
+};
+function coverage(row) {
+  return dimensions.map((d) => {
+    let cls, txt, desc;
+    if (row.unmeasured.includes(d.id)) { cls = "miss"; txt = ""; desc = "not measured"; }
+    else if (row.sole_engine.includes(d.id)) { cls = "sole"; txt = "only"; desc = "only engine measured, not ranked"; }
+    else {
+      const pos = row.positions[d.id];
+      const nd = row.not_detected.includes(d.id);
+      cls = nd ? "nd" : pos <= 1.5 ? "r1" : "r2";
+      txt = rankText(pos);
+      desc = nd ? `no bias detected, rank ${txt}` : `rank ${txt}`;
+    }
+    return { d, cls, txt, desc };
+  });
+}
+const description = `Engines ranked by measured bias, most biased first: ${engines.length} engines, ${nDims} dimensions, every number replayed from a committed record.${best ? ` Largest: ${best.en.label}, ${signed(best.c.headline.value)} pp over the floor on ${best.d.label.toLowerCase()}.` : ""}`;
+---
+<Base title={null} description={description} path={urls.home()} current={{ page: "overview" }} charts={charts}>
+  <section class="wrap hero">
+    <div class="hero-top"><div>
+      <p class="kicker">Bias leaderboard for fast decision models</p>
+      <h1 class="display xl">Change one detail about a person. Watch the verdict move.</h1>
+      <p class="deck">We edit real professional bios in exactly one protected detail (a pronoun, a name, a stated age, one inserted clause) and measure how far each engine's decision moves beyond what an equally trivial edit moves it. {engines.length} engines, {nDims} dimensions, {nCells} measured cells. The most biased engine sits at the top of every board.</p>
+    </div>
+    {best && (
+      <p class="finding">
+        <span class="finding-num">{fmt(best.c.headline.raw.value)}{unit(best.d).trim() === "%" ? "%" : " pts"}</span>
+        <span class="finding-txt">of <a href={urls.at(best.d, null, best.c.headline.facet)}>{best.c.headline.facet_label}</a> bios changed verdict for <EngineName engine={best.en} /> when only the {best.d.label.toLowerCase()} cue changed: <strong>{signed(best.c.headline.value)} pp over its floor</strong>, the largest bias measured anywhere on this board.</span>
+      </p>
+    )}</div>
+    <figure class="hero-fig">
+      <figcaption>
+        <span class="fig-t">Every measured bias, on one scale</span>
+        <span class="fig-d">Each mark is an engine's largest excess over the floor in that dimension, with its 95% interval. Marks start at the floor and travel to the measurement. Select a dimension's name for its board, or a mark for that engine's breakdown.</span>
+      </figcaption>
+      <div data-legend={engines.map((e) => e.id).join(",")}></div>
+      <Chart id="hero" cls="chart-box hero-box" />
+    </figure>
+  </section>
+
+  <section class="wrap section">
+    <h2 class="display">The overall board</h2>
+    <p class="lede">Engines ordered by their mean rank across the dimensions where they could be compared with another engine; rank 1 means most biased. Nothing is averaged in for a dimension an engine was never measured on.</p>
+    <ol class="overall">
+      {rows.map((r, i) => {
+        const en = engineById[r.engine];
+        return (
+          <li class="ov-row">
+            <div class="ov-place" aria-label={`Place ${places[i]}`}>{places[i]}</div>
+            <div class="ov-name">
+              <EngineName engine={en} href={urls.engine(en.id)} />
+              <div class="ov-mean"><strong>{fmt(r.mean_rank)}</strong> mean rank across {r.ranked_on} contested dimension{r.ranked_on === 1 ? "" : "s"}</div>
+              {r.incomplete && <div class="flag">Incomplete: not measured on {r.unmeasured.length} of {data.overall.n_dimensions}</div>}
+            </div>
+            <div class="cov">
+              {coverage(r).map(({ d, cls, txt, desc }) => (
+                <a href={urls.engineDim(r.engine, d.id)} class={`cv ${cls}`} aria-label={`${d.label}: ${desc}`}><span class="cv-d">{shortLabel(d)}</span><span class="cv-v">{txt}</span></a>
+              ))}
+            </div>
+          </li>
+        );
+      })}
+    </ol>
+    <div class="cov-key" aria-hidden="true">
+      <span><i class="cv r1">1</i>rank on that board</span>
+      <span><i class="cv nd">1.5</i>no bias detected: shares the bottom places</span>
+      <span><i class="cv sole">only</i>only engine measured: not ranked</span>
+      <span><i class="cv miss"></i>not measured</span>
+    </div>
+    <p class="note">{data.overall.rule}</p>
+  </section>
+
+  <section class="wrap section">
+    <h2 class="display">The shape of each engine's bias</h2>
+    <p class="lede">One axis per dimension, radius equal to the excess over the floor, on the same scale for every engine. This is the inverse of a capability chart: <strong>a bigger shape is a worse model.</strong> A dashed axis was never measured, and the shape is broken there rather than pulled to zero.</p>
+    <div class="spider-row">
+      {engines.map((en) => (
+        <a class="spider-card" href={urls.engine(en.id)}>
+          <div class="spider-h"><span class="eng">{en.label}</span></div>
+          <Chart id={`spider-${en.id}`} cls="chart-box spider-box" />
+          <div class="spider-f">{dimensions.filter((d) => d.cells[en.id].status === "measured").length} of {dimensions.length} dimensions measured</div>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <section class="wrap section">
+    <h2 class="display">Every dimension</h2>
+    <div class="dim-grid">
+      {dimensions.map((d) => {
+        const top = d.board.ranked[0];
+        const bd = d.breakdown;
+        const counts = [bd.groups.length > 1 ? `${bd.groups.length} ${bd.group_kind === "nationality" ? "nationalities" : bd.group_kind === "religion" ? "religions" : "groups"}` : null,
+          bd.items.length > 1 ? `${bd.items.length} ${bd.item_kind}s` : null].filter(Boolean).join(" × ") || `1 ${bd.item_kind}`;
+        return (
+          <a class="dim-card" href={urls.dim(d.id)}>
+            <div class="dim-card-h">{d.long}</div>
+            <div class="dim-card-top">{top ? <Fragment><span class="eng">{engineById[top.engine].label}</span><span> {signed(top.value)} pp</span></Fragment> : <span class="muted">no engine clears its floor</span>}</div>
+            <p>{d.cue}</p>
+            <div class="dim-card-f">{counts}{d.source === "batch2-staging" ? " · staged batch-2 data" : ""}</div>
+          </a>
+        );
+      })}
+    </div>
+  </section>
+</Base>

@@ -1,0 +1,14 @@
+---
+import Base from "../layouts/Base.astro";
+import { dimensions, engines, urls } from "../lib/site.js";
+---
+<Base title="Not found" description="This address is not a page on the Biased-Decisions leaderboard." path={`${urls.home()}404/`}
+  crumbs={[{ label: "Leaderboard", href: urls.home() }, { label: "Not found" }]}>
+  <section class="wrap hero">
+    <p class="kicker">404</p>
+    <h1 class="display xl">No page at this address</h1>
+    <p class="deck">Every page here is <code>/&lt;dimension&gt;/</code>, <code>/&lt;dimension&gt;/&lt;group or question&gt;/</code>, <code>/&lt;dimension&gt;/&lt;group&gt;/&lt;question&gt;/</code> or <code>/engines/&lt;engine&gt;/</code>. Pick one:</p>
+    <nav class="chips" aria-label="Dimensions"><span class="chips-h">Dimensions</span>{dimensions.map((d) => <a href={urls.dim(d.id)}>{d.label}</a>)}</nav>
+    <nav class="chips" aria-label="Engines"><span class="chips-h">Engines</span>{engines.map((e) => <a href={urls.engine(e.id)}>{e.label}</a>)}</nav>
+  </section>
+</Base>

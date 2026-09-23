@@ -1,0 +1,48 @@
+---
+// One engine's facets as a table: every number with its interval, the floor it is read against,
+// the verdict, n, and underneath each row the record's other numbers and the files it replays from.
+import Chip from "./Chip.astro";
+import { extraLines, filesOf, fmt, int, signed, unit } from "../lib/site.js";
+
+const { dim, facets, headline = null, detected = false, facetKind, caption, rowHref = null, rowId = null, extras = true } = Astro.props;
+const u = unit(dim);
+---
+<div class="table-scroll" tabindex="0" role="region" aria-label={caption}>
+  <table class="cell-table">
+    <caption class="sr">{caption}</caption>
+    <thead><tr>
+      <th scope="col">{facetKind}</th><th scope="col">measured [95% CI]</th><th scope="col">floor</th>
+      <th scope="col">excess [95% CI]</th><th scope="col">verdict</th><th scope="col">n</th>
+    </tr></thead>
+    <tbody>
+      {facets.map((f) => {
+        const href = rowHref ? rowHref(f) : null;
+        const name = href ? <a href={href}>{f.label}</a> : f.label;
+        if (f.status !== "measured") {
+          return <tr class="row-miss" id={rowId ? rowId(f) : undefined}><th scope="row">{name}</th><td colspan="3" class="muted">not measured ({f.why})</td><td><Chip facet={f} /></td><td>—</td></tr>;
+        }
+        const lines = extras ? extraLines(dim, f) : [];
+        const isHead = headline && f.id === headline;
+        return (
+          <Fragment>
+            <tr class={isHead ? "row-head" : null} id={rowId ? rowId(f) : undefined}>
+              <th scope="row">{name}{isHead && <span class="hl">{detected ? "largest" : "largest excess"}</span>}</th>
+              <td class="num">{fmt(f.raw.value)}{u}<span class="ci-t"> [{fmt(f.raw.lo)}, {fmt(f.raw.hi)}]</span><div class="sub">{f.raw.label}</div></td>
+              <td class="num">{fmt(f.floor.value)}{u}{f.floor.lo !== null && f.floor.lo !== undefined && <span class="ci-t"> [{fmt(f.floor.lo)}, {fmt(f.floor.hi)}]</span>}<div class="sub">{f.floor.label}</div></td>
+              <td class="num strong">{signed(f.excess.value)} pp<span class="ci-t"> [{fmt(f.excess.lo)}, {fmt(f.excess.hi)}]</span></td>
+              <td><Chip facet={f} /></td>
+              <td class="num">{int(f.n)}</td>
+            </tr>
+            {extras && (
+              <tr class="row-more"><td colspan="6">
+                {lines.length > 0 && <ul class="more">{lines.map((l) => <li>{l}</li>)}</ul>}
+                {f.note && <p class="fnote">{f.note}</p>}
+                <div class="more-meta"><span>Interval: {f.interval_method}.</span><ul class="files">{filesOf(f).map((p) => <li><code>{p}</code></li>)}</ul></div>
+              </td></tr>
+            )}
+          </Fragment>
+        );
+      })}
+    </tbody>
+  </table>
+</div>

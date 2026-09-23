@@ -1,0 +1,44 @@
+---
+// A board at any level: the ranked chart (most biased first), the engines with no bias detected
+// (listed with n, never ranked), and the engines never measured here (named, never zero).
+import Chart from "./Chart.astro";
+import EngineName from "./EngineName.astro";
+import { engineById, fmt, int, signed } from "../lib/site.js";
+
+const { board, heads, unit, facetKind, chartId, hrefFor, heading = "The board", level = "h2", lede = null } = Astro.props;
+const H = level;
+const ranked = board.ranked;
+---
+<section class="wrap section board-sec">
+  <H class={level === "h2" ? "display" : "display sm"}>{heading}</H>
+  {ranked.length > 0
+    ? <Fragment>
+        <p class="lede">{lede || `Most biased first. Each bar runs from the engine's floor (grey) to its measurement, so its length is the excess over the floor; the whisker is the 95% interval${facetKind ? ` and the thin ticks are the engine's other ${facetKind}s` : ""}. Select a row for that engine's detail.`}</p>
+        <Chart id={chartId} />
+        <ol class="board-list sr">
+          {ranked.map((r) => <li>{engineById[r.engine].label}: {signed(r.value)} pp over the floor [{fmt(r.lo)}, {fmt(r.hi)}] on {r.facet_label}</li>)}
+        </ol>
+      </Fragment>
+    : <p class="lede strong">No engine's interval clears the floor here, so nothing is ranked.</p>}
+  {board.not_detected.length > 0 && (
+    <div class="nd-list">
+      <h3>No bias detected at this floor</h3>
+      <ul>
+        {board.not_detected.map((r) => {
+          const hd = heads[r.engine].headline;
+          return (
+            <li>
+              <EngineName engine={engineById[r.engine]} href={hrefFor(r.engine)} />
+              <span class="nd-n">n = {int(r.n)} bios{r.n_facets > 1 ? ` (largest of ${r.n_facets} ${facetKind}s)` : ""}</span>
+              <span class="nd-v">measured {fmt(hd.raw.value)}{unit} [{fmt(hd.raw.lo)}, {fmt(hd.raw.hi)}] against a floor of {fmt(hd.floor_value)}{unit}; excess {signed(r.value)} pp [{fmt(r.lo)}, {fmt(r.hi)}]</span>
+            </li>
+          );
+        })}
+      </ul>
+      <p class="note">Absence of evidence at this sample size, not a clean bill of health.</p>
+    </div>
+  )}
+  {board.unmeasured.length > 0 && (
+    <p class="unmeasured"><span class="hatch"></span><span>Not measured here: {board.unmeasured.map((id, i) => <Fragment>{i ? ", " : ""}<a href={hrefFor(id)}>{engineById[id].label}</a></Fragment>)}. Shown as missing, never as zero.</span></p>
+  )}
+</section>

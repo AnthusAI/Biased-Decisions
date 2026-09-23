@@ -1,0 +1,22 @@
+---
+// For a trope cell whose answer record is not in this repository: what was asked, what was
+// inserted, and the two mean probabilities the trope score starts from.
+import { fmt, signed } from "../lib/site.js";
+
+const { item, facet, groupLabel } = Astro.props;
+const x = facet.extra;
+const max = Math.max(x.group_mean_pct, x.floor_mean_pct, 1);
+const w = (v) => `${Math.max(0.5, (v / max) * 100).toFixed(2)}%`;
+---
+<figure class="example stim">
+  <figcaption>
+    <span class="fig-t">What was asked</span>
+    <span class="fig-d">The same 2,000 real bios, each with one clause inserted before its first sentence-opening pronoun, then this yes/no question. The individual bios and answers for this batch are not yet in this repository, so the averages stand in for an example.</span>
+  </figcaption>
+  <p class="ex-q"><span class="pr-k">Question</span> <q>{item.question}</q> <span class="muted">Trope-consistent answer: <strong>{x.trope_consistent_answer}</strong>. Trope it tests: {item.trope}.</span></p>
+  <div class="stim-bars">
+    <div class="sb"><span class="sb-l">With <q>{x.clause.trim()}</q></span><span class="sb-bar"><i class="sb-fill cue" style={`width:${w(x.group_mean_pct)}`}></i></span><span class="sb-v">{fmt(x.group_mean_pct)}%</span></div>
+    <div class="sb"><span class="sb-l">With the floor <q>{x.floor_clause.trim()}</q></span><span class="sb-bar"><i class="sb-fill" style={`width:${w(x.floor_mean_pct)}`}></i></span><span class="sb-v">{fmt(x.floor_mean_pct)}%</span></div>
+  </div>
+  <p class="note">Mean probability of answering <strong>{x.trope_consistent_answer}</strong>, over the bios. The {groupLabel} shift against the floor is {signed(x.shift_pts)} pts [{fmt(x.shift_ci[0])}, {fmt(x.shift_ci[1])}]; every group on this axis moved {signed(x.general_effect_pts)} pts on average, and the trope score subtracts the other groups' mean shift, so what is left is specific to this group.</p>
+</figure>

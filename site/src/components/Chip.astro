@@ -1,0 +1,6 @@
+---
+import { verdictOf } from "../lib/site.js";
+const { facet } = Astro.props;
+const v = verdictOf(facet);
+---
+<span class={`chip ${v.cls}`}>{v.text}</span>

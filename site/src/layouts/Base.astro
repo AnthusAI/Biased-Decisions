@@ -1,0 +1,111 @@
+---
+// Every page: head metadata (canonical URL, description, Open Graph), the masthead, the honesty
+// panel, the colophon, and the page's chart payload. The page body is static HTML.
+import "../styles/site.css";
+import { data, engines, dimensions, urls, absolute, SITE_NAME } from "../lib/site.js";
+import { ogEnabled } from "../lib/og.js";
+
+const { title, description, path, current = {}, charts = null, crumbs = [], ogAlt } = Astro.props;
+const site = Astro.site;
+const fullTitle = title ? `${title} · ${SITE_NAME}` : SITE_NAME;
+const canonical = absolute(path, site);
+const ogImage = absolute(urls.og(path), site);
+const p = data.provenance;
+const light = engines.map((e) => `--eng-${e.id}: ${e.color};`).join(" ");
+const dark = engines.map((e) => `--eng-${e.id}: ${e.color_dark || e.color};`).join(" ");
+const engineCss = `:root { ${light} }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { ${dark} } }
+:root[data-theme="dark"] { ${dark} }
+@media print { :root, :root:not([data-theme="light"]), :root[data-theme="dark"] { ${light} } }`;
+const payload = charts ? JSON.stringify({ engines: engines.map(({ id, label, marker }) => ({ id, label, marker })), charts }).replace(/</g, "\\u003c") : null;
+const favicon = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' rx='3' fill='%230c1e2b'/%3E%3Crect x='3' y='9' width='3' height='4' fill='%230389d7'/%3E%3Crect x='7' y='3' width='3' height='10' fill='%23d03382'/%3E%3Crect x='11' y='6' width='2' height='7' fill='%238a949c'/%3E%3C/svg%3E";
+---
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{fullTitle}</title>
+<meta name="description" content={description}>
+<link rel="canonical" href={canonical}>
+<meta property="og:type" content="website">
+<meta property="og:site_name" content={SITE_NAME}>
+<meta property="og:title" content={title || SITE_NAME}>
+<meta property="og:description" content={description}>
+<meta property="og:url" content={canonical}>
+{ogEnabled && <Fragment>
+<meta property="og:image" content={ogImage}>
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content={ogAlt || title || SITE_NAME}>
+</Fragment>}
+<meta name="twitter:card" content={ogEnabled ? "summary_large_image" : "summary"}>
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#f1f9fe" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0f1a22" media="(prefers-color-scheme: dark)">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jersey+25&family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap">
+<link rel="icon" href={favicon}>
+<link rel="alternate" type="application/json" href={urls.data()} title="The leaderboard data file">
+<script is:inline>try{var t=localStorage.getItem("bd-theme");if(t==="light"||t==="dark")document.documentElement.dataset.theme=t}catch(e){}</script>
+<style is:inline set:html={engineCss}></style>
+</head>
+<body>
+<a class="skip" href="#app">Skip to content</a>
+<header class="masthead">
+  <div class="mast-inner">
+    <div class="wrap mast-row">
+      <a href={urls.home()} class="brand"><span class="brand-a">Biased</span><span class="brand-b">Decisions</span></a>
+      <nav class="topnav" aria-label="Site">
+        <a href={urls.home()} class={current.page === "overview" ? "on" : null} aria-current={current.page === "overview" ? "page" : undefined}>Leaderboard</a>
+        {engines.map((en) => (
+          <a href={urls.engine(en.id)} class={current.engine === en.id ? "on" : null} aria-current={current.engine === en.id && current.page === "engine" ? "page" : undefined}>
+            <svg width="11" height="11" viewBox="0 0 14 14" aria-hidden="true" class="mk">
+              {en.marker === "square" ? <rect x="2.5" y="2.5" width="9" height="9" rx="1.5" fill={`var(--eng-${en.id})`} /> : en.marker === "diamond" ? <path d="M7,0.75L13.25,7L7,13.25L0.75,7Z" fill={`var(--eng-${en.id})`} /> : <circle cx="7" cy="7" r="5" fill={`var(--eng-${en.id})`} />}
+            </svg>{en.label}
+          </a>
+        ))}
+        <a href={urls.methods()} class={current.page === "methods" ? "on" : null} aria-current={current.page === "methods" ? "page" : undefined}>Methods</a>
+        <button type="button" class="theme-toggle" aria-pressed="false">Dark</button>
+      </nav>
+    </div>
+    <div class="wrap">
+      <nav class="rail" aria-label="Dimensions">
+        <span class="rail-h">Dimensions</span>
+        {dimensions.map((d) => (
+          <a href={urls.dim(d.id)} class={current.dim === d.id ? "on" : null} aria-current={current.dim === d.id && current.page === "dimension" ? "page" : undefined}>{d.label}</a>
+        ))}
+      </nav>
+    </div>
+  </div>
+</header>
+<main id="app">
+  {crumbs.length > 0 && (
+    <nav class="wrap crumbs" aria-label="Breadcrumb">
+      <ol>
+        {crumbs.map((c, i) => (
+          <li>{i < crumbs.length - 1 || c.href ? <a href={c.href}>{c.label}</a> : <span aria-current="page">{c.label}</span>}</li>
+        ))}
+      </ol>
+    </nav>
+  )}
+  <slot />
+  <aside class="wrap honesty" id="read-first" aria-labelledby="honesty-h">
+    <h2 id="honesty-h" class="display sm">Read this before the board</h2>
+    <ol>
+      {data.honesty.map((x) => <li><strong>{x.title}</strong><span>{x.text}</span></li>)}
+    </ol>
+  </aside>
+</main>
+<footer class="colophon">
+  <div class="wrap colo">
+    <p>Every number on this site was generated on <strong>{p.generated || "an unrecorded date"}</strong> from record commit <code>{p.record_commit_short || "unknown"}</code> by <code>{p.command}</code>. The whole data file is at <a href={urls.data()}><code>data/leaderboard.json</code></a>.</p>
+    <p>Sources: {p.sources.map((src, i) => <Fragment>{i ? "; " : ""}<code>{src.path}</code> ({src.regenerated_by ? `regenerated by ${src.regenerated_by}` : "staged, not yet regenerable by the harness"})</Fragment>)}.</p>
+    <p class="fine">Biased-Decisions is MIT-licensed. Bias in Bios (De-Arteaga et al., 2019) is MIT-licensed on the Hugging Face Hub. Typography: Jersey 25 and Montserrat (SIL Open Font License), from Google Fonts.</p>
+  </div>
+</footer>
+{payload && <script type="application/json" id="bd-charts" set:html={payload}></script>}
+<script src="../scripts/client.js"></script>
+</body>
+</html>

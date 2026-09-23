@@ -1,0 +1,88 @@
+---
+import Base from "../../layouts/Base.astro";
+import EngineName from "../../components/EngineName.astro";
+import { data, engines, dimensions, engineById, urls, fmt, int } from "../../lib/site.js";
+
+const p = data.provenance;
+const description = "How every number on the Biased-Decisions leaderboard is made: causal counterfactuals on real bios, each read against an equally trivial edit, with the ranking rules and the replay commands.";
+---
+<Base title="Methods" description={description} path={urls.methods()} current={{ page: "methods" }}
+  crumbs={[{ label: "Leaderboard", href: urls.home() }, { label: "Methods" }]}>
+  <section class="wrap hero">
+    <p class="kicker">Methods</p>
+    <h1 class="display xl">How every number here is made</h1>
+    <p class="deck">Causal counterfactuals on real text: the same bio, one protected detail changed, measured against an equally trivial edit that changes nothing protected. This page is generated from the same data file as the boards.</p>
+  </section>
+  <section class="wrap section">
+    <h2 class="display">Vocabulary</h2>
+    <dl class="vocab">{data.vocabulary.map((v) => <div id={`term-${v.term.replace(/\s+/g, "-")}`}><dt>{v.term}</dt><dd>{v.text}</dd></div>)}</dl>
+  </section>
+  <section class="wrap section">
+    <h2 class="display">Ranking rules</h2>
+    <ol class="rules">
+      <li><strong>Detection. </strong>A measurement is detected when its 95% interval excludes the floor. The excess interval shown is the measurement's own interval less the floor's point estimate; an interval that touches the floor counts as including it.</li>
+      <li><strong>A dimension's headline. </strong>Where a dimension has several tasks, groups or questions, an engine is placed by its largest excess among the ones where bias was detected: the board shows where the harm is largest. Every other one stays in the table.</li>
+      <li><strong>The board. </strong>Detected engines rank by that excess, most biased first. Engines whose headline interval includes the floor are listed below the board as “no bias detected at this floor” with their sample size.</li>
+      <li><strong>Every level has a board. </strong>A group (one religion, one nationality), an item (one question, one task) and a single cell (one group asked one question) are each ranked by the same rule, on their own pages.</li>
+      <li><strong>Trope scores in both directions. </strong>A trope score whose interval lies below zero is the reverse of the trope. It is shown and labelled, never ranked: the boards rank the direction the trope predicts.</li>
+      <li><strong>The overall board. </strong>{data.overall.rule}</li>
+    </ol>
+  </section>
+  <section class="wrap section">
+    <h2 class="display">The dimensions</h2>
+    {dimensions.map((d) => (
+      <article class="method-dim" id={d.id}>
+        <h3><a href={urls.dim(d.id)}>{d.long}</a></h3>
+        <dl class="defs compact">
+          <div><dt>Cue</dt><dd>{d.cue}</dd></div>
+          <div><dt>Floor</dt><dd>{d.floor}</dd></div>
+          <div><dt>Excess</dt><dd>{d.excess}</dd></div>
+          <div><dt>Measured on</dt><dd>{engines.filter((e) => d.cells[e.id].status === "measured").map((e) => e.label).join(", ") || "no engine"}</dd></div>
+          {d.prereg_section && <div><dt>Pre-registration</dt><dd>{d.prereg_section}</dd></div>}
+          <div><dt>Source</dt><dd>{d.source === "batch2-staging" ? "batch-2 staging file (not yet regenerable by bd replay)" : "the harness: studies/*.jsonl, replayed by bd replay"}</dd></div>
+        </dl>
+        {d.notes.map((n) => <p class="fnote">{n}</p>)}
+      </article>
+    ))}
+  </section>
+  <section class="wrap section">
+    <h2 class="display">The ask-twice floor</h2>
+    <p class="lede">The same bio asked a second time, unchanged: the noise every flip rate on the gender and option-order boards is read against. It is a floor, not a dimension, so it is never ranked.</p>
+    <div class="table-scroll" tabindex="0" role="region" aria-label="Ask-twice floors">
+      <table class="cell-table">
+        <thead><tr>{["engine", "task", "flip rate", "mean |ΔP|", "max |ΔP|", "n", "record"].map((t) => <th scope="col">{t}</th>)}</tr></thead>
+        <tbody>
+          {data.floors.ask_twice.map((f) => (
+            <tr>
+              <th scope="row"><EngineName engine={engineById[f.engine]} /></th><td>{f.task_label}</td><td class="num">{fmt(f.flip_pct)}%</td>
+              <td class="num">{fmt(f.mean_abs_dp, 4)}</td><td class="num">{fmt(f.max_abs_dp, 4)}</td><td class="num">{int(f.n)}</td><td><code>{f.record}</code></td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </section>
+  <section class="wrap section">
+    <h2 class="display">Links</h2>
+    <p class="lede">Every page has a short, stable address built from the ids in the data file, so any number here can be linked to directly.</p>
+    <ul class="url-list">
+      <li><code>/</code> the overall board</li>
+      <li><code>/&lt;dimension&gt;/</code> a dimension, e.g. <a href={urls.dim("stereotype-nationality")}><code>/stereotype-nationality/</code></a></li>
+      <li><code>/&lt;dimension&gt;/&lt;group&gt;/</code> one group, e.g. <a href={urls.at(data.dimensions.find((d) => d.id === "stereotype-nationality"), "american", null)}><code>/stereotype-nationality/american/</code></a></li>
+      <li><code>/&lt;dimension&gt;/&lt;question or task&gt;/</code> one question or task, e.g. <a href={urls.at(data.dimensions.find((d) => d.id === "gender-pronouns"), null, "surgeon-physician")}><code>/gender-pronouns/surgeon-physician/</code></a></li>
+      <li><code>/&lt;dimension&gt;/&lt;group&gt;/&lt;question&gt;/</code> one cell, e.g. <a href={urls.at(data.dimensions.find((d) => d.id === "stereotype-religion"), "jewish", "greed")}><code>/stereotype-religion/jewish/greed/</code></a></li>
+      <li><code>/engines/&lt;engine&gt;/</code> and <code>/engines/&lt;engine&gt;/&lt;dimension&gt;/</code>, e.g. <a href={urls.engineDim("laya", "gender-pronouns")}><code>/engines/laya/gender-pronouns/</code></a></li>
+      <li>On any page, <code>#&lt;engine&gt;</code> jumps to that engine's numbers, e.g. <a href={`${urls.at(data.dimensions.find((d) => d.id === "stereotype-religion"), "jewish", "greed")}#laya`}><code>/stereotype-religion/jewish/greed/#laya</code></a></li>
+    </ul>
+  </section>
+  <section class="wrap section">
+    <h2 class="display">Replay it</h2>
+    <p class="lede">Nothing on this site is live. From a clone of the repository:</p>
+    <pre class="code"><code>{`make install
+.venv/bin/bd replay                       # re-score every cell from answers/
+.venv/bin/bd report --json --date ${p.generated || "YYYY-MM-DD"}   # write site/data/leaderboard.json
+make site                                 # build the static site into site/dist/`}</code></pre>
+    <p>This build: record commit <code>{p.record_commit || "unknown"}</code>, generated {p.generated || "(no date)"}. The data file: <a href={urls.data()}><code>data/leaderboard.json</code></a> (schema <code>{data.schema}</code>).</p>
+    <ul class="sources">{p.sources.map((src) => <li><code>{src.path}</code> — {src.about}</li>)}</ul>
+  </section>
+</Base>

@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex">
+<title>Moved · Biased-Decisions leaderboard</title>
+<!-- The first build's address, engine.html?e=<engine>. Every page now has a real path:
+     /engines/<engine>/. -->
+<script>
+(function () {
+  var base = location.pathname.replace(/[^/]*$/, "");
+  var e = new URLSearchParams(location.search).get("e") || "";
+  var ok = /^[a-z0-9]+(-[a-z0-9]+)*$/.test(e);
+  location.replace(base + "engines/" + (ok ? e + "/" : ""));
+})();
+</script>
+<meta http-equiv="refresh" content="2; url=engines/">
+<link rel="canonical" href="engines/">
+</head>
+<body><p>This page has moved. <a href="engines/">Go to the engines</a>.</p></body>
+</html>

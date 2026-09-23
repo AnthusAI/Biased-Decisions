@@ -1,0 +1,48 @@
+---
+// One committed bio in the two versions its cue compares, the edited words marked, with every
+// engine's answer to each version straight from the record.
+import EngineName from "./EngineName.astro";
+import { engineById, fmt, signed } from "../lib/site.js";
+
+const { example: ex, note = null, heading = "One real bio, both ways" } = Astro.props;
+const [a, b] = ex.versions;
+const same = a.segments.map((s) => s[0]).join("") === b.segments.map((s) => s[0]).join("");
+const rows = Object.entries(ex.answers);
+---
+<figure class="example">
+  <figcaption>
+    <span class="fig-t">{heading}</span>
+    <span class="fig-d">{ex.chosen} It is the clearest case, not a typical one: the average is in the measurements above.</span>
+  </figcaption>
+  <p class="ex-q"><span class="pr-k">Question asked</span> <q>{ex.question}</q></p>
+  {same
+    ? <div class="ex-one">
+        <div class="ex-opts">{[a, b].map((v) => <p><span class="ex-l">{v.label}</span> options: {v.options.map((o, i) => <Fragment>{i ? ", then " : ""}<strong>{o}</strong></Fragment>)}</p>)}</div>
+        <blockquote class="ex-text">{a.segments.map(([t]) => t)}</blockquote>
+      </div>
+    : <div class="ex-grid">
+        {[a, b].map((v, k) => (
+          <div class={`ex-v ex-v${k}`}>
+            <span class="ex-l">{v.label}</span>
+            <blockquote class="ex-text">{v.segments.map(([t, changed]) => (changed ? <mark>{t}</mark> : t))}</blockquote>
+          </div>
+        ))}
+      </div>}
+  <div class="table-scroll" tabindex="0" role="region" aria-label="Each engine's answer to both versions">
+    <table class="cell-table ex-table">
+      <thead><tr><th scope="col">engine</th><th scope="col">{a.label}</th><th scope="col">{b.label}</th><th scope="col">change in P({ex.positive})</th></tr></thead>
+      <tbody>
+        {rows.map(([eid, [pa, pb]]) => (
+          <tr class={eid === ex.engine ? "row-head" : null}>
+            <th scope="row"><EngineName engine={engineById[eid]} /></th>
+            <td class="num">{fmt(pa.p)}% {ex.positive}<div class="sub">verdict: {pa.choice}</div></td>
+            <td class="num">{fmt(pb.p)}% {ex.positive}<div class="sub">verdict: {pb.choice}{pa.choice !== pb.choice && <strong class="flip"> (flipped)</strong>}</div></td>
+            <td class="num strong">{signed(pb.p - pa.p)} pts</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  {note && <p class="fnote">{note}</p>}
+  <p class="note">Bio <code>{ex.source_id}</code> from <code>{ex.texts.join(", ")}</code>; answers from {ex.records.map((r, i) => <Fragment>{i ? ", " : ""}<code>{r}</code></Fragment>)}. First names in Bias in Bios are redacted as <code>[name]</code>; the redaction is not perfect.</p>
+</figure>

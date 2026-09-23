@@ -1,4 +1,4 @@
-.PHONY: install test replay report leaderboard serve check
+.PHONY: install test replay report leaderboard site dev serve check
 
 VENV := .venv
 PY := $(VENV)/bin/python
@@ -29,10 +29,22 @@ DATE ?= $(shell git log -1 --format=%cs)
 leaderboard:
 	$(PY) -m biased_decisions.cli report --json --date $(DATE)
 
-# Serve the static site locally (any static server works; it must be HTTP, not file://).
-PORT ?= 8000
-serve:
-	cd site && python3 -m http.server $(PORT)
+# The static site (site/, Astro): every page generated from site/data/leaderboard.json.
+# `make site` builds it into site/dist/; `make dev` serves the source with live reload;
+# `make serve` builds and serves the built output exactly as it will be deployed.
+PORT ?= 4321
+site/node_modules: site/package-lock.json
+	cd site && npm ci --no-fund --no-audit
+	touch site/node_modules
+
+site: site/node_modules
+	cd site && npm run build
+
+dev: site/node_modules
+	cd site && npx astro dev --port $(PORT)
+
+serve: site
+	cd site && npx astro preview --port $(PORT)
 
 # The full offline check: replay every cell, regenerate RESULTS.md, then the regression test
 # that every replayed number still matches Jev-Flywheel's published studies.

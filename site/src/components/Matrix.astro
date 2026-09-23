@@ -1,0 +1,51 @@
+---
+// A two-axis dimension at a glance: groups down, items across. Each cell shows the most biased
+// engine's excess there (or, with `engineId`, that engine's own), shaded by size, and links to
+// the cell's page. Pre-registered cells are outlined.
+import Marker from "./Marker.astro";
+import { engineById, fmt, signed, urls, matrixCell, cap } from "../lib/site.js";
+
+const { dim, engineId = null, caption } = Astro.props;
+const bd = dim.breakdown;
+const grid = bd.groups.map((g) => ({ g, cells: bd.items.map((i) => matrixCell(dim, bd.cells.find((c) => c.group === g.id && c.item === i.id), engineId)) }));
+let max = 0;
+for (const r of grid) for (const c of r.cells) if (c.status === "measured" && c.detected) max = Math.max(max, c.value);
+const prereggedItems = new Set(bd.cells.filter((c) => c.prereg).map((c) => c.item));
+---
+<div class="table-scroll matrix-scroll" tabindex="0" role="region" aria-label={caption}>
+  <table class="matrix">
+    <caption class="sr">{caption}</caption>
+    <thead>
+      <tr>
+        <th scope="col" class="mx-corner"><span>{bd.group_kind}</span> <span class="muted">/ {bd.item_kind}</span></th>
+        {bd.items.map((i) => <th scope="col"><a href={urls.at(dim, null, i.id)}>{i.label}</a>{prereggedItems.has(i.id) && <span class="mx-pre" title="pre-registered for at least one group">pre-reg.</span>}</th>)}
+      </tr>
+    </thead>
+    <tbody>
+      {grid.map(({ g, cells }) => (
+        <tr>
+          <th scope="row"><a href={urls.at(dim, g.id, null)}>{g.label}</a></th>
+          {cells.map((c, k) => {
+            const item = bd.items[k];
+            const label = `${g.label}, ${item.label}`;
+            if (c.status !== "measured") return <td class="mx miss"><a href={c.href} aria-label={`${label}: not measured`}><span class="mx-v">—</span></a></td>;
+            const v = c.detected && max > 0 ? Math.max(0.12, c.value / max) : 0;
+            const cls = `mx${c.detected ? " det" : c.reverse ? " rev" : " nd"}${c.prereg ? " pre" : ""}`;
+            const style = c.detected ? `--v:${v.toFixed(3)};--c:var(--eng-${c.engine})` : null;
+            const word = c.detected ? "detected" : c.reverse ? "reverse of the trope" : c.attributable === false ? "unattributed" : "not detected";
+            return (
+              <td class={cls} style={style}>
+                <a href={c.href} aria-label={`${label}: ${engineById[c.engine].label} ${signed(c.value)} points, ${word}${c.prereg ? ", pre-registered" : ""}`}>
+                  <span class="mx-v">{signed(c.value)}</span>
+                  {!engineId && c.detected && <span class="mx-e"><Marker engine={engineById[c.engine]} size={9} />{engineById[c.engine].label}</span>}
+                  {!c.detected && <span class="mx-e">{word}</span>}
+                </a>
+              </td>
+            );
+          })}
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</div>
+<p class="note mx-key"><span class="mx-sw det"></span> bias detected (shade: size) <span class="mx-sw nd"></span> interval includes the floor <span class="mx-sw rev"></span> interval below the floor <span class="mx-sw pre"></span> pre-registered <span class="mx-sw miss"></span> not measured. Values are {engineId ? `${engineById[engineId].label}'s` : "the most biased engine's"} excess over the floor, in points{engineId ? "" : "; select a cell for every engine"}.</p>

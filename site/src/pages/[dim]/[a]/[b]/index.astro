@@ -1,0 +1,108 @@
+---
+// One cell of a two-axis dimension: one group asked one question (or given one task). The leaf of
+// the breakdown: its board, every engine's full measurement, what was asked, and the
+// pre-registered prediction where there is one.
+import Base from "../../../../layouts/Base.astro";
+import Board from "../../../../components/Board.astro";
+import Chart from "../../../../components/Chart.astro";
+import EngineName from "../../../../components/EngineName.astro";
+import FacetTable from "../../../../components/FacetTable.astro";
+import Prereg from "../../../../components/Prereg.astro";
+import Example from "../../../../components/Example.astro";
+import Stimulus from "../../../../components/Stimulus.astro";
+import { engines, urls, levelPages, levelPayload, levelTitle, levelPath, describeLevel, cellOf, groupOf, itemOf,
+  preregAt, cellSentence, unit, fmt, signed, cap, plural, verdictOf } from "../../../../lib/site.js";
+
+export function getStaticPaths() {
+  return levelPages().filter(({ level }) => level.kind === "cell")
+    .map(({ dim, level }) => ({ params: { dim: dim.id, a: level.group, b: level.item }, props: { dim, level } }));
+}
+const { dim, level } = Astro.props;
+const bd = dim.breakdown;
+const cell = cellOf(dim, level.group, level.item);
+const group = groupOf(dim, level.group);
+const item = itemOf(dim, level.item);
+const title = levelTitle(dim, level);
+const path = levelPath(dim, level);
+const payload = levelPayload(dim, level);
+const charts = { board: { type: "board", dim: payload }, versus: { type: "versus", dim: payload } };
+const isTrope = dim.facet_kind === "question";
+const prereg = preregAt(dim, { group: level.group, item: level.item });
+const measured = engines.filter((e) => cell.engines[e.id].status === "measured");
+const lead = level.board.ranked[0] || level.board.not_detected[0];
+const facets = engines.map((e) => ({ ...cell.engines[e.id], label: e.label, _engine: e.id }));
+const otherItems = bd.items.filter((i) => i.id !== item.id).map((i) => {
+  const c = cellOf(dim, group.id, i.id);
+  const f = lead ? c.engines[lead.engine] : null;
+  return { label: i.label, href: urls.at(dim, group.id, i.id), f, pre: c.prereg };
+});
+const otherGroups = bd.groups.filter((g) => g.id !== group.id).map((g) => {
+  const c = cellOf(dim, g.id, item.id);
+  const f = lead ? c.engines[lead.engine] : null;
+  return { label: g.label, href: urls.at(dim, g.id, item.id), f, pre: c.prereg };
+});
+const leadFacet = lead ? cell.engines[lead.engine] : null;
+---
+<Base title={`${title} · ${dim.long}`} description={describeLevel(dim, level)} path={path} current={{ page: "cell", dim: dim.id }} charts={charts}
+  crumbs={[{ label: "Leaderboard", href: urls.home() }, { label: dim.long, href: urls.dim(dim.id) }, { label: group.label, href: urls.at(dim, group.id, null) }, { label: cap(item.label) }]}>
+  <section class="wrap hero dim-hero">
+    <p class="kicker">{dim.long} · {bd.group_kind} × {bd.item_kind}{cell.prereg ? " · pre-registered" : ""}</p>
+    <h1 class="display xl"><a class="h-link" href={urls.at(dim, group.id, null)}>{group.label}</a> <span class="h-x">×</span> <a class="h-link" href={urls.at(dim, null, item.id)}>{item.label}</a></h1>
+    {lead ? <p class="deck lead-sentence">{cellSentence(dim, cell, lead.engine)}</p>
+          : <p class="deck">No engine has been measured on this cell yet.</p>}
+    <dl class="defs">
+      {isTrope && <div><dt>The question</dt><dd><q>{item.question}</q></dd></div>}
+      {isTrope && <div><dt>Trope it tests</dt><dd>{item.trope}{cell.prereg ? ` (pre-registered for ${group.label})` : ""}</dd></div>}
+      {!isTrope && <div><dt>The task</dt><dd><q>{item.question}</q></dd></div>}
+      <div><dt>The inserted clause</dt><dd><q>{group.clause.trim()}</q>{leadFacet && leadFacet.extra && leadFacet.extra.floor_clause && <Fragment>, against the floor <q>{leadFacet.extra.floor_clause.trim()}</q></Fragment>}</dd></div>
+      {leadFacet && leadFacet.status === "measured" && <div><dt>Verdict</dt><dd><span class={`chip ${verdictOf(leadFacet).cls}`}>{verdictOf(leadFacet).text}</span> {signed(leadFacet.excess.value)} pts [{fmt(leadFacet.excess.lo)}, {fmt(leadFacet.excess.hi)}], n = {leadFacet.n.toLocaleString("en-US")}</dd></div>}
+    </dl>
+    {dim.source === "batch2-staging" && <div class="footnote" role="note"><p>Staged batch-2 data: answered by Laya only, scored outside the harness; <code>bd replay</code> cannot regenerate these numbers yet.</p></div>}
+  </section>
+
+  {prereg.length > 0 && (
+    <section class="wrap section tight">
+      <Prereg dim={dim} rows={prereg} heading={cell.prereg ? "Pre-registered: the prediction, then the outcome" : "Pre-registered predictions that bear on this cell"} />
+    </section>
+  )}
+
+  <Board board={level.board} heads={level.heads} unit={unit(dim)} facetKind={null} chartId="board" hrefFor={(e) => `${path}#${e}`} />
+
+  <section class="wrap section" id="measurements">
+    <h2 class="display">Every engine, measured</h2>
+    {measured.map((e) => <p class="lede plain">{cellSentence(dim, cell, e.id)}</p>)}
+    <FacetTable dim={dim} facets={facets} facetKind="engine" caption={`${dim.long}, ${title}: every engine`}
+      rowId={(f) => f._engine} rowHref={(f) => urls.engineDim(f._engine, dim.id)} />
+    <h3>Measurement against floor</h3>
+    <p class="note">The {isTrope ? "trope score" : "measurement"} with its 95% interval against the floor it is read against{isTrope ? " (zero: the group moves like the others)" : ""}.</p>
+    <Chart id="versus" />
+  </section>
+
+  {isTrope && leadFacet && leadFacet.status === "measured" && (
+    <section class="wrap section"><Stimulus item={item} facet={leadFacet} groupLabel={group.label} /></section>
+  )}
+  {!isTrope && cell.example && (
+    <section class="wrap section"><Example example={cell.example} note={bd.example_note} /></section>
+  )}
+
+  <section class="wrap section">
+    <h2 class="display sm">Around this cell</h2>
+    <div class="around">
+      <div>
+        <h3>{group.label}, every other {bd.item_kind}</h3>
+        <ul class="around-list">
+          {otherItems.map((o) => <li><a href={o.href}>{o.label}</a>{o.pre && <span class="hl-in">pre-registered</span>}<span class={`av ${o.f ? verdictOf(o.f).cls : "miss"}`}>{o.f && o.f.status === "measured" ? signed(o.f.excess.value) : "—"}</span></li>)}
+        </ul>
+        <p class="more-link"><a href={urls.at(dim, group.id, null)}>{group.label}: every {bd.item_kind} ranked</a></p>
+      </div>
+      <div>
+        <h3>{cap(item.label)}, every other {bd.group_kind}</h3>
+        <ul class="around-list">
+          {otherGroups.map((o) => <li><a href={o.href}>{o.label}</a>{o.pre && <span class="hl-in">pre-registered</span>}<span class={`av ${o.f ? verdictOf(o.f).cls : "miss"}`}>{o.f && o.f.status === "measured" ? signed(o.f.excess.value) : "—"}</span></li>)}
+        </ul>
+        <p class="more-link"><a href={urls.at(dim, null, item.id)}>{cap(item.label)}: every {bd.group_kind} ranked</a></p>
+      </div>
+    </div>
+    {lead && <p class="note">Values are {engines.find((e) => e.id === lead.engine).label}'s excess over the floor, in points.</p>}
+  </section>
+</Base>

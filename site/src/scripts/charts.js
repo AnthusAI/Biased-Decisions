@@ -1,5 +1,7 @@
-// The site's three chart forms, drawn as plain SVG: the hero matrix (every dimension on one
-// scale), the per-dimension board, and the spider. Every mark is a link to its drill-down.
+// The site's chart forms, drawn as plain SVG in the browser from a payload the page carries
+// (src/lib/site.js builds it at build time): the hero matrix (every dimension on one scale), the
+// board, the spider, the forest (one row per question, group or task) and the measurement-vs-
+// floor chart. Every mark is a link to its drill-down; the payload carries every href.
 import { s, h, fmt, signed, esc, ticks, niceMax, marker, bindTip, reducedMotion, rawUnit, boardPlace } from "./util.js";
 
 // Re-render a chart whenever its container changes width.
@@ -47,8 +49,6 @@ function animateIn(nodes, fromX) {
     }));
   });
 }
-
-const cellHref = (dimId, engineId) => `dimension.html?d=${encodeURIComponent(dimId)}#cell-${engineId}`;
 
 function tipHtml(dim, engine, cell, extra = "") {
   const hd = cell.headline;
@@ -108,7 +108,7 @@ export function heroMatrix(data, { animate = true } = {}) {
       row.append(s("rect", { x: 0, y: top + i * rowH, width: w, height: rowH, class: i % 2 ? "zebra" : "zebra odd" }));
       const unmeasured = engines.filter((e) => d.cells[e.id].status !== "measured").map((e) => e.label);
       const lx = narrow ? x0 : 0, ly = narrow ? top + i * rowH + 16 : yMid - (unmeasured.length ? 3 : -5);
-      const link = s("a", { href: `dimension.html?d=${d.id}`, class: "row-link" });
+      const link = s("a", { href: d.href, class: "row-link" });
       link.append(s("text", { x: lx, y: ly, class: "row-label" }, d.label));
       if (unmeasured.length) {
         link.append(s("text", { x: narrow ? x1 : lx, y: narrow ? ly : ly + 16, class: "row-sub", "text-anchor": narrow ? "end" : "start" },
@@ -120,7 +120,7 @@ export function heroMatrix(data, { animate = true } = {}) {
         const c = d.cells[e.id];
         const hd = c.headline;
         const y = yMid + (j - (measured.length - 1) / 2) * (narrow ? 8 : 9);
-        const a = s("a", { href: cellHref(d.id, e.id), class: "mark-link" + (c.detected ? "" : " nd"),
+        const a = s("a", { href: c.href, class: "mark-link" + (c.detected ? "" : " nd"),
           "aria-label": `${e.label}, ${d.label}: ${c.detected ? "" : "no bias detected at this floor, "}excess ${fmt(hd.value)} percentage points, interval ${fmt(hd.lo)} to ${fmt(hd.hi)}` });
         const grp = s("g", { class: "mv" });
         grp.append(s("line", { x1: X(hd.lo), x2: X(hd.hi), y1: y, y2: y, class: "whisker", stroke: `var(--eng-${e.id})`, "stroke-dasharray": c.detected ? null : "3 3" }));
@@ -179,9 +179,9 @@ export function boardChart(data, dim, onPick) {
       const yTop = top + i * rowH;
       const y = yTop + (narrow ? 42 : rowH / 2);
       const head = c.facets.find((f) => f.id === hd.facet);
-      const grp = s("a", { href: `#cell-${e.id}`, class: "board-row", "aria-label":
-        `Place ${boardPlace(dim, r.engine)}: ${e.label}, excess ${fmt(r.value)} percentage points on ${r.facet_label}. Open the task table.` });
-      grp.addEventListener("click", (ev) => { ev.preventDefault(); onPick && onPick(e.id); });
+      const grp = s("a", { href: c.href, class: "board-row", "aria-label":
+        `Place ${boardPlace(dim, r.engine)}: ${e.label}, excess ${fmt(r.value)} percentage points on ${r.facet_label}. Open ${e.label}'s ${dim.facet_kind} table.` });
+      if (onPick) grp.addEventListener("click", (ev) => { ev.preventDefault(); onPick(e.id); });
       grp.append(s("rect", { x: 0, y: yTop + 2, width: w, height: rowH - 4, class: "hit row-hit" }));
       const lx = narrow ? x0 : 0, ly = narrow ? yTop + 16 : y + 5;
       const label = s("text", { x: lx, y: ly, class: "board-label" });
@@ -386,6 +386,74 @@ export function versusFloor(data, dim) {
       svg.append(s("line", { x1: X(f.raw.lo), x2: X(f.raw.hi), y1: yM, y2: yM, stroke: col, class: "whisker", "stroke-dasharray": f.detected ? null : "3 3" }));
       svg.append(marker(e.marker, X(f.raw.value), yM, 5.5, f.detected ? { fill: col } : { fill: "var(--surface)", stroke: col, "stroke-width": 2 }));
       svg.append(s("text", { x: x1, y: yTop + 12, "text-anchor": "end", class: "val" }, `${fmt(f.raw.value)}${unit} [${fmt(f.raw.lo)}, ${fmt(f.raw.hi)}]${narrow ? "" : f.detected ? " · detected" : " · interval reaches the floor"}`));
+    });
+    return svg;
+  };
+}
+
+// ---------------------------------------------------------------------------------------------
+// Forest: one row per question, group or task, every engine's value with its 95% interval on one
+// signed axis around the floor (zero excess). Rows arrive sorted by the page; each row label links
+// to that row's page. Filled marker: detected. Hollow: not detected; a solid whisker below the
+// floor means the interval excludes zero on the other side (the reverse of the trope).
+// ---------------------------------------------------------------------------------------------
+export function forest({ rows, engines, label, axisLabel = "excess over the floor, points" }) {
+  return (w) => {
+    const narrow = w < 600;
+    const measuredEngines = engines.filter((e) => rows.some((r) => r.values[e.id] && r.values[e.id].status === "measured"));
+    const k = Math.max(1, measuredEngines.length);
+    const labelW = narrow ? 0 : Math.min(230, Math.round(w * 0.28));
+    const inner = 14 * k + 12;
+    const rowH = narrow ? inner + 24 : Math.max(38, inner);
+    const top = 16, bottom = 48, right = 14;
+    const H = top + rows.length * rowH + bottom;
+    let lo = 0, hi = 0;
+    for (const r of rows) for (const v of Object.values(r.values)) if (v.status === "measured") { lo = Math.min(lo, v.lo); hi = Math.max(hi, v.hi); }
+    const xmin = lo < 0 ? -niceMax(-lo) : 0;
+    const xmax = hi > 0 ? niceMax(hi) : 1;
+    const x0 = labelW + (narrow ? 4 : 14), x1 = w - right;
+    const X = (v) => x0 + ((v - xmin) / (xmax - xmin)) * (x1 - x0);
+    const svg = s("svg", { width: w, height: H, viewBox: `0 0 ${w} ${H}`, class: "chart forest-chart", role: "group", "aria-label": label });
+    const g = s("g", { class: "grid" });
+    const span = xmax - xmin;
+    const step = ticks(span, narrow ? 4 : 7)[1] || span;
+    for (let t = Math.ceil(xmin / step) * step; t <= xmax + 1e-9; t += step) {
+      const tv = Math.round(t * 1000) / 1000;
+      g.append(s("line", { x1: X(tv), x2: X(tv), y1: top - 6, y2: H - bottom + 4 }));
+      g.append(s("text", { x: X(tv), y: H - bottom + 20, "text-anchor": "middle", class: "tick" }, tv === 0 ? "0" : fmt(tv, tv % 1 ? 1 : 0)));
+    }
+    g.append(s("text", { x: x1, y: H - 4, "text-anchor": "end", class: "axis-label" }, `${axisLabel} →`));
+    svg.append(g);
+    if (xmin < 0) svg.append(s("rect", { x: X(xmin), y: top - 6, width: X(0) - X(xmin), height: H - top - bottom + 10, class: "below-floor" }));
+    svg.append(s("line", { x1: X(0), x2: X(0), y1: top - 10, y2: H - bottom + 4, class: "floor-line" }));
+    rows.forEach((r, i) => {
+      const yTop = top + i * rowH;
+      const row = s("g", { class: "forest-row" });
+      row.append(s("rect", { x: 0, y: yTop, width: w, height: rowH, class: i % 2 ? "zebra" : "zebra odd" }));
+      const link = s("a", { href: r.href, class: "row-link" });
+      const lx = narrow ? x0 : 0;
+      const ly = narrow ? yTop + 15 : yTop + rowH / 2 + 5;
+      const t = s("text", { x: lx, y: ly, class: "row-label" }, r.label);
+      if (r.tag) t.append(s("tspan", { class: "row-tag", dx: 6 }, r.tag));
+      link.append(t);
+      row.append(link);
+      const band0 = narrow ? yTop + 24 : yTop + (rowH - inner) / 2 + 6;
+      measuredEngines.forEach((e, j) => {
+        const v = r.values[e.id];
+        const y = band0 + j * 14 + 6;
+        if (!v || v.status !== "measured") return;
+        const col = `var(--eng-${e.id})`;
+        const a = s("a", { href: r.hrefs && r.hrefs[e.id] ? r.hrefs[e.id] : r.href, class: "mark-link" + (v.detected ? "" : " nd"),
+          "aria-label": `${e.label}, ${r.label}: ${v.detected ? "detected" : v.reverse ? "interval below the floor" : "not detected"}, ${fmt(v.value)} points, interval ${fmt(v.lo)} to ${fmt(v.hi)}` });
+        a.append(s("rect", { x: X(v.lo) - 6, y: y - 7, width: Math.max(14, X(v.hi) - X(v.lo) + 12), height: 14, class: "hit" }));
+        a.append(s("line", { x1: X(v.lo), x2: X(v.hi), y1: y, y2: y, class: "whisker", stroke: col, "stroke-dasharray": v.detected || v.reverse ? null : "3 3" }));
+        a.append(marker(e.marker, X(v.value), y, 5, v.detected ? { fill: col, class: "mk-fill" } : { fill: "var(--surface)", stroke: col, "stroke-width": 2 }));
+        bindTip(a, `<div class="tip-h"><span class="sw" style="background:${col}"></span>${esc(e.label)} · ${esc(r.label)}</div>
+          <div class="tip-v">${signed(v.value)} <span>[${fmt(v.lo)}, ${fmt(v.hi)}]</span></div>
+          <div>${v.detected ? "<b>detected</b>: interval clears the floor" : v.reverse ? "interval below the floor: the reverse direction" : v.attributable === false ? "unattributed: shown, not ranked" : "not detected: interval includes the floor"}</div>`);
+        row.append(a);
+      });
+      svg.append(row);
     });
     return svg;
   };

@@ -1,0 +1,98 @@
+---
+// One engine on one dimension: where it stands on the board, every group, question or task it
+// was measured on, and the predictions made for it.
+import Base from "../../../../layouts/Base.astro";
+import Chart from "../../../../components/Chart.astro";
+import EngineName from "../../../../components/EngineName.astro";
+import FacetTable from "../../../../components/FacetTable.astro";
+import Matrix from "../../../../components/Matrix.astro";
+import Prereg from "../../../../components/Prereg.astro";
+import { engines, dimensions, urls, facetHref, multiGroup, multiItem, forestRows, groupLabel, itemLabel, place,
+  fmt, signed, int, plural } from "../../../../lib/site.js";
+
+export function getStaticPaths() {
+  return engines.flatMap((en) => dimensions.map((dim) => ({ params: { engine: en.id, dim: dim.id }, props: { en, dim } })));
+}
+const { en, dim } = Astro.props;
+const bd = dim.breakdown;
+const c = dim.cells[en.id];
+const measured = c.status === "measured";
+const twoAxes = multiGroup(dim) && multiItem(dim);
+const oneAxis = !twoAxes && (multiGroup(dim) || multiItem(dim));
+const nMeasured = Object.values(dim.cells).filter((x) => x.status === "measured").length;
+const charts = {};
+if (measured && oneAxis) {
+  const byGroup = multiGroup(dim);
+  charts.forest = { type: "forest", engines: [en.id],
+    rows: forestRows(dim, bd.cells, (x) => (byGroup ? groupLabel(dim, x.group) : itemLabel(dim, x.item)), (x) => urls.at(dim, x.group, x.item)),
+    label: `${en.label}, ${dim.long}: every ${byGroup ? bd.group_kind : bd.item_kind}`, axisLabel: "excess over the floor, points" };
+}
+const status = !measured ? "not measured"
+  : !dim.board.contested ? (c.detected ? "the only engine measured" : "the only engine measured; no bias detected")
+  : c.detected ? `place ${place(dim.board, en.id)} of ${nMeasured}` : "no bias detected at this floor";
+const pending = (bd.pending || []).filter((r) => r.engine === en.id);
+const title = `${en.label} · ${dim.long}`;
+const description = measured
+  ? `${en.label} on ${dim.long.toLowerCase()}: ${status}${c.detected ? `, ${signed(c.headline.value)} pp over the floor at its largest (${c.headline.facet_label})` : ""}. Every ${twoAxes ? `${bd.group_kind} and ${bd.item_kind}` : dim.facet_kind} with its interval and floor.`
+  : `${en.label} has not been measured on ${dim.long.toLowerCase()}. Shown as missing, never as zero.`;
+---
+<Base title={title} description={description} path={urls.engineDim(en.id, dim.id)} current={{ page: "engine-dim", engine: en.id, dim: dim.id }} charts={charts}
+  crumbs={[{ label: "Leaderboard", href: urls.home() }, { label: "Engines", href: urls.engines() }, { label: en.label, href: urls.engine(en.id) }, { label: dim.long }]}>
+  <section class="wrap hero dim-hero">
+    <p class="kicker"><a href={urls.engine(en.id)}>{en.label}</a> · <a href={urls.dim(dim.id)}>{dim.long}</a></p>
+    <h1 class="display xl eng-title"><span class="eng-dot" style={`background:var(--eng-${en.id})`}></span>{en.label} <span class="h-x">on</span> {dim.label.toLowerCase()}</h1>
+    {measured && (
+      <div class="eng-stats">
+        <div><span class="stat-k">On the board</span><span class="stat-v">{c.detected && dim.board.contested ? place(dim.board, en.id) : c.detected ? "only" : "n.d."}</span><span class="stat-s">{status}</span></div>
+        <div><span class="stat-k">Largest excess</span><span class="stat-v">{signed(c.headline.value)}</span><span class="stat-s">pp [{fmt(c.headline.lo)}, {fmt(c.headline.hi)}] on {c.headline.facet_label}</span></div>
+        <div><span class="stat-k">Detected</span><span class="stat-v">{c.n_facets_detected} / {c.n_facets}</span><span class="stat-s">{dim.facet_kind}s where its interval clears the floor; n = {int(c.n)}</span></div>
+      </div>
+    )}
+    {!measured && <p class="deck">{en.label} has no record for this dimension. It is shown as missing, never as zero, and it is flagged incomplete on the overall board.</p>}
+  </section>
+
+  {measured && twoAxes && (
+    <section class="wrap section">
+      <h2 class="display">Every {bd.group_kind}, every {bd.item_kind}</h2>
+      <p class="lede">{en.label}'s excess over the floor in each cell. Select a cell for the full measurement, a {bd.group_kind} or a {bd.item_kind} for every engine.</p>
+      <Matrix dim={dim} engineId={en.id} caption={`${en.label}, ${dim.long}: every ${bd.group_kind} by every ${bd.item_kind}`} />
+    </section>
+  )}
+
+  {measured && oneAxis && (
+    <section class="wrap section">
+      <h2 class="display">Every {multiGroup(dim) ? bd.group_kind : bd.item_kind}, ranked</h2>
+      <p class="lede">Most biased first: {en.label}'s excess over each {multiGroup(dim) ? bd.group_kind : bd.item_kind}'s floor with its 95% interval.</p>
+      <Chart id="forest" />
+    </section>
+  )}
+
+  {measured && (
+    <section class="wrap section">
+      <h2 class="display">The {dim.facet_kind} table</h2>
+      <FacetTable dim={dim} facets={c.facets} headline={c.headline.facet} detected={c.detected} facetKind={dim.facet_kind}
+        caption={`${en.label}, ${dim.long}: per-${dim.facet_kind} measurements`}
+        rowHref={!multiGroup(dim) && !multiItem(dim) ? null : (f) => `${facetHref(dim, f.id)}#${en.id}`} />
+      {twoAxes && <p class="note">For a two-axis dimension each {dim.facet_kind} row is the largest over the {plural(bd.group_kind)}; the grid above has every cell.</p>}
+      {c.prereg && c.prereg.length > 0 ? <Prereg dim={dim} rows={c.prereg} showEngine={false} /> : <p class="note">No pre-registered prediction covers {en.label} on this dimension.</p>}
+    </section>
+  )}
+
+  {pending.length > 0 && (
+    <section class="wrap section">
+      <Prereg dim={dim} rows={pending} heading={`Predicted for ${en.label}, not yet measured`} showEngine={false} />
+    </section>
+  )}
+
+  <section class="wrap section">
+    <nav class="chips" aria-label={`${en.label} on other dimensions`}>
+      <span class="chips-h">{en.label} on</span>
+      {dimensions.filter((d) => d.id !== dim.id).map((d) => <a href={urls.engineDim(en.id, d.id)} class={d.cells[en.id].status === "measured" ? null : "dim-miss"}>{d.label}</a>)}
+    </nav>
+    <nav class="chips" aria-label={`Other engines on ${dim.long}`}>
+      <span class="chips-h">{dim.label}:</span>
+      {engines.filter((e) => e.id !== en.id).map((e) => <a href={urls.engineDim(e.id, dim.id)}>{e.label}</a>)}
+      <a href={urls.dim(dim.id)}>every engine</a>
+    </nav>
+  </section>
+</Base>

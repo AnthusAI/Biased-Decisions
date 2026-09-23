@@ -1,0 +1,33 @@
+---
+import Base from "../../layouts/Base.astro";
+import EngineName from "../../components/EngineName.astro";
+import { data, engineById, urls, fmt } from "../../lib/site.js";
+
+const rows = data.overall.rows;
+const description = `The ${rows.length} engines on the Biased-Decisions leaderboard, most biased first by mean rank, each with its own page for every dimension it was measured on.`;
+---
+<Base title="Engines" description={description} path={urls.engines()} current={{ page: "engines" }}
+  crumbs={[{ label: "Leaderboard", href: urls.home() }, { label: "Engines" }]}>
+  <section class="wrap hero">
+    <p class="kicker">Engines</p>
+    <h1 class="display xl">Every engine</h1>
+    <p class="deck">Most biased first, by mean rank across the dimensions where each could be compared with another engine. Each has a page, and a page for each dimension it was measured on.</p>
+  </section>
+  <section class="wrap section tight">
+    <ol class="overall">
+      {rows.map((r, i) => {
+        const en = engineById[r.engine];
+        return (
+          <li class="ov-row ov-simple">
+            <div class="ov-place">{i + 1}</div>
+            <div class="ov-name">
+              <EngineName engine={en} href={urls.engine(en.id)} />
+              <div class="ov-mean"><strong>{fmt(r.mean_rank)}</strong> mean rank across {r.ranked_on} contested dimensions · measured on {r.measured_on} of {data.overall.n_dimensions}</div>
+            </div>
+            <p class="ov-about">{en.kind}. {en.about}</p>
+          </li>
+        );
+      })}
+    </ol>
+  </section>
+</Base>

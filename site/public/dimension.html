@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex">
+<title>Moved · Biased-Decisions leaderboard</title>
+<!-- The first build's address, dimension.html?d=<dimension>#cell-<engine>. Every page now has a
+     real path: /<dimension>/#<engine>. A query string cannot be redirected by a static host, so
+     this page does it; without JavaScript it falls back to the overall board. -->
+<script>
+(function () {
+  var base = location.pathname.replace(/[^/]*$/, "");
+  var d = new URLSearchParams(location.search).get("d") || "";
+  var m = /^#cell-([a-z0-9-]+)$/.exec(location.hash);
+  var ok = /^[a-z0-9]+(-[a-z0-9]+)*$/.test(d);
+  location.replace(base + (ok ? d + "/" : "") + (ok && m ? "#" + m[1] : ""));
+})();
+</script>
+<meta http-equiv="refresh" content="2; url=./">
+<link rel="canonical" href="./">
+</head>
+<body><p>This page has moved. <a href="./">Go to the leaderboard</a>.</p></body>
+</html>

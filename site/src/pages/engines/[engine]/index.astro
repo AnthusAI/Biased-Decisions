@@ -1,0 +1,76 @@
+---
+import Base from "../../../layouts/Base.astro";
+import Chart from "../../../components/Chart.astro";
+import { data, engines, dimensions, urls, engineSeries, globalSpiderMax, niceMax, place, fmt, signed } from "../../../lib/site.js";
+import { rankText } from "../../../scripts/util.js";
+
+export function getStaticPaths() {
+  return engines.map((en) => ({ params: { engine: en.id }, props: { en } }));
+}
+const { en } = Astro.props;
+const row = data.overall.rows.find((r) => r.engine === en.id);
+const measuredDims = dimensions.filter((d) => d.cells[en.id].status === "measured");
+const missingDims = dimensions.filter((d) => d.cells[en.id].status !== "measured");
+const axes = dimensions.map((d) => ({ id: d.id, label: d.label, href: urls.engineDim(en.id, d.id) }));
+let stripMax = 0;
+for (const d of measuredDims) stripMax = Math.max(stripMax, d.cells[en.id].headline.hi);
+stripMax = niceMax(stripMax);
+const charts = {
+  spider: { type: "spider", axes, series: [engineSeries(en.id)], max: globalSpiderMax(), label: `${en.label}: excess over the floor on every dimension` },
+  ...Object.fromEntries(measuredDims.map((d) => {
+    const c = d.cells[en.id];
+    return [`strip-${d.id}`, { type: "strip", ...c.headline, detected: c.detected, engine: en.id, max: stripMax, min: c.headline.lo < 0 ? c.headline.lo : 0 }];
+  })),
+};
+const nDetected = measuredDims.filter((d) => d.cells[en.id].detected).length;
+const worst = measuredDims.filter((d) => d.cells[en.id].detected).sort((a, b) => b.cells[en.id].headline.value - a.cells[en.id].headline.value)[0];
+const description = `${en.label} (${en.kind}) on the Biased-Decisions leaderboard: mean rank ${fmt(row.mean_rank)}, bias detected on ${nDetected} of ${row.measured_on} dimensions measured${worst ? `; largest ${signed(worst.cells[en.id].headline.value)} pp over the floor on ${worst.label.toLowerCase()}` : ""}.`;
+---
+<Base title={en.label} description={description} path={urls.engine(en.id)} current={{ page: "engine", engine: en.id }} charts={charts}
+  crumbs={[{ label: "Leaderboard", href: urls.home() }, { label: "Engines", href: urls.engines() }, { label: en.label }]}>
+  <section class="wrap hero eng-hero">
+    <p class="kicker">Engine · {en.kind}</p>
+    <h1 class="display xl eng-title"><span class="eng-dot" style={`background:var(--eng-${en.id})`}></span>{en.label}</h1>
+    <p class="deck">{en.about}</p>
+    <div class="eng-stats">
+      <div><span class="stat-k">Mean rank</span><span class="stat-v">{row.mean_rank === null ? "—" : fmt(row.mean_rank)}</span><span class="stat-s">across {row.ranked_on} contested dimensions; 1 = most biased</span></div>
+      <div><span class="stat-k">Measured on</span><span class="stat-v">{row.measured_on} / {dimensions.length}</span><span class="stat-s">{row.incomplete ? "incomplete: see below" : "complete"}</span></div>
+      <div><span class="stat-k">Bias detected in</span><span class="stat-v">{nDetected}</span><span class="stat-s">of the dimensions it was measured on</span></div>
+    </div>
+  </section>
+  <section class="wrap section">
+    <h2 class="display">Its polygon</h2>
+    <p class="lede">Radius is the excess over the floor in each dimension, on the same scale as every other engine's page. Bigger is worse. Dashed axes were never measured; the shape breaks there instead of pretending zero.</p>
+    <Chart id="spider" cls="chart-box spider-big" />
+  </section>
+  <section class="wrap section">
+    <h2 class="display">All its cells</h2>
+    <p class="lede">Largest excess over the floor per dimension, with its 95% interval, on one scale (0 to {stripMax} pp; the vertical line is the floor). Select a dimension for {en.label}'s full breakdown on it.</p>
+    <ol class="eng-cells">
+      {measuredDims.map((d) => {
+        const c = d.cells[en.id];
+        const pos = row.positions[d.id];
+        const n = Object.values(d.cells).filter((x) => x.status === "measured").length;
+        const status = !d.board.contested ? (c.detected ? "only engine measured" : "only engine measured; no bias detected")
+          : c.detected ? `place ${place(d.board, en.id)} of ${n} (mean-rank position ${rankText(pos)})` : `no bias detected (mean-rank position ${rankText(pos)})`;
+        return (
+          <li>
+            <a href={urls.engineDim(en.id, d.id)} class="ec-name">{d.label}</a>
+            <span class={`ec-status${c.detected ? "" : " nd"}`}>{status}</span>
+            <Chart id={`strip-${d.id}`} cls="chart-box strip-box" />
+            <span class="ec-v">{signed(c.headline.value)} pp<span class="ci-t"> [{fmt(c.headline.lo)}, {fmt(c.headline.hi)}]</span><span class="ec-f">{c.headline.facet_label}</span></span>
+          </li>
+        );
+      })}
+    </ol>
+  </section>
+  <section class="wrap section">
+    <h2 class="display">Where it is unmeasured</h2>
+    {missingDims.length
+      ? <Fragment>
+          <p class="lede">{en.label} has no record on {missingDims.length} of {dimensions.length} dimensions. None of them counts toward its mean rank, and none of them is zero.</p>
+          <ul class="miss-list">{missingDims.map((d) => <li><span class="hatch"></span><a href={urls.dim(d.id)}>{d.long}</a></li>)}</ul>
+        </Fragment>
+      : <p class="lede">Measured on every dimension.</p>}
+  </section>
+</Base>
