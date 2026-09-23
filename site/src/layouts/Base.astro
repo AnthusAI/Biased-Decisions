@@ -4,7 +4,7 @@
 import "../styles/site.css";
 import { data, engines, dimensions, urls, absolute, SITE_NAME } from "../lib/site.js";
 import { cardFor } from "../lib/cards.js";
-import { curls, isRegulated } from "../lib/compliance.js";
+import { curls } from "../lib/compliance.js";
 
 const { title, description, path, current = {}, charts = null, crumbs = [], noindex = false } = Astro.props;
 const site = Astro.site;
@@ -82,14 +82,6 @@ const favicon = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' vi
     <div class="wrap mast-row">
       <a href={urls.home()} class="brand"><span class="brand-a">Biased</span><span class="brand-b">Decisions</span></a>
       <nav class="topnav" aria-label="Site">
-        <a href={urls.home()} class={current.page === "overview" ? "on" : null} aria-current={current.page === "overview" ? "page" : undefined}>Leaderboard</a>
-        {engines.map((en) => (
-          <a href={urls.engine(en.id)} class={current.engine === en.id ? "on" : null} aria-current={current.engine === en.id && current.page === "engine" ? "page" : undefined}>
-            <svg width="11" height="11" viewBox="0 0 14 14" aria-hidden="true" class="mk">
-              {en.marker === "square" ? <rect x="2.5" y="2.5" width="9" height="9" rx="1.5" fill={`var(--eng-${en.id})`} /> : en.marker === "diamond" ? <path d="M7,0.75L13.25,7L7,13.25L0.75,7Z" fill={`var(--eng-${en.id})`} /> : <circle cx="7" cy="7" r="5" fill={`var(--eng-${en.id})`} />}
-            </svg>{en.label}
-          </a>
-        ))}
         <a href={urls.methods()} class={current.page === "methods" ? "on" : null} aria-current={current.page === "methods" ? "page" : undefined}>How we measure</a>
         <a href={curls.howToFail()} class={current.page === "how-to-fail" ? "on" : null} aria-current={current.page === "how-to-fail" ? "page" : undefined}>How to fail</a>
         <a href={curls.guidance()} class={current.page === "guidance" ? "on" : null} aria-current={current.page === "guidance" ? "page" : undefined}>Guidance</a>
@@ -97,9 +89,8 @@ const favicon = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' vi
     </div>
     <div class="wrap">
       <nav class="rail" aria-label="Characteristics we tested">
-        <span class="rail-h">Characteristics</span>
         {dimensions.map((d) => (
-          <a href={urls.dim(d.id)} class={current.dim === d.id ? "on" : null} aria-current={current.dim === d.id && current.page === "dimension" ? "page" : undefined}>{isRegulated(d.id) && <svg class="rail-reg" viewBox="0 0 20 20" width="10" height="10" aria-hidden="true" focusable="false"><path d="M10 1.6 19.2 18H.8Z" fill="currentColor"/></svg>}{d.label}{isRegulated(d.id) && <span class="sr"> (regulated decision)</span>}</a>
+          <a href={urls.dim(d.id)} class={current.dim === d.id ? "on" : null} aria-current={current.dim === d.id && current.page === "dimension" ? "page" : undefined}>{d.label}</a>
         ))}
       </nav>
     </div>

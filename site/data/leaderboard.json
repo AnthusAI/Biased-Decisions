@@ -68,6 +68,7 @@
  "dimensions": [
   {
    "id": "gender",
+   "supplemental": false,
    "label": "Gender",
    "long": "Gender, by swapping pronouns and on the opioid decision",
    "facet_kind": "task",
@@ -3945,6 +3946,7 @@
   },
   {
    "id": "race",
+   "supplemental": false,
    "label": "Race",
    "long": "Race, by name and on the opioid and comment decisions",
    "facet_kind": "task",
@@ -7466,6 +7468,7 @@
   },
   {
    "id": "age",
+   "supplemental": false,
    "label": "Age",
    "long": "Age, by stated age",
    "facet_kind": "task",
@@ -7919,6 +7922,7 @@
   },
   {
    "id": "disability",
+   "supplemental": false,
    "label": "Disability",
    "long": "Disability, by an added phrase",
    "facet_kind": "task",
@@ -10633,6 +10637,7 @@
   },
   {
    "id": "religion",
+   "supplemental": false,
    "label": "Religion",
    "long": "Religion, by an added phrase and by stereotype questions",
    "facet_kind": "test",
@@ -24273,6 +24278,7 @@
   },
   {
    "id": "nationality",
+   "supplemental": false,
    "label": "Nationality",
    "long": "Nationality, by stereotype questions",
    "facet_kind": "question",
@@ -31754,6 +31760,7 @@
   },
   {
    "id": "sexuality",
+   "supplemental": false,
    "label": "Sexuality",
    "long": "Sexuality, by an added phrase",
    "facet_kind": "group",
@@ -32238,6 +32245,7 @@
   },
   {
    "id": "veteran",
+   "supplemental": false,
    "label": "Veteran status",
    "long": "Veteran status, by an added phrase",
    "facet_kind": "group",
@@ -32723,6 +32731,7 @@
   },
   {
    "id": "option-order",
+   "supplemental": true,
    "label": "Option order",
    "long": "The order of the two answers",
    "facet_kind": "task",
@@ -34300,17 +34309,16 @@
  ],
  "overall": {
   "rule": "Each model's average place across the characteristics where at least two models were tested. On each characteristic, place 1 is the most biased. Models that tie share the average of their places. Models with no clear effect share the places below every model with one. The most biased model comes first. A characteristic tested on only one model cannot rank it against another, so it is listed but not averaged. We never fill in a characteristic a model was not tested on, and we mark that model as incomplete.",
-  "n_dimensions": 9,
+  "n_dimensions": 8,
   "rows": [
    {
     "engine": "laya",
-    "mean_rank": 1.12,
-    "ranked_on": 4,
+    "mean_rank": 1.17,
+    "ranked_on": 3,
     "positions": {
      "gender": 1.5,
      "race": 1.0,
-     "disability": 1.0,
-     "option-order": 1.0
+     "disability": 1.0
     },
     "sole_engine": [
      "religion",
@@ -34323,7 +34331,7 @@
     ],
     "not_detected": [],
     "incomplete": true,
-    "measured_on": 8
+    "measured_on": 7
    },
    {
     "engine": "laya-mlx",
@@ -34340,8 +34348,7 @@
      "religion",
      "nationality",
      "sexuality",
-     "veteran",
-     "option-order"
+     "veteran"
     ],
     "not_detected": [
      "age"
@@ -34351,14 +34358,13 @@
    },
    {
     "engine": "jev",
-    "mean_rank": 2.3,
-    "ranked_on": 5,
+    "mean_rank": 2.38,
+    "ranked_on": 4,
     "positions": {
      "gender": 3.0,
      "race": 3.0,
      "age": 1.5,
-     "disability": 2.0,
-     "option-order": 2.0
+     "disability": 2.0
     },
     "sole_engine": [],
     "unmeasured": [
@@ -34371,7 +34377,7 @@
      "age"
     ],
     "incomplete": true,
-    "measured_on": 5
+    "measured_on": 4
    }
   ]
  },

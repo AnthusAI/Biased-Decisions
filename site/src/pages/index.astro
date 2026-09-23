@@ -4,7 +4,7 @@ import Chart from "../components/Chart.astro";
 import EngineName from "../components/EngineName.astro";
 import { introModels } from "./engines/_about.js";
 import { C, curls, isRegulated, regulatedDims, evidence } from "../lib/compliance.js";
-import { data, engines, dimensions, engineById, urls, heroPayload, engineSeries, globalSpiderMax, shortLabel,
+import { data, engines, dimensions, supplementalDimensions, engineById, urls, heroPayload, engineSeries, globalSpiderMax, shortLabel,
   fmt, signed, unit, largestBias } from "../lib/site.js";
 
 const nDims = dimensions.length;
@@ -169,6 +169,9 @@ const kindWord = (k) => (k === "task" ? "decision" : k);
         );
       })}
     </div>
+    {supplementalDimensions.map((d) => (
+      <p class="note">One more test, and it is not about a kind of person: <a href={urls.dim(d.id)}>does listing the answer options in a different order change the answer?</a></p>
+    ))}
   </section>
 
   <section class="wrap section" id="ordering" aria-labelledby="ordering-h">

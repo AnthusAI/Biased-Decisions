@@ -8,12 +8,12 @@ import Chart from "../../../../components/Chart.astro";
 import EngineName from "../../../../components/EngineName.astro";
 import FacetTable from "../../../../components/FacetTable.astro";
 import Matrix from "../../../../components/Matrix.astro";
-import { engines, dimensions, urls, facetHref, multiGroup, multiItem, forestRows, groupLabel, itemLabel, place,
+import { engines, dimensions, allDimensions, urls, facetHref, multiGroup, multiItem, forestRows, groupLabel, itemLabel, place,
   fmt, signed, int, plural } from "../../../../lib/site.js";
 import { introModel } from "../../_about.js";
 
 export function getStaticPaths() {
-  return engines.flatMap((en) => dimensions.map((dim) => ({ params: { engine: en.id, dim: dim.id }, props: { en, dim } })));
+  return engines.flatMap((en) => allDimensions.map((dim) => ({ params: { engine: en.id, dim: dim.id }, props: { en, dim } })));
 }
 const { en, dim } = Astro.props;
 const bd = dim.breakdown;

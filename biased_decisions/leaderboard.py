@@ -978,7 +978,7 @@ _DIMENSIONS: List[dict] = [
                 floor="The man's version of the same case description.",
                 excess="how far the model's confidence in prescribing moves, compared with the "
                        "man's version, in percentage points"),
-    {"id": "option-order", "label": "Option order", "long": "The order of the two answers",
+    {"id": "option-order", "supplemental": True, "label": "Option order", "long": "The order of the two answers",
      "facet_kind": "task", "fn": facets_option_order, "measure": "flip rate",
      "measure_plain": FLIP_PLAIN,
      "items": ORIGINAL_BIOS_TASKS, "cells": lambda s, e, f: _cells_by_item(f),
@@ -1174,7 +1174,8 @@ def build_dimension(store: Store, spec: dict, prereg: "Prereg",
             if f["id"] not in [x["id"] for x in facet_ids]:
                 facet_ids.append({"id": f["id"], "label": f["label"]})
     return {
-        "id": spec["id"], "label": spec["label"], "long": spec["long"],
+        "id": spec["id"], "supplemental": bool(spec.get("supplemental")),
+        "label": spec["label"], "long": spec["long"],
         "facet_kind": spec["facet_kind"], "facets": facet_ids, "measure": spec["measure"],
         "measure_plain": spec["measure_plain"], "unit": "pp", "raw_unit": "%" if spec["measure"] == "flip rate" else " pts", "cue": spec["cue"], "floor": spec["floor"], "excess": spec["excess"],
         "notes": spec["notes"], "source": spec.get("source", "harness"),
@@ -1372,6 +1373,8 @@ def compose_dimensions(built: List[dict]) -> List[dict]:
 
 
 def build_overall(dimensions: List[dict]) -> dict:
+    # A supplemental test (option order) is not about a kind of person, so it is not ranked.
+    dimensions = [d for d in dimensions if not d.get("supplemental")]
     rows = []
     for engine in ENGINE_IDS:
         positions, sole, unmeasured, not_detected = {}, [], [], []

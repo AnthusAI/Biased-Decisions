@@ -14,11 +14,11 @@ import Chip from "../../components/Chip.astro";
 import HowMeasured from "../../components/HowMeasured.astro";
 import ModelsLine from "../../components/ModelsLine.astro";
 import { kindName, kindNames, measureOf } from "../../scripts/util.js";
-import { data, dimensions, engines, urls, boardPayload, describeDim, facetHref, multiGroup, multiItem, niceMax, unit,
+import { data, allDimensions, engines, urls, boardPayload, describeDim, facetHref, multiGroup, multiItem, niceMax, unit,
   fmt, signed, int, cap, forestRows, groupLabel, itemLabel } from "../../lib/site.js";
 
 export function getStaticPaths() {
-  return dimensions.map((dim) => ({ params: { dim: dim.id }, props: { dim } }));
+  return allDimensions.map((dim) => ({ params: { dim: dim.id }, props: { dim } }));
 }
 const { dim } = Astro.props;
 const bd = dim.breakdown;
@@ -70,7 +70,7 @@ const allFacets = engines.flatMap((en) => dim.cells[en.id].facets || []);
 <Base title={dim.long} description={describeDim(dim)} path={urls.dim(dim.id)} current={{ page: "dimension", dim: dim.id }} charts={charts}
   crumbs={[{ label: "Leaderboard", href: urls.home() }, { label: dim.long }]}>
   <section class="wrap hero dim-hero">
-    <p class="kicker">{dim.source === "batch2-staging" ? "Characteristic · Laya only so far" : "Characteristic"}</p>
+    <p class="kicker">{dim.supplemental ? "Also tested, not a characteristic" : dim.source === "batch2-staging" ? "Characteristic · Laya only so far" : "Characteristic"}</p>
     <h1 class="display xl">{dim.long}</h1>
     <p class="deck">{opener}</p>
     <RegWarn dim={dim} />

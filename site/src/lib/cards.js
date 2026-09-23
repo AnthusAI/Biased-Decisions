@@ -7,7 +7,7 @@
 // subject and the sentence says what it did; a model whose range includes zero is "no clear
 // effect", never zero. Words follow docs/plain-language.md.
 import { createHash } from "node:crypto";
-import { data, engines, engineById, dimensions, urls, levelPath, groupOf, itemOf, cellOf, multiGroup,
+import { data, engines, engineById, dimensions, allDimensions, urls, levelPath, groupOf, itemOf, cellOf, multiGroup,
   multiItem, unit, fmt, signed, int, plural, largestBias, isNonHiring, cellOf as cellAt, facetUnit, isRate, taskWord, taskLabel,
   changeWhen, textsOf, kindWord } from "./site.js";
 
@@ -259,9 +259,9 @@ export function allCards() {
     rows: [{ text: "We change one detail of a real bio, then compare with a harmless edit" }] }));
   for (const en of engines) {
     out.push(finish(urls.engine(en.id), engineCard(en)));
-    for (const d of dimensions) out.push(finish(urls.engineDim(en.id, d.id), flagged(d.id, engineDimCard(en, d))));
+    for (const d of allDimensions) out.push(finish(urls.engineDim(en.id, d.id), flagged(d.id, engineDimCard(en, d))));
   }
-  for (const d of dimensions) {
+  for (const d of allDimensions) {
     out.push(finish(urls.dim(d.id), flagged(d.id, dimCard(d))));
     for (const level of d.breakdown.levels) out.push(finish(levelPath(d, level), flagged(d.id, levelCard(d, level), level)));
   }

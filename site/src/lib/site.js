@@ -6,9 +6,13 @@ import { fmt, signed } from "../scripts/util.js";
 
 export { data };
 export const engines = data.engines;
-export const dimensions = data.dimensions;
+export const allDimensions = data.dimensions;
+// The characteristics (kinds of person). Option order is a supplemental test: it has its own page
+// but is not a characteristic and is not ranked.
+export const dimensions = allDimensions.filter((d) => !d.supplemental);
+export const supplementalDimensions = allDimensions.filter((d) => d.supplemental);
 export const engineById = Object.fromEntries(engines.map((e) => [e.id, e]));
-export const dimById = Object.fromEntries(dimensions.map((d) => [d.id, d]));
+export const dimById = Object.fromEntries(allDimensions.map((d) => [d.id, d]));
 
 export const SITE_NAME = "Biased-Decisions leaderboard";
 
@@ -90,7 +94,7 @@ export const levelPath = (dim, level) => urls.at(dim, level.group, level.item);
 // Every page below the dimension, for getStaticPaths.
 export function levelPages() {
   const out = [];
-  for (const dim of dimensions) for (const level of dim.breakdown.levels) out.push({ dim, level });
+  for (const dim of allDimensions) for (const level of dim.breakdown.levels) out.push({ dim, level });
   return out;
 }
 
