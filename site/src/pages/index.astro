@@ -2,6 +2,7 @@
 import Base from "../layouts/Base.astro";
 import Chart from "../components/Chart.astro";
 import EngineName from "../components/EngineName.astro";
+import { introModels } from "./engines/_about.js";
 import { C, curls, isRegulated, regulatedDims, evidence } from "../lib/compliance.js";
 import { data, engines, dimensions, engineById, urls, heroPayload, engineSeries, globalSpiderMax, shortLabel,
   fmt, signed, unit, largestBias } from "../lib/site.js";
@@ -22,7 +23,7 @@ const axes = dimensions.map((d) => ({ id: d.id, label: d.label, short: shortLabe
 const charts = {
   hero: { type: "hero", dims: heroPayload() },
   ...Object.fromEntries(engines.map((en) => [`spider-${en.id}`, { type: "spider", axes, series: [engineSeries(en.id)], max, compact: true,
-    label: `${en.label}: excess over the floor on every dimension` }])),
+    label: `${en.label}: its effect beyond the control edit on every characteristic` }])),
 };
 const topValue = {};
 for (const d of dimensions) topValue[d.id] = Math.max(0, ...engines.map((e) => (d.cells[e.id].status === "measured" && d.cells[e.id].detected ? d.cells[e.id].headline.value : 0)));
@@ -31,15 +32,15 @@ function coverage(row) {
   return dimensions.map((d) => {
     const c = d.cells[row.engine];
     let cls, txt = "", desc, worst = false, sole = false, v = 0;
-    if (row.unmeasured.includes(d.id)) { cls = "miss"; desc = "not measured"; }
+    if (row.unmeasured.includes(d.id)) { cls = "miss"; desc = "not tested"; }
     else if (row.sole_engine.includes(d.id)) {
       sole = true;
       if (c.detected) {
         const val = c.headline.value, all = Math.max(...Object.values(topValue));
         v = Math.max(0.12, val / all);
         cls = `det${v > 0.55 ? " hi" : ""}`; txt = signed(val);
-        desc = `${en} ${signed(val)} points over the floor; the only engine measured here, so not ranked`;
-      } else { cls = "nd"; txt = "none"; desc = "the only engine measured here; no bias detected at this floor"; }
+        desc = `${en}: ${signed(val)} percentage points beyond the control edit; the only model tested here, so not ranked`;
+      } else { cls = "nd"; txt = "not clear"; desc = `${en}: no clear effect; the only model tested here`; }
     }
     else if (c.detected) {
       const val = c.headline.value;
@@ -47,31 +48,45 @@ function coverage(row) {
       worst = val === topValue[d.id];
       cls = `det${v > 0.55 ? " hi" : ""}`;
       txt = signed(val);
-      desc = `${en} ${signed(val)} points over the floor${worst ? ", the most biased engine here" : ""}`;
-    } else { cls = "nd"; txt = "none"; desc = "no bias detected at this floor"; }
+      desc = `${en}: ${signed(val)} percentage points beyond the control edit${worst ? ", the most biased model here" : ""}`;
+    } else { cls = "nd"; txt = "not clear"; desc = `${en}: no clear effect`; }
     return { d, cls, txt, desc, worst, sole, v };
   });
 }
 const worstCount = (row) => coverage(row).filter((x) => x.worst).length;
-const description = `Engines ranked by measured bias, most biased first: ${engines.length} engines, ${nDims} dimensions, every number replayed from a committed record.${best ? ` Largest: ${best.en.label}, ${signed(best.c.headline.value)} pp over the floor on ${best.d.label.toLowerCase()}.` : ""}`;
+// How much one result moved the answer, in words: a share of texts ("in 100") or a move in the
+// model's confidence ("percentage points"), by the result's own unit.
+const uOf = (d, h) => (h && h.raw && h.raw.unit) || d.raw_unit || " pts";
+const bestUnit = best ? uOf(best.d, best.c.headline) : null;
+const bestIsShare = bestUnit && bestUnit.trim() === "%";
+const bestItem = best ? best.c.headline.facet_label.replace(/ \/ /g, "-or-") : "";
+const bestMoved = best ? (bestIsShare
+  ? `changed its answer on ${fmt(best.c.headline.value)} more of every 100 ${bestItem} bios than after a harmless control edit`
+  : `moved its confidence ${fmt(best.c.headline.value)} percentage points more on ${bestItem} bios than after a harmless control edit`) : "";
+const description = `Some AI models answer a yes-or-no question about a person from a short text. We change one detail, such as he to she, and count how often the answer changes. ${engines.length} models, ${nDims} characteristics, most biased first.${best ? ` The largest effect: ${best.en.label} ${bestMoved}, on ${best.d.label.toLowerCase()}.` : ""}`;
+const bestChange = best ? (best.d.id === "option-order" ? "only the order of the two answer options changed" : `only a ${best.d.label.toLowerCase()} detail changed`) : "";
+const kindWord = (k) => (k === "task" ? "decision" : k);
 ---
 <Base title={null} description={description} path={urls.home()} current={{ page: "overview" }} charts={charts}>
   <section class="wrap hero">
     <div class="hero-top"><div>
       <p class="kicker">Bias leaderboard for fast decision models</p>
-      <h1 class="display xl">Change one detail about a person. Watch the verdict move.</h1>
-      <p class="deck">We edit real professional bios in exactly one protected detail (a pronoun, a name, a stated age, one inserted clause) and measure how far each engine's decision moves beyond what an equally trivial edit moves it. {engines.length} engines, {nDims} dimensions, {nCells} measured cells. The most biased engine sits at the top of every board.</p>
+      <h1 class="display xl">Change one detail about a person. Watch the answer move.</h1>
+      <p class="deck">Some software now reads a short text about a person and answers a yes-or-no question about them, instantly, with no reasons. We take a real short professional biography and change one detail: "he" becomes "she", or a name changes. Then we ask the same question again and count how often the answer moves. Nothing else in the text changed, so the detail moved it.</p>
+      <p class="deck">We tested {engines.length} models. A model is software that reads a text and answers a question about it. {introModels()} Here you can see which model is most biased, on which of {nDims} characteristics, such as gender, race and age. We have {nCells} results, one for each model on each characteristic we tested it on, and each links to the numbers behind it.</p>
     </div>
     {best && (
       <p class="finding">
-        <span class="finding-num">{fmt(best.c.headline.raw.value)}{unit(best.d).trim() === "%" ? "%" : " pts"}</span>
-        <span class="finding-txt">of <a href={urls.at(best.d, null, best.c.headline.facet)}>{best.c.headline.facet_label}</a> bios changed verdict for <EngineName engine={best.en} /> when only the {best.d.label.toLowerCase()} cue changed: <strong>{signed(best.c.headline.value)} pp over its floor</strong>, the largest bias measured anywhere on this board.</span>
+        <span class="finding-num">{bestIsShare ? <Fragment>{fmt(best.c.headline.raw.value)} in 100</Fragment> : <Fragment>{fmt(best.c.headline.raw.value)} points</Fragment>}</span>
+        <span class="finding-txt">{bestIsShare
+          ? <Fragment><EngineName engine={best.en} /> changed its answer on {fmt(best.c.headline.raw.value)} of every 100 <a href={urls.at(best.d, null, best.c.headline.facet)}>{bestItem}</a> bios when {bestChange}. A harmless edit of the same size, our control edit, changed it on {fmt(best.c.headline.floor_value)} in 100. That leaves <strong>{fmt(best.c.headline.value)} more in every 100</strong>, the largest effect we measured anywhere on this site.</Fragment>
+          : <Fragment><EngineName engine={best.en} /> moved its confidence by {fmt(best.c.headline.raw.value)} percentage points on <a href={urls.at(best.d, null, best.c.headline.facet)}>{bestItem}</a> bios when {bestChange}. That is <strong>{fmt(best.c.headline.value)} percentage points more</strong> than a harmless edit of the same size, our control edit, and the largest effect we measured anywhere on this site.</Fragment>}</span>
       </p>
     )}</div>
     <figure class="hero-fig">
       <figcaption>
-        <span class="fig-t">Every measured bias, on one scale</span>
-        <span class="fig-d">Each mark is an engine's largest excess over the floor in that dimension, with its 95% interval. Marks start at the floor and travel to the measurement. Select a dimension's name for its board, or a mark for that engine's breakdown.</span>
+        <span class="fig-t">Every effect we measured, on one scale</span>
+        <span class="fig-d">Each mark is one model's largest effect on one characteristic, beyond what the control edit did, shown with the range we are 95% sure the true value lies in. Select a characteristic's name for its results, or a mark for that model's details.</span>
       </figcaption>
       <div data-legend={engines.map((e) => e.id).join(",")}></div>
       <Chart id="hero" cls="chart-box hero-box" />
@@ -81,16 +96,16 @@ const description = `Engines ranked by measured bias, most biased first: ${engin
   <section class="wrap section" aria-labelledby="reg-h">
     <div class="reg-banner">
       <p class="risk-kicker"><svg class="reg-icon" viewBox="0 0 20 20" width="16" height="16" aria-hidden="true" focusable="false"><path d="M10 1.6 19.2 18H.8Z" fill="currentColor"/><path d="M9 7h2v5.4H9zM9 13.8h2V16H9z" class="reg-glyph"/></svg>Regulated decisions</p>
-      <h2 class="display sm" id="reg-h">{regulatedDims.length} of {dimensions.length} dimensions measure a characteristic that hiring rules protect</h2>
-      <p>{shortlistLine.sentence}: {shortlistLine.figure}. <a href={shortlistLine.href}>The shortlist</a> shows how a verdict-level bias becomes a selection-rate gap. Every regulated page carries a red warning and a risk panel tied to its measurement.</p>
+      <h2 class="display sm" id="reg-h">{regulatedDims.length} of the {dimensions.length} characteristics we tested are protected by hiring rules</h2>
+      <p>{shortlistLine.sentence}. Divide the first rate by the second and you get the shortlist ratio: <strong>{shortlistLine.ratio}</strong>. A ratio of 1.0 means women and men make the list at the same rate, and U.S. hiring guidance treats a ratio under {C.shortlist.line.toFixed(2)} as a warning sign. <a href={shortlistLine.href}>The shortlist</a> shows how a model that changes its answers can change who gets picked. Every page about a protected characteristic carries a red warning and a panel on the legal risk.</p>
       <p class="reg-links"><a href={curls.howToFail()}>How to cause a compliance failure with a fast decision model</a><a href={curls.guidance()}>Guidance: measuring and avoiding the risk</a></p>
       <p class="note">{C.notice}</p>
     </div>
   </section>
 
   <section class="wrap section">
-    <h2 class="display">The overall board</h2>
-    <p class="lede">Most biased first. Each box is the engine's largest detected bias on that board, in percentage points over its floor: <strong>darker red is worse</strong>, and "worst" marks the most biased engine there. The order is by mean rank across the boards where an engine could be compared with another; nothing is averaged in for a board it was never measured on.</p>
+    <h2 class="display">Which model is most biased</h2>
+    <p class="lede">Models are ordered by how often, and by how much, each came out the most biased when compared with another model on the same characteristic. Each box is one characteristic. Its number is the model's largest effect there, in percentage points beyond the control edit: <strong>darker red is worse</strong>. "Worst" marks the most biased model on that characteristic. The full rule is at the foot of this page.</p>
     <ol class="overall">
       {rows.map((r, i) => {
         const en = engineById[r.engine];
@@ -99,13 +114,13 @@ const description = `Engines ranked by measured bias, most biased first: ${engin
             <div class="ov-place" aria-label={`Place ${places[i]}`}>{places[i]}</div>
             <div class="ov-name">
               <EngineName engine={en} href={urls.engine(en.id)} />
-              <div class="ov-mean" title={`Ordered by mean rank ${fmt(r.mean_rank)} across ${r.ranked_on} contested boards`}>{worstCount(r) > 0 ? <Fragment>most biased on <strong>{worstCount(r)} of {r.ranked_on}</strong> boards</Fragment> : `not the most biased on any of ${r.ranked_on} boards`}</div>
-              <div class="ov-mean">{largestBias(r.engine) > 0 ? <Fragment>largest bias found: <strong>{signed(largestBias(r.engine))} pts</strong></Fragment> : "no bias detected at this floor on any dimension"}</div>
-              {r.incomplete && <div class="flag">Incomplete: not measured on {r.unmeasured.length} of {data.overall.n_dimensions}</div>}
+              <div class="ov-mean" title={`Average place ${fmt(r.mean_rank)}, over the ${r.ranked_on} characteristics where it was compared with another model`}>{worstCount(r) > 0 ? <Fragment>most biased on <strong>{worstCount(r)} of the {r.ranked_on}</strong> characteristics where it was compared</Fragment> : `not the most biased on any of the ${r.ranked_on} characteristics where it was compared`}</div>
+              <div class="ov-mean">{largestBias(r.engine) > 0 ? <Fragment>largest effect: <strong>{signed(largestBias(r.engine))} percentage points</strong> beyond the control edit</Fragment> : "no clear effect on any characteristic tested"}</div>
+              {r.incomplete && <div class="flag">Incomplete: not tested on {r.unmeasured.length} of {data.overall.n_dimensions} characteristics</div>}
             </div>
             <div class="cov">
               {coverage(r).map(({ d, cls, txt, desc, worst, sole, v }) => (
-                <a href={urls.engineDim(r.engine, d.id)} class={`cv ${cls}`} style={v > 0 ? `--v:${v.toFixed(3)}` : null} aria-label={`${d.label}: ${desc}`}><span class="cv-d">{shortLabel(d)}{worst && <span class="cv-w">worst</span>}{sole && <span class="cv-w">only one</span>}</span><span class="cv-v">{txt}</span></a>
+                <a href={urls.engineDim(r.engine, d.id)} class={`cv ${cls}`} style={v > 0 ? `--v:${v.toFixed(3)}` : null} aria-label={`${d.label}: ${desc}`}><span class="cv-d">{shortLabel(d)}{worst && <span class="cv-w">worst</span>}{sole && <span class="cv-w">only model</span>}</span><span class="cv-v">{txt}</span></a>
               ))}
             </div>
           </li>
@@ -113,47 +128,52 @@ const description = `Engines ranked by measured bias, most biased first: ${engin
       })}
     </ol>
     <div class="cov-key" aria-hidden="true">
-      <span><i class="cv det">+4</i>bias over the floor, in points; darker is worse</span>
-      <span><i class="cv det hi">+18</i>the largest on its board, tagged "worst"</span>
-      <span><i class="cv nd">none</i>no bias detected at this floor</span>
-      <span><i class="cv det">+11</i>tagged "only one": the only engine measured, so not ranked</span>
-      <span><i class="cv miss"></i>not measured</span>
+      <span><i class="cv det">+4</i>percentage points beyond the control edit; darker is worse</span>
+      <span><i class="cv det hi">+18</i>the most biased model on that characteristic, tagged "worst"</span>
+      <span><i class="cv nd"></i>"not clear": no clear effect in this test, which is not the same as no bias</span>
+      <span><i class="cv det">+11</i>tagged "only model": no other model was tested there, so it is not ranked</span>
+      <span><i class="cv miss"></i>not tested</span>
     </div>
-    <p class="note">{data.overall.rule}</p>
   </section>
 
   <section class="wrap section">
-    <h2 class="display">The shape of each engine's bias</h2>
-    <p class="lede">One axis per dimension, radius equal to the excess over the floor, on the same scale for every engine. This is the inverse of a capability chart: <strong>a bigger shape is a worse model.</strong> A dashed axis was never measured, and the shape is broken there rather than pulled to zero.</p>
+    <h2 class="display">The shape of each model's bias</h2>
+    <p class="lede">Each spoke is one characteristic. The farther a shape reaches along a spoke, the larger the model's effect there, beyond the control edit. Every model is drawn on the same scale. <strong>A bigger shape is a more biased model.</strong> A dashed spoke was never tested, and the shape breaks there instead of dropping to zero.</p>
     <div class="spider-row">
       {engines.map((en) => (
         <a class="spider-card" href={urls.engine(en.id)}>
           <div class="spider-h"><span class="eng">{en.label}</span></div>
           <Chart id={`spider-${en.id}`} cls="chart-box spider-box" />
-          <div class="spider-f">{dimensions.filter((d) => d.cells[en.id].status === "measured").length} of {dimensions.length} dimensions measured</div>
+          <div class="spider-f">tested on {dimensions.filter((d) => d.cells[en.id].status === "measured").length} of {dimensions.length} characteristics</div>
         </a>
       ))}
     </div>
   </section>
 
   <section class="wrap section">
-    <h2 class="display">Every dimension</h2>
+    <h2 class="display">Every characteristic we tested</h2>
     <div class="dim-grid">
       {dimensions.map((d) => {
         const top = d.board.ranked[0];
         const bd = d.breakdown;
         const counts = [bd.groups.length > 1 ? `${bd.groups.length} ${bd.group_kind === "nationality" ? "nationalities" : bd.group_kind === "religion" ? "religions" : "groups"}` : null,
-          bd.items.length > 1 ? `${bd.items.length} ${bd.item_kind}s` : null].filter(Boolean).join(" × ") || `1 ${bd.item_kind}`;
+          bd.items.length > 1 ? `${bd.items.length} ${kindWord(bd.item_kind)}s` : null].filter(Boolean).join(" × ") || `1 ${kindWord(bd.item_kind)}`;
         return (
           <a class="dim-card" href={urls.dim(d.id)}>
             <div class="dim-card-h">{d.long}</div>
             {isRegulated(d.id) && <span class="reg-warn compact"><svg class="reg-icon" viewBox="0 0 20 20" width="13" height="13" aria-hidden="true" focusable="false"><path d="M10 1.6 19.2 18H.8Z" fill="currentColor"/><path d="M9 7h2v5.4H9zM9 13.8h2V16H9z" class="reg-glyph"/></svg><span class="reg-t">Regulated decision</span></span>}
-            <div class="dim-card-top">{top ? <Fragment><span class="eng">{engineById[top.engine].label}</span><span> {signed(top.value)} pp</span></Fragment> : <span class="muted">no engine clears its floor</span>}</div>
+            <div class="dim-card-top">{top ? <Fragment><span class="eng">{engineById[top.engine].label}</span><span> {signed(top.value)} percentage points</span></Fragment> : <span class="muted">no model shows a clear effect</span>}</div>
             <p>{d.cue}</p>
-            <div class="dim-card-f">{counts}{d.source === "batch2-staging" ? " · staged batch-2 data" : ""}</div>
+            <div class="dim-card-f">{counts}{d.source === "batch2-staging" ? " · answers not public yet" : ""}</div>
           </a>
         );
       })}
     </div>
+  </section>
+
+  <section class="wrap section" id="ordering" aria-labelledby="ordering-h">
+    <h2 class="display sm" id="ordering-h">How this ordering works</h2>
+    <p>For each characteristic, we put the models tested on it in order, most biased first: the model with the largest clear effect comes first. Two models with the same result share a place, the average of the places they would take. Models with no clear effect share the places below every model that showed one.</p>
+    <p>A model's place on this board is its average place over the characteristics where at least one other model was also tested. A characteristic tested on only one model cannot compare it with anyone, so it is shown but not counted. A characteristic a model was never tested on is never counted as zero. The model is marked incomplete instead.</p>
   </section>
 </Base>

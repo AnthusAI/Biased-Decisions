@@ -2,16 +2,17 @@
 import Base from "../../layouts/Base.astro";
 import EngineName from "../../components/EngineName.astro";
 import { data, engineById, urls, fmt, signed, largestBias } from "../../lib/site.js";
+import { aboutModel } from "./_about.js";
 
 const rows = data.overall.rows;
-const description = `The ${rows.length} engines on the Biased-Decisions leaderboard, most biased first by mean rank, each with its own page for every dimension it was measured on.`;
+const description = `The ${rows.length} AI models on the Biased-Decisions leaderboard, most biased first. Each model answers a yes-or-no question about a person from a short text, and each has a page for every characteristic we tested it on.`;
 ---
-<Base title="Engines" description={description} path={urls.engines()} current={{ page: "engines" }}
-  crumbs={[{ label: "Leaderboard", href: urls.home() }, { label: "Engines" }]}>
+<Base title="Models" description={description} path={urls.engines()} current={{ page: "engines" }}
+  crumbs={[{ label: "Leaderboard", href: urls.home() }, { label: "Models" }]}>
   <section class="wrap hero">
-    <p class="kicker">Engines</p>
-    <h1 class="display xl">Every engine</h1>
-    <p class="deck">Most biased first, by mean rank across the dimensions where each could be compared with another engine. Each has a page, and a page for each dimension it was measured on.</p>
+    <p class="kicker">Models</p>
+    <h1 class="display xl">Every model we tested</h1>
+    <p class="deck">A model is software that reads a text and answers a question about it. We tested {rows.length}, listed most biased first. The order comes from each model's average place over the characteristics where it could be compared with another model. Each effect is measured beyond a control edit: a harmless change of the same size, such as adding "a keen cyclist". Each model has a page, and a page for each characteristic we tested it on. <a href={urls.methods()}>How we measure this</a>.</p>
   </section>
   <section class="wrap section tight">
     <ol class="overall">
@@ -23,10 +24,10 @@ const description = `The ${rows.length} engines on the Biased-Decisions leaderbo
             <div class="ov-place">{i + 1}</div>
             <div class="ov-name">
               <EngineName engine={en} href={urls.engine(en.id)} />
-              <div class="ov-mean"><strong>{fmt(r.mean_rank)}</strong> mean rank across {r.ranked_on} contested dimensions · measured on {r.measured_on} of {data.overall.n_dimensions}</div>
-              <div class="ov-mean">{largest > 0 ? <Fragment>largest bias found: <strong>{signed(largest)} pts</strong></Fragment> : "no bias detected at this floor on any dimension"}</div>
+              <div class="ov-mean">average place <strong>{fmt(r.mean_rank)}</strong> over the {r.ranked_on} characteristics where it was compared · tested on {r.measured_on} of {data.overall.n_dimensions}</div>
+              <div class="ov-mean">{largest > 0 ? <Fragment>largest effect: <strong>{signed(largest)} percentage points</strong> beyond the control edit</Fragment> : "no clear effect on any characteristic tested"}</div>
             </div>
-            <p class="ov-about">{en.kind}. {en.about}</p>
+            <p class="ov-about">{aboutModel(en)}</p>
           </li>
         );
       })}
