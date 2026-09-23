@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "event_id": "6206dce3-8450-4403-b66d-f7ca29e91e71",
+  "issue_id": "BD-e84479c1-8aed-4717-a3ab-4a16b2d9fb0e",
+  "event_type": "issue_created",
+  "occurred_at": "2026-09-23T16:26:55.783Z",
+  "actor_id": "home",
+  "payload": {
+    "title": "Explain 'pre-registered' where it appears",
+    "description": "Readers see 'pre-registered' on dimension and question pages without an explanation. Add a short inline definition (accessible tooltip or expandable note) and a methods-page section: before an engine answered anything, each prediction (direction and rough size) was committed to the public repository, so the commit date proves it came first; the page then shows prediction, observed result and verdict. Link each prediction's commit. Distinguish pre-registered questions from exploratory ones.",
+    "issue_type": "story",
+    "status": "open",
+    "priority": 2,
+    "assignee": null,
+    "parent": "BD-4f83aebd-9fa3-4ac7-b820-e3a1cab1ee8b",
+    "labels": [],
+    "agent": {
+      "platform": "claude_code",
+      "model": "Claude Opus 5.5",
+      "name": "Biased-Decisions coordinator"
+    }
+  }
+}
