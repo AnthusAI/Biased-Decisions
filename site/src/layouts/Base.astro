@@ -4,6 +4,7 @@
 import "../styles/site.css";
 import { data, engines, dimensions, urls, absolute, SITE_NAME } from "../lib/site.js";
 import { cardFor } from "../lib/cards.js";
+import { curls, isRegulated } from "../lib/compliance.js";
 
 const { title, description, path, current = {}, charts = null, crumbs = [], noindex = false } = Astro.props;
 const site = Astro.site;
@@ -77,6 +78,8 @@ const favicon = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' vi
           </a>
         ))}
         <a href={urls.methods()} class={current.page === "methods" ? "on" : null} aria-current={current.page === "methods" ? "page" : undefined}>Methods</a>
+        <a href={curls.howToFail()} class={current.page === "how-to-fail" ? "on" : null} aria-current={current.page === "how-to-fail" ? "page" : undefined}>How to fail</a>
+        <a href={curls.guidance()} class={current.page === "guidance" ? "on" : null} aria-current={current.page === "guidance" ? "page" : undefined}>Guidance</a>
         <button type="button" class="theme-toggle" aria-pressed="false">Dark</button>
       </nav>
     </div>
@@ -84,7 +87,7 @@ const favicon = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' vi
       <nav class="rail" aria-label="Dimensions">
         <span class="rail-h">Dimensions</span>
         {dimensions.map((d) => (
-          <a href={urls.dim(d.id)} class={current.dim === d.id ? "on" : null} aria-current={current.dim === d.id && current.page === "dimension" ? "page" : undefined}>{d.label}</a>
+          <a href={urls.dim(d.id)} class={current.dim === d.id ? "on" : null} aria-current={current.dim === d.id && current.page === "dimension" ? "page" : undefined}>{isRegulated(d.id) && <svg class="rail-reg" viewBox="0 0 20 20" width="10" height="10" aria-hidden="true" focusable="false"><path d="M10 1.6 19.2 18H.8Z" fill="currentColor"/></svg>}{d.label}{isRegulated(d.id) && <span class="sr"> (regulated decision)</span>}</a>
         ))}
       </nav>
     </div>

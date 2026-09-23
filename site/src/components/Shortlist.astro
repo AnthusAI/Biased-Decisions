@@ -1,0 +1,58 @@
+---
+// The shortlist on a gender task page: the outcome a screening tool built on each engine would
+// produce, at three cuts, against the four-fifths line. Every row is replayed from the record.
+import EngineName from "./EngineName.astro";
+import { C, shortlistBlock, shortlistRowId, citationById, REPO_BLOB, curls } from "../lib/compliance.js";
+import { engineById, fmt, int } from "../lib/site.js";
+const { task, positive } = Astro.props;
+const block = shortlistBlock(task);
+const alone = block ? block.rows.filter((r) => r.variant === "engine_alone") : [];
+const twin = block ? block.rows.filter((r) => r.variant === "twin_averaged") : [];
+const ff = citationById["four-fifths"];
+const p100 = (x) => fmt(x * 100, 1);
+const who = `${positive}s`;
+---
+{block && (
+  <section class="wrap section" id="shortlist" aria-labelledby="shortlist-h">
+    <h2 class="display" id="shortlist-h">The shortlist: what the flips do to selection rates</h2>
+    <p class="lede">{C.shortlist.scenario} Among the real {who}, the table gives each engine's shortlist rate for women and for men and their ratio, which the <a class="cite" href={ff.primary_url}>EEOC four-fifths rule</a> reads against {fmt(C.shortlist.line)}. The counterfactual columns re-rank with each applicant's pronouns swapped and nothing else changed, which isolates the model as the cause.</p>
+    <div class="table-scroll" tabindex="0" role="region" aria-label={`Shortlist rates for ${who} by engine and cut`}>
+      <table class="cell-table sl-table">
+        <thead><tr><th scope="col">engine, cut</th><th scope="col">women per 100</th><th scope="col">men per 100</th><th scope="col">four-fifths ratio [95% CI]</th><th scope="col">tie-fair ratio</th><th scope="col">women in only if read as men</th><th scope="col">men in only if read as women</th></tr></thead>
+        <tbody>
+          {alone.map((r) => (
+            <tr id={shortlistRowId(r)} class={r.four_fifths_ratio < C.shortlist.line ? "sl-under" : null}>
+              <th scope="row"><EngineName engine={engineById[r.engine]} /> top {int(r.cut)}</th>
+              <td class="num">{p100(r.women_shortlist_rate)}</td>
+              <td class="num">{p100(r.men_shortlist_rate)}</td>
+              <td class="num"><strong>{fmt(r.four_fifths_ratio)}</strong> <span class="ci-t">[{fmt(r.ratio_ci[0])}, {fmt(r.ratio_ci[1])}]</span>{r.four_fifths_ratio < C.shortlist.line && <span class="sl-flag"> under the line</span>}</td>
+              <td class="num">{fmt(r.tie_fair_ratio)}</td>
+              <td class="num">{int(r.women_who_gain_place_read_as_men)} of {int(r.n_women_positive)}</td>
+              <td class="num">{int(r.men_who_gain_place_read_as_women)} of {int(r.n_men_positive)}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    <h3>With twin averaging</h3>
+    <p class="note">{C.shortlist.twin_note} See <a href={curls.guidance("twin-averaging")}>average each text with its twin, then check again</a>.</p>
+    <div class="table-scroll" tabindex="0" role="region" aria-label={`Twin-averaged shortlist rates for ${who}`}>
+      <table class="cell-table sl-table">
+        <thead><tr><th scope="col">engine, cut</th><th scope="col">women per 100</th><th scope="col">men per 100</th><th scope="col">four-fifths ratio [95% CI]</th><th scope="col">tie-fair ratio</th><th scope="col">accuracy</th></tr></thead>
+        <tbody>
+          {twin.map((r) => (
+            <tr id={shortlistRowId(r)} class={r.four_fifths_ratio < C.shortlist.line ? "sl-under" : null}>
+              <th scope="row"><EngineName engine={engineById[r.engine]} /> top {int(r.cut)}</th>
+              <td class="num">{p100(r.women_shortlist_rate)}</td>
+              <td class="num">{p100(r.men_shortlist_rate)}</td>
+              <td class="num"><strong>{fmt(r.four_fifths_ratio)}</strong> <span class="ci-t">[{fmt(r.ratio_ci[0])}, {fmt(r.ratio_ci[1])}]</span>{r.four_fifths_ratio < C.shortlist.line && <span class="sl-flag"> under the line</span>}</td>
+              <td class="num">{fmt(r.tie_fair_ratio)}</td>
+              <td class="num">{fmt(r.accuracy * 100, 1)}%</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    <p class="note">Rows from <code>{block.study}</code>, replayed by <code>bd replay</code>; predictions and outcome in <a href={`${REPO_BLOB}studies/PREREGISTERED.md`}>{C.shortlist.prereg_section}</a>. Not legal advice: the ratio is the number a compliance review would compute, not a finding.</p>
+  </section>
+)}

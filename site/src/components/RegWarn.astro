@@ -1,0 +1,13 @@
+---
+// The regulated-decision warning: an icon and the words, in the deliberate alarm red, linking to
+// the page's risk panel. Never colour alone: the icon, the text and the accessible name all say it.
+import { warnLabel, practiceById, mappingOf } from "../lib/compliance.js";
+const { dim, compact = false, href = "#risk" } = Astro.props;
+const m = mappingOf(dim.id);
+---
+{m && m.regulated && (
+  <a class={`reg-warn${compact ? " compact" : ""}`} href={href} aria-label={warnLabel(dim.id)}>
+    <svg class="reg-icon" viewBox="0 0 20 20" width={compact ? 13 : 18} height={compact ? 13 : 18} aria-hidden="true" focusable="false"><path d="M10 1.6 19.2 18H.8Z" fill="currentColor"/><path d="M9 7h2v5.4H9zM9 13.8h2V16H9z" class="reg-glyph"/></svg>
+    <span class="reg-t">Regulated decision</span>{!compact && <span class="reg-p">{practiceById[m.practice].label}</span>}
+  </a>
+)}

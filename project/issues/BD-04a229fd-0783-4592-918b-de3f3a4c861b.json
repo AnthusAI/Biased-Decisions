@@ -22,10 +22,22 @@
         "model": "Claude Opus 5.5",
         "name": "Biased-Decisions coordinator"
       }
+    },
+    {
+      "id": "7cdc2674-be1e-49c6-8db1-14eedb66367e",
+      "author": "home",
+      "text": "Implemented in 8dfdccd: RegWarn component (triangle icon aria-hidden, words 'Regulated decision' plus the practice, accessible name 'Regulated decision: <practice>. Read the risk.', links #risk). Spec: 'every page of a regulated dimension shows a red warning that is not colour alone' and 'pages of an unregulated dimension carry no warning' (option order is mapped regulated: false).",
+      "created_at": "2026-09-23T16:46:05.761881Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude_code",
+        "model": "Claude Opus 5.5",
+        "name": "Leaderboard architect"
+      }
     }
   ],
   "created_at": "2026-09-23T16:18:40.163588Z",
-  "updated_at": "2026-09-23T16:18:47.383483Z",
+  "updated_at": "2026-09-23T16:46:05.761923Z",
   "closed_at": null,
   "agent": {
     "platform": "claude_code",

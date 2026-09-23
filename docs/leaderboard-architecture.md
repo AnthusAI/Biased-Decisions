@@ -124,8 +124,10 @@ found raises, and the unit test asserts every quoted string occurs in its source
 never drift from the file. Rows written in Jev-Flywheel, where "Laya" meant the MLX port, are
 attached to `laya-mlx` with a note saying so.
 
-## Data contract (`site/data/leaderboard.json`, schema `biased-decisions/leaderboard@3`)
+## Data contract (`site/data/leaderboard.json`, schema `biased-decisions/leaderboard@4`)
 
+Version 4 adds `compliance` (built by `biased_decisions/compliance.py`, specified in
+`compliance_test.py`; every version-3 field is unchanged, value for value). See "Compliance" below.
 Version 3 adds `provenance.release` {version, tag, date, released, url, label}: the latest
 Semantic Release tag reachable from the commit (`git describe --tags --abbrev=0`) and the tag's
 date, or, before the first release, the `pyproject.toml` version with `released: false`,
@@ -168,6 +170,18 @@ overall        {rule, n_dimensions, rows[{engine, mean_rank, ranked_on, position
 floors         {ask_twice[{engine, task, task_label, flip_pct, mean_abs_dp, max_abs_dp, n,
                 record, study}]}
 honesty[]      {id, title, text}          vocabulary[] {term, text}
+compliance     {notice, citations[{id, short, name, covers, primary_url, quotes[{where, text,
+                source_url}], repo_ref {path, text}}], unmeasured[{id, short, decision, status,
+                repo_ref}], practices[{id, label, decision}],
+                mapping[{dimension, regulated, practice?, attribute?, decision?, citations[]?,
+                failure_mode?, who_harmed?, reason?, recipes[], insights[]}],
+                evidence[{id, kind: cell|shortlist|prereg|floor, ...}],
+                shortlist {line, pairs[{task, study, rows[the replayed rows, verbatim]}],
+                prereg_section, scenario, twin_note},
+                inversion {quote, attribution, source_url, lede},
+                recipes[{id, title, practices[], pattern, what_happens, inverse, evidence[],
+                insight}], insights[{id, title, text, evidence[], links[]}],
+                checklist[{text, insight}], articles[{id, title, url}]}
 ```
 
 Missing is always explicit: a missing cell has no `headline`, a missing facet has no numbers.
@@ -225,6 +239,8 @@ Every page has a real path, built from ids in the data contract. The scheme:
 /<dimension>/<group>/<item>/              one cell             /stereotype-religion/jewish/greed/
 /engines/   /engines/<engine>/   /engines/<engine>/<dimension>/
 /methods/
+/how-to-fail/  /how-to-fail/#<recipe>      the inversion page; one anchor per failure recipe
+/guidance/    /guidance/#<insight>       measuring and avoiding the risk; #checklist
 /data/leaderboard.json                    the data contract itself
 /og/<path>.<hash>.png                     each page's social card (docs/social-cards.md)
 /og-gallery/                              every card, for review (unlinked, noindex)
@@ -316,7 +332,48 @@ one dimension; methods; 404.
 - Fonts: Jersey 25 for display, Montserrat for text, from Google Fonts (SIL OFL). No other
   third-party code.
 
+## Compliance
+
+Added for BD-7ee753. The rules, each enforced by a spec:
+
+- **Mapping, not pages.** Which dimensions are regulated, under which practice and rules, what the
+  failure is and who is harmed, lives in the data contract (`compliance.mapping`). Option order
+  is mapped `regulated: false`: not a protected characteristic, so no warning.
+- **Citations the repository already names.** Each cited rule carries `repo_ref`, a passage that
+  must occur verbatim in a committed pre-registration, survey or `studies/PREREGISTERED.md`, and
+  the primary text it rests on, quoted with its public URL. Regimes the repository names for
+  decisions no cell measures yet (USERRA, ECOA and Regulation B, the Fair Housing Act, ACA
+  Section 1557, UDAAP, evaluation language) are `unmeasured`: listed, never warned on. *Griggs v.
+  Duke Power* is not named anywhere in the repository and is not cited.
+- **Evidence is copied.** A `cell` entry copies one measured facet (value, interval, n, floor,
+  excess, detected); a `shortlist` entry names a row of the replayed
+  `studies/<task>-shortlist.jsonl`, which the contract carries verbatim; a `prereg` entry quotes a
+  row of `studies/PREREGISTERED.md` through the same `Prereg` lookup the boards use.
+- **Prose has no digits.** Recipes, insights and the mapping are words; every number on a
+  compliance page is rendered from an evidence entry.
+- **Risk panels** on every page of a regulated dimension (dimension, group, item, cell,
+  engine-by-dimension) state the page's own measurement: the most biased engine and, beside it,
+  the least biased measured one, each with interval, floor, n, a deep link to the cell's row and,
+  where the cell has one, its example (`#example`). Gender pages add the top-500 shortlist rows.
+  The build checks (`site/test/compliance.test.mjs`) fail on a warning without an accessible
+  name and icon, or a panel without a resolving cell link, an interval, n, a verified citation,
+  a recipe link, a guidance link or the not-legal-advice notice.
+- **The alarm red** (`--alarm`, light `#c8102e` with white text, 5.9:1; dark `#f5475e` with
+  `#0f1a22` text, 5.0:1; red text `#b3122e` light, 6.5:1 on the page, `#ff8a98` dark, 7.8:1) is
+  used only for regulated-decision warnings, always with the triangle icon and the words. The
+  dataviz validator, run on the engine palette plus the red (adjacent pairs, light on `#f1f9fe`,
+  dark on `#0f1a22`), passes every check in both themes. Checked against every pair, the red's
+  normal-vision distance from Laya's magenta is 11.2 (light) and 8.4 (dark), under the
+  validator's 15 floor for data series. No red within the red hue family clears 15 against that
+  magenta without turning orange, and the red is never a data mark, so identity is carried by
+  the icon and text, never by the hue.
+
 ## Open issues
+
+- **Surgeon/physician direction label.** `direction_toward_more_female_pct` for surgeon /
+  physician is keyed to "surgeon" as `more_female_label`, although physician has the larger share
+  of women in Bias in Bios. The number reads correctly with the label as stored, but the label
+  looks inverted; compliance panels do not quote direction for that pair until it is checked.
 
 - **Excess intervals ignore floor uncertainty.** They are the measurement's interval shifted by
   the floor's point estimate. A paired bootstrap of (measurement minus floor) on the same bios

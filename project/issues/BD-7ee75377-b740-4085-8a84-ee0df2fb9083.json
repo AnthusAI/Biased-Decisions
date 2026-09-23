@@ -10,9 +10,46 @@
   "parent": "BD-8781ddac-8725-4e87-80fd-7e9ddaa4bc09",
   "labels": [],
   "dependencies": [],
-  "comments": [],
+  "comments": [
+    {
+      "id": "e812d59f-a849-48bc-b1ad-cc6cfa32a455",
+      "author": "home",
+      "text": "Started on branch feat/compliance-guidance (worktree Biased-Decisions-leaderboard, from origin/main eb54d66).\n\nPlan:\n- Data contract: bump to leaderboard@4 with a `compliance` block built by `biased_decisions/compliance.py` (citations with a repo reference whose quoted text is checked verbatim, regulated-practice mapping per dimension, named evidence entries copied from measured cells, the replayed shortlist block, inversion recipes and guidance insights whose prose carries no numbers: every number renders from an evidence entry). Specs in `biased_decisions/compliance_test.py`.\n- Site: warning badge + risk panel components, /how-to-fail/ and /guidance/ pages, shortlist section on the paralegal-attorney and nurse-physician gender task pages (#shortlist), social cards for the two new pages, build checks in site/test.\n- Citation policy found: the repo names Title VII (quoted), NYC LL144 §20-870 (quoted), EU AI Act Annex III 4(b) (quoted), the EEOC four-fifths rule (named, shortlist pre-registration), ADEA/ADA/USERRA (named, regulated-decisions pre-registration). Griggs v. Duke Power is not in the repo, so it is omitted. ECOA/Reg B, FHA, ACA 1557, UDAAP are named in pre-registrations but no leaderboard cell measures those decisions, so they appear only under 'not yet measured', never with a warning.\n- Von's 72% option-order figure is not in the repo: omitted.",
+      "created_at": "2026-09-23T16:25:29.970119Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude_code",
+        "model": "Claude Opus 5.5",
+        "name": "Leaderboard architect"
+      }
+    },
+    {
+      "id": "dd8c17f5-9325-493f-a2a9-53e057aaf560",
+      "author": "home",
+      "text": "Progress: commits 64e43ae (data contract leaderboard@4, compliance block, 14 Python specs in biased_decisions/compliance_test.py, red first then green) and 8dfdccd (site: warnings, panels, /how-to-fail/, /guidance/, shortlist on gender task pages, cards; site/test/compliance.test.mjs, 9 build checks, red against the old build then green). Found and fixed: a visually-hidden label inside the dimension rail was absolutely positioned against the sticky masthead and widened phone pages by 789px; rail links are now position: relative. Next: contrast validation, adversarial copy review, docs.",
+      "created_at": "2026-09-23T16:46:05.629639Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude_code",
+        "model": "Claude Opus 5.5",
+        "name": "Leaderboard architect"
+      }
+    },
+    {
+      "id": "faee444a-1269-4542-b43e-9b680fb0e979",
+      "author": "home",
+      "text": "Done on feat/compliance-guidance (not merged; coordinator merges). Specs: 14 compliance + 19 leaderboard Python specs pass (195 in the package, replay suite not run per the load rule); 19 site build checks pass. Browser (Playwright, 1440 light and 390 dark, 20 paths, hard reload): no console errors, no horizontal scroll, recipe/insight/shortlist anchors land. Palette validator: alarm red passes in both themes (adjacent pairs); against Laya's magenta all-pairs normal-vision distance is 11.2 light / 8.4 dark, accepted because the red is never a data mark and always carries icon and words. No sub-agent tool was available in this session, so the adversarial copy review was done in-session; fixes in the last commit. Open: surgeon/physician direction label looks inverted in the data (documented); Griggs not cited (not in the repo); the fine-tuning claim in the brief ('did not fix it') conflicts with the Can You Fix It article text, so the site makes no fine-tuning claim.",
+      "created_at": "2026-09-23T16:51:58.894626Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude_code",
+        "model": "Claude Opus 5.5",
+        "name": "Leaderboard architect"
+      }
+    }
+  ],
   "created_at": "2026-09-23T16:18:36.121955Z",
-  "updated_at": "2026-09-23T16:18:36.121981Z",
+  "updated_at": "2026-09-23T16:51:58.894670Z",
   "closed_at": null,
   "agent": {
     "platform": "claude_code",

@@ -2,6 +2,8 @@
 // One engine on one dimension: where it stands on the board, every group, question or task it
 // was measured on, and the predictions made for it.
 import Base from "../../../../layouts/Base.astro";
+import RegWarn from "../../../../components/RegWarn.astro";
+import RiskPanel from "../../../../components/RiskPanel.astro";
 import Chart from "../../../../components/Chart.astro";
 import EngineName from "../../../../components/EngineName.astro";
 import FacetTable from "../../../../components/FacetTable.astro";
@@ -41,6 +43,7 @@ const description = measured
   <section class="wrap hero dim-hero">
     <p class="kicker"><a href={urls.engine(en.id)}>{en.label}</a> · <a href={urls.dim(dim.id)}>{dim.long}</a></p>
     <h1 class="display xl eng-title"><span class="eng-dot" style={`background:var(--eng-${en.id})`}></span>{en.label} <span class="h-x">on</span> {dim.label.toLowerCase()}</h1>
+    <RegWarn dim={dim} />
     {measured && (
       <div class="eng-stats">
         <div><span class="stat-k">On the board</span><span class="stat-v">{c.detected && dim.board.contested ? place(dim.board, en.id) : c.detected ? "only" : "n.d."}</span><span class="stat-s">{status}</span></div>
@@ -50,6 +53,8 @@ const description = measured
     )}
     {!measured && <p class="deck">{en.label} has no record for this dimension. It is shown as missing, never as zero, and it is flagged incomplete on the overall board.</p>}
   </section>
+
+  <RiskPanel dim={dim} engineId={en.id} place={`${en.label} on ${dim.label.toLowerCase()}`} />
 
   {measured && twoAxes && (
     <section class="wrap section">

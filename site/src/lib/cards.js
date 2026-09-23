@@ -44,7 +44,7 @@ export function doesAt(dim, groupId, itemId, engineId) {
 }
 
 // The (group, item) a level head's headline facet points at.
-function positionOf(dim, level, head) {
+export function positionOf(dim, level, head) {
   const f = head.headline.facet;
   if (level.kind === "cell") return [level.group, level.item];
   if (level.kind === "group") return [level.group, f];
@@ -52,7 +52,7 @@ function positionOf(dim, level, head) {
 }
 // The (group, item) of a dimension cell's headline facet (facets are items for two-axis
 // dimensions, where the headline is the largest cell over the groups; see the architecture doc).
-function dimPositionOf(dim, engineId) {
+export function dimPositionOf(dim, engineId) {
   const c = dim.cells[engineId];
   const f = c.headline.facet;
   const bd = dim.breakdown;
@@ -204,6 +204,33 @@ function engineDimCard(en, dim) {
     rows: [count] };
 }
 
+// ---------------------------------------------------------------------------------------------
+// Compliance (BD-7ee753): a regulated-decision flag on every page whose decision maps to a
+// regulated practice, and the inversion and guidance pages' own cards.
+// ---------------------------------------------------------------------------------------------
+const COMP = data.compliance;
+const PRACTICE = Object.fromEntries(COMP.practices.map((p) => [p.id, p.label]));
+const REG = Object.fromEntries(COMP.mapping.filter((m) => m.regulated).map((m) => [m.dimension, PRACTICE[m.practice]]));
+export const flagFor = (dimId) => (REG[dimId] ? `Regulated decision: ${REG[dimId].toLowerCase()}` : null);
+const flagged = (dimId, card) => (REG[dimId] ? { ...card, flag: flagFor(dimId) } : card);
+const shortRow = (task, engine, variant, cut) => COMP.shortlist.pairs.find((b) => b.task === task).rows
+  .find((r) => r.engine === engine && r.variant === variant && r.cut === cut);
+
+function inversionCard() {
+  const r = shortRow("paralegal-attorney", "laya", "engine_alone", 500);
+  return { template: "inversion", alarm: true, headline: "How to cause a compliance failure with a fast decision model",
+    number: fmt(r.four_fifths_ratio), numberNote: `Laya's shortlist ratio, women attorneys; line ${fmt(COMP.shortlist.line)}`,
+    rows: [{ text: `${COMP.recipes.length} recipes, each tied to a measured result` }] };
+}
+
+function guidanceCard() {
+  const before = shortRow("paralegal-attorney", "laya", "engine_alone", 500);
+  const after = shortRow("paralegal-attorney", "laya", "twin_averaged", 500);
+  return { template: "guidance", alarm: true, headline: "Measuring and avoiding bias risk in fast decision models",
+    number: fmt(after.four_fifths_ratio), numberNote: `Laya's ratio after twin averaging, from ${fmt(before.four_fifths_ratio)}`,
+    rows: [{ text: "A checklist, every step linked to evidence" }] };
+}
+
 function titledCard(template, headline) {
   const base = homeCard();
   return { ...base, template, headline: `${headline}: ${base.headline}` };
@@ -213,7 +240,7 @@ function titledCard(template, headline) {
 // Every page's card, by page path.
 // ---------------------------------------------------------------------------------------------
 // Bump LAYOUT when og.js draws the same content differently, so card URLs change with the pixels.
-const LAYOUT = 4;
+const LAYOUT = 6;
 const hashOf = (card) => createHash("sha256").update(JSON.stringify({ LAYOUT, card })).digest("hex").slice(0, 10);
 
 function finish(path, card) {
@@ -227,6 +254,7 @@ function finish(path, card) {
 // The alt text carries every word and number on the card, as sentences.
 export function altOf(c) {
   const parts = [`${c.headline}${c.number ? `: ${c.number} ${c.numberNote}` : ""}.`];
+  if (c.flag) parts.push(`${c.flag}.`);
   if (c.note) parts.push(`${c.note}.`);
   if (c.detail) parts.push(`${c.detail}.`);
   for (const r of c.rows) parts.push(`${r.text}.`);
@@ -244,12 +272,14 @@ export function allCards() {
     rows: [{ text: "Change one detail of a real bio; read the change against an equally trivial edit" }] }));
   for (const en of engines) {
     out.push(finish(urls.engine(en.id), engineCard(en)));
-    for (const d of dimensions) out.push(finish(urls.engineDim(en.id, d.id), engineDimCard(en, d)));
+    for (const d of dimensions) out.push(finish(urls.engineDim(en.id, d.id), flagged(d.id, engineDimCard(en, d))));
   }
   for (const d of dimensions) {
-    out.push(finish(urls.dim(d.id), dimCard(d)));
-    for (const level of d.breakdown.levels) out.push(finish(levelPath(d, level), levelCard(d, level)));
+    out.push(finish(urls.dim(d.id), flagged(d.id, dimCard(d))));
+    for (const level of d.breakdown.levels) out.push(finish(levelPath(d, level), flagged(d.id, levelCard(d, level))));
   }
+  out.push(finish(`${urls.home()}how-to-fail/`, inversionCard()));
+  out.push(finish(`${urls.home()}guidance/`, guidanceCard()));
   cache = out;
   return out;
 }

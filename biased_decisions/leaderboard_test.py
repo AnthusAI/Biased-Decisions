@@ -38,7 +38,7 @@ def test_wilson_contains_point_and_is_ordered():
 
 
 def test_every_dimension_has_a_cell_per_engine_and_missing_is_never_zero(doc):
-    assert doc["schema"] == "biased-decisions/leaderboard@3"
+    assert doc["schema"] == "biased-decisions/leaderboard@4"
     assert [e["id"] for e in doc["engines"]] == ENGINE_IDS
     for dim in doc["dimensions"]:
         assert set(dim["cells"]) == set(ENGINE_IDS)

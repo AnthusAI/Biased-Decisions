@@ -1,0 +1,20 @@
+---
+// One piece of evidence: what the model did (the model is the subject), the number with its
+// interval and sample size, and the link to the measurement that proves it.
+import { evidence } from "../lib/compliance.js";
+const { id = null, found = null } = Astro.props;
+const e = found || evidence(id);
+const cls = `ev${e.detected === false && e.kind !== "prereg" ? " ev-nd" : ""}`;
+---
+{id
+  ? <li class={cls} data-ev={id}>
+      <a class="ev-link" href={e.href}>{e.sentence}</a><span class="ev-fig">: {e.figure}{e.kind === "cell" && <Fragment> ({e.verdict})</Fragment>}.</span>
+      {e.direction && <span class="ev-dir"> {e.direction}.</span>}
+      {e.kind === "prereg" && <span class="ev-dir"> Predicted: {e.prediction}. Verdict: {e.verdict}.{e.article && <Fragment> Reported in <a href={e.article.url}>{e.article.title}</a>.</Fragment>}</span>}
+      {e.example && <span class="ev-ex"> <a href={e.example}>See one real bio, both ways</a>.</span>}
+    </li>
+  : <li class={cls}>
+      <a class="ev-link" href={e.href}>{e.sentence}</a><span class="ev-fig">: {e.figure}{e.kind === "cell" && <Fragment> ({e.verdict})</Fragment>}.</span>
+      {e.direction && <span class="ev-dir"> {e.direction}.</span>}
+      {e.example && <span class="ev-ex"> <a href={e.example}>See one real bio, both ways</a>.</span>}
+    </li>}

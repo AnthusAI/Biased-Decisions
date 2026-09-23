@@ -1,0 +1,12 @@
+---
+// One verified citation: its name linked to the primary text, what it covers, and the quoted
+// passage behind a disclosure.
+const { c } = Astro.props;
+---
+<li class="cite-item">
+  <a class="cite" href={c.primary_url}>{c.name}</a><span class="cite-covers">: {c.covers}.</span>
+  <details class="cite-q">
+    <summary>Read the text</summary>
+    {c.quotes.map((q) => <blockquote cite={q.source_url}><p>“{q.text}”</p><footer>{q.where} (<a href={q.source_url}>source</a>)</footer></blockquote>)}
+  </details>
+</li>

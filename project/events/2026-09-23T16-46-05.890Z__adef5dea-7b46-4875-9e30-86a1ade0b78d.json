@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "event_id": "adef5dea-7b46-4875-9e30-86a1ade0b78d",
+  "issue_id": "BD-3da5fe30-0d1d-4b4a-9053-648329c61599",
+  "event_type": "comment_added",
+  "occurred_at": "2026-09-23T16:46:05.890Z",
+  "actor_id": "home",
+  "payload": {
+    "comment_id": "1c7f5e59-e28e-4856-8a5d-0aa1e6c99408",
+    "comment_author": "home",
+    "agent": {
+      "platform": "claude_code",
+      "model": "Claude Opus 5.5",
+      "name": "Leaderboard architect"
+    }
+  }
+}

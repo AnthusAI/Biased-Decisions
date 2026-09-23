@@ -1,5 +1,7 @@
 ---
 import Base from "../../layouts/Base.astro";
+import RegWarn from "../../components/RegWarn.astro";
+import RiskPanel from "../../components/RiskPanel.astro";
 import Board from "../../components/Board.astro";
 import Chart from "../../components/Chart.astro";
 import EngineName from "../../components/EngineName.astro";
@@ -51,6 +53,7 @@ const plural = (k) => (k === "nationality" ? "nationalities" : k === "religion" 
   <section class="wrap hero dim-hero">
     <p class="kicker">{dim.source === "batch2-staging" ? "Dimension · staged batch-2 data" : "Dimension"}</p>
     <h1 class="display xl">{dim.long}</h1>
+    <RegWarn dim={dim} />
     <dl class="defs">
       <div><dt>The cue</dt><dd>{dim.cue}</dd></div>
       <div><dt>The floor</dt><dd>{dim.floor}</dd></div>
@@ -60,6 +63,8 @@ const plural = (k) => (k === "nationality" ? "nationalities" : k === "religion" 
   </section>
 
   <Board board={dim.board} heads={dim.cells} unit={unit(dim)} facetKind={dim.facet_kind} chartId="board" hrefFor={(e) => urls.engineDim(e, dim.id)} />
+
+  <RiskPanel dim={dim} />
 
   {twoAxes && (
     <section class="wrap section" id="breakdown">
