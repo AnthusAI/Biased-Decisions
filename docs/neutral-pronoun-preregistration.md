@@ -53,6 +53,14 @@ Fixed before any run: the token lists are those of `swap_gender`'s amended rule.
 any item that still contains a gendered token is dropped from that arm and counted; if more than 1%
 of items are dropped on any task the arm is reported as failed on that task.
 
+**Rule details, fixed 2026-09-23 before any run.** Reflexives (himself, herself) become "themself"
+in both neutral arms, because "the person" cannot stand as an object of the same verb's subject.
+Courtesy titles (Mr, Ms, Mrs, Miss, Sir, Madam) are removed in both arms. In the they arm, a
+contraction of the pronoun with "is" or "has" ("she's") is ambiguous; an item containing one is
+dropped from the they arm and counted, not guessed. The verb rule adjusts the first verb after the
+pronoun, skipping up to two adverbs from a fixed list; verbs after "and" or a comma are not
+adjusted, and the audit below shows how often that leaves an error.
+
 **Grammar audit for the they arm.** Fifty random items per task are printed and read before
 scoring. If more than 10% are ungrammatical, the they arm is reported as exploratory and the
 blank arm carries the conclusion.
