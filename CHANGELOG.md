@@ -1,3 +1,10 @@
+# [1.8.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.7.0...v1.8.0) (2026-09-23)
+
+
+### Features
+
+* **report:** one religion dimension and one nationality board, with redirects from the old addresses ([585449b](https://github.com/AnthusAI/Biased-Decisions/commit/585449b1de04c7476eb5237d8bf89b9368d9ecd8))
+
 # [1.7.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.6.0...v1.7.0) (2026-09-23)
 
 
