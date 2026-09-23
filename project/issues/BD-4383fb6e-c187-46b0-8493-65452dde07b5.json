@@ -12,15 +12,28 @@
     "engines"
   ],
   "dependencies": [],
-  "comments": [],
+  "comments": [
+    {
+      "id": "be896ee0-b931-4693-a7d3-110c2a8d1bb0",
+      "author": "home",
+      "text": "Feature: Engine adapter: Von answers a scored task\n\nScenario: Von, the closest sibling to Laya, returns option probabilities\n  Given the Von (395M ModernBERT, Apache-2.0) model installed via von-sdk on MPS, CPU, CUDA or ROCm\n  When I run bd run --engine von on a committed task\n  Then it returns a probability per option for every item and studies/ records the answers in the same schema as Laya\n",
+      "created_at": "2026-09-23T16:20:37.879005Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude_code",
+        "model": "Claude Sonnet 5",
+        "name": "Board steward"
+      }
+    }
+  ],
   "created_at": "2026-09-23T11:47:36.948455Z",
-  "updated_at": "2026-09-23T11:47:36.948481Z",
+  "updated_at": "2026-09-23T16:20:37.879026Z",
   "closed_at": null,
   "agent": {
     "platform": "claude-code",
     "model": "claude-fable-5-1"
   },
-  "right_now_summary": "The team is evaluating Von as the first engine adapter candidate.",
-  "right_now_updated_at": "2026-09-23T11:47:39.250602Z",
+  "right_now_summary": "The Von engine adapter now returns option probabilities and records answers across supported hardware.",
+  "right_now_updated_at": "2026-09-23T16:20:40.073706Z",
   "custom": {}
 }

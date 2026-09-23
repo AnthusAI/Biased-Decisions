@@ -3,7 +3,7 @@
   "title": "Sexuality and gender-identity axes on the stereotype pool with Laya (safeguarding question)",
   "description": "Design B from docs/sexuality-gender-identity-preregistration.md: add the sexuality and gender-identity axes (gay/lesbian, bisexual, straight, transgender, matched floors) to the 2,000-bio batch-2 stereotype pool, add the new safeguarding question to the existing six, and run Laya (free) to compute trope scores against the floors. Report every cell including cells where the interval includes zero.",
   "type": "story",
-  "status": "open",
+  "status": "in_progress",
   "priority": 2,
   "assignee": null,
   "creator": null,
@@ -12,15 +12,28 @@
     "studies"
   ],
   "dependencies": [],
-  "comments": [],
+  "comments": [
+    {
+      "id": "60fc9519-a26c-4c9d-acda-541e6991c811",
+      "author": "home",
+      "text": "Feature: Sexuality/gender-identity axes score on the stereotype pool with Laya\n\nScenario: Design B trope scores include the new safeguarding question\n  Given the sexuality and gender-identity axes (gay/lesbian, bisexual, straight, transgender, matched floors) added to the 2,000-bio batch-2 stereotype pool, plus the new safeguarding question added to the existing six\n  When I run bd run with Laya (free) on the stereotype-pool task\n  Then studies/sexuality-gender-identity-stereotypes reports trope scores against the floors with a 95% interval for every cell, including ones where the interval includes zero, scored against docs/sexuality-gender-identity-preregistration.md Design B\n",
+      "created_at": "2026-09-23T16:21:31.226646Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude_code",
+        "model": "Claude Sonnet 5",
+        "name": "Board steward"
+      }
+    }
+  ],
   "created_at": "2026-09-23T13:05:10.396695Z",
-  "updated_at": "2026-09-23T13:05:10.396732Z",
+  "updated_at": "2026-09-23T16:34:06.458267Z",
   "closed_at": null,
   "agent": {
     "platform": "claude-code",
     "model": "claude-fable-5-1"
   },
-  "right_now_summary": "The batch is being expanded with new identity axes and a safeguarding question for Laya scoring.",
-  "right_now_updated_at": "2026-09-23T13:05:13.002133Z",
+  "right_now_summary": "Laya must score the expanded stereotype pool and report every cell with 95% intervals against the Design B floors.",
+  "right_now_updated_at": "2026-09-23T16:34:08.195223Z",
   "custom": {}
 }

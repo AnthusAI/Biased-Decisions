@@ -23,6 +23,9 @@ frontend:
     build:
       commands:
         - export SITE_URL="${SITE_URL:-https://biased-decisions.anth.us}"
+        # The replay audit re-scores the committed answers (no model runs) and lives in
+        # .github/workflows/replay.yml; the deploy only builds the site from studies/.
+        - export SITE_SKIP_REPLAY=1
         - bash scripts/site-build.sh
   artifacts:
     baseDirectory: site/dist

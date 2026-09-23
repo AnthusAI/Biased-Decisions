@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "event_id": "461a973d-6987-49bd-9120-1a282ea3d1ab",
+  "issue_id": "BD-04a229fd-0783-4592-918b-de3f3a4c861b",
+  "event_type": "issue_created",
+  "occurred_at": "2026-09-23T16:18:40.163Z",
+  "actor_id": "home",
+  "payload": {
+    "title": "Regulated-practice warning indicators on every relevant page",
+    "description": "Red warning badges with icon and text on dimension, group, question, cell and task pages whose decision maps to a regulated practice; data-driven from a mapping in the data contract.",
+    "issue_type": "story",
+    "status": "open",
+    "priority": 2,
+    "assignee": null,
+    "parent": "BD-7ee75377-b740-4085-8a84-ee0df2fb9083",
+    "labels": [],
+    "agent": {
+      "platform": "claude_code",
+      "model": "Claude Opus 5.5",
+      "name": "Biased-Decisions coordinator"
+    }
+  }
+}

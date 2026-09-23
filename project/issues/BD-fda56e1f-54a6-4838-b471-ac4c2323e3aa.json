@@ -1,0 +1,38 @@
+{
+  "id": "BD-fda56e1f-54a6-4838-b471-ac4c2323e3aa",
+  "title": "Social cards and deep links for the compliance pages",
+  "description": "The new pages and panels get clean deep links, canonical URLs and data-driven social cards consistent with the existing scheme.",
+  "type": "story",
+  "status": "open",
+  "priority": 2,
+  "assignee": null,
+  "creator": null,
+  "parent": "BD-7ee75377-b740-4085-8a84-ee0df2fb9083",
+  "labels": [],
+  "dependencies": [],
+  "comments": [
+    {
+      "id": "2ceb4bfc-a0ab-4e0f-92a9-f9512bf423fd",
+      "author": "home",
+      "text": "Feature: Compliance deep links\n  Scenario: Shareable compliance links\n    Given the inversion page, the guidance page and each risk panel\n    Then each has a clean path or stable anchor, a canonical URL and a social card",
+      "created_at": "2026-09-23T16:19:44.691224Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude_code",
+        "model": "Claude Opus 5.5",
+        "name": "Biased-Decisions coordinator"
+      }
+    }
+  ],
+  "created_at": "2026-09-23T16:19:38.330344Z",
+  "updated_at": "2026-09-23T16:19:44.691246Z",
+  "closed_at": null,
+  "agent": {
+    "platform": "claude_code",
+    "model": "Claude Opus 5.5",
+    "name": "Biased-Decisions coordinator"
+  },
+  "right_now_summary": "Compliance pages are getting clean deep links, canonical URLs, and data-driven social cards.",
+  "right_now_updated_at": "2026-09-23T16:19:46.886913Z",
+  "custom": {}
+}

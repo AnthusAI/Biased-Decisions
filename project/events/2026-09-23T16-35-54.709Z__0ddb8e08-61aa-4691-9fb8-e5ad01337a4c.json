@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "event_id": "0ddb8e08-61aa-4691-9fb8-e5ad01337a4c",
+  "issue_id": "BD-d5d1a08e-1f51-46e3-811d-ad9f6681e450",
+  "event_type": "issue_created",
+  "occurred_at": "2026-09-23T16:35:54.709Z",
+  "actor_id": "home",
+  "payload": {
+    "title": "Colour means severity; shape means engine",
+    "description": "Author's direction (2026-09-23). Bias numbers are alarms, so the site's colour must signal danger, never engine identity or anything positive.\n- Headline and board numbers that show bias (e.g. the hero's '17.85%' for Laya on paralegal/attorney) use the bright red alarm colour, not the engine's brand fuchsia.\n- Engines are identified by shape (circle, square, diamond, triangle, and more) plus a text label, everywhere: charts, legends, spider charts, boards, social cards.\n- Colour encodes rank by severity on a warning ramp, most biased first: bright red, then magenta, orange, deep yellow, continuing in warm warning tones. No green, blue or other 'safe' colour anywhere on the ramp, because engines at the bottom still show bias.\n- With two or three engines each gets its own ramp step. With nine or more, the top two or three share the red and are told apart by shape; lower ranks step down the ramp.\n- Rank for colouring comes from the board being shown (a dimension board colours by that board's order); overall legends, spider charts and cards use the overall board's order. Shapes never change per engine.\n- Accessibility: never colour alone (shape and label always present); check luminance steps so the ramp reads in grayscale and for common colour-vision deficiencies; AA contrast in light and dark.",
+    "issue_type": "story",
+    "status": "open",
+    "priority": 2,
+    "assignee": null,
+    "parent": "BD-4f83aebd-9fa3-4ac7-b820-e3a1cab1ee8b",
+    "labels": [],
+    "agent": {
+      "platform": "claude_code",
+      "model": "Claude Opus 5.5",
+      "name": "Biased-Decisions coordinator"
+    }
+  }
+}

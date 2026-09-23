@@ -12,15 +12,28 @@
     "engines"
   ],
   "dependencies": [],
-  "comments": [],
+  "comments": [
+    {
+      "id": "8e54005f-ba95-4d73-81d0-872815467dda",
+      "author": "home",
+      "text": "Feature: Engine adapter: System One Gemma answers a scored task\n\nScenario: The licence is confirmed before any benchmark publication\n  Given the System One Gemma (Gemma 3 270M + scoring head) model, code Apache-2.0 but weights CC-BY-NC-4.0, runnable on CPU and CUDA\n  When I run bd run --engine system-one-gemma on a committed task after confirming the CC-BY-NC-4.0 weights licence allows benchmark publication\n  Then it returns a probability per option for every item and studies/ records the answers\n",
+      "created_at": "2026-09-23T16:22:57.570226Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude_code",
+        "model": "Claude Sonnet 5",
+        "name": "Board steward"
+      }
+    }
+  ],
   "created_at": "2026-09-23T11:49:10.569102Z",
-  "updated_at": "2026-09-23T11:49:10.569140Z",
+  "updated_at": "2026-09-23T16:22:57.570253Z",
   "closed_at": null,
   "agent": {
     "platform": "claude-code",
     "model": "claude-fable-5-1"
   },
-  "right_now_summary": "The model’s licence must be confirmed before benchmark results are published.",
-  "right_now_updated_at": "2026-09-23T11:49:12.980351Z",
+  "right_now_summary": "The license must be confirmed before benchmarking the System One Gemma adapter.",
+  "right_now_updated_at": "2026-09-23T16:22:59.799468Z",
   "custom": {}
 }

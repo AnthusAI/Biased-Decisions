@@ -1,0 +1,24 @@
+name: Replay audit
+
+# Re-scores every committed answer record (no model inference) and checks that bd replay
+# reproduces studies/ byte for byte. Kept out of the Amplify deploy so a reproducibility
+# problem is visible here without blocking the site.
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  replay:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: python -m pip install --quiet -e '.[dev]'
+      - run: python -m pytest -q biased_decisions
+      - run: python -m biased_decisions.cli replay
+      - name: studies/ reproduces byte for byte
+        run: git diff --exit-code -- studies/

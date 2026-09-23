@@ -12,15 +12,28 @@
     "studies"
   ],
   "dependencies": [],
-  "comments": [],
+  "comments": [
+    {
+      "id": "42585b27-55ca-406a-aae9-5bbc8b3cb2c1",
+      "author": "home",
+      "text": "Feature: Jev go/no-go prices a 500-bio subsample\n\nScenario: A dry-run price and cap gate the full regulated-decisions run\n  Given the free-engines-before-paid-ones convention and docs/regulated-decisions-preregistration.md's ~24,000-request full run\n  When I run a Jev dry-run price on a 500-bio subsample of the regulated-decisions pool\n  Then the price and a request cap are recorded and approved before any full Jev request is sent\n",
+      "created_at": "2026-09-23T16:21:38.025561Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude_code",
+        "model": "Claude Sonnet 5",
+        "name": "Board steward"
+      }
+    }
+  ],
   "created_at": "2026-09-23T13:05:17.788335Z",
-  "updated_at": "2026-09-23T13:05:17.788361Z",
+  "updated_at": "2026-09-23T16:21:38.025581Z",
   "closed_at": null,
   "agent": {
     "platform": "claude-code",
     "model": "claude-fable-5-1"
   },
-  "right_now_summary": "The team is pricing and capping a 500-bio subsample before deciding on the full run.",
-  "right_now_updated_at": "2026-09-23T13:05:19.642660Z",
+  "right_now_summary": "A 500-bio Jev dry run will set the price and request cap before the full run.",
+  "right_now_updated_at": "2026-09-23T16:21:39.654208Z",
   "custom": {}
 }

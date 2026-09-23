@@ -10,12 +10,30 @@
   "parent": "BD-8711caaf-17a6-4c26-a826-496dfd6bae82",
   "labels": [],
   "dependencies": [],
-  "comments": [],
+  "comments": [
+    {
+      "id": "062239fd-a7bd-4819-9230-1a66d3cd8961",
+      "author": "home",
+      "text": "Feature: Kiva loan descriptions score a fund-this-loan decision\n\nScenario: Nationality clauses, including an American-borrower condition, shift funding\n  Given real Kiva borrower stories with native-country and gender clauses (API/data terms for redistribution verified) and an American-borrower condition among the nationality set\n  When I run bd score on the kiva-fund task for the committed engine record\n  Then studies/kiva reports the signed shift vs the floor per nationality clause with a 95% interval\n",
+      "created_at": "2026-09-23T16:21:44.242983Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude_code",
+        "model": "Claude Sonnet 5",
+        "name": "Board steward"
+      }
+    }
+  ],
   "created_at": "2026-09-23T15:42:12.057823Z",
-  "updated_at": "2026-09-23T15:43:20.733296Z",
+  "updated_at": "2026-09-23T16:21:44.243007Z",
   "closed_at": null,
-  "right_now_summary": "The team is checking Kiva loan data and API terms before funding decisions.",
-  "right_now_updated_at": "2026-09-23T15:43:23.151413Z",
+  "agent": {
+    "platform": "claude_code",
+    "model": "Claude Opus 5.5",
+    "name": "Biased-Decisions coordinator"
+  },
+  "right_now_summary": "The team is testing how nationality and gender details in Kiva stories affect funding decisions.",
+  "right_now_updated_at": "2026-09-23T16:21:47.044719Z",
   "custom": {
     "project_label": "BD",
     "source": "shared"

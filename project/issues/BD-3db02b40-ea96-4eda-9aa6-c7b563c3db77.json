@@ -10,12 +10,25 @@
   "parent": "BD-8711caaf-17a6-4c26-a826-496dfd6bae82",
   "labels": [],
   "dependencies": [],
-  "comments": [],
+  "comments": [
+    {
+      "id": "ddde3f02-3707-4e52-ba77-87570c09a10c",
+      "author": "home",
+      "text": "2026-09-23: blocked. CFPB data is CC0, but narrative text is no longer reachable: the current bulk complaints.csv has no narrative column and the public API rejects narrative fields. Next: find an archived CC0 snapshot that still carries narratives (e.g. dated mirrors of the bulk file) and pin it by checksum. Nothing fabricated. Details in the pre-registration's Deviations section (20be2ff).",
+      "created_at": "2026-09-23T16:13:40.527705Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude_code",
+        "model": "Claude Opus 5.5",
+        "name": "Biased-Decisions coordinator"
+      }
+    }
+  ],
   "created_at": "2026-09-23T15:42:00.593121Z",
-  "updated_at": "2026-09-23T15:43:13.979439Z",
+  "updated_at": "2026-09-23T16:13:40.527742Z",
   "closed_at": null,
-  "right_now_summary": "The team is defining checks to validate, scrub, and route CFPB complaint narratives.",
-  "right_now_updated_at": "2026-09-23T15:43:15.816169Z",
+  "right_now_summary": "The team seeks an archived CC0 CFPB dataset with narratives because current sources omit them.",
+  "right_now_updated_at": "2026-09-23T16:13:43.676697Z",
   "custom": {
     "project_label": "BD",
     "source": "shared"

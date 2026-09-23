@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "event_id": "928aeb46-d312-483c-a586-d36cc03cecdf",
+  "issue_id": "BD-4d5bb822-4170-4d79-af37-a6b5649967bf",
+  "event_type": "issue_created",
+  "occurred_at": "2026-09-23T16:09:55.514Z",
+  "actor_id": "home",
+  "payload": {
+    "title": "Test the reported pro-female evaluation bias in Jev at scale",
+    "description": "A public write-up (urasmutlu.dev, 'A First Look at Jev', September 2026) scored 34 hand-written male/female/they scenario triples on competence, likability and hireability with Jev's score primitive and found the female variant scored higher on 33 of 34 pairs (mean absolute delta 0.155 on a 0-4 scale), largest on assertive and emotional scenarios (e.g. pounding the table, -0.46 hireability). Our gendered-language pre-registration (2a384ef) predicts the opposite for loaded words. Test it on real bios at n = 2,000 with a floor: evaluative questions (competence, likability, promotability) alongside our occupation-assignment questions, pronoun and name cues, the singular-they variant as a third arm (it is itself a cue, not a neutral baseline), and the ask-twice noise floor. Report both directions: a boost for women on evaluation and a push toward lower-status roles on assignment can coexist.",
+    "issue_type": "story",
+    "status": "open",
+    "priority": 2,
+    "assignee": null,
+    "parent": "BD-bc5c8b83-d2e8-4d06-b516-833ffc21b81e",
+    "labels": [],
+    "agent": {
+      "platform": "claude_code",
+      "model": "Claude Opus 5.5",
+      "name": "Biased-Decisions coordinator"
+    }
+  }
+}

@@ -10,12 +10,30 @@
   "parent": "BD-8711caaf-17a6-4c26-a826-496dfd6bae82",
   "labels": [],
   "dependencies": [],
-  "comments": [],
+  "comments": [
+    {
+      "id": "2fe3b52b-01c5-4c4f-a257-d22f7c044c32",
+      "author": "home",
+      "text": "Feature: HMDA applications score an approve decision against real lender actions\n\nScenario: Synthetic narratives are compared to recorded lender actions\n  Given HMDA loan-level mortgage data (race, ethnicity, sex, age, real actions, public data) rendered as clearly-labelled synthetic application narratives\n  When I run bd score on the hmda-approve task for the committed engine record\n  Then studies/hmda reports the engine's approve rate against the floor and against the recorded lender actions, with a 95% interval\n",
+      "created_at": "2026-09-23T16:22:12.065669Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude_code",
+        "model": "Claude Sonnet 5",
+        "name": "Board steward"
+      }
+    }
+  ],
   "created_at": "2026-09-23T15:42:16.806019Z",
-  "updated_at": "2026-09-23T15:43:42.327920Z",
+  "updated_at": "2026-09-23T16:22:12.065694Z",
   "closed_at": null,
-  "right_now_summary": "The team is planning synthetic HMDA application narratives and comparing engine decisions with lender actions.",
-  "right_now_updated_at": "2026-09-23T15:43:44.596102Z",
+  "agent": {
+    "platform": "claude_code",
+    "model": "Claude Opus 5.5",
+    "name": "Biased-Decisions coordinator"
+  },
+  "right_now_summary": "The HMDA approve task compares labelled synthetic narratives with lender actions and reports 95% intervals.",
+  "right_now_updated_at": "2026-09-23T16:22:14.292644Z",
   "custom": {
     "project_label": "BD",
     "source": "shared"

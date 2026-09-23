@@ -1,0 +1,25 @@
+{
+  "id": "BD-7ee75377-b740-4085-8a84-ee0df2fb9083",
+  "title": "Compliance risk guidance on the leaderboard",
+  "description": "As an operator considering a fast decision model for a regulated decision, I want the leaderboard to flag which measured biases touch regulated practices, what compliance problems they could create, and how to avoid them, so that I can see the risk before I deploy, backed by the project's own tests and examples.\n\nScope:\n- Bright red warning indicators (accessible: icon and text, not colour alone) on every dimension, group, question and task page whose decision maps to a regulated practice.\n- Per-page risk panels: the regulation, the specific failure our tests demonstrate (with the measured number and a deep link to the cell and an example item), and how to avoid it.\n- A 'How to cause a compliance failure' page using inversion (Charlie Munger): deployment patterns that would reliably create violations, each tied to a measured result, with the inverse practice.\n- A guidance page on current insights: measuring before deploying, floors and paired edits, outcome checks such as the four-fifths ratio, twin averaging, option-order counterbalancing, version pinning, human review, and why gating on the cue is not enough.\n\nOut of scope: legal advice (pages say so), claims not backed by a committed test or a verified citation.\nDefinition of done: every warning links to a test result; every regulation cited is quoted or linked from a primary source already verified in the repo's pre-registrations or survey; build checks enforce both.",
+  "type": "epic",
+  "status": "open",
+  "priority": 2,
+  "assignee": null,
+  "creator": null,
+  "parent": "BD-8781ddac-8725-4e87-80fd-7e9ddaa4bc09",
+  "labels": [],
+  "dependencies": [],
+  "comments": [],
+  "created_at": "2026-09-23T16:18:36.121955Z",
+  "updated_at": "2026-09-23T16:18:36.121981Z",
+  "closed_at": null,
+  "agent": {
+    "platform": "claude_code",
+    "model": "Claude Opus 5.5",
+    "name": "Biased-Decisions coordinator"
+  },
+  "right_now_summary": "The team is adding accessible warnings and evidence-linked guidance for regulated decisions.",
+  "right_now_updated_at": "2026-09-23T16:19:49.461125Z",
+  "custom": {}
+}

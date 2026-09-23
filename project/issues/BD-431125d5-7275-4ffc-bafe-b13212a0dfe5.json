@@ -12,15 +12,28 @@
     "engines"
   ],
   "dependencies": [],
-  "comments": [],
+  "comments": [
+    {
+      "id": "df5199b6-0d65-42ad-994a-3506ecb4fe87",
+      "author": "home",
+      "text": "Feature: Engine adapter: Verdict rlcd-modernbert-151m answers a scored task\n\nScenario: The CPU-only ONNX reference returns option probabilities plus abstain\n  Given the Verdict rlcd-modernbert-151m (Apache-2.0) ONNX model runnable on CPU and WebGPU\n  When I run bd run --engine verdict-rlcd-modernbert on a committed task\n  Then it returns a probability per option plus an abstain option for every item and studies/ records the answers\n",
+      "created_at": "2026-09-23T16:20:30.956278Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude_code",
+        "model": "Claude Sonnet 5",
+        "name": "Board steward"
+      }
+    }
+  ],
   "created_at": "2026-09-23T11:48:39.970218Z",
-  "updated_at": "2026-09-23T11:48:39.970239Z",
+  "updated_at": "2026-09-23T16:20:30.956300Z",
   "closed_at": null,
   "agent": {
     "platform": "claude-code",
     "model": "claude-fable-5-1"
   },
-  "right_now_summary": "The small Verdict model is being evaluated through an ONNX CPU adapter.",
-  "right_now_updated_at": "2026-09-23T11:48:43.332882Z",
+  "right_now_summary": "The CPU-only ONNX Verdict adapter is being added to return option probabilities and abstain choices.",
+  "right_now_updated_at": "2026-09-23T16:20:33.891738Z",
   "custom": {}
 }

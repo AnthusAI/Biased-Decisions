@@ -10,11 +10,29 @@
   "parent": "BD-bc5c8b83-d2e8-4d06-b516-833ffc21b81e",
   "labels": [],
   "dependencies": [],
-  "comments": [],
+  "comments": [
+    {
+      "id": "4821afe6-578a-486f-b43e-6e11bc4e1060",
+      "author": "home",
+      "text": "Feature: Design 2 measures which word the engine chooses\n\nScenario: A counterbalanced choice question isolates the language mechanism\n  Given a behaviour sentence with she/he and a choice between the neutral and the loaded word, with option order counterbalanced on half the items\n  When I run bd score on the word-choice task for the committed engine record\n  Then studies/gendered-language-design2 reports the loaded-word choice rate by gender with a 95% interval, controlling for option-order bias\n",
+      "created_at": "2026-09-23T16:20:04.010954Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude_code",
+        "model": "Claude Sonnet 5",
+        "name": "Board steward"
+      }
+    }
+  ],
   "created_at": "2026-09-23T15:56:01.460324Z",
-  "updated_at": "2026-09-23T15:56:01.460350Z",
+  "updated_at": "2026-09-23T16:20:04.010983Z",
   "closed_at": null,
-  "right_now_summary": "The issue tests whether the engine chooses neutral or loaded wording for the same behavior.",
-  "right_now_updated_at": "2026-09-23T15:56:03.456972Z",
+  "agent": {
+    "platform": "claude_code",
+    "model": "Claude Opus 5.5",
+    "name": "Biased-Decisions coordinator"
+  },
+  "right_now_summary": "Design 2 measures which word the engine chooses in gendered behavior descriptions.",
+  "right_now_updated_at": "2026-09-23T16:20:06.361712Z",
   "custom": {}
 }

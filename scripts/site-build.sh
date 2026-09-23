@@ -3,7 +3,8 @@
 # `make ci` runs it locally. Any failing step stops the build, so nothing is published:
 #
 #   1. the unit specs (biased_decisions/*_test.py)
-#   2. bd replay, which must reproduce the committed studies/ byte for byte
+#   2. bd replay, which must reproduce the committed studies/ byte for byte (skipped when
+#      SITE_SKIP_REPLAY=1: the Amplify deploy skips it; .github/workflows/replay.yml runs it)
 #   3. bd report --json: the data file, with the release version and date from the latest tag
 #   4. the Astro build into site/dist/, then the build specs (site/test/)
 #
@@ -17,9 +18,11 @@ step() { printf '\n==> %s\n' "$*"; }
 step "unit specs"
 "$PY" -m pytest -q biased_decisions
 
-step "replay every cell from the committed record"
-"$PY" -m biased_decisions.cli replay
-git diff --exit-code --stat -- studies/ || { echo "bd replay did not reproduce studies/" >&2; git --no-pager diff --word-diff=plain -U0 -- studies/ | tr ',' '\n' | grep -E '\[-|\{\+' | head -40 >&2; "$PY" -m pip freeze | grep -iE 'numpy|scipy' >&2; exit 1; }
+if [ "${SITE_SKIP_REPLAY:-0}" != 1 ]; then
+  step "replay every cell from the committed record"
+  "$PY" -m biased_decisions.cli replay
+  git diff --exit-code --stat -- studies/ || { echo "bd replay did not reproduce studies/" >&2; git --no-pager diff --word-diff=plain -U0 -- studies/ | tr ',' '\n' | grep -E '\[-|\{\+' | head -40 >&2; "$PY" -m pip freeze | grep -iE 'numpy|scipy' >&2; exit 1; }
+fi
 
 step "leaderboard data"
 "$PY" -m biased_decisions.cli report --json --date "$(git log -1 --format=%cs HEAD)"

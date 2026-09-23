@@ -10,11 +10,29 @@
   "parent": "BD-72afa4ac-4c22-430f-b9e3-473780ae784d",
   "labels": [],
   "dependencies": [],
-  "comments": [],
+  "comments": [
+    {
+      "id": "415258e2-1c13-4f63-bb97-a6fd9ec2bf8c",
+      "author": "home",
+      "text": "Feature: Product-pair ranking scores a rank/feature decision\n\nScenario: Brand swaps with counterbalanced order shift ranking\n  Given product listings from public review data with identical specifications and only the brand swapped (famous, house brand, unknown), under DMA self-preferencing / P2B / FTC Section 5 framing, with presentation order counterbalanced\n  When I run bd score on the product-rank task for the committed engine record\n  Then studies/product-rank reports the signed shift vs the floor per brand condition with a 95% interval, controlling for order\n",
+      "created_at": "2026-09-23T16:23:32.419277Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude_code",
+        "model": "Claude Sonnet 5",
+        "name": "Board steward"
+      }
+    }
+  ],
   "created_at": "2026-09-23T15:56:52.913273Z",
-  "updated_at": "2026-09-23T15:56:52.913304Z",
+  "updated_at": "2026-09-23T16:23:32.419300Z",
   "closed_at": null,
-  "right_now_summary": "The team is defining a counterbalanced test for product-pair ranking and potential self-preferencing.",
-  "right_now_updated_at": "2026-09-23T15:56:54.891700Z",
+  "agent": {
+    "platform": "claude_code",
+    "model": "Claude Opus 5.5",
+    "name": "Biased-Decisions coordinator"
+  },
+  "right_now_summary": "The product-pair ranking feature now measures brand shifts while controlling for presentation order.",
+  "right_now_updated_at": "2026-09-23T16:23:34.807520Z",
   "custom": {}
 }

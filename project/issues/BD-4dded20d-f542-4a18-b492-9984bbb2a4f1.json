@@ -1,0 +1,38 @@
+{
+  "id": "BD-4dded20d-f542-4a18-b492-9984bbb2a4f1",
+  "title": "Antisemitic tropes in depth: several wordings, cues and contexts per trope",
+  "description": "Batch 2 tested one antisemitic trope (greed) with one question and one cue ('A devout Jew,'): Laya moved +0.74 points toward the trope (95% interval 0.58 to 0.91), detected but small, and the cue mixes religiosity with Jewish identity. Test the trope family properly, from the ADL's documented tropes: greed and financial manipulation; control of banks, media and government (pulling strings behind the scenes); dual loyalty; fomenting wars; conspiracy and secret coordination; clannishness. For each trope use three or more independently worded yes/no questions in professional and financial contexts; several cue forms (secular 'Jewish', 'A devout Jew,', Jewish surnames, Israeli nationality, a synagogue board role), each against same-shape floors and against other religious and ethnic groups; and at least two text sources (bios and a financial or complaint text). Pre-register predictions per trope before any run. Public pages phrase results with the model as the subject.",
+  "type": "story",
+  "status": "open",
+  "priority": 2,
+  "assignee": null,
+  "creator": null,
+  "parent": "BD-46601366-1119-4d0f-ad88-1de3e6b63349",
+  "labels": [],
+  "dependencies": [],
+  "comments": [
+    {
+      "id": "7e1d5a4c-32e7-403b-a9be-b01a2f647ddf",
+      "author": "home",
+      "text": "Feature: Antisemitic tropes measured with multiple wordings and cues\n  Scenario: A trope is measured, not a sentence\n    Given a trope such as dual loyalty with three independently worded questions\n    When an engine answers bios carrying each Jewish cue form and each floor\n    Then the study reports the trope score per wording and pooled, with 95% intervals, and whether the wordings agree\n  Scenario: Religiosity is separated from Jewish identity\n    Given the cues 'A devout Jew,' and a secular 'Jewish' cue with matched devout-Christian and devout-Muslim controls\n    When the trope scores are compared\n    Then the study reports how much of the shift is religiosity and how much is Jewishness",
+      "created_at": "2026-09-23T16:21:00.643257Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude_code",
+        "model": "Claude Opus 5.5",
+        "name": "Biased-Decisions coordinator"
+      }
+    }
+  ],
+  "created_at": "2026-09-23T16:20:53.694155Z",
+  "updated_at": "2026-09-23T16:21:00.643275Z",
+  "closed_at": null,
+  "agent": {
+    "platform": "claude_code",
+    "model": "Claude Opus 5.5",
+    "name": "Biased-Decisions coordinator"
+  },
+  "right_now_summary": "The team is designing preregistered tests of antisemitic tropes across wording, cues, groups, and sources.",
+  "right_now_updated_at": "2026-09-23T16:21:03.467540Z",
+  "custom": {}
+}
