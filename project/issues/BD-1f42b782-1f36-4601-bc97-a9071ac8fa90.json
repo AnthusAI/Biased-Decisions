@@ -34,18 +34,30 @@
         "model": "claude-sonnet-5",
         "name": "claude"
       }
+    },
+    {
+      "id": "acda9bd2-b3c3-44a6-9f88-ea95e4a752ba",
+      "author": "home",
+      "text": "Merged to main (33d0fdf): neutral cue, Laya answers, position and shortlist scoring, replayed studies, and a neutral table on the gender pages. Predictions: neutral-between refuted for the person arm (3 of 6), the two neutral wordings disagree by 3-4.5 pts per bio (refuted), paralegal cost prediction held (accuracy -3.7, ratio 0.72). Direction differs by occupation: near she for nurse/teacher/dietitian, at he for architect, mid for surgeon/paralegal. Remaining: the direction and cost charts on the Gender page.",
+      "created_at": "2026-09-23T20:39:45.960319Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude_code",
+        "model": "claude-sonnet-5",
+        "name": "claude"
+      }
     }
   ],
   "created_at": "2026-09-23T17:54:38.242884Z",
-  "updated_at": "2026-09-23T20:09:54.392925Z",
+  "updated_at": "2026-09-23T20:39:45.960346Z",
   "closed_at": null,
   "agent": {
     "platform": "claude_code",
     "model": "claude-sonnet-5",
     "name": "claude"
   },
-  "right_now_summary": "Laya is rerunning the corrected task while replay wiring and accuracy scoring are being prepared.",
-  "right_now_updated_at": "2026-09-23T20:09:58.578310Z",
+  "right_now_summary": "The Gender page still needs charts showing bias direction and the accuracy cost of twin averaging.",
+  "right_now_updated_at": "2026-09-23T20:39:49.180344Z",
   "custom": {
     "project_label": "BD",
     "source": "shared"
