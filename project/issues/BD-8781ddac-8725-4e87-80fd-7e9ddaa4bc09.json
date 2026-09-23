@@ -18,8 +18,8 @@
     "platform": "claude-code",
     "model": "claude-fable-5-1"
   },
-  "right_now_summary": "The benchmark publishes results, builds new studies, pins model runs, and fixes leaderboard replay failures.",
-  "right_now_updated_at": "2026-09-23T17:29:21.187322Z",
+  "right_now_summary": "Studies are published and replay checks pass; new work is being prepared, while leaderboard fixes and Jev approval",
+  "right_now_updated_at": "2026-09-23T17:29:57.857653Z",
   "custom": {
     "project_label": "BD",
     "source": "shared"

@@ -22,18 +22,30 @@
         "model": "Claude Opus 5.5",
         "name": "Biased-Decisions coordinator"
       }
+    },
+    {
+      "id": "ec75d49c-46d2-4bf6-b7c1-e7d21c9e4998",
+      "author": "home",
+      "text": "2026-09-23 finding: every weight file on convaiinnovations/laya is byte-identical (same LFS sha256) from commit 458d7563c5 (2026-09-19 06:48 UTC, 'bundle the typed-decisions checkpoint') through 5e7b2b1b8c (2026-09-23): model.safetensors 891102d37268…, typed-decisions/model.safetensors 4fa56de72383…, multilingual/model.safetensors 9d628fd971b7…. Later commits changed only docs and images. All upstream-Laya runs in this programme (batch 1 onward, 2026-09-21 to 09-23) therefore used the same weights. Remaining: pin the revision in the engine adapter and record it in answer records.",
+      "created_at": "2026-09-23T17:29:49.422889Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude_code",
+        "model": "Claude Opus 5.5",
+        "name": "Biased-Decisions coordinator"
+      }
     }
   ],
   "created_at": "2026-09-23T17:29:11.182326Z",
-  "updated_at": "2026-09-23T17:29:15.638110Z",
+  "updated_at": "2026-09-23T17:29:49.423421Z",
   "closed_at": null,
   "agent": {
     "platform": "claude_code",
     "model": "Claude Opus 5.5",
     "name": "Biased-Decisions coordinator"
   },
-  "right_now_summary": "The team is tracing past Laya runs and listing Hugging Face commits before pinning weights.",
-  "right_now_updated_at": "2026-09-23T17:29:18.525697Z",
+  "right_now_summary": "Laya used identical weights across all runs; the adapter still needs a fixed revision and run records.",
+  "right_now_updated_at": "2026-09-23T17:29:51.796510Z",
   "custom": {
     "project_label": "BD",
     "source": "shared"
