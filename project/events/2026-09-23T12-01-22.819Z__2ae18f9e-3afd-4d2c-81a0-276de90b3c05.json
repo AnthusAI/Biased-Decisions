@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "event_id": "2ae18f9e-3afd-4d2c-81a0-276de90b3c05",
+  "issue_id": "BD-0ab5abed-1460-492c-8f77-99522fba976b",
+  "event_type": "issue_created",
+  "occurred_at": "2026-09-23T12:01:22.819Z",
+  "actor_id": "home",
+  "payload": {
+    "title": "Race and age studies: inserted names and ages (published)",
+    "description": "Done 2026-09-23. Race v1 (Bertrand and Mullainathan names, inconclusive against the floor), race v2 (Rosenman/Census full-name pools, four groups, signed shift), age (inserted 34/35/61/62). Reported in the one-word-test article.",
+    "issue_type": "epic",
+    "status": "open",
+    "priority": 2,
+    "assignee": null,
+    "parent": "BD-8781ddac-8725-4e87-80fd-7e9ddaa4bc09",
+    "labels": [],
+    "agent": {
+      "platform": "claude-code",
+      "model": "claude-fable-5-1"
+    }
+  }
+}

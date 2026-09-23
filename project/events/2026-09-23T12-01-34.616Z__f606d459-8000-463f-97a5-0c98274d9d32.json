@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "event_id": "f606d459-8000-463f-97a5-0c98274d9d32",
+  "issue_id": "BD-f8788b40-be10-4304-82e4-47519808815c",
+  "event_type": "issue_created",
+  "occurred_at": "2026-09-23T12:01:34.616Z",
+  "actor_id": "home",
+  "payload": {
+    "title": "Batch 1: three more pairs, disability and religion cues, noise floor, option order",
+    "description": "Done 2026-09-23 on Jev and the original Laya: journalist/professor control, architect/interior designer, dietitian/physician; disability insertion (Jev shifts minus 0.6 to minus 0.7 points, intervals clear of zero); religion v1 confounded by the word practising, v2 finds a Christian versus Muslim/Hindu contrast on paralegal/attorney; Jev ask-twice floor 0.4 to 0.6 percent; option order flips 1 to 2.8 percent on Jev and 3 to 8 on Laya; reversed-order twins keep every gender number within 2 points. Being folded into the harness.",
+    "issue_type": "epic",
+    "status": "open",
+    "priority": 2,
+    "assignee": null,
+    "parent": "BD-8781ddac-8725-4e87-80fd-7e9ddaa4bc09",
+    "labels": [],
+    "agent": {
+      "platform": "claude-code",
+      "model": "claude-fable-5-1"
+    }
+  }
+}

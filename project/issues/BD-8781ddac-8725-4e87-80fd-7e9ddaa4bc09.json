@@ -18,8 +18,8 @@
     "platform": "claude-code",
     "model": "claude-fable-5-1"
   },
-  "right_now_summary": "The programme is building a replayable benchmark to measure bias in fast decision models across hardware.",
-  "right_now_updated_at": "2026-09-23T12:00:44.591586Z",
+  "right_now_summary": "The harness is adding bias tests while teams replay Jev-Flywheel studies and run Laya comparisons.",
+  "right_now_updated_at": "2026-09-23T12:01:49.727111Z",
   "custom": {
     "project_label": "BD",
     "source": "shared"

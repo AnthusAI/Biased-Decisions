@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "event_id": "f43eea81-003d-4ee5-834c-8c798adcab85",
+  "issue_id": "BD-b3c8763a-d3ca-4553-a5fb-31d8cf65d29a",
+  "event_type": "issue_created",
+  "occurred_at": "2026-09-23T12:01:39.376Z",
+  "actor_id": "home",
+  "payload": {
+    "title": "Milestone 1b: the original Laya reproduces the MLX port",
+    "description": "Done 2026-09-23. Upstream laya 0.3.7 on MPS matches laya-mlx within 0.1 point on all four pairs once the committed option order is used; the upstream record is the canonical laya engine, the port is laya-mlx.",
+    "issue_type": "epic",
+    "status": "open",
+    "priority": 2,
+    "assignee": null,
+    "parent": "BD-8781ddac-8725-4e87-80fd-7e9ddaa4bc09",
+    "labels": [],
+    "agent": {
+      "platform": "claude-code",
+      "model": "claude-fable-5-1"
+    }
+  }
+}
