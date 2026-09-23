@@ -18,8 +18,8 @@
     "platform": "claude-code",
     "model": "claude-fable-5-1"
   },
-  "right_now_summary": "Published studies are expanding while new runs, replay fixes, and preregistrations continue.",
-  "right_now_updated_at": "2026-09-23T17:34:13.755865Z",
+  "right_now_summary": "The benchmark is live, with published results, ongoing studies, and fixes for replay mismatches.",
+  "right_now_updated_at": "2026-09-23T17:55:04.124780Z",
   "custom": {
     "project_label": "BD",
     "source": "shared"

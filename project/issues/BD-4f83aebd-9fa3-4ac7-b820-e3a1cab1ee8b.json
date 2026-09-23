@@ -33,7 +33,7 @@
     "platform": "claude-code",
     "model": "claude-fable-5-1"
   },
-  "right_now_summary": "The site is built, but replay checks fail on race-fullname values while a fix is underway.",
-  "right_now_updated_at": "2026-09-23T17:34:11.081288Z",
+  "right_now_summary": "The site is live, but builds fail on a replay mismatch while the team fixes it.",
+  "right_now_updated_at": "2026-09-23T17:55:01.232378Z",
   "custom": {}
 }
