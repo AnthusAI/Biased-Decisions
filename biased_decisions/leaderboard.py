@@ -1398,6 +1398,21 @@ HONESTY: List[dict] = [
 ]
 
 
+def _neutral(root: Path) -> dict:
+    """The neutral-pronoun control's rows (studies/<task>-neutral.jsonl), one per engine and task,
+    as scored by ``bd replay``; the site draws which way the bias runs from them."""
+    rows = []
+    for task in BIOS_TASKS:
+        path = root / _study(task, "neutral")
+        if not path.exists():
+            continue
+        for line in path.read_text(encoding="utf-8").splitlines():
+            if line.strip():
+                row = json.loads(line)
+                rows.append({**row, "task_label": TASK_LABELS[task], "study": _study(task, "neutral")})
+    return {"rows": rows}
+
+
 def _floors(store: Store) -> List[dict]:
     out = []
     for task in ORIGINAL_BIOS_TASKS:
@@ -1487,6 +1502,7 @@ def generate_json(root: Path = DEFAULT_ROOT, *, date: Optional[str] = None) -> d
         "dimensions": dimensions,
         "overall": overall,
         "floors": {"ask_twice": floors},
+        "neutral": _neutral(root),
         "honesty": HONESTY,
         "vocabulary": VOCABULARY,
         "compliance": build_compliance(root, dimensions, floors, prereg),

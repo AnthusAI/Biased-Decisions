@@ -7,6 +7,8 @@ import re
 
 import pytest
 
+from biased_decisions.tasks.bios import BIOS_TASKS
+
 from biased_decisions.leaderboard import (
     ENGINE_IDS, SEVERITY_DARK, SEVERITY_LIGHT, _clean, _fractional_ranks, _magnitude, _wilson,
     generate_json, release_info, severity_colours, write_json,
@@ -373,3 +375,13 @@ def test_nine_or_more_engines_share_red_at_the_top():
 
 def test_few_engines_each_get_their_own_step():
     assert severity_colours(3) == ["#c8102e", "#b5177a", "#d9480f"]
+
+
+def test_the_neutral_pronoun_rows_are_in_the_data_for_every_task_laya_answered(doc):
+    rows = doc["neutral"]["rows"]
+    assert {r["task"] for r in rows} == set(BIOS_TASKS) and {r["engine"] for r in rows} == {"laya"}
+    nurse = next(r for r in rows if r["task"] == "nurse-physician")
+    assert nurse["task_label"] == "nurse / physician" and nurse["reportable"] is True
+    assert 0.1 < nurse["position"]["blank"]["lambda"] < 0.3 and nurse["positive"] == "physician"
+    journalist = next(r for r in rows if r["task"] == "journalist-professor")
+    assert journalist["reportable"] is False and journalist["position"]["blank"] is None

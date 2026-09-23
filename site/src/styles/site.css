@@ -554,3 +554,22 @@ details.cell { scroll-margin-top: 140px; }
 .sl-flag { color: var(--alarm-ink); font-weight: 700; font-size: 12.5px; }
 .sl-under th[scope="row"] { box-shadow: inset 4px 0 0 var(--alarm); }
 @media print { .reg-warn { border: 2px solid #c8102e; } }
+
+/* The neutral-pronoun charts (NeutralDirection, NeutralCost): static SVG, theme tokens only. */
+.nchart { margin: 18px 0 8px; }
+.nchart-svg { width: 100%; height: auto; max-width: 780px; display: block; }
+.nchart-svg text { font-family: var(--body); fill: var(--ink); }
+.nc-t { font-size: 13px; font-weight: 700; }
+.nc-task { font-size: 14px; font-weight: 700; }
+.nc-sub { font-size: 12px; fill: var(--muted) !important; }
+.nc-pt { font-size: 11.5px; fill: var(--ink-2) !important; }
+.nc-axis-t { font-size: 12.5px; fill: var(--muted) !important; }
+.nc-alarm { font-size: 12px; font-weight: 700; fill: var(--alarm-ink) !important; }
+.nc-axis, .nc-grid { stroke: var(--rule); stroke-width: 1; }
+.nc-mid { stroke: var(--rule); stroke-width: 1; stroke-dasharray: 3 4; }
+.nc-span { stroke: var(--floor); stroke-width: 2; }
+.nc-she { fill: var(--bg); stroke: var(--ink); stroke-width: 2.4; }
+.nc-he { fill: var(--ink); stroke: var(--ink); stroke-width: 2.4; }
+.nc-line { stroke: var(--alarm); stroke-width: 2; stroke-dasharray: 6 4; }
+.nc-cap { font-size: 14px; color: var(--ink-2); max-width: 62em; margin-top: 8px; }
+.nc-key { display: inline-flex; align-items: center; gap: 6px; margin-right: 18px; color: var(--muted); font-size: 13px; }

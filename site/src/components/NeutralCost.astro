@@ -1,0 +1,58 @@
+---
+// What removing the gender signal costs: the shortlist ratio (across) against accuracy (up), for
+// each way of reading the same bios. Right of the dashed line is what a reviewer reads as fair.
+import MarkShape from "./MarkShape.astro";
+import { C, shortlistBlock } from "../lib/compliance.js";
+import { engineById, fmt } from "../lib/site.js";
+
+const { task, positive } = Astro.props;
+const block = shortlistBlock(task);
+const VARIANTS = [["engine_alone", "as written", false], ["twin_averaged", "averaged with its twin", true],
+  ["neutral_blank", "“the person”", true], ["neutral_they", "“they”", true]];
+const pts = block ? block.rows.filter((r) => r.cut === 500 && r.engine !== "laya-mlx" && VARIANTS.some((v) => v[0] === r.variant)) : [];
+const W = 600, H = 380, L = 62, R = 24, T = 20, B = 58;
+const xs = pts.map((p) => p.four_fifths_ratio), ys = pts.map((p) => p.accuracy);
+const xlo = Math.max(0, Math.floor((Math.min(...xs, C.shortlist.line) - 0.1) * 10) / 10), xhi = Math.ceil((Math.max(...xs, C.shortlist.line) + 0.1) * 10) / 10;
+const ylo = Math.floor((Math.min(...ys) - 0.03) * 20) / 20, yhi = Math.min(1, Math.ceil((Math.max(...ys) + 0.03) * 20) / 20);
+const px = (v) => L + ((v - xlo) / (xhi - xlo)) * (W - L - R);
+const py = (v) => H - B - ((v - ylo) / (yhi - ylo)) * (H - T - B);
+const ticks = (lo, hi, step) => { const o = []; for (let v = Math.ceil(lo / step) * step; v <= hi + 1e-9; v += step) o.push(Math.round(v * 1000) / 1000); return o; };
+const engines = [...new Set(pts.map((p) => p.engine))];
+const label = (p) => VARIANTS.find((v) => v[0] === p.variant)[1];
+const summary = pts.map((p) => `${engineById[p.engine].label}, ${label(p)}: ratio ${fmt(p.four_fifths_ratio)}, accuracy ${fmt(p.accuracy * 100, 1)} percent`).join("; ");
+---
+{pts.some((p) => p.variant.startsWith("neutral_")) && (
+  <figure class="nchart">
+    <svg viewBox={`0 0 ${W} ${H}`} role="img" aria-label={`Shortlist ratio against accuracy for ${positive}s. ${summary}.`} class="nchart-svg">
+      {ticks(xlo, xhi, 0.2).map((t) => <g><line x1={px(t)} x2={px(t)} y1={T} y2={H - B} class="nc-grid" /><text x={px(t)} y={H - B + 18} text-anchor="middle" class="nc-sub">{fmt(t)}</text></g>)}
+      {ticks(ylo, yhi, 0.05).map((t) => <g><line x1={L} x2={W - R} y1={py(t)} y2={py(t)} class="nc-grid" /><text x={L - 8} y={py(t) + 4} text-anchor="end" class="nc-sub">{Math.round(t * 100)}%</text></g>)}
+      <line x1={px(C.shortlist.line)} x2={px(C.shortlist.line)} y1={T} y2={H - B} class="nc-line" />
+      <text x={px(C.shortlist.line) + 6} y={T + 12} class="nc-alarm">four-fifths line {fmt(C.shortlist.line)}</text>
+      <text x={(L + W - R) / 2} y={H - 10} text-anchor="middle" class="nc-axis-t">shortlist ratio, women to men (right of the line reads as fair)</text>
+      <text transform={`translate(14 ${(T + H - B) / 2}) rotate(-90)`} text-anchor="middle" class="nc-axis-t">accuracy against the corpus label</text>
+      {engines.map((e) => {
+        const mine = pts.filter((p) => p.engine === e);
+        const base = mine.find((p) => p.variant === "engine_alone");
+        return (
+          <g>
+            {base && mine.filter((p) => p !== base).map((p) => <line x1={px(base.four_fifths_ratio)} y1={py(base.accuracy)} x2={px(p.four_fifths_ratio)} y2={py(p.accuracy)} stroke={`var(--eng-${e})`} stroke-width="1.5" stroke-dasharray="4 3" opacity="0.6" />)}
+            {mine.map((p, i) => (
+              <g>
+                <MarkShape engine={engineById[e]} cx={px(p.four_fifths_ratio)} cy={py(p.accuracy)} r={7} hollow={p.variant !== "engine_alone"} />
+                <text x={px(p.four_fifths_ratio)} y={py(p.accuracy) + (i % 2 ? 22 : -12)} text-anchor="middle" class="nc-pt">{engineById[e].label} {label(p)}</text>
+              </g>
+            ))}
+          </g>
+        );
+      })}
+    </svg>
+    <figcaption class="nc-cap">
+      {positive.charAt(0).toUpperCase() + positive.slice(1)} shortlist, top 500 of 2,000. A filled mark is the engine as written; a ring is the same bios read with the gender signal averaged out or rewritten away. Moving right raises the ratio toward the line and past it; moving down is the accuracy given up to get there. Laya-mlx, the same model ported to another runtime, gives the same numbers as Laya and is not drawn twice.
+    </figcaption>
+    <table class="sr">
+      <caption>Shortlist ratio and accuracy for each way of reading the bios</caption>
+      <thead><tr><th>engine</th><th>reading</th><th>four-fifths ratio</th><th>accuracy</th></tr></thead>
+      <tbody>{pts.map((p) => <tr><th>{engineById[p.engine].label}</th><td>{label(p)}</td><td>{fmt(p.four_fifths_ratio)}</td><td>{fmt(p.accuracy * 100, 1)}%</td></tr>)}</tbody>
+    </table>
+  </figure>
+)}

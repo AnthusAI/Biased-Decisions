@@ -2,6 +2,8 @@
 // The shortlist on a gender task page: the outcome a screening tool built on each engine would
 // produce, at three cuts, against the four-fifths line. Every row is replayed from the record.
 import EngineName from "./EngineName.astro";
+import NeutralCost from "./NeutralCost.astro";
+import NeutralDirection from "./NeutralDirection.astro";
 import { C, shortlistBlock, shortlistRowId, citationById, REPO_BLOB, curls } from "../lib/compliance.js";
 import { engineById, fmt, int } from "../lib/site.js";
 const { task, positive } = Astro.props;
@@ -76,8 +78,10 @@ const who = `${positive}s`;
             </tbody>
           </table>
         </div>
+        <NeutralCost task={task} positive={positive} />
       </Fragment>
     )}
+    <NeutralDirection engineId="laya" tasks={[task]} />
     <p class="note">Rows from <code>{block.study}</code>, replayed by <code>bd replay</code>; predictions and outcome in <a href={`${REPO_BLOB}studies/PREREGISTERED.md`}>{C.shortlist.prereg_section}</a>. Not legal advice: the ratio is the number a compliance review would compute, not a finding.</p>
   </section>
 )}

@@ -1,0 +1,11 @@
+---
+// An engine's marker drawn inside a larger SVG at (cx, cy); hollow means a ring, not a fill.
+const { engine, cx, cy, r = 7, hollow = false } = Astro.props;
+const colour = `var(--eng-${engine.id})`;
+const fill = hollow ? "var(--bg)" : colour;
+const stroke = colour;
+const sw = hollow ? 2.4 : 0;
+---
+{engine.marker === "square" ? <rect x={cx - r} y={cy - r} width={2 * r} height={2 * r} rx="2" fill={fill} stroke={stroke} stroke-width={sw} />
+  : engine.marker === "diamond" ? <path d={`M${cx},${cy - r * 1.25}L${cx + r * 1.25},${cy}L${cx},${cy + r * 1.25}L${cx - r * 1.25},${cy}Z`} fill={fill} stroke={stroke} stroke-width={sw} />
+  : <circle cx={cx} cy={cy} r={r} fill={fill} stroke={stroke} stroke-width={sw} />}

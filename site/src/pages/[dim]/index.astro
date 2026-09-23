@@ -2,6 +2,8 @@
 import Base from "../../layouts/Base.astro";
 import RegWarn from "../../components/RegWarn.astro";
 import RiskPanel from "../../components/RiskPanel.astro";
+import NeutralDirection from "../../components/NeutralDirection.astro";
+import NeutralCost from "../../components/NeutralCost.astro";
 import Board from "../../components/Board.astro";
 import Chart from "../../components/Chart.astro";
 import EngineName from "../../components/EngineName.astro";
@@ -9,7 +11,7 @@ import FacetTable from "../../components/FacetTable.astro";
 import Matrix from "../../components/Matrix.astro";
 import Example from "../../components/Example.astro";
 import Chip from "../../components/Chip.astro";
-import { dimensions, engines, urls, boardPayload, describeDim, facetHref, multiGroup, multiItem, niceMax, unit,
+import { data, dimensions, engines, urls, boardPayload, describeDim, facetHref, multiGroup, multiItem, niceMax, unit,
   fmt, signed, int, cap, forestRows, groupLabel, itemLabel } from "../../lib/site.js";
 
 export function getStaticPaths() {
@@ -64,6 +66,22 @@ const plural = (k) => (k === "nationality" ? "nationalities" : k === "religion" 
   <Board board={dim.board} heads={dim.cells} unit={unit(dim)} facetKind={dim.facet_kind} chartId="board" hrefFor={(e) => urls.engineDim(e, dim.id)} />
 
   <RiskPanel dim={dim} />
+
+  {dim.id === "gender-pronouns" && data.neutral.rows.length > 0 && (
+    <Fragment>
+      <section class="wrap section" id="direction">
+        <h2 class="display">Which way the bias runs</h2>
+        <p class="lede">The swap shows the verdict depends on one word. It does not say which word carries the departure. Rewriting the bio with no gendered pronoun at all, and asking again, places the neutral verdict between the verdict for <q>she</q> and the verdict for <q>he</q>.</p>
+        <NeutralDirection engineId="laya" />
+      </section>
+      <section class="wrap section" id="cost">
+        <h2 class="display">What removing the gender signal costs</h2>
+        <p class="lede">Removing the signal narrows the gap in who reaches the shortlist, and it changes how often the model matches the corpus label. The two shortlists we can build from real bios, read four ways.</p>
+        <NeutralCost task="paralegal-attorney" positive="attorney" />
+        <NeutralCost task="nurse-physician" positive="physician" />
+      </section>
+    </Fragment>
+  )}
 
   {twoAxes && (
     <section class="wrap section" id="breakdown">

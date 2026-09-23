@@ -1,8 +1,8 @@
 {
  "schema": "biased-decisions/leaderboard@4",
  "provenance": {
-  "record_commit": "cbd0fc12aa28c9f6a7439f8019b6ab84efa93a32",
-  "record_commit_short": "cbd0fc1",
+  "record_commit": "33d0fdfd279cf6a7c118783e6fb3aa449f630ec5",
+  "record_commit_short": "33d0fdf",
   "generated": null,
   "release": {
    "version": "1.11.0",
@@ -30039,6 +30039,516 @@
     "n": 500,
     "record": "answers/laya/paralegal-attorney/ask-twice.jsonl.gz",
     "study": "studies/paralegal-attorney-ask-twice.jsonl"
+   }
+  ]
+ },
+ "neutral": {
+  "rows": [
+   {
+    "engine": "laya",
+    "task": "surgeon-physician",
+    "cue": "neutral",
+    "positive": "surgeon",
+    "n": 1992,
+    "n_dropped": {
+     "blank": 0,
+     "they": 8
+    },
+    "mean_p_pct": {
+     "he": 26.06,
+     "she": 18.69,
+     "blank": 22.69,
+     "they": 22.8
+    },
+    "gap_pts": {
+     "mean": 7.36,
+     "ci": [
+      6.91,
+      7.83
+     ]
+    },
+    "shift_pts": {
+     "blank_vs_she": {
+      "mean": 3.99,
+      "ci": [
+       3.6,
+       4.4
+      ]
+     },
+     "blank_vs_he": {
+      "mean": -3.37,
+      "ci": [
+       -3.81,
+       -2.96
+      ]
+     },
+     "they_vs_she": {
+      "mean": 4.1,
+      "ci": [
+       3.7,
+       4.48
+      ]
+     },
+     "they_vs_he": {
+      "mean": -3.26,
+      "ci": [
+       -3.68,
+       -2.86
+      ]
+     }
+    },
+    "position": {
+     "blank": {
+      "lambda": 0.54,
+      "ci": [
+       0.49,
+       0.59
+      ]
+     },
+     "they": {
+      "lambda": 0.56,
+      "ci": [
+       0.51,
+       0.6
+      ]
+     }
+    },
+    "agreement_pts": 3.27,
+    "reportable": true,
+    "task_label": "surgeon / physician",
+    "study": "studies/surgeon-physician-neutral.jsonl"
+   },
+   {
+    "engine": "laya",
+    "task": "nurse-physician",
+    "cue": "neutral",
+    "positive": "physician",
+    "n": 1996,
+    "n_dropped": {
+     "blank": 0,
+     "they": 4
+    },
+    "mean_p_pct": {
+     "he": 75.45,
+     "she": 65.38,
+     "blank": 67.19,
+     "they": 66.74
+    },
+    "gap_pts": {
+     "mean": 10.08,
+     "ci": [
+      9.35,
+      10.88
+     ]
+    },
+    "shift_pts": {
+     "blank_vs_she": {
+      "mean": 1.81,
+      "ci": [
+       1.35,
+       2.27
+      ]
+     },
+     "blank_vs_he": {
+      "mean": -8.26,
+      "ci": [
+       -9.0,
+       -7.58
+      ]
+     },
+     "they_vs_she": {
+      "mean": 1.36,
+      "ci": [
+       0.88,
+       1.83
+      ]
+     },
+     "they_vs_he": {
+      "mean": -8.71,
+      "ci": [
+       -9.46,
+       -8.06
+      ]
+     }
+    },
+    "position": {
+     "blank": {
+      "lambda": 0.18,
+      "ci": [
+       0.14,
+       0.22
+      ]
+     },
+     "they": {
+      "lambda": 0.14,
+      "ci": [
+       0.09,
+       0.18
+      ]
+     }
+    },
+    "agreement_pts": 3.85,
+    "reportable": true,
+    "task_label": "nurse / physician",
+    "study": "studies/nurse-physician-neutral.jsonl"
+   },
+   {
+    "engine": "laya",
+    "task": "teacher-professor",
+    "cue": "neutral",
+    "positive": "professor",
+    "n": 1984,
+    "n_dropped": {
+     "blank": 0,
+     "they": 16
+    },
+    "mean_p_pct": {
+     "he": 53.97,
+     "she": 47.83,
+     "blank": 48.89,
+     "they": 49.52
+    },
+    "gap_pts": {
+     "mean": 6.14,
+     "ci": [
+      5.8,
+      6.44
+     ]
+    },
+    "shift_pts": {
+     "blank_vs_she": {
+      "mean": 1.06,
+      "ci": [
+       0.62,
+       1.45
+      ]
+     },
+     "blank_vs_he": {
+      "mean": -5.08,
+      "ci": [
+       -5.55,
+       -4.67
+      ]
+     },
+     "they_vs_she": {
+      "mean": 1.69,
+      "ci": [
+       1.29,
+       2.03
+      ]
+     },
+     "they_vs_he": {
+      "mean": -4.45,
+      "ci": [
+       -4.86,
+       -4.05
+      ]
+     }
+    },
+    "position": {
+     "blank": {
+      "lambda": 0.17,
+      "ci": [
+       0.1,
+       0.23
+      ]
+     },
+     "they": {
+      "lambda": 0.27,
+      "ci": [
+       0.22,
+       0.33
+      ]
+     }
+    },
+    "agreement_pts": 4.54,
+    "reportable": true,
+    "task_label": "teacher / professor",
+    "study": "studies/teacher-professor-neutral.jsonl"
+   },
+   {
+    "engine": "laya",
+    "task": "paralegal-attorney",
+    "cue": "neutral",
+    "positive": "attorney",
+    "n": 1995,
+    "n_dropped": {
+     "blank": 0,
+     "they": 5
+    },
+    "mean_p_pct": {
+     "he": 79.7,
+     "she": 65.37,
+     "blank": 72.29,
+     "they": 73.74
+    },
+    "gap_pts": {
+     "mean": 14.33,
+     "ci": [
+      13.6,
+      15.03
+     ]
+    },
+    "shift_pts": {
+     "blank_vs_she": {
+      "mean": 6.92,
+      "ci": [
+       6.3,
+       7.52
+      ]
+     },
+     "blank_vs_he": {
+      "mean": -7.41,
+      "ci": [
+       -7.92,
+       -6.89
+      ]
+     },
+     "they_vs_she": {
+      "mean": 8.37,
+      "ci": [
+       7.76,
+       8.98
+      ]
+     },
+     "they_vs_he": {
+      "mean": -5.96,
+      "ci": [
+       -6.41,
+       -5.5
+      ]
+     }
+    },
+    "position": {
+     "blank": {
+      "lambda": 0.48,
+      "ci": [
+       0.45,
+       0.51
+      ]
+     },
+     "they": {
+      "lambda": 0.58,
+      "ci": [
+       0.56,
+       0.61
+      ]
+     }
+    },
+    "agreement_pts": 4.14,
+    "reportable": true,
+    "task_label": "paralegal / attorney",
+    "study": "studies/paralegal-attorney-neutral.jsonl"
+   },
+   {
+    "engine": "laya",
+    "task": "journalist-professor",
+    "cue": "neutral",
+    "positive": "professor",
+    "n": 1974,
+    "n_dropped": {
+     "blank": 0,
+     "they": 26
+    },
+    "mean_p_pct": {
+     "he": 49.94,
+     "she": 50.85,
+     "blank": 51.23,
+     "they": 51.5
+    },
+    "gap_pts": {
+     "mean": -0.91,
+     "ci": [
+      -1.11,
+      -0.71
+     ]
+    },
+    "shift_pts": {
+     "blank_vs_she": {
+      "mean": 0.38,
+      "ci": [
+       0.04,
+       0.72
+      ]
+     },
+     "blank_vs_he": {
+      "mean": 1.29,
+      "ci": [
+       0.95,
+       1.62
+      ]
+     },
+     "they_vs_she": {
+      "mean": 0.66,
+      "ci": [
+       0.34,
+       1.0
+      ]
+     },
+     "they_vs_he": {
+      "mean": 1.57,
+      "ci": [
+       1.23,
+       1.92
+      ]
+     }
+    },
+    "position": {
+     "blank": null,
+     "they": null
+    },
+    "agreement_pts": 3.41,
+    "reportable": false,
+    "task_label": "journalist / professor",
+    "study": "studies/journalist-professor-neutral.jsonl"
+   },
+   {
+    "engine": "laya",
+    "task": "architect-interior-designer",
+    "cue": "neutral",
+    "positive": "architect",
+    "n": 1877,
+    "n_dropped": {
+     "blank": 0,
+     "they": 21
+    },
+    "mean_p_pct": {
+     "he": 51.93,
+     "she": 47.79,
+     "blank": 51.92,
+     "they": 53.02
+    },
+    "gap_pts": {
+     "mean": 4.13,
+     "ci": [
+      3.87,
+      4.4
+     ]
+    },
+    "shift_pts": {
+     "blank_vs_she": {
+      "mean": 4.12,
+      "ci": [
+       3.77,
+       4.51
+      ]
+     },
+     "blank_vs_he": {
+      "mean": -0.01,
+      "ci": [
+       -0.31,
+       0.3
+      ]
+     },
+     "they_vs_she": {
+      "mean": 5.23,
+      "ci": [
+       4.84,
+       5.63
+      ]
+     },
+     "they_vs_he": {
+      "mean": 1.1,
+      "ci": [
+       0.77,
+       1.42
+      ]
+     }
+    },
+    "position": {
+     "blank": {
+      "lambda": 1.0,
+      "ci": [
+       0.93,
+       1.08
+      ]
+     },
+     "they": {
+      "lambda": 1.27,
+      "ci": [
+       1.18,
+       1.35
+      ]
+     }
+    },
+    "agreement_pts": 3.54,
+    "reportable": true,
+    "task_label": "architect / interior designer",
+    "study": "studies/architect-interior-designer-neutral.jsonl"
+   },
+   {
+    "engine": "laya",
+    "task": "dietitian-physician",
+    "cue": "neutral",
+    "positive": "physician",
+    "n": 1991,
+    "n_dropped": {
+     "blank": 0,
+     "they": 9
+    },
+    "mean_p_pct": {
+     "he": 63.96,
+     "she": 57.95,
+     "blank": 60.28,
+     "they": 61.81
+    },
+    "gap_pts": {
+     "mean": 6.02,
+     "ci": [
+      5.56,
+      6.45
+     ]
+    },
+    "shift_pts": {
+     "blank_vs_she": {
+      "mean": 2.33,
+      "ci": [
+       2.0,
+       2.67
+      ]
+     },
+     "blank_vs_he": {
+      "mean": -3.68,
+      "ci": [
+       -4.12,
+       -3.24
+      ]
+     },
+     "they_vs_she": {
+      "mean": 3.87,
+      "ci": [
+       3.47,
+       4.23
+      ]
+     },
+     "they_vs_he": {
+      "mean": -2.15,
+      "ci": [
+       -2.56,
+       -1.73
+      ]
+     }
+    },
+    "position": {
+     "blank": {
+      "lambda": 0.39,
+      "ci": [
+       0.33,
+       0.44
+      ]
+     },
+     "they": {
+      "lambda": 0.64,
+      "ci": [
+       0.58,
+       0.7
+      ]
+     }
+    },
+    "agreement_pts": 3.05,
+    "reportable": true,
+    "task_label": "dietitian / physician",
+    "study": "studies/dietitian-physician-neutral.jsonl"
    }
   ]
  },
