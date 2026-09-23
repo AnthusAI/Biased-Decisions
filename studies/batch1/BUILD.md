@@ -1,7 +1,8 @@
 # Batch 1 build log
 
-Built under `batch1/` per the pre-registration (`batch1-preregistration.md`, sections A-D) and
-the design doc (`biased-decisions-design.md`). `/Users/home/Projects/Jev-Flywheel` was read-only
+Built during the Jev-Flywheel session that produced this repo's imported batch-1 material, per
+the pre-registration (now `studies/PREREGISTERED.md`'s "Batch 1" section, sections A-D) and the
+design doc (`docs/design.md`). `/Users/home/Projects/Jev-Flywheel` was read-only
 throughout: every script below only reads its fixtures, its `var/bias_in_bios.parquet` cache, and
 imports `jev_flywheel` (installed editable in its venv); nothing was written there. All commands
 were run with `/Users/home/Projects/Jev-Flywheel/.venv/bin/python`, which has `jev_flywheel`,
@@ -26,14 +27,14 @@ tasks have no prior record, so their order was fixed once, here: positive class 
 must not be reordered after this first answer.
 
 No Jev request was sent before this rule was applied -- the first Jev call of any kind in this
-batch was a one-off smoke test (see spend.md) sent after `question.yaml` was already fixed for
+batch was a one-off smoke test (see `studies/batch1_jev_spend.md`) sent after `question.yaml` was already fixed for
 every task, so there was nothing to redo.
 
 ## Files written
 
 ### Three new tasks (`tasks/<task>/items.jsonl`, `question.yaml`)
 
-Built by `scripts/01_build_new_pairs.py`, following
+Built by `import/batch1/scripts/01_build_new_pairs.py`, following
 `Jev-Flywheel/scripts/build_bios_pairs_fixtures.py`'s method (imported `redact_names_batch` and
 `swap_gender` directly from `jev_flywheel.counterfactual`): 1,000 bios per label (949 for
 architect/interior_designer -- see below), seed 0, uniform from the train split, split "test",
@@ -58,7 +59,7 @@ architects").
 
 Their held-out bios already exist, read-only, in Jev-Flywheel (`fixtures/bios/items.jsonl` for
 surgeon-physician, `fixtures/bios_pairs/<pair>/items.jsonl` for the other three); batch 1 does
-not copy them, only pins the question. Written by `scripts/02_write_original_question_yaml.py`,
+not copy them, only pins the question. Written by `import/batch1/scripts/02_write_original_question_yaml.py`,
 which reads each task's committed `scorecards/v1.yaml` verbatim (no re-derivation):
 
 | task | instructions (verbatim from scorecards/v1.yaml) | options (criteria order) | positive |
@@ -70,7 +71,7 @@ which reads each task's committed `scorecards/v1.yaml` verbatim (no re-derivatio
 
 ### Insertion cues: `tasks/<task>/versions/{disability,religion}.jsonl` (all seven tasks)
 
-Built by `scripts/03_build_insertion_cues.py`. Eligibility rule (as specified for this batch,
+Built by `import/batch1/scripts/03_build_insertion_cues.py`. Eligibility rule (as specified for this batch,
 not `jev_flywheel.age.eligible`): a bio is eligible only if its first subject pronoun
 (`jev_flywheel.names._SUBJECT_PRONOUN.search`) opens a sentence -- at index 0, or immediately
 preceded by `". "`, `"! "` or `"? "`. Ineligible bios (pronoun mid-sentence, or none) are
@@ -101,11 +102,11 @@ Eligibility (eligible / held-out bios) is 56.4% for architect-interior-designer 
 for the other six tasks (surgeon-physician 68.6%, nurse-physician 68.4%, paralegal-attorney
 69.3%, teacher-professor 70.1%, journalist-professor 69.6%, dietitian-physician 66.9%);
 architect-interior-designer is the outlier and no cause was investigated. Full counts also in
-`tasks/_insertion_cues_build_summary.json` and `tasks/_new_pairs_build_summary.json`.
+`studies/batch1/insertion_cues_build_summary.json` and `studies/batch1/new_pairs_build_summary.json`.
 
 ### Ask-twice noise floor: `tasks/<task>/versions/ask-twice.txt` (four original tasks)
 
-Built by `scripts/04_build_ask_twice.py`: 500 ids, drawn `random.Random(0).sample(sorted(test_ids),
+Built by `import/batch1/scripts/04_build_ask_twice.py`: 500 ids, drawn `random.Random(0).sample(sorted(test_ids),
 500)` then sorted for a stable file -- same method as `Jev-Flywheel/fixtures/bios/
 race2_jev_subsample.txt`. One id per line, 500 lines each, drawn from each task's 2,000 held-out
 (split=="test") bios. This same 500-id subsample backs both the ask-twice cue and the
@@ -114,21 +115,37 @@ option-order-reversed cue (section D).
 ## Exact commands
 
 ```
-/Users/home/Projects/Jev-Flywheel/.venv/bin/python scripts/01_build_new_pairs.py
-/Users/home/Projects/Jev-Flywheel/.venv/bin/python scripts/02_write_original_question_yaml.py
-/Users/home/Projects/Jev-Flywheel/.venv/bin/python scripts/03_build_insertion_cues.py
-/Users/home/Projects/Jev-Flywheel/.venv/bin/python scripts/04_build_ask_twice.py
-/Users/home/Projects/Jev-Flywheel/.venv/bin/python scripts/05_jev_answers.py --price-only   # priced first
-/Users/home/Projects/Jev-Flywheel/.venv/bin/python scripts/05_jev_answers.py                # sent
+/Users/home/Projects/Jev-Flywheel/.venv/bin/python import/batch1/scripts/01_build_new_pairs.py
+/Users/home/Projects/Jev-Flywheel/.venv/bin/python import/batch1/scripts/02_write_original_question_yaml.py
+/Users/home/Projects/Jev-Flywheel/.venv/bin/python import/batch1/scripts/03_build_insertion_cues.py
+/Users/home/Projects/Jev-Flywheel/.venv/bin/python import/batch1/scripts/04_build_ask_twice.py
+/Users/home/Projects/Jev-Flywheel/.venv/bin/python import/batch1/scripts/05_jev_answers.py --price-only   # priced first
+/Users/home/Projects/Jev-Flywheel/.venv/bin/python import/batch1/scripts/05_jev_answers.py                # sent
 ```
 
 (plus one manual smoke-test call, before any of the above's `05_jev_answers.py` run -- see
-spend.md -- to confirm `JevSession`/`.env`/the question-dict shape before spending the priced
+`studies/batch1_jev_spend.md` -- to confirm `JevSession`/`.env`/the question-dict shape before spending the priced
 budget).
 
 ## Step 2: Jev answers
 
-See `spend.md` for the per-file price/spend log (printed and appended before each file was
+See `studies/batch1_jev_spend.md` for the per-file price/spend log (printed and appended before each file was
 sent) and the final report for aggregate counts, batch order (a-d), and religion's exclusion
 from Jev. No fixture or answer file in this batch was overwritten after being written; every
 `.jsonl.gz` under `answers/jev/` was produced by exactly one `05_jev_answers.py` run.
+
+## Note, added when this log was carried into the harness
+
+The `import/batch1/scripts/*.py` files this log describes are one-time build scripts from
+the Jev-Flywheel session; they were deleted once `bd build` (this package's own builder,
+`biased_decisions/build.py`) was checked to reproduce every versions file they wrote,
+byte-for-byte (see `tests/replay_test.py`'s batch-1 build tests). This file is kept as the
+historical build log -- every count in it still matches what `bd build` produces today.
+
+## `studies/batch1/targets.jsonl`
+
+A verbatim copy of the Jev-Flywheel session's `batch1/laya_religion_v2_order.jsonl` -- the raw
+per-row output of that session's religion-v2/v1 and option-order scoring (Laya only; see
+`studies/PREREGISTERED.md`'s batch-1 Outcome sections for the same numbers as prose tables).
+`tests/replay_test.py`'s batch-1 section checks `biased_decisions.scoring.score`'s
+`religion`/`religion-v2`/`option-order` cells against every row here.
