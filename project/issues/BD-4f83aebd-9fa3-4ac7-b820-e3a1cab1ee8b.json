@@ -36,16 +36,28 @@
         "model": "claude-sonnet-5",
         "name": "claude"
       }
+    },
+    {
+      "id": "b3ce43bb-fdd9-48c9-ada5-9413d4e0b934",
+      "author": "home",
+      "text": "Q-Pain and Civil Comments are on the boards: disability, religion and race gain them; sexual orientation, veteran status and gender-treatment are new; /race-fullname/ redirects. Race first-name and Q-Pain gender stay separate (different measures). Filed BD-bcc965b1 for the rule mappings.",
+      "created_at": "2026-09-23T21:01:51.811068Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude_code",
+        "model": "claude-sonnet-5",
+        "name": "claude"
+      }
     }
   ],
   "created_at": "2026-09-23T13:03:21.518944Z",
-  "updated_at": "2026-09-23T18:55:47.481025Z",
+  "updated_at": "2026-09-23T21:01:51.811087Z",
   "closed_at": null,
   "agent": {
     "platform": "claude-code",
     "model": "claude-fable-5-1"
   },
-  "right_now_summary": "The site is built, but replay checks fail on race data, so the deployment fix is still underway.",
-  "right_now_updated_at": "2026-09-23T20:39:51.405110Z",
+  "right_now_summary": "The site is built and live, but replay checks fail on race data while a fix is underway.",
+  "right_now_updated_at": "2026-09-23T21:01:54.222140Z",
   "custom": {}
 }
