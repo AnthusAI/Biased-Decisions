@@ -228,7 +228,7 @@ MAPPING: List[dict] = [
                    "often than the identical bio written about a man, and fall out of the shortlist.",
      "recipes": ["snap-verdict-is-the-decision", "never-check-the-outcome",
                  "small-flip-rate-means-safe", "gate-on-the-cue", "one-model-for-every-firm"],
-     "insights": ["check-the-outcome", "twin-averaging", "gate-on-the-outcome", "human-review"]},
+     "insights": ["check-the-outcome", "average-both-ways", "gate-on-the-outcome", "human-review"]},
     {"dimension": "race", "regulated": True, "practice": "hiring", "attribute": "race and ethnicity",
      "decision": "Surgeon or physician, when a white full name becomes a Black, Hispanic or Asian one, or a "
                  "white first name a Black one",
@@ -540,13 +540,18 @@ INSIGHTS: List[dict] = [
      "evidence": ["shortlist-laya-attorney-500", "shortlist-jev-attorney-500",
                   "shortlist-jev-attorney-250", "shortlist-laya-attorney-1000"],
      "links": []},
-    {"id": "twin-averaging", "title": "Average each text with its twin, then check again",
-     "text": "For a cue you can swap, score the text and its swapped twin and average the two. "
-             "In the replayed shortlist this lifted the ratio for both engines, at a cost in "
-             "accuracy. It is not a guarantee: on the nurse task Laya's averaged ranking "
-             "overshot to favour women, which says it reads women physicians' bios as more "
-             "physician-like once the pronouns are neutralised, and averaging inside a fitted "
-             "head moved one engine's ratio the other way. Check the outcome after the mitigation too.",
+    {"id": "average-both-ways", "title": "Ask twice with the pronouns swapped, and average the answers",
+     "text": "Make a second copy of each text with only the gendered words swapped: she becomes "
+             "he, her becomes his, Ms becomes Mr. Ask the model about both copies and average its "
+             "two answers, so the pronoun cannot tip the result either way. In our shortlist test "
+             "this moved women's share of the shortlist much closer to men's for both models, and "
+             "it also made them match the corpus's own job labels a little less often, because in "
+             "this data the pronoun carries some real information about the job and we removed "
+             "it. It is not a guarantee. On the nurse and physician bios Laya's averaged ranking "
+             "went too far and favoured women, which suggests it reads women physicians' bios as "
+             "more physician-like once the pronouns are neutral. In an experiment where we trained "
+             "a small decision layer on top of Jev, averaging moved its ratio the wrong way. So "
+             "check the shortlist again after any fix.",
      "evidence": ["twin-laya-attorney-500", "twin-jev-attorney-500", "twin-laya-nurse-500",
                   "fitted-twin-jev"],
      "links": []},
@@ -660,9 +665,10 @@ def _shortlist(root: Path) -> dict:
                         "senior role and passes the top of the list to a person. The corpus and "
                         "the question are real; the employer is constructed. It is a component "
                         "of what ranking tools do, not a ranking tool.",
-            "twin_note": "Twin-averaged rows score each bio and its pronoun-swapped twin and "
-                         "average them. Their counterfactual columns are not meaningful and are "
-                         "not shown."}
+            "twin_note": "This second table asks the model about each bio twice, once as written "
+                         "and once with the pronouns swapped, and averages the two answers. The "
+                         "columns about applicants read as men or as women do not apply to an "
+                         "average, so they are not shown."}
 
 
 def _shortlist_evidence(shortlist: dict) -> List[dict]:

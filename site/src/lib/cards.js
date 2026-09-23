@@ -220,7 +220,7 @@ function guidanceCard() {
   const before = shortRow("paralegal-attorney", "laya", "engine_alone", 500);
   const after = shortRow("paralegal-attorney", "laya", "twin_averaged", 500);
   return { template: "guidance", alarm: true, headline: "Measuring and avoiding bias risk in fast decision models",
-    number: fmt(after.four_fifths_ratio), numberNote: `Laya's ratio after twin averaging, from ${fmt(before.four_fifths_ratio)}`,
+    number: fmt(after.four_fifths_ratio), numberNote: `Laya's ratio after averaging in a pronoun-swapped copy, from ${fmt(before.four_fifths_ratio)}`,
     rows: [{ text: "A checklist, every step linked to evidence" }] };
 }
 

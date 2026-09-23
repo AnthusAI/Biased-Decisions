@@ -5,12 +5,12 @@
   "record_commit_short": "33d0fdf",
   "generated": null,
   "release": {
-   "version": "1.14.0",
-   "tag": "v1.14.0",
+   "version": "1.15.0",
+   "tag": "v1.15.0",
    "date": "2026-09-23",
    "released": true,
-   "url": "https://github.com/AnthusAI/Biased-Decisions/releases/tag/v1.14.0",
-   "label": "v1.14.0"
+   "url": "https://github.com/AnthusAI/Biased-Decisions/releases/tag/v1.15.0",
+   "label": "v1.15.0"
   },
   "command": "bd report --json",
   "sources": [
@@ -34542,6 +34542,18 @@
    "text": "A deterministic edit that changes one protected signal and nothing else: a pronoun swap, a name, a stated age, an inserted clause."
   },
   {
+   "term": "swapped copy",
+   "text": "A second copy of a text with only the gendered words swapped: she becomes he, her becomes his, Ms becomes Mr. Nothing else changes, so if the model's answer moves, the pronoun moved it."
+  },
+  {
+   "term": "averaging both ways",
+   "text": "Asking the model about a text and its swapped copy and averaging the two answers, so the pronoun cannot tip the result. It removes the gender signal from the answer, and it can cost accuracy where the pronoun really does carry information about the job."
+  },
+  {
+   "term": "shortlist ratio",
+   "text": "Of every 100 women and every 100 men in a ranked pool, how many make the shortlist, and the women's rate divided by the men's. 1.0 is equal. The U.S. hiring rule of thumb, the four-fifths rule, treats a ratio under 0.80 as evidence of adverse impact."
+  },
+  {
    "term": "floor",
    "text": "An equally trivial edit that changes no protected signal: a second white name instead of the first, one adjacent year instead of a 27-year jump, the same bio asked twice. A cue's effect is read against its floor, not against zero."
   },
@@ -34822,7 +34834,7 @@
     ],
     "insights": [
      "check-the-outcome",
-     "twin-averaging",
+     "average-both-ways",
      "gate-on-the-outcome",
      "human-review"
     ]
@@ -36801,7 +36813,7 @@
    ],
    "prereg_section": "Pre-registration: the shortlist",
    "scenario": "An invented employer receives two thousand applications, asks the model one role question of each, ranks applicants by the probability of the senior role and passes the top of the list to a person. The corpus and the question are real; the employer is constructed. It is a component of what ranking tools do, not a ranking tool.",
-   "twin_note": "Twin-averaged rows score each bio and its pronoun-swapped twin and average them. Their counterfactual columns are not meaningful and are not shown."
+   "twin_note": "This second table asks the model about each bio twice, once as written and once with the pronouns swapped, and averages the two answers. The columns about applicants read as men or as women do not apply to an average, so they are not shown."
   },
   "inversion": {
    "quote": "Invert, always invert.",
@@ -37034,9 +37046,9 @@
     "links": []
    },
    {
-    "id": "twin-averaging",
-    "title": "Average each text with its twin, then check again",
-    "text": "For a cue you can swap, score the text and its swapped twin and average the two. In the replayed shortlist this lifted the ratio for both engines, at a cost in accuracy. It is not a guarantee: on the nurse task Laya's averaged ranking overshot to favour women, which says it reads women physicians' bios as more physician-like once the pronouns are neutralised, and averaging inside a fitted head moved one engine's ratio the other way. Check the outcome after the mitigation too.",
+    "id": "average-both-ways",
+    "title": "Ask twice with the pronouns swapped, and average the answers",
+    "text": "Make a second copy of each text with only the gendered words swapped: she becomes he, her becomes his, Ms becomes Mr. Ask the model about both copies and average its two answers, so the pronoun cannot tip the result either way. In our shortlist test this moved women's share of the shortlist much closer to men's for both models, and it also made them match the corpus's own job labels a little less often, because in this data the pronoun carries some real information about the job and we removed it. It is not a guarantee. On the nurse and physician bios Laya's averaged ranking went too far and favoured women, which suggests it reads women physicians' bios as more physician-like once the pronouns are neutral. In an experiment where we trained a small decision layer on top of Jev, averaging moved its ratio the wrong way. So check the shortlist again after any fix.",
     "evidence": [
      "twin-laya-attorney-500",
      "twin-jev-attorney-500",

@@ -19,7 +19,7 @@ const who = `${positive}s`;
 {block && (
   <section class="wrap section" id="shortlist" aria-labelledby="shortlist-h">
     <h2 class="display" id="shortlist-h">The shortlist: what the flips do to selection rates</h2>
-    <p class="lede">{C.shortlist.scenario} Among the real {who}, the table gives each engine's shortlist rate for women and for men and their ratio, which the <a class="cite" href={ff.primary_url}>EEOC four-fifths rule</a> reads against {fmt(C.shortlist.line)}. The counterfactual columns re-rank with each applicant's pronouns swapped and nothing else changed, which isolates the model as the cause.</p>
+    <p class="lede">{C.shortlist.scenario} Among the real {who}, the table shows how many of every 100 women and every 100 men make the list, and the ratio between them: 1.0 is equal, and the U.S. hiring rule of thumb, the <a class="cite" href={ff.primary_url}>four-fifths rule</a>, treats a ratio under {fmt(C.shortlist.line)} as evidence of adverse impact. The last two columns re-run the ranking with each person's pronouns swapped and nothing else changed: how many women make the list only when the model reads them as men, and how many men only when it reads them as women. That isolates the model as the cause.</p>
     <div class="table-scroll" tabindex="0" role="region" aria-label={`Shortlist rates for ${who} by engine and cut`}>
       <table class="cell-table sl-table">
         <thead><tr><th scope="col">engine, cut</th><th scope="col">women per 100</th><th scope="col">men per 100</th><th scope="col">four-fifths ratio [95% CI]</th><th scope="col">tie-fair ratio</th><th scope="col">women in only if read as men</th><th scope="col">men in only if read as women</th></tr></thead>
@@ -38,9 +38,9 @@ const who = `${positive}s`;
         </tbody>
       </table>
     </div>
-    <h3>With twin averaging</h3>
-    <p class="note">{C.shortlist.twin_note} See <a href={curls.guidance("twin-averaging")}>average each text with its twin, then check again</a>.</p>
-    <div class="table-scroll" tabindex="0" role="region" aria-label={`Twin-averaged shortlist rates for ${who}`}>
+    <h3>Asking twice and averaging</h3>
+    <p class="note">{C.shortlist.twin_note} See <a href={curls.guidance("average-both-ways")}>ask twice with the pronouns swapped, and average the answers</a>.</p>
+    <div class="table-scroll" tabindex="0" role="region" aria-label={`Shortlist rates for ${who} after averaging both versions`}>
       <table class="cell-table sl-table">
         <thead><tr><th scope="col">engine, cut</th><th scope="col">women per 100</th><th scope="col">men per 100</th><th scope="col">four-fifths ratio [95% CI]</th><th scope="col">tie-fair ratio</th><th scope="col">accuracy</th></tr></thead>
         <tbody>
@@ -82,6 +82,7 @@ const who = `${positive}s`;
       </Fragment>
     )}
     <NeutralDirection engineId="laya" tasks={[task]} />
+    <p class="note">Tie-fair ratio: the model often gives many applicants exactly the same score, so the cut can fall in the middle of a tie; this is the same ratio with tied applicants counted fairly instead of in file order.</p>
     <p class="note">Rows from <code>{block.study}</code>, replayed by <code>bd replay</code>; predictions and outcome in <a href={`${REPO_BLOB}studies/PREREGISTERED.md`}>{C.shortlist.prereg_section}</a>. Not legal advice: the ratio is the number a compliance review would compute, not a finding.</p>
   </section>
 )}

@@ -66,7 +66,7 @@ export function describeEvidence(ev) {
     const who = role(ev.task);
     const twin = ev.variant === "twin_averaged";
     const put = `put ${per100(r.women_shortlist_rate)} of every 100 women ${who} in the top ${int(r.cut)} of 2,000, and ${per100(r.men_shortlist_rate)} of every 100 men`;
-    const sentence = twin ? `${en}'s ranking, averaged over each bio and its pronoun-swapped twin, ${put}` : `${en}'s ranking ${put}`;
+    const sentence = twin ? `${en}'s ranking, averaged over each bio as written and a copy with the pronouns swapped, ${put}` : `${en}'s ranking ${put}`;
     const figure = `four-fifths ratio ${fmt(r.four_fifths_ratio)} [${fmt(r.ratio_ci[0])}, ${fmt(r.ratio_ci[1])}], tie-fair ${fmt(r.tie_fair_ratio)}; accuracy ${fmt(r.accuracy * 100, 1)}%; n = ${int(r.n_women_positive)} women and ${int(r.n_men_positive)} men`;
     const counter = twin ? null
       : `${int(r.women_who_gain_place_read_as_men)} of ${int(r.n_women_positive)} women ${who} made the list only when read as men; ${int(r.men_who_gain_place_read_as_women)} men made it only when read as women`;

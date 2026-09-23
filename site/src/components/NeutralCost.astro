@@ -7,7 +7,7 @@ import { engineById, fmt } from "../lib/site.js";
 
 const { task, positive } = Astro.props;
 const block = shortlistBlock(task);
-const VARIANTS = [["engine_alone", "as written", false], ["twin_averaged", "averaged with its twin", true],
+const VARIANTS = [["engine_alone", "as written", false], ["twin_averaged", "averaged both ways", true],
   ["neutral_blank", "“the person”", true], ["neutral_they", "“they”", true]];
 const pts = block ? block.rows.filter((r) => r.cut === 500 && r.engine !== "laya-mlx" && VARIANTS.some((v) => v[0] === r.variant)) : [];
 const W = 600, H = 380, L = 62, R = 24, T = 20, B = 58;
@@ -47,7 +47,7 @@ const summary = pts.map((p) => `${engineById[p.engine].label}, ${label(p)}: rati
       })}
     </svg>
     <figcaption class="nc-cap">
-      {positive.charAt(0).toUpperCase() + positive.slice(1)} shortlist, top 500 of 2,000. A filled mark is the engine as written; a ring is the same bios read with the gender signal averaged out or rewritten away. Moving right raises the ratio toward the line and past it; moving down is the accuracy given up to get there. Laya-mlx, the same model ported to another runtime, gives the same numbers as Laya and is not drawn twice.
+      {positive.charAt(0).toUpperCase() + positive.slice(1)} shortlist, top 500 of 2,000. A filled mark is the engine as written; a ring is the same bios read with the gender signal removed. “Averaged both ways” asks the model about each bio as written and with the pronouns swapped, and averages the two answers; the other two rings rewrite every gendered word as “the person” or “they”. Moving right raises the ratio toward the line and past it; moving down is the accuracy given up to get there. Laya-mlx, the same model ported to another runtime, gives the same numbers as Laya and is not drawn twice.
     </figcaption>
     <table class="sr">
       <caption>Shortlist ratio and accuracy for each way of reading the bios</caption>

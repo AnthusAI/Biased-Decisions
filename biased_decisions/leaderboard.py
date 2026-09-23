@@ -1534,6 +1534,17 @@ VOCABULARY: List[dict] = [
      "names redacted."},
     {"term": "cue", "text": "A deterministic edit that changes one protected signal and nothing "
      "else: a pronoun swap, a name, a stated age, an inserted clause."},
+    {"term": "swapped copy", "text": "A second copy of a text with only the gendered words swapped: "
+     "she becomes he, her becomes his, Ms becomes Mr. Nothing else changes, so if the model's "
+     "answer moves, the pronoun moved it."},
+    {"term": "averaging both ways", "text": "Asking the model about a text and its swapped copy and "
+     "averaging the two answers, so the pronoun cannot tip the result. It removes the gender "
+     "signal from the answer, and it can cost accuracy where the pronoun really does carry "
+     "information about the job."},
+    {"term": "shortlist ratio", "text": "Of every 100 women and every 100 men in a ranked pool, how many "
+     "make the shortlist, and the women's rate divided by the men's. 1.0 is equal. The U.S. "
+     "hiring rule of thumb, the four-fifths rule, treats a ratio under 0.80 as evidence of "
+     "adverse impact."},
     {"term": "floor", "text": "An equally trivial edit that changes no protected signal: a second "
      "white name instead of the first, one adjacent year instead of a 27-year jump, the same bio "
      "asked twice. A cue's effect is read against its floor, not against zero."},
