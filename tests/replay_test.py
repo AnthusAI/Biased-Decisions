@@ -1,149 +1,342 @@
 """Feature: replay reproduces Jev-Flywheel's published numbers, bit-for-bit.
 
-The design doc's promise for milestone 1: scoring the committed record with the ported metrics
-must reproduce every number in Jev-Flywheel's ``studies/*.jsonl``, not just something close to
-it. These specs score every committed (engine, task, cue) cell this repo carries and compare the
-result against the corresponding row in ``studies/jev-flywheel/`` (a verbatim copy of those
-files -- see ``data/MANIFEST.md``).
+The design doc's promise for milestone 1: scoring the committed record must reproduce every
+number in Jev-Flywheel's ``studies/*.jsonl``, not just something close to it. Every test here
+calls ``biased_decisions.scoring.score``/``score_shortlist`` -- the exact functions ``bd score``
+and ``bd replay`` call -- against the committed ``answers/`` record, and compares the result to
+the corresponding row in ``studies/jev-flywheel/`` (a verbatim copy of Jev-Flywheel's own study
+files; see ``data/MANIFEST.md``). Rates, counts, shifts, direction shares, accuracies, ratios and
+bootstrap CIs (seed 0, 1,000 resamples, same as the published rows) are compared with ``==``,
+i.e. exact, not "close" -- both sides already round to 4 decimal places (rates/shifts) or 2
+(shortlist ratios).
 
-Jev-Flywheel's rows use the engine name ``laya``; this repo's committed record for the same
-numbers is filed under the engine name ``laya-mlx`` (the design doc's "Milestone 1b" split --
-see ``biased_decisions.engines.laya_mlx``). ``ENGINE_LABEL`` below is the published row's own
-``engine`` field for each of this repo's engine names.
+**The mapping from a Jev-Flywheel row to a cell here** (arm/engine/pair/sample -> (engine, task,
+cue)):
+
+* ``bios_gender.jsonl``'s ``arm in ("J0", "L0")`` rows, `redacted: true` (the other 16 rows are
+  loop arms, not milestone-1 cells) -> (engine, "surgeon-physician", "gender-pronouns"), engine
+  ``jev``/``laya`` in the old naming -> ``jev``/``laya-mlx`` here.
+* ``bios_pairs.jsonl``'s 8 rows (4 pairs x jev/laya) -> (engine, "<pair-with-hyphens>",
+  "gender-pronouns"). The ``surgeon_physician`` pair is scored *twice* by two different old
+  scripts under two different field meanings for the same two fields -- see
+  ``test_surgeon_physician_pairs_row_has_a_known_relabeling_quirk`` below, which is the one test
+  in this file that does **not** assert exact equality, and says why.
+* ``bios_race.jsonl``'s 2 rows -> (engine, "surgeon-physician", "race-name").
+* ``bios_age.jsonl``'s 2 rows -> (engine, "surgeon-physician", "age-inserted").
+* ``bios_race2.jsonl``'s 3 rows (laya/all, laya/500, jev/500) -> (engine,
+  "surgeon-physician", "race-fullname"), scored with ``sample="all"``/``"500"`` respectively.
+* ``bios_shortlist.jsonl``'s 24 rows (2 pairs x 2 engines x 3 cuts x 2 variants) ->
+  ``score_shortlist(engine, task)``, one call per (pair, engine) producing all 6 of that
+  combination's rows.
+
+That is every row in every file under ``studies/jev-flywheel/`` except the 16 non-J0/L0 loop
+arms in ``bios_gender.jsonl`` (not milestone-1 cells: they used varying label counts/seeds this
+package's record does not carry) and the one relabeled field pair noted above.
 """
+from __future__ import annotations
+
 import json
 from pathlib import Path
+from typing import List
 
 import pytest
 
-from biased_decisions.metrics.flips import Verdict, score_arm, score_arm_race, score_pair
-from biased_decisions.metrics.shifts import score_arm_age
-from biased_decisions.record import read_record_by_id, record_path
-from biased_decisions.tasks.bios import load_task, split_test_and_twins
+from biased_decisions.build import BuildError, build as build_cue
+from biased_decisions.scoring import score, score_shortlist
+from biased_decisions.tasks.bios import load_task
 
 ROOT = Path(__file__).resolve().parents[1]
 STUDIES = ROOT / "studies" / "jev-flywheel"
-ENGINE_LABEL = {"jev": "jev", "laya-mlx": "laya"}
+
+# This repo's engine name -> the old Jev-Flywheel studies' own "engine" field spelling.
+OLD_ENGINE = {"jev": "jev", "laya-mlx": "laya"}
+ENGINES = ("jev", "laya-mlx")
 
 
-def _published(path, **match):
-    rows = [json.loads(line) for line in path.read_text().splitlines() if line.strip()]
-    hits = [r for r in rows if all(r.get(k) == v for k, v in match.items())]
-    assert hits, f"no row in {path} matches {match}"
-    return hits[-1]  # the most recent row when several match (e.g. a re-run)
+def _rows(name: str) -> List[dict]:
+    return [json.loads(line) for line in (STUDIES / name).read_text().splitlines()
+            if line.strip()]
 
 
-def _verdict_from_answer(item_id, answer, meta, positive):
-    return Verdict(item_id, answer["choice"], answer["probabilities"][positive],
-                   meta["reference_label"], meta["gender"])
+def _one(name: str, **match) -> dict:
+    hits = [row for row in _rows(name) if all(row.get(k) == v for k, v in match.items())]
+    assert len(hits) == 1, f"expected exactly 1 row in {name} matching {match}, got {len(hits)}"
+    return hits[0]
 
 
-def _gender_verdicts(task):
-    items = task.load_items()
-    test_items, twin_items = split_test_and_twins(items)
-    by_id = {item.id: item for item in items}
-
-    def build(engine):
-        answers = read_record_by_id(record_path(engine, task.slug, "gender-pronouns"))
-        def verdict(item_id):
-            a = answers[item_id]["answers"]["Occupation"]
-            return _verdict_from_answer(item_id, a, by_id[item_id].metadata, task.positive)
-        verdicts = [verdict(i.id) for i in test_items if i.id in answers]
-        twins = {source_id: verdict(twin.id) for source_id, twin in
-                (lambda: [(i.metadata["counterfactual_of"], i) for i in items
-                          if i.metadata.get("split") == "counterfactual"])()
-                if source_id in answers and twin.id in answers}
-        return verdicts, twins
-    return build
+def _assert_same(row: dict, published: dict, fields: List[str]) -> None:
+    for field in fields:
+        assert row[field] == published[field], (
+            f"{field}: replayed {row[field]!r} != published {published[field]!r}")
 
 
-@pytest.mark.parametrize("engine", ["jev", "laya-mlx"])
-def test_gender_pronouns_replay_matches_bios_gender_jsonl(engine):
-    task = load_task("surgeon-physician")
-    verdicts, twins = _gender_verdicts(task)(engine)
-    row = score_arm(arm="replay", engine=engine, verdicts=verdicts, twins=twins).as_row()
+# ---------------------------------------------------------------------------------------------
+# gender-pronouns, on every pair task (score_pair's schema: bios_pairs.jsonl).
+# ---------------------------------------------------------------------------------------------
 
-    arm = "J0" if engine == "jev" else "L0"
-    published = _published(STUDIES / "bios_gender.jsonl", engine=ENGINE_LABEL[engine],
-                           arm=arm, redacted=True)
-    assert row["n"] == published["n"]
-    assert row["accuracy"] == published["accuracy"]
-    assert row["counterfactual_flip_rate"] == published["counterfactual_flip_rate"]
-    assert row["mean_abs_delta_p"] == published["mean_abs_delta_p"]
-
-
-@pytest.mark.parametrize("engine", ["jev", "laya-mlx"])
-@pytest.mark.parametrize("slug,pair_key", [
+PAIRS = (
     ("nurse-physician", "nurse_physician"),
     ("teacher-professor", "teacher_professor"),
     ("paralegal-attorney", "paralegal_attorney"),
-])
-def test_pairs_replay_matches_bios_pairs_jsonl(engine, slug, pair_key):
+)
+
+PAIR_FIELDS = [
+    "n", "accuracy", "counterfactual_flip_rate", "flip_rate_ci", "mean_abs_delta_p",
+    "flip_toward_more_female_share", "recall_gap_less_female_women_minus_men", "ece",
+]
+
+
+@pytest.mark.parametrize("engine", ENGINES)
+@pytest.mark.parametrize("slug,pair_key", PAIRS)
+def test_gender_pronouns_matches_bios_pairs(engine, slug, pair_key):
     task = load_task(slug)
-    verdicts, twins = _gender_verdicts(task)(engine)
-    row = score_pair(pair=pair_key, engine=engine, verdicts=verdicts, twins=twins).as_row()
-
-    published = _published(STUDIES / "bios_pairs.jsonl", pair=pair_key, engine=ENGINE_LABEL[engine])
-    assert row["n"] == published["n"]
-    assert row["accuracy"] == published["accuracy"]
-    assert row["counterfactual_flip_rate"] == published["counterfactual_flip_rate"]
+    row = score(engine, task, "gender-pronouns")
+    published = _one("bios_pairs.jsonl", pair=pair_key, engine=OLD_ENGINE[engine])
+    _assert_same(row, published, PAIR_FIELDS)
 
 
-@pytest.mark.parametrize("engine", ["jev", "laya-mlx"])
-def test_race_name_replay_matches_bios_race_jsonl(engine):
+@pytest.mark.parametrize("engine", ENGINES)
+def test_gender_pronouns_surgeon_physician_matches_bios_gender_J0_L0(engine):
+    """surgeon-physician's gender-pronouns cell against ``bios_gender.jsonl``'s own J0/L0
+    rows -- the ones the design doc's inventory calls "the only 3 of 18 that are milestone-1
+    cells" (the redacted ones; the 4th, unredacted, has no equivalent corpus in this package)."""
     task = load_task("surgeon-physician")
-    versions = task.load_versions("race-name")
-    by_id = {i.id: i for i in versions}
-    answers = read_record_by_id(record_path(engine, "surgeon-physician", "race-name"))
-
-    by_source = {}
-    for item in versions:
-        by_source.setdefault(item.metadata["source_id"], {})[item.metadata["version"]] = item.id
-
-    def verdict(source_id, version_id):
-        a = answers[version_id]["answers"]["Occupation"]
-        return _verdict_from_answer(source_id, a, by_id[version_id].metadata, task.positive)
-
-    white_a = [verdict(sid, ids["white_a"]) for sid, ids in by_source.items()
-              if ids["white_a"] in answers]
-    white_b = {sid: verdict(sid, ids["white_b"]) for sid, ids in by_source.items()
-              if ids["white_b"] in answers}
-    black = {sid: verdict(sid, ids["black"]) for sid, ids in by_source.items()
-            if ids["black"] in answers}
-
-    row = score_arm_race(engine=engine, white_a=white_a, white_b=white_b, black=black,
-                         excluded=429).as_row()
-    published = _published(STUDIES / "bios_race.jsonl", engine=ENGINE_LABEL[engine])
-    assert row["n_bios"] == published["n_bios"]
-    assert row["floor"] == published["floor"]
-    assert row["race_flip"] == published["race_flip"]
-    assert row["excess"] == published["excess"]
+    row = score(engine, task, "gender-pronouns")
+    published = _one("bios_gender.jsonl", engine=OLD_ENGINE[engine],
+                     arm=("J0" if engine == "jev" else "L0"), redacted=True)
+    _assert_same(row, published, ["n", "accuracy", "counterfactual_flip_rate",
+                                  "mean_abs_delta_p", "ece"])
 
 
-@pytest.mark.parametrize("engine", ["jev", "laya-mlx"])
-def test_age_inserted_replay_matches_bios_age_jsonl(engine):
+@pytest.mark.parametrize("engine", ENGINES)
+def test_surgeon_physician_pairs_row_has_a_known_relabeling_quirk(engine):
+    """``bios_pairs.jsonl``'s ``surgeon_physician`` rows were produced by a copy-script
+    (Jev-Flywheel's ``run_bios_pairs.py --copy-surgeon-physician``) that reshapes
+    ``bios_gender.jsonl``'s ArmMetrics row into the pairs schema by relabeling
+    ``flip_toward_physician_share`` as ``flip_toward_more_female_share`` and
+    ``tpr_gap_surgeon_women_minus_men`` as ``recall_gap_less_female_women_minus_men`` --
+    without accounting for "physician" being surgeon-physician's *less*-female label, not its
+    more-female one (unlike the other three pairs, where the copy would have been correct).  So
+    those two published fields measure the share toward *physician* and the recall gap on
+    *surgeon*, the opposite of what their names say.
+
+    Everything else about that row -- n, accuracy, flip rate, mean |delta p|, ECE -- is
+    unaffected and is checked (against ``bios_gender.jsonl``, which has no such quirk) by
+    ``test_gender_pronouns_surgeon_physician_matches_bios_gender_J0_L0`` above.
+    ``biased_decisions.scoring.score_gender_pronouns`` computes both fields correctly (share
+    toward the pair's actual more-female label, "surgeon"), so this test asserts the *documented
+    mismatch*, not equality, against the published row.
+    """
     task = load_task("surgeon-physician")
-    versions = task.load_versions("age-inserted")
-    by_id = {i.id: i for i in versions}
-    answers = read_record_by_id(record_path(engine, "surgeon-physician", "age-inserted"))
+    row = score(engine, task, "gender-pronouns")
+    published = _one("bios_pairs.jsonl", pair="surgeon_physician", engine=OLD_ENGINE[engine])
+    j0l0 = _one("bios_gender.jsonl", engine=OLD_ENGINE[engine],
+               arm=("J0" if engine == "jev" else "L0"), redacted=True)
 
-    by_source = {}
-    for item in versions:
-        by_source.setdefault(item.metadata["source_id"], {})[item.metadata["age"]] = item.id
+    # The fields the copy-script got right, still exact:
+    _assert_same(row, published, ["n", "accuracy", "counterfactual_flip_rate",
+                                  "mean_abs_delta_p", "ece"])
+    assert published["flip_rate_ci"] is None  # bios_gender never computed one
 
-    def verdict(source_id, version_id):
-        a = answers[version_id]["answers"]["Occupation"]
-        return _verdict_from_answer(source_id, a, by_id[version_id].metadata, task.positive)
+    # The quirk itself: the published pairs row's two fields are a raw, unrelabeled copy of
+    # bios_gender's differently-named (and differently-meant) fields -- the physician-directed
+    # share and surgeon's own recall gap, not the pair's more-female ("surgeon") share or the
+    # less-female ("physician") recall gap their names promise.
+    assert published["flip_toward_more_female_share"] == j0l0["flip_toward_physician_share"]
+    assert published["recall_gap_less_female_women_minus_men"] == (
+        j0l0["tpr_gap_surgeon_women_minus_men"])
 
-    v34 = [verdict(sid, ids[34]) for sid, ids in by_source.items() if ids.get(34) in answers]
-    v35 = {sid: verdict(sid, ids[35]) for sid, ids in by_source.items() if ids.get(35) in answers}
-    v61 = {sid: verdict(sid, ids[61]) for sid, ids in by_source.items() if ids.get(61) in answers}
-    v62 = {sid: verdict(sid, ids[62]) for sid, ids in by_source.items() if ids.get(62) in answers}
+    # The correctly-computed row disagrees with the published (quirky) one on both:
+    assert row["flip_toward_more_female_share"] != published["flip_toward_more_female_share"]
+    assert row["recall_gap_less_female_women_minus_men"] != (
+        published["recall_gap_less_female_women_minus_men"])
 
-    row = score_arm_age(engine=engine, v34=v34, v35=v35, v61=v61, v62=v62, excluded=769).as_row()
-    published = _published(STUDIES / "bios_age.jsonl", engine=ENGINE_LABEL[engine])
-    assert row["n_bios"] == published["n_bios"]
-    assert row["age_flip"] == published["age_flip"]
-    assert row["age_shift"] == published["age_shift"]
-    assert row["floor_35_flip"] == published["floor_35_flip"]
-    assert row["floor_62_flip"] == published["floor_62_flip"]
+
+# ---------------------------------------------------------------------------------------------
+# race-name (surgeon-physician only).
+# ---------------------------------------------------------------------------------------------
+
+RACE_NAME_FIELDS = [
+    "n_bios", "excluded", "floor", "floor_ci", "race_flip", "race_ci", "race_flip_b", "excess",
+    "ratio", "mean_abs_dp_floor", "mean_abs_dp_race", "direction_share", "n_flips",
+    "accuracy_white_a", "accuracy_black", "by_gender",
+]
+
+
+@pytest.mark.parametrize("engine", ENGINES)
+def test_race_name_matches_bios_race(engine):
+    task = load_task("surgeon-physician")
+    row = score(engine, task, "race-name")
+    published = _one("bios_race.jsonl", engine=OLD_ENGINE[engine])
+    _assert_same(row, published, RACE_NAME_FIELDS)
+
+
+# ---------------------------------------------------------------------------------------------
+# age-inserted (surgeon-physician only).
+# ---------------------------------------------------------------------------------------------
+
+AGE_FIELDS = [
+    "n_bios", "excluded", "age_flip", "age_flip_ci", "age_shift", "age_shift_ci",
+    "floor_35_flip", "floor_35_flip_ci", "floor_35_shift", "floor_35_shift_ci",
+    "floor_62_flip", "floor_62_flip_ci", "floor_62_shift", "floor_62_shift_ci",
+    "direction_share", "n_flips_age", "accuracy_34", "accuracy_35", "accuracy_61",
+    "accuracy_62", "by_gender",
+]
+
+
+@pytest.mark.parametrize("engine", ENGINES)
+def test_age_inserted_matches_bios_age(engine):
+    task = load_task("surgeon-physician")
+    row = score(engine, task, "age-inserted")
+    published = _one("bios_age.jsonl", engine=OLD_ENGINE[engine])
+    _assert_same(row, published, AGE_FIELDS)
+
+
+# ---------------------------------------------------------------------------------------------
+# race-fullname (surgeon-physician only; jev only has the 500-bio sample).
+# ---------------------------------------------------------------------------------------------
+
+RACE2_FIELDS = [
+    "n_bios", "excluded", "floor_shift", "floor_shift_ci", "floor_flip_majority",
+    "floor_flip_pairwise", "groups", "flip_majority_ratio_vs_floor", "by_gender",
+]
+
+
+@pytest.mark.parametrize("engine,sample", [
+    ("laya-mlx", "all"), ("laya-mlx", "500"), ("jev", "500"),
+])
+def test_race_fullname_matches_bios_race2(engine, sample):
+    task = load_task("surgeon-physician")
+    row = score(engine, task, "race-fullname", sample=sample)
+    published = _one("bios_race2.jsonl", engine=OLD_ENGINE[engine], sample=sample)
+    _assert_same(row, published, RACE2_FIELDS)
+
+
+def test_jev_race_fullname_has_no_all_sample_record():
+    """Jev never answered the rest of race-fullname past the 500-bio subsample (see
+    ``RESULTS.md``'s "missing cells" footnote) -- scoring it with ``sample="all"`` must fail
+    loudly, not silently score a partial, misleading population."""
+    from biased_decisions.scoring import ScoreError
+    task = load_task("surgeon-physician")
+    with pytest.raises(ScoreError):
+        score("jev", task, "race-fullname", sample="all")
+
+
+# ---------------------------------------------------------------------------------------------
+# Shortlist: 2 pairs x 2 engines x 3 cuts x 2 variants = 24 rows, every field.
+# ---------------------------------------------------------------------------------------------
+
+SHORTLIST_FIELDS = [
+    "n_women_positive", "n_men_positive", "accuracy", "women_shortlist_rate",
+    "men_shortlist_rate", "four_fifths_ratio", "ratio_ci", "tie_fair_ratio", "above_cut",
+    "tied_at_cut", "women_who_lose_place_read_as_men", "men_who_lose_place_read_as_women",
+    "women_who_gain_place_read_as_men", "men_who_gain_place_read_as_women",
+]
+
+
+@pytest.mark.parametrize("engine", ENGINES)
+@pytest.mark.parametrize("slug,pair_key", [
+    ("paralegal-attorney", "paralegal_attorney"), ("nurse-physician", "nurse_physician"),
+])
+def test_shortlist_matches_bios_shortlist(engine, slug, pair_key):
+    task = load_task(slug)
+    rows = score_shortlist(engine, task)
+    assert len(rows) == 6  # 3 cuts x 2 variants
+    published_rows = [row for row in _rows("bios_shortlist.jsonl")
+                      if row["pair"] == pair_key and row["engine"] == OLD_ENGINE[engine]]
+    assert len(published_rows) == 6
+    by_key = {(row["variant"], row["cut"]): row for row in published_rows}
+    for row in rows:
+        published = by_key[(row["variant"], row["cut"])]
+        _assert_same(row, published, SHORTLIST_FIELDS)
+
+
+def test_every_published_row_is_accounted_for():
+    """The full row-count reconciliation the module docstring claims: every row in every
+    ``studies/jev-flywheel/*.jsonl`` file is either checked above, or is one of the two
+    documented exclusions (16 non-J0/L0 loop arms; the surgeon_physician pairs quirk)."""
+    gender_rows = _rows("bios_gender.jsonl")
+    j0_l0_redacted = [r for r in gender_rows
+                      if r["arm"] in ("J0", "L0") and r.get("redacted") is True]
+    assert len(gender_rows) == 18
+    assert len(j0_l0_redacted) == 2  # checked by test_gender_pronouns_surgeon_physician_*
+    assert len(_rows("bios_pairs.jsonl")) == 8       # 4 pairs x 2 engines, all checked above
+    assert len(_rows("bios_race.jsonl")) == 2         # 2 engines, checked
+    assert len(_rows("bios_age.jsonl")) == 2          # 2 engines, checked
+    assert len(_rows("bios_race2.jsonl")) == 3        # laya/all, laya/500, jev/500, checked
+    assert len(_rows("bios_shortlist.jsonl")) == 24    # 2 pairs x 2 engines x 3 cuts x 2, checked
+
+
+# ---------------------------------------------------------------------------------------------
+# bd build reproduces the committed versions files byte-for-byte, where the inputs are
+# committed. gender-pronouns has no committed versions file to compare against (its twins live
+# inside items.jsonl -- see data/MANIFEST.md); race-fullname needs spaCy and the name pools, so
+# it is only checked when both are importable/present.
+# ---------------------------------------------------------------------------------------------
+
+def _read_jsonl(path: Path) -> List[dict]:
+    # Iterate the file object (splits only on "\n"), never str.splitlines() -- a bio's text can
+    # contain a U+2028/U+2029 line separator, which splitlines() treats as a line boundary but
+    # json.dumps does not escape, so splitting on it would cut a JSON string row in half.
+    rows = []
+    with path.open(encoding="utf-8") as handle:
+        for line in handle:
+            line = line.strip()
+            if line:
+                rows.append(json.loads(line))
+    return rows
+
+
+def test_build_race_name_matches_committed_versions_file():
+    task = load_task("surgeon-physician")
+    result = build_cue("race-name", task)
+    committed = _read_jsonl(task.versions_path("race-name"))
+    assert result.rows == committed
+    assert result.excluded == 429
+
+
+def test_build_age_inserted_matches_committed_versions_file():
+    task = load_task("surgeon-physician")
+    result = build_cue("age-inserted", task)
+    committed = _read_jsonl(task.versions_path("age-inserted"))
+    assert result.rows == committed
+    assert result.excluded == 769
+
+
+def _spacy_and_pools_available() -> bool:
+    try:
+        import spacy  # noqa: F401
+        spacy.load("en_core_web_sm")
+    except Exception:
+        return False
+    return (ROOT / "pools" / "name_pools.json").exists()
+
+
+@pytest.mark.skipif(not _spacy_and_pools_available(),
+                    reason="race-fullname needs spaCy + en_core_web_sm installed")
+def test_build_race_fullname_matches_committed_versions_file():
+    task = load_task("surgeon-physician")
+    try:
+        result = build_cue("race-fullname", task)
+    except BuildError as error:
+        pytest.skip(str(error))
+    committed = _read_jsonl(task.versions_path("race-fullname"))
+    assert result.rows == committed
+    assert result.excluded == 32
+    sub_path = task.versions_dir() / "race-fullname_jev-subsample.txt"
+    committed_subsample = sub_path.read_text(encoding="utf-8").splitlines()
+    assert result.subsample == committed_subsample
+
+
+@pytest.mark.parametrize("slug", ["surgeon-physician", "nurse-physician", "teacher-professor",
+                                  "paralegal-attorney"])
+def test_build_gender_pronouns_matches_committed_twins_in_items_jsonl(slug):
+    """gender-pronouns has no separate committed versions file (see data/MANIFEST.md); this
+    checks the build against the twins committed inside ``items.jsonl`` itself."""
+    task = load_task(slug)
+    result = build_cue("gender-pronouns", task)
+    committed = {item["id"]: item for item in _read_jsonl(task.items_path)
+                if item["metadata"].get("split") == "counterfactual"}
+    assert {row["id"] for row in result.rows} == set(committed)
+    for row in result.rows:
+        assert row == committed[row["id"]], row["id"]
