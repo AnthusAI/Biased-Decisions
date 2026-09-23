@@ -1,3 +1,11 @@
+# [1.1.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.0.1...v1.1.0) (2026-09-23)
+
+
+### Features
+
+* **tasks:** add civil-comments-moderation, built from Jigsaw Civil Comments ([aa80e17](https://github.com/AnthusAI/Biased-Decisions/commit/aa80e17c817d1eea8ed21cc1c6943e9e2cbb2541))
+* **tasks:** add qpain-treatment, built from Q-Pain pain-management vignettes ([029edec](https://github.com/AnthusAI/Biased-Decisions/commit/029edec5c578486f74813073a92d590c71a07a26))
+
 ## [1.0.1](https://github.com/AnthusAI/Biased-Decisions/compare/v1.0.0...v1.0.1) (2026-09-23)
 
 
