@@ -1,3 +1,18 @@
+# [1.2.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.1.0...v1.2.0) (2026-09-23)
+
+
+### Bug Fixes
+
+* make race-fullname tie-break independent of Python's sum() rounding ([8cf6c56](https://github.com/AnthusAI/Biased-Decisions/commit/8cf6c56672c231188e26af184adc6b8ebe7f40d9))
+* **site:** compliance copy after review; ranking, not the model, shortlists ([bc86a27](https://github.com/AnthusAI/Biased-Decisions/commit/bc86a27660b9abd3419f2c61ed0c8b32ecd9137d))
+* **site:** dark-mode alarm red in the validated lightness band; document the compliance contract ([541fad0](https://github.com/AnthusAI/Biased-Decisions/commit/541fad09d8e875555f2a7ecfeb985bf9f4397f5a)), closes [#f5475e](https://github.com/AnthusAI/Biased-Decisions/issues/f5475e)
+
+
+### Features
+
+* **report:** compliance block in the data contract (leaderboard@4) ([64e43ae](https://github.com/AnthusAI/Biased-Decisions/commit/64e43aea3c6c096b92fe9863746e8fd26dbdcde3))
+* **site:** regulated-decision warnings, risk panels, inversion and guidance pages ([8dfdccd](https://github.com/AnthusAI/Biased-Decisions/commit/8dfdccdd539ce4ae99b2ed83181da4da0f6e3986))
+
 # [1.1.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.0.1...v1.1.0) (2026-09-23)
 
 
