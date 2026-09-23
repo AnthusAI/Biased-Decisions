@@ -162,3 +162,12 @@ test("every page carries the caveats panel: four or six cards, open on the home 
     for (const c of DATA.honesty) assert.ok(panel.includes(c.title), `${p.path}: missing "${c.title}"`);
   }
 });
+
+test("Google Analytics 4 tag is on every page, once, in the head", () => {
+  const ID = "G-31SC26SDGX";
+  for (const p of pages) {
+    const head = p.html.slice(0, p.html.indexOf("</head>"));
+    assert.equal(head.split(`googletagmanager.com/gtag/js?id=${ID}`).length - 1, 1, `${p.path}: gtag.js script`);
+    assert.equal(head.split(`gtag('config', '${ID}')`).length - 1, 1, `${p.path}: gtag config`);
+  }
+});
