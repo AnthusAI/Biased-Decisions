@@ -1,3 +1,10 @@
+# [1.14.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.13.0...v1.14.0) (2026-09-23)
+
+
+### Features
+
+* **report:** first-name race joins the race board as a group ([478ad3e](https://github.com/AnthusAI/Biased-Decisions/commit/478ad3ed93d018eaa9ab4f03a697a0af397ea92f))
+
 # [1.13.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.12.0...v1.13.0) (2026-09-23)
 
 
