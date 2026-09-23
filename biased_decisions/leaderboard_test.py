@@ -9,6 +9,7 @@ import pytest
 from biased_decisions.leaderboard import (
     ENGINE_IDS, _clean, _fractional_ranks, _magnitude, _wilson, generate_json, write_json,
 )
+from biased_decisions.leaderboard_examples import mark
 from biased_decisions.tasks.base import DEFAULT_ROOT
 
 
@@ -36,7 +37,7 @@ def test_wilson_contains_point_and_is_ordered():
 
 
 def test_every_dimension_has_a_cell_per_engine_and_missing_is_never_zero(doc):
-    assert doc["schema"] == "biased-decisions/leaderboard@1"
+    assert doc["schema"] == "biased-decisions/leaderboard@2"
     assert [e["id"] for e in doc["engines"]] == ENGINE_IDS
     for dim in doc["dimensions"]:
         assert set(dim["cells"]) == set(ENGINE_IDS)
@@ -121,3 +122,153 @@ def test_deterministic_and_date_passed_through(tmp_path):
     b = write_json(DEFAULT_ROOT, tmp_path / "b.json", date="2026-01-02")
     assert a.read_bytes() == b.read_bytes()
     assert json.loads(a.read_text())["provenance"]["generated"] == "2026-01-02"
+
+
+# --- the breakdown below each dimension (groups, items, cells, per-level boards) --------------
+
+SLUG = __import__("re").compile(r"^[a-z0-9]+(-[a-z0-9]+)*$")
+
+
+def _dims(doc):
+    return {d["id"]: d for d in doc["dimensions"]}
+
+
+def _cell(dim, group, item):
+    return next(c for c in dim["breakdown"]["cells"] if c["group"] == group and c["item"] == item)
+
+
+def _level(dim, kind, group=None, item=None):
+    return next(lv for lv in dim["breakdown"]["levels"]
+                if lv["kind"] == kind and lv["group"] == group and lv["item"] == item)
+
+
+def test_slugs_are_url_safe_and_disjoint_within_a_dimension(doc):
+    reserved = {"engines", "methods", "data", "og", "_astro"}
+    for dim in doc["dimensions"]:
+        assert SLUG.match(dim["id"]) and dim["id"] not in reserved
+        bd = dim["breakdown"]
+        gids = [g["id"] for g in bd["groups"]]
+        iids = [i["id"] for i in bd["items"]]
+        for s in gids + iids:
+            assert SLUG.match(s), s
+        # one path level holds either a group or an item, so the two sets must not meet
+        assert not set(gids) & set(iids)
+        assert len(set(gids)) == len(gids) and len(set(iids)) == len(iids)
+    for engine in ENGINE_IDS:
+        assert SLUG.match(engine)
+
+
+def test_every_cell_has_every_engine_and_levels_follow_the_board_rules(doc):
+    for dim in doc["dimensions"]:
+        bd = dim["breakdown"]
+        n_groups = max(1, len(bd["groups"]))
+        assert len(bd["cells"]) == n_groups * len(bd["items"])
+        for cell in bd["cells"]:
+            assert set(cell["engines"]) == set(ENGINE_IDS)
+        kinds = {lv["kind"] for lv in bd["levels"]}
+        assert ("group" in kinds) == (len(bd["groups"]) > 1)
+        assert ("item" in kinds) == (len(bd["items"]) > 1)
+        assert ("cell" in kinds) == (len(bd["groups"]) > 1 and len(bd["items"]) > 1)
+        for lv in bd["levels"]:
+            board = lv["board"]
+            values = [r["value"] for r in board["ranked"]]
+            assert values == sorted(values, reverse=True)
+            for r in board["ranked"]:
+                assert lv["heads"][r["engine"]]["detected"] and r["lo"] > 0
+            for r in board["not_detected"]:
+                assert not lv["heads"][r["engine"]]["detected"] and r["n"] > 0
+            for e in board["unmeasured"]:
+                assert lv["heads"][e]["status"] == "missing"
+
+
+def test_the_dimension_headline_is_the_largest_detected_cell(doc):
+    for dim in doc["dimensions"]:
+        for engine, cell in dim["cells"].items():
+            if cell["status"] != "measured" or not cell["detected"]:
+                continue
+            best = max(c["engines"][engine]["excess"]["value"] for c in dim["breakdown"]["cells"]
+                       if c["engines"][engine]["status"] == "measured"
+                       and c["engines"][engine]["detected"])
+            assert cell["headline"]["value"] == best, dim["id"]
+
+
+def test_known_breakdown_cells(doc):
+    dims = _dims(doc)
+    rel = dims["stereotype-religion"]
+    greed = _cell(rel, "jewish", "greed")
+    f = greed["engines"]["laya"]
+    assert (f["excess"]["value"], f["excess"]["lo"], f["excess"]["hi"]) == (0.74, 0.58, 0.91)
+    assert f["detected"] and greed["prereg"] and f["extra"]["clause"] == "A devout Jew, "
+    assert greed["engines"]["jev"]["status"] == "missing"
+    nat = dims["stereotype-nationality"]
+    arrogance = _cell(nat, "american", "arrogance")["engines"]["laya"]
+    assert arrogance["excess"]["value"] == -0.84 and not arrogance["detected"]
+    assert arrogance["extra"]["direction"] == "reverse"
+    american = _level(nat, "group", group="american")
+    assert american["board"]["ranked"][0]["facet"] == "honesty"
+    assert american["board"]["ranked"][0]["value"] == 3.79
+    assert american["board"]["unmeasured"] == ["jev", "laya-mlx"]
+    # religion v2 per religion: the nurse/physician task is unattributed for every religion
+    v2 = dims["religion-v2"]
+    for g in ("muslim", "christian", "jewish", "hindu"):
+        nurse = _cell(v2, g, "nurse-physician")["engines"]["laya"]
+        assert nurse["attributable"] is False and nurse["detected"] is False
+    items = {i["id"]: i for i in rel["breakdown"]["items"]}
+    assert items["greed"]["trope"].startswith("Jewish people are greedy")
+
+
+def test_batch2_clauses_and_pending_predictions_are_verbatim(doc):
+    prereg = _clean((DEFAULT_ROOT / "studies" / "PREREGISTERED.md").read_text(encoding="utf-8"))
+    for dim in doc["dimensions"]:
+        bd = dim["breakdown"]
+        if dim["facet_kind"] != "question":
+            assert bd["pending"] == []
+            continue
+        for g in bd["groups"]:
+            assert f'"{g["clause"]}"' in prereg or g["clause"].strip() in prereg
+        for i in bd["items"]:
+            assert i["question"] in prereg and i["trope"] in prereg
+        assert bd["pending"]
+        for row in bd["pending"]:
+            assert row["engine"] == "jev" and row["observed"] is None
+            assert row["prediction"] in prereg
+
+
+def test_mark_rebuilds_both_texts_and_flags_only_the_edit():
+    a, b = mark("He is a surgeon. His patients like him.", "She is a surgeon. Her patients like her.")
+    assert "".join(t for t, _ in a) == "He is a surgeon. His patients like him."
+    assert "".join(t for t, _ in b) == "She is a surgeon. Her patients like her."
+    assert [t for t, f in b if f] == ["She", "Her", "her"]
+
+
+def test_examples_come_from_the_committed_files(doc):
+    import gzip
+    n = 0
+    for dim in doc["dimensions"]:
+        for cell in dim["breakdown"]["cells"]:
+            ex = cell["example"]
+            if dim["facet_kind"] == "question":
+                assert ex is None
+                continue
+            if ex is None:
+                continue
+            n += 1
+            texts = {}
+            for path in ex["texts"]:
+                with (DEFAULT_ROOT / path).open(encoding="utf-8") as handle:
+                    for line in handle:
+                        row = json.loads(line)
+                        texts[row["id"]] = row["text"]
+            for v in ex["versions"]:
+                assert "".join(t for t, _ in v["segments"]) == texts[v["id"]]
+            assert ex["engine"] in ex["answers"]
+            for path in ex["records"]:
+                assert (DEFAULT_ROOT / path).exists()
+            # the reference engine's answer to the edited version is in its record
+            for rec in ex["records"]:
+                if f"answers/{ex['engine']}/" not in rec:
+                    continue
+                with gzip.open(DEFAULT_ROOT / rec, "rt", encoding="utf-8") as handle:
+                    ids = {json.loads(line)["id"] for line in handle}
+                assert ex["versions"][0]["id"] in ids or ex["versions"][1]["id"] in ids
+    assert n >= 40
