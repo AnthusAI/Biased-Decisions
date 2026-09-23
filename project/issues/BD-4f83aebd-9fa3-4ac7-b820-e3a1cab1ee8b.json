@@ -20,7 +20,7 @@
     "platform": "claude-code",
     "model": "claude-fable-5-1"
   },
-  "right_now_summary": "The leaderboard build is underway, with reporting, site publishing, and replay consistency still being worked on.",
-  "right_now_updated_at": "2026-09-23T16:28:06.605381Z",
+  "right_now_summary": "The team is building the bias leaderboard, fixing replay differences, and setting up GitHub Pages.",
+  "right_now_updated_at": "2026-09-23T16:29:46.464847Z",
   "custom": {}
 }
