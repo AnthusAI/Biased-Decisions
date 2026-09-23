@@ -33,6 +33,9 @@ const gtagInit = `window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
 gtag('config', '${GA_ID}');`;
+// Opt-out: visit any page with ?notrack=1 to set a localStorage flag that disables GA in this browser (?notrack=0 clears it).
+// ga-disable-<ID> must be set before gtag('config'). String.raw keeps \w intact.
+const optOut = String.raw`(function(){try{var k='anthus-no-analytics',q=location.search.match(/[?&]notrack=(\w+)/);if(q){if(q[1]==='1')localStorage.setItem(k,'1');else localStorage.removeItem(k)}if(localStorage.getItem(k)==='1')window['ga-disable-G-31SC26SDGX']=true}catch(e){}})();`;
 const favicon = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' rx='3' fill='%230c1e2b'/%3E%3Crect x='3' y='9' width='3' height='4' fill='%230389d7'/%3E%3Crect x='7' y='3' width='3' height='10' fill='%23d03382'/%3E%3Crect x='11' y='6' width='2' height='7' fill='%238a949c'/%3E%3C/svg%3E";
 ---
 <!doctype html>
@@ -71,6 +74,7 @@ const favicon = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' vi
 <link rel="alternate" type="application/json" href={urls.data()} title="The leaderboard data file">
 <style is:inline set:html={engineCss}></style>
 {import.meta.env.PROD && <Fragment>
+<script is:inline set:html={optOut}></script>
 <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}></script>
 <script is:inline set:html={gtagInit}></script>
 </Fragment>}
