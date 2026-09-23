@@ -6,7 +6,6 @@ import Board from "../../components/Board.astro";
 import Chart from "../../components/Chart.astro";
 import EngineName from "../../components/EngineName.astro";
 import FacetTable from "../../components/FacetTable.astro";
-import Prereg from "../../components/Prereg.astro";
 import Matrix from "../../components/Matrix.astro";
 import Example from "../../components/Example.astro";
 import Chip from "../../components/Chip.astro";
@@ -110,7 +109,7 @@ const plural = (k) => (k === "nationality" ? "nationalities" : k === "religion" 
 
   <section class="wrap section" id="engines">
     <h2 class="display">Each engine's {dim.facet_kind} table</h2>
-    <p class="lede">One table per engine: every number with its interval, the floor it is read against, the committed files it replays from, and the pre-registered prediction beside what happened. Each engine also has its own page for this dimension.</p>
+    <p class="lede">One table per engine: every number with its interval, the floor it is read against, and the committed files it replays from. Each engine also has its own page for this dimension.</p>
     {engines.map((en) => {
       const c = dim.cells[en.id];
       const measured = c.status === "measured";
@@ -126,9 +125,6 @@ const plural = (k) => (k === "nationality" ? "nationalities" : k === "religion" 
             ? <Fragment>
                 <FacetTable dim={dim} facets={c.facets} headline={c.headline.facet} detected={c.detected} facetKind={dim.facet_kind}
                   caption={`${en.label}, ${dim.long}: per-${dim.facet_kind} measurements`} rowHref={single ? null : (f) => `${facetHref(dim, f.id)}#${en.id}`} />
-                {c.prereg && c.prereg.length > 0
-                  ? <Prereg dim={dim} rows={c.prereg} showEngine={false} />
-                  : <p class="note">No pre-registered prediction covers this cell.</p>}
                 <p class="more-link"><a href={urls.engineDim(en.id, dim.id)}>{en.label} on {dim.long.toLowerCase()}: its own page</a></p>
               </Fragment>
             : <p class="note">{en.label} has no record for this dimension. It is shown as missing, never as zero, and it is flagged incomplete on the overall board.</p>}
@@ -137,10 +133,4 @@ const plural = (k) => (k === "nationality" ? "nationalities" : k === "religion" 
     })}
   </section>
 
-  {bd.pending && bd.pending.length > 0 && (
-    <section class="wrap section">
-      <h2 class="display sm">Predicted, not yet measured</h2>
-      <Prereg dim={dim} rows={bd.pending} heading="Predictions for engines that have not answered yet" />
-    </section>
-  )}
 </Base>

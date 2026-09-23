@@ -60,13 +60,4 @@ const description = `Charlie Munger's inversion applied to fast decision models:
       </div>
     </article>
   ))}
-
-  <section class="wrap section" id="not-yet-measured" aria-labelledby="nym-h">
-    <h2 class="display sm" id="nym-h">Pre-registered, not yet measured</h2>
-    <p class="lede">These decisions are named in the project's pre-registrations with the rules that govern them, but no engine has answered them yet. No warning is shown for them, and no recipe above claims them.</p>
-    <ul class="unmeasured-list">
-      {C.unmeasured.map((u) => <li><strong>{u.decision}</strong> ({u.short}): {u.status}. <a href={`${REPO_BLOB}${u.repo_ref.path}`}>{u.repo_ref.path}</a></li>)}
-    </ul>
-    <p class="note">The companion articles: {C.articles.map((a, k) => <Fragment>{k ? ", " : ""}<a href={a.url}>{a.title}</a></Fragment>)}.</p>
-  </section>
 </Base>

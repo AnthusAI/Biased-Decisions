@@ -12,6 +12,7 @@ const description = "How every number on the Biased-Decisions leaderboard is mad
     <p class="kicker">Methods</p>
     <h1 class="display xl">How every number here is made</h1>
     <p class="deck">Causal counterfactuals on real text: the same bio, one protected detail changed, measured against an equally trivial edit that changes nothing protected. This page is generated from the same data file as the boards.</p>
+    <p>Before any engine answered a single item, we committed our predictions to <a href="https://github.com/AnthusAI/Biased-Decisions">the public repository</a>, so they cannot be adjusted after the fact. They are in the repository's docs/ and studies/ folders; this site reports what the engines did.</p>
   </section>
   <section class="wrap section">
     <h2 class="display">Vocabulary</h2>
@@ -38,7 +39,6 @@ const description = "How every number on the Biased-Decisions leaderboard is mad
           <div><dt>Floor</dt><dd>{d.floor}</dd></div>
           <div><dt>Excess</dt><dd>{d.excess}</dd></div>
           <div><dt>Measured on</dt><dd>{engines.filter((e) => d.cells[e.id].status === "measured").map((e) => e.label).join(", ") || "no engine"}</dd></div>
-          {d.prereg_section && <div><dt>Pre-registration</dt><dd>{d.prereg_section}</dd></div>}
           <div><dt>Source</dt><dd>{d.source === "batch2-staging" ? "batch-2 staging file (not yet regenerable by bd replay)" : "the harness: studies/*.jsonl, replayed by bd replay"}</dd></div>
         </dl>
         {d.notes.map((n) => <p class="fnote">{n}</p>)}

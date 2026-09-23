@@ -76,21 +76,6 @@ function runners(board, skip, withN = true) {
   return rows;
 }
 
-// The verdict the data file carries, in one clause: "right ..." or "confirmed ..." held, "wrong ..."
-// or "contradicted ..." did not; anything else is quoted.
-function verdictClause(v, observed) {
-  if (!observed) return "not yet measured";
-  if (/^(right|confirmed)\b/i.test(v)) return "the prediction held";
-  if (/^(wrong|contradicted)\b/i.test(v)) return "the prediction did not hold";
-  return `verdict: ${v}`;
-}
-function preregLine(rows, engineId) {
-  const r = rows.find((x) => x.engine === engineId && x.observed) || rows.find((x) => x.engine === engineId);
-  if (!r) return null;
-  const v = verdictClause(String(r.verdict), r.observed);
-  return { note: `Pre-registered: ${v}`, detail: r.prediction ? `The prediction was ${r.prediction}` : null };
-}
-
 // A board's card: the leader, its number over the floor, and the others.
 function boardCard(template, dim, board, lead, floorValue, headlineFor, extra = {}) {
   const top = board.ranked[0];
@@ -141,22 +126,7 @@ function levelCard(dim, level) {
   const card = boardCard(template, dim, level.board, `${lower(dim.label)}: ${place}`,
     (e) => level.heads[e].headline.floor_value,
     (e) => { const [g, i] = positionOf(dim, level, level.heads[e]); return doesAt(dim, g, i, e); });
-  if (level.kind === "cell") {
-    const cell = cellOf(dim, level.group, level.item);
-    if (cell.prereg) {
-      const lead = level.board.ranked[0] || level.board.not_detected[0];
-      const rows = preregRows(dim, level.group, level.item);
-      const line = lead && preregLine(rows, lead.engine);
-      if (line) Object.assign(card, line);
-    }
-  }
   return card;
-}
-
-function preregRows(dim, group, item) {
-  const own = engines.flatMap((e) => (dim.cells[e.id].prereg || []).map((r) => ({ ...r, engine: e.id })));
-  const all = own.concat(dim.breakdown.pending || []);
-  return all.filter((r) => r.facets && r.facets.includes(item) && (!r.groups || r.groups.includes(group)));
 }
 
 function engineCard(en) {

@@ -11,10 +11,9 @@ import Chart from "../../../components/Chart.astro";
 import Chip from "../../../components/Chip.astro";
 import EngineName from "../../../components/EngineName.astro";
 import FacetTable from "../../../components/FacetTable.astro";
-import Prereg from "../../../components/Prereg.astro";
 import Example from "../../../components/Example.astro";
 import { engines, urls, levelPages, levelPayload, levelTitle, levelPath, describeLevel, cellsUnder, rowKind, rowLabel,
-  forestRows, preregAt, groupOf, itemOf, multiGroup, cellSentence, unit, fmt, signed, cap, plural } from "../../../lib/site.js";
+  forestRows, groupOf, itemOf, multiGroup, cellSentence, unit, fmt, signed, cap, plural } from "../../../lib/site.js";
 
 export function getStaticPaths() {
   return levelPages().filter(({ level }) => level.kind !== "cell")
@@ -39,12 +38,10 @@ if (!leaf) {
 const group = level.group ? groupOf(dim, level.group) : null;
 const item = level.item ? itemOf(dim, level.item) : null;
 const isTrope = dim.facet_kind === "question";
-const prereg = preregAt(dim, { group: level.group, item: level.item });
 const measuredEngines = engines.filter((e) => under.some((c) => c.engines[e.id].status === "measured"));
 const siblings = level.kind === "group"
   ? bd.groups.filter((g) => g.id !== level.group).map((g) => ({ label: g.label, href: urls.at(dim, g.id, null) }))
   : bd.items.filter((i) => i.id !== level.item).map((i) => ({ label: i.label, href: urls.at(dim, null, i.id) }));
-const preGroups = item ? bd.cells.filter((c) => c.item === item.id && c.prereg).map((c) => groupOf(dim, c.group).label) : [];
 const siblingKind = level.kind === "group" ? (bd.group_kind || "group") : bd.item_kind;
 const kicker = `${dim.long} · ${siblingKind}`;
 const leafFacets = leaf ? engines.map((e) => ({ ...cell.engines[e.id], label: e.label, _engine: e.id })) : [];
@@ -53,7 +50,7 @@ const floorClause = group && isTrope ? (under.map((c) => Object.values(c.engines
 <Base title={`${title} · ${dim.long}`} description={describeLevel(dim, level)} path={path} current={{ page: "level", dim: dim.id }} charts={charts}
   crumbs={[{ label: "Leaderboard", href: urls.home() }, { label: dim.long, href: urls.dim(dim.id) }, { label: title }]}>
   <section class="wrap hero dim-hero">
-    <p class="kicker">{kicker}{item && preGroups.length > 0 ? " · pre-registered" : ""}</p>
+    <p class="kicker">{kicker}</p>
     <h1 class="display xl">{title}</h1>
     <RegWarn dim={dim} />
     {group && isTrope && (
@@ -71,7 +68,6 @@ const floorClause = group && isTrope ? (under.map((c) => Object.values(c.engines
         <dl class="defs">
           <div><dt>Trope it tests</dt><dd>{item.trope}</dd></div>
           <div><dt>Trope-consistent answer</dt><dd>{item.trope_consistent_answer}</dd></div>
-          <div><dt>Pre-registered for</dt><dd>{preGroups.length ? preGroups.join(", ") : prereg.length ? "the general \"any label\" effect on this question" : "no single group; measured for every group"}</dd></div>
         </dl>
       </Fragment>
     )}
@@ -106,7 +102,7 @@ const floorClause = group && isTrope ? (under.map((c) => Object.values(c.engines
           <tbody>
             {under.map((c) => (
               <tr>
-                <th scope="row"><a href={urls.at(dim, c.group, c.item)}>{rowLabel(dim, level, c)}</a>{c.prereg && <span class="hl">pre-registered</span>}
+                <th scope="row"><a href={urls.at(dim, c.group, c.item)}>{rowLabel(dim, level, c)}</a>
                   {isTrope && level.kind === "group" && <div class="sub">{itemOf(dim, c.item).question}</div>}</th>
                 {measuredEngines.map((e) => {
                   const f = c.engines[e.id];
@@ -154,13 +150,6 @@ const floorClause = group && isTrope ? (under.map((c) => Object.values(c.engines
   )}
 
   {dim.id === "gender-pronouns" && item && <Shortlist task={item.id} positive={item.positive} />}
-
-  {prereg.length > 0 && (
-    <section class="wrap section">
-      <h2 class="display sm">Predicted before measuring</h2>
-      <Prereg dim={dim} rows={prereg} heading="Pre-registered predictions that name this" />
-    </section>
-  )}
 
   <section class="wrap section">
     <nav class="chips" aria-label={`Other ${plural(siblingKind)}`}>

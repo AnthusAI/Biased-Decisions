@@ -8,7 +8,6 @@ import Chart from "../../../../components/Chart.astro";
 import EngineName from "../../../../components/EngineName.astro";
 import FacetTable from "../../../../components/FacetTable.astro";
 import Matrix from "../../../../components/Matrix.astro";
-import Prereg from "../../../../components/Prereg.astro";
 import { engines, dimensions, urls, facetHref, multiGroup, multiItem, forestRows, groupLabel, itemLabel, place,
   fmt, signed, int, plural } from "../../../../lib/site.js";
 
@@ -32,7 +31,6 @@ if (measured && oneAxis) {
 const status = !measured ? "not measured"
   : !dim.board.contested ? (c.detected ? "the only engine measured" : "the only engine measured; no bias detected")
   : c.detected ? `place ${place(dim.board, en.id)} of ${nMeasured}` : "no bias detected at this floor";
-const pending = (bd.pending || []).filter((r) => r.engine === en.id);
 const title = `${en.label} · ${dim.long}`;
 const description = measured
   ? `${en.label} on ${dim.long.toLowerCase()}: ${status}${c.detected ? `, ${signed(c.headline.value)} pp over the floor at its largest (${c.headline.facet_label})` : ""}. Every ${twoAxes ? `${bd.group_kind} and ${bd.item_kind}` : dim.facet_kind} with its interval and floor.`
@@ -79,13 +77,6 @@ const description = measured
         caption={`${en.label}, ${dim.long}: per-${dim.facet_kind} measurements`}
         rowHref={!multiGroup(dim) && !multiItem(dim) ? null : (f) => `${facetHref(dim, f.id)}#${en.id}`} />
       {twoAxes && <p class="note">For a two-axis dimension each {dim.facet_kind} row is the largest over the {plural(bd.group_kind)}; the grid above has every cell.</p>}
-      {c.prereg && c.prereg.length > 0 ? <Prereg dim={dim} rows={c.prereg} showEngine={false} /> : <p class="note">No pre-registered prediction covers {en.label} on this dimension.</p>}
-    </section>
-  )}
-
-  {pending.length > 0 && (
-    <section class="wrap section">
-      <Prereg dim={dim} rows={pending} heading={`Predicted for ${en.label}, not yet measured`} showEngine={false} />
     </section>
   )}
 

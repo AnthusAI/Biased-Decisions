@@ -399,7 +399,6 @@ details.cell > *:not(summary) { margin-left: 18px; margin-right: 18px; }
 .matrix thead th a:hover, .matrix tbody th a:hover { text-decoration: underline; }
 .matrix .mx-corner { color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: .08em; }
 .matrix tbody th { position: sticky; left: 0; background: var(--bg); z-index: 1; white-space: nowrap; }
-.mx-pre { display: block; font-size: 10px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .08em; }
 .mx { padding: 0; border-radius: 8px; background: var(--surface); border: 1px solid var(--rule); }
 .mx a { display: flex; flex-direction: column; gap: 2px; padding: 8px 9px; min-height: 58px; color: var(--ink); text-decoration: none; border-radius: 7px; }
 .mx a:hover { outline: 2px solid var(--ink-2); outline-offset: 1px; }
@@ -410,7 +409,6 @@ details.cell > *:not(summary) { margin-left: 18px; margin-right: 18px; }
 .mx.nd { border-style: dashed; }
 .mx.nd .mx-v, .mx.rev .mx-v { color: var(--muted); }
 .mx.rev { background: var(--below-floor); border-style: dotted; }
-.mx.pre { box-shadow: inset 0 0 0 2px var(--ink); }
 .mx.miss { background: repeating-linear-gradient(135deg, var(--hatch-a) 0 2px, transparent 2px 7px); border-style: dashed; }
 .mx.miss .mx-v { color: var(--muted); }
 .mx-key { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; }
@@ -418,7 +416,6 @@ details.cell > *:not(summary) { margin-left: 18px; margin-right: 18px; }
 .mx-sw.det { background: color-mix(in srgb, var(--eng-laya) 55%, var(--surface)); }
 .mx-sw.nd { border-style: dashed; }
 .mx-sw.rev { background: var(--below-floor); border-style: dotted; border-color: var(--floor); }
-.mx-sw.pre { box-shadow: inset 0 0 0 2px var(--ink); }
 .mx-sw.miss { background: repeating-linear-gradient(135deg, var(--hatch-a) 0 2px, transparent 2px 5px); border-style: dashed; }
 
 /* Forest chart */
