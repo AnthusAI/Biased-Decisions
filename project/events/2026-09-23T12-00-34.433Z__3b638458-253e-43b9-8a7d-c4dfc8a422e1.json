@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "event_id": "3b638458-253e-43b9-8a7d-c4dfc8a422e1",
+  "issue_id": "BD-250c97a3-6ae4-4061-8d67-dbfd02bf9549",
+  "event_type": "issue_created",
+  "occurred_at": "2026-09-23T12:00:34.433Z",
+  "actor_id": "home",
+  "payload": {
+    "title": "Expand model coverage",
+    "description": "Every credible fast decision model measured on the same tasks, cues and floors, with adapters that run on Apple silicon, CPU and CUDA. Holds the Kev epic and the open-models epic. Sibling of the programme initiative BD-8781dd, which owns the harness and the studies.",
+    "issue_type": "initiative",
+    "status": "open",
+    "priority": 2,
+    "assignee": null,
+    "parent": null,
+    "labels": [],
+    "agent": {
+      "platform": "claude-code",
+      "model": "claude-fable-5-1"
+    }
+  }
+}

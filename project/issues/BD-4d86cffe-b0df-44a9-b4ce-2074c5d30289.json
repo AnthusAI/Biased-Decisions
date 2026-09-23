@@ -7,20 +7,23 @@
   "priority": 2,
   "assignee": null,
   "creator": null,
-  "parent": null,
+  "parent": "BD-250c97a3-6ae4-4061-8d67-dbfd02bf9549",
   "labels": [
     "engines"
   ],
   "dependencies": [],
   "comments": [],
   "created_at": "2026-09-23T11:47:34.718117Z",
-  "updated_at": "2026-09-23T11:47:34.718145Z",
+  "updated_at": "2026-09-23T12:00:37.123596Z",
   "closed_at": null,
   "agent": {
     "platform": "claude-code",
     "model": "claude-fable-5-1"
   },
-  "right_now_summary": "Adapters and cross-hardware benchmarks are being built for several open decision models.",
-  "right_now_updated_at": "2026-09-23T11:49:55.424563Z",
-  "custom": {}
+  "right_now_summary": "The team is building adapters and testing open decision models across CPU, CUDA, and MPS.",
+  "right_now_updated_at": "2026-09-23T12:00:39.080306Z",
+  "custom": {
+    "project_label": "BD",
+    "source": "shared"
+  }
 }
