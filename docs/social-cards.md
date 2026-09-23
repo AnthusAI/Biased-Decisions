@@ -15,10 +15,7 @@ the built site.
 - **Fonts are embedded**, pinned by `site/package-lock.json`: Jersey 25 (display) and Montserrat
   (text), from the `@fontsource/jersey-25` and `@fontsource/montserrat` packages (WOFF, latin
   subset). Both are under the SIL Open Font License 1.1; the licence texts ship in those packages.
-- **Palette tokens from the site**: the card ground is the site's ink `#0c1e2b`, text `#e8f2f8`
-  and `#bccbd6`, muted `#97a9b6`, floor grey `#8a949c`, and each engine's dark-theme colour from the
-  data contract. Every text colour meets WCAG AA (4.5:1) on the ground; engine colours are used
-  only for markers, never for text.
+- **Palette tokens from the site**: cards are light (ground `#f1f9fe`), board cards show horizontal bars most biased first, engine cards show a spider chart, and cell and engine-by-dimension cards keep one big number. Every text colour meets WCAG AA (4.5:1) on the ground; engine colours are used only for markers, never for text.
 
 ## Geometry
 

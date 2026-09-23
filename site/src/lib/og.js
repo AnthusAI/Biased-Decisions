@@ -12,13 +12,12 @@ const fontFile = (pkg, file) => readFileSync(require.resolve(`${pkg}/files/${fil
 export const W = 1200;
 export const H = 630;
 
-// Palette tokens from site.css (dark ground), every text colour AA on the ground.
-const C = { ground: "#0c1e2b", ink: "#e8f2f8", ink2: "#bccbd6", muted: "#97a9b6", floor: "#8a949c", rule: "#283b48", accent: "#e8579b",
-  // The alarm red, only for regulated-decision cards; the ground's ink on it is AA.
-  alarm: "#f5475e", onAlarm: "#0c1e2b" };
+// Palette tokens from site.css (light ground); every text colour AA on the ground.
+const C = { ground: "#f1f9fe", ink: "#0c1e2b", ink2: "#33485a", muted: "#5b6f7d", floor: "#8a949c", rule: "#d5e3ec", track: "#e3eef5", accent: "#c8102e",
+  alarm: "#c8102e", onAlarm: "#ffffff" };
 
 // The warning triangle, drawn in the alarm red with the ground showing through the exclamation.
-const triangle = (size, fill, glyph) => ({ type: "svg", props: { width: size, height: size, viewBox: "0 0 20 20", style: { flexShrink: 0 },
+const triangle = (size, fill, glyph) => ({ type: "svg", props: { width: size, height: size, viewBox: "0 0 20 20", style: { display: 'flex', flexShrink: 0 },
   children: [{ type: "path", props: { d: "M10 1.6 19.2 18H.8Z", fill } }, { type: "path", props: { d: "M9 7h2v5.4H9zM9 13.8h2V16H9z", fill: glyph } }] } });
 
 let fonts = null;
@@ -51,17 +50,32 @@ const el = (type, style, ...children) => ({ type, props: { style, children: chil
 
 function marker(engineId, size) {
   const e = engineById[engineId];
-  const fill = e.color_dark || e.color;
+  const fill = e.color;
   const shape = e.marker === "square" ? { type: "rect", props: { x: 3, y: 3, width: 18, height: 18, rx: 2, fill } }
     : e.marker === "diamond" ? { type: "path", props: { d: "M12 1 L23 12 L12 23 L1 12 Z", fill } }
     : { type: "circle", props: { cx: 12, cy: 12, r: 10, fill } };
-  return { type: "svg", props: { width: size, height: size, viewBox: "0 0 24 24", style: { flexShrink: 0 }, children: [shape] } };
+  return { type: "svg", props: { width: size, height: size, viewBox: "0 0 24 24", style: { display: 'flex', flexShrink: 0 }, children: [shape] } };
 }
 
 // The card as a Satori tree. Key content (headline, number) sits in the central column.
 export function cardTree(card) {
   const headSize = card.headline.length > 64 ? 44 : 48;
   const numberSize = 120;
+
+  // Helper to build bars section
+  function barsSection() {
+    const max = Math.max(...card.bars.map(x => x.value || 0), 1);
+    return el("div", { display: "flex", flexDirection: "column", alignItems: "center", marginTop: 22, width: 1040, gap: 16 },
+      card.bars.map((b) =>
+        el("div", { display: "flex", alignItems: "center", height: 64 },
+          marker(b.engine, 40),
+          el("div", { fontSize: 40, fontWeight: 700, width: 230, marginLeft: 14, color: C.ink }, engineById[b.engine].label),
+          el("div", { width: 520, height: 40, backgroundColor: C.track, borderRadius: 6, display: "flex" },
+            b.value > 0 ? el("div", { width: Math.max(8, Math.round(520 * b.value / max)), height: 40, borderRadius: 6, backgroundColor: engineById[b.engine].color }) : null),
+          el("div", { fontSize: 40, fontWeight: 600, marginLeft: 18, color: b.value > 0 ? C.alarm : C.muted }, b.text))),
+      el("div", { fontSize: 30, color: C.muted, marginTop: 6 }, card.numberNote));
+  }
+
   return el("div", { width: W, height: H, display: "flex", flexDirection: "column", alignItems: "center",
     backgroundColor: C.ground, color: C.ink, fontFamily: "Montserrat", padding: "34px 48px 30px", position: "relative" },
     // furniture: the wordmark and the release stamp
@@ -75,17 +89,18 @@ export function cardTree(card) {
     // 1: headline
     el("div", { display: "flex", marginTop: 66, width: 660, justifyContent: "center", textAlign: "center",
       fontSize: headSize, fontWeight: 700, lineHeight: 1.14, color: C.ink }, card.headline),
-    // 2: the number with its floor
-    card.number ? el("div", { display: "flex", flexDirection: "column", alignItems: "center", marginTop: 8 },
-      el("div", { display: "flex", alignItems: "center", gap: 24, fontFamily: "Jersey 25", fontSize: numberSize, lineHeight: 1, color: card.alarm ? C.alarm : "#ffffff" },
+    // 2: the number or bars
+    card.bars ? barsSection() : card.number ? el("div", { display: "flex", flexDirection: "column", alignItems: "center", marginTop: 8 },
+      el("div", { display: "flex", alignItems: "center", gap: 24, fontFamily: "Jersey 25", fontSize: numberSize, lineHeight: 1, color: card.alarm || card.biasNumber ? C.alarm : C.ink },
         card.alarm ? triangle(96, C.alarm, C.ground) : null, card.number),
       el("div", { display: "flex", fontSize: 40, fontWeight: 500, color: C.ink2, marginTop: 2, textAlign: "center" }, card.numberNote)) : null,
     // 3: the pre-registered outcome, or the runners-up
     el("div", { display: "flex", flexDirection: "column", alignItems: "center", marginTop: "auto", gap: 6 },
       card.note ? el("div", { display: "flex", fontSize: 40, fontWeight: 600, color: C.ink, textAlign: "center", maxWidth: 1100 }, card.note) : null,
-      card.rows.map((r) => el("div", { display: "flex", alignItems: "center", fontSize: 40, fontWeight: 500, color: C.ink2, maxWidth: 1100 },
-        r.engine ? marker(r.engine, 34) : null,
-        el("span", { marginLeft: r.engine ? 14 : 0 }, r.text)))),
+      card.bars ? el("div", { display: "flex" }) : el("div", { display: "flex", flexDirection: "column", gap: 6, alignItems: "center" },
+        card.rows.map((r) => el("div", { display: "flex", alignItems: "center", fontSize: 40, fontWeight: 500, color: C.ink2, maxWidth: 1100 },
+          r.engine ? marker(r.engine, 34) : null,
+          el("span", { marginLeft: r.engine ? 14 : 0 }, r.text))))),
   );
 }
 

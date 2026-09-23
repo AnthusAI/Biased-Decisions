@@ -76,12 +76,20 @@ function runners(board, skip, withN = true) {
   return rows;
 }
 
+function barsOf(board, limit = 4) {
+  const rows = [];
+  for (const r of board.ranked) rows.push({ engine: r.engine, value: r.value, text: `${signed(r.value)} pts` });
+  for (const r of board.not_detected) rows.push({ engine: r.engine, value: 0, text: "no bias detected at this floor" });
+  for (const id of board.unmeasured) rows.push({ engine: id, value: null, text: "not measured" });
+  return rows.slice(0, limit);
+}
+
 // A board's card: the leader, its number over the floor, and the others.
 function boardCard(template, dim, board, lead, floorValue, headlineFor, extra = {}) {
   const top = board.ranked[0];
   if (top) {
     return { template, headline: headlineFor(top.engine), number: `${signed(top.value)} pts`,
-      numberNote: floorText(dim, floorValue(top.engine)), rows: runners(board, top.engine), ...extra };
+      numberNote: floorText(dim, floorValue(top.engine)), rows: runners(board, top.engine), biasNumber: true, ...extra };
   }
   const nd = board.not_detected;
   if (nd.length) {
@@ -171,7 +179,7 @@ function engineDimCard(en, dim) {
   const [g, it] = dimPositionOf(dim, en.id);
   return { template: "engine-dim", headline, number: `${signed(c.headline.value)} pts`,
     numberNote: `${floorText(dim, c.headline.floor_value)}, on ${g ? `${groupOf(dim, g).label} · ` : ""}${it ? itemOf(dim, it).label : c.headline.facet_label}`,
-    rows: [count] };
+    rows: [count], biasNumber: true };
 }
 
 // ---------------------------------------------------------------------------------------------
