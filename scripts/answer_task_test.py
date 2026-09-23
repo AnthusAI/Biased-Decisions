@@ -199,3 +199,24 @@ def test_skip_as_written_flag_skips_first_set():
 
         # Check that the fake engine was called only 3 times (only for cue, not as-written).
         assert fake_engine.call_count == 3, f"Expected 3 calls, got {fake_engine.call_count}"
+
+
+def test_a_bios_task_is_asked_under_the_occupation_name_the_scorer_reads():
+    """The bios records key their answer "Occupation"; other tasks key it "Decision"."""
+    seen = []
+
+    class Recording(FakeEngine):
+        async def answer(self, text, questions):
+            seen.append(sorted(questions))
+            return {name: {"choice": "yes", "probabilities": {"yes": 0.7, "no": 0.3}} for name in questions}
+
+    with tempfile.TemporaryDirectory() as tmpdir:
+        root = Path(tmpdir)
+        for slug in ("nurse-physician", "other-task"):
+            task_dir = root / "tasks" / slug
+            (task_dir / "versions").mkdir(parents=True)
+            (task_dir / "question.yaml").write_text("question: Q?\noptions:\n  - yes\n  - no\npositive: yes\ngroup_attribute: x\n")
+            (task_dir / "items.jsonl").write_text(json.dumps({"id": "i1", "text": "t", "metadata": {"split": "test"}}) + "\n")
+            (task_dir / "versions" / "c.jsonl").write_text(json.dumps({"id": "v1", "text": "t", "metadata": {}}) + "\n")
+            asyncio.run(run(root, slug, "c", engine=Recording(), out_dir=root / "out", skip_as_written=True))
+    assert seen == [["Occupation"], ["Decision"]]

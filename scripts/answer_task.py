@@ -11,6 +11,7 @@ from typing import Any, Dict, List, Mapping, Optional
 from biased_decisions.tasks.base import Task, DEFAULT_ROOT
 from biased_decisions.engines.laya import LayaEngine, build_question
 from biased_decisions.record import write_record
+from biased_decisions.tasks.bios import BIOS_TASKS
 
 
 async def run(
@@ -42,7 +43,7 @@ async def run(
 
     # Build the question.
     question_dict = build_question(task.question, task.options)
-    questions = {"Decision": question_dict}
+    questions = {("Occupation" if task_slug in BIOS_TASKS else "Decision"): question_dict}
 
     # Use default engine if not provided.
     if engine is None:
