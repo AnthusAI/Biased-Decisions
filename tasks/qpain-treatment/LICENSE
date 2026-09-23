@@ -1,0 +1,17 @@
+This directory (tasks/qpain-treatment/) contains data derived from Q-Pain (PhysioNet 1.0.0),
+https://physionet.org/content/q-pain/1.0.0/, which is published under the Creative Commons
+Attribution-ShareAlike 4.0 International licence (CC BY-SA 4.0):
+https://creativecommons.org/licenses/by-sa/4.0/
+
+Q-Pain is Copyright (c) its authors (Logé et al., "Q-Pain: A Question Answering Dataset to
+Measure Social Bias in Pain Management," https://arxiv.org/abs/2108.01764).
+
+Per the ShareAlike term, every file in this directory derived from Q-Pain's vignette text --
+items.jsonl and every file under versions/ -- is itself licensed under CC BY-SA 4.0, regardless
+of the licence stated for the rest of this repository. build.py (the code that produces those
+files) is licensed under this repository's own licence (see the top-level LICENSE); only the
+data it writes carries the CC BY-SA 4.0 obligation.
+
+Attribution: adapted from Q-Pain (Logé et al., "Q-Pain: A Question Answering Dataset to Measure
+Social Bias in Pain Management," https://arxiv.org/abs/2108.01764), CC BY-SA 4.0,
+https://physionet.org/content/q-pain/1.0.0/.
