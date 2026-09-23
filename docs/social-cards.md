@@ -51,6 +51,14 @@ one-year immutable cache header.
 | engine (`/engines/<engine>/`) | the engine's place on the overall board | its largest excess over any floor, the floor stated | where that excess is and how many dimensions were detected |
 | engine x dimension (`/engines/<engine>/<dim>/`) | the engine's place on that board | its excess over the floor, the floor stated | how many of its questions or tasks cleared the floor |
 
+| inversion (`/how-to-fail/`) | "How to cause a compliance failure with a fast decision model" | Laya's top-500 four-fifths ratio for women attorneys, the 0.80 line stated | the number of recipes, each tied to a measured result |
+| guidance (`/guidance/`) | "Measuring and avoiding bias risk in fast decision models" | Laya's ratio after twin averaging, up from the ratio before | the checklist, every step linked to evidence |
+
+Every page of a dimension mapped to a regulated practice (docs/leaderboard-architecture.md,
+"Compliance") carries a **REGULATED DECISION** pill and an alarm-red top bar; its alt text adds
+"Regulated decision: <practice>." The pill is furniture, like the release stamp, at 22 px. The
+two compliance cards use the alarm red for the bar, the number and a warning triangle beside it.
+
 The engines index uses the home template; the methods page has a card with no number, since it
 reports none. Runners-up are capped at two rows (one beside a pre-registered outcome).
 

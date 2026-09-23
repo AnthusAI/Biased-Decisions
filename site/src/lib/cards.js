@@ -240,7 +240,7 @@ function titledCard(template, headline) {
 // Every page's card, by page path.
 // ---------------------------------------------------------------------------------------------
 // Bump LAYOUT when og.js draws the same content differently, so card URLs change with the pixels.
-const LAYOUT = 5;
+const LAYOUT = 6;
 const hashOf = (card) => createHash("sha256").update(JSON.stringify({ LAYOUT, card })).digest("hex").slice(0, 10);
 
 function finish(path, card) {

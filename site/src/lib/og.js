@@ -15,7 +15,7 @@ export const H = 630;
 // Palette tokens from site.css (dark ground), every text colour AA on the ground.
 const C = { ground: "#0c1e2b", ink: "#e8f2f8", ink2: "#bccbd6", muted: "#97a9b6", floor: "#8a949c", rule: "#283b48", accent: "#e8579b",
   // The alarm red, only for regulated-decision cards; the ground's ink on it is AA.
-  alarm: "#ff5a6e", onAlarm: "#0c1e2b" };
+  alarm: "#f5475e", onAlarm: "#0c1e2b" };
 
 // The warning triangle, drawn in the alarm red with the ground showing through the exclamation.
 const triangle = (size, fill, glyph) => ({ type: "svg", props: { width: size, height: size, viewBox: "0 0 20 20", style: { flexShrink: 0 },
