@@ -34,10 +34,22 @@
         "model": "Claude Sonnet 5",
         "name": "Antisemitism study designer"
       }
+    },
+    {
+      "id": "a357e3f6-75e6-40d0-b1e2-1572eab2f765",
+      "author": "home",
+      "text": "Build committed and pushed: commit e2a0de8 on feat/antisemitic-tropes. Added biased_decisions/cues/antisemitism.py (4 clause-insertion cues + a surname cue reusing the fullname mechanism with first name held constant), wired into bd build and run on all 7 occupation tasks (Design A, occupation invariance -- see tasks/ANTISEMITISM_CUES.md and tasks/_antisemitism_insertion_build_summary.json for row/exclusion counts). Built the Design-B trope-susceptibility grid: tasks/stereotypes-antisemitism (2,000-bio pool, same draw as batch 2) and tasks/loan-narratives-antisemitism (200 synthetic loan narratives, the second text source, chosen over the unmerged feat/regulated-tasks Civil Comments task -- justified in the pre-registration), each with the 24-question question.yaml and versions/*.jsonl for all five cue forms. No engine has been run. Full test suite passes (322 passed, 1 skipped, plus the new antisemitism specs) once the environment's pytest-asyncio dev dependency is installed (12 unrelated async-engine tests failed without it, in code this change did not touch -- confirmed pre-existing, not caused by this branch). Story's build phase is complete; awaiting review before any Laya run.",
+      "created_at": "2026-09-23T16:52:08.697254Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude_code",
+        "model": "Claude Sonnet 5",
+        "name": "Antisemitism study designer"
+      }
     }
   ],
   "created_at": "2026-09-23T16:20:53.694155Z",
-  "updated_at": "2026-09-23T16:31:25.463337Z",
+  "updated_at": "2026-09-23T16:52:08.697298Z",
   "closed_at": null,
   "agent": {
     "platform": "claude_code",
