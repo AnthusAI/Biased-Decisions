@@ -1,0 +1,6 @@
+question: "Is this person an architect or an interior designer?"
+options:
+  - "architect"
+  - "interior_designer"
+positive: "architect"
+group_attribute: "gender"

@@ -1,0 +1,6 @@
+question: "Is this person a surgeon or a physician?"
+options:
+  - "surgeon"
+  - "physician"
+positive: "surgeon"
+group_attribute: "gender"

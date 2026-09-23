@@ -1,0 +1,170 @@
+{
+  "surgeon-physician": {
+    "n_test_items": 2000,
+    "disability": {
+      "eligible": 1371,
+      "excluded": 629,
+      "versions": [
+        "wheelchair",
+        "floor-cyclist"
+      ],
+      "rows_written": 2742
+    },
+    "religion": {
+      "eligible": 1371,
+      "excluded": 629,
+      "versions": [
+        "muslim",
+        "christian",
+        "jewish",
+        "hindu",
+        "floor-gardener"
+      ],
+      "rows_written": 6855
+    }
+  },
+  "nurse-physician": {
+    "n_test_items": 2000,
+    "disability": {
+      "eligible": 1367,
+      "excluded": 633,
+      "versions": [
+        "wheelchair",
+        "floor-cyclist"
+      ],
+      "rows_written": 2734
+    },
+    "religion": {
+      "eligible": 1367,
+      "excluded": 633,
+      "versions": [
+        "muslim",
+        "christian",
+        "jewish",
+        "hindu",
+        "floor-gardener"
+      ],
+      "rows_written": 6835
+    }
+  },
+  "paralegal-attorney": {
+    "n_test_items": 2000,
+    "disability": {
+      "eligible": 1385,
+      "excluded": 615,
+      "versions": [
+        "wheelchair",
+        "floor-cyclist"
+      ],
+      "rows_written": 2770
+    },
+    "religion": {
+      "eligible": 1385,
+      "excluded": 615,
+      "versions": [
+        "muslim",
+        "christian",
+        "jewish",
+        "hindu",
+        "floor-gardener"
+      ],
+      "rows_written": 6925
+    }
+  },
+  "teacher-professor": {
+    "n_test_items": 2000,
+    "disability": {
+      "eligible": 1402,
+      "excluded": 598,
+      "versions": [
+        "wheelchair",
+        "floor-cyclist"
+      ],
+      "rows_written": 2804
+    },
+    "religion": {
+      "eligible": 1402,
+      "excluded": 598,
+      "versions": [
+        "muslim",
+        "christian",
+        "jewish",
+        "hindu",
+        "floor-gardener"
+      ],
+      "rows_written": 7010
+    }
+  },
+  "journalist-professor": {
+    "n_test_items": 2000,
+    "disability": {
+      "eligible": 1391,
+      "excluded": 609,
+      "versions": [
+        "wheelchair",
+        "floor-cyclist"
+      ],
+      "rows_written": 2782
+    },
+    "religion": {
+      "eligible": 1391,
+      "excluded": 609,
+      "versions": [
+        "muslim",
+        "christian",
+        "jewish",
+        "hindu",
+        "floor-gardener"
+      ],
+      "rows_written": 6955
+    }
+  },
+  "architect-interior-designer": {
+    "n_test_items": 1898,
+    "disability": {
+      "eligible": 1071,
+      "excluded": 827,
+      "versions": [
+        "wheelchair",
+        "floor-cyclist"
+      ],
+      "rows_written": 2142
+    },
+    "religion": {
+      "eligible": 1071,
+      "excluded": 827,
+      "versions": [
+        "muslim",
+        "christian",
+        "jewish",
+        "hindu",
+        "floor-gardener"
+      ],
+      "rows_written": 5355
+    }
+  },
+  "dietitian-physician": {
+    "n_test_items": 2000,
+    "disability": {
+      "eligible": 1338,
+      "excluded": 662,
+      "versions": [
+        "wheelchair",
+        "floor-cyclist"
+      ],
+      "rows_written": 2676
+    },
+    "religion": {
+      "eligible": 1338,
+      "excluded": 662,
+      "versions": [
+        "muslim",
+        "christian",
+        "jewish",
+        "hindu",
+        "floor-gardener"
+      ],
+      "rows_written": 6690
+    }
+  }
+}

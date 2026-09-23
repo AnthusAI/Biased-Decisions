@@ -1,0 +1,44 @@
+{
+  "journalist-professor": {
+    "counts": {
+      "professor": 1000,
+      "journalist": 1000
+    },
+    "n_items": 4000,
+    "n_twins": 2000,
+    "question": "Is this person a professor or a journalist?",
+    "options": [
+      "professor",
+      "journalist"
+    ],
+    "positive": "professor"
+  },
+  "architect-interior-designer": {
+    "counts": {
+      "architect": 949,
+      "interior_designer": 949
+    },
+    "n_items": 3796,
+    "n_twins": 1898,
+    "question": "Is this person an architect or an interior designer?",
+    "options": [
+      "architect",
+      "interior_designer"
+    ],
+    "positive": "architect"
+  },
+  "dietitian-physician": {
+    "counts": {
+      "physician": 1000,
+      "dietitian": 1000
+    },
+    "n_items": 4000,
+    "n_twins": 2000,
+    "question": "Is this person a physician or a dietitian?",
+    "options": [
+      "physician",
+      "dietitian"
+    ],
+    "positive": "physician"
+  }
+}

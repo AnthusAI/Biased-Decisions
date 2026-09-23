@@ -1,0 +1,164 @@
+
+### journalist-professor / gender-pronouns
+- rows: 4000 (committed order ['professor', 'journalist'])
+- already done (resumed): 0
+- to send this run: 4000
+- running total before this file: 1
+- running total after this file (if sent in full): 4001
+  journalist-professor/gender-pronouns: 500/4000  68.7 items/s
+  journalist-professor/gender-pronouns: 1000/4000  70.3 items/s
+  journalist-professor/gender-pronouns: 1500/4000  69.6 items/s
+  journalist-professor/gender-pronouns: 2000/4000  68.7 items/s
+  journalist-professor/gender-pronouns: 2500/4000  68.2 items/s
+  journalist-professor/gender-pronouns: 3000/4000  67.9 items/s
+  journalist-professor/gender-pronouns: 3500/4000  67.5 items/s
+  journalist-professor/gender-pronouns: 4000/4000  67.4 items/s
+- sent 4000 requests, 1,537,513 input tokens, 150,058 output tokens
+  wrote /private/tmp/claude-502/-Users-home-Projects-Jev-Flywheel/ec26581d-20b5-4dd7-9595-9808dd48d9d5/scratchpad/batch1/answers/jev/journalist-professor/gender-pronouns.jsonl.gz (0.05 MB)
+
+### architect-interior-designer / gender-pronouns
+- rows: 3796 (committed order ['architect', 'interior_designer'])
+- already done (resumed): 0
+- to send this run: 3796
+- running total before this file: 4001
+- running total after this file (if sent in full): 7797
+  architect-interior-designer/gender-pronouns: 500/3796  63.7 items/s
+  architect-interior-designer/gender-pronouns: 1000/3796  64.5 items/s
+  architect-interior-designer/gender-pronouns: 1500/3796  65.2 items/s
+  architect-interior-designer/gender-pronouns: 2000/3796  65.9 items/s
+  architect-interior-designer/gender-pronouns: 2500/3796  66.0 items/s
+  architect-interior-designer/gender-pronouns: 3000/3796  66.5 items/s
+  architect-interior-designer/gender-pronouns: 3500/3796  66.6 items/s
+- sent 3796 requests, 1,444,676 input tokens, 153,557 output tokens
+  wrote /private/tmp/claude-502/-Users-home-Projects-Jev-Flywheel/ec26581d-20b5-4dd7-9595-9808dd48d9d5/scratchpad/batch1/answers/jev/architect-interior-designer/gender-pronouns.jsonl.gz (0.06 MB)
+
+### dietitian-physician / gender-pronouns
+- rows: 4000 (committed order ['physician', 'dietitian'])
+- already done (resumed): 0
+- to send this run: 4000
+- running total before this file: 7797
+- running total after this file (if sent in full): 11797
+  dietitian-physician/gender-pronouns: 500/4000  68.7 items/s
+  dietitian-physician/gender-pronouns: 1000/4000  69.6 items/s
+  dietitian-physician/gender-pronouns: 1500/4000  70.8 items/s
+  dietitian-physician/gender-pronouns: 2000/4000  71.4 items/s
+  dietitian-physician/gender-pronouns: 2500/4000  71.4 items/s
+  dietitian-physician/gender-pronouns: 3000/4000  71.4 items/s
+  dietitian-physician/gender-pronouns: 3500/4000  70.4 items/s
+  dietitian-physician/gender-pronouns: 4000/4000  69.7 items/s
+- sent 4000 requests, 1,516,899 input tokens, 144,000 output tokens
+  wrote /private/tmp/claude-502/-Users-home-Projects-Jev-Flywheel/ec26581d-20b5-4dd7-9595-9808dd48d9d5/scratchpad/batch1/answers/jev/dietitian-physician/gender-pronouns.jsonl.gz (0.05 MB)
+
+### paralegal-attorney / disability
+- rows: 2770 (committed order ['attorney', 'paralegal'])
+- already done (resumed): 0
+- to send this run: 2770
+- running total before this file: 11797
+- running total after this file (if sent in full): 14567
+  paralegal-attorney/disability: 500/2770  65.4 items/s
+  paralegal-attorney/disability: 1000/2770  66.7 items/s
+  paralegal-attorney/disability: 1500/2770  66.4 items/s
+  paralegal-attorney/disability: 2000/2770  66.8 items/s
+  paralegal-attorney/disability: 2500/2770  66.9 items/s
+- sent 2770 requests, 1,069,269 input tokens, 103,660 output tokens
+  wrote /private/tmp/claude-502/-Users-home-Projects-Jev-Flywheel/ec26581d-20b5-4dd7-9595-9808dd48d9d5/scratchpad/batch1/answers/jev/paralegal-attorney/disability.jsonl.gz (0.04 MB)
+
+### surgeon-physician / disability
+- rows: 2742 (committed order ['surgeon', 'physician'])
+- already done (resumed): 0
+- to send this run: 2742
+- running total before this file: 14567
+- running total after this file (if sent in full): 17309
+  surgeon-physician/disability: 500/2742  64.8 items/s
+  surgeon-physician/disability: 1000/2742  65.1 items/s
+  surgeon-physician/disability: 1500/2742  65.2 items/s
+  surgeon-physician/disability: 2000/2742  64.7 items/s
+  surgeon-physician/disability: 2500/2742  64.4 items/s
+- sent 2742 requests, 1,078,175 input tokens, 102,641 output tokens
+  wrote /private/tmp/claude-502/-Users-home-Projects-Jev-Flywheel/ec26581d-20b5-4dd7-9595-9808dd48d9d5/scratchpad/batch1/answers/jev/surgeon-physician/disability.jsonl.gz (0.04 MB)
+
+### surgeon-physician / ask-twice
+- rows: 500 (committed order ['surgeon', 'physician'])
+- already done (resumed): 0
+- to send this run: 500
+- running total before this file: 17309
+- running total after this file (if sent in full): 17809
+  surgeon-physician/ask-twice: 500/500  64.3 items/s
+- sent 500 requests, 191,986 input tokens, 18,702 output tokens
+  wrote /private/tmp/claude-502/-Users-home-Projects-Jev-Flywheel/ec26581d-20b5-4dd7-9595-9808dd48d9d5/scratchpad/batch1/answers/jev/surgeon-physician/ask-twice.jsonl.gz (0.01 MB)
+
+### nurse-physician / ask-twice
+- rows: 500 (committed order ['physician', 'nurse'])
+- already done (resumed): 0
+- to send this run: 500
+- running total before this file: 17809
+- running total after this file (if sent in full): 18309
+  nurse-physician/ask-twice: 500/500  63.6 items/s
+- sent 500 requests, 190,603 input tokens, 18,000 output tokens
+  wrote /private/tmp/claude-502/-Users-home-Projects-Jev-Flywheel/ec26581d-20b5-4dd7-9595-9808dd48d9d5/scratchpad/batch1/answers/jev/nurse-physician/ask-twice.jsonl.gz (0.01 MB)
+
+### paralegal-attorney / ask-twice
+- rows: 500 (committed order ['attorney', 'paralegal'])
+- already done (resumed): 0
+- to send this run: 500
+- running total before this file: 18309
+- running total after this file (if sent in full): 18809
+  paralegal-attorney/ask-twice: 500/500  64.9 items/s
+- sent 500 requests, 191,467 input tokens, 18,707 output tokens
+  wrote /private/tmp/claude-502/-Users-home-Projects-Jev-Flywheel/ec26581d-20b5-4dd7-9595-9808dd48d9d5/scratchpad/batch1/answers/jev/paralegal-attorney/ask-twice.jsonl.gz (0.01 MB)
+
+### teacher-professor / ask-twice
+- rows: 500 (committed order ['professor', 'teacher'])
+- already done (resumed): 0
+- to send this run: 500
+- running total before this file: 18809
+- running total after this file (if sent in full): 19309
+  teacher-professor/ask-twice: 500/500  61.6 items/s
+- sent 500 requests, 193,006 input tokens, 17,984 output tokens
+  wrote /private/tmp/claude-502/-Users-home-Projects-Jev-Flywheel/ec26581d-20b5-4dd7-9595-9808dd48d9d5/scratchpad/batch1/answers/jev/teacher-professor/ask-twice.jsonl.gz (0.01 MB)
+
+### surgeon-physician / option-order-reversed
+- rows: 500 (reversed order ['physician', 'surgeon'] (committed was ['surgeon', 'physician']))
+- already done (resumed): 0
+- to send this run: 500
+- running total before this file: 19309
+- running total after this file (if sent in full): 19809
+  surgeon-physician/option-order-reversed: 500/500  61.1 items/s
+- sent 500 requests, 191,986 input tokens, 18,702 output tokens
+  wrote /private/tmp/claude-502/-Users-home-Projects-Jev-Flywheel/ec26581d-20b5-4dd7-9595-9808dd48d9d5/scratchpad/batch1/answers/jev/surgeon-physician/option-order-reversed.jsonl.gz (0.01 MB)
+
+### nurse-physician / option-order-reversed
+- rows: 500 (reversed order ['nurse', 'physician'] (committed was ['physician', 'nurse']))
+- already done (resumed): 0
+- to send this run: 500
+- running total before this file: 19809
+- running total after this file (if sent in full): 20309
+  nurse-physician/option-order-reversed: 500/500  64.5 items/s
+- sent 500 requests, 190,603 input tokens, 18,000 output tokens
+  wrote /private/tmp/claude-502/-Users-home-Projects-Jev-Flywheel/ec26581d-20b5-4dd7-9595-9808dd48d9d5/scratchpad/batch1/answers/jev/nurse-physician/option-order-reversed.jsonl.gz (0.01 MB)
+
+### paralegal-attorney / option-order-reversed
+- rows: 500 (reversed order ['paralegal', 'attorney'] (committed was ['attorney', 'paralegal']))
+- already done (resumed): 0
+- to send this run: 500
+- running total before this file: 20309
+- running total after this file (if sent in full): 20809
+  paralegal-attorney/option-order-reversed: 500/500  61.8 items/s
+- sent 500 requests, 191,467 input tokens, 18,711 output tokens
+  wrote /private/tmp/claude-502/-Users-home-Projects-Jev-Flywheel/ec26581d-20b5-4dd7-9595-9808dd48d9d5/scratchpad/batch1/answers/jev/paralegal-attorney/option-order-reversed.jsonl.gz (0.01 MB)
+
+### teacher-professor / option-order-reversed
+- rows: 500 (reversed order ['teacher', 'professor'] (committed was ['professor', 'teacher']))
+- already done (resumed): 0
+- to send this run: 500
+- running total before this file: 20809
+- running total after this file (if sent in full): 21309
+  teacher-professor/option-order-reversed: 500/500  65.5 items/s
+- sent 500 requests, 193,006 input tokens, 17,966 output tokens
+  wrote /private/tmp/claude-502/-Users-home-Projects-Jev-Flywheel/ec26581d-20b5-4dd7-9595-9808dd48d9d5/scratchpad/batch1/answers/jev/teacher-professor/option-order-reversed.jsonl.gz (0.01 MB)
+
+## Run summary
+- total requests sent this run: 21309
+- total requests actually sent (API calls) this run: 21308
+- total input tokens this run: 8,180,656
+- total output tokens this run: 800,688
