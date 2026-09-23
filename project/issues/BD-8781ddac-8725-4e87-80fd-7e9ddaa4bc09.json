@@ -18,8 +18,8 @@
     "platform": "claude-code",
     "model": "claude-fable-5-1"
   },
-  "right_now_summary": "The team is running bias studies, expanding tests, and building replayable reports across models and hardware.",
-  "right_now_updated_at": "2026-09-23T16:19:51.635850Z",
+  "right_now_summary": "The team is running bias studies, expanding tests, and building replayable reports across models.",
+  "right_now_updated_at": "2026-09-23T16:21:08.307215Z",
   "custom": {
     "project_label": "BD",
     "source": "shared"
