@@ -3,7 +3,7 @@
   "title": "Civil Comments identity subset: moderation decision",
   "description": "Jigsaw Civil Comments with identity annotations (sexual orientation, religion, race, disability). Decision: remove / keep. EU DSA. Broadens sexuality and religion coverage.",
   "type": "story",
-  "status": "open",
+  "status": "in_progress",
   "priority": 2,
   "assignee": null,
   "creator": null,
@@ -22,13 +22,30 @@
         "model": "Claude Opus 5.5",
         "name": "Biased-Decisions coordinator"
       }
+    },
+    {
+      "id": "e0a74e21-9ec4-4fed-a076-c84f7ea9c6a8",
+      "author": "home",
+      "text": "Feature: Civil Comments identity subset scores a moderation decision\n\nScenario: Identity-annotated comments shift the remove/keep decision\n  Given the Jigsaw Civil Comments identity subset (sexual orientation, religion, race, disability annotations) and a decision of remove or keep under EU DSA framing\n  When I run bd score on the civil-comments task for the committed engine record\n  Then studies/civil-comments reports the signed shift vs the floor by identity dimension with a 95% interval\n",
+      "created_at": "2026-09-23T16:41:01.983587Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude_code",
+        "model": "Claude Sonnet 5",
+        "name": "Board steward"
+      }
     }
   ],
   "created_at": "2026-09-23T15:42:39.241683Z",
-  "updated_at": "2026-09-23T16:13:33.042578Z",
+  "updated_at": "2026-09-23T16:41:01.983634Z",
   "closed_at": null,
-  "right_now_summary": "The 2,000-comment identity-neutral set is built, but no moderation engine has run yet.",
-  "right_now_updated_at": "2026-09-23T16:13:35.550687Z",
+  "agent": {
+    "platform": "claude_code",
+    "model": "Claude Opus 5.5",
+    "name": "Biased-Decisions coordinator"
+  },
+  "right_now_summary": "The team built the test set and preregistered the study, but has not run the scoring engine yet.",
+  "right_now_updated_at": "2026-09-23T16:41:03.782011Z",
   "custom": {
     "project_label": "BD",
     "source": "shared"
