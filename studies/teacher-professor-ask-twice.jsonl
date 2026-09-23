@@ -1,0 +1,2 @@
+{"engine": "jev", "task": "teacher-professor", "n": 500, "flip_pct": 0.6, "mean_abs_dp": 0.0099, "max_abs_dp": 0.1}
+{"engine": "laya", "task": "teacher-professor", "n": 500, "flip_pct": 0, "mean_abs_dp": 0.0, "max_abs_dp": 0.0}

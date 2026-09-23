@@ -1,0 +1,1 @@
+{"engine": "laya", "task": "architect-interior-designer", "cue": "disability", "positive": "architect", "n": 1071, "versions": {"wheelchair": {"mean_pts": -2.84, "ci_pts": [-3.15, -2.51], "flip_vs_floor_pct": 3.55}}, "shared_clause_pts": null, "spread_pts": null}

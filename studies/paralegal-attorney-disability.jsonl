@@ -1,0 +1,2 @@
+{"engine": "jev", "task": "paralegal-attorney", "cue": "disability", "positive": "attorney", "n": 1385, "versions": {"wheelchair": {"mean_pts": -0.64, "ci_pts": [-0.87, -0.4], "flip_vs_floor_pct": 2.02}}, "shared_clause_pts": null, "spread_pts": null}
+{"engine": "laya", "task": "paralegal-attorney", "cue": "disability", "positive": "attorney", "n": 1385, "versions": {"wheelchair": {"mean_pts": -1.71, "ci_pts": [-2.04, -1.42], "flip_vs_floor_pct": 4.98}}, "shared_clause_pts": null, "spread_pts": null}

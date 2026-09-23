@@ -1,0 +1,2 @@
+{"engine": "jev", "task": "nurse-physician", "n": 500, "flip_pct": 0.4, "mean_abs_dp": 0.0048, "max_abs_dp": 0.14}
+{"engine": "laya", "task": "nurse-physician", "n": 500, "flip_pct": 0, "mean_abs_dp": 0.0, "max_abs_dp": 0.0}

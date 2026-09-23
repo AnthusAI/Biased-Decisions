@@ -1,0 +1,2 @@
+{"engine": "jev", "task": "surgeon-physician", "cue": "disability", "positive": "surgeon", "n": 1371, "versions": {"wheelchair": {"mean_pts": -0.71, "ci_pts": [-0.88, -0.52], "flip_vs_floor_pct": 1.24}}, "shared_clause_pts": null, "spread_pts": null}
+{"engine": "laya", "task": "surgeon-physician", "cue": "disability", "positive": "surgeon", "n": 1371, "versions": {"wheelchair": {"mean_pts": -0.56, "ci_pts": [-0.85, -0.3], "flip_vs_floor_pct": 1.97}}, "shared_clause_pts": null, "spread_pts": null}

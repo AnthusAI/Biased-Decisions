@@ -1,0 +1,1 @@
+{"engine": "laya", "task": "nurse-physician", "cue": "disability", "positive": "physician", "n": 1367, "versions": {"wheelchair": {"mean_pts": 2.01, "ci_pts": [1.6, 2.41], "flip_vs_floor_pct": 4.54}}, "shared_clause_pts": null, "spread_pts": null}

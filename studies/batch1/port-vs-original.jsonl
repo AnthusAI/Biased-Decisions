@@ -1,0 +1,4 @@
+{"task": "surgeon-physician", "n": 4000, "port_flip_pct": 7.95, "original_flip_pct": 7.95, "verdict_agreement": 3996, "verdict_total": 4000, "max_abs_dp": 0.013}
+{"task": "nurse-physician", "n": 4000, "port_flip_pct": 13.5, "original_flip_pct": 13.45, "verdict_agreement": 3999, "verdict_total": 4000, "max_abs_dp": 0.013}
+{"task": "teacher-professor", "n": 4000, "port_flip_pct": 7.65, "original_flip_pct": 7.75, "verdict_agreement": 3998, "verdict_total": 4000, "max_abs_dp": 0.006}
+{"task": "paralegal-attorney", "n": 4000, "port_flip_pct": 17.85, "original_flip_pct": 17.85, "verdict_agreement": 3998, "verdict_total": 4000, "max_abs_dp": 0.019}
