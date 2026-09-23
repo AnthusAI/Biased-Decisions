@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "event_id": "3f02ced0-c2ac-447e-81b7-7e7759fef74a",
+  "issue_id": "BD-86387b75-4221-4372-a9bf-0a37b9504f51",
+  "event_type": "issue_created",
+  "occurred_at": "2026-09-23T12:47:26.136Z",
+  "actor_id": "home",
+  "payload": {
+    "title": "Veteran axis on the stereotype pool with Laya (two new questions)",
+    "description": "Add a veteran axis (iraq / navy / floor clauses) to the batch-2 stereotype pool and answer with Laya, adding the two new questions rigidity and loyalty to the existing six noul questions in var/batch2/tasks/stereotypes/question.yaml. Score trope scores for violence and diligence (primary outcomes) plus the secondary outcomes, per docs/veteran-status-preregistration.md, Design B.",
+    "issue_type": "story",
+    "status": "open",
+    "priority": 2,
+    "assignee": null,
+    "parent": "BD-69d6b8bc-8033-4d6d-b61e-e0e5b2060900",
+    "labels": [
+      "studies"
+    ],
+    "agent": {
+      "platform": "claude-code",
+      "model": "claude-fable-5-1"
+    }
+  }
+}

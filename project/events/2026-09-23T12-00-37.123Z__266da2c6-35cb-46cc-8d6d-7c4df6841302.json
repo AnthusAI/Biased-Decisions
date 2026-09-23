@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "event_id": "266da2c6-35cb-46cc-8d6d-7c4df6841302",
+  "issue_id": "BD-4d86cffe-b0df-44a9-b4ce-2074c5d30289",
+  "event_type": "field_updated",
+  "occurred_at": "2026-09-23T12:00:37.123Z",
+  "actor_id": "home",
+  "payload": {
+    "changes": {
+      "parent": {
+        "from": null,
+        "to": "BD-250c97a3-6ae4-4061-8d67-dbfd02bf9549"
+      }
+    }
+  }
+}

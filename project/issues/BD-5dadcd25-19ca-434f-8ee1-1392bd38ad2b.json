@@ -1,0 +1,26 @@
+{
+  "id": "BD-5dadcd25-19ca-434f-8ee1-1392bd38ad2b",
+  "title": "Engine adapter: Tiny-Jev (Qwen3-0.6B, transformers)",
+  "description": "Apache-2.0, probabilities per option, MPS 20 to 50 ms per text, CPU and CUDA. No pip package; load with transformers.",
+  "type": "story",
+  "status": "open",
+  "priority": 2,
+  "assignee": null,
+  "creator": null,
+  "parent": "BD-4d86cffe-b0df-44a9-b4ce-2074c5d30289",
+  "labels": [
+    "engines"
+  ],
+  "dependencies": [],
+  "comments": [],
+  "created_at": "2026-09-23T11:47:51.418379Z",
+  "updated_at": "2026-09-23T11:47:51.418402Z",
+  "closed_at": null,
+  "agent": {
+    "platform": "claude-code",
+    "model": "claude-fable-5-1"
+  },
+  "right_now_summary": "The Tiny-Jev adapter supports Qwen3-0.6B through Transformers on CPU, CUDA, and MPS.",
+  "right_now_updated_at": "2026-09-23T11:48:04.186050Z",
+  "custom": {}
+}

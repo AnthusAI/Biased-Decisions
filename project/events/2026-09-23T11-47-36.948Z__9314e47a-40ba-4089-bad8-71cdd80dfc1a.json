@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "event_id": "9314e47a-40ba-4089-bad8-71cdd80dfc1a",
+  "issue_id": "BD-4383fb6e-c187-46b0-8493-65452dde07b5",
+  "event_type": "issue_created",
+  "occurred_at": "2026-09-23T11:47:36.948Z",
+  "actor_id": "home",
+  "payload": {
+    "title": "Engine adapter: Von (395M ModernBERT, von-sdk)",
+    "description": "Apache-2.0, probabilities per option, runs on MPS, CPU, CUDA and ROCm via the von-sdk package. Closest sibling to Laya; first candidate.",
+    "issue_type": "story",
+    "status": "open",
+    "priority": 2,
+    "assignee": null,
+    "parent": "BD-4d86cffe-b0df-44a9-b4ce-2074c5d30289",
+    "labels": [
+      "engines"
+    ],
+    "agent": {
+      "platform": "claude-code",
+      "model": "claude-fable-5-1"
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "event_id": "846a2de8-3481-4c6e-b11e-d4170dec1491",
+  "issue_id": "BD-7d5f6aac-bf92-4738-959c-a81da34c11f6",
+  "event_type": "issue_created",
+  "occurred_at": "2026-09-23T13:05:17.788Z",
+  "actor_id": "home",
+  "payload": {
+    "title": "Jev go/no-go: price a 500-bio subsample",
+    "description": "Price and cap a Jev run on a 500-bio subsample of the regulated-decisions pool before any request goes out, per the free-engines-before-paid-ones convention, then decide go/no-go on the full ~24,000-request run described in docs/regulated-decisions-preregistration.md.",
+    "issue_type": "story",
+    "status": "open",
+    "priority": 2,
+    "assignee": null,
+    "parent": "BD-4af5ba3d-22d2-4fce-be6c-7146f0de34f6",
+    "labels": [
+      "studies"
+    ],
+    "agent": {
+      "platform": "claude-code",
+      "model": "claude-fable-5-1"
+    }
+  }
+}

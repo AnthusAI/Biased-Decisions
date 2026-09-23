@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "event_id": "a4ec4dca-69c8-4f08-8bb6-cd431de1fe09",
+  "issue_id": "BD-eff9fba6-16f0-4fbf-b2c0-9b1c9f5aca4e",
+  "event_type": "issue_created",
+  "occurred_at": "2026-09-23T11:49:31.432Z",
+  "actor_id": "home",
+  "payload": {
+    "title": "Engine adapter: open-jev-deberta-v3-large (0.4B)",
+    "description": "Apache-2.0, probabilities per option, CPU and CUDA; MPS not stated. Encoder-based like Laya.",
+    "issue_type": "story",
+    "status": "open",
+    "priority": 2,
+    "assignee": null,
+    "parent": "BD-4d86cffe-b0df-44a9-b4ce-2074c5d30289",
+    "labels": [
+      "engines"
+    ],
+    "agent": {
+      "platform": "claude-code",
+      "model": "claude-fable-5-1"
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "event_id": "1ab00ec6-4643-41f3-b940-298d74e6d38e",
+  "issue_id": "BD-3f5d8ece-0bc3-4a85-b2db-14a8c7c2be70",
+  "event_type": "issue_created",
+  "occurred_at": "2026-09-23T13:05:02.854Z",
+  "actor_id": "home",
+  "payload": {
+    "title": "Build the sexuality and gender-identity cues on all seven tasks and answer with Laya",
+    "description": "Design A from docs/sexuality-gender-identity-preregistration.md: the sexuality spouse-clause cue and the gender-identity clause, both gender-matched to the bio's pronoun, inserted on all seven Bias in Bios tasks with the batch-1 eligibility and insertion rule. Run Laya (free) on every task and version, score same-sex vs opposite-sex and each version vs the floor, and report every cell including cells where the interval includes zero.",
+    "issue_type": "story",
+    "status": "open",
+    "priority": 2,
+    "assignee": null,
+    "parent": "BD-1c740959-f78e-4305-8dbc-d830263ba828",
+    "labels": [
+      "studies"
+    ],
+    "agent": {
+      "platform": "claude-code",
+      "model": "claude-fable-5-1"
+    }
+  }
+}

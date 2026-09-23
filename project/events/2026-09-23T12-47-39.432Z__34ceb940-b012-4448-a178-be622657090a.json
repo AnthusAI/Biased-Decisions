@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "event_id": "34ceb940-b012-4448-a178-be622657090a",
+  "issue_id": "BD-f75288f4-246a-4c5d-b4b2-0407d5f1d88d",
+  "event_type": "issue_created",
+  "occurred_at": "2026-09-23T12:47:39.432Z",
+  "actor_id": "home",
+  "payload": {
+    "title": "Jev go/no-go: price design A on the two article tasks",
+    "description": "Price and cap the Jev run for veteran-status Design A, limited to paralegal-attorney and surgeon-physician, three versions each (iraq, navy, floor), roughly 8,300 requests. Get a go decision and a request cap agreed before sending anything, per the free-engines-before-paid-ones convention and docs/veteran-status-preregistration.md, Rules.",
+    "issue_type": "story",
+    "status": "open",
+    "priority": 2,
+    "assignee": null,
+    "parent": "BD-69d6b8bc-8033-4d6d-b61e-e0e5b2060900",
+    "labels": [
+      "studies"
+    ],
+    "agent": {
+      "platform": "claude-code",
+      "model": "claude-fable-5-1"
+    }
+  }
+}

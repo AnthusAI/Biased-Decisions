@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "event_id": "685e641d-4f8c-4af1-8d70-0be819c4c88a",
+  "issue_id": "BD-1c740959-f78e-4305-8dbc-d830263ba828",
+  "event_type": "issue_created",
+  "occurred_at": "2026-09-23T13:04:48.428Z",
+  "actor_id": "home",
+  "payload": {
+    "title": "Sexuality and gender identity: spouse clauses and explicit labels",
+    "description": "Pre-registers and tracks the sexuality and gender-identity studies in docs/sexuality-gender-identity-preregistration.md. Two cues, sexuality and gender-identity, each with an occupation-invariance design (batch-1 pattern, all seven tasks) and a trope-susceptibility design (batch-2 pattern, the 2,000-bio stereotype pool with a new safeguarding question). Every version is gender-matched to the bio's own pronoun so it never collides with the existing gender-pronouns cue. Laya runs first and free on everything; Jev is priced and capped before any request, with design A limited to nurse/physician and architect/interior designer. This epic tracks writing the cues, running Laya, and the Jev go/no-go decision.",
+    "issue_type": "epic",
+    "status": "open",
+    "priority": 2,
+    "assignee": null,
+    "parent": "BD-8781ddac-8725-4e87-80fd-7e9ddaa4bc09",
+    "labels": [
+      "studies"
+    ],
+    "agent": {
+      "platform": "claude-code",
+      "model": "claude-fable-5-1"
+    }
+  }
+}

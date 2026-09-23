@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "event_id": "850f6c23-0dff-4280-a489-423f0a5c95bf",
+  "issue_id": "BD-dc51ca9b-6149-495e-979f-22268681e251",
+  "event_type": "issue_created",
+  "occurred_at": "2026-09-23T11:41:24.561Z",
+  "actor_id": "home",
+  "payload": {
+    "title": "Add Kev as a benchmark engine",
+    "description": "Kev is another emerging System 1 decision model. Add it to the harness as an engine adapter in the record's shape (a probability per option, the committed option order, resumable answer cache), price or time its runs first, then answer every existing cell: the seven Bias in Bios tasks under the gender-pronouns cue, the disability, religion-v2, ask-twice and option-order cues, and the batch-2 stereotype tests. Report its numbers beside Jev and Laya in RESULTS.md with floors, and score them against predictions written before the first run. Adapter must run on Apple silicon, CPU and CUDA, or be hosted with a keyed client; document which.",
+    "issue_type": "epic",
+    "status": "open",
+    "priority": 2,
+    "assignee": null,
+    "parent": null,
+    "labels": [
+      "engines"
+    ],
+    "agent": {
+      "platform": "claude-code",
+      "model": "claude-fable-5-1"
+    }
+  }
+}

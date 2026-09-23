@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "event_id": "ea78b31c-7f1c-4296-bb00-0b6fd6b3c8d7",
+  "issue_id": "BD-4c5d8afb-dc79-4ceb-9de5-72a5b2cc8bab",
+  "event_type": "issue_created",
+  "occurred_at": "2026-09-23T12:47:08.060Z",
+  "actor_id": "home",
+  "payload": {
+    "title": "Build the veteran-status cue on all seven tasks and answer with Laya",
+    "description": "Implement the veteran-status insertion cue (iraq / navy / floor clauses, same eligibility and insertion rule as batch-1 cues) and build versions files for all seven Bias in Bios tasks. Answer with the upstream Laya engine (free) on all seven tasks and score against the floor per docs/veteran-status-preregistration.md, Design A.",
+    "issue_type": "story",
+    "status": "open",
+    "priority": 2,
+    "assignee": null,
+    "parent": "BD-69d6b8bc-8033-4d6d-b61e-e0e5b2060900",
+    "labels": [
+      "studies"
+    ],
+    "agent": {
+      "platform": "claude-code",
+      "model": "claude-fable-5-1"
+    }
+  }
+}
