@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "event_id": "5c482bca-e208-471c-b767-6a411ff0662e",
+  "issue_id": "BD-e7ed378c-8eba-4095-a486-ccc6c22ff597",
+  "event_type": "issue_created",
+  "occurred_at": "2026-09-23T13:04:20.523Z",
+  "actor_id": "home",
+  "payload": {
+    "title": "GitHub Pages workflow: publish the site on each release",
+    "description": "",
+    "issue_type": "story",
+    "status": "open",
+    "priority": 2,
+    "assignee": null,
+    "parent": "BD-4f83aebd-9fa3-4ac7-b820-e3a1cab1ee8b",
+    "labels": [
+      "site"
+    ],
+    "agent": {
+      "platform": "claude-code",
+      "model": "claude-fable-5-1"
+    }
+  }
+}

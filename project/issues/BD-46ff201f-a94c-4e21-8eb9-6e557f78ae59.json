@@ -1,0 +1,26 @@
+{
+  "id": "BD-46ff201f-a94c-4e21-8eb9-6e557f78ae59",
+  "title": "bd report --json: one leaderboard.json from the scored cells",
+  "description": "",
+  "type": "story",
+  "status": "open",
+  "priority": 2,
+  "assignee": null,
+  "creator": null,
+  "parent": "BD-4f83aebd-9fa3-4ac7-b820-e3a1cab1ee8b",
+  "labels": [
+    "site"
+  ],
+  "dependencies": [],
+  "comments": [],
+  "created_at": "2026-09-23T13:03:32.659009Z",
+  "updated_at": "2026-09-23T13:03:32.659033Z",
+  "closed_at": null,
+  "agent": {
+    "platform": "claude-code",
+    "model": "claude-fable-5-1"
+  },
+  "right_now_summary": "The report needs to combine scored cells into one leaderboard.json file.",
+  "right_now_updated_at": "2026-09-23T13:03:35.273349Z",
+  "custom": {}
+}

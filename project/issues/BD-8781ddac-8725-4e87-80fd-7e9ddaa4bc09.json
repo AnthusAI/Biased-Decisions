@@ -18,8 +18,8 @@
     "platform": "claude-code",
     "model": "claude-fable-5-1"
   },
-  "right_now_summary": "The team is adding bias tests, running Laya comparisons, and preparing veteran-status studies.",
-  "right_now_updated_at": "2026-09-23T12:47:47.149883Z",
+  "right_now_summary": "The team is running bias tests, adding checks, and building the report while preparing veteran-status tests.",
+  "right_now_updated_at": "2026-09-23T13:04:27.141883Z",
   "custom": {
     "project_label": "BD",
     "source": "shared"
