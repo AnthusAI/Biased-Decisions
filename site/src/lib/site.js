@@ -197,9 +197,9 @@ export const shortLabel = (d) => ({ "gender": "Gender",
 // ---------------------------------------------------------------------------------------------
 // Words
 // ---------------------------------------------------------------------------------------------
-export const unit = (dim) => (dim.measure === "flip rate" ? "%" : " pts");
+export const unit = (dim) => dim.raw_unit || " pts";
 // A facet's own unit: a flip rate is a share of items even on a board that mixes it with shifts.
-export const facetUnit = (dim, f) => (f && f.raw && /flip rate/i.test(f.raw.label) ? "%" : f && f.raw && /shift/i.test(f.raw.label) ? " pts" : unit(dim));
+export const facetUnit = (dim, f) => (f && f.raw && f.raw.unit) || unit(dim);
 
 export function verdictOf(f) {
   if (!f || f.status !== "measured") return { cls: "miss", text: "not measured" };

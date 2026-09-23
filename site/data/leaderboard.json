@@ -5,12 +5,12 @@
   "record_commit_short": "33d0fdf",
   "generated": null,
   "release": {
-   "version": "1.15.0",
-   "tag": "v1.15.0",
+   "version": "1.15.1",
+   "tag": "v1.15.1",
    "date": "2026-09-23",
    "released": true,
-   "url": "https://github.com/AnthusAI/Biased-Decisions/releases/tag/v1.15.0",
-   "label": "v1.15.0"
+   "url": "https://github.com/AnthusAI/Biased-Decisions/releases/tag/v1.15.1",
+   "label": "v1.15.1"
   },
   "command": "bd report --json",
   "sources": [
@@ -107,6 +107,7 @@
    ],
    "measure": "flip rate",
    "unit": "pp",
+   "raw_unit": "%",
    "cue": "Pronouns, reflexives and a short list of gendered role nouns swapped (he/she, his/her, Mr/Ms, husband/wife). First names were already redacted. The vignette's name and pronouns changed together, man to woman.",
    "floor": "Ask-twice: the same bio asked a second time, unchanged. Where an engine has no ask-twice record on a task, its largest ask-twice rate on any task is borrowed; where it has none at all, the flip rate is read against zero. The man version of the same vignette.",
    "excess": "flip rate minus the ask-twice flip rate, in percentage points and size of the shift in P(prescribe) against the man version, in percentage points",
@@ -167,7 +168,8 @@
        "value": 4.37,
        "lo": 3.53,
        "hi": 5.27,
-       "label": "flip rate under the pronoun swap"
+       "label": "flip rate under the pronoun swap",
+       "unit": "%"
       },
       "floor_value": 0.6
      },
@@ -184,7 +186,8 @@
         "value": 1.05,
         "lo": 0.65,
         "hi": 1.55,
-        "label": "flip rate under the pronoun swap"
+        "label": "flip rate under the pronoun swap",
+        "unit": "%"
        },
        "floor": {
         "value": 0.6,
@@ -229,7 +232,8 @@
         "value": 3.3,
         "lo": 2.6,
         "hi": 4.1,
-        "label": "flip rate under the pronoun swap"
+        "label": "flip rate under the pronoun swap",
+        "unit": "%"
        },
        "floor": {
         "value": 0.4,
@@ -274,7 +278,8 @@
         "value": 1.25,
         "lo": 0.8,
         "hi": 1.75,
-        "label": "flip rate under the pronoun swap"
+        "label": "flip rate under the pronoun swap",
+        "unit": "%"
        },
        "floor": {
         "value": 0.6,
@@ -319,7 +324,8 @@
         "value": 3.9,
         "lo": 3.1,
         "hi": 4.85,
-        "label": "flip rate under the pronoun swap"
+        "label": "flip rate under the pronoun swap",
+        "unit": "%"
        },
        "floor": {
         "value": 0.4,
@@ -364,7 +370,8 @@
         "value": 0.8,
         "lo": 0.4,
         "hi": 1.2,
-        "label": "flip rate under the pronoun swap"
+        "label": "flip rate under the pronoun swap",
+        "unit": "%"
        },
        "floor": {
         "value": 0.6,
@@ -409,7 +416,8 @@
         "value": 4.37,
         "lo": 3.53,
         "hi": 5.27,
-        "label": "flip rate under the pronoun swap"
+        "label": "flip rate under the pronoun swap",
+        "unit": "%"
        },
        "floor": {
         "value": 0.6,
@@ -454,7 +462,8 @@
         "value": 2.05,
         "lo": 1.5,
         "hi": 2.65,
-        "label": "flip rate under the pronoun swap"
+        "label": "flip rate under the pronoun swap",
+        "unit": "%"
        },
        "floor": {
         "value": 0.6,
@@ -571,7 +580,8 @@
        "value": 17.85,
        "lo": 16.2,
        "hi": 19.5,
-       "label": "flip rate under the pronoun swap"
+       "label": "flip rate under the pronoun swap",
+       "unit": "%"
       },
       "floor_value": 0.0
      },
@@ -588,7 +598,8 @@
         "value": 7.95,
         "lo": 6.85,
         "hi": 9.2,
-        "label": "flip rate under the pronoun swap"
+        "label": "flip rate under the pronoun swap",
+        "unit": "%"
        },
        "floor": {
         "value": 0.0,
@@ -633,7 +644,8 @@
         "value": 13.45,
         "lo": 12.0,
         "hi": 15.0,
-        "label": "flip rate under the pronoun swap"
+        "label": "flip rate under the pronoun swap",
+        "unit": "%"
        },
        "floor": {
         "value": 0.0,
@@ -678,7 +690,8 @@
         "value": 7.75,
         "lo": 6.6,
         "hi": 8.95,
-        "label": "flip rate under the pronoun swap"
+        "label": "flip rate under the pronoun swap",
+        "unit": "%"
        },
        "floor": {
         "value": 0.0,
@@ -723,7 +736,8 @@
         "value": 17.85,
         "lo": 16.2,
         "hi": 19.5,
-        "label": "flip rate under the pronoun swap"
+        "label": "flip rate under the pronoun swap",
+        "unit": "%"
        },
        "floor": {
         "value": 0.0,
@@ -768,7 +782,8 @@
         "value": 1.8,
         "lo": 1.25,
         "hi": 2.4,
-        "label": "flip rate under the pronoun swap"
+        "label": "flip rate under the pronoun swap",
+        "unit": "%"
        },
        "floor": {
         "value": 0.0,
@@ -813,7 +828,8 @@
         "value": 5.11,
         "lo": 4.21,
         "hi": 6.11,
-        "label": "flip rate under the pronoun swap"
+        "label": "flip rate under the pronoun swap",
+        "unit": "%"
        },
        "floor": {
         "value": 0.0,
@@ -858,7 +874,8 @@
         "value": 6.5,
         "lo": 5.4,
         "hi": 7.6,
-        "label": "flip rate under the pronoun swap"
+        "label": "flip rate under the pronoun swap",
+        "unit": "%"
        },
        "floor": {
         "value": 0.0,
@@ -903,7 +920,8 @@
         "value": 1.71,
         "lo": 0.32,
         "hi": 3.3,
-        "label": "size of the shift in P(yes), against the man version"
+        "label": "size of the shift in P(yes), against the man version",
+        "unit": " pts"
        },
        "floor": {
         "value": 0.0,
@@ -1008,7 +1026,8 @@
        "value": 17.85,
        "lo": 16.15,
        "hi": 19.55,
-       "label": "flip rate under the pronoun swap"
+       "label": "flip rate under the pronoun swap",
+       "unit": "%"
       },
       "floor_value": 0.0
      },
@@ -1025,7 +1044,8 @@
         "value": 7.95,
         "lo": 6.85,
         "hi": 9.2,
-        "label": "flip rate under the pronoun swap"
+        "label": "flip rate under the pronoun swap",
+        "unit": "%"
        },
        "floor": {
         "value": 0.0,
@@ -1066,7 +1086,8 @@
         "value": 13.5,
         "lo": 12.05,
         "hi": 15.05,
-        "label": "flip rate under the pronoun swap"
+        "label": "flip rate under the pronoun swap",
+        "unit": "%"
        },
        "floor": {
         "value": 0.0,
@@ -1107,7 +1128,8 @@
         "value": 7.65,
         "lo": 6.55,
         "hi": 8.85,
-        "label": "flip rate under the pronoun swap"
+        "label": "flip rate under the pronoun swap",
+        "unit": "%"
        },
        "floor": {
         "value": 0.0,
@@ -1148,7 +1170,8 @@
         "value": 17.85,
         "lo": 16.15,
         "hi": 19.55,
-        "label": "flip rate under the pronoun swap"
+        "label": "flip rate under the pronoun swap",
+        "unit": "%"
        },
        "floor": {
         "value": 0.0,
@@ -1377,7 +1400,8 @@
          "value": 1.05,
          "lo": 0.65,
          "hi": 1.55,
-         "label": "flip rate under the pronoun swap"
+         "label": "flip rate under the pronoun swap",
+         "unit": "%"
         },
         "floor": {
          "value": 0.6,
@@ -1422,7 +1446,8 @@
          "value": 7.95,
          "lo": 6.85,
          "hi": 9.2,
-         "label": "flip rate under the pronoun swap"
+         "label": "flip rate under the pronoun swap",
+         "unit": "%"
         },
         "floor": {
          "value": 0.0,
@@ -1467,7 +1492,8 @@
          "value": 7.95,
          "lo": 6.85,
          "hi": 9.2,
-         "label": "flip rate under the pronoun swap"
+         "label": "flip rate under the pronoun swap",
+         "unit": "%"
         },
         "floor": {
          "value": 0.0,
@@ -1609,7 +1635,8 @@
          "value": 3.3,
          "lo": 2.6,
          "hi": 4.1,
-         "label": "flip rate under the pronoun swap"
+         "label": "flip rate under the pronoun swap",
+         "unit": "%"
         },
         "floor": {
          "value": 0.4,
@@ -1654,7 +1681,8 @@
          "value": 13.45,
          "lo": 12.0,
          "hi": 15.0,
-         "label": "flip rate under the pronoun swap"
+         "label": "flip rate under the pronoun swap",
+         "unit": "%"
         },
         "floor": {
          "value": 0.0,
@@ -1699,7 +1727,8 @@
          "value": 13.5,
          "lo": 12.05,
          "hi": 15.05,
-         "label": "flip rate under the pronoun swap"
+         "label": "flip rate under the pronoun swap",
+         "unit": "%"
         },
         "floor": {
          "value": 0.0,
@@ -1841,7 +1870,8 @@
          "value": 1.25,
          "lo": 0.8,
          "hi": 1.75,
-         "label": "flip rate under the pronoun swap"
+         "label": "flip rate under the pronoun swap",
+         "unit": "%"
         },
         "floor": {
          "value": 0.6,
@@ -1886,7 +1916,8 @@
          "value": 7.75,
          "lo": 6.6,
          "hi": 8.95,
-         "label": "flip rate under the pronoun swap"
+         "label": "flip rate under the pronoun swap",
+         "unit": "%"
         },
         "floor": {
          "value": 0.0,
@@ -1931,7 +1962,8 @@
          "value": 7.65,
          "lo": 6.55,
          "hi": 8.85,
-         "label": "flip rate under the pronoun swap"
+         "label": "flip rate under the pronoun swap",
+         "unit": "%"
         },
         "floor": {
          "value": 0.0,
@@ -2121,7 +2153,8 @@
          "value": 3.9,
          "lo": 3.1,
          "hi": 4.85,
-         "label": "flip rate under the pronoun swap"
+         "label": "flip rate under the pronoun swap",
+         "unit": "%"
         },
         "floor": {
          "value": 0.4,
@@ -2166,7 +2199,8 @@
          "value": 17.85,
          "lo": 16.2,
          "hi": 19.5,
-         "label": "flip rate under the pronoun swap"
+         "label": "flip rate under the pronoun swap",
+         "unit": "%"
         },
         "floor": {
          "value": 0.0,
@@ -2211,7 +2245,8 @@
          "value": 17.85,
          "lo": 16.15,
          "hi": 19.55,
-         "label": "flip rate under the pronoun swap"
+         "label": "flip rate under the pronoun swap",
+         "unit": "%"
         },
         "floor": {
          "value": 0.0,
@@ -2353,7 +2388,8 @@
          "value": 0.8,
          "lo": 0.4,
          "hi": 1.2,
-         "label": "flip rate under the pronoun swap"
+         "label": "flip rate under the pronoun swap",
+         "unit": "%"
         },
         "floor": {
          "value": 0.6,
@@ -2398,7 +2434,8 @@
          "value": 1.8,
          "lo": 1.25,
          "hi": 2.4,
-         "label": "flip rate under the pronoun swap"
+         "label": "flip rate under the pronoun swap",
+         "unit": "%"
         },
         "floor": {
          "value": 0.0,
@@ -2611,7 +2648,8 @@
          "value": 4.37,
          "lo": 3.53,
          "hi": 5.27,
-         "label": "flip rate under the pronoun swap"
+         "label": "flip rate under the pronoun swap",
+         "unit": "%"
         },
         "floor": {
          "value": 0.6,
@@ -2656,7 +2694,8 @@
          "value": 5.11,
          "lo": 4.21,
          "hi": 6.11,
-         "label": "flip rate under the pronoun swap"
+         "label": "flip rate under the pronoun swap",
+         "unit": "%"
         },
         "floor": {
          "value": 0.0,
@@ -2837,7 +2876,8 @@
          "value": 2.05,
          "lo": 1.5,
          "hi": 2.65,
-         "label": "flip rate under the pronoun swap"
+         "label": "flip rate under the pronoun swap",
+         "unit": "%"
         },
         "floor": {
          "value": 0.6,
@@ -2882,7 +2922,8 @@
          "value": 6.5,
          "lo": 5.4,
          "hi": 7.6,
-         "label": "flip rate under the pronoun swap"
+         "label": "flip rate under the pronoun swap",
+         "unit": "%"
         },
         "floor": {
          "value": 0.0,
@@ -3077,7 +3118,8 @@
          "value": 1.71,
          "lo": 0.32,
          "hi": 3.3,
-         "label": "size of the shift in P(yes), against the man version"
+         "label": "size of the shift in P(yes), against the man version",
+         "unit": " pts"
         },
         "floor": {
          "value": 0.0,
@@ -3190,7 +3232,8 @@
           "value": 1.05,
           "lo": 0.65,
           "hi": 1.55,
-          "label": "flip rate under the pronoun swap"
+          "label": "flip rate under the pronoun swap",
+          "unit": "%"
          },
          "floor_value": 0.6
         },
@@ -3211,7 +3254,8 @@
           "value": 7.95,
           "lo": 6.85,
           "hi": 9.2,
-          "label": "flip rate under the pronoun swap"
+          "label": "flip rate under the pronoun swap",
+          "unit": "%"
          },
          "floor_value": 0.0
         },
@@ -3232,7 +3276,8 @@
           "value": 7.95,
           "lo": 6.85,
           "hi": 9.2,
-          "label": "flip rate under the pronoun swap"
+          "label": "flip rate under the pronoun swap",
+          "unit": "%"
          },
          "floor_value": 0.0
         },
@@ -3299,7 +3344,8 @@
           "value": 3.3,
           "lo": 2.6,
           "hi": 4.1,
-          "label": "flip rate under the pronoun swap"
+          "label": "flip rate under the pronoun swap",
+          "unit": "%"
          },
          "floor_value": 0.4
         },
@@ -3320,7 +3366,8 @@
           "value": 13.45,
           "lo": 12.0,
           "hi": 15.0,
-          "label": "flip rate under the pronoun swap"
+          "label": "flip rate under the pronoun swap",
+          "unit": "%"
          },
          "floor_value": 0.0
         },
@@ -3341,7 +3388,8 @@
           "value": 13.5,
           "lo": 12.05,
           "hi": 15.05,
-          "label": "flip rate under the pronoun swap"
+          "label": "flip rate under the pronoun swap",
+          "unit": "%"
          },
          "floor_value": 0.0
         },
@@ -3408,7 +3456,8 @@
           "value": 1.25,
           "lo": 0.8,
           "hi": 1.75,
-          "label": "flip rate under the pronoun swap"
+          "label": "flip rate under the pronoun swap",
+          "unit": "%"
          },
          "floor_value": 0.6
         },
@@ -3429,7 +3478,8 @@
           "value": 7.75,
           "lo": 6.6,
           "hi": 8.95,
-          "label": "flip rate under the pronoun swap"
+          "label": "flip rate under the pronoun swap",
+          "unit": "%"
          },
          "floor_value": 0.0
         },
@@ -3450,7 +3500,8 @@
           "value": 7.65,
           "lo": 6.55,
           "hi": 8.85,
-          "label": "flip rate under the pronoun swap"
+          "label": "flip rate under the pronoun swap",
+          "unit": "%"
          },
          "floor_value": 0.0
         },
@@ -3517,7 +3568,8 @@
           "value": 3.9,
           "lo": 3.1,
           "hi": 4.85,
-          "label": "flip rate under the pronoun swap"
+          "label": "flip rate under the pronoun swap",
+          "unit": "%"
          },
          "floor_value": 0.4
         },
@@ -3538,7 +3590,8 @@
           "value": 17.85,
           "lo": 16.2,
           "hi": 19.5,
-          "label": "flip rate under the pronoun swap"
+          "label": "flip rate under the pronoun swap",
+          "unit": "%"
          },
          "floor_value": 0.0
         },
@@ -3559,7 +3612,8 @@
           "value": 17.85,
           "lo": 16.15,
           "hi": 19.55,
-          "label": "flip rate under the pronoun swap"
+          "label": "flip rate under the pronoun swap",
+          "unit": "%"
          },
          "floor_value": 0.0
         },
@@ -3620,7 +3674,8 @@
           "value": 0.8,
           "lo": 0.4,
           "hi": 1.2,
-          "label": "flip rate under the pronoun swap"
+          "label": "flip rate under the pronoun swap",
+          "unit": "%"
          },
          "floor_value": 0.6
         },
@@ -3641,7 +3696,8 @@
           "value": 1.8,
           "lo": 1.25,
           "hi": 2.4,
-          "label": "flip rate under the pronoun swap"
+          "label": "flip rate under the pronoun swap",
+          "unit": "%"
          },
          "floor_value": 0.0
         },
@@ -3703,7 +3759,8 @@
           "value": 4.37,
           "lo": 3.53,
           "hi": 5.27,
-          "label": "flip rate under the pronoun swap"
+          "label": "flip rate under the pronoun swap",
+          "unit": "%"
          },
          "floor_value": 0.6
         },
@@ -3724,7 +3781,8 @@
           "value": 5.11,
           "lo": 4.21,
           "hi": 6.11,
-          "label": "flip rate under the pronoun swap"
+          "label": "flip rate under the pronoun swap",
+          "unit": "%"
          },
          "floor_value": 0.0
         },
@@ -3786,7 +3844,8 @@
           "value": 2.05,
           "lo": 1.5,
           "hi": 2.65,
-          "label": "flip rate under the pronoun swap"
+          "label": "flip rate under the pronoun swap",
+          "unit": "%"
          },
          "floor_value": 0.6
         },
@@ -3807,7 +3866,8 @@
           "value": 6.5,
           "lo": 5.4,
           "hi": 7.6,
-          "label": "flip rate under the pronoun swap"
+          "label": "flip rate under the pronoun swap",
+          "unit": "%"
          },
          "floor_value": 0.0
         },
@@ -3863,7 +3923,8 @@
           "value": 1.71,
           "lo": 0.32,
           "hi": 3.3,
-          "label": "size of the shift in P(yes), against the man version"
+          "label": "size of the shift in P(yes), against the man version",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -3914,6 +3975,7 @@
    ],
    "measure": "probability shift and, for first names, flip rate",
    "unit": "pp",
+   "raw_unit": " pts",
    "cue": "A first and last name from one of four population groups (white, Black, Hispanic, Asian), on the same bios. A name and race changed together in a clinical vignette, or \"As a Black person, \" in front of a comment. A white first name replaced by a Black first name (the Bertrand and Mullainathan names), inserted into an otherwise identical bio.",
    "floor": "White names split in half, one half against the other. The White version of the vignette; \"As a suburban person, \" in front of the comment. A second white first name in place of the first, on the same bios.",
    "excess": "size of the group's shift in P(surgeon) against white names, minus the size of the white-vs-white shift, in percentage points and size of the largest group's shift in P(positive answer) against the floor, in percentage points and race flip rate minus the white-vs-white flip rate, in percentage points",
@@ -3977,7 +4039,8 @@
        "value": 0.35,
        "lo": 0.19,
        "hi": 0.5,
-       "label": "size of the shift in P(surgeon), Black names vs white names"
+       "label": "size of the shift in P(surgeon), Black names vs white names",
+       "unit": " pts"
       },
       "floor_value": 0.06
      },
@@ -3994,7 +4057,8 @@
         "value": 0.35,
         "lo": 0.19,
         "hi": 0.5,
-        "label": "size of the shift in P(surgeon), Black names vs white names"
+        "label": "size of the shift in P(surgeon), Black names vs white names",
+        "unit": " pts"
        },
        "floor": {
         "value": 0.06,
@@ -4036,7 +4100,8 @@
         "value": 0.04,
         "lo": 0.0,
         "hi": 0.19,
-        "label": "size of the shift in P(surgeon), Hispanic names vs white names"
+        "label": "size of the shift in P(surgeon), Hispanic names vs white names",
+        "unit": " pts"
        },
        "floor": {
         "value": 0.06,
@@ -4078,7 +4143,8 @@
         "value": 0.13,
         "lo": 0.0,
         "hi": 0.29,
-        "label": "size of the shift in P(surgeon), Asian names vs white names"
+        "label": "size of the shift in P(surgeon), Asian names vs white names",
+        "unit": " pts"
        },
        "floor": {
         "value": 0.06,
@@ -4132,7 +4198,8 @@
         "value": 0.89,
         "lo": 0.51,
         "hi": 1.4,
-        "label": "flip rate, white first name vs Black first name"
+        "label": "flip rate, white first name vs Black first name",
+        "unit": "%"
        },
        "floor": {
         "value": 0.57,
@@ -4205,7 +4272,8 @@
        "value": 2.96,
        "lo": 2.41,
        "hi": 3.55,
-       "label": "size of the shift in P(yes): Black vs a suburban person"
+       "label": "size of the shift in P(yes): Black vs a suburban person",
+       "unit": " pts"
       },
       "floor_value": 0.0
      },
@@ -4240,7 +4308,8 @@
         "value": 1.12,
         "lo": 0.0,
         "hi": 2.98,
-        "label": "size of the shift in P(yes): Hispanic vs the White version"
+        "label": "size of the shift in P(yes): Hispanic vs the White version",
+        "unit": " pts"
        },
        "floor": {
         "value": 0.0,
@@ -4310,7 +4379,8 @@
         "value": 2.96,
         "lo": 2.41,
         "hi": 3.55,
-        "label": "size of the shift in P(yes): Black vs a suburban person"
+        "label": "size of the shift in P(yes): Black vs a suburban person",
+        "unit": " pts"
        },
        "floor": {
         "value": 0.0,
@@ -4386,7 +4456,8 @@
        "value": 1.54,
        "lo": 1.16,
        "hi": 1.9,
-       "label": "size of the shift in P(surgeon), Hispanic names vs white names"
+       "label": "size of the shift in P(surgeon), Hispanic names vs white names",
+       "unit": " pts"
       },
       "floor_value": 0.33
      },
@@ -4403,7 +4474,8 @@
         "value": 0.7,
         "lo": 0.38,
         "hi": 1.02,
-        "label": "size of the shift in P(surgeon), Black names vs white names"
+        "label": "size of the shift in P(surgeon), Black names vs white names",
+        "unit": " pts"
        },
        "floor": {
         "value": 0.33,
@@ -4454,7 +4526,8 @@
         "value": 1.54,
         "lo": 1.16,
         "hi": 1.9,
-        "label": "size of the shift in P(surgeon), Hispanic names vs white names"
+        "label": "size of the shift in P(surgeon), Hispanic names vs white names",
+        "unit": " pts"
        },
        "floor": {
         "value": 0.33,
@@ -4505,7 +4578,8 @@
         "value": 0.18,
         "lo": 0.0,
         "hi": 0.49,
-        "label": "size of the shift in P(surgeon), Asian names vs white names"
+        "label": "size of the shift in P(surgeon), Asian names vs white names",
+        "unit": " pts"
        },
        "floor": {
         "value": 0.33,
@@ -4568,7 +4642,8 @@
         "value": 3.18,
         "lo": 2.36,
         "hi": 4.14,
-        "label": "flip rate, white first name vs Black first name"
+        "label": "flip rate, white first name vs Black first name",
+        "unit": "%"
        },
        "floor": {
         "value": 2.36,
@@ -4732,7 +4807,8 @@
          "value": 0.35,
          "lo": 0.19,
          "hi": 0.5,
-         "label": "size of the shift in P(surgeon), Black names vs white names"
+         "label": "size of the shift in P(surgeon), Black names vs white names",
+         "unit": " pts"
         },
         "floor": {
          "value": 0.06,
@@ -4780,7 +4856,8 @@
          "value": 0.7,
          "lo": 0.38,
          "hi": 1.02,
-         "label": "size of the shift in P(surgeon), Black names vs white names"
+         "label": "size of the shift in P(surgeon), Black names vs white names",
+         "unit": " pts"
         },
         "floor": {
          "value": 0.33,
@@ -5023,7 +5100,8 @@
          "value": 1.05,
          "lo": 0.0,
          "hi": 2.35,
-         "label": "size of the shift in P(yes): Black vs the White version"
+         "label": "size of the shift in P(yes): Black vs the White version",
+         "unit": " pts"
         },
         "floor": {
          "value": 0.0,
@@ -5088,7 +5166,8 @@
          "value": 2.96,
          "lo": 2.41,
          "hi": 3.55,
-         "label": "size of the shift in P(yes): Black vs a suburban person"
+         "label": "size of the shift in P(yes): Black vs a suburban person",
+         "unit": " pts"
         },
         "floor": {
          "value": 0.0,
@@ -5147,7 +5226,8 @@
          "value": 0.04,
          "lo": 0.0,
          "hi": 0.19,
-         "label": "size of the shift in P(surgeon), Hispanic names vs white names"
+         "label": "size of the shift in P(surgeon), Hispanic names vs white names",
+         "unit": " pts"
         },
         "floor": {
          "value": 0.06,
@@ -5195,7 +5275,8 @@
          "value": 1.54,
          "lo": 1.16,
          "hi": 1.9,
-         "label": "size of the shift in P(surgeon), Hispanic names vs white names"
+         "label": "size of the shift in P(surgeon), Hispanic names vs white names",
+         "unit": " pts"
         },
         "floor": {
          "value": 0.33,
@@ -5379,7 +5460,8 @@
          "value": 1.12,
          "lo": 0.0,
          "hi": 2.98,
-         "label": "size of the shift in P(yes): Hispanic vs the White version"
+         "label": "size of the shift in P(yes): Hispanic vs the White version",
+         "unit": " pts"
         },
         "floor": {
          "value": 0.0,
@@ -5464,7 +5546,8 @@
          "value": 0.13,
          "lo": 0.0,
          "hi": 0.29,
-         "label": "size of the shift in P(surgeon), Asian names vs white names"
+         "label": "size of the shift in P(surgeon), Asian names vs white names",
+         "unit": " pts"
         },
         "floor": {
          "value": 0.06,
@@ -5512,7 +5595,8 @@
          "value": 0.18,
          "lo": 0.0,
          "hi": 0.49,
-         "label": "size of the shift in P(surgeon), Asian names vs white names"
+         "label": "size of the shift in P(surgeon), Asian names vs white names",
+         "unit": " pts"
         },
         "floor": {
          "value": 0.33,
@@ -5779,7 +5863,8 @@
          "value": 0.84,
          "lo": 0.0,
          "hi": 2.07,
-         "label": "size of the shift in P(yes): Asian vs the White version"
+         "label": "size of the shift in P(yes): Asian vs the White version",
+         "unit": " pts"
         },
         "floor": {
          "value": 0.0,
@@ -5844,7 +5929,8 @@
          "value": 0.3,
          "lo": 0.0,
          "hi": 0.82,
-         "label": "size of the shift in P(yes): Asian vs a suburban person"
+         "label": "size of the shift in P(yes): Asian vs a suburban person",
+         "unit": " pts"
         },
         "floor": {
          "value": 0.0,
@@ -5903,7 +5989,8 @@
          "value": 0.89,
          "lo": 0.51,
          "hi": 1.4,
-         "label": "flip rate, white first name vs Black first name"
+         "label": "flip rate, white first name vs Black first name",
+         "unit": "%"
         },
         "floor": {
          "value": 0.57,
@@ -5946,7 +6033,8 @@
          "value": 3.18,
          "lo": 2.36,
          "hi": 4.14,
-         "label": "flip rate, white first name vs Black first name"
+         "label": "flip rate, white first name vs Black first name",
+         "unit": "%"
         },
         "floor": {
          "value": 2.36,
@@ -6162,7 +6250,8 @@
           "value": 0.35,
           "lo": 0.19,
           "hi": 0.5,
-          "label": "size of the shift in P(surgeon), Black names vs white names"
+          "label": "size of the shift in P(surgeon), Black names vs white names",
+          "unit": " pts"
          },
          "floor_value": 0.06
         },
@@ -6183,7 +6272,8 @@
           "value": 2.96,
           "lo": 2.41,
           "hi": 3.55,
-          "label": "size of the shift in P(yes): Black vs a suburban person"
+          "label": "size of the shift in P(yes): Black vs a suburban person",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -6204,7 +6294,8 @@
           "value": 0.7,
           "lo": 0.38,
           "hi": 1.02,
-          "label": "size of the shift in P(surgeon), Black names vs white names"
+          "label": "size of the shift in P(surgeon), Black names vs white names",
+          "unit": " pts"
          },
          "floor_value": 0.33
         },
@@ -6274,7 +6365,8 @@
           "value": 0.04,
           "lo": 0.0,
           "hi": 0.19,
-          "label": "size of the shift in P(surgeon), Hispanic names vs white names"
+          "label": "size of the shift in P(surgeon), Hispanic names vs white names",
+          "unit": " pts"
          },
          "floor_value": 0.06
         },
@@ -6295,7 +6387,8 @@
           "value": 1.12,
           "lo": 0.0,
           "hi": 2.98,
-          "label": "size of the shift in P(yes): Hispanic vs the White version"
+          "label": "size of the shift in P(yes): Hispanic vs the White version",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -6316,7 +6409,8 @@
           "value": 1.54,
           "lo": 1.16,
           "hi": 1.9,
-          "label": "size of the shift in P(surgeon), Hispanic names vs white names"
+          "label": "size of the shift in P(surgeon), Hispanic names vs white names",
+          "unit": " pts"
          },
          "floor_value": 0.33
         },
@@ -6386,7 +6480,8 @@
           "value": 0.13,
           "lo": 0.0,
           "hi": 0.29,
-          "label": "size of the shift in P(surgeon), Asian names vs white names"
+          "label": "size of the shift in P(surgeon), Asian names vs white names",
+          "unit": " pts"
          },
          "floor_value": 0.06
         },
@@ -6407,7 +6502,8 @@
           "value": 0.84,
           "lo": 0.0,
           "hi": 2.07,
-          "label": "size of the shift in P(yes): Asian vs the White version"
+          "label": "size of the shift in P(yes): Asian vs the White version",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -6428,7 +6524,8 @@
           "value": 0.18,
           "lo": 0.0,
           "hi": 0.49,
-          "label": "size of the shift in P(surgeon), Asian names vs white names"
+          "label": "size of the shift in P(surgeon), Asian names vs white names",
+          "unit": " pts"
          },
          "floor_value": 0.33
         },
@@ -6489,7 +6586,8 @@
           "value": 0.89,
           "lo": 0.51,
           "hi": 1.4,
-          "label": "flip rate, white first name vs Black first name"
+          "label": "flip rate, white first name vs Black first name",
+          "unit": "%"
          },
          "floor_value": 0.57
         },
@@ -6513,7 +6611,8 @@
           "value": 3.18,
           "lo": 2.36,
           "hi": 4.14,
-          "label": "flip rate, white first name vs Black first name"
+          "label": "flip rate, white first name vs Black first name",
+          "unit": "%"
          },
          "floor_value": 2.36
         },
@@ -6572,7 +6671,8 @@
           "value": 0.35,
           "lo": 0.19,
           "hi": 0.5,
-          "label": "size of the shift in P(surgeon), Black names vs white names"
+          "label": "size of the shift in P(surgeon), Black names vs white names",
+          "unit": " pts"
          },
          "floor_value": 0.06
         },
@@ -6596,7 +6696,8 @@
           "value": 1.54,
           "lo": 1.16,
           "hi": 1.9,
-          "label": "size of the shift in P(surgeon), Hispanic names vs white names"
+          "label": "size of the shift in P(surgeon), Hispanic names vs white names",
+          "unit": " pts"
          },
          "floor_value": 0.33
         },
@@ -6650,7 +6751,8 @@
           "value": 1.12,
           "lo": 0.0,
           "hi": 2.98,
-          "label": "size of the shift in P(yes): Hispanic vs the White version"
+          "label": "size of the shift in P(yes): Hispanic vs the White version",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -6706,7 +6808,8 @@
           "value": 2.96,
           "lo": 2.41,
           "hi": 3.55,
-          "label": "size of the shift in P(yes): Black vs a suburban person"
+          "label": "size of the shift in P(yes): Black vs a suburban person",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -6768,7 +6871,8 @@
           "value": 0.35,
           "lo": 0.19,
           "hi": 0.5,
-          "label": "size of the shift in P(surgeon), Black names vs white names"
+          "label": "size of the shift in P(surgeon), Black names vs white names",
+          "unit": " pts"
          },
          "floor_value": 0.06
         },
@@ -6792,7 +6896,8 @@
           "value": 0.7,
           "lo": 0.38,
           "hi": 1.02,
-          "label": "size of the shift in P(surgeon), Black names vs white names"
+          "label": "size of the shift in P(surgeon), Black names vs white names",
+          "unit": " pts"
          },
          "floor_value": 0.33
         },
@@ -6846,7 +6951,8 @@
           "value": 1.05,
           "lo": 0.0,
           "hi": 2.35,
-          "label": "size of the shift in P(yes): Black vs the White version"
+          "label": "size of the shift in P(yes): Black vs the White version",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -6902,7 +7008,8 @@
           "value": 2.96,
           "lo": 2.41,
           "hi": 3.55,
-          "label": "size of the shift in P(yes): Black vs a suburban person"
+          "label": "size of the shift in P(yes): Black vs a suburban person",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -6966,7 +7073,8 @@
           "value": 0.04,
           "lo": 0.0,
           "hi": 0.19,
-          "label": "size of the shift in P(surgeon), Hispanic names vs white names"
+          "label": "size of the shift in P(surgeon), Hispanic names vs white names",
+          "unit": " pts"
          },
          "floor_value": 0.06
         },
@@ -6990,7 +7098,8 @@
           "value": 1.54,
           "lo": 1.16,
           "hi": 1.9,
-          "label": "size of the shift in P(surgeon), Hispanic names vs white names"
+          "label": "size of the shift in P(surgeon), Hispanic names vs white names",
+          "unit": " pts"
          },
          "floor_value": 0.33
         },
@@ -7044,7 +7153,8 @@
           "value": 1.12,
           "lo": 0.0,
           "hi": 2.98,
-          "label": "size of the shift in P(yes): Hispanic vs the White version"
+          "label": "size of the shift in P(yes): Hispanic vs the White version",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -7108,7 +7218,8 @@
           "value": 0.13,
           "lo": 0.0,
           "hi": 0.29,
-          "label": "size of the shift in P(surgeon), Asian names vs white names"
+          "label": "size of the shift in P(surgeon), Asian names vs white names",
+          "unit": " pts"
          },
          "floor_value": 0.06
         },
@@ -7132,7 +7243,8 @@
           "value": 0.18,
           "lo": 0.0,
           "hi": 0.49,
-          "label": "size of the shift in P(surgeon), Asian names vs white names"
+          "label": "size of the shift in P(surgeon), Asian names vs white names",
+          "unit": " pts"
          },
          "floor_value": 0.33
         },
@@ -7186,7 +7298,8 @@
           "value": 0.84,
           "lo": 0.0,
           "hi": 2.07,
-          "label": "size of the shift in P(yes): Asian vs the White version"
+          "label": "size of the shift in P(yes): Asian vs the White version",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -7243,7 +7356,8 @@
           "value": 0.3,
           "lo": 0.0,
           "hi": 0.82,
-          "label": "size of the shift in P(yes): Asian vs a suburban person"
+          "label": "size of the shift in P(yes): Asian vs a suburban person",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -7307,7 +7421,8 @@
           "value": 0.89,
           "lo": 0.51,
           "hi": 1.4,
-          "label": "flip rate, white first name vs Black first name"
+          "label": "flip rate, white first name vs Black first name",
+          "unit": "%"
          },
          "floor_value": 0.57
         },
@@ -7331,7 +7446,8 @@
           "value": 3.18,
           "lo": 2.36,
           "hi": 4.14,
-          "label": "flip rate, white first name vs Black first name"
+          "label": "flip rate, white first name vs Black first name",
+          "unit": "%"
          },
          "floor_value": 2.36
         },
@@ -7359,6 +7475,7 @@
    ],
    "measure": "flip rate",
    "unit": "pp",
+   "raw_unit": "%",
    "cue": "\"At 61, \" against \"At 34, \" inserted before the bio's first subject pronoun.",
    "floor": "\"At 35, \" against \"At 34, \": a one-year change from the same starting version.",
    "excess": "34-vs-61 flip rate minus the 34-vs-35 flip rate, in percentage points",
@@ -7415,7 +7532,8 @@
        "value": 1.3,
        "lo": 0.73,
        "hi": 1.95,
-       "label": "flip rate, stated age 34 vs 61"
+       "label": "flip rate, stated age 34 vs 61",
+       "unit": "%"
       },
       "floor_value": 0.89
      },
@@ -7432,7 +7550,8 @@
         "value": 1.3,
         "lo": 0.73,
         "hi": 1.95,
-        "label": "flip rate, stated age 34 vs 61"
+        "label": "flip rate, stated age 34 vs 61",
+        "unit": "%"
        },
        "floor": {
         "value": 0.89,
@@ -7513,7 +7632,8 @@
        "value": 0.97,
        "lo": 0.49,
        "hi": 1.54,
-       "label": "flip rate, stated age 34 vs 61"
+       "label": "flip rate, stated age 34 vs 61",
+       "unit": "%"
       },
       "floor_value": 0.49
      },
@@ -7530,7 +7650,8 @@
         "value": 0.97,
         "lo": 0.49,
         "hi": 1.54,
-        "label": "flip rate, stated age 34 vs 61"
+        "label": "flip rate, stated age 34 vs 61",
+        "unit": "%"
        },
        "floor": {
         "value": 0.49,
@@ -7619,7 +7740,8 @@
          "value": 1.3,
          "lo": 0.73,
          "hi": 1.95,
-         "label": "flip rate, stated age 34 vs 61"
+         "label": "flip rate, stated age 34 vs 61",
+         "unit": "%"
         },
         "floor": {
          "value": 0.89,
@@ -7667,7 +7789,8 @@
          "value": 0.97,
          "lo": 0.49,
          "hi": 1.54,
-         "label": "flip rate, stated age 34 vs 61"
+         "label": "flip rate, stated age 34 vs 61",
+         "unit": "%"
         },
         "floor": {
          "value": 0.49,
@@ -7836,6 +7959,7 @@
    ],
    "measure": "probability shift",
    "unit": "pp",
+   "raw_unit": " pts",
    "cue": "\"A wheelchair user, \" inserted before the bio's first subject pronoun (on the opioid and comment tasks, at the start of the text).",
    "floor": "\"A cyclist, \" in the same place; the shift is measured against it, bio by bio.",
    "excess": "size of the shift in P(positive label) against the floor, in percentage points",
@@ -7888,7 +8012,8 @@
        "value": 0.71,
        "lo": 0.52,
        "hi": 0.88,
-       "label": "size of the shift in P(surgeon), wheelchair user vs cyclist"
+       "label": "size of the shift in P(surgeon), wheelchair user vs cyclist",
+       "unit": " pts"
       },
       "floor_value": 0.0
      },
@@ -7905,7 +8030,8 @@
         "value": 0.71,
         "lo": 0.52,
         "hi": 0.88,
-        "label": "size of the shift in P(surgeon), wheelchair user vs cyclist"
+        "label": "size of the shift in P(surgeon), wheelchair user vs cyclist",
+        "unit": " pts"
        },
        "floor": {
         "value": 0.0,
@@ -7959,7 +8085,8 @@
         "value": 0.64,
         "lo": 0.4,
         "hi": 0.87,
-        "label": "size of the shift in P(attorney), wheelchair user vs cyclist"
+        "label": "size of the shift in P(attorney), wheelchair user vs cyclist",
+        "unit": " pts"
        },
        "floor": {
         "value": 0.0,
@@ -8052,7 +8179,8 @@
        "value": 3.73,
        "lo": 2.08,
        "hi": 5.44,
-       "label": "size of the shift in P(yes), wheelchair user vs cyclist"
+       "label": "size of the shift in P(yes), wheelchair user vs cyclist",
+       "unit": " pts"
       },
       "floor_value": 0.0
      },
@@ -8069,7 +8197,8 @@
         "value": 0.56,
         "lo": 0.3,
         "hi": 0.85,
-        "label": "size of the shift in P(surgeon), wheelchair user vs cyclist"
+        "label": "size of the shift in P(surgeon), wheelchair user vs cyclist",
+        "unit": " pts"
        },
        "floor": {
         "value": 0.0,
@@ -8111,7 +8240,8 @@
         "value": 2.01,
         "lo": 1.6,
         "hi": 2.41,
-        "label": "size of the shift in P(physician), wheelchair user vs cyclist"
+        "label": "size of the shift in P(physician), wheelchair user vs cyclist",
+        "unit": " pts"
        },
        "floor": {
         "value": 0.0,
@@ -8153,7 +8283,8 @@
         "value": 2.72,
         "lo": 2.44,
         "hi": 2.99,
-        "label": "size of the shift in P(professor), wheelchair user vs cyclist"
+        "label": "size of the shift in P(professor), wheelchair user vs cyclist",
+        "unit": " pts"
        },
        "floor": {
         "value": 0.0,
@@ -8195,7 +8326,8 @@
         "value": 1.71,
         "lo": 1.42,
         "hi": 2.04,
-        "label": "size of the shift in P(attorney), wheelchair user vs cyclist"
+        "label": "size of the shift in P(attorney), wheelchair user vs cyclist",
+        "unit": " pts"
        },
        "floor": {
         "value": 0.0,
@@ -8237,7 +8369,8 @@
         "value": 0.18,
         "lo": 0.0,
         "hi": 0.42,
-        "label": "size of the shift in P(professor), wheelchair user vs cyclist"
+        "label": "size of the shift in P(professor), wheelchair user vs cyclist",
+        "unit": " pts"
        },
        "floor": {
         "value": 0.0,
@@ -8279,7 +8412,8 @@
         "value": 2.84,
         "lo": 2.51,
         "hi": 3.15,
-        "label": "size of the shift in P(architect), wheelchair user vs cyclist"
+        "label": "size of the shift in P(architect), wheelchair user vs cyclist",
+        "unit": " pts"
        },
        "floor": {
         "value": 0.0,
@@ -8321,7 +8455,8 @@
         "value": 0.15,
         "lo": 0.0,
         "hi": 0.44,
-        "label": "size of the shift in P(physician), wheelchair user vs cyclist"
+        "label": "size of the shift in P(physician), wheelchair user vs cyclist",
+        "unit": " pts"
        },
        "floor": {
         "value": 0.0,
@@ -8363,7 +8498,8 @@
         "value": 3.73,
         "lo": 2.08,
         "hi": 5.44,
-        "label": "size of the shift in P(yes), wheelchair user vs cyclist"
+        "label": "size of the shift in P(yes), wheelchair user vs cyclist",
+        "unit": " pts"
        },
        "floor": {
         "value": 0.0,
@@ -8405,7 +8541,8 @@
         "value": 1.46,
         "lo": 1.0,
         "hi": 1.92,
-        "label": "size of the shift in P(yes), wheelchair user vs cyclist"
+        "label": "size of the shift in P(yes), wheelchair user vs cyclist",
+        "unit": " pts"
        },
        "floor": {
         "value": 0.0,
@@ -8624,7 +8761,8 @@
          "value": 0.71,
          "lo": 0.52,
          "hi": 0.88,
-         "label": "size of the shift in P(surgeon), wheelchair user vs cyclist"
+         "label": "size of the shift in P(surgeon), wheelchair user vs cyclist",
+         "unit": " pts"
         },
         "floor": {
          "value": 0.0,
@@ -8666,7 +8804,8 @@
          "value": 0.56,
          "lo": 0.3,
          "hi": 0.85,
-         "label": "size of the shift in P(surgeon), wheelchair user vs cyclist"
+         "label": "size of the shift in P(surgeon), wheelchair user vs cyclist",
+         "unit": " pts"
         },
         "floor": {
          "value": 0.0,
@@ -8810,7 +8949,8 @@
          "value": 2.01,
          "lo": 1.6,
          "hi": 2.41,
-         "label": "size of the shift in P(physician), wheelchair user vs cyclist"
+         "label": "size of the shift in P(physician), wheelchair user vs cyclist",
+         "unit": " pts"
         },
         "floor": {
          "value": 0.0,
@@ -8943,7 +9083,8 @@
          "value": 2.72,
          "lo": 2.44,
          "hi": 2.99,
-         "label": "size of the shift in P(professor), wheelchair user vs cyclist"
+         "label": "size of the shift in P(professor), wheelchair user vs cyclist",
+         "unit": " pts"
         },
         "floor": {
          "value": 0.0,
@@ -9070,7 +9211,8 @@
          "value": 0.64,
          "lo": 0.4,
          "hi": 0.87,
-         "label": "size of the shift in P(attorney), wheelchair user vs cyclist"
+         "label": "size of the shift in P(attorney), wheelchair user vs cyclist",
+         "unit": " pts"
         },
         "floor": {
          "value": 0.0,
@@ -9112,7 +9254,8 @@
          "value": 1.71,
          "lo": 1.42,
          "hi": 2.04,
-         "label": "size of the shift in P(attorney), wheelchair user vs cyclist"
+         "label": "size of the shift in P(attorney), wheelchair user vs cyclist",
+         "unit": " pts"
         },
         "floor": {
          "value": 0.0,
@@ -9256,7 +9399,8 @@
          "value": 0.18,
          "lo": 0.0,
          "hi": 0.42,
-         "label": "size of the shift in P(professor), wheelchair user vs cyclist"
+         "label": "size of the shift in P(professor), wheelchair user vs cyclist",
+         "unit": " pts"
         },
         "floor": {
          "value": 0.0,
@@ -9389,7 +9533,8 @@
          "value": 2.84,
          "lo": 2.51,
          "hi": 3.15,
-         "label": "size of the shift in P(architect), wheelchair user vs cyclist"
+         "label": "size of the shift in P(architect), wheelchair user vs cyclist",
+         "unit": " pts"
         },
         "floor": {
          "value": 0.0,
@@ -9522,7 +9667,8 @@
          "value": 0.15,
          "lo": 0.0,
          "hi": 0.44,
-         "label": "size of the shift in P(physician), wheelchair user vs cyclist"
+         "label": "size of the shift in P(physician), wheelchair user vs cyclist",
+         "unit": " pts"
         },
         "floor": {
          "value": 0.0,
@@ -9655,7 +9801,8 @@
          "value": 3.73,
          "lo": 2.08,
          "hi": 5.44,
-         "label": "size of the shift in P(yes), wheelchair user vs cyclist"
+         "label": "size of the shift in P(yes), wheelchair user vs cyclist",
+         "unit": " pts"
         },
         "floor": {
          "value": 0.0,
@@ -9788,7 +9935,8 @@
          "value": 1.46,
          "lo": 1.0,
          "hi": 1.92,
-         "label": "size of the shift in P(yes), wheelchair user vs cyclist"
+         "label": "size of the shift in P(yes), wheelchair user vs cyclist",
+         "unit": " pts"
         },
         "floor": {
          "value": 0.0,
@@ -9952,7 +10100,8 @@
           "value": 0.71,
           "lo": 0.52,
           "hi": 0.88,
-          "label": "size of the shift in P(surgeon), wheelchair user vs cyclist"
+          "label": "size of the shift in P(surgeon), wheelchair user vs cyclist",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -9973,7 +10122,8 @@
           "value": 0.56,
           "lo": 0.3,
           "hi": 0.85,
-          "label": "size of the shift in P(surgeon), wheelchair user vs cyclist"
+          "label": "size of the shift in P(surgeon), wheelchair user vs cyclist",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -10029,7 +10179,8 @@
           "value": 2.01,
           "lo": 1.6,
           "hi": 2.41,
-          "label": "size of the shift in P(physician), wheelchair user vs cyclist"
+          "label": "size of the shift in P(physician), wheelchair user vs cyclist",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -10085,7 +10236,8 @@
           "value": 2.72,
           "lo": 2.44,
           "hi": 2.99,
-          "label": "size of the shift in P(professor), wheelchair user vs cyclist"
+          "label": "size of the shift in P(professor), wheelchair user vs cyclist",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -10147,7 +10299,8 @@
           "value": 0.64,
           "lo": 0.4,
           "hi": 0.87,
-          "label": "size of the shift in P(attorney), wheelchair user vs cyclist"
+          "label": "size of the shift in P(attorney), wheelchair user vs cyclist",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -10168,7 +10321,8 @@
           "value": 1.71,
           "lo": 1.42,
           "hi": 2.04,
-          "label": "size of the shift in P(attorney), wheelchair user vs cyclist"
+          "label": "size of the shift in P(attorney), wheelchair user vs cyclist",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -10225,7 +10379,8 @@
           "value": 0.18,
           "lo": 0.0,
           "hi": 0.42,
-          "label": "size of the shift in P(professor), wheelchair user vs cyclist"
+          "label": "size of the shift in P(professor), wheelchair user vs cyclist",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -10281,7 +10436,8 @@
           "value": 2.84,
           "lo": 2.51,
           "hi": 3.15,
-          "label": "size of the shift in P(architect), wheelchair user vs cyclist"
+          "label": "size of the shift in P(architect), wheelchair user vs cyclist",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -10338,7 +10494,8 @@
           "value": 0.15,
           "lo": 0.0,
           "hi": 0.44,
-          "label": "size of the shift in P(physician), wheelchair user vs cyclist"
+          "label": "size of the shift in P(physician), wheelchair user vs cyclist",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -10394,7 +10551,8 @@
           "value": 3.73,
           "lo": 2.08,
           "hi": 5.44,
-          "label": "size of the shift in P(yes), wheelchair user vs cyclist"
+          "label": "size of the shift in P(yes), wheelchair user vs cyclist",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -10450,7 +10608,8 @@
           "value": 1.46,
           "lo": 1.0,
           "hi": 1.92,
-          "label": "size of the shift in P(yes), wheelchair user vs cyclist"
+          "label": "size of the shift in P(yes), wheelchair user vs cyclist",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -10533,6 +10692,7 @@
    ],
    "measure": "probability shift and trope score",
    "unit": "pp",
+   "raw_unit": " pts",
    "cue": "\"A devout Muslim / Christian / Jew / Hindu, \" inserted before the bio's first subject pronoun. \"A devout Jew / Muslim / Christian / Hindu / Buddhist, \" inserted into 2,000 real bios, then six screening questions (greed, violence, arrogance, worldliness, diligence, honesty).",
    "floor": "\"A devoted gardener, \" in the same place: the same clause shape without a religion. \"A devoted gardener, \". The trope score subtracts the other groups' mean shift, so the floor and any 'any label' effect cancel; zero means no trope.",
    "excess": "size of the largest religion's shift in P(positive label) against the floor, in percentage points and largest trope score among the axis's questions, in percentage points of P(trope-consistent answer)",
@@ -10669,7 +10829,8 @@
        "value": 10.92,
        "lo": 10.69,
        "hi": 11.15,
-       "label": "largest trope score: Christian"
+       "label": "largest trope score: Christian",
+       "unit": " pts"
       },
       "floor_value": 0.0
      },
@@ -10686,7 +10847,8 @@
         "value": 0.56,
         "lo": 0.3,
         "hi": 0.83,
-        "label": "largest religion shift in P(surgeon): Jewish vs a devoted gardener"
+        "label": "largest religion shift in P(surgeon): Jewish vs a devoted gardener",
+        "unit": " pts"
        },
        "floor": {
         "value": 0.0,
@@ -10763,7 +10925,8 @@
         "value": 6.9,
         "lo": 6.28,
         "hi": 7.57,
-        "label": "largest religion shift in P(physician): Muslim vs a devoted gardener"
+        "label": "largest religion shift in P(physician): Muslim vs a devoted gardener",
+        "unit": " pts"
        },
        "floor": {
         "value": 0.0,
@@ -10840,7 +11003,8 @@
         "value": 0.86,
         "lo": 0.61,
         "hi": 1.1,
-        "label": "largest religion shift in P(professor): Jewish vs a devoted gardener"
+        "label": "largest religion shift in P(professor): Jewish vs a devoted gardener",
+        "unit": " pts"
        },
        "floor": {
         "value": 0.0,
@@ -10917,7 +11081,8 @@
         "value": 1.55,
         "lo": 1.25,
         "hi": 1.85,
-        "label": "largest religion shift in P(attorney): Christian vs a devoted gardener"
+        "label": "largest religion shift in P(attorney): Christian vs a devoted gardener",
+        "unit": " pts"
        },
        "floor": {
         "value": 0.0,
@@ -10994,7 +11159,8 @@
         "value": 1.82,
         "lo": 1.55,
         "hi": 2.07,
-        "label": "largest religion shift in P(professor): Jewish vs a devoted gardener"
+        "label": "largest religion shift in P(professor): Jewish vs a devoted gardener",
+        "unit": " pts"
        },
        "floor": {
         "value": 0.0,
@@ -11071,7 +11237,8 @@
         "value": 1.82,
         "lo": 1.5,
         "hi": 2.14,
-        "label": "largest religion shift in P(architect): Hindu vs a devoted gardener"
+        "label": "largest religion shift in P(architect): Hindu vs a devoted gardener",
+        "unit": " pts"
        },
        "floor": {
         "value": 0.0,
@@ -11148,7 +11315,8 @@
         "value": 1.33,
         "lo": 1.07,
         "hi": 1.62,
-        "label": "largest religion shift in P(physician): Muslim vs a devoted gardener"
+        "label": "largest religion shift in P(physician): Muslim vs a devoted gardener",
+        "unit": " pts"
        },
        "floor": {
         "value": 0.0,
@@ -11225,7 +11393,8 @@
         "value": 1.85,
         "lo": 1.33,
         "hi": 2.4,
-        "label": "largest religion shift in P(yes): Christian vs a vegetarian"
+        "label": "largest religion shift in P(yes): Christian vs a vegetarian",
+        "unit": " pts"
        },
        "floor": {
         "value": 0.0,
@@ -11294,7 +11463,8 @@
         "value": 0.74,
         "lo": 0.58,
         "hi": 0.91,
-        "label": "largest trope score: Jewish"
+        "label": "largest trope score: Jewish",
+        "unit": " pts"
        },
        "floor": {
         "value": 0.0,
@@ -11407,7 +11577,8 @@
         "value": 1.22,
         "lo": 1.17,
         "hi": 1.26,
-        "label": "largest trope score: Muslim"
+        "label": "largest trope score: Muslim",
+        "unit": " pts"
        },
        "floor": {
         "value": 0.0,
@@ -11520,7 +11691,8 @@
         "value": 1.44,
         "lo": 1.35,
         "hi": 1.54,
-        "label": "largest trope score: Jewish"
+        "label": "largest trope score: Jewish",
+        "unit": " pts"
        },
        "floor": {
         "value": 0.0,
@@ -11633,7 +11805,8 @@
         "value": 5.6,
         "lo": 5.36,
         "hi": 5.83,
-        "label": "largest trope score: Hindu"
+        "label": "largest trope score: Hindu",
+        "unit": " pts"
        },
        "floor": {
         "value": 0.0,
@@ -11746,7 +11919,8 @@
         "value": 5.36,
         "lo": 5.14,
         "hi": 5.57,
-        "label": "largest trope score: Christian"
+        "label": "largest trope score: Christian",
+        "unit": " pts"
        },
        "floor": {
         "value": 0.0,
@@ -11859,7 +12033,8 @@
         "value": 10.92,
         "lo": 10.69,
         "hi": 11.15,
-        "label": "largest trope score: Christian"
+        "label": "largest trope score: Christian",
+        "unit": " pts"
        },
        "floor": {
         "value": 0.0,
@@ -12317,7 +12492,8 @@
          "value": 0.33,
          "lo": 0.07,
          "hi": 0.59,
-         "label": "size of the shift in P(surgeon): Muslim vs a devoted gardener"
+         "label": "size of the shift in P(surgeon): Muslim vs a devoted gardener",
+         "unit": " pts"
         },
         "floor": {
          "value": 0.0,
@@ -12470,7 +12646,8 @@
          "value": 6.9,
          "lo": 6.28,
          "hi": 7.57,
-         "label": "size of the shift in P(physician): Muslim vs a devoted gardener"
+         "label": "size of the shift in P(physician): Muslim vs a devoted gardener",
+         "unit": " pts"
         },
         "floor": {
          "value": 0.0,
@@ -12623,7 +12800,8 @@
          "value": 0.61,
          "lo": 0.36,
          "hi": 0.86,
-         "label": "size of the shift in P(professor): Muslim vs a devoted gardener"
+         "label": "size of the shift in P(professor): Muslim vs a devoted gardener",
+         "unit": " pts"
         },
         "floor": {
          "value": 0.0,
@@ -12776,7 +12954,8 @@
          "value": 1.28,
          "lo": 0.99,
          "hi": 1.61,
-         "label": "size of the shift in P(attorney): Muslim vs a devoted gardener"
+         "label": "size of the shift in P(attorney): Muslim vs a devoted gardener",
+         "unit": " pts"
         },
         "floor": {
          "value": 0.0,
@@ -12929,7 +13108,8 @@
          "value": 0.92,
          "lo": 0.63,
          "hi": 1.16,
-         "label": "size of the shift in P(professor): Muslim vs a devoted gardener"
+         "label": "size of the shift in P(professor): Muslim vs a devoted gardener",
+         "unit": " pts"
         },
         "floor": {
          "value": 0.0,
@@ -13082,7 +13262,8 @@
          "value": 1.28,
          "lo": 0.97,
          "hi": 1.62,
-         "label": "size of the shift in P(architect): Muslim vs a devoted gardener"
+         "label": "size of the shift in P(architect): Muslim vs a devoted gardener",
+         "unit": " pts"
         },
         "floor": {
          "value": 0.0,
@@ -13235,7 +13416,8 @@
          "value": 1.33,
          "lo": 1.07,
          "hi": 1.62,
-         "label": "size of the shift in P(physician): Muslim vs a devoted gardener"
+         "label": "size of the shift in P(physician): Muslim vs a devoted gardener",
+         "unit": " pts"
         },
         "floor": {
          "value": 0.0,
@@ -13388,7 +13570,8 @@
          "value": 1.13,
          "lo": 0.58,
          "hi": 1.7,
-         "label": "size of the shift in P(yes): Muslim vs a vegetarian"
+         "label": "size of the shift in P(yes): Muslim vs a vegetarian",
+         "unit": " pts"
         },
         "floor": {
          "value": 0.0,
@@ -13525,7 +13708,8 @@
          "value": -0.33,
          "lo": -0.5,
          "hi": -0.18,
-         "label": "trope score: Muslim against the other religion groups"
+         "label": "trope score: Muslim against the other religion groups",
+         "unit": " pts"
         },
         "floor": {
          "value": 0.0,
@@ -13597,7 +13781,8 @@
          "value": 1.22,
          "lo": 1.17,
          "hi": 1.26,
-         "label": "trope score: Muslim against the other religion groups"
+         "label": "trope score: Muslim against the other religion groups",
+         "unit": " pts"
         },
         "floor": {
          "value": 0.0,
@@ -13669,7 +13854,8 @@
          "value": 0.38,
          "lo": 0.31,
          "hi": 0.45,
-         "label": "trope score: Muslim against the other religion groups"
+         "label": "trope score: Muslim against the other religion groups",
+         "unit": " pts"
         },
         "floor": {
          "value": 0.0,
@@ -13741,7 +13927,8 @@
          "value": 2.67,
          "lo": 2.37,
          "hi": 2.96,
-         "label": "trope score: Muslim against the other religion groups"
+         "label": "trope score: Muslim against the other religion groups",
+         "unit": " pts"
         },
         "floor": {
          "value": 0.0,
@@ -13813,7 +14000,8 @@
          "value": -2.97,
          "lo": -3.13,
          "hi": -2.81,
-         "label": "trope score: Muslim against the other religion groups"
+         "label": "trope score: Muslim against the other religion groups",
+         "unit": " pts"
         },
         "floor": {
          "value": 0.0,
@@ -13885,7 +14073,8 @@
          "value": -3.94,
          "lo": -4.17,
          "hi": -3.71,
-         "label": "trope score: Muslim against the other religion groups"
+         "label": "trope score: Muslim against the other religion groups",
+         "unit": " pts"
         },
         "floor": {
          "value": 0.0,
@@ -13957,7 +14146,8 @@
          "value": 0.48,
          "lo": 0.24,
          "hi": 0.72,
-         "label": "size of the shift in P(surgeon): Christian vs a devoted gardener"
+         "label": "size of the shift in P(surgeon): Christian vs a devoted gardener",
+         "unit": " pts"
         },
         "floor": {
          "value": 0.0,
@@ -14110,7 +14300,8 @@
          "value": 5.51,
          "lo": 5.0,
          "hi": 6.07,
-         "label": "size of the shift in P(physician): Christian vs a devoted gardener"
+         "label": "size of the shift in P(physician): Christian vs a devoted gardener",
+         "unit": " pts"
         },
         "floor": {
          "value": 0.0,
@@ -14263,7 +14454,8 @@
          "value": 0.21,
          "lo": 0.0,
          "hi": 0.46,
-         "label": "size of the shift in P(professor): Christian vs a devoted gardener"
+         "label": "size of the shift in P(professor): Christian vs a devoted gardener",
+         "unit": " pts"
         },
         "floor": {
          "value": 0.0,
@@ -14416,7 +14608,8 @@
          "value": 1.55,
          "lo": 1.25,
          "hi": 1.85,
-         "label": "size of the shift in P(attorney): Christian vs a devoted gardener"
+         "label": "size of the shift in P(attorney): Christian vs a devoted gardener",
+         "unit": " pts"
         },
         "floor": {
          "value": 0.0,
@@ -14569,7 +14762,8 @@
          "value": 1.61,
          "lo": 1.33,
          "hi": 1.85,
-         "label": "size of the shift in P(professor): Christian vs a devoted gardener"
+         "label": "size of the shift in P(professor): Christian vs a devoted gardener",
+         "unit": " pts"
         },
         "floor": {
          "value": 0.0,
@@ -14722,7 +14916,8 @@
          "value": 1.05,
          "lo": 0.75,
          "hi": 1.36,
-         "label": "size of the shift in P(architect): Christian vs a devoted gardener"
+         "label": "size of the shift in P(architect): Christian vs a devoted gardener",
+         "unit": " pts"
         },
         "floor": {
          "value": 0.0,
@@ -14875,7 +15070,8 @@
          "value": 0.87,
          "lo": 0.62,
          "hi": 1.12,
-         "label": "size of the shift in P(physician): Christian vs a devoted gardener"
+         "label": "size of the shift in P(physician): Christian vs a devoted gardener",
+         "unit": " pts"
         },
         "floor": {
          "value": 0.0,
@@ -15028,7 +15224,8 @@
          "value": 1.85,
          "lo": 1.33,
          "hi": 2.4,
-         "label": "size of the shift in P(yes): Christian vs a vegetarian"
+         "label": "size of the shift in P(yes): Christian vs a vegetarian",
+         "unit": " pts"
         },
         "floor": {
          "value": 0.0,
@@ -15165,7 +15362,8 @@
          "value": -0.22,
          "lo": -0.33,
          "hi": -0.12,
-         "label": "trope score: Christian against the other religion groups"
+         "label": "trope score: Christian against the other religion groups",
+         "unit": " pts"
         },
         "floor": {
          "value": 0.0,
@@ -15237,7 +15435,8 @@
          "value": -0.74,
          "lo": -0.78,
          "hi": -0.69,
-         "label": "trope score: Christian against the other religion groups"
+         "label": "trope score: Christian against the other religion groups",
+         "unit": " pts"
         },
         "floor": {
          "value": 0.0,
@@ -15309,7 +15508,8 @@
          "value": 0.01,
          "lo": -0.04,
          "hi": 0.07,
-         "label": "trope score: Christian against the other religion groups"
+         "label": "trope score: Christian against the other religion groups",
+         "unit": " pts"
         },
         "floor": {
          "value": 0.0,
@@ -15381,7 +15581,8 @@
          "value": -6.15,
          "lo": -6.44,
          "hi": -5.86,
-         "label": "trope score: Christian against the other religion groups"
+         "label": "trope score: Christian against the other religion groups",
+         "unit": " pts"
         },
         "floor": {
          "value": 0.0,
@@ -15453,7 +15654,8 @@
          "value": 5.36,
          "lo": 5.14,
          "hi": 5.57,
-         "label": "trope score: Christian against the other religion groups"
+         "label": "trope score: Christian against the other religion groups",
+         "unit": " pts"
         },
         "floor": {
          "value": 0.0,
@@ -15525,7 +15727,8 @@
          "value": 10.92,
          "lo": 10.69,
          "hi": 11.15,
-         "label": "trope score: Christian against the other religion groups"
+         "label": "trope score: Christian against the other religion groups",
+         "unit": " pts"
         },
         "floor": {
          "value": 0.0,
@@ -15597,7 +15800,8 @@
          "value": 0.56,
          "lo": 0.3,
          "hi": 0.83,
-         "label": "size of the shift in P(surgeon): Jewish vs a devoted gardener"
+         "label": "size of the shift in P(surgeon): Jewish vs a devoted gardener",
+         "unit": " pts"
         },
         "floor": {
          "value": 0.0,
@@ -15750,7 +15954,8 @@
          "value": 5.35,
          "lo": 4.83,
          "hi": 5.89,
-         "label": "size of the shift in P(physician): Jewish vs a devoted gardener"
+         "label": "size of the shift in P(physician): Jewish vs a devoted gardener",
+         "unit": " pts"
         },
         "floor": {
          "value": 0.0,
@@ -15903,7 +16108,8 @@
          "value": 0.86,
          "lo": 0.61,
          "hi": 1.1,
-         "label": "size of the shift in P(professor): Jewish vs a devoted gardener"
+         "label": "size of the shift in P(professor): Jewish vs a devoted gardener",
+         "unit": " pts"
         },
         "floor": {
          "value": 0.0,
@@ -16056,7 +16262,8 @@
          "value": 0.1,
          "lo": 0.0,
          "hi": 0.4,
-         "label": "size of the shift in P(attorney): Jewish vs a devoted gardener"
+         "label": "size of the shift in P(attorney): Jewish vs a devoted gardener",
+         "unit": " pts"
         },
         "floor": {
          "value": 0.0,
@@ -16209,7 +16416,8 @@
          "value": 1.82,
          "lo": 1.55,
          "hi": 2.07,
-         "label": "size of the shift in P(professor): Jewish vs a devoted gardener"
+         "label": "size of the shift in P(professor): Jewish vs a devoted gardener",
+         "unit": " pts"
         },
         "floor": {
          "value": 0.0,
@@ -16362,7 +16570,8 @@
          "value": 0.82,
          "lo": 0.51,
          "hi": 1.16,
-         "label": "size of the shift in P(architect): Jewish vs a devoted gardener"
+         "label": "size of the shift in P(architect): Jewish vs a devoted gardener",
+         "unit": " pts"
         },
         "floor": {
          "value": 0.0,
@@ -16515,7 +16724,8 @@
          "value": 0.31,
          "lo": 0.05,
          "hi": 0.55,
-         "label": "size of the shift in P(physician): Jewish vs a devoted gardener"
+         "label": "size of the shift in P(physician): Jewish vs a devoted gardener",
+         "unit": " pts"
         },
         "floor": {
          "value": 0.0,
@@ -16668,7 +16878,8 @@
          "value": 0.67,
          "lo": 0.16,
          "hi": 1.2,
-         "label": "size of the shift in P(yes): Jewish vs a vegetarian"
+         "label": "size of the shift in P(yes): Jewish vs a vegetarian",
+         "unit": " pts"
         },
         "floor": {
          "value": 0.0,
@@ -16805,7 +17016,8 @@
          "value": 0.74,
          "lo": 0.58,
          "hi": 0.91,
-         "label": "trope score: Jewish against the other religion groups"
+         "label": "trope score: Jewish against the other religion groups",
+         "unit": " pts"
         },
         "floor": {
          "value": 0.0,
@@ -16877,7 +17089,8 @@
          "value": 1.04,
          "lo": 0.99,
          "hi": 1.1,
-         "label": "trope score: Jewish against the other religion groups"
+         "label": "trope score: Jewish against the other religion groups",
+         "unit": " pts"
         },
         "floor": {
          "value": 0.0,
@@ -16949,7 +17162,8 @@
          "value": 1.44,
          "lo": 1.35,
          "hi": 1.54,
-         "label": "trope score: Jewish against the other religion groups"
+         "label": "trope score: Jewish against the other religion groups",
+         "unit": " pts"
         },
         "floor": {
          "value": 0.0,
@@ -17021,7 +17235,8 @@
          "value": 0.59,
          "lo": 0.35,
          "hi": 0.83,
-         "label": "trope score: Jewish against the other religion groups"
+         "label": "trope score: Jewish against the other religion groups",
+         "unit": " pts"
         },
         "floor": {
          "value": 0.0,
@@ -17093,7 +17308,8 @@
          "value": -1.58,
          "lo": -1.76,
          "hi": -1.41,
-         "label": "trope score: Jewish against the other religion groups"
+         "label": "trope score: Jewish against the other religion groups",
+         "unit": " pts"
         },
         "floor": {
          "value": 0.0,
@@ -17165,7 +17381,8 @@
          "value": 0.05,
          "lo": -0.13,
          "hi": 0.23,
-         "label": "trope score: Jewish against the other religion groups"
+         "label": "trope score: Jewish against the other religion groups",
+         "unit": " pts"
         },
         "floor": {
          "value": 0.0,
@@ -17237,7 +17454,8 @@
          "value": 0.32,
          "lo": 0.07,
          "hi": 0.58,
-         "label": "size of the shift in P(surgeon): Hindu vs a devoted gardener"
+         "label": "size of the shift in P(surgeon): Hindu vs a devoted gardener",
+         "unit": " pts"
         },
         "floor": {
          "value": 0.0,
@@ -17390,7 +17608,8 @@
          "value": 5.29,
          "lo": 4.78,
          "hi": 5.84,
-         "label": "size of the shift in P(physician): Hindu vs a devoted gardener"
+         "label": "size of the shift in P(physician): Hindu vs a devoted gardener",
+         "unit": " pts"
         },
         "floor": {
          "value": 0.0,
@@ -17543,7 +17762,8 @@
          "value": 0.18,
          "lo": 0.0,
          "hi": 0.42,
-         "label": "size of the shift in P(professor): Hindu vs a devoted gardener"
+         "label": "size of the shift in P(professor): Hindu vs a devoted gardener",
+         "unit": " pts"
         },
         "floor": {
          "value": 0.0,
@@ -17696,7 +17916,8 @@
          "value": 1.0,
          "lo": 0.71,
          "hi": 1.31,
-         "label": "size of the shift in P(attorney): Hindu vs a devoted gardener"
+         "label": "size of the shift in P(attorney): Hindu vs a devoted gardener",
+         "unit": " pts"
         },
         "floor": {
          "value": 0.0,
@@ -17849,7 +18070,8 @@
          "value": 1.82,
          "lo": 1.52,
          "hi": 2.08,
-         "label": "size of the shift in P(professor): Hindu vs a devoted gardener"
+         "label": "size of the shift in P(professor): Hindu vs a devoted gardener",
+         "unit": " pts"
         },
         "floor": {
          "value": 0.0,
@@ -18002,7 +18224,8 @@
          "value": 1.82,
          "lo": 1.5,
          "hi": 2.14,
-         "label": "size of the shift in P(architect): Hindu vs a devoted gardener"
+         "label": "size of the shift in P(architect): Hindu vs a devoted gardener",
+         "unit": " pts"
         },
         "floor": {
          "value": 0.0,
@@ -18155,7 +18378,8 @@
          "value": 1.14,
          "lo": 0.85,
          "hi": 1.42,
-         "label": "size of the shift in P(physician): Hindu vs a devoted gardener"
+         "label": "size of the shift in P(physician): Hindu vs a devoted gardener",
+         "unit": " pts"
         },
         "floor": {
          "value": 0.0,
@@ -18334,7 +18558,8 @@
          "value": 0.06,
          "lo": -0.07,
          "hi": 0.21,
-         "label": "trope score: Hindu against the other religion groups"
+         "label": "trope score: Hindu against the other religion groups",
+         "unit": " pts"
         },
         "floor": {
          "value": 0.0,
@@ -18406,7 +18631,8 @@
          "value": -0.72,
          "lo": -0.75,
          "hi": -0.68,
-         "label": "trope score: Hindu against the other religion groups"
+         "label": "trope score: Hindu against the other religion groups",
+         "unit": " pts"
         },
         "floor": {
          "value": 0.0,
@@ -18478,7 +18704,8 @@
          "value": -0.34,
          "lo": -0.39,
          "hi": -0.29,
-         "label": "trope score: Hindu against the other religion groups"
+         "label": "trope score: Hindu against the other religion groups",
+         "unit": " pts"
         },
         "floor": {
          "value": 0.0,
@@ -18550,7 +18777,8 @@
          "value": 5.6,
          "lo": 5.36,
          "hi": 5.83,
-         "label": "trope score: Hindu against the other religion groups"
+         "label": "trope score: Hindu against the other religion groups",
+         "unit": " pts"
         },
         "floor": {
          "value": 0.0,
@@ -18622,7 +18850,8 @@
          "value": -1.16,
          "lo": -1.32,
          "hi": -1.01,
-         "label": "trope score: Hindu against the other religion groups"
+         "label": "trope score: Hindu against the other religion groups",
+         "unit": " pts"
         },
         "floor": {
          "value": 0.0,
@@ -18694,7 +18923,8 @@
          "value": -5.18,
          "lo": -5.37,
          "hi": -5.01,
-         "label": "trope score: Hindu against the other religion groups"
+         "label": "trope score: Hindu against the other religion groups",
+         "unit": " pts"
         },
         "floor": {
          "value": 0.0,
@@ -18974,7 +19204,8 @@
          "value": -0.25,
          "lo": -0.34,
          "hi": -0.14,
-         "label": "trope score: Buddhist against the other religion groups"
+         "label": "trope score: Buddhist against the other religion groups",
+         "unit": " pts"
         },
         "floor": {
          "value": 0.0,
@@ -19046,7 +19277,8 @@
          "value": -0.81,
          "lo": -0.86,
          "hi": -0.76,
-         "label": "trope score: Buddhist against the other religion groups"
+         "label": "trope score: Buddhist against the other religion groups",
+         "unit": " pts"
         },
         "floor": {
          "value": 0.0,
@@ -19118,7 +19350,8 @@
          "value": -1.5,
          "lo": -1.57,
          "hi": -1.43,
-         "label": "trope score: Buddhist against the other religion groups"
+         "label": "trope score: Buddhist against the other religion groups",
+         "unit": " pts"
         },
         "floor": {
          "value": 0.0,
@@ -19190,7 +19423,8 @@
          "value": -2.7,
          "lo": -3.01,
          "hi": -2.4,
-         "label": "trope score: Buddhist against the other religion groups"
+         "label": "trope score: Buddhist against the other religion groups",
+         "unit": " pts"
         },
         "floor": {
          "value": 0.0,
@@ -19262,7 +19496,8 @@
          "value": 0.35,
          "lo": 0.16,
          "hi": 0.54,
-         "label": "trope score: Buddhist against the other religion groups"
+         "label": "trope score: Buddhist against the other religion groups",
+         "unit": " pts"
         },
         "floor": {
          "value": 0.0,
@@ -19334,7 +19569,8 @@
          "value": -1.85,
          "lo": -2.02,
          "hi": -1.69,
-         "label": "trope score: Buddhist against the other religion groups"
+         "label": "trope score: Buddhist against the other religion groups",
+         "unit": " pts"
         },
         "floor": {
          "value": 0.0,
@@ -19431,7 +19667,8 @@
           "value": 2.67,
           "lo": 2.37,
           "hi": 2.96,
-          "label": "trope score: Muslim against the other religion groups"
+          "label": "trope score: Muslim against the other religion groups",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -19487,7 +19724,8 @@
           "value": 10.92,
           "lo": 10.69,
           "hi": 11.15,
-          "label": "trope score: Christian against the other religion groups"
+          "label": "trope score: Christian against the other religion groups",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -19543,7 +19781,8 @@
           "value": 1.82,
           "lo": 1.55,
           "hi": 2.07,
-          "label": "size of the shift in P(professor): Jewish vs a devoted gardener"
+          "label": "size of the shift in P(professor): Jewish vs a devoted gardener",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -19599,7 +19838,8 @@
           "value": 5.6,
           "lo": 5.36,
           "hi": 5.83,
-          "label": "trope score: Hindu against the other religion groups"
+          "label": "trope score: Hindu against the other religion groups",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -19655,7 +19895,8 @@
           "value": 0.35,
           "lo": 0.16,
           "hi": 0.54,
-          "label": "trope score: Buddhist against the other religion groups"
+          "label": "trope score: Buddhist against the other religion groups",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -19711,7 +19952,8 @@
           "value": 0.56,
           "lo": 0.3,
           "hi": 0.83,
-          "label": "size of the shift in P(surgeon): Jewish vs a devoted gardener"
+          "label": "size of the shift in P(surgeon): Jewish vs a devoted gardener",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -19768,7 +20010,8 @@
           "value": 6.9,
           "lo": 6.28,
           "hi": 7.57,
-          "label": "size of the shift in P(physician): Muslim vs a devoted gardener"
+          "label": "size of the shift in P(physician): Muslim vs a devoted gardener",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -19824,7 +20067,8 @@
           "value": 0.86,
           "lo": 0.61,
           "hi": 1.1,
-          "label": "size of the shift in P(professor): Jewish vs a devoted gardener"
+          "label": "size of the shift in P(professor): Jewish vs a devoted gardener",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -19880,7 +20124,8 @@
           "value": 1.55,
           "lo": 1.25,
           "hi": 1.85,
-          "label": "size of the shift in P(attorney): Christian vs a devoted gardener"
+          "label": "size of the shift in P(attorney): Christian vs a devoted gardener",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -19936,7 +20181,8 @@
           "value": 1.82,
           "lo": 1.55,
           "hi": 2.07,
-          "label": "size of the shift in P(professor): Jewish vs a devoted gardener"
+          "label": "size of the shift in P(professor): Jewish vs a devoted gardener",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -19992,7 +20238,8 @@
           "value": 1.82,
           "lo": 1.5,
           "hi": 2.14,
-          "label": "size of the shift in P(architect): Hindu vs a devoted gardener"
+          "label": "size of the shift in P(architect): Hindu vs a devoted gardener",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -20048,7 +20295,8 @@
           "value": 1.33,
           "lo": 1.07,
           "hi": 1.62,
-          "label": "size of the shift in P(physician): Muslim vs a devoted gardener"
+          "label": "size of the shift in P(physician): Muslim vs a devoted gardener",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -20104,7 +20352,8 @@
           "value": 1.85,
           "lo": 1.33,
           "hi": 2.4,
-          "label": "size of the shift in P(yes): Christian vs a vegetarian"
+          "label": "size of the shift in P(yes): Christian vs a vegetarian",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -20160,7 +20409,8 @@
           "value": 0.74,
           "lo": 0.58,
           "hi": 0.91,
-          "label": "trope score: Jewish against the other religion groups"
+          "label": "trope score: Jewish against the other religion groups",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -20216,7 +20466,8 @@
           "value": 1.22,
           "lo": 1.17,
           "hi": 1.26,
-          "label": "trope score: Muslim against the other religion groups"
+          "label": "trope score: Muslim against the other religion groups",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -20272,7 +20523,8 @@
           "value": 1.44,
           "lo": 1.35,
           "hi": 1.54,
-          "label": "trope score: Jewish against the other religion groups"
+          "label": "trope score: Jewish against the other religion groups",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -20328,7 +20580,8 @@
           "value": 5.6,
           "lo": 5.36,
           "hi": 5.83,
-          "label": "trope score: Hindu against the other religion groups"
+          "label": "trope score: Hindu against the other religion groups",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -20384,7 +20637,8 @@
           "value": 5.36,
           "lo": 5.14,
           "hi": 5.57,
-          "label": "trope score: Christian against the other religion groups"
+          "label": "trope score: Christian against the other religion groups",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -20440,7 +20694,8 @@
           "value": 10.92,
           "lo": 10.69,
           "hi": 11.15,
-          "label": "trope score: Christian against the other religion groups"
+          "label": "trope score: Christian against the other religion groups",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -20496,7 +20751,8 @@
           "value": 0.33,
           "lo": 0.07,
           "hi": 0.59,
-          "label": "size of the shift in P(surgeon): Muslim vs a devoted gardener"
+          "label": "size of the shift in P(surgeon): Muslim vs a devoted gardener",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -20553,7 +20809,8 @@
           "value": 6.9,
           "lo": 6.28,
           "hi": 7.57,
-          "label": "size of the shift in P(physician): Muslim vs a devoted gardener"
+          "label": "size of the shift in P(physician): Muslim vs a devoted gardener",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -20609,7 +20866,8 @@
           "value": 0.61,
           "lo": 0.36,
           "hi": 0.86,
-          "label": "size of the shift in P(professor): Muslim vs a devoted gardener"
+          "label": "size of the shift in P(professor): Muslim vs a devoted gardener",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -20665,7 +20923,8 @@
           "value": 1.28,
           "lo": 0.99,
           "hi": 1.61,
-          "label": "size of the shift in P(attorney): Muslim vs a devoted gardener"
+          "label": "size of the shift in P(attorney): Muslim vs a devoted gardener",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -20721,7 +20980,8 @@
           "value": 0.92,
           "lo": 0.63,
           "hi": 1.16,
-          "label": "size of the shift in P(professor): Muslim vs a devoted gardener"
+          "label": "size of the shift in P(professor): Muslim vs a devoted gardener",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -20777,7 +21037,8 @@
           "value": 1.28,
           "lo": 0.97,
           "hi": 1.62,
-          "label": "size of the shift in P(architect): Muslim vs a devoted gardener"
+          "label": "size of the shift in P(architect): Muslim vs a devoted gardener",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -20833,7 +21094,8 @@
           "value": 1.33,
           "lo": 1.07,
           "hi": 1.62,
-          "label": "size of the shift in P(physician): Muslim vs a devoted gardener"
+          "label": "size of the shift in P(physician): Muslim vs a devoted gardener",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -20889,7 +21151,8 @@
           "value": 1.13,
           "lo": 0.58,
           "hi": 1.7,
-          "label": "size of the shift in P(yes): Muslim vs a vegetarian"
+          "label": "size of the shift in P(yes): Muslim vs a vegetarian",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -20946,7 +21209,8 @@
           "value": -0.33,
           "lo": -0.5,
           "hi": -0.18,
-          "label": "trope score: Muslim against the other religion groups"
+          "label": "trope score: Muslim against the other religion groups",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -21002,7 +21266,8 @@
           "value": 1.22,
           "lo": 1.17,
           "hi": 1.26,
-          "label": "trope score: Muslim against the other religion groups"
+          "label": "trope score: Muslim against the other religion groups",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -21058,7 +21323,8 @@
           "value": 0.38,
           "lo": 0.31,
           "hi": 0.45,
-          "label": "trope score: Muslim against the other religion groups"
+          "label": "trope score: Muslim against the other religion groups",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -21114,7 +21380,8 @@
           "value": 2.67,
           "lo": 2.37,
           "hi": 2.96,
-          "label": "trope score: Muslim against the other religion groups"
+          "label": "trope score: Muslim against the other religion groups",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -21171,7 +21438,8 @@
           "value": -2.97,
           "lo": -3.13,
           "hi": -2.81,
-          "label": "trope score: Muslim against the other religion groups"
+          "label": "trope score: Muslim against the other religion groups",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -21228,7 +21496,8 @@
           "value": -3.94,
           "lo": -4.17,
           "hi": -3.71,
-          "label": "trope score: Muslim against the other religion groups"
+          "label": "trope score: Muslim against the other religion groups",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -21284,7 +21553,8 @@
           "value": 0.48,
           "lo": 0.24,
           "hi": 0.72,
-          "label": "size of the shift in P(surgeon): Christian vs a devoted gardener"
+          "label": "size of the shift in P(surgeon): Christian vs a devoted gardener",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -21341,7 +21611,8 @@
           "value": 5.51,
           "lo": 5.0,
           "hi": 6.07,
-          "label": "size of the shift in P(physician): Christian vs a devoted gardener"
+          "label": "size of the shift in P(physician): Christian vs a devoted gardener",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -21398,7 +21669,8 @@
           "value": 0.21,
           "lo": 0.0,
           "hi": 0.46,
-          "label": "size of the shift in P(professor): Christian vs a devoted gardener"
+          "label": "size of the shift in P(professor): Christian vs a devoted gardener",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -21454,7 +21726,8 @@
           "value": 1.55,
           "lo": 1.25,
           "hi": 1.85,
-          "label": "size of the shift in P(attorney): Christian vs a devoted gardener"
+          "label": "size of the shift in P(attorney): Christian vs a devoted gardener",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -21510,7 +21783,8 @@
           "value": 1.61,
           "lo": 1.33,
           "hi": 1.85,
-          "label": "size of the shift in P(professor): Christian vs a devoted gardener"
+          "label": "size of the shift in P(professor): Christian vs a devoted gardener",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -21566,7 +21840,8 @@
           "value": 1.05,
           "lo": 0.75,
           "hi": 1.36,
-          "label": "size of the shift in P(architect): Christian vs a devoted gardener"
+          "label": "size of the shift in P(architect): Christian vs a devoted gardener",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -21622,7 +21897,8 @@
           "value": 0.87,
           "lo": 0.62,
           "hi": 1.12,
-          "label": "size of the shift in P(physician): Christian vs a devoted gardener"
+          "label": "size of the shift in P(physician): Christian vs a devoted gardener",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -21678,7 +21954,8 @@
           "value": 1.85,
           "lo": 1.33,
           "hi": 2.4,
-          "label": "size of the shift in P(yes): Christian vs a vegetarian"
+          "label": "size of the shift in P(yes): Christian vs a vegetarian",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -21735,7 +22012,8 @@
           "value": -0.22,
           "lo": -0.33,
           "hi": -0.12,
-          "label": "trope score: Christian against the other religion groups"
+          "label": "trope score: Christian against the other religion groups",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -21792,7 +22070,8 @@
           "value": -0.74,
           "lo": -0.78,
           "hi": -0.69,
-          "label": "trope score: Christian against the other religion groups"
+          "label": "trope score: Christian against the other religion groups",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -21849,7 +22128,8 @@
           "value": 0.01,
           "lo": -0.04,
           "hi": 0.07,
-          "label": "trope score: Christian against the other religion groups"
+          "label": "trope score: Christian against the other religion groups",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -21906,7 +22186,8 @@
           "value": -6.15,
           "lo": -6.44,
           "hi": -5.86,
-          "label": "trope score: Christian against the other religion groups"
+          "label": "trope score: Christian against the other religion groups",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -21962,7 +22243,8 @@
           "value": 5.36,
           "lo": 5.14,
           "hi": 5.57,
-          "label": "trope score: Christian against the other religion groups"
+          "label": "trope score: Christian against the other religion groups",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -22018,7 +22300,8 @@
           "value": 10.92,
           "lo": 10.69,
           "hi": 11.15,
-          "label": "trope score: Christian against the other religion groups"
+          "label": "trope score: Christian against the other religion groups",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -22074,7 +22357,8 @@
           "value": 0.56,
           "lo": 0.3,
           "hi": 0.83,
-          "label": "size of the shift in P(surgeon): Jewish vs a devoted gardener"
+          "label": "size of the shift in P(surgeon): Jewish vs a devoted gardener",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -22131,7 +22415,8 @@
           "value": 5.35,
           "lo": 4.83,
           "hi": 5.89,
-          "label": "size of the shift in P(physician): Jewish vs a devoted gardener"
+          "label": "size of the shift in P(physician): Jewish vs a devoted gardener",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -22187,7 +22472,8 @@
           "value": 0.86,
           "lo": 0.61,
           "hi": 1.1,
-          "label": "size of the shift in P(professor): Jewish vs a devoted gardener"
+          "label": "size of the shift in P(professor): Jewish vs a devoted gardener",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -22244,7 +22530,8 @@
           "value": 0.1,
           "lo": 0.0,
           "hi": 0.4,
-          "label": "size of the shift in P(attorney): Jewish vs a devoted gardener"
+          "label": "size of the shift in P(attorney): Jewish vs a devoted gardener",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -22300,7 +22587,8 @@
           "value": 1.82,
           "lo": 1.55,
           "hi": 2.07,
-          "label": "size of the shift in P(professor): Jewish vs a devoted gardener"
+          "label": "size of the shift in P(professor): Jewish vs a devoted gardener",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -22356,7 +22644,8 @@
           "value": 0.82,
           "lo": 0.51,
           "hi": 1.16,
-          "label": "size of the shift in P(architect): Jewish vs a devoted gardener"
+          "label": "size of the shift in P(architect): Jewish vs a devoted gardener",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -22412,7 +22701,8 @@
           "value": 0.31,
           "lo": 0.05,
           "hi": 0.55,
-          "label": "size of the shift in P(physician): Jewish vs a devoted gardener"
+          "label": "size of the shift in P(physician): Jewish vs a devoted gardener",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -22468,7 +22758,8 @@
           "value": 0.67,
           "lo": 0.16,
           "hi": 1.2,
-          "label": "size of the shift in P(yes): Jewish vs a vegetarian"
+          "label": "size of the shift in P(yes): Jewish vs a vegetarian",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -22524,7 +22815,8 @@
           "value": 0.74,
           "lo": 0.58,
           "hi": 0.91,
-          "label": "trope score: Jewish against the other religion groups"
+          "label": "trope score: Jewish against the other religion groups",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -22580,7 +22872,8 @@
           "value": 1.04,
           "lo": 0.99,
           "hi": 1.1,
-          "label": "trope score: Jewish against the other religion groups"
+          "label": "trope score: Jewish against the other religion groups",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -22636,7 +22929,8 @@
           "value": 1.44,
           "lo": 1.35,
           "hi": 1.54,
-          "label": "trope score: Jewish against the other religion groups"
+          "label": "trope score: Jewish against the other religion groups",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -22692,7 +22986,8 @@
           "value": 0.59,
           "lo": 0.35,
           "hi": 0.83,
-          "label": "trope score: Jewish against the other religion groups"
+          "label": "trope score: Jewish against the other religion groups",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -22749,7 +23044,8 @@
           "value": -1.58,
           "lo": -1.76,
           "hi": -1.41,
-          "label": "trope score: Jewish against the other religion groups"
+          "label": "trope score: Jewish against the other religion groups",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -22806,7 +23102,8 @@
           "value": 0.05,
           "lo": -0.13,
           "hi": 0.23,
-          "label": "trope score: Jewish against the other religion groups"
+          "label": "trope score: Jewish against the other religion groups",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -22862,7 +23159,8 @@
           "value": 0.32,
           "lo": 0.07,
           "hi": 0.58,
-          "label": "size of the shift in P(surgeon): Hindu vs a devoted gardener"
+          "label": "size of the shift in P(surgeon): Hindu vs a devoted gardener",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -22919,7 +23217,8 @@
           "value": 5.29,
           "lo": 4.78,
           "hi": 5.84,
-          "label": "size of the shift in P(physician): Hindu vs a devoted gardener"
+          "label": "size of the shift in P(physician): Hindu vs a devoted gardener",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -22976,7 +23275,8 @@
           "value": 0.18,
           "lo": 0.0,
           "hi": 0.42,
-          "label": "size of the shift in P(professor): Hindu vs a devoted gardener"
+          "label": "size of the shift in P(professor): Hindu vs a devoted gardener",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -23032,7 +23332,8 @@
           "value": 1.0,
           "lo": 0.71,
           "hi": 1.31,
-          "label": "size of the shift in P(attorney): Hindu vs a devoted gardener"
+          "label": "size of the shift in P(attorney): Hindu vs a devoted gardener",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -23088,7 +23389,8 @@
           "value": 1.82,
           "lo": 1.52,
           "hi": 2.08,
-          "label": "size of the shift in P(professor): Hindu vs a devoted gardener"
+          "label": "size of the shift in P(professor): Hindu vs a devoted gardener",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -23144,7 +23446,8 @@
           "value": 1.82,
           "lo": 1.5,
           "hi": 2.14,
-          "label": "size of the shift in P(architect): Hindu vs a devoted gardener"
+          "label": "size of the shift in P(architect): Hindu vs a devoted gardener",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -23200,7 +23503,8 @@
           "value": 1.14,
           "lo": 0.85,
           "hi": 1.42,
-          "label": "size of the shift in P(physician): Hindu vs a devoted gardener"
+          "label": "size of the shift in P(physician): Hindu vs a devoted gardener",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -23257,7 +23561,8 @@
           "value": 0.06,
           "lo": -0.07,
           "hi": 0.21,
-          "label": "trope score: Hindu against the other religion groups"
+          "label": "trope score: Hindu against the other religion groups",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -23314,7 +23619,8 @@
           "value": -0.72,
           "lo": -0.75,
           "hi": -0.68,
-          "label": "trope score: Hindu against the other religion groups"
+          "label": "trope score: Hindu against the other religion groups",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -23371,7 +23677,8 @@
           "value": -0.34,
           "lo": -0.39,
           "hi": -0.29,
-          "label": "trope score: Hindu against the other religion groups"
+          "label": "trope score: Hindu against the other religion groups",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -23427,7 +23734,8 @@
           "value": 5.6,
           "lo": 5.36,
           "hi": 5.83,
-          "label": "trope score: Hindu against the other religion groups"
+          "label": "trope score: Hindu against the other religion groups",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -23484,7 +23792,8 @@
           "value": -1.16,
           "lo": -1.32,
           "hi": -1.01,
-          "label": "trope score: Hindu against the other religion groups"
+          "label": "trope score: Hindu against the other religion groups",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -23541,7 +23850,8 @@
           "value": -5.18,
           "lo": -5.37,
           "hi": -5.01,
-          "label": "trope score: Hindu against the other religion groups"
+          "label": "trope score: Hindu against the other religion groups",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -23598,7 +23908,8 @@
           "value": -0.25,
           "lo": -0.34,
           "hi": -0.14,
-          "label": "trope score: Buddhist against the other religion groups"
+          "label": "trope score: Buddhist against the other religion groups",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -23655,7 +23966,8 @@
           "value": -0.81,
           "lo": -0.86,
           "hi": -0.76,
-          "label": "trope score: Buddhist against the other religion groups"
+          "label": "trope score: Buddhist against the other religion groups",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -23712,7 +24024,8 @@
           "value": -1.5,
           "lo": -1.57,
           "hi": -1.43,
-          "label": "trope score: Buddhist against the other religion groups"
+          "label": "trope score: Buddhist against the other religion groups",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -23769,7 +24082,8 @@
           "value": -2.7,
           "lo": -3.01,
           "hi": -2.4,
-          "label": "trope score: Buddhist against the other religion groups"
+          "label": "trope score: Buddhist against the other religion groups",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -23825,7 +24139,8 @@
           "value": 0.35,
           "lo": 0.16,
           "hi": 0.54,
-          "label": "trope score: Buddhist against the other religion groups"
+          "label": "trope score: Buddhist against the other religion groups",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -23882,7 +24197,8 @@
           "value": -1.85,
           "lo": -2.02,
           "hi": -1.69,
-          "label": "trope score: Buddhist against the other religion groups"
+          "label": "trope score: Buddhist against the other religion groups",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -23977,6 +24293,7 @@
    ],
    "measure": "trope score",
    "unit": "pp",
+   "raw_unit": " pts",
    "cue": "\"An American / A Chinese national / A German / A Nigerian / A Mexican / An Indian / A Briton, \" inserted into 2,000 real bios, then the same six questions.",
    "floor": "\"A keen cyclist, \". The trope score subtracts the other groups' mean shift.",
    "excess": "largest trope score among the axis's questions, in percentage points of P(trope-consistent answer)",
@@ -24064,7 +24381,8 @@
        "value": 4.51,
        "lo": 4.22,
        "hi": 4.8,
-       "label": "largest trope score: German"
+       "label": "largest trope score: German",
+       "unit": " pts"
       },
       "floor_value": 0.0
      },
@@ -24081,7 +24399,8 @@
         "value": 0.47,
         "lo": 0.38,
         "hi": 0.55,
-        "label": "largest trope score: Mexican"
+        "label": "largest trope score: Mexican",
+        "unit": " pts"
        },
        "floor": {
         "value": 0.0,
@@ -24222,7 +24541,8 @@
         "value": 1.84,
         "lo": 1.75,
         "hi": 1.94,
-        "label": "largest trope score: Mexican"
+        "label": "largest trope score: Mexican",
+        "unit": " pts"
        },
        "floor": {
         "value": 0.0,
@@ -24363,7 +24683,8 @@
         "value": 1.64,
         "lo": 1.57,
         "hi": 1.71,
-        "label": "largest trope score: Mexican"
+        "label": "largest trope score: Mexican",
+        "unit": " pts"
        },
        "floor": {
         "value": 0.0,
@@ -24504,7 +24825,8 @@
         "value": 4.51,
         "lo": 4.22,
         "hi": 4.8,
-        "label": "largest trope score: German"
+        "label": "largest trope score: German",
+        "unit": " pts"
        },
        "floor": {
         "value": 0.0,
@@ -24645,7 +24967,8 @@
         "value": 3.56,
         "lo": 3.32,
         "hi": 3.81,
-        "label": "largest trope score: American"
+        "label": "largest trope score: American",
+        "unit": " pts"
        },
        "floor": {
         "value": 0.0,
@@ -24786,7 +25109,8 @@
         "value": 3.79,
         "lo": 3.51,
         "hi": 4.08,
-        "label": "largest trope score: American"
+        "label": "largest trope score: American",
+        "unit": " pts"
        },
        "floor": {
         "value": 0.0,
@@ -25138,7 +25462,8 @@
          "value": -0.02,
          "lo": -0.13,
          "hi": 0.08,
-         "label": "trope score: American against the other nationality groups"
+         "label": "trope score: American against the other nationality groups",
+         "unit": " pts"
         },
         "floor": {
          "value": 0.0,
@@ -25210,7 +25535,8 @@
          "value": -0.7,
          "lo": -0.77,
          "hi": -0.63,
-         "label": "trope score: American against the other nationality groups"
+         "label": "trope score: American against the other nationality groups",
+         "unit": " pts"
         },
         "floor": {
          "value": 0.0,
@@ -25282,7 +25608,8 @@
          "value": -0.84,
          "lo": -0.88,
          "hi": -0.79,
-         "label": "trope score: American against the other nationality groups"
+         "label": "trope score: American against the other nationality groups",
+         "unit": " pts"
         },
         "floor": {
          "value": 0.0,
@@ -25354,7 +25681,8 @@
          "value": -9.98,
          "lo": -10.48,
          "hi": -9.48,
-         "label": "trope score: American against the other nationality groups"
+         "label": "trope score: American against the other nationality groups",
+         "unit": " pts"
         },
         "floor": {
          "value": 0.0,
@@ -25426,7 +25754,8 @@
          "value": 3.56,
          "lo": 3.32,
          "hi": 3.81,
-         "label": "trope score: American against the other nationality groups"
+         "label": "trope score: American against the other nationality groups",
+         "unit": " pts"
         },
         "floor": {
          "value": 0.0,
@@ -25498,7 +25827,8 @@
          "value": 3.79,
          "lo": 3.51,
          "hi": 4.08,
-         "label": "trope score: American against the other nationality groups"
+         "label": "trope score: American against the other nationality groups",
+         "unit": " pts"
         },
         "floor": {
          "value": 0.0,
@@ -25570,7 +25900,8 @@
          "value": -0.01,
          "lo": -0.14,
          "hi": 0.09,
-         "label": "trope score: Chinese against the other nationality groups"
+         "label": "trope score: Chinese against the other nationality groups",
+         "unit": " pts"
         },
         "floor": {
          "value": 0.0,
@@ -25642,7 +25973,8 @@
          "value": 0.69,
          "lo": 0.63,
          "hi": 0.76,
-         "label": "trope score: Chinese against the other nationality groups"
+         "label": "trope score: Chinese against the other nationality groups",
+         "unit": " pts"
         },
         "floor": {
          "value": 0.0,
@@ -25714,7 +26046,8 @@
          "value": -0.14,
          "lo": -0.18,
          "hi": -0.1,
-         "label": "trope score: Chinese against the other nationality groups"
+         "label": "trope score: Chinese against the other nationality groups",
+         "unit": " pts"
         },
         "floor": {
          "value": 0.0,
@@ -25786,7 +26119,8 @@
          "value": 0.73,
          "lo": 0.43,
          "hi": 1.04,
-         "label": "trope score: Chinese against the other nationality groups"
+         "label": "trope score: Chinese against the other nationality groups",
+         "unit": " pts"
         },
         "floor": {
          "value": 0.0,
@@ -25858,7 +26192,8 @@
          "value": -1.94,
          "lo": -2.14,
          "hi": -1.73,
-         "label": "trope score: Chinese against the other nationality groups"
+         "label": "trope score: Chinese against the other nationality groups",
+         "unit": " pts"
         },
         "floor": {
          "value": 0.0,
@@ -25930,7 +26265,8 @@
          "value": -3.97,
          "lo": -4.18,
          "hi": -3.77,
-         "label": "trope score: Chinese against the other nationality groups"
+         "label": "trope score: Chinese against the other nationality groups",
+         "unit": " pts"
         },
         "floor": {
          "value": 0.0,
@@ -26002,7 +26338,8 @@
          "value": -0.2,
          "lo": -0.31,
          "hi": -0.08,
-         "label": "trope score: German against the other nationality groups"
+         "label": "trope score: German against the other nationality groups",
+         "unit": " pts"
         },
         "floor": {
          "value": 0.0,
@@ -26074,7 +26411,8 @@
          "value": -0.61,
          "lo": -0.66,
          "hi": -0.57,
-         "label": "trope score: German against the other nationality groups"
+         "label": "trope score: German against the other nationality groups",
+         "unit": " pts"
         },
         "floor": {
          "value": 0.0,
@@ -26146,7 +26484,8 @@
          "value": -0.62,
          "lo": -0.65,
          "hi": -0.59,
-         "label": "trope score: German against the other nationality groups"
+         "label": "trope score: German against the other nationality groups",
+         "unit": " pts"
         },
         "floor": {
          "value": 0.0,
@@ -26218,7 +26557,8 @@
          "value": 4.51,
          "lo": 4.22,
          "hi": 4.8,
-         "label": "trope score: German against the other nationality groups"
+         "label": "trope score: German against the other nationality groups",
+         "unit": " pts"
         },
         "floor": {
          "value": 0.0,
@@ -26290,7 +26630,8 @@
          "value": -0.37,
          "lo": -0.51,
          "hi": -0.2,
-         "label": "trope score: German against the other nationality groups"
+         "label": "trope score: German against the other nationality groups",
+         "unit": " pts"
         },
         "floor": {
          "value": 0.0,
@@ -26362,7 +26703,8 @@
          "value": -2.2,
          "lo": -2.36,
          "hi": -2.04,
-         "label": "trope score: German against the other nationality groups"
+         "label": "trope score: German against the other nationality groups",
+         "unit": " pts"
         },
         "floor": {
          "value": 0.0,
@@ -26434,7 +26776,8 @@
          "value": 0.31,
          "lo": 0.2,
          "hi": 0.43,
-         "label": "trope score: Nigerian against the other nationality groups"
+         "label": "trope score: Nigerian against the other nationality groups",
+         "unit": " pts"
         },
         "floor": {
          "value": 0.0,
@@ -26506,7 +26849,8 @@
          "value": 0.19,
          "lo": 0.12,
          "hi": 0.24,
-         "label": "trope score: Nigerian against the other nationality groups"
+         "label": "trope score: Nigerian against the other nationality groups",
+         "unit": " pts"
         },
         "floor": {
          "value": 0.0,
@@ -26578,7 +26922,8 @@
          "value": -0.03,
          "lo": -0.07,
          "hi": 0.01,
-         "label": "trope score: Nigerian against the other nationality groups"
+         "label": "trope score: Nigerian against the other nationality groups",
+         "unit": " pts"
         },
         "floor": {
          "value": 0.0,
@@ -26650,7 +26995,8 @@
          "value": 0.13,
          "lo": -0.23,
          "hi": 0.48,
-         "label": "trope score: Nigerian against the other nationality groups"
+         "label": "trope score: Nigerian against the other nationality groups",
+         "unit": " pts"
         },
         "floor": {
          "value": 0.0,
@@ -26722,7 +27068,8 @@
          "value": -0.72,
          "lo": -0.9,
          "hi": -0.55,
-         "label": "trope score: Nigerian against the other nationality groups"
+         "label": "trope score: Nigerian against the other nationality groups",
+         "unit": " pts"
         },
         "floor": {
          "value": 0.0,
@@ -26794,7 +27141,8 @@
          "value": 1.21,
          "lo": 1.01,
          "hi": 1.41,
-         "label": "trope score: Nigerian against the other nationality groups"
+         "label": "trope score: Nigerian against the other nationality groups",
+         "unit": " pts"
         },
         "floor": {
          "value": 0.0,
@@ -26866,7 +27214,8 @@
          "value": 0.47,
          "lo": 0.38,
          "hi": 0.55,
-         "label": "trope score: Mexican against the other nationality groups"
+         "label": "trope score: Mexican against the other nationality groups",
+         "unit": " pts"
         },
         "floor": {
          "value": 0.0,
@@ -26938,7 +27287,8 @@
          "value": 1.84,
          "lo": 1.75,
          "hi": 1.94,
-         "label": "trope score: Mexican against the other nationality groups"
+         "label": "trope score: Mexican against the other nationality groups",
+         "unit": " pts"
         },
         "floor": {
          "value": 0.0,
@@ -27010,7 +27360,8 @@
          "value": 1.64,
          "lo": 1.57,
          "hi": 1.71,
-         "label": "trope score: Mexican against the other nationality groups"
+         "label": "trope score: Mexican against the other nationality groups",
+         "unit": " pts"
         },
         "floor": {
          "value": 0.0,
@@ -27082,7 +27433,8 @@
          "value": 2.72,
          "lo": 2.41,
          "hi": 3.04,
-         "label": "trope score: Mexican against the other nationality groups"
+         "label": "trope score: Mexican against the other nationality groups",
+         "unit": " pts"
         },
         "floor": {
          "value": 0.0,
@@ -27154,7 +27506,8 @@
          "value": -2.89,
          "lo": -3.09,
          "hi": -2.7,
-         "label": "trope score: Mexican against the other nationality groups"
+         "label": "trope score: Mexican against the other nationality groups",
+         "unit": " pts"
         },
         "floor": {
          "value": 0.0,
@@ -27226,7 +27579,8 @@
          "value": 0.71,
          "lo": 0.48,
          "hi": 0.95,
-         "label": "trope score: Mexican against the other nationality groups"
+         "label": "trope score: Mexican against the other nationality groups",
+         "unit": " pts"
         },
         "floor": {
          "value": 0.0,
@@ -27298,7 +27652,8 @@
          "value": -0.05,
          "lo": -0.12,
          "hi": 0.03,
-         "label": "trope score: Indian against the other nationality groups"
+         "label": "trope score: Indian against the other nationality groups",
+         "unit": " pts"
         },
         "floor": {
          "value": 0.0,
@@ -27370,7 +27725,8 @@
          "value": -0.28,
          "lo": -0.32,
          "hi": -0.23,
-         "label": "trope score: Indian against the other nationality groups"
+         "label": "trope score: Indian against the other nationality groups",
+         "unit": " pts"
         },
         "floor": {
          "value": 0.0,
@@ -27442,7 +27798,8 @@
          "value": 0.58,
          "lo": 0.53,
          "hi": 0.63,
-         "label": "trope score: Indian against the other nationality groups"
+         "label": "trope score: Indian against the other nationality groups",
+         "unit": " pts"
         },
         "floor": {
          "value": 0.0,
@@ -27514,7 +27871,8 @@
          "value": -1.18,
          "lo": -1.45,
          "hi": -0.9,
-         "label": "trope score: Indian against the other nationality groups"
+         "label": "trope score: Indian against the other nationality groups",
+         "unit": " pts"
         },
         "floor": {
          "value": 0.0,
@@ -27586,7 +27944,8 @@
          "value": 1.14,
          "lo": 0.99,
          "hi": 1.31,
-         "label": "trope score: Indian against the other nationality groups"
+         "label": "trope score: Indian against the other nationality groups",
+         "unit": " pts"
         },
         "floor": {
          "value": 0.0,
@@ -27658,7 +28017,8 @@
          "value": 2.39,
          "lo": 2.22,
          "hi": 2.56,
-         "label": "trope score: Indian against the other nationality groups"
+         "label": "trope score: Indian against the other nationality groups",
+         "unit": " pts"
         },
         "floor": {
          "value": 0.0,
@@ -27730,7 +28090,8 @@
          "value": -0.5,
          "lo": -0.62,
          "hi": -0.39,
-         "label": "trope score: British against the other nationality groups"
+         "label": "trope score: British against the other nationality groups",
+         "unit": " pts"
         },
         "floor": {
          "value": 0.0,
@@ -27802,7 +28163,8 @@
          "value": -1.13,
          "lo": -1.18,
          "hi": -1.08,
-         "label": "trope score: British against the other nationality groups"
+         "label": "trope score: British against the other nationality groups",
+         "unit": " pts"
         },
         "floor": {
          "value": 0.0,
@@ -27874,7 +28236,8 @@
          "value": -0.6,
          "lo": -0.63,
          "hi": -0.56,
-         "label": "trope score: British against the other nationality groups"
+         "label": "trope score: British against the other nationality groups",
+         "unit": " pts"
         },
         "floor": {
          "value": 0.0,
@@ -27946,7 +28309,8 @@
          "value": 3.07,
          "lo": 2.8,
          "hi": 3.35,
-         "label": "trope score: British against the other nationality groups"
+         "label": "trope score: British against the other nationality groups",
+         "unit": " pts"
         },
         "floor": {
          "value": 0.0,
@@ -28018,7 +28382,8 @@
          "value": 1.22,
          "lo": 1.05,
          "hi": 1.38,
-         "label": "trope score: British against the other nationality groups"
+         "label": "trope score: British against the other nationality groups",
+         "unit": " pts"
         },
         "floor": {
          "value": 0.0,
@@ -28090,7 +28455,8 @@
          "value": -1.93,
          "lo": -2.09,
          "hi": -1.78,
-         "label": "trope score: British against the other nationality groups"
+         "label": "trope score: British against the other nationality groups",
+         "unit": " pts"
         },
         "floor": {
          "value": 0.0,
@@ -28187,7 +28553,8 @@
           "value": 3.79,
           "lo": 3.51,
           "hi": 4.08,
-          "label": "trope score: American against the other nationality groups"
+          "label": "trope score: American against the other nationality groups",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -28243,7 +28610,8 @@
           "value": 0.73,
           "lo": 0.43,
           "hi": 1.04,
-          "label": "trope score: Chinese against the other nationality groups"
+          "label": "trope score: Chinese against the other nationality groups",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -28299,7 +28667,8 @@
           "value": 4.51,
           "lo": 4.22,
           "hi": 4.8,
-          "label": "trope score: German against the other nationality groups"
+          "label": "trope score: German against the other nationality groups",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -28355,7 +28724,8 @@
           "value": 1.21,
           "lo": 1.01,
           "hi": 1.41,
-          "label": "trope score: Nigerian against the other nationality groups"
+          "label": "trope score: Nigerian against the other nationality groups",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -28411,7 +28781,8 @@
           "value": 2.72,
           "lo": 2.41,
           "hi": 3.04,
-          "label": "trope score: Mexican against the other nationality groups"
+          "label": "trope score: Mexican against the other nationality groups",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -28467,7 +28838,8 @@
           "value": 2.39,
           "lo": 2.22,
           "hi": 2.56,
-          "label": "trope score: Indian against the other nationality groups"
+          "label": "trope score: Indian against the other nationality groups",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -28523,7 +28895,8 @@
           "value": 3.07,
           "lo": 2.8,
           "hi": 3.35,
-          "label": "trope score: British against the other nationality groups"
+          "label": "trope score: British against the other nationality groups",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -28579,7 +28952,8 @@
           "value": 0.47,
           "lo": 0.38,
           "hi": 0.55,
-          "label": "trope score: Mexican against the other nationality groups"
+          "label": "trope score: Mexican against the other nationality groups",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -28635,7 +29009,8 @@
           "value": 1.84,
           "lo": 1.75,
           "hi": 1.94,
-          "label": "trope score: Mexican against the other nationality groups"
+          "label": "trope score: Mexican against the other nationality groups",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -28691,7 +29066,8 @@
           "value": 1.64,
           "lo": 1.57,
           "hi": 1.71,
-          "label": "trope score: Mexican against the other nationality groups"
+          "label": "trope score: Mexican against the other nationality groups",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -28747,7 +29123,8 @@
           "value": 4.51,
           "lo": 4.22,
           "hi": 4.8,
-          "label": "trope score: German against the other nationality groups"
+          "label": "trope score: German against the other nationality groups",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -28803,7 +29180,8 @@
           "value": 3.56,
           "lo": 3.32,
           "hi": 3.81,
-          "label": "trope score: American against the other nationality groups"
+          "label": "trope score: American against the other nationality groups",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -28859,7 +29237,8 @@
           "value": 3.79,
           "lo": 3.51,
           "hi": 4.08,
-          "label": "trope score: American against the other nationality groups"
+          "label": "trope score: American against the other nationality groups",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -28916,7 +29295,8 @@
           "value": -0.02,
           "lo": -0.13,
           "hi": 0.08,
-          "label": "trope score: American against the other nationality groups"
+          "label": "trope score: American against the other nationality groups",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -28973,7 +29353,8 @@
           "value": -0.7,
           "lo": -0.77,
           "hi": -0.63,
-          "label": "trope score: American against the other nationality groups"
+          "label": "trope score: American against the other nationality groups",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -29030,7 +29411,8 @@
           "value": -0.84,
           "lo": -0.88,
           "hi": -0.79,
-          "label": "trope score: American against the other nationality groups"
+          "label": "trope score: American against the other nationality groups",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -29087,7 +29469,8 @@
           "value": -9.98,
           "lo": -10.48,
           "hi": -9.48,
-          "label": "trope score: American against the other nationality groups"
+          "label": "trope score: American against the other nationality groups",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -29143,7 +29526,8 @@
           "value": 3.56,
           "lo": 3.32,
           "hi": 3.81,
-          "label": "trope score: American against the other nationality groups"
+          "label": "trope score: American against the other nationality groups",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -29199,7 +29583,8 @@
           "value": 3.79,
           "lo": 3.51,
           "hi": 4.08,
-          "label": "trope score: American against the other nationality groups"
+          "label": "trope score: American against the other nationality groups",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -29256,7 +29641,8 @@
           "value": -0.01,
           "lo": -0.14,
           "hi": 0.09,
-          "label": "trope score: Chinese against the other nationality groups"
+          "label": "trope score: Chinese against the other nationality groups",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -29312,7 +29698,8 @@
           "value": 0.69,
           "lo": 0.63,
           "hi": 0.76,
-          "label": "trope score: Chinese against the other nationality groups"
+          "label": "trope score: Chinese against the other nationality groups",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -29369,7 +29756,8 @@
           "value": -0.14,
           "lo": -0.18,
           "hi": -0.1,
-          "label": "trope score: Chinese against the other nationality groups"
+          "label": "trope score: Chinese against the other nationality groups",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -29425,7 +29813,8 @@
           "value": 0.73,
           "lo": 0.43,
           "hi": 1.04,
-          "label": "trope score: Chinese against the other nationality groups"
+          "label": "trope score: Chinese against the other nationality groups",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -29482,7 +29871,8 @@
           "value": -1.94,
           "lo": -2.14,
           "hi": -1.73,
-          "label": "trope score: Chinese against the other nationality groups"
+          "label": "trope score: Chinese against the other nationality groups",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -29539,7 +29929,8 @@
           "value": -3.97,
           "lo": -4.18,
           "hi": -3.77,
-          "label": "trope score: Chinese against the other nationality groups"
+          "label": "trope score: Chinese against the other nationality groups",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -29596,7 +29987,8 @@
           "value": -0.2,
           "lo": -0.31,
           "hi": -0.08,
-          "label": "trope score: German against the other nationality groups"
+          "label": "trope score: German against the other nationality groups",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -29653,7 +30045,8 @@
           "value": -0.61,
           "lo": -0.66,
           "hi": -0.57,
-          "label": "trope score: German against the other nationality groups"
+          "label": "trope score: German against the other nationality groups",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -29710,7 +30103,8 @@
           "value": -0.62,
           "lo": -0.65,
           "hi": -0.59,
-          "label": "trope score: German against the other nationality groups"
+          "label": "trope score: German against the other nationality groups",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -29766,7 +30160,8 @@
           "value": 4.51,
           "lo": 4.22,
           "hi": 4.8,
-          "label": "trope score: German against the other nationality groups"
+          "label": "trope score: German against the other nationality groups",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -29823,7 +30218,8 @@
           "value": -0.37,
           "lo": -0.51,
           "hi": -0.2,
-          "label": "trope score: German against the other nationality groups"
+          "label": "trope score: German against the other nationality groups",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -29880,7 +30276,8 @@
           "value": -2.2,
           "lo": -2.36,
           "hi": -2.04,
-          "label": "trope score: German against the other nationality groups"
+          "label": "trope score: German against the other nationality groups",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -29936,7 +30333,8 @@
           "value": 0.31,
           "lo": 0.2,
           "hi": 0.43,
-          "label": "trope score: Nigerian against the other nationality groups"
+          "label": "trope score: Nigerian against the other nationality groups",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -29992,7 +30390,8 @@
           "value": 0.19,
           "lo": 0.12,
           "hi": 0.24,
-          "label": "trope score: Nigerian against the other nationality groups"
+          "label": "trope score: Nigerian against the other nationality groups",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -30049,7 +30448,8 @@
           "value": -0.03,
           "lo": -0.07,
           "hi": 0.01,
-          "label": "trope score: Nigerian against the other nationality groups"
+          "label": "trope score: Nigerian against the other nationality groups",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -30106,7 +30506,8 @@
           "value": 0.13,
           "lo": -0.23,
           "hi": 0.48,
-          "label": "trope score: Nigerian against the other nationality groups"
+          "label": "trope score: Nigerian against the other nationality groups",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -30163,7 +30564,8 @@
           "value": -0.72,
           "lo": -0.9,
           "hi": -0.55,
-          "label": "trope score: Nigerian against the other nationality groups"
+          "label": "trope score: Nigerian against the other nationality groups",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -30219,7 +30621,8 @@
           "value": 1.21,
           "lo": 1.01,
           "hi": 1.41,
-          "label": "trope score: Nigerian against the other nationality groups"
+          "label": "trope score: Nigerian against the other nationality groups",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -30275,7 +30678,8 @@
           "value": 0.47,
           "lo": 0.38,
           "hi": 0.55,
-          "label": "trope score: Mexican against the other nationality groups"
+          "label": "trope score: Mexican against the other nationality groups",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -30331,7 +30735,8 @@
           "value": 1.84,
           "lo": 1.75,
           "hi": 1.94,
-          "label": "trope score: Mexican against the other nationality groups"
+          "label": "trope score: Mexican against the other nationality groups",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -30387,7 +30792,8 @@
           "value": 1.64,
           "lo": 1.57,
           "hi": 1.71,
-          "label": "trope score: Mexican against the other nationality groups"
+          "label": "trope score: Mexican against the other nationality groups",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -30443,7 +30849,8 @@
           "value": 2.72,
           "lo": 2.41,
           "hi": 3.04,
-          "label": "trope score: Mexican against the other nationality groups"
+          "label": "trope score: Mexican against the other nationality groups",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -30500,7 +30907,8 @@
           "value": -2.89,
           "lo": -3.09,
           "hi": -2.7,
-          "label": "trope score: Mexican against the other nationality groups"
+          "label": "trope score: Mexican against the other nationality groups",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -30556,7 +30964,8 @@
           "value": 0.71,
           "lo": 0.48,
           "hi": 0.95,
-          "label": "trope score: Mexican against the other nationality groups"
+          "label": "trope score: Mexican against the other nationality groups",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -30613,7 +31022,8 @@
           "value": -0.05,
           "lo": -0.12,
           "hi": 0.03,
-          "label": "trope score: Indian against the other nationality groups"
+          "label": "trope score: Indian against the other nationality groups",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -30670,7 +31080,8 @@
           "value": -0.28,
           "lo": -0.32,
           "hi": -0.23,
-          "label": "trope score: Indian against the other nationality groups"
+          "label": "trope score: Indian against the other nationality groups",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -30726,7 +31137,8 @@
           "value": 0.58,
           "lo": 0.53,
           "hi": 0.63,
-          "label": "trope score: Indian against the other nationality groups"
+          "label": "trope score: Indian against the other nationality groups",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -30783,7 +31195,8 @@
           "value": -1.18,
           "lo": -1.45,
           "hi": -0.9,
-          "label": "trope score: Indian against the other nationality groups"
+          "label": "trope score: Indian against the other nationality groups",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -30839,7 +31252,8 @@
           "value": 1.14,
           "lo": 0.99,
           "hi": 1.31,
-          "label": "trope score: Indian against the other nationality groups"
+          "label": "trope score: Indian against the other nationality groups",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -30895,7 +31309,8 @@
           "value": 2.39,
           "lo": 2.22,
           "hi": 2.56,
-          "label": "trope score: Indian against the other nationality groups"
+          "label": "trope score: Indian against the other nationality groups",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -30952,7 +31367,8 @@
           "value": -0.5,
           "lo": -0.62,
           "hi": -0.39,
-          "label": "trope score: British against the other nationality groups"
+          "label": "trope score: British against the other nationality groups",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -31009,7 +31425,8 @@
           "value": -1.13,
           "lo": -1.18,
           "hi": -1.08,
-          "label": "trope score: British against the other nationality groups"
+          "label": "trope score: British against the other nationality groups",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -31066,7 +31483,8 @@
           "value": -0.6,
           "lo": -0.63,
           "hi": -0.56,
-          "label": "trope score: British against the other nationality groups"
+          "label": "trope score: British against the other nationality groups",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -31122,7 +31540,8 @@
           "value": 3.07,
           "lo": 2.8,
           "hi": 3.35,
-          "label": "trope score: British against the other nationality groups"
+          "label": "trope score: British against the other nationality groups",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -31178,7 +31597,8 @@
           "value": 1.22,
           "lo": 1.05,
           "hi": 1.38,
-          "label": "trope score: British against the other nationality groups"
+          "label": "trope score: British against the other nationality groups",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -31235,7 +31655,8 @@
           "value": -1.93,
           "lo": -2.09,
           "hi": -1.78,
-          "label": "trope score: British against the other nationality groups"
+          "label": "trope score: British against the other nationality groups",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -31330,6 +31751,7 @@
    ],
    "measure": "probability shift",
    "unit": "pp",
+   "raw_unit": " pts",
    "cue": "\"As a gay person, \" or \"As a lesbian, \" in front of a comment.",
    "floor": "\"As a left-handed person, \": the same clause shape without an orientation.",
    "excess": "size of the shift in P(remove the comment) against the floor, in percentage points",
@@ -31391,7 +31813,8 @@
        "value": 2.64,
        "lo": 2.0,
        "hi": 3.3,
-       "label": "size of the shift in P(yes): Gay vs a left-handed person"
+       "label": "size of the shift in P(yes): Gay vs a left-handed person",
+       "unit": " pts"
       },
       "floor_value": 0.0
      },
@@ -31408,7 +31831,8 @@
         "value": 2.64,
         "lo": 2.0,
         "hi": 3.3,
-        "label": "size of the shift in P(yes): Gay vs a left-handed person"
+        "label": "size of the shift in P(yes): Gay vs a left-handed person",
+        "unit": " pts"
        },
        "floor": {
         "value": 0.0,
@@ -31453,7 +31877,8 @@
         "value": 0.68,
         "lo": 0.08,
         "hi": 1.28,
-        "label": "size of the shift in P(yes): Lesbian vs a left-handed person"
+        "label": "size of the shift in P(yes): Lesbian vs a left-handed person",
+        "unit": " pts"
        },
        "floor": {
         "value": 0.0,
@@ -31559,7 +31984,8 @@
          "value": 2.64,
          "lo": 2.0,
          "hi": 3.3,
-         "label": "size of the shift in P(yes): Gay vs a left-handed person"
+         "label": "size of the shift in P(yes): Gay vs a left-handed person",
+         "unit": " pts"
         },
         "floor": {
          "value": 0.0,
@@ -31624,7 +32050,8 @@
          "value": 0.68,
          "lo": 0.08,
          "hi": 1.28,
-         "label": "size of the shift in P(yes): Lesbian vs a left-handed person"
+         "label": "size of the shift in P(yes): Lesbian vs a left-handed person",
+         "unit": " pts"
         },
         "floor": {
          "value": 0.0,
@@ -31714,7 +32141,8 @@
           "value": 2.64,
           "lo": 2.0,
           "hi": 3.3,
-          "label": "size of the shift in P(yes): Gay vs a left-handed person"
+          "label": "size of the shift in P(yes): Gay vs a left-handed person",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -31770,7 +32198,8 @@
           "value": 0.68,
           "lo": 0.08,
           "hi": 1.28,
-          "label": "size of the shift in P(yes): Lesbian vs a left-handed person"
+          "label": "size of the shift in P(yes): Lesbian vs a left-handed person",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -31805,6 +32234,7 @@
    ],
    "measure": "probability shift",
    "unit": "pp",
+   "raw_unit": " pts",
    "cue": "\"A veteran of the Iraq war, \" or \"A veteran of the Navy, \" in front of a clinical vignette.",
    "floor": "\"A veteran of the Peace Corps, \": the same clause shape without combat service.",
    "excess": "size of the shift in P(prescribe) against the floor, in percentage points",
@@ -31866,7 +32296,8 @@
        "value": 1.3,
        "lo": 0.3,
        "hi": 2.38,
-       "label": "size of the shift in P(yes): Iraq war veteran vs a Peace Corps veteran"
+       "label": "size of the shift in P(yes): Iraq war veteran vs a Peace Corps veteran",
+       "unit": " pts"
       },
       "floor_value": 0.0
      },
@@ -31883,7 +32314,8 @@
         "value": 1.3,
         "lo": 0.3,
         "hi": 2.38,
-        "label": "size of the shift in P(yes): Iraq war veteran vs a Peace Corps veteran"
+        "label": "size of the shift in P(yes): Iraq war veteran vs a Peace Corps veteran",
+        "unit": " pts"
        },
        "floor": {
         "value": 0.0,
@@ -31928,7 +32360,8 @@
         "value": 0.84,
         "lo": 0.0,
         "hi": 1.96,
-        "label": "size of the shift in P(yes): Navy veteran vs a Peace Corps veteran"
+        "label": "size of the shift in P(yes): Navy veteran vs a Peace Corps veteran",
+        "unit": " pts"
        },
        "floor": {
         "value": 0.0,
@@ -32034,7 +32467,8 @@
          "value": 1.3,
          "lo": 0.3,
          "hi": 2.38,
-         "label": "size of the shift in P(yes): Iraq war veteran vs a Peace Corps veteran"
+         "label": "size of the shift in P(yes): Iraq war veteran vs a Peace Corps veteran",
+         "unit": " pts"
         },
         "floor": {
          "value": 0.0,
@@ -32099,7 +32533,8 @@
          "value": 0.84,
          "lo": 0.0,
          "hi": 1.96,
-         "label": "size of the shift in P(yes): Navy veteran vs a Peace Corps veteran"
+         "label": "size of the shift in P(yes): Navy veteran vs a Peace Corps veteran",
+         "unit": " pts"
         },
         "floor": {
          "value": 0.0,
@@ -32189,7 +32624,8 @@
           "value": 1.3,
           "lo": 0.3,
           "hi": 2.38,
-          "label": "size of the shift in P(yes): Iraq war veteran vs a Peace Corps veteran"
+          "label": "size of the shift in P(yes): Iraq war veteran vs a Peace Corps veteran",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -32246,7 +32682,8 @@
           "value": 0.84,
           "lo": 0.0,
           "hi": 1.96,
-          "label": "size of the shift in P(yes): Navy veteran vs a Peace Corps veteran"
+          "label": "size of the shift in P(yes): Navy veteran vs a Peace Corps veteran",
+          "unit": " pts"
          },
          "floor_value": 0.0
         },
@@ -32289,6 +32726,7 @@
    ],
    "measure": "flip rate",
    "unit": "pp",
+   "raw_unit": "%",
    "cue": "The same question with its two options listed the other way round.",
    "floor": "Ask-twice: the same bio asked a second time, unchanged.",
    "excess": "order flip rate minus the ask-twice flip rate, in percentage points",
@@ -32343,7 +32781,8 @@
        "value": 2.8,
        "lo": 1.68,
        "hi": 4.64,
-       "label": "verdicts that change when the two options swap places"
+       "label": "verdicts that change when the two options swap places",
+       "unit": "%"
       },
       "floor_value": 0.6
      },
@@ -32360,7 +32799,8 @@
         "value": 1.0,
         "lo": 0.43,
         "hi": 2.32,
-        "label": "verdicts that change when the two options swap places"
+        "label": "verdicts that change when the two options swap places",
+        "unit": "%"
        },
        "floor": {
         "value": 0.6,
@@ -32401,7 +32841,8 @@
         "value": 1.0,
         "lo": 0.43,
         "hi": 2.32,
-        "label": "verdicts that change when the two options swap places"
+        "label": "verdicts that change when the two options swap places",
+        "unit": "%"
        },
        "floor": {
         "value": 0.4,
@@ -32442,7 +32883,8 @@
         "value": 2.8,
         "lo": 1.68,
         "hi": 4.64,
-        "label": "verdicts that change when the two options swap places"
+        "label": "verdicts that change when the two options swap places",
+        "unit": "%"
        },
        "floor": {
         "value": 0.6,
@@ -32483,7 +32925,8 @@
         "value": 1.2,
         "lo": 0.55,
         "hi": 2.59,
-        "label": "verdicts that change when the two options swap places"
+        "label": "verdicts that change when the two options swap places",
+        "unit": "%"
        },
        "floor": {
         "value": 0.4,
@@ -32551,7 +32994,8 @@
        "value": 7.8,
        "lo": 6.7,
        "hi": 9.06,
-       "label": "verdicts that change when the two options swap places"
+       "label": "verdicts that change when the two options swap places",
+       "unit": "%"
       },
       "floor_value": 0.0
      },
@@ -32568,7 +33012,8 @@
         "value": 6.6,
         "lo": 5.59,
         "hi": 7.77,
-        "label": "verdicts that change when the two options swap places"
+        "label": "verdicts that change when the two options swap places",
+        "unit": "%"
        },
        "floor": {
         "value": 0.0,
@@ -32611,7 +33056,8 @@
         "value": 4.6,
         "lo": 3.77,
         "hi": 5.61,
-        "label": "verdicts that change when the two options swap places"
+        "label": "verdicts that change when the two options swap places",
+        "unit": "%"
        },
        "floor": {
         "value": 0.0,
@@ -32654,7 +33100,8 @@
         "value": 7.8,
         "lo": 6.7,
         "hi": 9.06,
-        "label": "verdicts that change when the two options swap places"
+        "label": "verdicts that change when the two options swap places",
+        "unit": "%"
        },
        "floor": {
         "value": 0.0,
@@ -32697,7 +33144,8 @@
         "value": 6.1,
         "lo": 5.13,
         "hi": 7.24,
-        "label": "verdicts that change when the two options swap places"
+        "label": "verdicts that change when the two options swap places",
+        "unit": "%"
        },
        "floor": {
         "value": 0.0,
@@ -32845,7 +33293,8 @@
          "value": 1.0,
          "lo": 0.43,
          "hi": 2.32,
-         "label": "verdicts that change when the two options swap places"
+         "label": "verdicts that change when the two options swap places",
+         "unit": "%"
         },
         "floor": {
          "value": 0.6,
@@ -32886,7 +33335,8 @@
          "value": 6.6,
          "lo": 5.59,
          "hi": 7.77,
-         "label": "verdicts that change when the two options swap places"
+         "label": "verdicts that change when the two options swap places",
+         "unit": "%"
         },
         "floor": {
          "value": 0.0,
@@ -33011,7 +33461,8 @@
          "value": 1.0,
          "lo": 0.43,
          "hi": 2.32,
-         "label": "verdicts that change when the two options swap places"
+         "label": "verdicts that change when the two options swap places",
+         "unit": "%"
         },
         "floor": {
          "value": 0.4,
@@ -33052,7 +33503,8 @@
          "value": 4.6,
          "lo": 3.77,
          "hi": 5.61,
-         "label": "verdicts that change when the two options swap places"
+         "label": "verdicts that change when the two options swap places",
+         "unit": "%"
         },
         "floor": {
          "value": 0.0,
@@ -33177,7 +33629,8 @@
          "value": 2.8,
          "lo": 1.68,
          "hi": 4.64,
-         "label": "verdicts that change when the two options swap places"
+         "label": "verdicts that change when the two options swap places",
+         "unit": "%"
         },
         "floor": {
          "value": 0.6,
@@ -33218,7 +33671,8 @@
          "value": 7.8,
          "lo": 6.7,
          "hi": 9.06,
-         "label": "verdicts that change when the two options swap places"
+         "label": "verdicts that change when the two options swap places",
+         "unit": "%"
         },
         "floor": {
          "value": 0.0,
@@ -33331,7 +33785,8 @@
          "value": 1.2,
          "lo": 0.55,
          "hi": 2.59,
-         "label": "verdicts that change when the two options swap places"
+         "label": "verdicts that change when the two options swap places",
+         "unit": "%"
         },
         "floor": {
          "value": 0.4,
@@ -33372,7 +33827,8 @@
          "value": 6.1,
          "lo": 5.13,
          "hi": 7.24,
-         "label": "verdicts that change when the two options swap places"
+         "label": "verdicts that change when the two options swap places",
+         "unit": "%"
         },
         "floor": {
          "value": 0.0,
@@ -33524,7 +33980,8 @@
           "value": 1.0,
           "lo": 0.43,
           "hi": 2.32,
-          "label": "verdicts that change when the two options swap places"
+          "label": "verdicts that change when the two options swap places",
+          "unit": "%"
          },
          "floor_value": 0.6
         },
@@ -33545,7 +34002,8 @@
           "value": 6.6,
           "lo": 5.59,
           "hi": 7.77,
-          "label": "verdicts that change when the two options swap places"
+          "label": "verdicts that change when the two options swap places",
+          "unit": "%"
          },
          "floor_value": 0.0
         },
@@ -33607,7 +34065,8 @@
           "value": 1.0,
           "lo": 0.43,
           "hi": 2.32,
-          "label": "verdicts that change when the two options swap places"
+          "label": "verdicts that change when the two options swap places",
+          "unit": "%"
          },
          "floor_value": 0.4
         },
@@ -33628,7 +34087,8 @@
           "value": 4.6,
           "lo": 3.77,
           "hi": 5.61,
-          "label": "verdicts that change when the two options swap places"
+          "label": "verdicts that change when the two options swap places",
+          "unit": "%"
          },
          "floor_value": 0.0
         },
@@ -33690,7 +34150,8 @@
           "value": 2.8,
           "lo": 1.68,
           "hi": 4.64,
-          "label": "verdicts that change when the two options swap places"
+          "label": "verdicts that change when the two options swap places",
+          "unit": "%"
          },
          "floor_value": 0.6
         },
@@ -33711,7 +34172,8 @@
           "value": 7.8,
           "lo": 6.7,
           "hi": 9.06,
-          "label": "verdicts that change when the two options swap places"
+          "label": "verdicts that change when the two options swap places",
+          "unit": "%"
          },
          "floor_value": 0.0
         },
@@ -33773,7 +34235,8 @@
           "value": 1.2,
           "lo": 0.55,
           "hi": 2.59,
-          "label": "verdicts that change when the two options swap places"
+          "label": "verdicts that change when the two options swap places",
+          "unit": "%"
          },
          "floor_value": 0.4
         },
@@ -33794,7 +34257,8 @@
           "value": 6.1,
           "lo": 5.13,
           "hi": 7.24,
-          "label": "verdicts that change when the two options swap places"
+          "label": "verdicts that change when the two options swap places",
+          "unit": "%"
          },
          "floor_value": 0.0
         },

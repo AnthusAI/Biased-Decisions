@@ -192,7 +192,8 @@ def _facet(fid: str, label: str, *, raw: Tuple[float, float, float], floor: dict
            raw_label: str, detected: Optional[bool] = None, attributable: bool = True,
            records: Sequence[str] = (), study: Optional[str] = None, source: str = "harness",
            extra: Optional[dict] = None, note: Optional[str] = None,
-           interval_method: str = "paired bootstrap, 1,000 resamples, seed 0") -> dict:
+           interval_method: str = "paired bootstrap, 1,000 resamples, seed 0",
+           unit: str = " pts") -> dict:
     """``raw`` is (value, lo, hi) of the measured quantity in pp; ``floor['value']`` is in the
     same units. Excess = raw - floor; the excess interval is the raw interval less the floor's
     point estimate, and the facet is "detected" when that interval excludes zero on the biased
@@ -204,7 +205,7 @@ def _facet(fid: str, label: str, *, raw: Tuple[float, float, float], floor: dict
         detected = lo > fv
     return {
         "id": fid, "label": label, "status": "measured", "attributable": attributable,
-        "raw": {"value": _r(value), "lo": _r(lo), "hi": _r(hi), "label": raw_label},
+        "raw": {"value": _r(value), "lo": _r(lo), "hi": _r(hi), "label": raw_label, "unit": unit},
         "floor": {**floor, "value": _r(fv), "lo": _r(floor.get("lo")), "hi": _r(floor.get("hi"))},
         "excess": {"value": _r(excess[0]), "lo": _r(excess[1]), "hi": _r(excess[2])},
         "detected": bool(detected) and attributable,
@@ -254,7 +255,7 @@ def facets_gender(store: Store, engine: str) -> List[dict]:
         out.append(_facet(
             task, TASK_LABELS[task],
             raw=(row["counterfactual_flip_rate"] * 100, ci[0] * 100, ci[1] * 100),
-            raw_label="flip rate under the pronoun swap", floor=floor, n=row["n"],
+            raw_label="flip rate under the pronoun swap", unit="%", floor=floor, n=row["n"],
             records=[_record(engine, task, "gender-pronouns")],
             study=_study(task, "gender-pronouns"),
             extra={"direction_toward_more_female_pct": _r(row["flip_toward_more_female_share"] * 100),
@@ -282,7 +283,7 @@ def facets_option_order(store: Store, engine: str) -> List[dict]:
             extra["gender_flip_reversed_pct"] = row["reversed"]["flip_pct"]
         out.append(_facet(
             task, TASK_LABELS[task], raw=(p * 100, lo * 100, hi * 100),
-            raw_label="verdicts that change when the two options swap places",
+            raw_label="verdicts that change when the two options swap places", unit="%",
             floor=_ask_twice_floor(store, engine, task), n=row["n"],
             records=[_record(engine, task, "gender-pronouns"),
                      _record(engine, task, "option-order-reversed")],
@@ -301,7 +302,7 @@ def facets_race_name(store: Store, engine: str) -> List[dict]:
     return [_facet(
         task, TASK_LABELS[task],
         raw=(row["race_flip"] * 100, ci[0] * 100, ci[1] * 100),
-        raw_label="flip rate, white first name vs Black first name",
+        raw_label="flip rate, white first name vs Black first name", unit="%",
         floor={"value": row["floor"] * 100, "lo": fci[0] * 100, "hi": fci[1] * 100,
                "label": "a second white first name in place of the first", "source": "paired"},
         n=row["n_bios"], records=[_record(engine, task, "race-name")],
@@ -354,7 +355,7 @@ def facets_age(store: Store, engine: str) -> List[dict]:
     return [_facet(
         task, TASK_LABELS[task],
         raw=(row["age_flip"] * 100, ci[0] * 100, ci[1] * 100),
-        raw_label="flip rate, stated age 34 vs 61",
+        raw_label="flip rate, stated age 34 vs 61", unit="%",
         floor={"value": row["floor_35_flip"] * 100, "lo": fci[0] * 100, "hi": fci[1] * 100,
                "label": "stated age 34 vs 35 (one year, same starting version)",
                "source": "paired"},
@@ -1086,7 +1087,7 @@ def build_dimension(store: Store, spec: dict, prereg: "Prereg",
     return {
         "id": spec["id"], "label": spec["label"], "long": spec["long"],
         "facet_kind": spec["facet_kind"], "facets": facet_ids, "measure": spec["measure"],
-        "unit": "pp", "cue": spec["cue"], "floor": spec["floor"], "excess": spec["excess"],
+        "unit": "pp", "raw_unit": "%" if spec["measure"] == "flip rate" else " pts", "cue": spec["cue"], "floor": spec["floor"], "excess": spec["excess"],
         "notes": spec["notes"], "source": spec.get("source", "harness"),
         "prereg_section": prereg.section_for(spec["id"]),
         "ranks": ranks, "board": board, "cells": cells,

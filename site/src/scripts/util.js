@@ -52,7 +52,7 @@ export function int(n) {
 
 // The unit a dimension's raw measurement is reported in.
 export function rawUnit(dim) {
-  return dim.measure === "flip rate" ? "%" : " pts";
+  return dim.raw_unit || " pts";
 }
 
 export function rawText(dim, raw) {
