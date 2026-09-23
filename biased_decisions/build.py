@@ -31,6 +31,7 @@ from biased_decisions.cues.gender import ORIGINAL_RULE, swap_gender
 from biased_decisions.cues.insertion import eligible as insertion_eligible
 from biased_decisions.cues.insertion import insert_clause, versions_for
 from biased_decisions.cues.names import name_versions
+from biased_decisions.cues.neutral import neutralize
 from biased_decisions.tasks.base import Task
 from biased_decisions.tasks.items import Item
 
@@ -46,7 +47,7 @@ DEFAULT_POOLS_PATH = Path(__file__).resolve().parents[1] / "pools" / "name_pools
 
 CUES: Tuple[str, ...] = (
     "gender-pronouns", "race-name", "race-fullname", "age-inserted",
-    "disability", "religion", "religion-v2", "ask-twice",
+    "disability", "religion", "religion-v2", "ask-twice", "neutral",
 )
 
 
@@ -276,6 +277,40 @@ def build_ask_twice(task: Task, *, seed: int = ASK_TWICE_SEED,
     return BuildResult(rows=[], excluded=len(test_ids) - len(subsample), subsample=subsample)
 
 
+def build_neutral(task: Task) -> BuildResult:
+    """Neutral-pronoun rewrites: two versions per held-out bio (blank and they).
+
+    For each held-out item, computes neutralize(text, style) for style in ("blank", "they").
+    If leftover is True (gendered tokens remain), skips that (item, version) pair and counts
+    it in excluded. Emits rows with id f"{item.id}-neutral-{version}" and appropriate metadata.
+    """
+    rows: List[dict] = []
+    excluded = 0
+    excluded_by_version: Dict[str, int] = {"blank": 0, "they": 0}
+
+    for item in _test_items_sorted(task):
+        for version in ("blank", "they"):
+            neutral = neutralize(item.text, version)
+            if neutral.leftover:
+                excluded += 1
+                excluded_by_version[version] += 1
+                continue
+            rows.append({
+                "id": f"{item.id}-neutral-{version}",
+                "text": neutral.text,
+                "metadata": {
+                    "cue": "neutral",
+                    "version": version,
+                    "source_id": item.id,
+                    "occupation": item.metadata.get("occupation"),
+                    "gender": item.metadata.get("gender"),
+                    "reference_label": item.metadata.get("reference_label"),
+                },
+            })
+
+    return BuildResult(rows=rows, excluded=excluded)
+
+
 BUILDERS = {
     "gender-pronouns": build_gender_pronouns,
     "race-name": build_race_name,
@@ -285,6 +320,7 @@ BUILDERS = {
     "religion": build_religion,
     "religion-v2": build_religion_v2,
     "ask-twice": build_ask_twice,
+    "neutral": build_neutral,
 }
 
 
