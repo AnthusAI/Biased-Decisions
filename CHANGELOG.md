@@ -1,3 +1,10 @@
+# [1.15.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.14.0...v1.15.0) (2026-09-23)
+
+
+### Features
+
+* **site:** plain dimension names: gender, age, sexuality, and gender is one board ([5363b8b](https://github.com/AnthusAI/Biased-Decisions/commit/5363b8b865f5d5d5338daabeef06623b9b10b8d7))
+
 # [1.14.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.13.0...v1.14.0) (2026-09-23)
 
 
