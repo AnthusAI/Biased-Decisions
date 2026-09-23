@@ -1,0 +1,25 @@
+{
+  "id": "BD-a2738191-15f6-4c20-b616-e7a45ab75822",
+  "title": "Milestone 2: run the harness on your own data",
+  "description": "Extend the bias-decisions harness so a user can point it at their own dataset instead of the bundled Bias in Bios sample. Document the input format and add a walkthrough for running an end-to-end evaluation on custom data.",
+  "type": "story",
+  "status": "open",
+  "priority": 2,
+  "assignee": null,
+  "creator": null,
+  "parent": null,
+  "labels": [],
+  "dependencies": [],
+  "comments": [],
+  "created_at": "2026-09-23T11:38:27.752625Z",
+  "updated_at": "2026-09-23T11:38:30.983198Z",
+  "closed_at": null,
+  "agent": {
+    "platform": "claude-code",
+    "model": "claude-fable-5-1",
+    "name": "Kanbus Setup Agent"
+  },
+  "right_now_summary": null,
+  "right_now_updated_at": null,
+  "custom": {}
+}
