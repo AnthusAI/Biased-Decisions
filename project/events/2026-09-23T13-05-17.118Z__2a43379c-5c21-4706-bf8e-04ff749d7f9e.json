@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "event_id": "2a43379c-5c21-4706-bf8e-04ff749d7f9e",
+  "issue_id": "BD-fb3204dc-8bcd-415e-a540-0b23fac3348c",
+  "event_type": "issue_created",
+  "occurred_at": "2026-09-23T13:05:17.118Z",
+  "actor_id": "home",
+  "payload": {
+    "title": "Jev go/no-go: price design A on two pairs",
+    "description": "Price and cap Jev requests for design A of both cues in docs/sexuality-gender-identity-preregistration.md, limited to nurse/physician and architect/interior designer (about 8,000 requests per cue), per the free-engines-before-paid-ones convention. Get a dry-run price and an agreed cap before sending any request, then run and report against the pre-registered predictions.",
+    "issue_type": "story",
+    "status": "open",
+    "priority": 2,
+    "assignee": null,
+    "parent": "BD-1c740959-f78e-4305-8dbc-d830263ba828",
+    "labels": [
+      "studies"
+    ],
+    "agent": {
+      "platform": "claude-code",
+      "model": "claude-fable-5-1"
+    }
+  }
+}
