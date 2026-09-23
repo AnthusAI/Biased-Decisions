@@ -27,5 +27,13 @@
   {"source": "/engines/jev/stereotype-nationality/", "target": "/engines/jev/nationality/", "status": "301", "condition": null},
   {"source": "/engines/laya/stereotype-nationality/", "target": "/engines/laya/nationality/", "status": "301", "condition": null},
   {"source": "/engines/laya-mlx/stereotype-nationality/", "target": "/engines/laya-mlx/nationality/", "status": "301", "condition": null},
+  {"source": "/race-fullname/<*>", "target": "/race/<*>", "status": "301", "condition": null},
+  {"source": "/engines/jev/race-fullname/<*>", "target": "/engines/jev/race/<*>", "status": "301", "condition": null},
+  {"source": "/engines/laya/race-fullname/<*>", "target": "/engines/laya/race/<*>", "status": "301", "condition": null},
+  {"source": "/engines/laya-mlx/race-fullname/<*>", "target": "/engines/laya-mlx/race/<*>", "status": "301", "condition": null},
+  {"source": "/race-fullname/", "target": "/race/", "status": "301", "condition": null},
+  {"source": "/engines/jev/race-fullname/", "target": "/engines/jev/race/", "status": "301", "condition": null},
+  {"source": "/engines/laya/race-fullname/", "target": "/engines/laya/race/", "status": "301", "condition": null},
+  {"source": "/engines/laya-mlx/race-fullname/", "target": "/engines/laya-mlx/race/", "status": "301", "condition": null},
   {"source": "/<*>", "target": "/404.html", "status": "404", "condition": null}
 ]

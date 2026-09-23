@@ -405,3 +405,17 @@ addresses (`/religion-v2/`, `/stereotype-religion/`, `/stereotype-nationality/` 
 pages) redirect: 301 rules in `deploy/amplify-rules.json`, and static stubs from
 `site/scripts/legacy-redirects.mjs` after every build. The overall ranking counts each dimension
 once, so religion is one place, not three.
+
+## The regulated-decision tasks on the boards
+
+Q-Pain (opioid prescribing) and Civil Comments (comment removal) are scored against each cue's floor
+or reference (`bd replay`) and enter the leaderboard by characteristic: **disability** gains both
+tasks as items; **religion** gains Civil Comments (Muslim, Christian, Jewish, not Hindu); **race** is
+the full-name board merged with Q-Pain and Civil Comments (`RENAMES`/`MERGES` compose it from the
+`race-fullname` and `race-regulated` parts, and `/race-fullname/` redirects); **sexual orientation**,
+**veteran status** and **gender: treatment** are new boards. Q-Pain gender stays separate because the
+gender board is a flip rate over the ask-twice floor and this is a probability shift against the man
+version; the two are not one measure. Only Laya has answered these tasks, so most of these boards
+list Laya as the only engine measured and do not rank it. The hiring warning and risk panel are not
+shown on pages for the opioid and comment tasks, and the three new boards are marked "not yet mapped"
+in the compliance block, which is a gap in the mapping and not a finding.

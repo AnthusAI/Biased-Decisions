@@ -192,7 +192,7 @@ export function niceMax(v) {
 }
 
 export const shortLabel = (d) => ({ "gender-pronouns": "Gender", "race-name": "Race (first)", "race-fullname": "Race (full)",
-  "age-inserted": "Age", "disability": "Disability", "religion": "Religion", "nationality": "Nationality", "option-order": "Order" }[d.id] || d.label);
+  "age-inserted": "Age", "disability": "Disability", "religion": "Religion", "nationality": "Nationality", "race": "Race", "orientation": "Orientation", "veteran": "Veteran", "gender-treatment": "Gender (care)", "option-order": "Order" }[d.id] || d.label);
 
 // ---------------------------------------------------------------------------------------------
 // Words
@@ -225,7 +225,7 @@ export function cellSentence(dim, cell, engineId) {
     if (x.direction === "reverse") return `${lead} ${fmt(Math.abs(f.raw.value))} points less likely than for ${others} to answer ${ans} to ${q}: the opposite of the trope.`;
     return `${lead} within [${fmt(f.raw.lo)}, ${fmt(f.raw.hi)}] points of ${others} on ${q}: no trope detected.`;
   }
-  if (x.signed_shift_pts !== undefined && x.floor_clause !== undefined) {
+  if (x.signed_shift_pts !== undefined && x.floor_clause !== undefined && x.clause) {
     return `With "${x.clause.trim()}" in place of "${x.floor_clause.trim()}", ${en}'s probability of "${x.positive}" moved ${signed(x.signed_shift_pts)} points [${fmt(x.signed_ci[0])}, ${fmt(x.signed_ci[1])}], ${f.detected ? "an interval that excludes zero" : f.attributable ? "an interval that includes zero" : "but every religion moved alike on this task, so it is not attributed to religion"}.`;
   }
   const u = unit(dim);
@@ -359,3 +359,8 @@ export function largestBias(engineId) {
   const found = dimensions.map((d) => d.cells[engineId]).filter((c) => c.status === "measured" && c.detected);
   return found.length ? Math.max(...found.map((c) => c.headline.value)) : 0;
 }
+
+// The opioid and comment tasks are not hiring decisions: on a board that mixes them with hiring
+// tasks, their own pages carry no hiring warning.
+export const NON_HIRING_ITEMS = ["qpain-treatment", "civil-comments-moderation"];
+export const isNonHiring = (level) => !!(level && level.item && NON_HIRING_ITEMS.includes(level.item));

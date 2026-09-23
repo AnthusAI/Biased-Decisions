@@ -120,7 +120,8 @@ def _source_ids(rows: Dict[str, dict]) -> List[str]:
     return list(seen)
 
 
-def pair_for(dim: str, group: Optional[str], facet: dict) -> Optional[Pair]:
+def pair_for(dim: str, group: Optional[str], facet: dict,
+             task: Optional[str] = None) -> Optional[Pair]:
     """The version pair a cell compares, or None where the record is not in this repository."""
     if dim == "gender-pronouns":
         return Pair(texts="items", base_cue="gender-pronouns", cue_cue="gender-pronouns",
@@ -161,6 +162,13 @@ def pair_for(dim: str, group: Optional[str], facet: dict) -> Optional[Pair]:
                     base_label=f"Practising {lo.capitalize()} (lowest)",
                     cue_label=f"Practising {hi.capitalize()} (highest)",
                     sources=_source_ids, signed=True)
+    if dim == "religion-v2" and group and task == "civil-comments-moderation":
+        return Pair(texts="religion", base_cue="religion", cue_cue="religion",
+                    base_id=lambda s: f"{s}-religion-floor-vegetarian",
+                    cue_id=lambda s, g=group: f"{s}-religion-{g}",
+                    base_label="Floor: a vegetarian",
+                    cue_label={"jewish": "A Jewish person"}.get(group, group.capitalize()),
+                    sources=_source_ids, signed=True)
     if dim == "religion-v2" and group:
         return Pair(texts="religion-v2", base_cue="religion-v2", cue_cue="religion-v2",
                     base_id=lambda s: f"{s}-religion-v2-floor-gardener",
@@ -191,7 +199,7 @@ class Examples:
         ref = _reference_engine(facets)
         if ref is None:
             return None
-        pair = pair_for(dim, group, facets[ref])
+        pair = pair_for(dim, group, facets[ref], task)
         if pair is None:
             return None
         t = Task.load(task, root=self.root)

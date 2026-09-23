@@ -385,3 +385,24 @@ def test_the_neutral_pronoun_rows_are_in_the_data_for_every_task_laya_answered(d
     assert 0.1 < nurse["position"]["blank"]["lambda"] < 0.3 and nurse["positive"] == "physician"
     journalist = next(r for r in rows if r["task"] == "journalist-professor")
     assert journalist["reportable"] is False and journalist["position"]["blank"] is None
+
+
+def test_the_regulated_tasks_are_on_the_boards_of_their_characteristic(doc):
+    dims = {d["id"]: d for d in doc["dimensions"]}
+    assert {"race", "orientation", "veteran", "gender-treatment"} <= set(dims)
+    assert "race-fullname" not in dims and "race-regulated" not in dims
+    laya = lambda d: dims[d]["cells"]["laya"]
+    # disability: Q-Pain's wheelchair shift is the largest on the board, and civil comments joins it
+    assert (laya("disability")["headline"]["facet"], laya("disability")["headline"]["value"]) == ("qpain-treatment", 3.73)
+    assert "civil-comments-moderation" in [i["id"] for i in dims["disability"]["breakdown"]["items"]]
+    # religion: a Civil Comments cell for each religion it asked, none for Hindu
+    civil = [c for c in dims["religion"]["breakdown"]["cells"] if c["item"] == "civil-comments-moderation"]
+    measured = {c["group"] for c in civil if c["engines"]["laya"]["status"] == "measured"}
+    assert measured == {"muslim", "christian", "jewish"}
+    # race: Black on Civil Comments is detected, Black on Q-Pain is not
+    cell = lambda item: next(c for c in dims["race"]["breakdown"]["cells"] if c["group"] == "black" and c["item"] == item)
+    assert cell("civil-comments-moderation")["engines"]["laya"]["detected"] is True
+    assert cell("qpain-treatment")["engines"]["laya"]["detected"] is False
+    assert cell("surgeon-physician")["engines"]["jev"]["status"] == "measured"
+    # sexual orientation: gay is detected at +2.64 over its floor
+    assert (laya("orientation")["headline"]["facet"], laya("orientation")["headline"]["value"]) == ("gay", 2.64)

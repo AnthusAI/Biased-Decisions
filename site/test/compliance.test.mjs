@@ -56,6 +56,7 @@ const regulated = C.mapping.filter((m) => m.regulated).map((m) => m.dimension);
 const dimOfPath = (p) => {
   const segs = p.split("/").filter(Boolean);
   if (segs[0] === "engines") return segs.length === 3 ? segs[2] : null;
+  if (segs.slice(1).some((x) => ["qpain-treatment", "civil-comments-moderation"].includes(x))) return null;
   return DATA.dimensions.some((d) => d.id === segs[0]) ? segs[0] : null;
 };
 const primary = new Set(C.citations.map((c) => c.primary_url));
@@ -186,4 +187,15 @@ test("the masthead links the compliance pages from every page", () => {
     if (path === "/og-gallery/" || !html.includes('class="topnav"')) continue;
     assert.match(html, /<nav class="topnav"[\s\S]*href="\/how-to-fail\/"[\s\S]*<\/nav>/, path);
   }
+});
+
+test("a page for the opioid or comment tasks carries no hiring warning", () => {
+  let n = 0;
+  for (const [path, html] of pages) {
+    const segs = path.split("/").filter(Boolean);
+    if (segs[0] === "engines" || !segs.slice(1).some((x) => ["qpain-treatment", "civil-comments-moderation"].includes(x))) continue;
+    n++;
+    assert.doesNotMatch(html, /class="reg-warn/, path);
+  }
+  assert.ok(n > 5, `only ${n} such pages found`);
 });

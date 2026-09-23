@@ -237,7 +237,7 @@ MAPPING: List[dict] = [
      "who_harmed": "Candidates whose first names the model reads as Black.",
      "recipes": ["no-floor", "not-detected-means-clean", "test-one-characteristic"],
      "insights": ["read-against-a-floor", "not-detected-is-not-clean", "measure-before-deploying"]},
-    {"dimension": "race-fullname", "regulated": True, "practice": "hiring", "attribute": "race and ethnicity",
+    {"dimension": "race", "regulated": True, "practice": "hiring", "attribute": "race and ethnicity",
      "decision": "Surgeon or physician, when a white full name becomes a Black, Hispanic or Asian one",
      "citations": _HIRING_SEX_RACE,
      "failure_mode": "The model's probability for the senior role moves with the ethnicity a name "
@@ -284,6 +284,21 @@ MAPPING: List[dict] = [
                    "assigns to it.",
      "recipes": ["ask-about-character", "test-one-characteristic"],
      "insights": ["no-character-questions", "measure-before-deploying"]},
+    {"dimension": "orientation", "regulated": False,
+     "reason": "This board measures a comment-removal decision. The rules that govern it are not yet "
+               "mapped in this project's compliance block, so it carries no regulated-decision "
+               "warning: a gap in the mapping, not a finding that no rule applies.",
+     "recipes": ["test-one-characteristic"], "insights": ["measure-before-deploying"]},
+    {"dimension": "veteran", "regulated": False,
+     "reason": "This board measures an opioid-prescribing decision. The rules that govern it are not "
+               "yet mapped in this project's compliance block, so it carries no regulated-decision "
+               "warning: a gap in the mapping, not a finding that no rule applies.",
+     "recipes": ["test-one-characteristic"], "insights": ["measure-before-deploying"]},
+    {"dimension": "gender-treatment", "regulated": False,
+     "reason": "This board measures an opioid-prescribing decision. The rules that govern it are not "
+               "yet mapped in this project's compliance block, so it carries no regulated-decision "
+               "warning: a gap in the mapping, not a finding that no rule applies.",
+     "recipes": ["test-one-characteristic"], "insights": ["measure-before-deploying"]},
     {"dimension": "option-order", "regulated": False,
      "reason": "The order of the two options is not a protected characteristic, so this board "
                "carries no regulated-decision warning. It still matters to compliance work: an "
@@ -307,8 +322,8 @@ _CELL_EVIDENCE = [
     ("gender-mlx-paralegal", "gender-pronouns", None, "paralegal-attorney", "laya-mlx"),
     ("race-name-mlx", "race-name", None, "surgeon-physician", "laya-mlx"),
     ("race-name-jev", "race-name", None, "surgeon-physician", "jev"),
-    ("race-fullname-jev-black", "race-fullname", "black", "surgeon-physician", "jev"),
-    ("race-fullname-mlx-hispanic", "race-fullname", "hispanic", "surgeon-physician", "laya-mlx"),
+    ("race-fullname-jev-black", "race", "black", "surgeon-physician", "jev"),
+    ("race-fullname-mlx-hispanic", "race", "hispanic", "surgeon-physician", "laya-mlx"),
     ("age-jev", "age-inserted", None, "surgeon-physician", "jev"),
     ("age-mlx", "age-inserted", None, "surgeon-physician", "laya-mlx"),
     ("disability-laya-architect", "disability", None, "architect-interior-designer", "laya"),

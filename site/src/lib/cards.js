@@ -8,7 +8,7 @@
 // never zero.
 import { createHash } from "node:crypto";
 import { data, engines, engineById, dimensions, urls, levelPath, groupOf, itemOf, cellOf, multiGroup,
-  multiItem, unit, fmt, signed, int, plural, largestBias } from "./site.js";
+  multiItem, unit, fmt, signed, int, plural, largestBias, isNonHiring, NON_HIRING_ITEMS } from "./site.js";
 
 const rel = data.provenance.release;
 export const STAMP = rel.released ? `v${rel.version} · ${rel.date}` : `v${rel.version} · unreleased`;
@@ -32,11 +32,16 @@ export function doesAt(dim, groupId, itemId, engineId) {
     case "nationality":
       if (itemId && itemOf(dim, itemId).trope) return `${en} moves toward ${q(TROPE_WORD[itemId] || itemOf(dim, itemId).label)} when a bio says ${q(g)}`;
       return `${en} shifts its ${task} call when a bio says ${q(g)}`;
-    case "race-fullname": return `${en} shifts its ${task} call for ${g} full names`;
+    case "race":
+      if (itemId === "surgeon-physician") return `${en} shifts its ${task} call for ${g} full names`;
+      return `${en} shifts its ${task} answer when the ${itemId === "civil-comments-moderation" ? "comment opens" : "vignette names"} ${g}`;
+    case "orientation": return `${en} shifts its comment-removal call when a comment opens "As a ${g.toLowerCase()} person,"`;
+    case "veteran": return `${en} shifts its prescribing call for a ${g.toLowerCase()}`;
+    case "gender-treatment": return `${en} shifts its prescribing call when the vignette's patient is a woman`;
     case "gender-pronouns": return `${en} flips its ${task} call when the pronouns swap`;
     case "race-name": return `${en} flips its ${task} call when a white first name becomes a Black one`;
     case "age-inserted": return `${en} flips its ${task} call when a bio says 61, not 34`;
-    case "disability": return `${en} shifts its ${task} call when a bio says ${q("a wheelchair user")}`;
+    case "disability": return `${en} shifts its ${task} call when a ${NON_HIRING_ITEMS.includes(itemId) ? "text" : "bio"} says ${q("a wheelchair user")}`;
     case "option-order": return `${en} changes its ${task} call when the options swap places`;
     default: return `${en} moves on ${dim.label.toLowerCase()}${task ? `, ${task}` : ""}`;
   }
@@ -56,6 +61,12 @@ export function dimPositionOf(dim, engineId) {
   const f = c.headline.facet;
   const bd = dim.breakdown;
   if (multiGroup(dim) && multiItem(dim)) {
+    // A merged board's headline can name a group (a full-name group) as well as an item.
+    if (bd.groups.some((g) => g.id === f)) {
+      const inGroup = bd.cells.filter((x) => x.group === f && x.engines[engineId].status === "measured");
+      const best = inGroup.sort((a, b) => b.engines[engineId].excess.value - a.engines[engineId].excess.value)[0];
+      return [f, best ? best.item : bd.items[0].id];
+    }
     const cells = bd.cells.filter((x) => x.item === f && x.engines[engineId].status === "measured");
     const top = cells.sort((a, b) => b.engines[engineId].excess.value - a.engines[engineId].excess.value)[0];
     return [top ? top.group : null, f];
@@ -193,7 +204,7 @@ const COMP = data.compliance;
 const PRACTICE = Object.fromEntries(COMP.practices.map((p) => [p.id, p.label]));
 const REG = Object.fromEntries(COMP.mapping.filter((m) => m.regulated).map((m) => [m.dimension, PRACTICE[m.practice]]));
 export const flagFor = (dimId) => (REG[dimId] ? `Regulated decision: ${REG[dimId].toLowerCase()}` : null);
-const flagged = (dimId, card) => (REG[dimId] ? { ...card, flag: flagFor(dimId) } : card);
+const flagged = (dimId, card, level = null) => (REG[dimId] && !isNonHiring(level) ? { ...card, flag: flagFor(dimId) } : card);
 const shortRow = (task, engine, variant, cut) => COMP.shortlist.pairs.find((b) => b.task === task).rows
   .find((r) => r.engine === engine && r.variant === variant && r.cut === cut);
 
@@ -259,7 +270,7 @@ export function allCards() {
   }
   for (const d of dimensions) {
     out.push(finish(urls.dim(d.id), flagged(d.id, dimCard(d))));
-    for (const level of d.breakdown.levels) out.push(finish(levelPath(d, level), flagged(d.id, levelCard(d, level))));
+    for (const level of d.breakdown.levels) out.push(finish(levelPath(d, level), flagged(d.id, levelCard(d, level), level)));
   }
   out.push(finish(`${urls.home()}how-to-fail/`, inversionCard()));
   out.push(finish(`${urls.home()}guidance/`, guidanceCard()));

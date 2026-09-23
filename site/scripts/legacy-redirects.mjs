@@ -6,7 +6,7 @@ import { join, relative } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const DIST = join(fileURLToPath(new URL("..", import.meta.url)), "dist");
-export const MOVED = [["religion-v2", "religion"], ["stereotype-religion", "religion"], ["stereotype-nationality", "nationality"]];
+export const MOVED = [["religion-v2", "religion"], ["stereotype-religion", "religion"], ["stereotype-nationality", "nationality"], ["race-fullname", "race"]];
 const SITE = process.env.SITE_URL || "https://biased-decisions.anth.us";
 
 function dirsUnder(root) {

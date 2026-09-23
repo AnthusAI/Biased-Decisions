@@ -13,7 +13,7 @@ import EngineName from "../../../components/EngineName.astro";
 import FacetTable from "../../../components/FacetTable.astro";
 import Example from "../../../components/Example.astro";
 import { engines, urls, levelPages, levelPayload, levelTitle, levelPath, describeLevel, cellsUnder, rowKind, rowLabel,
-  forestRows, groupOf, itemOf, multiGroup, cellSentence, unit, fmt, signed, cap, plural } from "../../../lib/site.js";
+  forestRows, groupOf, itemOf, multiGroup, cellSentence, unit, fmt, signed, cap, plural, isNonHiring } from "../../../lib/site.js";
 
 export function getStaticPaths() {
   return levelPages().filter(({ level }) => level.kind !== "cell")
@@ -53,7 +53,7 @@ const floorClause = group && isTrope ? (under.map((c) => Object.values(c.engines
   <section class="wrap hero dim-hero">
     <p class="kicker">{kicker}</p>
     <h1 class="display xl">{title}</h1>
-    <RegWarn dim={dim} />
+    {!isNonHiring(level) && <RegWarn dim={dim} />}
     {group && isMixed && (
       <p class="deck">How each engine's answers moved when a bio opened with <q>{group.clause.trim()}</q>, test by test: the role decisions and the character questions alike.</p>
     )}
@@ -89,7 +89,7 @@ const floorClause = group && isTrope ? (under.map((c) => Object.values(c.engines
     hrefFor={(e) => `${path}#${e}`} heading={leaf ? "The board" : `The board for ${title}`}
     lede={leaf ? null : `Most biased first, each engine placed by its largest excess among ${title}'s ${plural(kind)}: the same rule as every board. Thin ticks: its other ${plural(kind)}. Select a row for that engine's numbers below.`} />
 
-  <RiskPanel dim={dim} level={level} place={title} />
+  {!isNonHiring(level) && <RiskPanel dim={dim} level={level} place={title} />}
 
   {!leaf && (
     <section class="wrap section" id="rows">
