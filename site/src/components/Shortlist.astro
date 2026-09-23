@@ -4,7 +4,7 @@
 import EngineName from "./EngineName.astro";
 import NeutralCost from "./NeutralCost.astro";
 import NeutralDirection from "./NeutralDirection.astro";
-import { C, shortlistBlock, shortlistRowId, citationById, REPO_BLOB, curls } from "../lib/compliance.js";
+import { C, shortlistBlock, shortlistRowId, citationById, curls } from "../lib/compliance.js";
 import { engineById, fmt, int } from "../lib/site.js";
 const { task, positive } = Astro.props;
 const block = shortlistBlock(task);
@@ -18,18 +18,18 @@ const who = `${positive}s`;
 ---
 {block && (
   <section class="wrap section" id="shortlist" aria-labelledby="shortlist-h">
-    <h2 class="display" id="shortlist-h">The shortlist: what the flips do to selection rates</h2>
-    <p class="lede">{C.shortlist.scenario} Among the real {who}, the table shows how many of every 100 women and every 100 men make the list, and the ratio between them: 1.0 is equal, and the U.S. hiring rule of thumb, the <a class="cite" href={ff.primary_url}>four-fifths rule</a>, treats a ratio under {fmt(C.shortlist.line)} as evidence of adverse impact. The last two columns re-run the ranking with each person's pronouns swapped and nothing else changed: how many women make the list only when the model reads them as men, and how many men only when it reads them as women. That isolates the model as the cause.</p>
-    <div class="table-scroll" tabindex="0" role="region" aria-label={`Shortlist rates for ${who} by engine and cut`}>
+    <h2 class="display" id="shortlist-h">The shortlist: who gets through when the answers change</h2>
+    <p class="lede">{C.shortlist.scenario} Among the real {who}, the table shows how many of every 100 women and every 100 men make the list. Divide the first by the second and you get the shortlist ratio: 1.0 means women and men make the list at the same rate. The U.S. hiring rule of thumb, the <a class="cite" href={ff.primary_url}>four-fifths rule</a>, treats a ratio under {fmt(C.shortlist.line)} as evidence of adverse impact. The range in brackets is the one we are 95% sure of. The last two columns rank everyone again with only their pronouns swapped. They count the women who make the list only when the model reads them as men, and the men who make it only when it reads them as women. Nothing else changed, so the model is the cause.</p>
+    <div class="table-scroll" tabindex="0" role="region" aria-label={`Shortlist rates for ${who}, by model and list size`}>
       <table class="cell-table sl-table">
-        <thead><tr><th scope="col">engine, cut</th><th scope="col">women per 100</th><th scope="col">men per 100</th><th scope="col">four-fifths ratio [95% CI]</th><th scope="col">tie-fair ratio</th><th scope="col">women in only if read as men</th><th scope="col">men in only if read as women</th></tr></thead>
+        <thead><tr><th scope="col">Model, list size</th><th scope="col">Women per 100</th><th scope="col">Men per 100</th><th scope="col">Shortlist ratio [range]</th><th scope="col">Ratio, equal scores grouped</th><th scope="col">Women on the list only if read as men</th><th scope="col">Men on the list only if read as women</th></tr></thead>
         <tbody>
           {alone.map((r) => (
             <tr id={shortlistRowId(r)} class={r.four_fifths_ratio < C.shortlist.line ? "sl-under" : null}>
               <th scope="row"><EngineName engine={engineById[r.engine]} /> top {int(r.cut)}</th>
               <td class="num">{p100(r.women_shortlist_rate)}</td>
               <td class="num">{p100(r.men_shortlist_rate)}</td>
-              <td class="num"><strong>{fmt(r.four_fifths_ratio)}</strong> <span class="ci-t">[{fmt(r.ratio_ci[0])}, {fmt(r.ratio_ci[1])}]</span>{r.four_fifths_ratio < C.shortlist.line && <span class="sl-flag"> under the line</span>}</td>
+              <td class="num"><strong>{fmt(r.four_fifths_ratio)}</strong> <span class="ci-t">[{fmt(r.ratio_ci[0])}, {fmt(r.ratio_ci[1])}]</span>{r.four_fifths_ratio < C.shortlist.line && <span class="sl-flag"> under {fmt(C.shortlist.line)}</span>}</td>
               <td class="num">{fmt(r.tie_fair_ratio)}</td>
               <td class="num">{int(r.women_who_gain_place_read_as_men)} of {int(r.n_women_positive)}</td>
               <td class="num">{int(r.men_who_gain_place_read_as_women)} of {int(r.n_men_positive)}</td>
@@ -42,14 +42,14 @@ const who = `${positive}s`;
     <p class="note">{C.shortlist.twin_note} See <a href={curls.guidance("average-both-ways")}>ask twice with the pronouns swapped, and average the answers</a>.</p>
     <div class="table-scroll" tabindex="0" role="region" aria-label={`Shortlist rates for ${who} after averaging both versions`}>
       <table class="cell-table sl-table">
-        <thead><tr><th scope="col">engine, cut</th><th scope="col">women per 100</th><th scope="col">men per 100</th><th scope="col">four-fifths ratio [95% CI]</th><th scope="col">tie-fair ratio</th><th scope="col">accuracy</th></tr></thead>
+        <thead><tr><th scope="col">Model, list size</th><th scope="col">Women per 100</th><th scope="col">Men per 100</th><th scope="col">Shortlist ratio [range]</th><th scope="col">Ratio, equal scores grouped</th><th scope="col">Matched the job label</th></tr></thead>
         <tbody>
           {twin.map((r) => (
             <tr id={shortlistRowId(r)} class={r.four_fifths_ratio < C.shortlist.line ? "sl-under" : null}>
               <th scope="row"><EngineName engine={engineById[r.engine]} /> top {int(r.cut)}</th>
               <td class="num">{p100(r.women_shortlist_rate)}</td>
               <td class="num">{p100(r.men_shortlist_rate)}</td>
-              <td class="num"><strong>{fmt(r.four_fifths_ratio)}</strong> <span class="ci-t">[{fmt(r.ratio_ci[0])}, {fmt(r.ratio_ci[1])}]</span>{r.four_fifths_ratio < C.shortlist.line && <span class="sl-flag"> under the line</span>}</td>
+              <td class="num"><strong>{fmt(r.four_fifths_ratio)}</strong> <span class="ci-t">[{fmt(r.ratio_ci[0])}, {fmt(r.ratio_ci[1])}]</span>{r.four_fifths_ratio < C.shortlist.line && <span class="sl-flag"> under {fmt(C.shortlist.line)}</span>}</td>
               <td class="num">{fmt(r.tie_fair_ratio)}</td>
               <td class="num">{fmt(r.accuracy * 100, 1)}%</td>
             </tr>
@@ -59,18 +59,18 @@ const who = `${positive}s`;
     </div>
     {neutral.length > 0 && (
       <Fragment>
-        <h3>With the gender signal removed</h3>
-        <p class="note">Every gendered pronoun and role noun rewritten as <q>the person</q> or as <q>they</q>, and the shortlist ranked on those versions. This removes the signal rather than averaging it, and it shows what removing it costs: the ratio moves toward or past the line, and accuracy against the corpus label moves with it. The <q>they</q> rewrite leaves some verbs after <q>and</q> or a comma uninflected, so read it as a check on the first.</p>
-        <div class="table-scroll" tabindex="0" role="region" aria-label={`Shortlist rates for ${who} with the gender signal removed`}>
+        <h3>With the gendered words removed</h3>
+        <p class="note">Here we rewrote every gendered pronoun and role noun as <q>the person</q> or as <q>they</q>, and ranked the shortlist on those versions. This takes gender out instead of averaging it, and it shows what that costs. The ratio moves toward the line or past it, and so does how often the model matches the dataset's own job label. The <q>they</q> rewrite leaves a few verbs after <q>and</q> or a comma in the wrong form, so read it as a check on the first.</p>
+        <div class="table-scroll" tabindex="0" role="region" aria-label={`Shortlist rates for ${who} with the gendered words removed`}>
           <table class="cell-table sl-table">
-            <thead><tr><th scope="col">engine, wording, cut</th><th scope="col">women per 100</th><th scope="col">men per 100</th><th scope="col">four-fifths ratio [95% CI]</th><th scope="col">tie-fair ratio</th><th scope="col">accuracy</th></tr></thead>
+            <thead><tr><th scope="col">Model, wording, list size</th><th scope="col">Women per 100</th><th scope="col">Men per 100</th><th scope="col">Shortlist ratio [range]</th><th scope="col">Ratio, equal scores grouped</th><th scope="col">Matched the job label</th></tr></thead>
             <tbody>
               {neutral.map((r) => (
                 <tr id={shortlistRowId(r)} class={r.four_fifths_ratio < C.shortlist.line ? "sl-under" : null}>
                   <th scope="row"><EngineName engine={engineById[r.engine]} /> {armLabel[r.variant]}, top {int(r.cut)}</th>
                   <td class="num">{p100(r.women_shortlist_rate)}</td>
                   <td class="num">{p100(r.men_shortlist_rate)}</td>
-                  <td class="num"><strong>{fmt(r.four_fifths_ratio)}</strong> <span class="ci-t">[{fmt(r.ratio_ci[0])}, {fmt(r.ratio_ci[1])}]</span>{r.four_fifths_ratio < C.shortlist.line && <span class="sl-flag"> under the line</span>}</td>
+                  <td class="num"><strong>{fmt(r.four_fifths_ratio)}</strong> <span class="ci-t">[{fmt(r.ratio_ci[0])}, {fmt(r.ratio_ci[1])}]</span>{r.four_fifths_ratio < C.shortlist.line && <span class="sl-flag"> under {fmt(C.shortlist.line)}</span>}</td>
                   <td class="num">{fmt(r.tie_fair_ratio)}</td>
                   <td class="num">{fmt(r.accuracy * 100, 1)}%</td>
                 </tr>
@@ -82,7 +82,8 @@ const who = `${positive}s`;
       </Fragment>
     )}
     <NeutralDirection engineId="laya" tasks={[task]} />
-    <p class="note">Tie-fair ratio: the model often gives many applicants exactly the same score, so the cut can fall in the middle of a tie; this is the same ratio with tied applicants counted fairly instead of in file order.</p>
-    <p class="note">Rows from <code>{block.study}</code>, replayed by <code>bd replay</code>; predictions and outcome in <a href={`${REPO_BLOB}studies/PREREGISTERED.md`}>{C.shortlist.prereg_section}</a>. Not legal advice: the ratio is the number a compliance review would compute, not a finding.</p>
+    <p class="note">Ratio, equal scores grouped: the model often gives many applicants exactly the same score, so the cut-off can fall in the middle of a tie. This column counts applicants the model scored equally as a group, not in file order.</p>
+    <p class="note">Not legal advice: the ratio is the number a compliance review would compute, not a legal finding.</p>
+    <p class="note">Matched the job label means how often the model's answer agreed with the job the dataset lists for each person. The file behind these rows is listed under How we measured this, at the foot of the page.</p>
   </section>
 )}
