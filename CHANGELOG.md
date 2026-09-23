@@ -1,3 +1,11 @@
+# [1.6.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.5.0...v1.6.0) (2026-09-23)
+
+
+### Features
+
+* **site:** bar charts on board cards and a spider on engine cards ([6688019](https://github.com/AnthusAI/Biased-Decisions/commit/6688019a0817ec27547e948515a090e38ca8e1d0))
+* **site:** light social cards with bar and spider charts ([5f99902](https://github.com/AnthusAI/Biased-Decisions/commit/5f999022bf7c7b4217d05cb56fd0838f1a31537a))
+
 # [1.5.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.4.0...v1.5.0) (2026-09-23)
 
 
