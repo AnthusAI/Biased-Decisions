@@ -1,0 +1,6 @@
+question: "Is the proposed answer to the question correct?"
+options:
+  - "yes"
+  - "no"
+positive: "yes"
+group_attribute: "category"

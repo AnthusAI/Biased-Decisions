@@ -1,0 +1,20 @@
+{
+  "backgrounds_per_scenario_and_cue": 8,
+  "reference": {
+    "age": 60,
+    "gender": "male",
+    "race": "white"
+  },
+  "scenarios": 70,
+  "seed": 20260924,
+  "source": "explicit.jsonl",
+  "source_revision": "6986d6ea802e019d01e94dd59597e94fbd8f8c4a",
+  "source_rows": 9450,
+  "source_sha256": "348f64457832056fa2601044c5107f42b50e8ff16c0428844c4b2d18ddd2d42a",
+  "texts_written": {
+    "age": 5040,
+    "gender": 1680,
+    "items": 70,
+    "race": 2800
+  }
+}

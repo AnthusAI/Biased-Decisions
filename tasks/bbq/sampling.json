@@ -1,0 +1,160 @@
+{
+  "categories": {
+    "Age": {
+      "left_out_no_target_loc": 0,
+      "pool": 3680,
+      "pool_by_condition": {
+        "ambig": 1840,
+        "disambig": 1840
+      },
+      "sampled": 600,
+      "source_rows": 3680
+    },
+    "Disability_status": {
+      "left_out_no_target_loc": 0,
+      "pool": 1556,
+      "pool_by_condition": {
+        "ambig": 778,
+        "disambig": 778
+      },
+      "sampled": 600,
+      "source_rows": 1556
+    },
+    "Gender_identity": {
+      "left_out_no_target_loc": 16,
+      "pool": 5656,
+      "pool_by_condition": {
+        "ambig": 2828,
+        "disambig": 2828
+      },
+      "sampled": 600,
+      "source_rows": 5672
+    },
+    "Nationality": {
+      "left_out_no_target_loc": 0,
+      "pool": 3080,
+      "pool_by_condition": {
+        "ambig": 1540,
+        "disambig": 1540
+      },
+      "sampled": 600,
+      "source_rows": 3080
+    },
+    "Physical_appearance": {
+      "left_out_no_target_loc": 0,
+      "pool": 1576,
+      "pool_by_condition": {
+        "ambig": 788,
+        "disambig": 788
+      },
+      "sampled": 600,
+      "source_rows": 1576
+    },
+    "Race_ethnicity": {
+      "left_out_no_target_loc": 0,
+      "pool": 6880,
+      "pool_by_condition": {
+        "ambig": 3440,
+        "disambig": 3440
+      },
+      "sampled": 600,
+      "source_rows": 6880
+    },
+    "Race_x_SES": {
+      "left_out_no_target_loc": 0,
+      "pool": 11160,
+      "pool_by_condition": {
+        "ambig": 5580,
+        "disambig": 5580
+      },
+      "sampled": 600,
+      "source_rows": 11160
+    },
+    "Race_x_gender": {
+      "left_out_no_target_loc": 0,
+      "pool": 15960,
+      "pool_by_condition": {
+        "ambig": 7980,
+        "disambig": 7980
+      },
+      "sampled": 600,
+      "source_rows": 15960
+    },
+    "Religion": {
+      "left_out_no_target_loc": 0,
+      "pool": 1200,
+      "pool_by_condition": {
+        "ambig": 600,
+        "disambig": 600
+      },
+      "sampled": 600,
+      "source_rows": 1200
+    },
+    "SES": {
+      "left_out_no_target_loc": 0,
+      "pool": 6864,
+      "pool_by_condition": {
+        "ambig": 3432,
+        "disambig": 3432
+      },
+      "sampled": 600,
+      "source_rows": 6864
+    },
+    "Sexual_orientation": {
+      "left_out_no_target_loc": 0,
+      "pool": 864,
+      "pool_by_condition": {
+        "ambig": 432,
+        "disambig": 432
+      },
+      "sampled": 600,
+      "source_rows": 864
+    }
+  },
+  "items": 6600,
+  "per_stratum": 150,
+  "seed": 20260924,
+  "source_commit": "bea11bd97d79217245b5871acd247b9d6eb24598",
+  "source_sha256": {
+    "Age.jsonl": "46e805b3fc2d8cbd26eeb8e8430d98cf7b2dc9c83574ff3674e8ce4f0fca2a60",
+    "BBQ_README.md": "9b98910f37b3c1b0dc12170ece772847e37bbb514e3158f5cfce18aa8cc703b8",
+    "BBQ_calculate_bias_score.R": "683294c728e5077209fa83907e3c0d21a178d6cfdb7c5135153070627d685f44",
+    "Disability_status.jsonl": "375d40d9b71f056150264445ec189b13934998f3f49a1e311aa7578eb3b45e5f",
+    "Gender_identity.jsonl": "8b5adbb368510a97d5775dc43e1c719e0249fe2da33f13c83e3e29edafec7a00",
+    "LICENSE": "95df2e9564862e51d69683a899b6dcc8218d577057bdf67322880769ff85f29e",
+    "Nationality.jsonl": "a583e74666aec0341ded8aa3983e7cad694eb24de72c254d28b2df3035720090",
+    "Physical_appearance.jsonl": "e48d7e13508565f4801574e611043470c25c95a0a62af3699cb5ee7cb02608fb",
+    "Race_ethnicity.jsonl": "4a9f1214cfaa115ce7f0bdb40609122e431f5152c71b8ca64d665e483b946ae6",
+    "Race_x_SES.jsonl": "af8e2ae3d0e5be9ebcbfe7149e591d47ff649e263307f4548f7fb12f6a6d83e8",
+    "Race_x_gender.jsonl": "e5dbba782f8c4e25b99dd5470b5136e2db73dbf401cf6d4a5a3ed31b02f95696",
+    "Religion.jsonl": "cb9555f9f3454a52cd2df85956b59bd7fcca5aa922c8527693b1164d08417616",
+    "SES.jsonl": "9f92754bb037b0982604b9112705fb81d60a19d9e759c67e4a85e484a070f528",
+    "Sexual_orientation.jsonl": "2c71036b9e7584fe589c42aef32c1a42bc01b9a5e9b1b8704342630cdb08cefd",
+    "additional_metadata.csv": "f36708416b0e7adb81b47ad1926f9c39c2beb611702b73b01e06c9b6c9ffbd3d"
+  },
+  "strata": "ambig: question polarity; disambig: which answer is correct",
+  "texts_written": {
+    "age-ambig": 600,
+    "age-disambig": 600,
+    "disability-status-ambig": 600,
+    "disability-status-disambig": 600,
+    "gender-identity-ambig": 600,
+    "gender-identity-disambig": 600,
+    "nationality-ambig": 600,
+    "nationality-disambig": 600,
+    "physical-appearance-ambig": 600,
+    "physical-appearance-disambig": 600,
+    "race-ethnicity-ambig": 600,
+    "race-ethnicity-disambig": 600,
+    "race-x-gender-ambig": 600,
+    "race-x-gender-disambig": 600,
+    "race-x-ses-ambig": 600,
+    "race-x-ses-disambig": 600,
+    "religion-ambig": 600,
+    "religion-disambig": 600,
+    "ses-ambig": 600,
+    "ses-disambig": 600,
+    "sexual-orientation-ambig": 600,
+    "sexual-orientation-disambig": 600
+  }
+}

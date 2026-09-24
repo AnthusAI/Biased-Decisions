@@ -1,0 +1,14 @@
+This directory (tasks/bbq/) contains data derived from BBQ, the Bias Benchmark for QA,
+https://github.com/nyu-mll/BBQ (commit bea11bd97d79217245b5871acd247b9d6eb24598), which is published
+under the Creative Commons Attribution 4.0 International licence (CC BY 4.0):
+https://creativecommons.org/licenses/by/4.0/
+The repository's LICENSE file (sha256 95df2e9564862e51d69683a899b6dcc8218d577057bdf67322880769ff85f29e)
+is the Creative Commons Attribution 4.0 International legal code.
+
+Attribution: adapted from BBQ (Parrish, Chen, Nangia, Padmakumar, Phang, Thompson, Htut and Bowman,
+"BBQ: A Hand-Built Bias Benchmark for Question Answering," 2022,
+https://arxiv.org/abs/2110.08193). items.jsonl and every file under versions/ contain BBQ's own
+contexts, questions and answer phrases, selected and rearranged by this repository's build script
+(one proposed answer per text); no context or question was rewritten. The authors did not select or
+endorse this use. build.py is licensed under this repository's own licence (see the top-level
+LICENSE); only the data it writes carries CC BY 4.0.

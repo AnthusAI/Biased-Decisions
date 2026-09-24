@@ -1,0 +1,15 @@
+This directory (tasks/discrim-eval/) contains data derived from Anthropic's discrim-eval dataset,
+https://huggingface.co/datasets/Anthropic/discrim-eval (revision 6986d6ea802e019d01e94dd59597e94fbd8f8c4a),
+which is published under the Creative Commons Attribution 4.0 International licence (CC BY 4.0):
+https://creativecommons.org/licenses/by/4.0/
+
+The licence field on the dataset card reads `cc-by-4.0` (README.md of that revision, sha256
+8408a0da2dc406d794aa29f16aa8f471fc938a6cda8592581a5c70d4949de1af). No separate LICENSE file is
+published in the dataset repository; the card is the only statement of the licence that was found.
+
+Attribution: adapted from discrim-eval (Tamkin, Askell, Lovitt, Durmus, Joseph, Kravec, Nguyen,
+Kaplan and Ganguli, "Evaluating and Mitigating Discrimination in Language Model Decisions," 2023,
+https://arxiv.org/abs/2312.03689). items.jsonl and every file under versions/ contain the dataset's
+own filled texts, selected and regrouped by this repository's build script; no text was rewritten.
+Both were selected, not endorsed, by the dataset's authors. build.py is licensed under this
+repository's own licence (see the top-level LICENSE); only the data it writes carries CC BY 4.0.
