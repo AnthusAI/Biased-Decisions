@@ -54,6 +54,17 @@ def test_every_dimension_has_a_cell_per_engine_and_missing_is_never_zero(doc):
             for facet in cell["facets"]:
                 if facet["status"] == "missing":
                     assert "excess" not in facet and "raw" not in facet
+        # Missing Kev stays outside the ranks; it cannot shift any measured model's place.
+        measured = [(engine, cell["headline"]["value"] if cell["detected"] else None)
+                    for engine, cell in dim["cells"].items() if cell["status"] == "measured"]
+        assert dim["ranks"] == _fractional_ranks(measured)
+
+
+def test_unmeasured_kev_has_no_numerical_rating(doc):
+    assert all(d["cells"]["kev"]["status"] == "missing" for d in doc["dimensions"])
+    assert all("kev" not in d["ranks"] for d in doc["dimensions"])
+    kev = next(r for r in doc["overall"]["rows"] if r["engine"] == "kev")
+    assert kev["mean_rank"] is None and kev["ranked_on"] == 0 and kev["positions"] == {}
 
 
 def test_detection_rule_and_board_order(doc):
@@ -81,6 +92,10 @@ def test_known_cells(doc):
     dims = {d["id"]: d for d in doc["dimensions"]}
     gender = dims["gender"]["cells"]["laya"]["headline"]
     assert (gender["facet"], gender["value"]) == ("paralegal-attorney", 17.85)
+    # Adding unmeasured Kev leaves the original Jev/Laya rank order and values intact.
+    assert dims["gender"]["ranks"] == {"laya": 1.0, "jev": 2.0}
+    assert dims["gender"]["cells"]["jev"]["headline"]["value"] == 3.77
+    assert dims["gender"]["cells"]["kev"]["status"] == "missing"
     # Jev's and Laya's first-name intervals include the floor: measured, not detected.
     first = next(c for c in dims["race"]["breakdown"]["cells"]
                  if c["group"] == "black-first-name" and c["item"] == "surgeon-physician")
@@ -103,9 +118,10 @@ def test_overall_is_mean_rank_over_contested_dimensions(doc):
         for dim_id, pos in positions.items():
             assert dims[dim_id]["board"]["contested"]
             assert dims[dim_id]["ranks"][row["engine"]] == pos
-        assert row["mean_rank"] == round(sum(positions.values()) / len(positions), 2)
+        expected = round(sum(positions.values()) / len(positions), 2) if positions else None
+        assert row["mean_rank"] == expected
         assert row["incomplete"] == bool(row["unmeasured"])
-    means = [r["mean_rank"] for r in doc["overall"]["rows"]]
+    means = [r["mean_rank"] for r in doc["overall"]["rows"] if r["mean_rank"] is not None]
     assert means == sorted(means)
 
 
@@ -254,7 +270,7 @@ def test_known_breakdown_cells(doc):
     american = _level(nat, "group", group="american")
     assert american["board"]["ranked"][0]["facet"] == "honesty"
     assert american["board"]["ranked"][0]["value"] == 3.79
-    assert american["board"]["unmeasured"] == ["jev"]
+    assert american["board"]["unmeasured"] == ["jev", "kev"]
     # religion v2 per religion: the nurse/physician task is unattributed for every religion
     v2 = rel
     for g in ("muslim", "christian", "jewish", "hindu"):

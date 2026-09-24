@@ -68,9 +68,8 @@ ENGINES: List[dict] = [
      "stand_in": False},
     {"id": "kev", "label": "Kev", "color": "#8b6bd6", "color_dark": "#b19aec",
      "marker": "diamond", "kind": "fast decision model, open source",
-     "about": "Kev is an open-source family of decision models built on Qwen. The study record "
-              "identifies the exact checkpoint, server revision, backend, data type, and "
-              "calibration used for each run.",
+     "about": "Kev is an open-source decision model. It answers questions about text with "
+              "yes-or-no, choice, or rating answers.",
      "stand_in": False},
 ]
 ENGINE_IDS = [e["id"] for e in ENGINES]
