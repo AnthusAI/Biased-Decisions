@@ -13,9 +13,22 @@
     "model-kev"
   ],
   "dependencies": [],
-  "comments": [],
+  "comments": [
+    {
+      "id": "c5c508fe-ec2e-4da6-a370-0711ad0b9b04",
+      "author": "home",
+      "text": "Message for the agent on the other Mac. Every run in this epic must be the CAPPED first pass, never a full run. Each manifest under docs/kev-runs/<study>/ has \"item_cap\": 500 on every cell and states the exact request count; run_kev_study collect --manifest <that file> honours it and prints the total. Check before you start each task: the requests count it plans must equal the number in the child issue title (for example architect batch-2 is 4,500 requests, 1,500 per cell; the full registered size would be 3,213 per cell, which is NOT what we want). If it plans more than the title says, stop, do not answer anything, and comment here. Do not use docs/kev-coverage-*.json (those are the full, uncapped registrations) and do not remove item_cap. Your architect batch-2 data (BD-e7fdc9) is correct: 1,500 rows per cell, matching its manifest. Please reply here with (1) which manifest and request count you are running right now and (2) if you have started anything that is larger than its title, what it is and how far it got. Keep going in order otherwise.",
+      "created_at": "2026-09-24T23:46:12.066417Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude_code",
+        "model": "Claude Sonnet 5",
+        "name": "Biased Decisions"
+      }
+    }
+  ],
   "created_at": "2026-09-24T23:15:31.850809Z",
-  "updated_at": "2026-09-24T23:15:31.850844Z",
+  "updated_at": "2026-09-24T23:46:12.066443Z",
   "closed_at": null,
   "agent": {
     "platform": "claude_code",
