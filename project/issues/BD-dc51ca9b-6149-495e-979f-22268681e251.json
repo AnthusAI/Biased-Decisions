@@ -5,7 +5,7 @@
   "type": "epic",
   "status": "in_progress",
   "priority": 2,
-  "assignee": "Codex GPT-6 (Kev Lead)",
+  "assignee": "Benchmark coverage session",
   "creator": null,
   "parent": "BD-250c97a3-6ae4-4061-8d67-dbfd02bf9549",
   "labels": [
@@ -95,10 +95,22 @@
         "model": "GPT-6",
         "name": "Kev Lead"
       }
+    },
+    {
+      "id": "dcbc49f1-c9e5-4fd8-bebf-e4a634b795bb",
+      "author": "home",
+      "text": "User has accepted the merged Kev implementation and directed the other benchmark session to include Kev in its ongoing benchmarks. PR #7 is merged; real MLX20-item pilot is verified. Full-study ownership transfers to the benchmark coverage session; operational handoff is on BD-8dafac. This session stopped its queued collector and Luna supervision to avoid duplicate model work. Epic remains in progress for the shared benchmark records and reports.",
+      "created_at": "2026-09-24T02:16:45.840597Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "codex",
+        "model": "GPT-6",
+        "name": "Kev Lead"
+      }
     }
   ],
   "created_at": "2026-09-23T11:41:24.561784Z",
-  "updated_at": "2026-09-24T01:40:59.132279Z",
+  "updated_at": "2026-09-24T02:16:45.876327Z",
   "closed_at": null,
   "agent": {
     "platform": "claude-code",
