@@ -71,7 +71,7 @@
     "model": "Claude Sonnet 5",
     "name": "Biased Decisions"
   },
-  "right_now_summary": "Kev is set to run journalist-professor next with its capped 4,500-request manifest.",
-  "right_now_updated_at": "2026-09-24T23:48:54.791406Z",
+  "right_now_summary": "The capped Kev run for journalist-professor has started with 4,500 requests across three cells.",
+  "right_now_updated_at": "2026-09-24T23:54:02.766953Z",
   "custom": {}
 }
