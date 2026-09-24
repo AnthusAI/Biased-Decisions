@@ -135,5 +135,5 @@ def test_a_scripted_committed_task_has_a_readme_and_says_it_is_synthetic():
 def _tokens_or_skip():
     try:
         return hl.LayaTokens()
-    except SystemExit:
-        pytest.skip("Laya's tokenizer is not in the local model cache")
+    except (SystemExit, ImportError):
+        pytest.skip("Laya's tokenizer is not available here (no tokenizers package or no local model cache)")
