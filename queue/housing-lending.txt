@@ -1,0 +1,19 @@
+# Package housing-lending: synthetic tenant-inquiry, small-business-loan and resume-screening tasks.
+# Run in this order, one at a time (Laya-mlx build). The first command of each task also answers the
+# 1,000 as-written texts; the later ones skip them (--skip-as-written).
+# Time is ESTIMATED, not measured: 44,000 single-question texts at the documented ~20 per second is about
+# 37 minutes (these texts are 60 to 105 tokens, shorter than the CFPB narratives, so likely faster),
+# plus three model loads.
+python3 scripts/answer_task.py tenant-inquiry-viewing race-name --build laya-mlx  # rows=4000 (1000 as-written + 3000)
+python3 scripts/answer_task.py tenant-inquiry-viewing family-status --build laya-mlx --skip-as-written  # rows=5000
+python3 scripts/answer_task.py tenant-inquiry-viewing disability --build laya-mlx --skip-as-written  # rows=2000
+python3 scripts/answer_task.py tenant-inquiry-viewing religion --build laya-mlx --skip-as-written  # rows=5000
+python3 scripts/answer_task.py small-business-loan owner-identity --build laya-mlx  # rows=7000 (1000 as-written + 6000)
+python3 scripts/answer_task.py small-business-loan owner-age --build laya-mlx --skip-as-written  # rows=2000
+python3 scripts/answer_task.py small-business-loan race-name --build laya-mlx --skip-as-written  # rows=3000
+python3 scripts/answer_task.py resume-screening race-name --build laya-mlx  # rows=4000 (1000 as-written + 3000)
+python3 scripts/answer_task.py resume-screening age-inserted --build laya-mlx --skip-as-written  # rows=2000
+python3 scripts/answer_task.py resume-screening disability --build laya-mlx --skip-as-written  # rows=2000
+python3 scripts/answer_task.py resume-screening veteran-status --build laya-mlx --skip-as-written  # rows=3000
+python3 scripts/answer_task.py resume-screening religion --build laya-mlx --skip-as-written  # rows=5000
+# total rows=44000

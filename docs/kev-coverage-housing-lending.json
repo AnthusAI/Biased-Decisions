@@ -1,0 +1,138 @@
+{
+  "schema": "kev-coverage@1",
+  "checkpoint": "jaredpalmer/kev-0.8b@54f4f8777356cd5bbbb6c6919c657f26e6f2f6d8",
+  "cells": [
+    {
+      "task": "tenant-inquiry-viewing",
+      "cue": "race-name",
+      "requests": 3000,
+      "status": "ready",
+      "files": {
+        "tasks/tenant-inquiry-viewing/question.yaml": "485eb27d1bd105632ea43e572bd4147ab2984cd2fa8e64e2be9a3b2479dc1c83",
+        "tasks/tenant-inquiry-viewing/items.jsonl": "34f0a99c4a75cc63f804f1586ef4fbdf131fde74607db0ac9abc2fd6ba3ec97d",
+        "tasks/tenant-inquiry-viewing/versions/race-name.jsonl": "b8a4816888c4dbff3212638b192f16a740ee2eb5132d734e270131fb7193712f"
+      }
+    },
+    {
+      "task": "tenant-inquiry-viewing",
+      "cue": "family-status",
+      "requests": 5000,
+      "status": "ready",
+      "files": {
+        "tasks/tenant-inquiry-viewing/question.yaml": "485eb27d1bd105632ea43e572bd4147ab2984cd2fa8e64e2be9a3b2479dc1c83",
+        "tasks/tenant-inquiry-viewing/items.jsonl": "34f0a99c4a75cc63f804f1586ef4fbdf131fde74607db0ac9abc2fd6ba3ec97d",
+        "tasks/tenant-inquiry-viewing/versions/family-status.jsonl": "23a3b7b6800187686d13210d96f410d85a37be04e282f33d5074f2ea86f9f3f8"
+      }
+    },
+    {
+      "task": "tenant-inquiry-viewing",
+      "cue": "disability",
+      "requests": 2000,
+      "status": "ready",
+      "files": {
+        "tasks/tenant-inquiry-viewing/question.yaml": "485eb27d1bd105632ea43e572bd4147ab2984cd2fa8e64e2be9a3b2479dc1c83",
+        "tasks/tenant-inquiry-viewing/items.jsonl": "34f0a99c4a75cc63f804f1586ef4fbdf131fde74607db0ac9abc2fd6ba3ec97d",
+        "tasks/tenant-inquiry-viewing/versions/disability.jsonl": "9bf12123b2934ebde3c2e15b22c641a60f5131562f2f83079bab65d26615dbf2"
+      }
+    },
+    {
+      "task": "tenant-inquiry-viewing",
+      "cue": "religion",
+      "requests": 5000,
+      "status": "ready",
+      "files": {
+        "tasks/tenant-inquiry-viewing/question.yaml": "485eb27d1bd105632ea43e572bd4147ab2984cd2fa8e64e2be9a3b2479dc1c83",
+        "tasks/tenant-inquiry-viewing/items.jsonl": "34f0a99c4a75cc63f804f1586ef4fbdf131fde74607db0ac9abc2fd6ba3ec97d",
+        "tasks/tenant-inquiry-viewing/versions/religion.jsonl": "6c97882a428da24e4260d454e788198be5b7210c20026a15d6f9840680c88d76"
+      }
+    },
+    {
+      "task": "small-business-loan",
+      "cue": "owner-identity",
+      "requests": 6000,
+      "status": "ready",
+      "files": {
+        "tasks/small-business-loan/question.yaml": "c60b804d40b18f052ef68256b0a53afe131746b9b486814670b272b4f067d816",
+        "tasks/small-business-loan/items.jsonl": "08d3a6963a73e3b13e72589ca92c4d607eb5f01aa57d5e4117416d962f2f5676",
+        "tasks/small-business-loan/versions/owner-identity.jsonl": "7662caedc504e83ce72cee0b73879a28fc10723ab3ba847fb28368219e5477f5"
+      }
+    },
+    {
+      "task": "small-business-loan",
+      "cue": "owner-age",
+      "requests": 2000,
+      "status": "ready",
+      "files": {
+        "tasks/small-business-loan/question.yaml": "c60b804d40b18f052ef68256b0a53afe131746b9b486814670b272b4f067d816",
+        "tasks/small-business-loan/items.jsonl": "08d3a6963a73e3b13e72589ca92c4d607eb5f01aa57d5e4117416d962f2f5676",
+        "tasks/small-business-loan/versions/owner-age.jsonl": "a6dbf91512ad217b1d067b87a0e61934e08c41d1d1e61fba3889015666fb2300"
+      }
+    },
+    {
+      "task": "small-business-loan",
+      "cue": "race-name",
+      "requests": 3000,
+      "status": "ready",
+      "files": {
+        "tasks/small-business-loan/question.yaml": "c60b804d40b18f052ef68256b0a53afe131746b9b486814670b272b4f067d816",
+        "tasks/small-business-loan/items.jsonl": "08d3a6963a73e3b13e72589ca92c4d607eb5f01aa57d5e4117416d962f2f5676",
+        "tasks/small-business-loan/versions/race-name.jsonl": "0fdd6752e85a9401752a6879b53dd1948b66e7bd73d864fadbe59fce958ad5f2"
+      }
+    },
+    {
+      "task": "resume-screening",
+      "cue": "race-name",
+      "requests": 3000,
+      "status": "ready",
+      "files": {
+        "tasks/resume-screening/question.yaml": "32197b2107c9dd17e7105aa18d53f02ebac7b413a995f596408064fdcadad1a3",
+        "tasks/resume-screening/items.jsonl": "27dc2971e1c799322e6f135d6a830e2fffbb180f4a34a56375c4615935cc364e",
+        "tasks/resume-screening/versions/race-name.jsonl": "a757c3d91fe886e57d4c9d46f2c730a618df2bd26a5c7e5e44a191259b436779"
+      }
+    },
+    {
+      "task": "resume-screening",
+      "cue": "age-inserted",
+      "requests": 2000,
+      "status": "ready",
+      "files": {
+        "tasks/resume-screening/question.yaml": "32197b2107c9dd17e7105aa18d53f02ebac7b413a995f596408064fdcadad1a3",
+        "tasks/resume-screening/items.jsonl": "27dc2971e1c799322e6f135d6a830e2fffbb180f4a34a56375c4615935cc364e",
+        "tasks/resume-screening/versions/age-inserted.jsonl": "50ec6cbc72251d8674ffcbcb1d0d68fb249262868bfac4773f631ea5e34aa4f3"
+      }
+    },
+    {
+      "task": "resume-screening",
+      "cue": "disability",
+      "requests": 2000,
+      "status": "ready",
+      "files": {
+        "tasks/resume-screening/question.yaml": "32197b2107c9dd17e7105aa18d53f02ebac7b413a995f596408064fdcadad1a3",
+        "tasks/resume-screening/items.jsonl": "27dc2971e1c799322e6f135d6a830e2fffbb180f4a34a56375c4615935cc364e",
+        "tasks/resume-screening/versions/disability.jsonl": "e0a5d1a2b3e9082b9084003b677a19fe6b2f2bb370df4f92b03c3c97bf8dc9b1"
+      }
+    },
+    {
+      "task": "resume-screening",
+      "cue": "veteran-status",
+      "requests": 3000,
+      "status": "ready",
+      "files": {
+        "tasks/resume-screening/question.yaml": "32197b2107c9dd17e7105aa18d53f02ebac7b413a995f596408064fdcadad1a3",
+        "tasks/resume-screening/items.jsonl": "27dc2971e1c799322e6f135d6a830e2fffbb180f4a34a56375c4615935cc364e",
+        "tasks/resume-screening/versions/veteran-status.jsonl": "8a4e929ffd00913561790cf66540e66e2d61fd3e71abcb8fee22dc3cfef228ea"
+      }
+    },
+    {
+      "task": "resume-screening",
+      "cue": "religion",
+      "requests": 5000,
+      "status": "ready",
+      "files": {
+        "tasks/resume-screening/question.yaml": "32197b2107c9dd17e7105aa18d53f02ebac7b413a995f596408064fdcadad1a3",
+        "tasks/resume-screening/items.jsonl": "27dc2971e1c799322e6f135d6a830e2fffbb180f4a34a56375c4615935cc364e",
+        "tasks/resume-screening/versions/religion.jsonl": "d92d1de5a567b2ba6b1dc13e9e4a0a2d7c55d826d78928bfabcdbe298ce7a388"
+      }
+    }
+  ]
+}
