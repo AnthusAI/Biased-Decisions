@@ -81,7 +81,9 @@ h3 { font-size: 18px; font-weight: 700; margin: 1.6em 0 .4em; }
 /* Masthead */
 .masthead { border-bottom: 1px solid var(--rule); background: color-mix(in srgb, var(--bg) 88%, transparent); position: sticky; top: 0; z-index: 20; backdrop-filter: saturate(1.2) blur(8px); }
 .mast-row { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-top: 10px; padding-bottom: 6px; flex-wrap: wrap; }
-.brand { font-family: var(--display); font-size: 30px; line-height: 1; text-decoration: none; color: var(--ink); white-space: nowrap; }
+.brand { display: inline-flex; align-items: center; gap: 10px; font-family: var(--display); font-size: 30px; line-height: 1; text-decoration: none; color: var(--ink); white-space: nowrap; }
+.brand-icon { display: block; flex: none; width: 48px; height: 48px; }
+.brand-icon svg { display: block; width: 100%; height: 100%; }
 .brand-b { color: var(--muted); margin-left: .12em; }
 .topnav { display: flex; align-items: center; gap: 4px 14px; flex-wrap: wrap; font-size: 14px; font-weight: 600; }
 .topnav a { color: var(--ink-2); text-decoration: none; padding: 4px 0; border-bottom: 2px solid transparent; display: inline-flex; align-items: center; gap: 6px; }
