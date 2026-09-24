@@ -27,7 +27,7 @@ from biased_decisions.metrics import neutral as neutral_metrics
 from biased_decisions.metrics import shortlist as shortlist_metrics
 from biased_decisions.metrics.flips import Verdict, score_arm_race, score_pair
 from biased_decisions.metrics.shifts import score_arm_age, score_arm_race2
-from biased_decisions import stereotypes, stereotypes_batch3
+from biased_decisions import gendered_language, gendered_scoring, stereotypes, stereotypes_batch3
 from biased_decisions.record import read_record_by_id, record_path
 from biased_decisions.tasks.base import DEFAULT_ROOT, Task
 from biased_decisions.tasks.bios import BIOS_TASKS, ORIGINAL_BIOS_TASKS, split_test_and_twins
@@ -91,6 +91,10 @@ REGULATED_SHAPE: Dict[str, Dict[str, tuple]] = {
     stereotypes.SLUG: {axis: (spec.floor, spec.groups) for axis, spec in stereotypes.AXES.items()},
     stereotypes_batch3.SLUG: {axis: (spec.floor, spec.groups)
                               for axis, spec in stereotypes_batch3.AXES.items()},
+    # Gendered language: the neutral (communal) word is the floor of the loaded (agentic) word, each
+    # crossed with gender; scored by ``score_gendered_language``, not by the regulated shape's rows.
+    **{slug: {cue: gendered_scoring.shape_of(slug, cue) for cue in gendered_language.cues_of(slug)}
+       for slug in gendered_language.TASKS},
     "cfpb-escalate-servicemember": {
         "veteran-status": ("floor-cyclist", ("iraq", "navy")),
     },
@@ -587,7 +591,24 @@ def score_stereotypes_batch3(engine: str, task: Task, cue: str) -> dict:
         raise ScoreError(f"({engine!r}, {task.slug!r}, {cue!r}) has no answer for {error}") from error
 
 
+def score_gendered_language(engine: str, task: Task, cue: str) -> dict:
+    if cue not in gendered_language.cues_of(task.slug):
+        raise ScoreError(f"no gendered-language cue {cue!r} on {task.slug!r}; "
+                         f"one of {gendered_language.cues_of(task.slug)}")
+    answers = load_answers(engine, task.slug, cue, root=task.root)
+    scorer = (gendered_scoring.score_word_choice if task.slug == gendered_language.WORD_CHOICE
+              else gendered_scoring.score_interaction)
+    try:
+        body = scorer(engine, task, cue, answers)
+    except gendered_scoring.GenderedScoreError as error:
+        raise ScoreError(str(error)) from error
+    model = next(iter(read_record_by_id(record_path(engine, task.slug, cue, root=task.root)).values()))["model"]
+    return {"engine": engine, "model": model, "task": task.slug, "cue": cue, **body}
+
+
 def score(engine: str, task: Task, cue: str, **kwargs) -> dict:
+    if task.slug in gendered_language.TASKS:
+        return score_gendered_language(engine, task, cue)
     if task.slug == stereotypes_batch3.SLUG:
         return score_stereotypes_batch3(engine, task, cue)
     if task.slug == stereotypes.SLUG:
