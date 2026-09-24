@@ -55,7 +55,8 @@ Use a dedicated Hugging Face cache for the pinned checkpoint and base. Start the
 standard `kev.serve` module with `--run` set to the complete checkpoint identity
 above and a local-only port. Set `KEV_BACKEND=mlx`, `KEV_DTYPE=bf16`,
 `KEV_PREFIX_CACHE=0`, `KEV_DATE_FACTS=0`, and leave temperature at the stored value.
-Verify `/v1/models` before collection. The collector's exact commands are documented
+Use `HF_HUB_OFFLINE=1` after the pinned downloads to prevent further downloads
+during inference. Verify `/v1/models` before collection. The collector's exact commands are documented
 in `docs/kev.md`; its run manifests bind results to inputs and runtime identity.
 
 ## Status and elapsed time
