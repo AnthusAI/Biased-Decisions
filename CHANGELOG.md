@@ -1,3 +1,10 @@
+## [1.22.1](https://github.com/AnthusAI/Biased-Decisions/compare/v1.22.0...v1.22.1) (2026-09-24)
+
+
+### Bug Fixes
+
+* **site:** match logo artwork to Jersey font proportions ([367e9c1](https://github.com/AnthusAI/Biased-Decisions/commit/367e9c1f19227a62d4bd8b6c8444ca9c4ee695fc))
+
 # [1.22.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.21.2...v1.22.0) (2026-09-24)
 
 
