@@ -13,9 +13,22 @@
     "model-kev"
   ],
   "dependencies": [],
-  "comments": [],
+  "comments": [
+    {
+      "id": "c0c6a940-1d78-4ee6-8af3-360b3509668e",
+      "author": "home",
+      "text": "Ready to dispatch. Manifest docs/kev-runs/nurse-physician.json is on main (validated: hashes and capped counts): 6 cells, exactly 7999 requests at the registered 500-item cap. The earlier estimate in the description was low; this is the real size. Setup and steps: docs/other-mac-runs.md.",
+      "created_at": "2026-09-24T19:46:38.937146Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude_code",
+        "model": "Claude Sonnet 5",
+        "name": "Biased Decisions"
+      }
+    }
+  ],
   "created_at": "2026-09-24T19:29:33.235136Z",
-  "updated_at": "2026-09-24T19:29:33.235164Z",
+  "updated_at": "2026-09-24T19:46:38.937168Z",
   "closed_at": null,
   "agent": {
     "platform": "claude_code",

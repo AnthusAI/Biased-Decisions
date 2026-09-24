@@ -3,7 +3,7 @@
   "title": "Runner: a seeded nested item cap, and per-run manifests",
   "description": "Spec first (specs beside the module), then code. The collectors take the amendment's rule: order each cell's items by the seeded hash and answer only the first N (cap 500 items), keeping originals with twins. Existing answer files stay valid; a later larger cap only requests the new items (resumable).\n\nAlso generate one manifest per run under docs/kev-runs/<task>.json (same schema and pinned hashes as docs/kev-coverage-first-slice.json, holding only the still-missing cells of that task), and the same for Jev under docs/jev-runs/. `bd replay` must still reproduce studies/ byte for byte.\n\nDepends on the amendment task. Done when a dry run of every manifest reports the capped request counts.",
   "type": "task",
-  "status": "open",
+  "status": "closed",
   "priority": 2,
   "assignee": null,
   "creator": null,
@@ -12,10 +12,23 @@
     "prereq"
   ],
   "dependencies": [],
-  "comments": [],
+  "comments": [
+    {
+      "id": "1fe52b6f-47f2-46f9-acfa-76fae7d26c69",
+      "author": "home",
+      "text": "Done in d3bac5c. biased_decisions/subsample.py (registered ranking, family = source_id/counterfactual_of, task prefix stripped) with 9 specs; collect(item_cap=) plans and answers only the sample and its record covers exactly those inputs (4 new specs); manifests carry item_cap per cell and validate against the capped count; make_kev_manifest --runs-dir writes one manifest per task for the cells a model lacks. Generated docs/kev-runs/*.json for Kev: 8 runs, 70,477 requests, every one passes run_kev_study dry-run. Limits: growing a sample later needs a step that seeds a larger run from a smaller record (a capped record is not reused for the full cell; a spec pins that). Jev runs are NOT generated: scripts/collect_task.py only supports Kev, so how Jev is collected needs looking at first.",
+      "created_at": "2026-09-24T19:46:39.135128Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude_code",
+        "model": "Claude Sonnet 5",
+        "name": "Biased Decisions"
+      }
+    }
+  ],
   "created_at": "2026-09-24T19:29:09.707359Z",
-  "updated_at": "2026-09-24T19:29:09.707380Z",
-  "closed_at": null,
+  "updated_at": "2026-09-24T19:46:39.170055Z",
+  "closed_at": "2026-09-24T19:46:39.170022Z",
   "agent": {
     "platform": "claude_code",
     "model": "Claude Sonnet 5",

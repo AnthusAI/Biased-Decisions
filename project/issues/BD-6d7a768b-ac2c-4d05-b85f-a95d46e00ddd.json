@@ -13,9 +13,22 @@
     "model-kev"
   ],
   "dependencies": [],
-  "comments": [],
+  "comments": [
+    {
+      "id": "b725f150-8f30-4b12-8bfc-fbefd5949a0b",
+      "author": "home",
+      "text": "Ready to dispatch. Manifest docs/kev-runs/teacher-professor.json is on main (validated: hashes and capped counts): 6 cells, exactly 7994 requests at the registered 500-item cap. The earlier estimate in the description was low; this is the real size. Setup and steps: docs/other-mac-runs.md.",
+      "created_at": "2026-09-24T19:46:39.103291Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude_code",
+        "model": "Claude Sonnet 5",
+        "name": "Biased Decisions"
+      }
+    }
+  ],
   "created_at": "2026-09-24T19:29:33.323494Z",
-  "updated_at": "2026-09-24T19:29:33.323513Z",
+  "updated_at": "2026-09-24T19:46:39.103314Z",
   "closed_at": null,
   "agent": {
     "platform": "claude_code",

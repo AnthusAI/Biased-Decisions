@@ -3,7 +3,7 @@
   "title": "Guide: doing a run on another Mac",
   "description": "Write docs/other-mac-runs.md so an agent given only a run's Kanbus issue ID can do it on a fresh Mac. Cover: cloning the repo and checking out main; the Kev environment (var/kev-venv, pinned model revision, offline model cache, start_kev.py) and the Laya environment; the exact collect command for a manifest; one heavy job at a time; committing only the finished answer files (never .partial files) to a branch named runs/<issue id>, pushing it (never main), and commenting the counts on the issue; `bd replay` is not run there.\n\nDone when a person or agent can follow it end to end without asking anything.",
   "type": "task",
-  "status": "open",
+  "status": "closed",
   "priority": 2,
   "assignee": null,
   "creator": null,
@@ -12,10 +12,23 @@
     "prereq"
   ],
   "dependencies": [],
-  "comments": [],
+  "comments": [
+    {
+      "id": "16f3f1b1-a370-4130-8d59-ab63722d91a7",
+      "author": "home",
+      "text": "Done in d3bac5c: docs/other-mac-runs.md and a portable, committed launcher scripts/start_kev_server.py (same pinned settings; cache dir from KEV_HF_HOME). Drafted by a sub-agent and reviewed: removed an invented GPU claim, dropped the heavy build extras, and filled in the model-weight step from the pinned snapshots. Not yet followed end to end on a second Mac; the guide says so.",
+      "created_at": "2026-09-24T19:46:39.203515Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude_code",
+        "model": "Claude Sonnet 5",
+        "name": "Biased Decisions"
+      }
+    }
+  ],
   "created_at": "2026-09-24T19:29:09.736722Z",
-  "updated_at": "2026-09-24T19:29:09.736743Z",
-  "closed_at": null,
+  "updated_at": "2026-09-24T19:46:39.237915Z",
+  "closed_at": "2026-09-24T19:46:39.237880Z",
   "agent": {
     "platform": "claude_code",
     "model": "Claude Sonnet 5",

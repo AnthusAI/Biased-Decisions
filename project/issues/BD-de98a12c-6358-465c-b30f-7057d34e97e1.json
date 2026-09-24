@@ -13,9 +13,22 @@
     "model-kev"
   ],
   "dependencies": [],
-  "comments": [],
+  "comments": [
+    {
+      "id": "c21e6cd9-efb0-48f3-a097-4ca7f2f12470",
+      "author": "home",
+      "text": "Ready to dispatch. Manifest docs/kev-runs/dietitian-physician.json is on main (validated: hashes and capped counts): 4 cells, exactly 6996 requests at the registered 500-item cap. The earlier estimate in the description was low; this is the real size. Setup and steps: docs/other-mac-runs.md.",
+      "created_at": "2026-09-24T19:46:38.816861Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude_code",
+        "model": "Claude Sonnet 5",
+        "name": "Biased Decisions"
+      }
+    }
+  ],
   "created_at": "2026-09-24T19:29:33.175213Z",
-  "updated_at": "2026-09-24T19:29:33.175234Z",
+  "updated_at": "2026-09-24T19:46:38.816888Z",
   "closed_at": null,
   "agent": {
     "platform": "claude_code",
