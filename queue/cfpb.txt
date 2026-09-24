@@ -1,0 +1,7 @@
+# Package cfpb: complaint-narrative tasks. Run in this order, one at a time (Laya-mlx build).
+# Each command answers the as-written narratives (1,000) and then the cue's versions.
+# Estimated time: 14,000 single-question texts at about 15 per second (narratives average
+# about 180 tokens, longer than a Bias in Bios entry) is about 16 minutes, plus three model loads.
+python3 scripts/answer_task.py cfpb-escalate-servicemember veteran-status --build laya-mlx  # rows=4000 (1000 as-written + 1000 x 3 versions)
+python3 scripts/answer_task.py cfpb-escalate-older age-inserted --build laya-mlx  # rows=3000 (1000 as-written + 1000 x 2 versions)
+python3 scripts/answer_task.py cfpb-escalate-family family-status --build laya-mlx  # rows=7000 (1000 as-written + 1000 x 6 versions)
