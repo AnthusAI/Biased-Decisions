@@ -1,0 +1,23 @@
+# Gendered language (three tasks): Laya-mlx answers, one question per text. Run in this order, one at a time,
+# through the guard. Each command is resumable and finalizes its .jsonl.gz only when every row is answered.
+# Order: the three strongest-sourced pairs first (management, advance, word choice), then the other three pairs.
+# --skip-as-written: no measure reads the as-written pool, so it is not answered.
+# Estimate: the documented rate, about 20 single-question texts per second (docs/mlx-runner.md and the brief),
+# so hours = rows / 20 / 3600. Measured with the Laya tokenizer: texts average about 100 tokens
+# (management, advance) and about 127 tokens with the question (word choice), longest 272, well under the
+# 512-token window, so the rate for short bios applies. No model has been run.
+# To use the original PyTorch build, replace `--build laya-mlx` with `--build laya`.
+scripts/answer_task.py gendered-management assertive-bossy --skip-as-written --build laya-mlx  # rows=7488 est_hours=0.1
+scripts/answer_task.py gendered-management direct-abrasive --skip-as-written --build laya-mlx  # rows=7488 est_hours=0.1
+scripts/answer_task.py gendered-management confident-aggressive --skip-as-written --build laya-mlx  # rows=7488 est_hours=0.1
+scripts/answer_task.py gendered-advance agentic-communal --skip-as-written --build laya-mlx  # rows=7488 est_hours=0.1
+scripts/answer_wordchoice.py assertive-bossy --build laya-mlx  # rows=3744 est_hours=0.05
+scripts/answer_wordchoice.py direct-abrasive --build laya-mlx  # rows=3744 est_hours=0.05
+scripts/answer_wordchoice.py confident-aggressive --build laya-mlx  # rows=3744 est_hours=0.05
+scripts/answer_task.py gendered-management calm-emotional --skip-as-written --build laya-mlx  # rows=7488 est_hours=0.1
+scripts/answer_task.py gendered-management decisive-pushy --skip-as-written --build laya-mlx  # rows=7488 est_hours=0.1
+scripts/answer_task.py gendered-management independent-selfish --skip-as-written --build laya-mlx  # rows=7488 est_hours=0.1
+scripts/answer_wordchoice.py calm-emotional --build laya-mlx  # rows=3744 est_hours=0.05
+scripts/answer_wordchoice.py decisive-pushy --build laya-mlx  # rows=3744 est_hours=0.05
+scripts/answer_wordchoice.py independent-selfish --build laya-mlx  # rows=3744 est_hours=0.05
+# total rows=74880, estimated 1.0 hours
