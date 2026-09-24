@@ -1,3 +1,10 @@
+## [1.21.2](https://github.com/AnthusAI/Biased-Decisions/compare/v1.21.1...v1.21.2) (2026-09-24)
+
+
+### Bug Fixes
+
+* **site:** size logo directly in ems as inline content ([f131e28](https://github.com/AnthusAI/Biased-Decisions/commit/f131e28ba5d6542005e60c8b017d83d717cb4bf9))
+
 ## [1.21.1](https://github.com/AnthusAI/Biased-Decisions/compare/v1.21.0...v1.21.1) (2026-09-24)
 
 
