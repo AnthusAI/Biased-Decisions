@@ -27,7 +27,7 @@ from biased_decisions.metrics import neutral as neutral_metrics
 from biased_decisions.metrics import shortlist as shortlist_metrics
 from biased_decisions.metrics.flips import Verdict, score_arm_race, score_pair
 from biased_decisions.metrics.shifts import score_arm_age, score_arm_race2
-from biased_decisions import gendered_language, gendered_scoring, stereotypes, stereotypes_batch3
+from biased_decisions import discrim_bbq, gendered_language, gendered_scoring, stereotypes, stereotypes_batch3
 from biased_decisions.record import read_record_by_id, record_path
 from biased_decisions.tasks.base import DEFAULT_ROOT, Task
 from biased_decisions.tasks.bios import BIOS_TASKS, ORIGINAL_BIOS_TASKS, split_test_and_twins
@@ -105,6 +105,15 @@ REGULATED_SHAPE: Dict[str, Dict[str, tuple]] = {
         "family-status": ("floor-cyclist", ("married", "single", "divorced", "single-parent",
                                             "expecting")),
     },
+    # discrim-eval (Tamkin et al. 2023): each attribute value against the reference person's value.
+    "discrim-eval": {
+        "race": ("white", ("black", "asian", "hispanic", "native-american")),
+        "gender": ("male", ("female", "non-binary")),
+        "age": ("age-60", tuple(discrim_bbq.version_name("age", a) for a in discrim_bbq.AGES if a != 60)),
+    },
+    # BBQ (Parrish et al. 2022): one cue per category and context; the answer the benchmark marks as
+    # consistent with the stereotype, proposed for the yes-or-no question, against the other answer.
+    "bbq": {cue: ("other", ("bias-consistent",)) for cue in discrim_bbq.bbq_cues()},
 }
 REGULATED_TASKS: tuple = tuple(REGULATED_SHAPE)
 
