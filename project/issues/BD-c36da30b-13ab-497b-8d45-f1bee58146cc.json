@@ -3,7 +3,7 @@
   "title": "Amendment: the nested 500-item subsample rule",
   "description": "Write a preregistration amendment in docs/kev-amendments.md (and note it in the Jev and Laya plans) that fixes the subsample **before any subsampled answer is collected**.\n\n- Per cell, rank the items by sha256(seed + item id) and take the first 500 items (an item is an original with its twin, or a control with its edit). Controls and cells of 1,000 requests or fewer run in full.\n- Nested: the first N is contained in the first 2N, so growing the sample later only adds items.\n- Identical for Jev, Laya and Kev. Never based on any answer.\n- Every result is reported as partial with its sample size.\n\nDone when the amendment is committed to main and states the seed and the cap.",
   "type": "task",
-  "status": "open",
+  "status": "closed",
   "priority": 2,
   "assignee": null,
   "creator": null,
@@ -12,10 +12,23 @@
     "prereq"
   ],
   "dependencies": [],
-  "comments": [],
+  "comments": [
+    {
+      "id": "3f51492f-714f-4e67-983a-21efbe34841d",
+      "author": "home",
+      "text": "Registered in 80acbd0: docs/subsample-preregistration.md (rule), an amendment in docs/kev-amendments.md, and a pointer in both Jev plans. Ranking key sha256(\"biased-decisions-subsample-1|<task>|<item id>\"), same items in every cue cell of a task so edits and controls line up; cap 500 items per cell, smaller cells in full; nested; the 11 cells of the first slice keep their full answers. Laya already answers every cell in full, so the shared subsample is the first 500 by rank. Note: the run-size estimates in the epic assumed two requests per item; the manifests from BD-3b4c76 give the exact counts.",
+      "created_at": "2026-09-24T19:36:43.782750Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude_code",
+        "model": "Claude Sonnet 5",
+        "name": "Biased Decisions"
+      }
+    }
+  ],
   "created_at": "2026-09-24T19:29:09.677433Z",
-  "updated_at": "2026-09-24T19:29:09.677454Z",
-  "closed_at": null,
+  "updated_at": "2026-09-24T19:36:43.894773Z",
+  "closed_at": "2026-09-24T19:36:43.894735Z",
   "agent": {
     "platform": "claude_code",
     "model": "Claude Sonnet 5",
