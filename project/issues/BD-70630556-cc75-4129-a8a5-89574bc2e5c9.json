@@ -1,0 +1,25 @@
+{
+  "id": "BD-70630556-cc75-4129-a8a5-89574bc2e5c9",
+  "title": "Use the approved pixel scales as the site identity",
+  "description": "As a reader, I want the approved imbalanced pixel scales in the masthead and browser icon so the site has a recognizable identity.\nFeature: Pixel scales identity\nScenario: Visit a site page\nGiven a built site page\nWhen I open it in light or dark mode\nThen the masthead shows the approved scales beside the site name\nAnd the home link retains its accessible name\nAnd the browser icon uses the pixel scales\nScenario: Read on a narrow screen\nGiven a mobile viewport\nWhen I open a page\nThen the icon and site name remain readable without overflowing the masthead",
+  "type": "story",
+  "status": "open",
+  "priority": 2,
+  "assignee": null,
+  "creator": null,
+  "parent": "BD-4f83aebd-9fa3-4ac7-b820-e3a1cab1ee8b",
+  "labels": [],
+  "dependencies": [],
+  "comments": [],
+  "created_at": "2026-09-24T00:02:54.421170Z",
+  "updated_at": "2026-09-24T00:02:54.421205Z",
+  "closed_at": null,
+  "agent": {
+    "platform": "codex",
+    "model": "GPT-6",
+    "name": "Pixel Scales Integration"
+  },
+  "right_now_summary": null,
+  "right_now_updated_at": null,
+  "custom": {}
+}
