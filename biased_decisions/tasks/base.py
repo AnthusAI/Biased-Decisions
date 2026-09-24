@@ -41,6 +41,11 @@ class Task:
         root = Path(root) if root is not None else DEFAULT_ROOT
         path = root / "tasks" / slug / "question.yaml"
         data = yaml.safe_load(path.read_text(encoding="utf-8"))
+        if "questions" in data:
+            # a multi-question task (several yes/no questions per text, see ``stereotypes``):
+            # the single-question fields do not apply, so the loader fills neutral ones.
+            return cls(slug=slug, question="; ".join(v["question"] for v in data["questions"].values()),
+                       options=("yes", "no"), positive="yes", group_attribute="", root=root)
         options = tuple(data["options"])
         if data["positive"] not in options:
             raise ValueError(
