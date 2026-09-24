@@ -180,3 +180,15 @@ test("the localStorage analytics opt-out script precedes the gtag config call on
     assert.ok(head.indexOf(script) < head.indexOf("gtag('config'"), `${p.path}: opt-out must come before gtag config`);
   }
 });
+
+// A shared link must introduce the same page the visitor will arrive on.
+test("social preview titles match page headings", () => {
+  for (const p of content) {
+    const h1 = /<h1\b[^>]*>([\s\S]*?)<\/h1>/.exec(p.html);
+    assert.ok(h1, `${p.path}: no heading`);
+    const heading = unescape(h1[1].replace(/<[^>]+>/g, "")).replace(/\s+/g, " ").trim();
+    assert.equal(meta(p.html, "og:title"), heading, `${p.path}: outdated social title`);
+    assert.equal(meta(p.html, "twitter:title"), heading, `${p.path}: outdated Twitter title`);
+    assert.ok(meta(p.html, "og:image:alt").startsWith(heading), `${p.path}: card uses a different introduction`);
+  }
+});

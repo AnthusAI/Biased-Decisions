@@ -44,13 +44,13 @@ const optOut = String.raw`(function(){try{var k='anthus-no-analytics',q=location
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{fullTitle}</title>
-<meta name="description" content={description}>
+<meta name="description" content={card?.description || description}>
 <link rel="canonical" href={canonical}>
 {noindex && <meta name="robots" content="noindex">}
 <meta property="og:type" content="website">
 <meta property="og:site_name" content={SITE_NAME}>
 <meta property="og:title" content={card ? card.headline : (title || SITE_NAME)}>
-<meta property="og:description" content={description}>
+<meta property="og:description" content={card?.description || description}>
 <meta property="og:url" content={canonical}>
 {card && <Fragment>
 <meta property="og:image" content={ogImage}>
@@ -60,7 +60,7 @@ const optOut = String.raw`(function(){try{var k='anthus-no-analytics',q=location
 <meta property="og:image:alt" content={card.alt}>
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content={card.headline}>
-<meta name="twitter:description" content={description}>
+<meta name="twitter:description" content={card?.description || description}>
 <meta name="twitter:image" content={ogImage}>
 <meta name="twitter:image:alt" content={card.alt}>
 </Fragment>}

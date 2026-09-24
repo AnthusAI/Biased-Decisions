@@ -1,6 +1,7 @@
 ---
 // The guidance page (BD-3da5fe): what the measurements say about measuring and avoiding the risk,
 // each insight linked to its evidence, and a short pre-deployment checklist.
+import { pageIntroductions } from "../../lib/introductions.js";
 import Base from "../../layouts/Base.astro";
 import EvidenceItem from "../../components/EvidenceItem.astro";
 import Citation from "../../components/Citation.astro";
@@ -17,8 +18,8 @@ const description = `What our results say about measuring and avoiding bias when
   crumbs={[{ label: "Leaderboard", href: urls.home() }, { label: "Guidance" }]}>
   <section class="wrap hero">
     <p class="kicker">Guidance · regulated decisions</p>
-    <h1 class="display xl">Before you let AI judge people</h1>
-    <p class="deck">An AI model can read a biography and help decide who reaches a recruiter. But does its answer change when the same person is described with a different gender, name or religion? Our tests examine that problem. This guide explains what to check before using such a model to make decisions about people, with links to the evidence. <a href={curls.howToFail()}>Common ways to go wrong</a> shows how these problems can enter a real process.</p>
+    <h1 class="display xl">{pageIntroductions.guidance.title}</h1>
+    <p class="deck">{pageIntroductions.guidance.intro} <a href={curls.howToFail()}>Common ways to go wrong</a> shows how these problems can enter a real process.</p>
     <p class="finding"><span class="finding-num">{after.ratio}</span><span class="finding-txt"><a href={after.href}>{after.sentence}</a>. Without averaging, the shortlist ratio (women's shortlist rate divided by men's; 1.0 is equal) was <a href={before.href}>{before.ratio}</a>. U.S. hiring guidance treats a ratio under {C.shortlist.line.toFixed(2)} as a warning sign.</span></p>
     <div class="footnote risk-notice" role="note"><p>{C.notice}</p></div>
   </section>

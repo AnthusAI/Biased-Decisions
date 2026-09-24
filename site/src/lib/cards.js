@@ -6,6 +6,8 @@
 // (element 2), and a line or two of context (element 3). The model is always the grammatical
 // subject and the sentence says what it did; a model whose range includes zero is "no clear
 // effect", never zero. Words follow docs/plain-language.md.
+import { categoryIntro, resultTitle, resultIntro, pageIntroductions } from "./introductions.js";
+import { introModel } from "../pages/engines/_about.js";
 import { createHash } from "node:crypto";
 import { data, engines, engineById, dimensions, allDimensions, urls, levelPath, groupOf, itemOf, cellOf, multiGroup,
   multiItem, unit, fmt, signed, int, plural, largestBias, isNonHiring, cellOf as cellAt, facetUnit, isRate, taskWord, taskLabel,
@@ -124,7 +126,7 @@ function homeCard() {
 }
 
 function dimCard(dim) {
-  const lead = lower(dim.long);
+  const lead = lower(dim.label);
   return boardCard("dimension", dim, dim.board, lead, (e) => dim.cells[e].headline.floor_value, (e) => {
     const tie = dim.board.ranked.filter((r) => r.value === dim.board.ranked[0].value).length > 1;
     if (!dim.board.contested) return `${E(e)}, the only model tested, shows bias on ${lead}`;
@@ -165,7 +167,7 @@ function engineCard(en) {
 
 function engineDimCard(en, dim) {
   const c = dim.cells[en.id];
-  const lead = lower(dim.long);
+  const lead = lower(dim.label);
   if (c.status !== "measured") {
     return { template: "engine-dim", headline: `${en.label} has not been tested on ${lead}`,
       rows: [{ engine: en.id, text: "Shown as missing, never as zero" }] };
@@ -228,8 +230,8 @@ function titledCard(template, headline) {
 const LAYOUT = 7;
 const hashOf = (card) => createHash("sha256").update(JSON.stringify({ LAYOUT, card })).digest("hex").slice(0, 10);
 
-function finish(path, card) {
-  const c = { ...withRows(card), stamp: STAMP };
+function finish(path, card, copy) {
+  const c = { ...withRows(card), headline: copy.title, description: copy.intro, stamp: STAMP };
   const hash = hashOf(c);
   const base = urls.home();
   const rel = path.slice(base.length).replace(/\/$/, "") || "index";
@@ -253,20 +255,20 @@ let cache = null;
 export function allCards() {
   if (cache) return cache;
   const out = [];
-  out.push(finish(urls.home(), homeCard()));
-  out.push(finish(urls.engines(), titledCard("home", "Every model")));
+  out.push(finish(urls.home(), homeCard(), pageIntroductions.home));
+  out.push(finish(urls.engines(), titledCard("home", "Every model"), pageIntroductions.models));
   out.push(finish(urls.methods(), { template: "home", headline: "How every number on the leaderboard is made",
-    rows: [{ text: "We change one detail of a real bio, then compare with a harmless edit" }] }));
+    rows: [{ text: "Change a personal detail. Compare the AI’s answers." }] }, pageIntroductions.methods));
   for (const en of engines) {
-    out.push(finish(urls.engine(en.id), engineCard(en)));
-    for (const d of allDimensions) out.push(finish(urls.engineDim(en.id, d.id), flagged(d.id, engineDimCard(en, d))));
+    out.push(finish(urls.engine(en.id), engineCard(en), { title: en.label, intro: `${introModel(en)} ${data.overall.rows.find((r) => r.engine === en.id).measured_on ? 'We test whether its judgments change when a text gives the same person a different gender, name or other personal detail.' : `We have not yet tested ${en.label}. No results are available yet.`}` }));
+    for (const d of allDimensions) out.push(finish(urls.engineDim(en.id, d.id), flagged(d.id, engineDimCard(en, d)), { title: `${en.label} on ${d.label.toLowerCase()}`, intro: `${introModel(en)} ${d.cells[en.id].status === 'measured' ? categoryIntro(d).intro : `We have not tested ${en.label} on ${d.label.toLowerCase()} yet.`}` }));
   }
   for (const d of allDimensions) {
-    out.push(finish(urls.dim(d.id), flagged(d.id, dimCard(d))));
-    for (const level of d.breakdown.levels) out.push(finish(levelPath(d, level), flagged(d.id, levelCard(d, level), level)));
+    out.push(finish(urls.dim(d.id), flagged(d.id, dimCard(d)), categoryIntro(d)));
+    for (const level of d.breakdown.levels) out.push(finish(levelPath(d, level), flagged(d.id, levelCard(d, level), level), { title: resultTitle(d, level.group ? groupOf(d, level.group) : null, level.item ? itemOf(d, level.item) : null), intro: resultIntro(d, level.group ? groupOf(d, level.group) : null, level.item ? itemOf(d, level.item) : null) }));
   }
-  out.push(finish(`${urls.home()}how-to-fail/`, inversionCard()));
-  out.push(finish(`${urls.home()}guidance/`, guidanceCard()));
+  out.push(finish(`${urls.home()}how-to-fail/`, inversionCard(), pageIntroductions.failure));
+  out.push(finish(`${urls.home()}guidance/`, guidanceCard(), pageIntroductions.guidance));
   cache = out;
   return out;
 }

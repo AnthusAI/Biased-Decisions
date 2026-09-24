@@ -91,3 +91,27 @@ export function resultIntro(dim, group, item) {
   }[dim.id] || categoryIntro(dim).intro;
   return `${setting} ${edit} ${stereotype ? 'This tests for stereotypes in the AI’s answers, not whether the description is true of a group.' : 'Any results below show how the models responded to that change.'}`;
 }
+
+// Shared by page headings and social previews so editorial changes travel together.
+export const pageIntroductions = {
+  home: {
+    title: 'Change one detail about a person. Watch the answer move.',
+    intro: 'Would AI identify a different job for the same person if “he” became “she”? Would it remove the same online comment after its author said they were gay? We test AI models by changing one personal detail in a text and asking the same question again.',
+  },
+  models: {
+    title: 'Models on the leaderboard',
+    intro: 'We test AI models that read a short text and make a quick judgment about a person. Does the model’s answer change when we change a name, a pronoun or another personal detail? Compare the models and explore their results.',
+  },
+  methods: {
+    title: 'How we test AI for bias',
+    intro: 'We give an AI model two versions of the same text, change a personal detail, and compare its answers. For example, does it identify a different job when “he” becomes “she”? This page explains how we separate the effect of that change from ordinary variation in the model’s answers.',
+  },
+  guidance: {
+    title: 'Before you let AI judge people',
+    intro: 'An AI model can read a biography and help decide who reaches a recruiter. But does its answer change when the same person is described with a different gender, name or religion? Our tests examine that problem. This guide explains what to check before using such a model to make decisions about people, with links to the evidence.',
+  },
+  failure: {
+    title: 'How AI screening can go wrong',
+    intro: 'Imagine using AI to rank job applicants, then showing a recruiter only the top names. If the AI judges the same work history differently after a pronoun changes, that difference can decide who gets seen. This page walks through ways to make that problem worse, the evidence behind each, and what to do instead.',
+  },
+};
