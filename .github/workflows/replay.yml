@@ -4,7 +4,7 @@ name: Replay and site audit
 # reproduces studies/ byte for byte before rebuilding and testing the generated site data.
 on:
   push:
-    branches: [main]
+    branches: [main, develop]
   pull_request:
   workflow_dispatch:
 
