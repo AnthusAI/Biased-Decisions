@@ -10,9 +10,22 @@
   "parent": "BD-dc51ca9b-6149-495e-979f-22268681e251",
   "labels": [],
   "dependencies": [],
-  "comments": [],
+  "comments": [
+    {
+      "id": "cdee1552-d2bd-4a0a-a73c-626797a7ab0c",
+      "author": "home",
+      "text": "Additional execution specification before implementation: Feature: frozen Kev study execution. Scenario: reject changed inputs. Given a committed coverage manifest, when any listed input hash or planned cell count differs, then fail before an engine answers. Scenario: retained timing pilot. Given the committed surgeon-physician item order, when pilot runs, then send exactly the first 20 original test bios, retain every response with pinned provenance and elapsed time in studies/kev/pilot.jsonl, and mark these as separate calls repeated by normal collection. Scenario: complete coverage. Given matching frozen files and provenance, when study collection runs, then collect each listed cell in manifest order with option-order mapped to option-order-reversed, preserving normal collector resume checks. Scenario: offline planning. Given no engine endpoint, when dry-run runs, then validate hashes and counts without any network requests. Pilot answers never select or modify the model or study population.",
+      "created_at": "2026-09-24T00:55:14.310853Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "codex",
+        "model": "GPT-6",
+        "name": "Kev Lead"
+      }
+    }
+  ],
   "created_at": "2026-09-23T23:58:02.249489Z",
-  "updated_at": "2026-09-23T23:58:02.249519Z",
+  "updated_at": "2026-09-24T00:55:14.310885Z",
   "closed_at": null,
   "agent": {
     "platform": "codex",
