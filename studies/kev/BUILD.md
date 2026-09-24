@@ -35,8 +35,11 @@ memory; observe process memory and system pressure as well. Stop on resource
 pressure and retain the partial record.
 
 The first 20 committed original surgeon/physician bios form the timing pilot.
-They stay in the normal gender-pronouns record; no selection depends on answers.
-After checking the pilot's timing and memory, resume the same full cell. Do not run
+They are retained separately in `studies/kev/pilot.jsonl`, with provenance and
+timing, because the normal gender record interleaves originals and twins. The
+normal collection repeats those 20 calls in its unchanged order. This uses the
+separate-pilot option declared before inference; no selection depends on answers.
+After checking the pilot's timing and memory, collect the full frozen cells. Do not run
 a site build or full replay concurrently with the model server.
 
 ## Setup

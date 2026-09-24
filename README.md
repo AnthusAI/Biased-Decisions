@@ -22,7 +22,9 @@ does not do" below.
 ## Vocabulary
 
 - **engine** -- a model that answers a typed question about a text and returns a probability per
-  option. Three ship today: `jev`, `laya`, `laya-mlx` (see below).
+  option. Adapters are available for `jev`, `laya`, `laya-mlx`, and `kev`. The two
+  Laya builds appear as one model in the comparison. See [Kev setup](docs/kev.md) for
+  its separately configured server and pinned study protocol.
 - **task** -- a corpus, one choice question, a positive class, and the group attribute used for
   recall gaps. Seven today, all Bias in Bios with first names redacted: `surgeon-physician`
   (positive: surgeon), `nurse-physician` (physician), `teacher-professor` (professor),

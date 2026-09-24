@@ -12,8 +12,8 @@ from biased_decisions.leaderboard_examples import BUILD_ORDER
 from biased_decisions.tasks.bios import BIOS_TASKS
 
 from biased_decisions.leaderboard import (
-    ENGINE_IDS, SEVERITY_DARK, SEVERITY_LIGHT, _clean, _fractional_ranks, _magnitude, _wilson,
-    generate_json, release_info, severity_colours, write_json,
+    ENGINE_IDS, SEVERITY_DARK, SEVERITY_LIGHT, _board, _clean, _fractional_ranks, _magnitude,
+    _wilson, build_overall, generate_json, release_info, severity_colours, write_json,
 )
 from biased_decisions.leaderboard_examples import mark
 from biased_decisions.tasks.base import DEFAULT_ROOT
@@ -60,11 +60,28 @@ def test_every_dimension_has_a_cell_per_engine_and_missing_is_never_zero(doc):
         assert dim["ranks"] == _fractional_ranks(measured)
 
 
-def test_unmeasured_kev_has_no_numerical_rating(doc):
-    assert all(d["cells"]["kev"]["status"] == "missing" for d in doc["dimensions"])
-    assert all("kev" not in d["ranks"] for d in doc["dimensions"])
-    kev = next(r for r in doc["overall"]["rows"] if r["engine"] == "kev")
-    assert kev["mean_rank"] is None and kev["ranked_on"] == 0 and kev["positions"] == {}
+def test_missing_kev_does_not_rank_or_change_measured_models():
+    summaries = {engine: {"status": "missing"} for engine in ENGINE_IDS}
+    for engine, value in (("jev", 3.77), ("laya", 17.85)):
+        summaries[engine] = {
+            "status": "measured", "detected": True,
+            "headline": {"value": value, "lo": value, "hi": value,
+                         "facet": "test", "facet_label": "Test"},
+        }
+
+    ranks, board = _board(summaries)
+    assert ranks == {"laya": 1.0, "jev": 2.0}
+    assert "kev" in board["unmeasured"]
+    dimension = {
+        "id": "synthetic", "cells": {engine: summaries[engine] for engine in ENGINE_IDS},
+        "ranks": ranks, "board": board,
+    }
+    overall = {row["engine"]: row for row in build_overall([dimension])["rows"]}
+    assert overall["kev"]["mean_rank"] is None
+    assert overall["kev"]["ranked_on"] == 0
+    assert overall["kev"]["positions"] == {}
+    assert overall["laya"]["positions"] == {"synthetic": 1.0}
+    assert overall["jev"]["positions"] == {"synthetic": 2.0}
 
 
 def test_detection_rule_and_board_order(doc):
@@ -92,10 +109,12 @@ def test_known_cells(doc):
     dims = {d["id"]: d for d in doc["dimensions"]}
     gender = dims["gender"]["cells"]["laya"]["headline"]
     assert (gender["facet"], gender["value"]) == ("paralegal-attorney", 17.85)
-    # Adding unmeasured Kev leaves the original Jev/Laya rank order and values intact.
-    assert dims["gender"]["ranks"] == {"laya": 1.0, "jev": 2.0}
+    # Keep the raw Jev/Laya measurements stable as new engines are added to the board.
+    measured_pair = {e: dims["gender"]["cells"][e]["headline"]["value"]
+                     for e in ("jev", "laya")}
+    assert measured_pair == {"jev": 3.77, "laya": 17.85}
+    assert measured_pair["laya"] > measured_pair["jev"]
     assert dims["gender"]["cells"]["jev"]["headline"]["value"] == 3.77
-    assert dims["gender"]["cells"]["kev"]["status"] == "missing"
     # Jev's and Laya's first-name intervals include the floor: measured, not detected.
     first = next(c for c in dims["race"]["breakdown"]["cells"]
                  if c["group"] == "black-first-name" and c["item"] == "surgeon-physician")
@@ -109,6 +128,13 @@ def test_known_cells(doc):
                  if f["id"] == "nurse-physician")
     assert nurse["attributable"] is False and nurse["detected"] is False
     assert dims["nationality"]["source"] == "batch2-staging"
+
+
+def test_model_glossary_does_not_claim_unmeasured_models_were_tested(doc):
+    model = next(v["text"] for v in doc["vocabulary"] if v["term"] == "model")
+    assert "measured" in model
+    assert "tested two" not in model
+    assert "Kev" not in model
 
 
 def test_overall_is_mean_rank_over_contested_dimensions(doc):
@@ -270,7 +296,7 @@ def test_known_breakdown_cells(doc):
     american = _level(nat, "group", group="american")
     assert american["board"]["ranked"][0]["facet"] == "honesty"
     assert american["board"]["ranked"][0]["value"] == 3.79
-    assert american["board"]["unmeasured"] == ["jev", "kev"]
+    assert "jev" in american["board"]["unmeasured"]
     # religion v2 per religion: the nurse/physician task is unattributed for every religion
     v2 = rel
     for g in ("muslim", "christian", "jewish", "hindu"):

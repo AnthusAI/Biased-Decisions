@@ -127,7 +127,7 @@ export function panelShortlist(dim, { level = null, engineId = null } = {}) {
   if (dim.id !== "gender") return [];
   const task = level ? level.item : "paralegal-attorney";
   if (!shortlistBlock(task)) return [];
-  const engs = engineId ? [engineId] : ["laya", "jev"];
+  const engs = engineId ? [engineId] : Object.keys(engineById);
   return engs.map((e) => {
     const r = shortlistBlock(task).rows.find((x) => x.engine === e && x.variant === "engine_alone" && x.cut === 500);
     return r ? describeEvidence({ kind: "shortlist", id: null, task, engine: e, variant: "engine_alone", cut: 500 }) : null;

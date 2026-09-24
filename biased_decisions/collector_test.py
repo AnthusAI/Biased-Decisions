@@ -145,6 +145,34 @@ def test_resume_fingerprint_includes_ordered_options(tmp_path):
         collect(tmp_path, "kev", "new-task", "as-written", engine=FakeEngine())
 
 
+def test_resume_refuses_positive_label_edit(tmp_path):
+    make_task(tmp_path)
+    with pytest.raises(RuntimeError):
+        collect(tmp_path, "kev", "new-task", "as-written", engine=FakeEngine(fail_after=0))
+    (tmp_path / "tasks" / "new-task" / "question.yaml").write_text(
+        "question: Which action?\noptions: [approve, reject]\npositive: reject\n"
+        "group_attribute: group\n")
+    with pytest.raises(CollectionError, match="inputs"):
+        collect(tmp_path, "kev", "new-task", "as-written", engine=FakeEngine())
+
+
+@pytest.mark.parametrize("field,value", [
+    ("metadata", {"split": "test", "reference_label": "reject", "extra": "changed"}),
+    ("external_id", "external-changed"),
+    ("identifiers", [{"name": "source", "value": "changed", "url": "https://example.test"}]),
+])
+def test_resume_fingerprint_includes_full_item_definition(tmp_path, field, value):
+    make_task(tmp_path)
+    with pytest.raises(RuntimeError):
+        collect(tmp_path, "kev", "new-task", "as-written", engine=FakeEngine(fail_after=0))
+    items_path = tmp_path / "tasks" / "new-task" / "items.jsonl"
+    rows = [json.loads(line) for line in items_path.read_text().splitlines()]
+    rows[0][field] = value
+    items_path.write_text("".join(json.dumps(row) + "\n" for row in rows))
+    with pytest.raises(CollectionError, match="inputs"):
+        collect(tmp_path, "kev", "new-task", "as-written", engine=FakeEngine())
+
+
 def test_generated_record_is_consumable_by_existing_offline_regulated_scorer(tmp_path):
     from biased_decisions.scoring import score
     slug = "qpain-treatment"

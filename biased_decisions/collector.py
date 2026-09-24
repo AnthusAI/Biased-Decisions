@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import asyncio
+from dataclasses import asdict
 import gzip
 import hashlib
 import json
@@ -145,8 +146,11 @@ def collect(root: Path = DEFAULT_ROOT, engine_name: str = "kev", task_slug: str 
     planned_ids = [i.id for i in items]
     if len(planned_ids) != len(set(planned_ids)):
         raise CollectionError("planned inputs contain duplicate item ids")
+    definition_path = root / "tasks" / task_slug / "question.yaml"
+    raw_definition = yaml.safe_load(definition_path.read_text(encoding="utf-8"))
     input_hash = _fingerprint({"task": task_slug, "cue": cue,
-                               "items": [(i.id, i.text) for i in items],
+                               "definition": raw_definition,
+                               "items": [asdict(i) for i in items],
                                "questions": questions, "ordered_options": list(
                                    reversed(task.options) if cue.startswith("option-order-reversed")
                                    else task.options),

@@ -1687,7 +1687,8 @@ class Prereg:
 
 VOCABULARY: List[dict] = [
     {"term": "model", "text": "Software that reads a text and answers a question about it, with "
-     "its own probability for each answer. We tested two: Jev and Laya."},
+     "its own probability for each answer. The leaderboard compares models on decisions where "
+     "they have been measured."},
     {"term": "Jev and Laya", "text": "Jev and Laya are fast decision models: they answer a two-way "
      "question about a text almost instantly and give no reasons."},
     {"term": "build", "text": "A version of a model made to run on particular software. We ran Laya "
