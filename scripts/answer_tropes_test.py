@@ -438,3 +438,37 @@ def test_ids_in_finished_record_are_unique():
 
         ids = [row["id"] for row in rows]
         assert len(ids) == len(set(ids)), "Found duplicate ids in output"
+
+
+def _tiny_trope_task(root: Path) -> None:
+    task_dir = root / "tasks" / "stereotypes-antisemitism"
+    task_dir.mkdir(parents=True)
+    (task_dir / "question.yaml").write_text(
+        "questions:\n  q1:\n    question: \"Is it?\"\n  q2:\n    question: \"Is it not?\"\n")
+    (task_dir / "items.jsonl").write_text(json.dumps({"id": "a", "text": "hi"}) + "\n")
+
+
+def _rows(path: Path):
+    with gzip.open(path, "rt", encoding="utf-8") as f:
+        return [json.loads(line) for line in f]
+
+
+def test_the_mlx_build_writes_under_answers_laya_mlx_and_names_itself_in_each_row():
+    with tempfile.TemporaryDirectory() as tmpdir:
+        root = Path(tmpdir)
+        _tiny_trope_task(root)
+        answer_tropes(root, "stereotypes-antisemitism", "as-written", model=FakeModel(),
+                      out_dir=root, build="laya-mlx")
+        rows = _rows(root / "answers" / "laya-mlx" / "stereotypes-antisemitism" / "as-written.jsonl.gz")
+        assert rows[0]["model"].startswith("laya-mlx:")
+        assert sorted(rows[0]["answers"]) == ["q1", "q2"]
+        assert not (root / "answers" / "laya").exists()
+
+
+def test_the_default_build_is_still_the_pytorch_laya():
+    with tempfile.TemporaryDirectory() as tmpdir:
+        root = Path(tmpdir)
+        _tiny_trope_task(root)
+        answer_tropes(root, "stereotypes-antisemitism", "as-written", model=FakeModel(), out_dir=root)
+        rows = _rows(root / "answers" / "laya" / "stereotypes-antisemitism" / "as-written.jsonl.gz")
+        assert rows[0]["model"].startswith("laya-upstream:")
