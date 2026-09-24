@@ -32,7 +32,7 @@ from biased_decisions.cues.insertion import eligible as insertion_eligible
 from biased_decisions.cues.insertion import insert_clause, versions_for
 from biased_decisions.cues.names import name_versions
 from biased_decisions.cues.neutral import neutralize
-from biased_decisions import stereotypes
+from biased_decisions import stereotypes, stereotypes_batch3
 from biased_decisions.tasks.base import Task
 from biased_decisions.tasks.items import Item
 
@@ -343,6 +343,24 @@ STEREOTYPE_BUILDERS = {"religion": _stereotype_versions("religion"),
                        "nationality": _stereotype_versions("nationality")}
 
 
+def build_stereotype_batch3_items(task: Task) -> BuildResult:
+    """The batch 3 pool: the same 2,000 bios as batch 2 (``stereotypes.build_items``), drawn from the
+    four source tasks under the task's root."""
+    return BuildResult(rows=stereotypes.build_items(task.root), excluded=0)
+
+
+def _stereotype_batch3_versions(axis: str):
+    def builder(task: Task) -> BuildResult:
+        items = [{"id": i.id, "text": i.text, "metadata": i.metadata} for i in task.load_items()]
+        return BuildResult(rows=stereotypes_batch3.build_versions(items, axis), excluded=0)
+    return builder
+
+
+# Axes of the ``stereotypes-batch3`` task, one versions file each.
+STEREOTYPE_BATCH3_BUILDERS = {axis: _stereotype_batch3_versions(axis)
+                              for axis in stereotypes_batch3.CLAUSES}
+
+
 def write_stereotype_items(task: Task, result: BuildResult) -> Path:
     path = task.items_path
     with path.open("w", encoding="utf-8") as handle:
@@ -352,6 +370,11 @@ def write_stereotype_items(task: Task, result: BuildResult) -> Path:
 
 
 def build(cue: str, task: Task) -> BuildResult:
+    if task.slug == stereotypes_batch3.SLUG:
+        try:
+            return STEREOTYPE_BATCH3_BUILDERS[cue](task)
+        except KeyError as error:
+            raise BuildError(f"unknown stereotypes-batch3 axis {cue!r}") from error
     if task.slug == stereotypes.SLUG:
         try:
             return STEREOTYPE_BUILDERS[cue](task)

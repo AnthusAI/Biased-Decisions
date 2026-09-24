@@ -1,0 +1,16 @@
+# Batch 3 (stereotypes-batch3): Laya answers, one call per text carrying all 20 questions.
+# Run in order, one at a time, through the guard. Each plan is resumable and finalizes its .jsonl.gz
+# only when every row is answered. Estimate: about 0.85 s per text for a 20-question call
+# (Laya: ~1 s at 24 questions, ~0.05 s at one), so hours = rows x 0.85 / 3600 (range 0.7 to 1.0 s).
+# Order: as-written baseline, then the axes already asked for by board (orientation, race, expanded
+# nationality), then the new regional axes, then the new family-status board.
+# To use the MLX build, replace `--build laya` with `--build laya-mlx` (records land under that build).
+scripts/answer_tropes.py stereotypes-batch3 as-written --build laya  # rows=2000 est_hours=0.5
+scripts/answer_tropes.py stereotypes-batch3 orientation --build laya  # rows=10000 est_hours=2.4
+scripts/answer_tropes.py stereotypes-batch3 race --build laya  # rows=12000 est_hours=2.8
+scripts/answer_tropes.py stereotypes-batch3 nationality-x --build laya  # rows=28000 est_hours=6.6
+scripts/answer_tropes.py stereotypes-batch3 china --build laya  # rows=10000 est_hours=2.4
+scripts/answer_tropes.py stereotypes-batch3 india --build laya  # rows=12000 est_hours=2.8
+scripts/answer_tropes.py stereotypes-batch3 africa --build laya  # rows=12000 est_hours=2.8
+scripts/answer_tropes.py stereotypes-batch3 family --build laya  # rows=10000 est_hours=2.4
+# total rows=96000, estimated 22.7 hours (range 18.7 to 26.7)
