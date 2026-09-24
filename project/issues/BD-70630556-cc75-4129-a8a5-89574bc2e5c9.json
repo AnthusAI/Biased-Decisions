@@ -3,7 +3,7 @@
   "title": "Use the approved pixel scales as the site identity",
   "description": "As a reader, I want the approved imbalanced pixel scales in the masthead and browser icon so the site has a recognizable identity.\nFeature: Pixel scales identity\nScenario: Visit a site page\nGiven a built site page\nWhen I open it in light or dark mode\nThen the masthead shows the approved scales beside the site name\nAnd the home link retains its accessible name\nAnd the browser icon uses the pixel scales\nScenario: Read on a narrow screen\nGiven a mobile viewport\nWhen I open a page\nThen the icon and site name remain readable without overflowing the masthead",
   "type": "story",
-  "status": "open",
+  "status": "closed",
   "priority": 2,
   "assignee": null,
   "creator": null,
@@ -17,11 +17,18 @@
       "text": "Landed in PR #3 / merge 3764b74. The approved scales sit to the right of the wordmark at native 24px size. Header, adaptive favicon, PNG/ICO fallbacks, and home-screen icon are installed. Site build and all 23 site checks pass; replay audit passed. Live deployment is pending.",
       "created_at": "2026-09-24T00:25:47.356470Z",
       "comment_type": "default"
+    },
+    {
+      "id": "95c164b3-aa7d-4ae1-ac3a-dff7d3f08809",
+      "author": "home",
+      "text": "Corrected in PR #4: icon width and height are exactly 1em, and its bottom aligns to the text baseline via align-items: baseline. Verified with a browser baseline probe: font-size 30px, icon height 30px, icon bottom 40px, text baseline 40px. Site build and all 24 checks pass. This supersedes the earlier fixed-size and cap-height interpretations.",
+      "created_at": "2026-09-24T00:46:05.393972Z",
+      "comment_type": "default"
     }
   ],
   "created_at": "2026-09-24T00:02:54.421170Z",
-  "updated_at": "2026-09-24T00:30:51.592277Z",
-  "closed_at": null,
+  "updated_at": "2026-09-24T00:46:05.476465Z",
+  "closed_at": "2026-09-24T00:46:05.476416Z",
   "agent": {
     "platform": "codex",
     "model": "GPT-6",
