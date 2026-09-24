@@ -34,6 +34,9 @@ const gtagInit = `window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
 gtag('config', '${GA_ID}');`;
+// Opt-out: visit any page with ?notrack=1 to set a localStorage flag that disables GA in this browser (?notrack=0 clears it).
+// ga-disable-<ID> must be set before gtag('config'). String.raw keeps \w intact.
+const optOut = String.raw`(function(){try{var k='anthus-no-analytics',q=location.search.match(/[?&]notrack=(\w+)/);if(q){if(q[1]==='1')localStorage.setItem(k,'1');else localStorage.removeItem(k)}if(localStorage.getItem(k)==='1')window['ga-disable-G-31SC26SDGX']=true}catch(e){}})();`;
 ---
 <!doctype html>
 <html lang="en">
@@ -74,6 +77,7 @@ gtag('config', '${GA_ID}');`;
 <link rel="alternate" type="application/json" href={urls.data()} title="The leaderboard data file">
 <style is:inline set:html={engineCss}></style>
 {import.meta.env.PROD && <Fragment>
+<script is:inline set:html={optOut}></script>
 <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}></script>
 <script is:inline set:html={gtagInit}></script>
 </Fragment>}
