@@ -1,3 +1,10 @@
+# [1.21.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.20.0...v1.21.0) (2026-09-24)
+
+
+### Features
+
+* **site:** localStorage opt-out for the GA4 tag ([#2](https://github.com/AnthusAI/Biased-Decisions/issues/2)) ([2193b01](https://github.com/AnthusAI/Biased-Decisions/commit/2193b01b506a6bb0bdcc042d7370952a333e9ea7))
+
 # [1.20.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.19.0...v1.20.0) (2026-09-24)
 
 
