@@ -47,10 +47,22 @@
         "model": "GPT-6",
         "name": "Kev Lead"
       }
+    },
+    {
+      "id": "35e16b9e-b4f4-43e7-9dd8-21c589bfe38d",
+      "author": "home",
+      "text": "Recovery after Mac reboot: the /private/tmp worktree disappeared. Restored committed branch codex/kev-engine at 1e91e86 into persistent /Users/home/Projects/Biased-Decisions/.worktrees/kev. Epic and Luna task BD-ce3f5c remain assigned and in progress. Uncommitted adapter/spec files were not present in the recovered branch and must be recreated. Restarting one GPT-6 Luna worker with small offline tests only; no model weights, GPU inference, full replay or site build. Checkpoint and push implementation slices promptly.",
+      "created_at": "2026-09-24T00:15:41.873680Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "codex",
+        "model": "GPT-6",
+        "name": "Kev Lead"
+      }
     }
   ],
   "created_at": "2026-09-23T11:41:24.561784Z",
-  "updated_at": "2026-09-24T00:00:55.514849Z",
+  "updated_at": "2026-09-24T00:15:41.873763Z",
   "closed_at": null,
   "agent": {
     "platform": "claude-code",
