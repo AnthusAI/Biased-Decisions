@@ -1,3 +1,15 @@
+# [1.20.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.19.0...v1.20.0) (2026-09-24)
+
+
+### Bug Fixes
+
+* **site:** align scales size and position with wordmark ([d7801a2](https://github.com/AnthusAI/Biased-Decisions/commit/d7801a22e4bd7b8cdc830c4f354fb9fb8a542557))
+
+
+### Features
+
+* **site:** adopt imbalanced pixel scales identity ([cef895a](https://github.com/AnthusAI/Biased-Decisions/commit/cef895a718bfa92433a313375871d293ca9a76e0))
+
 # [1.19.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.18.0...v1.19.0) (2026-09-23)
 
 
