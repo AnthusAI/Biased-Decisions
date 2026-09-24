@@ -1,3 +1,11 @@
+# [1.24.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.23.1...v1.24.0) (2026-09-24)
+
+
+### Features
+
+* **antisemitism:** build the antisemitic-tropes-in-depth cues and pools ([6b7fad6](https://github.com/AnthusAI/Biased-Decisions/commit/6b7fad6ce9540bac2fee2698747e8f199cae056e))
+* **kev:** register the antisemitic-trope study for Kev, with a manifest builder ([6ae4d9a](https://github.com/AnthusAI/Biased-Decisions/commit/6ae4d9a24ae90b5d5005089a7bf275e082366662))
+
 ## [1.23.1](https://github.com/AnthusAI/Biased-Decisions/compare/v1.23.0...v1.23.1) (2026-09-24)
 
 
