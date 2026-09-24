@@ -144,10 +144,22 @@
         "model": "GPT-6",
         "name": "Landing Page Copy"
       }
+    },
+    {
+      "id": "95ff1320-fa4b-4d45-a2ff-04ed8a274cd3",
+      "author": "home",
+      "text": "Rewrote all eight characteristics plus option order, every result/model template and standalone introductions. Reviewed generated openings against job, medical, comment and stereotype tests; avoided applying biography phrases to comment tests. Build and 26 existing checks pass. Limatus scan completed on 26 pages; editorial decisions recorded in docs/reviews/landing-page-introductions.md. Browser verified homepage, gender and religion result. Local rebuild briefly served 404; completed homepage restored and verified.",
+      "created_at": "2026-09-24T03:08:45.707335Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "codex",
+        "model": "GPT-6",
+        "name": "Landing Page Copy"
+      }
     }
   ],
   "created_at": "2026-09-23T13:03:21.518944Z",
-  "updated_at": "2026-09-24T03:00:48.496936Z",
+  "updated_at": "2026-09-24T03:08:45.707399Z",
   "closed_at": null,
   "agent": {
     "platform": "claude-code",
