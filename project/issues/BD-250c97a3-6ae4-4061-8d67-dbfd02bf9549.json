@@ -18,7 +18,7 @@
     "platform": "claude-code",
     "model": "claude-fable-5-1"
   },
-  "right_now_summary": "Adapters and tasks are being built, but benchmark runs have not started; Kev sampling is underway.",
-  "right_now_updated_at": "2026-09-24T22:16:27.259275Z",
+  "right_now_summary": "Adapters and decision tasks are being built; Kev runs are finishing, but other benchmark runs have not started.",
+  "right_now_updated_at": "2026-09-24T22:26:39.114127Z",
   "custom": {}
 }

@@ -21,7 +21,7 @@
     "model": "Claude Sonnet 5",
     "name": "Biased Decisions"
   },
-  "right_now_summary": "Kev sampling is underway, while Jev awaits a collector and the user's explicit go.",
-  "right_now_updated_at": "2026-09-24T22:16:25.433196Z",
+  "right_now_summary": "Kev runs are finishing, while Jev still needs a collector and the user's explicit go-ahead.",
+  "right_now_updated_at": "2026-09-24T22:26:34.838580Z",
   "custom": {}
 }
