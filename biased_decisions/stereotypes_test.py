@@ -104,3 +104,9 @@ def test_the_replayed_row_reproduces_every_number_in_the_staged_batch2_results(a
         if a == axis:
             got = row["questions"][q]["general_effect"]
             assert (got["mean_shift"], got["ci_lo"], got["ci_hi"]) == (g["mean_shift"], g["ci_lo"], g["ci_hi"])
+
+
+@pytest.mark.parametrize("axis", ["religion", "nationality"])
+def test_the_committed_study_file_is_exactly_what_replay_writes_for_the_axis(axis):
+    expected = json.dumps(score("laya", TASK, axis), ensure_ascii=False) + "\n"
+    assert (ROOT / f"studies/stereotypes-{axis}.jsonl").read_text(encoding="utf-8") == expected
