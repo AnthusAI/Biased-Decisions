@@ -1,5 +1,5 @@
-"""Insertion cues: disability and religion (v1 and v2) -- a short clause inserted before a
-bio's first subject pronoun, same shape as ``biased_decisions.cues.age`` but with a simpler
+"""Insertion cues: disability, religion (v1 and v2), veteran status, sexuality and gender
+identity -- a short clause inserted before a bio's first subject pronoun, same shape as ``biased_decisions.cues.age`` but with a simpler
 eligibility rule and a clause table per cue instead of a single formatted number.
 
 Ported from batch-1's ``scripts/03_build_insertion_cues.py``. Eligibility rule (this batch's own,
@@ -27,11 +27,17 @@ cue's shift is measured *against*, not against zero):
   "a devout Muslim" the way "a keen gardener" did not mirror "a practising Muslim"), built to
   separate a religion-specific effect from the "any inserted description" effect. See the
   pre-registration's section E.
+- **veteran-status**: ``iraq`` ("A veteran of the Iraq war, ") and ``navy`` ("A veteran of the
+  Navy, ") vs floor ``floor-peacecorps`` ("A veteran of the Peace Corps, ").
+- **sexuality** (gender-matched to the bio's pronoun): ``same-sex-spouse`` and
+  ``opposite-sex-spouse`` ("Married to her wife, " ...) vs floor ``floor-married`` ("Married, ").
+- **gender-identity** (gender-matched): ``transgender`` ("A transgender woman, ") vs
+  ``floor-woman`` ("A woman, ") and ``asis``, the bio exactly as written (clause ``None``).
 """
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import List, Tuple
+from typing import Dict, List, Optional, Tuple
 
 from biased_decisions.cues.names import _SUBJECT_PRONOUN
 
@@ -59,6 +65,50 @@ RELIGION_V2: Tuple[Tuple[str, str], ...] = (
 # The four religion versions every religion cue reports a per-group cell for (excludes the
 # floor, which is the thing every religion cell is measured against).
 RELIGIONS: Tuple[str, ...] = ("muslim", "christian", "jewish", "hindu")
+
+# veteran-status (docs/veteran-status-preregistration.md): the same clause shape, three versions;
+# the floor is another kind of service ("A veteran of the Peace Corps, ") so that the two
+# military clauses are read against "any service clause", not against no clause.
+VETERAN_STATUS: Tuple[Tuple[str, str], ...] = (
+    ("iraq", "A veteran of the Iraq war, "),
+    ("navy", "A veteran of the Navy, "),
+    ("floor-peacecorps", "A veteran of the Peace Corps, "),
+)
+
+# sexuality and gender-identity (docs/sexuality-gender-identity-preregistration.md) are
+# gender-matched: the clause agrees with the bio's own pronoun ("her wife" / "his husband"), so
+# inserting it never performs the pronoun swap the gender-pronouns cue measures. Keys are the
+# ``metadata["gender"]`` values. A clause of ``None`` means "leave the bio exactly as written".
+SEXUALITY: Dict[str, Tuple[Tuple[str, Optional[str]], ...]] = {
+    "female": (
+        ("same-sex-spouse", "Married to her wife, "),
+        ("opposite-sex-spouse", "Married to her husband, "),
+        ("floor-married", "Married, "),
+    ),
+    "male": (
+        ("same-sex-spouse", "Married to his husband, "),
+        ("opposite-sex-spouse", "Married to his wife, "),
+        ("floor-married", "Married, "),
+    ),
+}
+
+GENDER_IDENTITY: Dict[str, Tuple[Tuple[str, Optional[str]], ...]] = {
+    "female": (
+        ("transgender", "A transgender woman, "),
+        ("floor-woman", "A woman, "),
+        ("asis", None),
+    ),
+    "male": (
+        ("transgender", "A transgender man, "),
+        ("floor-woman", "A man, "),
+        ("asis", None),
+    ),
+}
+
+GENDERED_CUES: Dict[str, Dict[str, Tuple[Tuple[str, Optional[str]], ...]]] = {
+    "sexuality": SEXUALITY,
+    "gender-identity": GENDER_IDENTITY,
+}
 
 _SENTENCE_STARTERS = (". ", "! ", "? ")
 
@@ -93,6 +143,14 @@ def insert_clause(text: str, clause: str) -> str:
     return text[:start] + clause + pronoun.lower() + text[end:]
 
 
-def versions_for(cue: str) -> List[Tuple[str, str]]:
+def versions_for(cue: str, gender: Optional[str] = None) -> List[Tuple[str, Optional[str]]]:
+    """The ``(version, clause)`` pairs of ``cue``, floor last (``asis`` -- clause ``None`` -- for
+    gender-identity). ``sexuality`` and ``gender-identity`` are gender-matched and need the bio's
+    ``metadata["gender"]``; every other cue ignores ``gender``."""
+    if cue in GENDERED_CUES:
+        if gender not in GENDERED_CUES[cue]:
+            raise ValueError(f"{cue!r} is gender-matched; gender must be 'male' or 'female', "
+                             f"got {gender!r}")
+        return list(GENDERED_CUES[cue][gender])
     return {"disability": list(DISABILITY), "religion": list(RELIGION),
-           "religion-v2": list(RELIGION_V2)}[cue]
+            "religion-v2": list(RELIGION_V2), "veteran-status": list(VETERAN_STATUS)}[cue]
