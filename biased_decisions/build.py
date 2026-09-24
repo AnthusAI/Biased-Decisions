@@ -29,7 +29,7 @@ from biased_decisions.cues.age import eligible, insert_age
 from biased_decisions.cues.fullname import analyze_full_name, render_full_name
 from biased_decisions.cues.gender import ORIGINAL_RULE, swap_gender
 from biased_decisions.cues.insertion import eligible as insertion_eligible
-from biased_decisions.cues.insertion import insert_clause, versions_for
+from biased_decisions.cues.insertion import GENDERED_CUES, insert_clause, versions_for
 from biased_decisions.cues.names import name_versions
 from biased_decisions.cues.neutral import neutralize
 from biased_decisions.tasks.base import Task
@@ -47,7 +47,8 @@ DEFAULT_POOLS_PATH = Path(__file__).resolve().parents[1] / "pools" / "name_pools
 
 CUES: Tuple[str, ...] = (
     "gender-pronouns", "race-name", "race-fullname", "age-inserted",
-    "disability", "religion", "religion-v2", "ask-twice", "neutral",
+    "disability", "religion", "religion-v2", "veteran-status", "sexuality", "gender-identity",
+    "ask-twice", "neutral",
 )
 
 
@@ -234,10 +235,14 @@ def build_insertion(task: Task, cue: str) -> BuildResult:
         if not insertion_eligible(item.text):
             excluded += 1
             continue
-        for version, clause in versions_for(cue):
+        if cue in GENDERED_CUES and item.metadata.get("gender") not in ("male", "female"):
+            raise BuildError(f"{cue!r} is gender-matched but {item.id} has gender "
+                             f"{item.metadata.get('gender')!r}")
+        for version, clause in versions_for(cue, item.metadata.get("gender")):
             rows.append({
                 "id": f"{item.id}-{cue}-{version}",
-                "text": insert_clause(item.text, clause),
+                # a clause of None is the bio exactly as written (gender-identity's "asis")
+                "text": item.text if clause is None else insert_clause(item.text, clause),
                 "metadata": {
                     "cue": cue, "version": version, "source_id": item.id,
                     "occupation": item.metadata.get("occupation"),
@@ -258,6 +263,18 @@ def build_religion(task: Task) -> BuildResult:
 
 def build_religion_v2(task: Task) -> BuildResult:
     return build_insertion(task, "religion-v2")
+
+
+def build_veteran_status(task: Task) -> BuildResult:
+    return build_insertion(task, "veteran-status")
+
+
+def build_sexuality(task: Task) -> BuildResult:
+    return build_insertion(task, "sexuality")
+
+
+def build_gender_identity(task: Task) -> BuildResult:
+    return build_insertion(task, "gender-identity")
 
 
 def build_ask_twice(task: Task, *, seed: int = ASK_TWICE_SEED,
@@ -319,6 +336,9 @@ BUILDERS = {
     "disability": build_disability,
     "religion": build_religion,
     "religion-v2": build_religion_v2,
+    "veteran-status": build_veteran_status,
+    "sexuality": build_sexuality,
+    "gender-identity": build_gender_identity,
     "ask-twice": build_ask_twice,
     "neutral": build_neutral,
 }

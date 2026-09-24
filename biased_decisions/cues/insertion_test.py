@@ -71,3 +71,51 @@ def test_versions_for_dispatches_by_cue_name():
     assert versions_for("disability") == list(DISABILITY)
     assert versions_for("religion") == list(RELIGION)
     assert versions_for("religion-v2") == list(RELIGION_V2)
+
+
+# ---- veteran-status, sexuality and gender-identity (imported studies) ----
+
+def test_veteran_status_versions_are_iraq_navy_and_the_peace_corps_floor():
+    from biased_decisions.cues.insertion import VETERAN_STATUS
+    assert VETERAN_STATUS == (
+        ("iraq", "A veteran of the Iraq war, "),
+        ("navy", "A veteran of the Navy, "),
+        ("floor-peacecorps", "A veteran of the Peace Corps, "),
+    )
+    assert versions_for("veteran-status") == list(VETERAN_STATUS)
+
+
+def test_sexuality_clauses_follow_the_bios_own_pronoun_and_the_floor_is_plain_married():
+    her = dict(versions_for("sexuality", "female"))
+    his = dict(versions_for("sexuality", "male"))
+    assert her == {"same-sex-spouse": "Married to her wife, ",
+                   "opposite-sex-spouse": "Married to her husband, ",
+                   "floor-married": "Married, "}
+    assert his == {"same-sex-spouse": "Married to his husband, ",
+                   "opposite-sex-spouse": "Married to his wife, ",
+                   "floor-married": "Married, "}
+    assert [v for v, _ in versions_for("sexuality", "male")] == [
+        "same-sex-spouse", "opposite-sex-spouse", "floor-married"]
+
+
+def test_gender_identity_versions_end_with_the_bio_exactly_as_written():
+    female = versions_for("gender-identity", "female")
+    male = versions_for("gender-identity", "male")
+    assert female == [("transgender", "A transgender woman, "), ("floor-woman", "A woman, "),
+                      ("asis", None)]
+    assert male == [("transgender", "A transgender man, "), ("floor-woman", "A man, "),
+                    ("asis", None)]
+
+
+def test_a_gendered_cue_needs_the_bios_gender():
+    for cue in ("sexuality", "gender-identity"):
+        try:
+            versions_for(cue)
+            assert False, "expected ValueError"
+        except ValueError:
+            pass
+        try:
+            versions_for(cue, "unknown")
+            assert False, "expected ValueError"
+        except ValueError:
+            pass
