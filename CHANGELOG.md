@@ -1,3 +1,10 @@
+# [1.26.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.25.0...v1.26.0) (2026-09-24)
+
+
+### Features
+
+* **tasks:** three complaint-narrative tasks (servicemember, older, family) with sampling rule, specs and shape entries ([432adcd](https://github.com/AnthusAI/Biased-Decisions/commit/432adcd601007261e2e47d641f3d5db0da3b6607))
+
 # [1.25.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.24.1...v1.25.0) (2026-09-24)
 
 
