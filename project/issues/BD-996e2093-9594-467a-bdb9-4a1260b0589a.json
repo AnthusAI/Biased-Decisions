@@ -21,7 +21,7 @@
     "model": "Claude Sonnet 5",
     "name": "Biased Decisions"
   },
-  "right_now_summary": "Capped Kev runs are ready to dispatch, while Jev runs await explicit user approval.",
-  "right_now_updated_at": "2026-09-24T20:34:22.834641Z",
+  "right_now_summary": "Kev collection is underway, while Jev still needs a collector and the user's explicit approval.",
+  "right_now_updated_at": "2026-09-24T21:26:07.575983Z",
   "custom": {}
 }
