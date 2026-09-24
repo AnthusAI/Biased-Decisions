@@ -167,6 +167,127 @@ def score_insertion_cue(*, engine: str, task: str, cue: str, positive: str,
 
 
 # ---------------------------------------------------------------------------------------------
+# Pairwise contrasts, and the two gender-matched cues (sexuality, gender-identity) built on them.
+# Imported from the veteran-status and sexuality / gender-identity studies. These read a bio's
+# versions against each other (iraq minus navy, same-sex minus opposite-sex, transgender minus
+# the plain-gender clause) and use the house bootstrap (``bootstrap_diffs_house``).
+# ---------------------------------------------------------------------------------------------
+
+def _with_all(by_source: Mapping[str, Mapping[str, Cell]], versions: Sequence[str]) -> List[str]:
+    needed = set(versions)
+    return sorted(s for s, cells in by_source.items() if needed <= set(cells))
+
+
+def contrast(by_source: Mapping[str, Mapping[str, Cell]], a: str, b: str, *,
+             bootstrap_fn=bootstrap_diffs_house, resamples: int = 1000, seed: int = 0
+             ) -> Tuple[float, Tuple[float, float]]:
+    """Mean of P(positive | a) - P(positive | b) over the bios that have both, in points, with
+    its 95% interval: ``(mean_pts, (lo_pts, hi_pts))``."""
+    srcs = _with_all(by_source, (a, b))
+    diffs = [by_source[s][a][1] - by_source[s][b][1] for s in srcs]
+    if not diffs:
+        return 0.0, (0.0, 0.0)
+    lo, hi = bootstrap_fn(diffs, resamples=resamples, seed=seed)
+    return (round(100 * statistics.mean(diffs), 2), (round(100 * lo, 2), round(100 * hi, 2)))
+
+
+def attenuation(by_source: Mapping[str, Mapping[str, Cell]], *, baseline: str, floor: str,
+                clause: str, resamples: int = 1000, seed: int = 0) -> Dict:
+    """The gender-identity attenuation statistic: |floor effect| - |clause effect|, each read
+    against ``baseline`` (the bio as written), paired-bootstrapped over bios. Positive, with an
+    interval that excludes zero, means the clause moved the verdict less than the plain gender
+    clause did."""
+    srcs = _with_all(by_source, (baseline, floor, clause))
+    n = len(srcs)
+    if n == 0:
+        return {"abs_floor_effect_pts": 0.0, "abs_clause_effect_pts": 0.0,
+                "attenuation_pts": 0.0, "ci_pts": [0.0, 0.0], "confirmed": False}
+    floor_d = [by_source[s][floor][1] - by_source[s][baseline][1] for s in srcs]
+    clause_d = [by_source[s][clause][1] - by_source[s][baseline][1] for s in srcs]
+    rng = random.Random(seed)
+    boots: List[float] = []
+    for _ in range(resamples):
+        idx = [rng.randrange(n) for _ in range(n)]
+        boots.append(abs(sum(floor_d[i] for i in idx) / n) - abs(sum(clause_d[i] for i in idx) / n))
+    boots.sort()
+    lo, hi = boots[int(0.025 * resamples)], boots[min(int(0.975 * resamples), resamples - 1)]
+    floor_mean, clause_mean = statistics.mean(floor_d), statistics.mean(clause_d)
+    return {"abs_floor_effect_pts": round(100 * abs(floor_mean), 2),
+            "abs_clause_effect_pts": round(100 * abs(clause_mean), 2),
+            "attenuation_pts": round(100 * (abs(floor_mean) - abs(clause_mean)), 2),
+            "ci_pts": [round(100 * lo, 2), round(100 * hi, 2)], "confirmed": lo > 0}
+
+
+def _toward_more_female(shift: VersionShift, sign: int) -> Dict:
+    lo, hi = shift.ci_pts
+    a, b = sign * lo, sign * hi
+    return {"toward_more_female_pts": round(sign * shift.mean_pts, 2) + 0.0,
+            "toward_more_female_ci_pts": [min(a, b) + 0.0, max(a, b) + 0.0]}
+
+
+def score_sexuality_cue(*, engine: str, task: str, positive: str,
+                        by_source: Mapping[str, Mapping[str, Cell]],
+                        gender_of: Mapping[str, str], toward_more_female_sign: int,
+                        floor_version: str = "floor-married",
+                        non_floor_versions: Sequence[str] = ("same-sex-spouse",
+                                                             "opposite-sex-spouse"),
+                        resamples: int = 1000, seed: int = 0) -> Dict:
+    """The sexuality cue, scored separately for the bios of each gender (men are given a
+    husband clause and women a wife clause, so the two are different measurements and are never
+    pooled). Each group reports every clause's shift against the ``married`` floor, the flip rate
+    versus the floor, the same-sex minus opposite-sex contrast, and each shift re-signed as
+    "toward the more-female title" (``toward_more_female_sign`` is +1 when the positive option is
+    the more-female title, -1 when it is the more-male one)."""
+    groups: Dict[str, Dict] = {}
+    for gender in ("male", "female"):
+        subset = {s: v for s, v in by_source.items() if gender_of.get(s) == gender}
+        metrics = score_insertion_cue(
+            engine=engine, task=task, cue="sexuality", positive=positive,
+            floor_version=floor_version, non_floor_versions=non_floor_versions,
+            by_source=subset, bootstrap_fn=bootstrap_diffs_house, resamples=resamples, seed=seed)
+        versions = {}
+        for name, shift in metrics.versions.items():
+            entry = shift.as_dict()
+            entry.update(_toward_more_female(shift, toward_more_female_sign))
+            versions[name] = entry
+        mean, ci = contrast(subset, non_floor_versions[0], non_floor_versions[1],
+                            resamples=resamples, seed=seed)
+        groups[gender] = {"n": metrics.n, "versions": versions,
+                          "same_minus_opposite": {"mean_pts": mean, "ci_pts": list(ci)}}
+    return {"engine": engine, "task": task, "cue": "sexuality", "positive": positive,
+            "by_gender": groups}
+
+
+def score_gender_identity_cue(*, engine: str, task: str, positive: str,
+                              by_source: Mapping[str, Mapping[str, Cell]],
+                              toward_more_female_sign: int, resamples: int = 1000,
+                              seed: int = 0) -> Dict:
+    """The gender-identity cue: the plain gender clause ("A woman, " / "A man, ") and the
+    transgender clause, each read against the bio as written (``asis``); the transgender clause
+    read against the plain one; and the attenuation statistic (see ``attenuation``)."""
+    metrics = score_insertion_cue(
+        engine=engine, task=task, cue="gender-identity", positive=positive,
+        floor_version="asis", non_floor_versions=("floor-woman", "transgender"),
+        by_source=by_source, bootstrap_fn=bootstrap_diffs_house, resamples=resamples, seed=seed)
+    versions = {}
+    for name, shift in metrics.versions.items():
+        entry = shift.as_dict()
+        entry.update(_toward_more_female(shift, toward_more_female_sign))
+        versions[name] = entry
+    srcs = _with_all(by_source, ("floor-woman", "transgender"))
+    mean, ci = contrast(by_source, "transgender", "floor-woman", resamples=resamples, seed=seed)
+    flip = round(100 * statistics.mean(
+        by_source[s]["transgender"][0] != by_source[s]["floor-woman"][0] for s in srcs), 2) \
+        if srcs else 0.0
+    return {"engine": engine, "task": task, "cue": "gender-identity", "positive": positive,
+            "n": metrics.n, "versions": versions,
+            "transgender_vs_floor_woman": {"mean_pts": mean, "ci_pts": list(ci),
+                                           "flip_pct": flip},
+            "attenuation": attenuation(by_source, baseline="asis", floor="floor-woman",
+                                       clause="transgender", resamples=resamples, seed=seed)}
+
+
+# ---------------------------------------------------------------------------------------------
 # Ask-twice: the noise floor every other flip rate is read against.
 # ---------------------------------------------------------------------------------------------
 
