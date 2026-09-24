@@ -148,4 +148,8 @@ cells, questions, versions, controls or scoring apply.
 - **Not affected:** the 11 cells of `docs/kev-coverage-first-slice.json`, which were collected in full before
   this amendment, keep every answer.
 - **Later:** the sample grows by raising the cap in a further amendment.
+- **Committed samples:** where a cell already has a committed sample (`race-fullname`'s 500-bio Jev subsample, the
+  `ask-twice` selections), that sample is used and the ranking is not. The first Kev collection of
+  `surgeon-physician` / `race-fullname` drew a different 500 bios by ranking, before this was fixed; it is
+  discarded and re-collected on Jev's bios.
 

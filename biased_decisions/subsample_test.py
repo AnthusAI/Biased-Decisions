@@ -80,3 +80,21 @@ def test_a_cap_below_one_is_refused():
     import pytest
     with pytest.raises(ValueError):
         subsample(bios(3), "nurse-physician", 0)
+
+
+def test_a_committed_sample_file_takes_precedence_over_the_ranking(tmp_path):
+    from biased_decisions.subsample import cell_sample
+    items = bios(30)
+    (tmp_path / "cue_jev-subsample.txt").write_text("bios-000003\nbios-000004\n")
+    kept = cell_sample(items, "surgeon-physician", "cue", 5, tmp_path)
+    assert {family_id(i, "surgeon-physician") for i in kept} == {"bios-000003", "bios-000004"}
+    assert len(kept) == 6                       # both families, whole, in the cell's order
+
+
+def test_without_a_committed_file_or_a_cap_the_cell_is_ranked_or_whole(tmp_path):
+    from biased_decisions.subsample import cell_sample
+    items = bios(30)
+    assert cell_sample(items, "surgeon-physician", "cue", None, tmp_path) == items
+    assert cell_sample(items, "surgeon-physician", "cue", 5, tmp_path) == subsample(items, "surgeon-physician", 5)
+    (tmp_path / "cue_jev-subsample.txt").write_text("bios-000003\n")
+    assert cell_sample(items, "surgeon-physician", "cue", None, tmp_path) == items

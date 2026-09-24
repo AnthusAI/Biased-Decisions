@@ -7,6 +7,7 @@ original text together with its twin, edited versions and controls; it is kept o
 from __future__ import annotations
 
 import hashlib
+from pathlib import Path
 from typing import Optional, Sequence
 
 from biased_decisions.tasks.items import Item
@@ -40,3 +41,18 @@ def subsample(items: Sequence[Item], task: str, cap: Optional[int]) -> list:
         return list(items)
     chosen = set(sorted(families, key=lambda f: _rank(task, f))[:cap])
     return [i for i in items if family_id(i, task) in chosen]
+
+
+def cell_sample(items: Sequence[Item], task: str, cue: str, cap: Optional[int], versions_dir: Path) -> list:
+    """The items a capped collection answers for one cell.
+
+    A cell that already has a committed sample (``<cue>_jev-subsample.txt``, the 500 bios Jev answered for
+    race-fullname) keeps exactly those families, so every model answers the same bios. Every other cell
+    takes the first ``cap`` families of the registered ranking. With no cap the cell is whole."""
+    if cap is None:
+        return list(items)
+    committed = Path(versions_dir) / f"{cue}_jev-subsample.txt"
+    if committed.exists():
+        fixed = {line.strip() for line in committed.read_text(encoding="utf-8").splitlines() if line.strip()}
+        return [i for i in items if family_id(i, task) in fixed]
+    return subsample(items, task, cap)

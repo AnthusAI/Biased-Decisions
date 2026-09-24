@@ -29,8 +29,10 @@ from biased_decisions.metrics.flips import Verdict, score_arm_race, score_pair
 from biased_decisions.metrics.shifts import score_arm_age, score_arm_race2
 from biased_decisions import gendered_language, gendered_scoring, housing_lending, stereotypes, stereotypes_batch3
 from biased_decisions.record import read_record_by_id, record_path
+from biased_decisions.subsample import subsample
 from biased_decisions.tasks.base import DEFAULT_ROOT, Task
 from biased_decisions.tasks.bios import BIOS_TASKS, ORIGINAL_BIOS_TASKS, split_test_and_twins
+from biased_decisions.tasks.items import Item
 
 QUESTION_NAME = "Occupation"
 FULLNAME_GROUPS = ("white", "black", "hispanic", "asian")
@@ -137,6 +139,26 @@ def _missing(ids: Sequence[str], answers: Dict[str, dict], *, engine: str, task_
             f"({task_slug!r}, {cue!r}), e.g. {missing[:3]} -- this cell's record is incomplete")
 
 
+SUBSAMPLE_CAP = 500  # the registered first-pass cap (docs/subsample-preregistration.md)
+
+
+def _registered_sample(task: Task, engine: str, cue: str, versions: Dict[str, Item],
+                       answers: Dict[str, dict]) -> Dict[str, Item]:
+    """The versions to score: all of them when the record is complete, otherwise exactly the
+    registered first-pass subsample. A record that is neither is refused, so a partial or
+    differently drawn record is never scored as if it were the sample."""
+    answered = {i for i in versions if i in answers}
+    if len(answered) == len(versions):
+        return versions
+    registered = {i.id for i in subsample(list(versions.values()), task.slug, SUBSAMPLE_CAP)}
+    if answered != registered:
+        raise ScoreError(
+            f"{engine!r}'s {cue} record for {task.slug!r} answers {len(answered)} of {len(versions)} "
+            f"items, which is neither all of them nor exactly the {len(registered)}-item "
+            f"registered subsample")
+    return {i: item for i, item in versions.items() if i in registered}
+
+
 def _excluded_count(task: Task, present_source_ids) -> int:
     """How many held-out bios have no version for a cue at all: the ones a versions file's own
     ``source_id`` set does not cover, out of every ``split == "test"`` item."""
@@ -179,6 +201,8 @@ def score_race_name(engine: str, task: Task) -> dict:
         raise ScoreError(f"no race-name versions for {task.slug!r}; run 'bd build "
                          f"{task.slug} --cue race-name' first")
     answers = load_answers(engine, task.slug, "race-name", root=task.root)
+    all_sources = {item.metadata["source_id"] for item in versions.values()}
+    versions = _registered_sample(task, engine, "race-name", versions, answers)
     _missing(list(versions), answers, engine=engine, task_slug=task.slug, cue="race-name")
 
     by_source: Dict[str, Dict[str, str]] = {}
@@ -195,7 +219,7 @@ def score_race_name(engine: str, task: Task) -> dict:
     white_a = [verdict(sid, ids["white_a"]) for sid, ids in by_source.items()]
     white_b = {sid: verdict(sid, ids["white_b"]) for sid, ids in by_source.items()}
     black = {sid: verdict(sid, ids["black"]) for sid, ids in by_source.items()}
-    excluded = _excluded_count(task, by_source)
+    excluded = _excluded_count(task, all_sources)
 
     return score_arm_race(engine=engine, white_a=white_a, white_b=white_b, black=black,
                           excluded=excluded).as_row()
@@ -211,6 +235,8 @@ def score_age_inserted(engine: str, task: Task) -> dict:
         raise ScoreError(f"no age-inserted versions for {task.slug!r}; run 'bd build "
                          f"{task.slug} --cue age-inserted' first")
     answers = load_answers(engine, task.slug, "age-inserted", root=task.root)
+    all_sources = {item.metadata["source_id"] for item in versions.values()}
+    versions = _registered_sample(task, engine, "age-inserted", versions, answers)
     _missing(list(versions), answers, engine=engine, task_slug=task.slug, cue="age-inserted")
 
     by_source: Dict[str, Dict[int, str]] = {}
@@ -227,7 +253,7 @@ def score_age_inserted(engine: str, task: Task) -> dict:
     v35 = {sid: verdict(sid, ids[35]) for sid, ids in by_source.items()}
     v61 = {sid: verdict(sid, ids[61]) for sid, ids in by_source.items()}
     v62 = {sid: verdict(sid, ids[62]) for sid, ids in by_source.items()}
-    excluded = _excluded_count(task, by_source)
+    excluded = _excluded_count(task, all_sources)
 
     return score_arm_age(engine=engine, v34=v34, v35=v35, v61=v61, v62=v62,
                          excluded=excluded).as_row()
@@ -655,6 +681,10 @@ def score_shortlist(engine: str, task: Task) -> List[dict]:
                 answer = neutral.get(f"{item_id}-neutral-{version}")
                 if answer is not None:
                     arm_scores[item_id] = float(answer["probabilities"][task.positive])
+            if len(arm_scores) < len(items_map):
+                # A shortlist cuts the whole pool (250, 500, 1000): a first-pass subsample of the
+                # neutral cell is scored in the neutral cell, not as a shortlist arm.
+                continue
             arm_items = {i: items_map[i] for i in arm_scores}
             # No twin exists for a neutral rewrite: the counterfactual columns are not meaningful.
             arm_scores.update({f"{i}-swapped": arm_scores[i] for i in arm_items})
