@@ -1,3 +1,10 @@
+## [1.21.1](https://github.com/AnthusAI/Biased-Decisions/compare/v1.21.0...v1.21.1) (2026-09-24)
+
+
+### Bug Fixes
+
+* **site:** align one-em logo to wordmark baseline ([3b7c925](https://github.com/AnthusAI/Biased-Decisions/commit/3b7c9256c1b6e278bf08c2fc4668db97e5e4378f))
+
 # [1.21.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.20.0...v1.21.0) (2026-09-24)
 
 
