@@ -18,7 +18,7 @@
     "platform": "claude-code",
     "model": "claude-fable-5-1"
   },
-  "right_now_summary": "Adapters and decision tasks are being built and preregistered; benchmark runs have not started.",
-  "right_now_updated_at": "2026-09-23T16:52:54.810810Z",
+  "right_now_summary": "Adapters and decision tasks are being built; benchmark runs have not started, and Kev’s timing pilot awaits the Laya",
+  "right_now_updated_at": "2026-09-24T01:06:30.288535Z",
   "custom": {}
 }
