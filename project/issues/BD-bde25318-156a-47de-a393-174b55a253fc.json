@@ -1,7 +1,7 @@
 {
   "id": "BD-bde25318-156a-47de-a393-174b55a253fc",
   "title": "Run Jev: nurse-physician (4 cells, 4000 requests)",
-  "description": "**Self-contained run. WAITS FOR THE USER'S EXPLICIT GO.** Jev is an online service reached through its maker's kit and may cost money. Do not start until the user has commented \"go\" on this issue.\n\n**Job:** answer the capped subsample of the still-missing Jev cells for `nurse-physician`: 4 cells, 4000 requests.\n\n**Steps**\n1. Read `docs/other-mac-runs.md` (needs BD-c36da3, BD-3b4c76 and BD-dd780c merged to main first).\n2. Run the Jev collector on `docs/jev-runs/nurse-physician.json` as the guide describes. `TYPESAFE_API_KEY` comes from the environment or a gitignored `.env`; never print, log or commit it.\n3. Commit only finished files under `answers/jev/nurse-physician/` to branch `runs/<this issue id>`, push that branch, do not merge to main, do not run `bd replay`.\n4. Comment the request count and any errors, then close.\n\n**Rules:** one job at a time; never touch `project/`.",
+  "description": "**Not yet runnable, and WAITS FOR THE USER'S EXPLICIT GO.** Jev is an online service reached through its maker's kit and may cost money. Do not start until the user has commented \"go\" on this issue.\n\n**Job:** answer the registered 500-item subsample of the still-missing Jev cells for this task (see the title for the grid size; the estimate assumed two requests per item and is low).\n\n**Missing before it can run:** the Jev collector and per-task manifests (`docs/jev-runs/`). `scripts/collect_task.py` supports only Kev, so how Jev answers are collected has to be worked out first. Once it is, this run follows the runbook in BD-dd780c with the Jev collector. `TYPESAFE_API_KEY` comes from the environment or a gitignored `.env`; never print, log or commit it.\n\n**Rules:** one job at a time; results go to branch `runs/<this issue id>`, never main; no `bd replay`; never touch `project/`.",
   "type": "task",
   "status": "open",
   "priority": 2,
@@ -16,7 +16,7 @@
   "dependencies": [],
   "comments": [],
   "created_at": "2026-09-24T19:29:33.476342Z",
-  "updated_at": "2026-09-24T19:29:33.476365Z",
+  "updated_at": "2026-09-24T20:03:34.598592Z",
   "closed_at": null,
   "agent": {
     "platform": "claude_code",

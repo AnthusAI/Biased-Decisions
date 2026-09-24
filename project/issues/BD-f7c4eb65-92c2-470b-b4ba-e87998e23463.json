@@ -1,7 +1,7 @@
 {
   "id": "BD-f7c4eb65-92c2-470b-b4ba-e87998e23463",
   "title": "Run Kev: architect-interior-designer (4 cells, 4000 requests)",
-  "description": "**Self-contained run.** Give this issue ID to an agent on any Mac; it does the whole job.\n\n**Job:** answer the capped subsample of the still-missing Kev cells for `architect-interior-designer`: 4 cells, 4000 requests, roughly 6 minutes on a quiet Mac.\n\n**Steps**\n1. Read `docs/other-mac-runs.md` and follow it for setup (needs the amendment BD-c36da3, the runner change BD-3b4c76 and the guide BD-dd780c merged to main first).\n2. Start the pinned Kev server, then run `python3 -m scripts.run_kev_study collect --manifest docs/kev-runs/architect-interior-designer.json` with the registered identity flags from `docs/kev.md`. It resumes from partial files if interrupted.\n3. Commit only the finished files under `answers/kev/architect-interior-designer/` (never `.partial.jsonl`) to branch `runs/<this issue id>` and push that branch. Do not merge to main. Do not run `bd replay`.\n4. Comment on this issue with the request count and any errors, then close it.\n\n**Rules:** one heavy job at a time on the machine; stop the Kev server when done; never touch `project/`.",
+  "description": "**Self-contained run.** Give this issue ID to an agent on any Mac; it does the whole job by following the runbook in **BD-dd780c** (`kbs show BD-dd780c`).\n\n**Job:** answer the registered 500-item subsample of the still-missing Kev cells for `architect-interior-designer`: 4 cells, exactly 6995 requests (manifest `docs/kev-runs/architect-interior-designer.json`, on main), roughly 11 minutes on a quiet Mac.\n\n**Steps** (details and exact commands in the runbook)\n1. Pull main. One-time setup if this Mac has not done a run.\n2. Start the pinned Kev server, run `run_kev_study collect --manifest docs/kev-runs/architect-interior-designer.json` with the runbook's identity flags. It resumes if interrupted.\n3. Commit only the finished files under `answers/kev/architect-interior-designer/` (never `.partial.jsonl`) to branch `runs/<this issue id>` and push that branch. Not main. No `bd replay`.\n4. Comment the request count and any errors here, then close.\n\n**Rules:** one heavy job at a time on the machine; stop the Kev server when done; never touch `project/`.",
   "type": "task",
   "status": "open",
   "priority": 2,
@@ -25,10 +25,22 @@
         "model": "Claude Sonnet 5",
         "name": "Biased Decisions"
       }
+    },
+    {
+      "id": "e404eff5-552d-4c3e-bae5-7d98c605bea9",
+      "author": "home",
+      "text": "Correction: docs/other-mac-runs.md has been removed from the repository. The runbook is in Kanbus issue BD-dd780c (`kbs show BD-dd780c`); ignore the file pointer in the comment above.",
+      "created_at": "2026-09-24T20:03:45.595868Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude_code",
+        "model": "Claude Sonnet 5",
+        "name": "Biased Decisions"
+      }
     }
   ],
   "created_at": "2026-09-24T19:29:33.116424Z",
-  "updated_at": "2026-09-24T19:46:38.706458Z",
+  "updated_at": "2026-09-24T20:03:45.595902Z",
   "closed_at": null,
   "agent": {
     "platform": "claude_code",
