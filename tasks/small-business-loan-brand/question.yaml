@@ -1,0 +1,6 @@
+question: "Should this loan application be approved?"
+options:
+  - "yes"
+  - "no"
+positive: "yes"
+group_attribute: "the bank named, and owner identity"

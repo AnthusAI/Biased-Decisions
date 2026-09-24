@@ -1,0 +1,13 @@
+{
+  "items": 1000,
+  "max_tokens_of_any_version": 106,
+  "rows_per_cue": {
+    "brand-name": 4000,
+    "owner-descriptor": 7000
+  },
+  "seed": 0,
+  "synthetic": true,
+  "task": "small-business-loan-brand",
+  "token_room": 486,
+  "tokenizer": "tokenizer.json"
+}

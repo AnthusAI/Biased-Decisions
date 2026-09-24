@@ -1,0 +1,6 @@
+question: "Which of these two products should be featured first?"
+options:
+  - "Product A"
+  - "Product B"
+positive: "Product A"
+group_attribute: "the brand named on each product"

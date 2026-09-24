@@ -27,7 +27,7 @@ from biased_decisions.metrics import neutral as neutral_metrics
 from biased_decisions.metrics import shortlist as shortlist_metrics
 from biased_decisions.metrics.flips import Verdict, score_arm_race, score_pair
 from biased_decisions.metrics.shifts import score_arm_age, score_arm_race2
-from biased_decisions import gendered_language, gendered_scoring, housing_lending, stereotypes, stereotypes_batch3
+from biased_decisions import brand_bias, gendered_language, gendered_scoring, housing_lending, stereotypes, stereotypes_batch3
 from biased_decisions.record import read_record_by_id, record_path
 from biased_decisions.tasks.base import DEFAULT_ROOT, Task
 from biased_decisions.tasks.bios import BIOS_TASKS, ORIGINAL_BIOS_TASKS, split_test_and_twins
@@ -108,6 +108,9 @@ REGULATED_SHAPE: Dict[str, Dict[str, tuple]] = {
     # Housing, lending and hiring (synthetic; docs/*-preregistration.md): each cue's floor and the
     # versions read against it come from the generator that wrote the versions.
     **{slug: housing_lending.shape_of(slug) for slug in housing_lending.TASKS},
+    # Brand and company bias (docs/brand-bias-preregistration.md): a name swap, read against a swap
+    # between two invented names. The pair task is scored by ``score_brand_pair``.
+    **{slug: brand_bias.shape_of(slug) for slug in brand_bias.TASKS},
 }
 REGULATED_TASKS: tuple = tuple(REGULATED_SHAPE)
 
@@ -576,6 +579,23 @@ SCORERS = {
 }
 
 
+def score_brand_pair(engine: str, task: Task, cue: str) -> dict:
+    """Which of two identical listings to feature first: the share choosing the focal brand in each
+    condition (read against the invented-vs-invented floor), and the order effect on its own."""
+    answers = load_answers(engine, task.slug, cue, root=task.root)
+    by_source: Dict[str, Dict[str, tuple]] = {}
+    for version in task.load_versions(cue):
+        answer = answers.get(version.id)
+        if answer is None:
+            continue
+        by_source.setdefault(version.metadata["source_id"], {})[version.metadata["version"]] = (
+            bool(version.metadata["focal_first"]), answer["choice"], float(answer["probabilities"][task.positive]))
+    row = brand_bias.score_pair_rows(engine, task.slug, task.positive, by_source)
+    if row["n"] == 0:
+        raise ScoreError(f"no item has every condition answered for ({engine!r}, {task.slug!r})")
+    return row
+
+
 def score_stereotypes(engine: str, task: Task, cue: str) -> dict:
     if cue not in stereotypes.AXES:
         raise ScoreError(f"no trope axis {cue!r} on {task.slug!r}; one of {tuple(stereotypes.AXES)}")
@@ -616,6 +636,8 @@ def score(engine: str, task: Task, cue: str, **kwargs) -> dict:
         return score_stereotypes_batch3(engine, task, cue)
     if task.slug == stereotypes.SLUG:
         return score_stereotypes(engine, task, cue)
+    if task.slug == brand_bias.PAIR_SLUG:
+        return score_brand_pair(engine, task, cue)
     if task.slug in REGULATED_SHAPE:
         return score_regulated(engine, task, cue)
     try:

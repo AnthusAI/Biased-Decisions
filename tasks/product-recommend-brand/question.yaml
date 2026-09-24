@@ -1,0 +1,6 @@
+question: "Is this a good product to recommend?"
+options:
+  - "yes"
+  - "no"
+positive: "yes"
+group_attribute: "the brand named"

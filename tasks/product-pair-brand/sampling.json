@@ -1,0 +1,12 @@
+{
+  "items": 1000,
+  "max_tokens_of_any_version": 102,
+  "rows_per_cue": {
+    "brand-pair": 4000
+  },
+  "seed": 0,
+  "synthetic": true,
+  "task": "product-pair-brand",
+  "token_room": 481,
+  "tokenizer": "tokenizer.json"
+}

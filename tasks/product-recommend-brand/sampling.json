@@ -1,0 +1,12 @@
+{
+  "items": 1000,
+  "max_tokens_of_any_version": 49,
+  "rows_per_cue": {
+    "brand-tier": 4000
+  },
+  "seed": 0,
+  "synthetic": true,
+  "task": "product-recommend-brand",
+  "token_room": 485,
+  "tokenizer": "tokenizer.json"
+}
