@@ -18,7 +18,7 @@
     "platform": "claude-code",
     "model": "claude-fable-5-1"
   },
-  "right_now_summary": "Adapters and tasks are being prepared, but benchmark runs have not started; Jev awaits approval.",
-  "right_now_updated_at": "2026-09-24T22:48:19.439303Z",
+  "right_now_summary": "Adapters, tasks, and data are being prepared, but no benchmark or scoring runs have started.",
+  "right_now_updated_at": "2026-09-24T22:57:09.717953Z",
   "custom": {}
 }
