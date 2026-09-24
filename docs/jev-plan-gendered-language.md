@@ -50,3 +50,7 @@ a measured one.
 2. Read the go/no-go against the registered predictions' Jev columns; go on to the full scope only if the
    spend and the result justify it.
 3. Kev and Jev share none of these requests; Kev's registration is in `docs/kev-amendments.md`.
+
+## First-pass subsample
+
+The still-unanswered cells of this plan are first answered on the fixed, nested subsample of `docs/subsample-preregistration.md` (500 items per cell); the design, questions, versions and scoring above are unchanged.

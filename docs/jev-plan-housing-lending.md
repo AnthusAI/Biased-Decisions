@@ -54,3 +54,7 @@ here.
 3. A Jev runner for these tasks is `scripts/answer_task.py` with the Jev engine as it exists on main;
    its build flag and cache behaviour were not changed here.
 4. Kev's registration is separate: `docs/kev-amendments.md`.
+
+## First-pass subsample
+
+The still-unanswered cells of this plan are first answered on the fixed, nested subsample of `docs/subsample-preregistration.md` (500 items per cell); the design, questions, versions and scoring above are unchanged.

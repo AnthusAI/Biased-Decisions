@@ -135,3 +135,17 @@ Registered before any Kev answer exists on these cells. Study design, versions a
 - **Scoring:** the shape entries for the three tasks in `biased_decisions/scoring.py`: the shift in the
   probability of yes from each version to its control edit (a second white name, a harmless clause, or a
   34-year-old), a 1,000-resample paired interval, unchanged.
+
+## Amendment: first-pass subsample (2026-09-24)
+
+Registered before any subsampled Kev answer exists. The full rule is `docs/subsample-preregistration.md`.
+It changes **how many** items of each already-registered cell are answered in the first pass, not which
+cells, questions, versions, controls or scoring apply.
+
+- **Rule:** per task, rank items by `sha256("biased-decisions-subsample-1|<task>|<item id>")`; a cell answers its
+  first 500 items (an original with its twin, edits and controls), or all of them if it has 500 or fewer.
+  Nested, so a later pass adds items and redoes none. Never based on an answer.
+- **Not affected:** the 11 cells of `docs/kev-coverage-first-slice.json`, which were collected in full before
+  this amendment, keep every answer.
+- **Later:** the sample grows by raising the cap in a further amendment.
+
