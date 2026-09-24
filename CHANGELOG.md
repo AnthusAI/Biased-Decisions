@@ -1,3 +1,13 @@
+# [1.27.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.26.0...v1.27.0) (2026-09-24)
+
+
+### Features
+
+* **answers:** Laya 0.3.7 answers for veteran-status, sexuality and gender-identity ([efd84b9](https://github.com/AnthusAI/Biased-Decisions/commit/efd84b9bd89a2e0ea6e76e5be345d86b520c4741))
+* **build:** veteran-status, sexuality and gender-identity insertion cues on the seven bios tasks ([43d8a73](https://github.com/AnthusAI/Biased-Decisions/commit/43d8a73524511240aad85f1b08cecc973667f720))
+* **scoring:** score the imported clause cues; replay reproduces the studies' numbers ([860b497](https://github.com/AnthusAI/Biased-Decisions/commit/860b497b8640ae02f500806ded10ed44dd013bc9))
+* **tasks:** import the stereotype-pool designs of the veteran and sexuality studies (unscored) ([41950fa](https://github.com/AnthusAI/Biased-Decisions/commit/41950fad2f25f48ade78915e9a5e001009d054c9))
+
 # [1.26.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.25.0...v1.26.0) (2026-09-24)
 
 
