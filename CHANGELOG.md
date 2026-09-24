@@ -1,3 +1,12 @@
+# [1.25.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.24.1...v1.25.0) (2026-09-24)
+
+
+### Features
+
+* **batch3:** pre-register batch 3 and build the stereotypes-batch3 task, scorer and queue ([5b96a63](https://github.com/AnthusAI/Biased-Decisions/commit/5b96a6368088e9bc185b6dab69f5543df37d2dff))
+* **stereotypes:** commit the replayed trope studies and a spec that pins them ([bd74782](https://github.com/AnthusAI/Biased-Decisions/commit/bd747828370fb7b157359ea593665edf3c9ce9d3))
+* **stereotypes:** import batch 2 into the harness with a general trope scorer ([d38389f](https://github.com/AnthusAI/Biased-Decisions/commit/d38389fcc6ec7f2306048f4c4d8c9ab73b3e9e6f))
+
 ## [1.24.1](https://github.com/AnthusAI/Biased-Decisions/compare/v1.24.0...v1.24.1) (2026-09-24)
 
 
