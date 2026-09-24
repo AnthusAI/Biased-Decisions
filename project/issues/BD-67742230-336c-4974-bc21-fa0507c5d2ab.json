@@ -1,0 +1,27 @@
+{
+  "id": "BD-67742230-336c-4974-bc21-fa0507c5d2ab",
+  "title": "Score the first pass, rebuild the leaderboard and publish",
+  "description": "After the run branches are merged: `bd replay`, `make leaderboard`, `make site`, push to main, then confirm Amplify's job succeeded and the live site shows every model's partial numbers with their sample sizes. Then file the follow-up epic that grows the sample.",
+  "type": "task",
+  "status": "open",
+  "priority": 2,
+  "assignee": null,
+  "creator": null,
+  "parent": "BD-996e2093-9594-467a-bdb9-4a1260b0589a",
+  "labels": [
+    "publish"
+  ],
+  "dependencies": [],
+  "comments": [],
+  "created_at": "2026-09-24T19:29:33.628007Z",
+  "updated_at": "2026-09-24T19:29:33.628025Z",
+  "closed_at": null,
+  "agent": {
+    "platform": "claude_code",
+    "model": "Claude Sonnet 5",
+    "name": "Biased Decisions"
+  },
+  "right_now_summary": null,
+  "right_now_updated_at": null,
+  "custom": {}
+}

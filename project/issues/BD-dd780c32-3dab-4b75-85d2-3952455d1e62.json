@@ -1,0 +1,27 @@
+{
+  "id": "BD-dd780c32-3dab-4b75-85d2-3952455d1e62",
+  "title": "Guide: doing a run on another Mac",
+  "description": "Write docs/other-mac-runs.md so an agent given only a run's Kanbus issue ID can do it on a fresh Mac. Cover: cloning the repo and checking out main; the Kev environment (var/kev-venv, pinned model revision, offline model cache, start_kev.py) and the Laya environment; the exact collect command for a manifest; one heavy job at a time; committing only the finished answer files (never .partial files) to a branch named runs/<issue id>, pushing it (never main), and commenting the counts on the issue; `bd replay` is not run there.\n\nDone when a person or agent can follow it end to end without asking anything.",
+  "type": "task",
+  "status": "open",
+  "priority": 2,
+  "assignee": null,
+  "creator": null,
+  "parent": "BD-996e2093-9594-467a-bdb9-4a1260b0589a",
+  "labels": [
+    "prereq"
+  ],
+  "dependencies": [],
+  "comments": [],
+  "created_at": "2026-09-24T19:29:09.736722Z",
+  "updated_at": "2026-09-24T19:29:09.736743Z",
+  "closed_at": null,
+  "agent": {
+    "platform": "claude_code",
+    "model": "Claude Sonnet 5",
+    "name": "Biased Decisions"
+  },
+  "right_now_summary": null,
+  "right_now_updated_at": null,
+  "custom": {}
+}

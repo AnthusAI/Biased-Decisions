@@ -1,0 +1,27 @@
+{
+  "id": "BD-3b4c766a-f720-4fd8-9605-774ad049be65",
+  "title": "Runner: a seeded nested item cap, and per-run manifests",
+  "description": "Spec first (specs beside the module), then code. The collectors take the amendment's rule: order each cell's items by the seeded hash and answer only the first N (cap 500 items), keeping originals with twins. Existing answer files stay valid; a later larger cap only requests the new items (resumable).\n\nAlso generate one manifest per run under docs/kev-runs/<task>.json (same schema and pinned hashes as docs/kev-coverage-first-slice.json, holding only the still-missing cells of that task), and the same for Jev under docs/jev-runs/. `bd replay` must still reproduce studies/ byte for byte.\n\nDepends on the amendment task. Done when a dry run of every manifest reports the capped request counts.",
+  "type": "task",
+  "status": "open",
+  "priority": 2,
+  "assignee": null,
+  "creator": null,
+  "parent": "BD-996e2093-9594-467a-bdb9-4a1260b0589a",
+  "labels": [
+    "prereq"
+  ],
+  "dependencies": [],
+  "comments": [],
+  "created_at": "2026-09-24T19:29:09.707359Z",
+  "updated_at": "2026-09-24T19:29:09.707380Z",
+  "closed_at": null,
+  "agent": {
+    "platform": "claude_code",
+    "model": "Claude Sonnet 5",
+    "name": "Biased Decisions"
+  },
+  "right_now_summary": null,
+  "right_now_updated_at": null,
+  "custom": {}
+}

@@ -1,0 +1,28 @@
+{
+  "id": "BD-b643a058-7008-4387-941b-85672c9ba30f",
+  "title": "Run Kev: journalist-professor (4 cells, 4000 requests)",
+  "description": "**Self-contained run.** Give this issue ID to an agent on any Mac; it does the whole job.\n\n**Job:** answer the capped subsample of the still-missing Kev cells for `journalist-professor`: 4 cells, 4000 requests, roughly 6 minutes on a quiet Mac.\n\n**Steps**\n1. Read `docs/other-mac-runs.md` and follow it for setup (needs the amendment BD-c36da3, the runner change BD-3b4c76 and the guide BD-dd780c merged to main first).\n2. Start the pinned Kev server, then run `python3 -m scripts.run_kev_study collect --manifest docs/kev-runs/journalist-professor.json` with the registered identity flags from `docs/kev.md`. It resumes from partial files if interrupted.\n3. Commit only the finished files under `answers/kev/journalist-professor/` (never `.partial.jsonl`) to branch `runs/<this issue id>` and push that branch. Do not merge to main. Do not run `bd replay`.\n4. Comment on this issue with the request count and any errors, then close it.\n\n**Rules:** one heavy job at a time on the machine; stop the Kev server when done; never touch `project/`.",
+  "type": "task",
+  "status": "open",
+  "priority": 2,
+  "assignee": null,
+  "creator": null,
+  "parent": "BD-996e2093-9594-467a-bdb9-4a1260b0589a",
+  "labels": [
+    "run",
+    "model-kev"
+  ],
+  "dependencies": [],
+  "comments": [],
+  "created_at": "2026-09-24T19:29:33.204990Z",
+  "updated_at": "2026-09-24T19:29:33.205013Z",
+  "closed_at": null,
+  "agent": {
+    "platform": "claude_code",
+    "model": "Claude Sonnet 5",
+    "name": "Biased Decisions"
+  },
+  "right_now_summary": null,
+  "right_now_updated_at": null,
+  "custom": {}
+}

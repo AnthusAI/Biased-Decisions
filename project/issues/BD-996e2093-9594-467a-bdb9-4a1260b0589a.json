@@ -1,0 +1,27 @@
+{
+  "id": "BD-996e2093-9594-467a-bdb9-4a1260b0589a",
+  "title": "Subsampled first pass: fill every number for Jev, Laya and Kev",
+  "description": "Collect a pre-declared, nested subsample of every cell in the frozen coverage (500 items per cell; controls and small cells in full) for all three models, so the leaderboard has a number everywhere. A later epic grows the sample; nested means it only adds items.\n\nEach **run** below is one discrete, resumable job that writes answer files, so any run can be done on another Mac and returned by committing to a branch.\n\n## Rules\n- The subsample order is fixed in advance (seeded hash of the item id), never chosen by answers. Originals and twins stay together. Identical for every model.\n- One GPU job at a time per machine. Never run two runs at once.\n- Jev is an online service: its runs wait for the user's explicit go.\n- Results are reported as partial, with the sample size shown.",
+  "type": "epic",
+  "status": "open",
+  "priority": 2,
+  "assignee": null,
+  "creator": null,
+  "parent": "BD-250c97a3-6ae4-4061-8d67-dbfd02bf9549",
+  "labels": [
+    "runs"
+  ],
+  "dependencies": [],
+  "comments": [],
+  "created_at": "2026-09-24T19:28:46.789710Z",
+  "updated_at": "2026-09-24T19:28:46.789882Z",
+  "closed_at": null,
+  "agent": {
+    "platform": "claude_code",
+    "model": "Claude Sonnet 5",
+    "name": "Biased Decisions"
+  },
+  "right_now_summary": null,
+  "right_now_updated_at": null,
+  "custom": {}
+}

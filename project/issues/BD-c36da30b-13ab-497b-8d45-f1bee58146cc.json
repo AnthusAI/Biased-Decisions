@@ -1,0 +1,27 @@
+{
+  "id": "BD-c36da30b-13ab-497b-8d45-f1bee58146cc",
+  "title": "Amendment: the nested 500-item subsample rule",
+  "description": "Write a preregistration amendment in docs/kev-amendments.md (and note it in the Jev and Laya plans) that fixes the subsample **before any subsampled answer is collected**.\n\n- Per cell, rank the items by sha256(seed + item id) and take the first 500 items (an item is an original with its twin, or a control with its edit). Controls and cells of 1,000 requests or fewer run in full.\n- Nested: the first N is contained in the first 2N, so growing the sample later only adds items.\n- Identical for Jev, Laya and Kev. Never based on any answer.\n- Every result is reported as partial with its sample size.\n\nDone when the amendment is committed to main and states the seed and the cap.",
+  "type": "task",
+  "status": "open",
+  "priority": 2,
+  "assignee": null,
+  "creator": null,
+  "parent": "BD-996e2093-9594-467a-bdb9-4a1260b0589a",
+  "labels": [
+    "prereq"
+  ],
+  "dependencies": [],
+  "comments": [],
+  "created_at": "2026-09-24T19:29:09.677433Z",
+  "updated_at": "2026-09-24T19:29:09.677454Z",
+  "closed_at": null,
+  "agent": {
+    "platform": "claude_code",
+    "model": "Claude Sonnet 5",
+    "name": "Biased Decisions"
+  },
+  "right_now_summary": null,
+  "right_now_updated_at": null,
+  "custom": {}
+}

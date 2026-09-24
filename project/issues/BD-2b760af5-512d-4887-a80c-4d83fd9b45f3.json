@@ -1,0 +1,29 @@
+{
+  "id": "BD-2b760af5-512d-4887-a80c-4d83fd9b45f3",
+  "title": "Run Jev: journalist-professor (4 cells, 4000 requests)",
+  "description": "**Self-contained run. WAITS FOR THE USER'S EXPLICIT GO.** Jev is an online service reached through its maker's kit and may cost money. Do not start until the user has commented \"go\" on this issue.\n\n**Job:** answer the capped subsample of the still-missing Jev cells for `journalist-professor`: 4 cells, 4000 requests.\n\n**Steps**\n1. Read `docs/other-mac-runs.md` (needs BD-c36da3, BD-3b4c76 and BD-dd780c merged to main first).\n2. Run the Jev collector on `docs/jev-runs/journalist-professor.json` as the guide describes. `TYPESAFE_API_KEY` comes from the environment or a gitignored `.env`; never print, log or commit it.\n3. Commit only finished files under `answers/jev/journalist-professor/` to branch `runs/<this issue id>`, push that branch, do not merge to main, do not run `bd replay`.\n4. Comment the request count and any errors, then close.\n\n**Rules:** one job at a time; never touch `project/`.",
+  "type": "task",
+  "status": "open",
+  "priority": 2,
+  "assignee": null,
+  "creator": null,
+  "parent": "BD-996e2093-9594-467a-bdb9-4a1260b0589a",
+  "labels": [
+    "run",
+    "model-jev",
+    "needs-explicit-go"
+  ],
+  "dependencies": [],
+  "comments": [],
+  "created_at": "2026-09-24T19:29:33.446301Z",
+  "updated_at": "2026-09-24T19:29:33.446324Z",
+  "closed_at": null,
+  "agent": {
+    "platform": "claude_code",
+    "model": "Claude Sonnet 5",
+    "name": "Biased Decisions"
+  },
+  "right_now_summary": null,
+  "right_now_updated_at": null,
+  "custom": {}
+}
