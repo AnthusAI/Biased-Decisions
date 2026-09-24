@@ -1,0 +1,54 @@
+{
+  "schema": "kev-coverage@1",
+  "checkpoint": "jaredpalmer/kev-0.8b@54f4f8777356cd5bbbb6c6919c657f26e6f2f6d8",
+  "cells": [
+    {
+      "task": "architect-interior-designer",
+      "cue": "disability",
+      "requests": 1000,
+      "status": "ready",
+      "files": {
+        "tasks/architect-interior-designer/question.yaml": "d570c1180f8dd517b19fe1851e63172e16269fd4606c660eca159241bfde7289",
+        "tasks/architect-interior-designer/items.jsonl": "123412aaca458bea4a1d1e12f6a5c403ace8d3aa60c443ec483f673515d4f3c7",
+        "tasks/architect-interior-designer/versions/disability.jsonl": "359f2ce45507656cabcf3efbc3a5482caadb84023ec5d14f235baa45eec57dbe"
+      },
+      "item_cap": 500
+    },
+    {
+      "task": "architect-interior-designer",
+      "cue": "religion",
+      "requests": 2500,
+      "status": "ready",
+      "files": {
+        "tasks/architect-interior-designer/question.yaml": "d570c1180f8dd517b19fe1851e63172e16269fd4606c660eca159241bfde7289",
+        "tasks/architect-interior-designer/items.jsonl": "123412aaca458bea4a1d1e12f6a5c403ace8d3aa60c443ec483f673515d4f3c7",
+        "tasks/architect-interior-designer/versions/religion.jsonl": "5e5b2416d331ba6d1d219730f751ceb6d8590d358e269e6905e28372c8b4e23d"
+      },
+      "item_cap": 500
+    },
+    {
+      "task": "architect-interior-designer",
+      "cue": "religion-v2",
+      "requests": 2500,
+      "status": "ready",
+      "files": {
+        "tasks/architect-interior-designer/question.yaml": "d570c1180f8dd517b19fe1851e63172e16269fd4606c660eca159241bfde7289",
+        "tasks/architect-interior-designer/items.jsonl": "123412aaca458bea4a1d1e12f6a5c403ace8d3aa60c443ec483f673515d4f3c7",
+        "tasks/architect-interior-designer/versions/religion-v2.jsonl": "d80227b6e944c829c08d00b7604eacb8ad10a2c49b35371c266369557095ab83"
+      },
+      "item_cap": 500
+    },
+    {
+      "task": "architect-interior-designer",
+      "cue": "neutral",
+      "requests": 995,
+      "status": "ready",
+      "files": {
+        "tasks/architect-interior-designer/question.yaml": "d570c1180f8dd517b19fe1851e63172e16269fd4606c660eca159241bfde7289",
+        "tasks/architect-interior-designer/items.jsonl": "123412aaca458bea4a1d1e12f6a5c403ace8d3aa60c443ec483f673515d4f3c7",
+        "tasks/architect-interior-designer/versions/neutral.jsonl": "c0110f75c47e263ddb4e2099bfa6ff699480112fc030ec3968fff861a7bc2787"
+      },
+      "item_cap": 500
+    }
+  ]
+}

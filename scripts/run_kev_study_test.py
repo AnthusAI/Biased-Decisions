@@ -186,3 +186,14 @@ def test_pilot_fingerprint_includes_parsed_task_question(tmp_path):
     engine.fail_at = None
     with pytest.raises(ValueError, match="input_fingerprint"):
         run_pilot(root, engine, provenance())
+
+
+def test_a_cell_with_an_item_cap_is_validated_against_the_capped_count(tmp_path):
+    root, manifest_path, manifest = make_root(tmp_path, count=20)
+    manifest["cells"][0].update({"item_cap": 5, "requests": 5})
+    manifest_path.write_text(json.dumps(manifest), encoding="utf-8")
+    assert validate_manifest(root, manifest_path) == 5
+    manifest["cells"][0]["requests"] = 20
+    manifest_path.write_text(json.dumps(manifest), encoding="utf-8")
+    with pytest.raises(ValueError, match="request count mismatch"):
+        validate_manifest(root, manifest_path)

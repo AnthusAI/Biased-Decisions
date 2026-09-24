@@ -16,6 +16,7 @@ from biased_decisions.engines.laya import build_question
 from biased_decisions.record import read_record, record_path
 from biased_decisions.tasks.base import DEFAULT_ROOT, Task
 from biased_decisions.tasks.bios import BIOS_TASKS
+from biased_decisions.subsample import subsample
 from biased_decisions.tasks.items import Item
 
 
@@ -131,13 +132,16 @@ def collect(root: Path = DEFAULT_ROOT, engine_name: str = "kev", task_slug: str 
             cue: str = "", *, engine: Any = None, model: str | None = None,
             provenance: Mapping | None = None, question_name: str | None = None,
             dry_run: bool = False, max_new_items: int | None = None,
-            progress: bool = True) -> dict:
-    """Collect one cell. ``dry_run`` only reads definitions and existing files."""
+            item_cap: int | None = None, progress: bool = True) -> dict:
+    """Collect one cell. ``dry_run`` only reads definitions and existing files.
+
+    ``item_cap`` answers only the first N item families of the registered subsample
+    (docs/subsample-preregistration.md); the record then covers exactly those inputs."""
     if max_new_items is not None and max_new_items < 1:
         raise ValueError("max_new_items must be positive")
     root = Path(root)
     task = load_definition(root, task_slug)
-    items = _items(task, cue)
+    items = subsample(_items(task, cue), task_slug, item_cap)
     qname = question_name or ("Occupation" if task_slug in BIOS_TASKS else "Decision")
     questions = _questions(task, cue, qname)
     path = record_path(engine_name, task_slug, cue, root=root)

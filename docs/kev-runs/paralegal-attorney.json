@@ -1,0 +1,76 @@
+{
+  "schema": "kev-coverage@1",
+  "checkpoint": "jaredpalmer/kev-0.8b@54f4f8777356cd5bbbb6c6919c657f26e6f2f6d8",
+  "cells": [
+    {
+      "task": "paralegal-attorney",
+      "cue": "disability",
+      "requests": 1000,
+      "status": "ready",
+      "files": {
+        "tasks/paralegal-attorney/question.yaml": "d9a2d53fb3e2247bbba4b9d48cb39279923a356d318c98c621d54164d1234e49",
+        "tasks/paralegal-attorney/items.jsonl": "4e33e064779389e99482f690a31a065d5285f6364fe876b2af8d0866ade06c89",
+        "tasks/paralegal-attorney/versions/disability.jsonl": "e23bec89ecc61e71852ae561a75c2edc48f5dfbc427c93f4891ca0ca75ef1a31"
+      },
+      "item_cap": 500
+    },
+    {
+      "task": "paralegal-attorney",
+      "cue": "religion",
+      "requests": 2500,
+      "status": "ready",
+      "files": {
+        "tasks/paralegal-attorney/question.yaml": "d9a2d53fb3e2247bbba4b9d48cb39279923a356d318c98c621d54164d1234e49",
+        "tasks/paralegal-attorney/items.jsonl": "4e33e064779389e99482f690a31a065d5285f6364fe876b2af8d0866ade06c89",
+        "tasks/paralegal-attorney/versions/religion.jsonl": "28b3fed8ae8cd84d1538e49c3ec87bafba3254de8f8f4d1d2fe3e2ecd4147208"
+      },
+      "item_cap": 500
+    },
+    {
+      "task": "paralegal-attorney",
+      "cue": "religion-v2",
+      "requests": 2500,
+      "status": "ready",
+      "files": {
+        "tasks/paralegal-attorney/question.yaml": "d9a2d53fb3e2247bbba4b9d48cb39279923a356d318c98c621d54164d1234e49",
+        "tasks/paralegal-attorney/items.jsonl": "4e33e064779389e99482f690a31a065d5285f6364fe876b2af8d0866ade06c89",
+        "tasks/paralegal-attorney/versions/religion-v2.jsonl": "aab9a1a768987ce3dc2b76145008fbb22f5714aeb6d8cfca2fdbff2b1274428f"
+      },
+      "item_cap": 500
+    },
+    {
+      "task": "paralegal-attorney",
+      "cue": "ask-twice",
+      "requests": 500,
+      "status": "ready",
+      "files": {
+        "tasks/paralegal-attorney/question.yaml": "d9a2d53fb3e2247bbba4b9d48cb39279923a356d318c98c621d54164d1234e49",
+        "tasks/paralegal-attorney/items.jsonl": "4e33e064779389e99482f690a31a065d5285f6364fe876b2af8d0866ade06c89"
+      },
+      "item_cap": 500
+    },
+    {
+      "task": "paralegal-attorney",
+      "cue": "option-order",
+      "requests": 500,
+      "status": "ready",
+      "files": {
+        "tasks/paralegal-attorney/question.yaml": "d9a2d53fb3e2247bbba4b9d48cb39279923a356d318c98c621d54164d1234e49",
+        "tasks/paralegal-attorney/items.jsonl": "4e33e064779389e99482f690a31a065d5285f6364fe876b2af8d0866ade06c89"
+      },
+      "item_cap": 500
+    },
+    {
+      "task": "paralegal-attorney",
+      "cue": "neutral",
+      "requests": 1000,
+      "status": "ready",
+      "files": {
+        "tasks/paralegal-attorney/question.yaml": "d9a2d53fb3e2247bbba4b9d48cb39279923a356d318c98c621d54164d1234e49",
+        "tasks/paralegal-attorney/items.jsonl": "4e33e064779389e99482f690a31a065d5285f6364fe876b2af8d0866ade06c89",
+        "tasks/paralegal-attorney/versions/neutral.jsonl": "15e474b80f0dc96ae66b1af545019a33591fbe2a4bd13ff0e547566b17240bcc"
+      },
+      "item_cap": 500
+    }
+  ]
+}

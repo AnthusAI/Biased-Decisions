@@ -221,3 +221,46 @@ def test_explicit_multi_noul_schema_preserves_question_ids_and_order(tmp_path):
     assert list(engine.calls[0][1]) == ["greed_q1", "competence_q2"]
     row = read_record(tmp_path / "answers" / "kev" / "multi-task" / "as-written.jsonl.gz")[0]
     assert list(row["answers"]) == ["greed_q1", "competence_q2"]
+
+
+def test_an_item_cap_plans_only_the_first_families_and_the_dry_run_counts_them(tmp_path):
+    make_task(tmp_path)
+    full = collect(tmp_path, "kev", "new-task", "gender-pronouns", engine=FakeEngine(), dry_run=True)
+    capped = collect(tmp_path, "kev", "new-task", "gender-pronouns", engine=FakeEngine(), dry_run=True,
+                     item_cap=1)
+    assert full["total"] == 3
+    assert capped["total"] in (1, 2)          # one family: i2 alone, or i1 with its twin
+    assert collect(tmp_path, "kev", "new-task", "gender-pronouns", engine=FakeEngine(), dry_run=True,
+                   item_cap=2)["total"] == 3
+
+
+def test_a_capped_collection_answers_only_the_sample_and_a_rerun_makes_no_calls(tmp_path):
+    make_task(tmp_path)
+    engine = FakeEngine()
+    result = collect(tmp_path, "kev", "new-task", "gender-pronouns", engine=engine, item_cap=1,
+                     provenance=FakeEngine.provenance_data | {"server_revision": "s", "base_revision": "b",
+                                                            "dtype": "f", "calibration": "1"})
+    assert result["complete"] and len(engine.calls) == result["total"]
+    rows = read_record(result["path"])
+    assert len(rows) == result["total"] < 3
+    again = FakeEngine()
+    collect(tmp_path, "kev", "new-task", "gender-pronouns", engine=again, item_cap=1,
+            provenance=FakeEngine.provenance_data | {"server_revision": "s", "base_revision": "b",
+                                                   "dtype": "f", "calibration": "1"})
+    assert again.calls == []
+
+
+def test_a_capped_record_is_not_silently_reused_for_the_full_cell(tmp_path):
+    make_task(tmp_path)
+    provenance = FakeEngine.provenance_data | {"server_revision": "s", "base_revision": "b",
+                                               "dtype": "f", "calibration": "1"}
+    collect(tmp_path, "kev", "new-task", "gender-pronouns", engine=FakeEngine(), item_cap=1,
+            provenance=provenance)
+    with pytest.raises(CollectionError):
+        collect(tmp_path, "kev", "new-task", "gender-pronouns", engine=FakeEngine(), provenance=provenance)
+
+
+def test_an_item_cap_below_one_is_refused(tmp_path):
+    make_task(tmp_path)
+    with pytest.raises(ValueError):
+        collect(tmp_path, "kev", "new-task", "gender-pronouns", engine=FakeEngine(), dry_run=True, item_cap=0)

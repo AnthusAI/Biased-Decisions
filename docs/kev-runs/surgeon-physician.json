@@ -1,0 +1,112 @@
+{
+  "schema": "kev-coverage@1",
+  "checkpoint": "jaredpalmer/kev-0.8b@54f4f8777356cd5bbbb6c6919c657f26e6f2f6d8",
+  "cells": [
+    {
+      "task": "surgeon-physician",
+      "cue": "race-name",
+      "requests": 1500,
+      "status": "ready",
+      "files": {
+        "tasks/surgeon-physician/question.yaml": "0a275d02c19011bf2342bb1528a6d8095dd2223f14dd359d41de3463a4e03fe9",
+        "tasks/surgeon-physician/items.jsonl": "bb4cd5fdc74a54f154b453a96c254c34c0fe5bfff15f1e0c4bec23c192531c0a",
+        "tasks/surgeon-physician/versions/race-name.jsonl": "6069085cc1d350cc3c42c327a26e4e902b1b0bef0e183ead2a9b6b71e7596644"
+      },
+      "item_cap": 500
+    },
+    {
+      "task": "surgeon-physician",
+      "cue": "race-fullname",
+      "requests": 8000,
+      "status": "ready",
+      "files": {
+        "tasks/surgeon-physician/question.yaml": "0a275d02c19011bf2342bb1528a6d8095dd2223f14dd359d41de3463a4e03fe9",
+        "tasks/surgeon-physician/items.jsonl": "bb4cd5fdc74a54f154b453a96c254c34c0fe5bfff15f1e0c4bec23c192531c0a",
+        "tasks/surgeon-physician/versions/race-fullname.jsonl": "73706c15800ac667a906afac9ab60b975d92e6d603ba23025cf8ab23450e87c2"
+      },
+      "item_cap": 500
+    },
+    {
+      "task": "surgeon-physician",
+      "cue": "age-inserted",
+      "requests": 2000,
+      "status": "ready",
+      "files": {
+        "tasks/surgeon-physician/question.yaml": "0a275d02c19011bf2342bb1528a6d8095dd2223f14dd359d41de3463a4e03fe9",
+        "tasks/surgeon-physician/items.jsonl": "bb4cd5fdc74a54f154b453a96c254c34c0fe5bfff15f1e0c4bec23c192531c0a",
+        "tasks/surgeon-physician/versions/age-inserted.jsonl": "ede5d41c67e4c7113dba465eaa3a7522015743f1db09c198d002d015d897b3de"
+      },
+      "item_cap": 500
+    },
+    {
+      "task": "surgeon-physician",
+      "cue": "disability",
+      "requests": 1000,
+      "status": "ready",
+      "files": {
+        "tasks/surgeon-physician/question.yaml": "0a275d02c19011bf2342bb1528a6d8095dd2223f14dd359d41de3463a4e03fe9",
+        "tasks/surgeon-physician/items.jsonl": "bb4cd5fdc74a54f154b453a96c254c34c0fe5bfff15f1e0c4bec23c192531c0a",
+        "tasks/surgeon-physician/versions/disability.jsonl": "88b0e1fbcd9444fafd4b59b3d8b3143f5e549448690a8a172a2b8c83bd54b77c"
+      },
+      "item_cap": 500
+    },
+    {
+      "task": "surgeon-physician",
+      "cue": "religion",
+      "requests": 2500,
+      "status": "ready",
+      "files": {
+        "tasks/surgeon-physician/question.yaml": "0a275d02c19011bf2342bb1528a6d8095dd2223f14dd359d41de3463a4e03fe9",
+        "tasks/surgeon-physician/items.jsonl": "bb4cd5fdc74a54f154b453a96c254c34c0fe5bfff15f1e0c4bec23c192531c0a",
+        "tasks/surgeon-physician/versions/religion.jsonl": "ea03b0973fd7cc4412b530cda19b71ee51a1d551bb2d2b758844a624097f413f"
+      },
+      "item_cap": 500
+    },
+    {
+      "task": "surgeon-physician",
+      "cue": "religion-v2",
+      "requests": 2500,
+      "status": "ready",
+      "files": {
+        "tasks/surgeon-physician/question.yaml": "0a275d02c19011bf2342bb1528a6d8095dd2223f14dd359d41de3463a4e03fe9",
+        "tasks/surgeon-physician/items.jsonl": "bb4cd5fdc74a54f154b453a96c254c34c0fe5bfff15f1e0c4bec23c192531c0a",
+        "tasks/surgeon-physician/versions/religion-v2.jsonl": "07a6ad3340c945c48dc7c4f9a6bc62f216042ae1e5ef0ae7dbd28cfca5f0d8e8"
+      },
+      "item_cap": 500
+    },
+    {
+      "task": "surgeon-physician",
+      "cue": "ask-twice",
+      "requests": 500,
+      "status": "ready",
+      "files": {
+        "tasks/surgeon-physician/question.yaml": "0a275d02c19011bf2342bb1528a6d8095dd2223f14dd359d41de3463a4e03fe9",
+        "tasks/surgeon-physician/items.jsonl": "bb4cd5fdc74a54f154b453a96c254c34c0fe5bfff15f1e0c4bec23c192531c0a"
+      },
+      "item_cap": 500
+    },
+    {
+      "task": "surgeon-physician",
+      "cue": "option-order",
+      "requests": 500,
+      "status": "ready",
+      "files": {
+        "tasks/surgeon-physician/question.yaml": "0a275d02c19011bf2342bb1528a6d8095dd2223f14dd359d41de3463a4e03fe9",
+        "tasks/surgeon-physician/items.jsonl": "bb4cd5fdc74a54f154b453a96c254c34c0fe5bfff15f1e0c4bec23c192531c0a"
+      },
+      "item_cap": 500
+    },
+    {
+      "task": "surgeon-physician",
+      "cue": "neutral",
+      "requests": 998,
+      "status": "ready",
+      "files": {
+        "tasks/surgeon-physician/question.yaml": "0a275d02c19011bf2342bb1528a6d8095dd2223f14dd359d41de3463a4e03fe9",
+        "tasks/surgeon-physician/items.jsonl": "bb4cd5fdc74a54f154b453a96c254c34c0fe5bfff15f1e0c4bec23c192531c0a",
+        "tasks/surgeon-physician/versions/neutral.jsonl": "8a18517454176e39ae1cefa4343b0a8fe6dbd1556365e4d27d6539b1063acbd3"
+      },
+      "item_cap": 500
+    }
+  ]
+}

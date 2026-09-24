@@ -62,11 +62,13 @@ def validate_manifest(root: Path, manifest_path: Path, *,
                 raise ValueError(f"pinned input hash changed: {relative}")
 
     if dry_run_cell is None:
-        dry_run_cell = lambda root, task, cue: collect(
-            root, "kev", task, collection_cue(cue), dry_run=True)
+        dry_run_cell = lambda root, task, cue, item_cap=None: collect(
+            root, "kev", task, collection_cue(cue), dry_run=True, item_cap=item_cap)
     total = 0
     for cell in manifest["cells"]:
-        result = dry_run_cell(root, cell["task"], cell["cue"])
+        cap = cell.get("item_cap")
+        result = (dry_run_cell(root, cell["task"], cell["cue"], cap) if cap
+                  else dry_run_cell(root, cell["task"], cell["cue"]))
         if result.get("total") != cell.get("requests"):
             raise ValueError(
                 f"request count mismatch for {cell['task']}/{cell['cue']}: "
@@ -253,7 +255,8 @@ def main(argv=None, *, engine_factory: Callable | None = None,
         for cell in manifest["cells"]:
             results.append(collect(args.root, "kev", cell["task"], collection_cue(cell["cue"]), engine=engine,
                                    model=args.model, provenance=provenance,
-                                   max_new_items=args.max_new_items))
+                                   max_new_items=args.max_new_items,
+                                   item_cap=cell.get("item_cap")))
         print(json.dumps({"mode": args.mode, "cells": len(results), "requests": planned,
                           "complete": all(result["complete"] for result in results)}, sort_keys=True))
         return 0
