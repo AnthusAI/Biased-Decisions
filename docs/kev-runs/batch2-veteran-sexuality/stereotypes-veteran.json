@@ -1,0 +1,18 @@
+{
+  "schema": "kev-coverage@1",
+  "checkpoint": "jaredpalmer/kev-0.8b@54f4f8777356cd5bbbb6c6919c657f26e6f2f6d8",
+  "cells": [
+    {
+      "task": "stereotypes-veteran",
+      "cue": "veteran",
+      "requests": 1521,
+      "status": "ready",
+      "files": {
+        "tasks/stereotypes-veteran/question.yaml": "ef017e21140e46f4ae08fd4eb1413edbb5975e670b484e0b33830113ac70f59f",
+        "tasks/stereotypes-veteran/items.jsonl": "61d86f92be4feac94e4756e9c25521700b283590e1d80eb5e30ffe25636fc512",
+        "tasks/stereotypes-veteran/versions/veteran.jsonl": "76f5f290c6a18edeae3b1fe13c981b527e5ba0b47117dd4e17ef50767bfcb58b"
+      },
+      "item_cap": 500
+    }
+  ]
+}
