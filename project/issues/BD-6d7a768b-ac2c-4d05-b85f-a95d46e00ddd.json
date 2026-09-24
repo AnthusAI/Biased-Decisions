@@ -1,7 +1,7 @@
 {
   "id": "BD-6d7a768b-ac2c-4d05-b85f-a95d46e00ddd",
   "title": "Run Kev: teacher-professor (6 cells, 5500 requests)",
-  "description": "**Self-contained run.** Give this issue ID to an agent on any Mac; it does the whole job by following the runbook in **BD-dd780c** (`kbs show BD-dd780c`).\n\n**Job:** answer the registered 500-item subsample of the still-missing Kev cells for `teacher-professor`: 6 cells, exactly 7994 requests (manifest `docs/kev-runs/teacher-professor.json`, on main), roughly 12 minutes on a quiet Mac.\n\n**Steps** (details and exact commands in the runbook)\n1. Pull main. One-time setup if this Mac has not done a run.\n2. Start the pinned Kev server, run `run_kev_study collect --manifest docs/kev-runs/teacher-professor.json` with the runbook's identity flags. It resumes if interrupted.\n3. Commit only the finished files under `answers/kev/teacher-professor/` (never `.partial.jsonl`) to branch `runs/<this issue id>` and push that branch. Not main. No `bd replay`.\n4. Comment the request count and any errors here, then close.\n\n**Rules:** one heavy job at a time on the machine; stop the Kev server when done; never touch `project/`.",
+  "description": "**Self-contained run.** Give this issue ID to an agent on any Mac; it does the whole job by following the runbook in **BD-dd780c** (`kbs show BD-dd780c`). This repository uses Git Flow: work from `develop`, never push to `main`.\n\n**Job:** answer the registered 500-item subsample of the still-missing Kev cells for `teacher-professor`: 6 cells, exactly 7994 requests (manifest `docs/kev-runs/teacher-professor.json` on `develop`), roughly 12 minutes on a quiet Mac.\n\n**Steps** (details and exact commands in the runbook)\n1. `git checkout develop && git pull`. One-time setup if this Mac has not done a run.\n2. Start the pinned Kev server, run `run_kev_study collect --manifest docs/kev-runs/teacher-professor.json` with the runbook's identity flags. It resumes if interrupted.\n3. Commit only the finished files under `answers/kev/teacher-professor/` (never `.partial.jsonl`) to branch `runs/<this issue id>` and push that branch. No `bd replay`.\n4. Back on `develop`: comment the request count and any errors here, close it, `kbs commit`, push `develop`.\n\n**Rules:** one heavy job at a time on the machine; stop the Kev server when done; never touch `project/` directly.",
   "type": "task",
   "status": "open",
   "priority": 2,
@@ -40,7 +40,7 @@
     }
   ],
   "created_at": "2026-09-24T19:29:33.323494Z",
-  "updated_at": "2026-09-24T20:03:45.413242Z",
+  "updated_at": "2026-09-24T21:24:18.471250Z",
   "closed_at": null,
   "agent": {
     "platform": "claude_code",
