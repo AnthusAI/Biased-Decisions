@@ -1,3 +1,10 @@
+## [1.24.1](https://github.com/AnthusAI/Biased-Decisions/compare/v1.24.0...v1.24.1) (2026-09-24)
+
+
+### Bug Fixes
+
+* **site:** sync social previews with page introductions ([a95c588](https://github.com/AnthusAI/Biased-Decisions/commit/a95c588839c90d878b308809dbabb18c78ed9d8d))
+
 # [1.24.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.23.1...v1.24.0) (2026-09-24)
 
 
