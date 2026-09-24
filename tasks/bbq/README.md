@@ -68,7 +68,7 @@ compares the bytes. Committed size: about 11 MB.
 
 ## The subsample
 
-The full set is 58,492 rows (about 45 MB of text, 117,000 texts once each row is asked two ways), too
+The full set is 58,492 rows (about 51 MB of text, 117,000 texts once each row is asked two ways), too
 large to commit. Rule: per category and context condition, **150 items from each of two strata, 300 in
 all**, chosen by the smallest sha256 of `seed|category, condition and stratum|(example id, question
 index)` (seed 20260924). The hash never sees the answer tags, the stereotyped groups or the text, so the

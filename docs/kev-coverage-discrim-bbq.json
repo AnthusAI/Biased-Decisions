@@ -1,0 +1,281 @@
+{
+  "schema": "kev-coverage@1",
+  "checkpoint": "jaredpalmer/kev-0.8b@54f4f8777356cd5bbbb6c6919c657f26e6f2f6d8",
+  "cells": [
+    {
+      "task": "discrim-eval",
+      "cue": "race",
+      "requests": 2800,
+      "status": "ready",
+      "files": {
+        "tasks/discrim-eval/question.yaml": "11def1431c742a16529a337b48f870da1650f718bb5d2ce0c89d192f606c5da5",
+        "tasks/discrim-eval/items.jsonl": "bd92e52d30dd601c572d7ca7962ae77f8be5f284a3e9d176095edef6f1f32afc",
+        "tasks/discrim-eval/versions/race.jsonl": "8b99ee529dc8b6787d212c82da82b076cf14a15b9a24bb0c3b44c71e26f7b1c3"
+      }
+    },
+    {
+      "task": "discrim-eval",
+      "cue": "gender",
+      "requests": 1680,
+      "status": "ready",
+      "files": {
+        "tasks/discrim-eval/question.yaml": "11def1431c742a16529a337b48f870da1650f718bb5d2ce0c89d192f606c5da5",
+        "tasks/discrim-eval/items.jsonl": "bd92e52d30dd601c572d7ca7962ae77f8be5f284a3e9d176095edef6f1f32afc",
+        "tasks/discrim-eval/versions/gender.jsonl": "51e527b88b47b11966c7df9264e0e95e97f6359087d4024b0be4fe7f44fce859"
+      }
+    },
+    {
+      "task": "discrim-eval",
+      "cue": "age",
+      "requests": 5040,
+      "status": "ready",
+      "files": {
+        "tasks/discrim-eval/question.yaml": "11def1431c742a16529a337b48f870da1650f718bb5d2ce0c89d192f606c5da5",
+        "tasks/discrim-eval/items.jsonl": "bd92e52d30dd601c572d7ca7962ae77f8be5f284a3e9d176095edef6f1f32afc",
+        "tasks/discrim-eval/versions/age.jsonl": "e14c1dddf68db3b6bda2ac6dcfd59b5ee2ca67f022a19c1627a22e960b8b4bde"
+      }
+    },
+    {
+      "task": "bbq",
+      "cue": "age-ambig",
+      "requests": 600,
+      "status": "ready",
+      "files": {
+        "tasks/bbq/question.yaml": "af1aaea2118f8d0557881207a7ab32169c588cbf3a8e538973b32c96cefd3873",
+        "tasks/bbq/items.jsonl": "c3ebc0fa6a38a29e013013a1a875de3d06854814ffaa02fb0f7e9f55d6824c6e",
+        "tasks/bbq/versions/age-ambig.jsonl": "ab1f4086f405c58cfa65f7966fc0260763c7be49d81b1964938ed2bf1a10fab0"
+      }
+    },
+    {
+      "task": "bbq",
+      "cue": "age-disambig",
+      "requests": 600,
+      "status": "ready",
+      "files": {
+        "tasks/bbq/question.yaml": "af1aaea2118f8d0557881207a7ab32169c588cbf3a8e538973b32c96cefd3873",
+        "tasks/bbq/items.jsonl": "c3ebc0fa6a38a29e013013a1a875de3d06854814ffaa02fb0f7e9f55d6824c6e",
+        "tasks/bbq/versions/age-disambig.jsonl": "49bd72e05e80914271f98d84da283c33fc2ec8208d96d8146b9bda2f61ae02cb"
+      }
+    },
+    {
+      "task": "bbq",
+      "cue": "disability-status-ambig",
+      "requests": 600,
+      "status": "ready",
+      "files": {
+        "tasks/bbq/question.yaml": "af1aaea2118f8d0557881207a7ab32169c588cbf3a8e538973b32c96cefd3873",
+        "tasks/bbq/items.jsonl": "c3ebc0fa6a38a29e013013a1a875de3d06854814ffaa02fb0f7e9f55d6824c6e",
+        "tasks/bbq/versions/disability-status-ambig.jsonl": "8c7f5b9a6339f3d78f12f234998b550337bc8f5f62b0cf451231f31bc105aabb"
+      }
+    },
+    {
+      "task": "bbq",
+      "cue": "disability-status-disambig",
+      "requests": 600,
+      "status": "ready",
+      "files": {
+        "tasks/bbq/question.yaml": "af1aaea2118f8d0557881207a7ab32169c588cbf3a8e538973b32c96cefd3873",
+        "tasks/bbq/items.jsonl": "c3ebc0fa6a38a29e013013a1a875de3d06854814ffaa02fb0f7e9f55d6824c6e",
+        "tasks/bbq/versions/disability-status-disambig.jsonl": "194c5b1ca2450d44d9ebcfd38bb9d9c3e356b6264ecd9bba9169a34895dadce3"
+      }
+    },
+    {
+      "task": "bbq",
+      "cue": "gender-identity-ambig",
+      "requests": 600,
+      "status": "ready",
+      "files": {
+        "tasks/bbq/question.yaml": "af1aaea2118f8d0557881207a7ab32169c588cbf3a8e538973b32c96cefd3873",
+        "tasks/bbq/items.jsonl": "c3ebc0fa6a38a29e013013a1a875de3d06854814ffaa02fb0f7e9f55d6824c6e",
+        "tasks/bbq/versions/gender-identity-ambig.jsonl": "0e46cc611b5eedbf2afcf84a2ea3fe86a2e00770caa82c940a7f83ee5721a922"
+      }
+    },
+    {
+      "task": "bbq",
+      "cue": "gender-identity-disambig",
+      "requests": 600,
+      "status": "ready",
+      "files": {
+        "tasks/bbq/question.yaml": "af1aaea2118f8d0557881207a7ab32169c588cbf3a8e538973b32c96cefd3873",
+        "tasks/bbq/items.jsonl": "c3ebc0fa6a38a29e013013a1a875de3d06854814ffaa02fb0f7e9f55d6824c6e",
+        "tasks/bbq/versions/gender-identity-disambig.jsonl": "86ea710df7ebee229dc0a869f07cb07eba8a8cd42ca03703ad16eb16d6b1e486"
+      }
+    },
+    {
+      "task": "bbq",
+      "cue": "nationality-ambig",
+      "requests": 600,
+      "status": "ready",
+      "files": {
+        "tasks/bbq/question.yaml": "af1aaea2118f8d0557881207a7ab32169c588cbf3a8e538973b32c96cefd3873",
+        "tasks/bbq/items.jsonl": "c3ebc0fa6a38a29e013013a1a875de3d06854814ffaa02fb0f7e9f55d6824c6e",
+        "tasks/bbq/versions/nationality-ambig.jsonl": "46f2a21be3a923b91b8d7f52f3f4aef276bb142ca5abf55e5f97bff8b4d3d8ff"
+      }
+    },
+    {
+      "task": "bbq",
+      "cue": "nationality-disambig",
+      "requests": 600,
+      "status": "ready",
+      "files": {
+        "tasks/bbq/question.yaml": "af1aaea2118f8d0557881207a7ab32169c588cbf3a8e538973b32c96cefd3873",
+        "tasks/bbq/items.jsonl": "c3ebc0fa6a38a29e013013a1a875de3d06854814ffaa02fb0f7e9f55d6824c6e",
+        "tasks/bbq/versions/nationality-disambig.jsonl": "667f66d700ee14b09b62263b280343becb581f50e947f33a5e6a215ac22b10a6"
+      }
+    },
+    {
+      "task": "bbq",
+      "cue": "physical-appearance-ambig",
+      "requests": 600,
+      "status": "ready",
+      "files": {
+        "tasks/bbq/question.yaml": "af1aaea2118f8d0557881207a7ab32169c588cbf3a8e538973b32c96cefd3873",
+        "tasks/bbq/items.jsonl": "c3ebc0fa6a38a29e013013a1a875de3d06854814ffaa02fb0f7e9f55d6824c6e",
+        "tasks/bbq/versions/physical-appearance-ambig.jsonl": "45779225451a224b81bb5c93d2c156060c84260926d6ef8285b919f22ea7233f"
+      }
+    },
+    {
+      "task": "bbq",
+      "cue": "physical-appearance-disambig",
+      "requests": 600,
+      "status": "ready",
+      "files": {
+        "tasks/bbq/question.yaml": "af1aaea2118f8d0557881207a7ab32169c588cbf3a8e538973b32c96cefd3873",
+        "tasks/bbq/items.jsonl": "c3ebc0fa6a38a29e013013a1a875de3d06854814ffaa02fb0f7e9f55d6824c6e",
+        "tasks/bbq/versions/physical-appearance-disambig.jsonl": "239f0f88b720685954b31ea87d02c5ee88274533ca340e28fe280ed8df2edc1f"
+      }
+    },
+    {
+      "task": "bbq",
+      "cue": "race-ethnicity-ambig",
+      "requests": 600,
+      "status": "ready",
+      "files": {
+        "tasks/bbq/question.yaml": "af1aaea2118f8d0557881207a7ab32169c588cbf3a8e538973b32c96cefd3873",
+        "tasks/bbq/items.jsonl": "c3ebc0fa6a38a29e013013a1a875de3d06854814ffaa02fb0f7e9f55d6824c6e",
+        "tasks/bbq/versions/race-ethnicity-ambig.jsonl": "0b61823c3715ec337458077832bc3a3ab44d1540552257d96c6c3572609cb13c"
+      }
+    },
+    {
+      "task": "bbq",
+      "cue": "race-ethnicity-disambig",
+      "requests": 600,
+      "status": "ready",
+      "files": {
+        "tasks/bbq/question.yaml": "af1aaea2118f8d0557881207a7ab32169c588cbf3a8e538973b32c96cefd3873",
+        "tasks/bbq/items.jsonl": "c3ebc0fa6a38a29e013013a1a875de3d06854814ffaa02fb0f7e9f55d6824c6e",
+        "tasks/bbq/versions/race-ethnicity-disambig.jsonl": "c708d7407bfc03b2cfdb2bf1c2ef436453c29881102ba63a96fdfe861447977f"
+      }
+    },
+    {
+      "task": "bbq",
+      "cue": "race-x-ses-ambig",
+      "requests": 600,
+      "status": "ready",
+      "files": {
+        "tasks/bbq/question.yaml": "af1aaea2118f8d0557881207a7ab32169c588cbf3a8e538973b32c96cefd3873",
+        "tasks/bbq/items.jsonl": "c3ebc0fa6a38a29e013013a1a875de3d06854814ffaa02fb0f7e9f55d6824c6e",
+        "tasks/bbq/versions/race-x-ses-ambig.jsonl": "9070c29131bf1c8bba8b59eee343547af771e4a5793b730026802096a22e4f32"
+      }
+    },
+    {
+      "task": "bbq",
+      "cue": "race-x-ses-disambig",
+      "requests": 600,
+      "status": "ready",
+      "files": {
+        "tasks/bbq/question.yaml": "af1aaea2118f8d0557881207a7ab32169c588cbf3a8e538973b32c96cefd3873",
+        "tasks/bbq/items.jsonl": "c3ebc0fa6a38a29e013013a1a875de3d06854814ffaa02fb0f7e9f55d6824c6e",
+        "tasks/bbq/versions/race-x-ses-disambig.jsonl": "b414da7d4029bcbdde1bb25085a259b452ce6a834baf380acc8a3c5aba519e72"
+      }
+    },
+    {
+      "task": "bbq",
+      "cue": "race-x-gender-ambig",
+      "requests": 600,
+      "status": "ready",
+      "files": {
+        "tasks/bbq/question.yaml": "af1aaea2118f8d0557881207a7ab32169c588cbf3a8e538973b32c96cefd3873",
+        "tasks/bbq/items.jsonl": "c3ebc0fa6a38a29e013013a1a875de3d06854814ffaa02fb0f7e9f55d6824c6e",
+        "tasks/bbq/versions/race-x-gender-ambig.jsonl": "4be640d812af7766d6cb1604f5566557d72d4846ac0a0347e58c1e6df54d9f8e"
+      }
+    },
+    {
+      "task": "bbq",
+      "cue": "race-x-gender-disambig",
+      "requests": 600,
+      "status": "ready",
+      "files": {
+        "tasks/bbq/question.yaml": "af1aaea2118f8d0557881207a7ab32169c588cbf3a8e538973b32c96cefd3873",
+        "tasks/bbq/items.jsonl": "c3ebc0fa6a38a29e013013a1a875de3d06854814ffaa02fb0f7e9f55d6824c6e",
+        "tasks/bbq/versions/race-x-gender-disambig.jsonl": "cc0680c2c48fad0db0fa3a9414385e9ea6ea00f792103ea0b45b4187de5f0289"
+      }
+    },
+    {
+      "task": "bbq",
+      "cue": "religion-ambig",
+      "requests": 600,
+      "status": "ready",
+      "files": {
+        "tasks/bbq/question.yaml": "af1aaea2118f8d0557881207a7ab32169c588cbf3a8e538973b32c96cefd3873",
+        "tasks/bbq/items.jsonl": "c3ebc0fa6a38a29e013013a1a875de3d06854814ffaa02fb0f7e9f55d6824c6e",
+        "tasks/bbq/versions/religion-ambig.jsonl": "d533b42f15bfa596983dc28b06967bbe578e3b2d2f9f2d15822b209102ea6129"
+      }
+    },
+    {
+      "task": "bbq",
+      "cue": "religion-disambig",
+      "requests": 600,
+      "status": "ready",
+      "files": {
+        "tasks/bbq/question.yaml": "af1aaea2118f8d0557881207a7ab32169c588cbf3a8e538973b32c96cefd3873",
+        "tasks/bbq/items.jsonl": "c3ebc0fa6a38a29e013013a1a875de3d06854814ffaa02fb0f7e9f55d6824c6e",
+        "tasks/bbq/versions/religion-disambig.jsonl": "59b9ab7cb5a74835c16d90d52c5e6d60fc89e023ed6bd19254850d724053af49"
+      }
+    },
+    {
+      "task": "bbq",
+      "cue": "ses-ambig",
+      "requests": 600,
+      "status": "ready",
+      "files": {
+        "tasks/bbq/question.yaml": "af1aaea2118f8d0557881207a7ab32169c588cbf3a8e538973b32c96cefd3873",
+        "tasks/bbq/items.jsonl": "c3ebc0fa6a38a29e013013a1a875de3d06854814ffaa02fb0f7e9f55d6824c6e",
+        "tasks/bbq/versions/ses-ambig.jsonl": "984c8802ef46ed44cccfa6aca986cea49749254e4a28a6dca3430a9403504190"
+      }
+    },
+    {
+      "task": "bbq",
+      "cue": "ses-disambig",
+      "requests": 600,
+      "status": "ready",
+      "files": {
+        "tasks/bbq/question.yaml": "af1aaea2118f8d0557881207a7ab32169c588cbf3a8e538973b32c96cefd3873",
+        "tasks/bbq/items.jsonl": "c3ebc0fa6a38a29e013013a1a875de3d06854814ffaa02fb0f7e9f55d6824c6e",
+        "tasks/bbq/versions/ses-disambig.jsonl": "c62a6ac5add90e012e4efd4974414154cd2c81d69a2bb07527f9c85654f7b265"
+      }
+    },
+    {
+      "task": "bbq",
+      "cue": "sexual-orientation-ambig",
+      "requests": 600,
+      "status": "ready",
+      "files": {
+        "tasks/bbq/question.yaml": "af1aaea2118f8d0557881207a7ab32169c588cbf3a8e538973b32c96cefd3873",
+        "tasks/bbq/items.jsonl": "c3ebc0fa6a38a29e013013a1a875de3d06854814ffaa02fb0f7e9f55d6824c6e",
+        "tasks/bbq/versions/sexual-orientation-ambig.jsonl": "61ec6dc5d5f6e6ecbf8afa4fa5284fab577450fc94dfc0cde939e7d48c8419a9"
+      }
+    },
+    {
+      "task": "bbq",
+      "cue": "sexual-orientation-disambig",
+      "requests": 600,
+      "status": "ready",
+      "files": {
+        "tasks/bbq/question.yaml": "af1aaea2118f8d0557881207a7ab32169c588cbf3a8e538973b32c96cefd3873",
+        "tasks/bbq/items.jsonl": "c3ebc0fa6a38a29e013013a1a875de3d06854814ffaa02fb0f7e9f55d6824c6e",
+        "tasks/bbq/versions/sexual-orientation-disambig.jsonl": "70121a9bdd4b13a3d3a80ef898bc2b1be0d462ebeff09ec2c931fa8bec29b1e3"
+      }
+    }
+  ]
+}

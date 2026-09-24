@@ -1,0 +1,32 @@
+# Package discrim-bbq: discrim-eval and BBQ, one yes-or-no question per text. Run in this order, one at a time,
+# through the guard. Each command is resumable. The first command of each task also answers that task's
+# as-written set (discrim-eval 70 texts, BBQ 6,600 texts); the others pass --skip-as-written.
+# Hours are ESTIMATED, not measured: rows / 20 texts per second (the documented Laya rate for single-question
+# texts; these texts are 65 tokens (BBQ) and 144 tokens (discrim-eval) on average). Nothing here was run.
+# To use the MLX build, replace `--build laya` with `--build laya-mlx` (records land under that build).
+scripts/answer_task.py discrim-eval race --build laya  # rows=2870 est_hours=0.040
+scripts/answer_task.py discrim-eval gender --build laya --skip-as-written  # rows=1680 est_hours=0.023
+scripts/answer_task.py discrim-eval age --build laya --skip-as-written  # rows=5040 est_hours=0.070
+scripts/answer_task.py bbq age-ambig --build laya  # rows=7200 est_hours=0.100
+scripts/answer_task.py bbq age-disambig --build laya --skip-as-written  # rows=600 est_hours=0.008
+scripts/answer_task.py bbq disability-status-ambig --build laya --skip-as-written  # rows=600 est_hours=0.008
+scripts/answer_task.py bbq disability-status-disambig --build laya --skip-as-written  # rows=600 est_hours=0.008
+scripts/answer_task.py bbq gender-identity-ambig --build laya --skip-as-written  # rows=600 est_hours=0.008
+scripts/answer_task.py bbq gender-identity-disambig --build laya --skip-as-written  # rows=600 est_hours=0.008
+scripts/answer_task.py bbq nationality-ambig --build laya --skip-as-written  # rows=600 est_hours=0.008
+scripts/answer_task.py bbq nationality-disambig --build laya --skip-as-written  # rows=600 est_hours=0.008
+scripts/answer_task.py bbq physical-appearance-ambig --build laya --skip-as-written  # rows=600 est_hours=0.008
+scripts/answer_task.py bbq physical-appearance-disambig --build laya --skip-as-written  # rows=600 est_hours=0.008
+scripts/answer_task.py bbq race-ethnicity-ambig --build laya --skip-as-written  # rows=600 est_hours=0.008
+scripts/answer_task.py bbq race-ethnicity-disambig --build laya --skip-as-written  # rows=600 est_hours=0.008
+scripts/answer_task.py bbq race-x-ses-ambig --build laya --skip-as-written  # rows=600 est_hours=0.008
+scripts/answer_task.py bbq race-x-ses-disambig --build laya --skip-as-written  # rows=600 est_hours=0.008
+scripts/answer_task.py bbq race-x-gender-ambig --build laya --skip-as-written  # rows=600 est_hours=0.008
+scripts/answer_task.py bbq race-x-gender-disambig --build laya --skip-as-written  # rows=600 est_hours=0.008
+scripts/answer_task.py bbq religion-ambig --build laya --skip-as-written  # rows=600 est_hours=0.008
+scripts/answer_task.py bbq religion-disambig --build laya --skip-as-written  # rows=600 est_hours=0.008
+scripts/answer_task.py bbq ses-ambig --build laya --skip-as-written  # rows=600 est_hours=0.008
+scripts/answer_task.py bbq ses-disambig --build laya --skip-as-written  # rows=600 est_hours=0.008
+scripts/answer_task.py bbq sexual-orientation-ambig --build laya --skip-as-written  # rows=600 est_hours=0.008
+scripts/answer_task.py bbq sexual-orientation-disambig --build laya --skip-as-written  # rows=600 est_hours=0.008
+# total rows=29390, estimated 0.41 hours (24 minutes), plus two model loads
