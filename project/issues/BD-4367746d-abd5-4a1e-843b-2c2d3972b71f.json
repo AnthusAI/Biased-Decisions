@@ -1,0 +1,28 @@
+{
+  "id": "BD-4367746d-abd5-4a1e-843b-2c2d3972b71f",
+  "title": "Run Kev: stereotypes (batch2-veteran-sexuality, 2 cells, 7,070 requests)",
+  "description": "**Part of epic BD-72c708: follow its instructions and the runbook in BD-dd780c.** Work from `develop`; never push to `main`.\n\n**Job:** Kev first pass on `stereotypes` (batch2-veteran-sexuality): 2 cells, exactly 7,070 requests, about 11 minutes.\n**Manifest:** `docs/kev-runs/batch2-veteran-sexuality/stereotypes.json` (on `develop`).\n**Writes:** `answers/kev/stereotypes/`. Branch: `runs/<this issue id>`.\n**Then:** comment the request count and any error here, close, `kbs commit`, push `develop`.",
+  "type": "task",
+  "status": "open",
+  "priority": 2,
+  "assignee": null,
+  "creator": null,
+  "parent": "BD-72c7086b-2910-49f2-88f3-1eb23b50d474",
+  "labels": [
+    "run",
+    "model-kev"
+  ],
+  "dependencies": [],
+  "comments": [],
+  "created_at": "2026-09-24T23:15:32.147612Z",
+  "updated_at": "2026-09-24T23:15:32.147635Z",
+  "closed_at": null,
+  "agent": {
+    "platform": "claude_code",
+    "model": "Claude Sonnet 5",
+    "name": "Biased Decisions"
+  },
+  "right_now_summary": null,
+  "right_now_updated_at": null,
+  "custom": {}
+}

@@ -1,0 +1,28 @@
+{
+  "id": "BD-386a0799-2aac-48d6-bdd4-daf1c1958032",
+  "title": "Run Kev: stereotypes-antisemitism (antisemitism, 6 cells, 10,509 requests)",
+  "description": "**Part of epic BD-72c708: follow its instructions and the runbook in BD-dd780c.** Work from `develop`; never push to `main`.\n\n**Job:** Kev first pass on `stereotypes-antisemitism` (antisemitism): 6 cells, exactly 10,509 requests, about 16 minutes.\n**Manifest:** `docs/kev-runs/antisemitism/stereotypes-antisemitism.json` (on `develop`).\n**Writes:** `answers/kev/stereotypes-antisemitism/`. Branch: `runs/<this issue id>`.\n**Then:** comment the request count and any error here, close, `kbs commit`, push `develop`.",
+  "type": "task",
+  "status": "open",
+  "priority": 2,
+  "assignee": null,
+  "creator": null,
+  "parent": "BD-72c7086b-2910-49f2-88f3-1eb23b50d474",
+  "labels": [
+    "run",
+    "model-kev"
+  ],
+  "dependencies": [],
+  "comments": [],
+  "created_at": "2026-09-24T23:15:32.282912Z",
+  "updated_at": "2026-09-24T23:15:32.282932Z",
+  "closed_at": null,
+  "agent": {
+    "platform": "claude_code",
+    "model": "Claude Sonnet 5",
+    "name": "Biased Decisions"
+  },
+  "right_now_summary": null,
+  "right_now_updated_at": null,
+  "custom": {}
+}
