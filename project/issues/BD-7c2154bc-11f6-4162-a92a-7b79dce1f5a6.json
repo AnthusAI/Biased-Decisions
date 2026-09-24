@@ -3,7 +3,7 @@
   "title": "Run Kev: surgeon-physician (9 cells, 8500 requests)",
   "description": "**Self-contained run.** Give this issue ID to an agent on any Mac; it does the whole job.\n\n**Job:** answer the capped subsample of the still-missing Kev cells for `surgeon-physician`: 9 cells, 8500 requests, roughly 13 minutes on a quiet Mac.\n\n**Steps**\n1. Read `docs/other-mac-runs.md` and follow it for setup (needs the amendment BD-c36da3, the runner change BD-3b4c76 and the guide BD-dd780c merged to main first).\n2. Start the pinned Kev server, then run `python3 -m scripts.run_kev_study collect --manifest docs/kev-runs/surgeon-physician.json` with the registered identity flags from `docs/kev.md`. It resumes from partial files if interrupted.\n3. Commit only the finished files under `answers/kev/surgeon-physician/` (never `.partial.jsonl`) to branch `runs/<this issue id>` and push that branch. Do not merge to main. Do not run `bd replay`.\n4. Comment on this issue with the request count and any errors, then close it.\n\n**Rules:** one heavy job at a time on the machine; stop the Kev server when done; never touch `project/`.",
   "type": "task",
-  "status": "open",
+  "status": "in_progress",
   "priority": 2,
   "assignee": null,
   "creator": null,
@@ -25,17 +25,32 @@
         "model": "Claude Sonnet 5",
         "name": "Biased Decisions"
       }
+    },
+    {
+      "id": "5f04adad-68ce-4169-a343-3ebce2da401e",
+      "author": "ryan",
+      "text": "Started on branch runs/BD-7c2154bc-11f6-4162-a92a-7b79dce1f5a6 after updating Kanbus to 0.32.0. Pulled main at 9e52b3c and confirmed the surgeon-physician manifest is 9 cells / 19,498 requests at the registered 500-item cap. Following docs/other-mac-runs.md; will record collection outcomes here.",
+      "created_at": "2026-09-24T20:05:23.556316Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "codex",
+        "model": "GPT-5",
+        "name": "Biased-Decisions"
+      }
     }
   ],
   "created_at": "2026-09-24T19:29:33.294182Z",
-  "updated_at": "2026-09-24T19:46:39.050175Z",
+  "updated_at": "2026-09-24T20:05:23.556331Z",
   "closed_at": null,
   "agent": {
     "platform": "claude_code",
     "model": "Claude Sonnet 5",
     "name": "Biased Decisions"
   },
-  "right_now_summary": null,
-  "right_now_updated_at": null,
-  "custom": {}
+  "right_now_summary": "Ryan is running the 9-cell Kev study with 19,498 requests on a dedicated branch.",
+  "right_now_updated_at": "2026-09-24T20:05:25.485945Z",
+  "custom": {
+    "project_label": "BD",
+    "source": "shared"
+  }
 }
