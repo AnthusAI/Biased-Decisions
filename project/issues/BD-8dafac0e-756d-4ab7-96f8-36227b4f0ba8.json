@@ -1,0 +1,50 @@
+{
+  "id": "BD-8dafac0e-756d-4ab7-96f8-36227b4f0ba8",
+  "title": "Prepare pinned Kev study and coordinate comparable coverage",
+  "description": "Verify upstream runtime and checkpoint revisions, commit predictions before benchmark inference, inventory shared coverage and pending additions, coordinate timing and GPU access, review implementation, and collect/replay comparable cells. Paid inference needs priced explicit approval. Keep the epic open until records and reports land.",
+  "type": "task",
+  "status": "in_progress",
+  "priority": 2,
+  "assignee": "Codex GPT-6 (Kev Lead)",
+  "creator": null,
+  "parent": "BD-dc51ca9b-6149-495e-979f-22268681e251",
+  "labels": [],
+  "dependencies": [],
+  "comments": [
+    {
+      "id": "6ee08666-da31-42b0-b51b-c08ebfa1d3f6",
+      "author": "home",
+      "text": "Priority update after user asked whether Kev actually works: native inference is still unverified locally because Laya occupies the GPU. Run a real native CPU smoke test on GitHub Actions using the pinned Kev server/checkpoint and synthetic non-benchmark text. Verify a real forward pass through HTTP and record identity/output as CI evidence. This is an integration check, not study data: do not put its answer into benchmark records or use it to select model/prompt/calibration. The preregistered MLX study remains queued unchanged; CPU smoke does not establish MLX hardware support. No hosted inference API or paid engine is used.",
+      "created_at": "2026-09-24T01:32:02.336382Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "codex",
+        "model": "GPT-6",
+        "name": "Kev Lead"
+      }
+    },
+    {
+      "id": "8cf211d3-0a69-4e8a-aefa-8ac576526e84",
+      "author": "home",
+      "text": "User prioritizes getting actual Kev MLX inference running now. Take a bounded local pilot window: reversibly suspend the resumable Laya inference process and the waiting shared heavy-lock holder, preserve all outputs, run the preregistered 20-item Kev pilot under existing memory guards, stop Kev and resume both processes in a finally handler. Cancel our old waiting full-study wrapper to avoid competing launches. No GitHub native runner will be launched.",
+      "created_at": "2026-09-24T01:39:15.102556Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "codex",
+        "model": "GPT-6",
+        "name": "Kev Lead"
+      }
+    }
+  ],
+  "created_at": "2026-09-23T23:59:41.879207Z",
+  "updated_at": "2026-09-24T01:39:15.102587Z",
+  "closed_at": null,
+  "agent": {
+    "platform": "codex",
+    "model": "GPT-6",
+    "name": "Kev Lead"
+  },
+  "right_now_summary": null,
+  "right_now_updated_at": null,
+  "custom": {}
+}

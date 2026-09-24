@@ -1,0 +1,596 @@
+{
+  "schema": "kev-coverage@1",
+  "baseline_commit": "9dfa868",
+  "checkpoint": "jaredpalmer/kev-0.8b@54f4f8777356cd5bbbb6c6919c657f26e6f2f6d8",
+  "cells": [
+    {
+      "task": "surgeon-physician",
+      "cue": "gender-pronouns",
+      "requests": 4000,
+      "status": "ready",
+      "files": {
+        "tasks/surgeon-physician/question.yaml": "0a275d02c19011bf2342bb1528a6d8095dd2223f14dd359d41de3463a4e03fe9",
+        "tasks/surgeon-physician/items.jsonl": "bb4cd5fdc74a54f154b453a96c254c34c0fe5bfff15f1e0c4bec23c192531c0a"
+      }
+    },
+    {
+      "task": "surgeon-physician",
+      "cue": "race-name",
+      "requests": 4713,
+      "status": "ready",
+      "files": {
+        "tasks/surgeon-physician/question.yaml": "0a275d02c19011bf2342bb1528a6d8095dd2223f14dd359d41de3463a4e03fe9",
+        "tasks/surgeon-physician/items.jsonl": "bb4cd5fdc74a54f154b453a96c254c34c0fe5bfff15f1e0c4bec23c192531c0a",
+        "tasks/surgeon-physician/versions/race-name.jsonl": "6069085cc1d350cc3c42c327a26e4e902b1b0bef0e183ead2a9b6b71e7596644"
+      }
+    },
+    {
+      "task": "surgeon-physician",
+      "cue": "race-fullname",
+      "requests": 31488,
+      "status": "ready",
+      "files": {
+        "tasks/surgeon-physician/question.yaml": "0a275d02c19011bf2342bb1528a6d8095dd2223f14dd359d41de3463a4e03fe9",
+        "tasks/surgeon-physician/items.jsonl": "bb4cd5fdc74a54f154b453a96c254c34c0fe5bfff15f1e0c4bec23c192531c0a",
+        "tasks/surgeon-physician/versions/race-fullname.jsonl": "73706c15800ac667a906afac9ab60b975d92e6d603ba23025cf8ab23450e87c2"
+      }
+    },
+    {
+      "task": "surgeon-physician",
+      "cue": "age-inserted",
+      "requests": 4924,
+      "status": "ready",
+      "files": {
+        "tasks/surgeon-physician/question.yaml": "0a275d02c19011bf2342bb1528a6d8095dd2223f14dd359d41de3463a4e03fe9",
+        "tasks/surgeon-physician/items.jsonl": "bb4cd5fdc74a54f154b453a96c254c34c0fe5bfff15f1e0c4bec23c192531c0a",
+        "tasks/surgeon-physician/versions/age-inserted.jsonl": "ede5d41c67e4c7113dba465eaa3a7522015743f1db09c198d002d015d897b3de"
+      }
+    },
+    {
+      "task": "surgeon-physician",
+      "cue": "disability",
+      "requests": 2742,
+      "status": "ready",
+      "files": {
+        "tasks/surgeon-physician/question.yaml": "0a275d02c19011bf2342bb1528a6d8095dd2223f14dd359d41de3463a4e03fe9",
+        "tasks/surgeon-physician/items.jsonl": "bb4cd5fdc74a54f154b453a96c254c34c0fe5bfff15f1e0c4bec23c192531c0a",
+        "tasks/surgeon-physician/versions/disability.jsonl": "88b0e1fbcd9444fafd4b59b3d8b3143f5e549448690a8a172a2b8c83bd54b77c"
+      }
+    },
+    {
+      "task": "surgeon-physician",
+      "cue": "religion",
+      "requests": 6855,
+      "status": "ready",
+      "files": {
+        "tasks/surgeon-physician/question.yaml": "0a275d02c19011bf2342bb1528a6d8095dd2223f14dd359d41de3463a4e03fe9",
+        "tasks/surgeon-physician/items.jsonl": "bb4cd5fdc74a54f154b453a96c254c34c0fe5bfff15f1e0c4bec23c192531c0a",
+        "tasks/surgeon-physician/versions/religion.jsonl": "ea03b0973fd7cc4412b530cda19b71ee51a1d551bb2d2b758844a624097f413f"
+      }
+    },
+    {
+      "task": "surgeon-physician",
+      "cue": "religion-v2",
+      "requests": 6855,
+      "status": "ready",
+      "files": {
+        "tasks/surgeon-physician/question.yaml": "0a275d02c19011bf2342bb1528a6d8095dd2223f14dd359d41de3463a4e03fe9",
+        "tasks/surgeon-physician/items.jsonl": "bb4cd5fdc74a54f154b453a96c254c34c0fe5bfff15f1e0c4bec23c192531c0a",
+        "tasks/surgeon-physician/versions/religion-v2.jsonl": "07a6ad3340c945c48dc7c4f9a6bc62f216042ae1e5ef0ae7dbd28cfca5f0d8e8"
+      }
+    },
+    {
+      "task": "surgeon-physician",
+      "cue": "ask-twice",
+      "requests": 500,
+      "status": "ready",
+      "files": {
+        "tasks/surgeon-physician/question.yaml": "0a275d02c19011bf2342bb1528a6d8095dd2223f14dd359d41de3463a4e03fe9",
+        "tasks/surgeon-physician/items.jsonl": "bb4cd5fdc74a54f154b453a96c254c34c0fe5bfff15f1e0c4bec23c192531c0a",
+        "tasks/surgeon-physician/versions/ask-twice.txt": "f2a513c071b1eca7be995d5a7b5de22c95a4bea1b987f855d9bcd213b05250e8"
+      }
+    },
+    {
+      "task": "surgeon-physician",
+      "cue": "option-order",
+      "requests": 2000,
+      "status": "ready",
+      "files": {
+        "tasks/surgeon-physician/question.yaml": "0a275d02c19011bf2342bb1528a6d8095dd2223f14dd359d41de3463a4e03fe9",
+        "tasks/surgeon-physician/items.jsonl": "bb4cd5fdc74a54f154b453a96c254c34c0fe5bfff15f1e0c4bec23c192531c0a"
+      }
+    },
+    {
+      "task": "surgeon-physician",
+      "cue": "neutral",
+      "requests": 3992,
+      "status": "ready",
+      "files": {
+        "tasks/surgeon-physician/question.yaml": "0a275d02c19011bf2342bb1528a6d8095dd2223f14dd359d41de3463a4e03fe9",
+        "tasks/surgeon-physician/items.jsonl": "bb4cd5fdc74a54f154b453a96c254c34c0fe5bfff15f1e0c4bec23c192531c0a",
+        "tasks/surgeon-physician/versions/neutral.jsonl": "8a18517454176e39ae1cefa4343b0a8fe6dbd1556365e4d27d6539b1063acbd3"
+      }
+    },
+    {
+      "task": "nurse-physician",
+      "cue": "gender-pronouns",
+      "requests": 4000,
+      "status": "ready",
+      "files": {
+        "tasks/nurse-physician/question.yaml": "f6410ff4ec6425c01bcb8dafd95f86a9b361a461fb07c2f0a98f57d1f90ac551",
+        "tasks/nurse-physician/items.jsonl": "eb053149abad9c87d59836cf107a146d2a4c7b527d7cbf2119e0632346fc892e"
+      }
+    },
+    {
+      "task": "nurse-physician",
+      "cue": "disability",
+      "requests": 2734,
+      "status": "ready",
+      "files": {
+        "tasks/nurse-physician/question.yaml": "f6410ff4ec6425c01bcb8dafd95f86a9b361a461fb07c2f0a98f57d1f90ac551",
+        "tasks/nurse-physician/items.jsonl": "eb053149abad9c87d59836cf107a146d2a4c7b527d7cbf2119e0632346fc892e",
+        "tasks/nurse-physician/versions/disability.jsonl": "6e562f9c34b624f133fdf46ca3862a88d86cbe658f917f83052037c0d17d5ec4"
+      }
+    },
+    {
+      "task": "nurse-physician",
+      "cue": "religion",
+      "requests": 6835,
+      "status": "ready",
+      "files": {
+        "tasks/nurse-physician/question.yaml": "f6410ff4ec6425c01bcb8dafd95f86a9b361a461fb07c2f0a98f57d1f90ac551",
+        "tasks/nurse-physician/items.jsonl": "eb053149abad9c87d59836cf107a146d2a4c7b527d7cbf2119e0632346fc892e",
+        "tasks/nurse-physician/versions/religion.jsonl": "005532ae14cf937f4ad6777ce5642ebfb872f16772a7d94d2fc67fa15044989c"
+      }
+    },
+    {
+      "task": "nurse-physician",
+      "cue": "religion-v2",
+      "requests": 6835,
+      "status": "ready",
+      "files": {
+        "tasks/nurse-physician/question.yaml": "f6410ff4ec6425c01bcb8dafd95f86a9b361a461fb07c2f0a98f57d1f90ac551",
+        "tasks/nurse-physician/items.jsonl": "eb053149abad9c87d59836cf107a146d2a4c7b527d7cbf2119e0632346fc892e",
+        "tasks/nurse-physician/versions/religion-v2.jsonl": "a0235de55669156565106c6b0fb6fb7fb979ab7dee091f2f737e6ba95e0e29d2"
+      }
+    },
+    {
+      "task": "nurse-physician",
+      "cue": "ask-twice",
+      "requests": 500,
+      "status": "ready",
+      "files": {
+        "tasks/nurse-physician/question.yaml": "f6410ff4ec6425c01bcb8dafd95f86a9b361a461fb07c2f0a98f57d1f90ac551",
+        "tasks/nurse-physician/items.jsonl": "eb053149abad9c87d59836cf107a146d2a4c7b527d7cbf2119e0632346fc892e",
+        "tasks/nurse-physician/versions/ask-twice.txt": "04c7b9f5af38fe440050ae27dc9c98bcc02adca2cad64a4847f48ec9f982613a"
+      }
+    },
+    {
+      "task": "nurse-physician",
+      "cue": "option-order",
+      "requests": 2000,
+      "status": "ready",
+      "files": {
+        "tasks/nurse-physician/question.yaml": "f6410ff4ec6425c01bcb8dafd95f86a9b361a461fb07c2f0a98f57d1f90ac551",
+        "tasks/nurse-physician/items.jsonl": "eb053149abad9c87d59836cf107a146d2a4c7b527d7cbf2119e0632346fc892e"
+      }
+    },
+    {
+      "task": "nurse-physician",
+      "cue": "neutral",
+      "requests": 3996,
+      "status": "ready",
+      "files": {
+        "tasks/nurse-physician/question.yaml": "f6410ff4ec6425c01bcb8dafd95f86a9b361a461fb07c2f0a98f57d1f90ac551",
+        "tasks/nurse-physician/items.jsonl": "eb053149abad9c87d59836cf107a146d2a4c7b527d7cbf2119e0632346fc892e",
+        "tasks/nurse-physician/versions/neutral.jsonl": "eb7a6fae1e1fed2c589a7b013491b7c068b285b524ff3d5adff7888270a688af"
+      }
+    },
+    {
+      "task": "teacher-professor",
+      "cue": "gender-pronouns",
+      "requests": 4000,
+      "status": "ready",
+      "files": {
+        "tasks/teacher-professor/question.yaml": "3bf1c4b67805e7ba4340993c1f35fcd420c69e00b511dabab1038eb11e8348f6",
+        "tasks/teacher-professor/items.jsonl": "845f517a138ef506eefae78a340aef2a4312d9c5626dc4e497d30a13752a0226"
+      }
+    },
+    {
+      "task": "teacher-professor",
+      "cue": "disability",
+      "requests": 2804,
+      "status": "ready",
+      "files": {
+        "tasks/teacher-professor/question.yaml": "3bf1c4b67805e7ba4340993c1f35fcd420c69e00b511dabab1038eb11e8348f6",
+        "tasks/teacher-professor/items.jsonl": "845f517a138ef506eefae78a340aef2a4312d9c5626dc4e497d30a13752a0226",
+        "tasks/teacher-professor/versions/disability.jsonl": "0a329298dd815ab33405f504958d9a39a64f4e848d5a59f7e8efe4e50dd5dce5"
+      }
+    },
+    {
+      "task": "teacher-professor",
+      "cue": "religion",
+      "requests": 7010,
+      "status": "ready",
+      "files": {
+        "tasks/teacher-professor/question.yaml": "3bf1c4b67805e7ba4340993c1f35fcd420c69e00b511dabab1038eb11e8348f6",
+        "tasks/teacher-professor/items.jsonl": "845f517a138ef506eefae78a340aef2a4312d9c5626dc4e497d30a13752a0226",
+        "tasks/teacher-professor/versions/religion.jsonl": "79b793189b9731df93a2a5ae060f7529b192d83909a199e9122e15d03b4ca346"
+      }
+    },
+    {
+      "task": "teacher-professor",
+      "cue": "religion-v2",
+      "requests": 7010,
+      "status": "ready",
+      "files": {
+        "tasks/teacher-professor/question.yaml": "3bf1c4b67805e7ba4340993c1f35fcd420c69e00b511dabab1038eb11e8348f6",
+        "tasks/teacher-professor/items.jsonl": "845f517a138ef506eefae78a340aef2a4312d9c5626dc4e497d30a13752a0226",
+        "tasks/teacher-professor/versions/religion-v2.jsonl": "0904e268b0d67bc27bba7d0781329379e678a3c9c90233fe9f439919f680c684"
+      }
+    },
+    {
+      "task": "teacher-professor",
+      "cue": "ask-twice",
+      "requests": 500,
+      "status": "ready",
+      "files": {
+        "tasks/teacher-professor/question.yaml": "3bf1c4b67805e7ba4340993c1f35fcd420c69e00b511dabab1038eb11e8348f6",
+        "tasks/teacher-professor/items.jsonl": "845f517a138ef506eefae78a340aef2a4312d9c5626dc4e497d30a13752a0226",
+        "tasks/teacher-professor/versions/ask-twice.txt": "7337be3011931c40248b5706b80412d8c46f8dbdc3ae99c39fb22463ea1527fa"
+      }
+    },
+    {
+      "task": "teacher-professor",
+      "cue": "option-order",
+      "requests": 2000,
+      "status": "ready",
+      "files": {
+        "tasks/teacher-professor/question.yaml": "3bf1c4b67805e7ba4340993c1f35fcd420c69e00b511dabab1038eb11e8348f6",
+        "tasks/teacher-professor/items.jsonl": "845f517a138ef506eefae78a340aef2a4312d9c5626dc4e497d30a13752a0226"
+      }
+    },
+    {
+      "task": "teacher-professor",
+      "cue": "neutral",
+      "requests": 3984,
+      "status": "ready",
+      "files": {
+        "tasks/teacher-professor/question.yaml": "3bf1c4b67805e7ba4340993c1f35fcd420c69e00b511dabab1038eb11e8348f6",
+        "tasks/teacher-professor/items.jsonl": "845f517a138ef506eefae78a340aef2a4312d9c5626dc4e497d30a13752a0226",
+        "tasks/teacher-professor/versions/neutral.jsonl": "bc35d7a316bc2828c1058f457f070b8189dc812126d57de97e64c5e90610f444"
+      }
+    },
+    {
+      "task": "paralegal-attorney",
+      "cue": "gender-pronouns",
+      "requests": 4000,
+      "status": "ready",
+      "files": {
+        "tasks/paralegal-attorney/question.yaml": "d9a2d53fb3e2247bbba4b9d48cb39279923a356d318c98c621d54164d1234e49",
+        "tasks/paralegal-attorney/items.jsonl": "4e33e064779389e99482f690a31a065d5285f6364fe876b2af8d0866ade06c89"
+      }
+    },
+    {
+      "task": "paralegal-attorney",
+      "cue": "disability",
+      "requests": 2770,
+      "status": "ready",
+      "files": {
+        "tasks/paralegal-attorney/question.yaml": "d9a2d53fb3e2247bbba4b9d48cb39279923a356d318c98c621d54164d1234e49",
+        "tasks/paralegal-attorney/items.jsonl": "4e33e064779389e99482f690a31a065d5285f6364fe876b2af8d0866ade06c89",
+        "tasks/paralegal-attorney/versions/disability.jsonl": "e23bec89ecc61e71852ae561a75c2edc48f5dfbc427c93f4891ca0ca75ef1a31"
+      }
+    },
+    {
+      "task": "paralegal-attorney",
+      "cue": "religion",
+      "requests": 6925,
+      "status": "ready",
+      "files": {
+        "tasks/paralegal-attorney/question.yaml": "d9a2d53fb3e2247bbba4b9d48cb39279923a356d318c98c621d54164d1234e49",
+        "tasks/paralegal-attorney/items.jsonl": "4e33e064779389e99482f690a31a065d5285f6364fe876b2af8d0866ade06c89",
+        "tasks/paralegal-attorney/versions/religion.jsonl": "28b3fed8ae8cd84d1538e49c3ec87bafba3254de8f8f4d1d2fe3e2ecd4147208"
+      }
+    },
+    {
+      "task": "paralegal-attorney",
+      "cue": "religion-v2",
+      "requests": 6925,
+      "status": "ready",
+      "files": {
+        "tasks/paralegal-attorney/question.yaml": "d9a2d53fb3e2247bbba4b9d48cb39279923a356d318c98c621d54164d1234e49",
+        "tasks/paralegal-attorney/items.jsonl": "4e33e064779389e99482f690a31a065d5285f6364fe876b2af8d0866ade06c89",
+        "tasks/paralegal-attorney/versions/religion-v2.jsonl": "aab9a1a768987ce3dc2b76145008fbb22f5714aeb6d8cfca2fdbff2b1274428f"
+      }
+    },
+    {
+      "task": "paralegal-attorney",
+      "cue": "ask-twice",
+      "requests": 500,
+      "status": "ready",
+      "files": {
+        "tasks/paralegal-attorney/question.yaml": "d9a2d53fb3e2247bbba4b9d48cb39279923a356d318c98c621d54164d1234e49",
+        "tasks/paralegal-attorney/items.jsonl": "4e33e064779389e99482f690a31a065d5285f6364fe876b2af8d0866ade06c89",
+        "tasks/paralegal-attorney/versions/ask-twice.txt": "5b8d2b7fe2f7547b42fc12250ea9256fff11ba20f6d5fcde85ad7c98048c21fe"
+      }
+    },
+    {
+      "task": "paralegal-attorney",
+      "cue": "option-order",
+      "requests": 2000,
+      "status": "ready",
+      "files": {
+        "tasks/paralegal-attorney/question.yaml": "d9a2d53fb3e2247bbba4b9d48cb39279923a356d318c98c621d54164d1234e49",
+        "tasks/paralegal-attorney/items.jsonl": "4e33e064779389e99482f690a31a065d5285f6364fe876b2af8d0866ade06c89"
+      }
+    },
+    {
+      "task": "paralegal-attorney",
+      "cue": "neutral",
+      "requests": 3995,
+      "status": "ready",
+      "files": {
+        "tasks/paralegal-attorney/question.yaml": "d9a2d53fb3e2247bbba4b9d48cb39279923a356d318c98c621d54164d1234e49",
+        "tasks/paralegal-attorney/items.jsonl": "4e33e064779389e99482f690a31a065d5285f6364fe876b2af8d0866ade06c89",
+        "tasks/paralegal-attorney/versions/neutral.jsonl": "15e474b80f0dc96ae66b1af545019a33591fbe2a4bd13ff0e547566b17240bcc"
+      }
+    },
+    {
+      "task": "journalist-professor",
+      "cue": "gender-pronouns",
+      "requests": 4000,
+      "status": "ready",
+      "files": {
+        "tasks/journalist-professor/question.yaml": "0d3318d04f6e5480a930523ad61c778c7514e253a6c63f6b3d9448456bf676bf",
+        "tasks/journalist-professor/items.jsonl": "401c4839320c6f47f6e1cb55f446d8f4dc1bd7a6be445ccaba5422697ea901da"
+      }
+    },
+    {
+      "task": "journalist-professor",
+      "cue": "disability",
+      "requests": 2782,
+      "status": "ready",
+      "files": {
+        "tasks/journalist-professor/question.yaml": "0d3318d04f6e5480a930523ad61c778c7514e253a6c63f6b3d9448456bf676bf",
+        "tasks/journalist-professor/items.jsonl": "401c4839320c6f47f6e1cb55f446d8f4dc1bd7a6be445ccaba5422697ea901da",
+        "tasks/journalist-professor/versions/disability.jsonl": "9d37280453ea360f484cd348c1ae1c332d01b8e15e8cc9a49160e6d14151cd5e"
+      }
+    },
+    {
+      "task": "journalist-professor",
+      "cue": "religion",
+      "requests": 6955,
+      "status": "ready",
+      "files": {
+        "tasks/journalist-professor/question.yaml": "0d3318d04f6e5480a930523ad61c778c7514e253a6c63f6b3d9448456bf676bf",
+        "tasks/journalist-professor/items.jsonl": "401c4839320c6f47f6e1cb55f446d8f4dc1bd7a6be445ccaba5422697ea901da",
+        "tasks/journalist-professor/versions/religion.jsonl": "89f679ad2fa24929aa24325ea8cedd3b82a72193901eebf33cc9bd321290901f"
+      }
+    },
+    {
+      "task": "journalist-professor",
+      "cue": "religion-v2",
+      "requests": 6955,
+      "status": "ready",
+      "files": {
+        "tasks/journalist-professor/question.yaml": "0d3318d04f6e5480a930523ad61c778c7514e253a6c63f6b3d9448456bf676bf",
+        "tasks/journalist-professor/items.jsonl": "401c4839320c6f47f6e1cb55f446d8f4dc1bd7a6be445ccaba5422697ea901da",
+        "tasks/journalist-professor/versions/religion-v2.jsonl": "ff95f42cff53967b9873956dc0661d3a3d9cdbe4e5214d0627a2b172b37951fb"
+      }
+    },
+    {
+      "task": "journalist-professor",
+      "cue": "neutral",
+      "requests": 3974,
+      "status": "ready",
+      "files": {
+        "tasks/journalist-professor/question.yaml": "0d3318d04f6e5480a930523ad61c778c7514e253a6c63f6b3d9448456bf676bf",
+        "tasks/journalist-professor/items.jsonl": "401c4839320c6f47f6e1cb55f446d8f4dc1bd7a6be445ccaba5422697ea901da",
+        "tasks/journalist-professor/versions/neutral.jsonl": "d24ae9f1fd05dd6abcd61a03b9c3130bbf21c4d110ba46c08a2f1cee241a3d21"
+      }
+    },
+    {
+      "task": "architect-interior-designer",
+      "cue": "gender-pronouns",
+      "requests": 3796,
+      "status": "ready",
+      "files": {
+        "tasks/architect-interior-designer/question.yaml": "d570c1180f8dd517b19fe1851e63172e16269fd4606c660eca159241bfde7289",
+        "tasks/architect-interior-designer/items.jsonl": "123412aaca458bea4a1d1e12f6a5c403ace8d3aa60c443ec483f673515d4f3c7"
+      }
+    },
+    {
+      "task": "architect-interior-designer",
+      "cue": "disability",
+      "requests": 2142,
+      "status": "ready",
+      "files": {
+        "tasks/architect-interior-designer/question.yaml": "d570c1180f8dd517b19fe1851e63172e16269fd4606c660eca159241bfde7289",
+        "tasks/architect-interior-designer/items.jsonl": "123412aaca458bea4a1d1e12f6a5c403ace8d3aa60c443ec483f673515d4f3c7",
+        "tasks/architect-interior-designer/versions/disability.jsonl": "359f2ce45507656cabcf3efbc3a5482caadb84023ec5d14f235baa45eec57dbe"
+      }
+    },
+    {
+      "task": "architect-interior-designer",
+      "cue": "religion",
+      "requests": 5355,
+      "status": "ready",
+      "files": {
+        "tasks/architect-interior-designer/question.yaml": "d570c1180f8dd517b19fe1851e63172e16269fd4606c660eca159241bfde7289",
+        "tasks/architect-interior-designer/items.jsonl": "123412aaca458bea4a1d1e12f6a5c403ace8d3aa60c443ec483f673515d4f3c7",
+        "tasks/architect-interior-designer/versions/religion.jsonl": "5e5b2416d331ba6d1d219730f751ceb6d8590d358e269e6905e28372c8b4e23d"
+      }
+    },
+    {
+      "task": "architect-interior-designer",
+      "cue": "religion-v2",
+      "requests": 5355,
+      "status": "ready",
+      "files": {
+        "tasks/architect-interior-designer/question.yaml": "d570c1180f8dd517b19fe1851e63172e16269fd4606c660eca159241bfde7289",
+        "tasks/architect-interior-designer/items.jsonl": "123412aaca458bea4a1d1e12f6a5c403ace8d3aa60c443ec483f673515d4f3c7",
+        "tasks/architect-interior-designer/versions/religion-v2.jsonl": "d80227b6e944c829c08d00b7604eacb8ad10a2c49b35371c266369557095ab83"
+      }
+    },
+    {
+      "task": "architect-interior-designer",
+      "cue": "neutral",
+      "requests": 3775,
+      "status": "ready",
+      "files": {
+        "tasks/architect-interior-designer/question.yaml": "d570c1180f8dd517b19fe1851e63172e16269fd4606c660eca159241bfde7289",
+        "tasks/architect-interior-designer/items.jsonl": "123412aaca458bea4a1d1e12f6a5c403ace8d3aa60c443ec483f673515d4f3c7",
+        "tasks/architect-interior-designer/versions/neutral.jsonl": "c0110f75c47e263ddb4e2099bfa6ff699480112fc030ec3968fff861a7bc2787"
+      }
+    },
+    {
+      "task": "dietitian-physician",
+      "cue": "gender-pronouns",
+      "requests": 4000,
+      "status": "ready",
+      "files": {
+        "tasks/dietitian-physician/question.yaml": "41932b89fe8bd925419fdcde9c270cb9984ca70e0d430200a376495d5450f8dd",
+        "tasks/dietitian-physician/items.jsonl": "e44ba004cae472559dece9ef2baf3c5f66ce19b2caf3c5fd61a541bf2aa7f425"
+      }
+    },
+    {
+      "task": "dietitian-physician",
+      "cue": "disability",
+      "requests": 2676,
+      "status": "ready",
+      "files": {
+        "tasks/dietitian-physician/question.yaml": "41932b89fe8bd925419fdcde9c270cb9984ca70e0d430200a376495d5450f8dd",
+        "tasks/dietitian-physician/items.jsonl": "e44ba004cae472559dece9ef2baf3c5f66ce19b2caf3c5fd61a541bf2aa7f425",
+        "tasks/dietitian-physician/versions/disability.jsonl": "6f7b48b9ea351ca61b5f3880a362bc21f9b683ebac20ebbfbeda4758f7c50ba6"
+      }
+    },
+    {
+      "task": "dietitian-physician",
+      "cue": "religion",
+      "requests": 6690,
+      "status": "ready",
+      "files": {
+        "tasks/dietitian-physician/question.yaml": "41932b89fe8bd925419fdcde9c270cb9984ca70e0d430200a376495d5450f8dd",
+        "tasks/dietitian-physician/items.jsonl": "e44ba004cae472559dece9ef2baf3c5f66ce19b2caf3c5fd61a541bf2aa7f425",
+        "tasks/dietitian-physician/versions/religion.jsonl": "e43c454c623209f503b85d9446182518a088a4ebacc131dc8205a77e6738fabf"
+      }
+    },
+    {
+      "task": "dietitian-physician",
+      "cue": "religion-v2",
+      "requests": 6690,
+      "status": "ready",
+      "files": {
+        "tasks/dietitian-physician/question.yaml": "41932b89fe8bd925419fdcde9c270cb9984ca70e0d430200a376495d5450f8dd",
+        "tasks/dietitian-physician/items.jsonl": "e44ba004cae472559dece9ef2baf3c5f66ce19b2caf3c5fd61a541bf2aa7f425",
+        "tasks/dietitian-physician/versions/religion-v2.jsonl": "6ec23c9228808298d7ca95bccfbdceebf75ac43d1842f16032f8370d67cf2ff6"
+      }
+    },
+    {
+      "task": "dietitian-physician",
+      "cue": "neutral",
+      "requests": 3991,
+      "status": "ready",
+      "files": {
+        "tasks/dietitian-physician/question.yaml": "41932b89fe8bd925419fdcde9c270cb9984ca70e0d430200a376495d5450f8dd",
+        "tasks/dietitian-physician/items.jsonl": "e44ba004cae472559dece9ef2baf3c5f66ce19b2caf3c5fd61a541bf2aa7f425",
+        "tasks/dietitian-physician/versions/neutral.jsonl": "dbed360b9e3cc04fc0ba7d157ae392c311458c3e4227722cddfc19336ca8b7d4"
+      }
+    },
+    {
+      "task": "qpain-treatment",
+      "cue": "race",
+      "requests": 220,
+      "status": "ready",
+      "files": {
+        "tasks/qpain-treatment/question.yaml": "4c21e0059db4ad603c841739cb98caa6e545a178e502e0dc3afad726a009ee7c",
+        "tasks/qpain-treatment/items.jsonl": "47adca225080d5b08c111e2dc8db391ac935d024d75135bf68df99c1120865bd",
+        "tasks/qpain-treatment/versions/race.jsonl": "e781b40aab2699aa232a65c36489e2657cb2105179ee11400d13971f7d299e6b"
+      }
+    },
+    {
+      "task": "qpain-treatment",
+      "cue": "gender",
+      "requests": 110,
+      "status": "ready",
+      "files": {
+        "tasks/qpain-treatment/question.yaml": "4c21e0059db4ad603c841739cb98caa6e545a178e502e0dc3afad726a009ee7c",
+        "tasks/qpain-treatment/items.jsonl": "47adca225080d5b08c111e2dc8db391ac935d024d75135bf68df99c1120865bd",
+        "tasks/qpain-treatment/versions/gender.jsonl": "6121a8c11c037443b7a47bf2b4048ac170046143d1e2ce6da6a25fad65231eea"
+      }
+    },
+    {
+      "task": "qpain-treatment",
+      "cue": "disability",
+      "requests": 110,
+      "status": "ready",
+      "files": {
+        "tasks/qpain-treatment/question.yaml": "4c21e0059db4ad603c841739cb98caa6e545a178e502e0dc3afad726a009ee7c",
+        "tasks/qpain-treatment/items.jsonl": "47adca225080d5b08c111e2dc8db391ac935d024d75135bf68df99c1120865bd",
+        "tasks/qpain-treatment/versions/disability.jsonl": "cd992c875ae8548e2a3fe5ed8d2dc1188e7c5b18c56280a37fe600a5b5b4c13b"
+      }
+    },
+    {
+      "task": "qpain-treatment",
+      "cue": "veteran-status",
+      "requests": 165,
+      "status": "ready",
+      "files": {
+        "tasks/qpain-treatment/question.yaml": "4c21e0059db4ad603c841739cb98caa6e545a178e502e0dc3afad726a009ee7c",
+        "tasks/qpain-treatment/items.jsonl": "47adca225080d5b08c111e2dc8db391ac935d024d75135bf68df99c1120865bd",
+        "tasks/qpain-treatment/versions/veteran-status.jsonl": "0cd93f03f3b0104c863d7a04af9bda3cc63dbcac9241db84ca7f3899868c8a64"
+      }
+    },
+    {
+      "task": "civil-comments-moderation",
+      "cue": "race",
+      "requests": 6000,
+      "status": "ready",
+      "files": {
+        "tasks/civil-comments-moderation/question.yaml": "5de4fe3bb0740badeab635276005083af2a7e919032581ebb92d62e82d2091cf",
+        "tasks/civil-comments-moderation/items.jsonl": "8db6383d2ce02a3b63f7caee80a83f395ed76e76ba7740d87738f4c62e9be0e6",
+        "tasks/civil-comments-moderation/versions/race.jsonl": "ace04a10193aa100d3e87494dbabe80ddffd9da14485573b382b153035cd51d3"
+      }
+    },
+    {
+      "task": "civil-comments-moderation",
+      "cue": "religion",
+      "requests": 8000,
+      "status": "ready",
+      "files": {
+        "tasks/civil-comments-moderation/question.yaml": "5de4fe3bb0740badeab635276005083af2a7e919032581ebb92d62e82d2091cf",
+        "tasks/civil-comments-moderation/items.jsonl": "8db6383d2ce02a3b63f7caee80a83f395ed76e76ba7740d87738f4c62e9be0e6",
+        "tasks/civil-comments-moderation/versions/religion.jsonl": "a7e97a3f76c303bee4c650f0f4d40337147e1a87df9926556edeaf02ccf934dd"
+      }
+    },
+    {
+      "task": "civil-comments-moderation",
+      "cue": "sexual-orientation",
+      "requests": 6000,
+      "status": "ready",
+      "files": {
+        "tasks/civil-comments-moderation/question.yaml": "5de4fe3bb0740badeab635276005083af2a7e919032581ebb92d62e82d2091cf",
+        "tasks/civil-comments-moderation/items.jsonl": "8db6383d2ce02a3b63f7caee80a83f395ed76e76ba7740d87738f4c62e9be0e6",
+        "tasks/civil-comments-moderation/versions/sexual-orientation.jsonl": "049bb397016477127a04cf8b3b423daa3a9056d357662c573b605bde01f26d4a"
+      }
+    },
+    {
+      "task": "civil-comments-moderation",
+      "cue": "disability",
+      "requests": 4000,
+      "status": "ready",
+      "files": {
+        "tasks/civil-comments-moderation/question.yaml": "5de4fe3bb0740badeab635276005083af2a7e919032581ebb92d62e82d2091cf",
+        "tasks/civil-comments-moderation/items.jsonl": "8db6383d2ce02a3b63f7caee80a83f395ed76e76ba7740d87738f4c62e9be0e6",
+        "tasks/civil-comments-moderation/versions/disability.jsonl": "461baa48c0fc6ce408ff6bf48658e512a7278daa4970a7fbd74894bcae2e7b32"
+      }
+    }
+  ],
+  "pending_external": [
+    {
+      "study": "batch2 stereotypes",
+      "reason": "Answer records, multi-question stimuli and scorer not yet imported into this package; owned by coverage session."
+    }
+  ]
+}

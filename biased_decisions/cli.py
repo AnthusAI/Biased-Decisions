@@ -32,6 +32,8 @@ def load_task(slug, *, root):
 # of its own to build -- it is scored straight from three other cues' records, see
 # ``biased_decisions.scoring.has_record``).
 CUES = tuple(SCORERS)
+SCORE_CUES = tuple(dict.fromkeys(CUES + tuple(
+    cue for task_shape in REGULATED_SHAPE.values() for cue in task_shape)))
 
 
 def _root(args: argparse.Namespace) -> Path:
@@ -45,15 +47,17 @@ def _root(args: argparse.Namespace) -> Path:
 def cmd_list(args: argparse.Namespace) -> int:
     root = _root(args)
     print(f"Engines: {', '.join(ENGINES)}")
-    print(f"Tasks:   {', '.join(BIOS_TASKS)}")
-    print(f"Cues:    {', '.join(CUES)}")
+    tasks = BIOS_TASKS + REGULATED_TASKS
+    print(f"Tasks:   {', '.join(tasks)}")
+    print(f"Cues:    {', '.join(SCORE_CUES)}")
     print()
 
     header = ["task", "cue"] + list(ENGINES)
     rows: List[List[str]] = [header]
-    for task_slug in BIOS_TASKS:
-        for cue in CUES:
-            if cue not in TASK_CUES[task_slug]:
+    for task_slug in tasks:
+        for cue in SCORE_CUES:
+            task_cues = TASK_CUES.get(task_slug, REGULATED_SHAPE.get(task_slug, {}))
+            if cue not in task_cues:
                 continue
             row = [task_slug, cue]
             for engine in ENGINES:
@@ -260,8 +264,8 @@ def build_parser() -> argparse.ArgumentParser:
 
     p_score = sub.add_parser("score", help="score one (engine, task, cue) cell from its record")
     p_score.add_argument("engine", choices=ENGINES)
-    p_score.add_argument("task", choices=BIOS_TASKS)
-    p_score.add_argument("--cue", required=True, choices=CUES)
+    p_score.add_argument("task", choices=BIOS_TASKS + REGULATED_TASKS)
+    p_score.add_argument("--cue", required=True, choices=SCORE_CUES)
     p_score.add_argument("--out", default=None,
                          help="default: studies/<task>-<cue>.jsonl")
     p_score.add_argument("--sample", choices=("all", "500"), default=None,

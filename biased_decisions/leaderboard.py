@@ -66,6 +66,11 @@ ENGINES: List[dict] = [
          {"id": "laya", "label": "original PyTorch build", "package": "laya 0.3.7",
           "runs_on": "PyTorch", "note": "used where the MLX build has not run yet"}],
      "stand_in": False},
+    {"id": "kev", "label": "Kev", "color": "#8b6bd6", "color_dark": "#b19aec",
+     "marker": "diamond", "kind": "fast decision model, open source",
+     "about": "Kev is an open-source decision model. It answers questions about text with "
+              "yes-or-no, choice, or rating answers.",
+     "stand_in": False},
 ]
 ENGINE_IDS = [e["id"] for e in ENGINES]
 ENGINE_LABEL = {e["id"]: e["label"] for e in ENGINES}
@@ -1682,7 +1687,8 @@ class Prereg:
 
 VOCABULARY: List[dict] = [
     {"term": "model", "text": "Software that reads a text and answers a question about it, with "
-     "its own probability for each answer. We tested two: Jev and Laya."},
+     "its own probability for each answer. The leaderboard compares models on decisions where "
+     "they have been measured."},
     {"term": "Jev and Laya", "text": "Jev and Laya are fast decision models: they answer a two-way "
      "question about a text almost instantly and give no reasons."},
     {"term": "build", "text": "A version of a model made to run on particular software. We ran Laya "

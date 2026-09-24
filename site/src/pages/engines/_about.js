@@ -8,11 +8,13 @@ const FAST = "a fast decision model: it answers a yes-or-no question about a tex
 const ABOUT = {
   jev: `Jev is ${FAST}. It runs as an online service, and the confidence it reports for each answer is its own, to two decimal places.`,
   laya: `Laya is ${FAST}. Anyone can download it. We ran it two ways: an Apple MLX build (laya-mlx 0.1.0, used wherever we have it) and the original PyTorch build its authors released (laya 0.3.7). Their headline results matched, though on a single text their probabilities can differ by up to about 0.02, so we show one Laya, and each result says which build gave it. The confidence it reports for each answer is its own.`,
+  kev: `Kev is an open-source decision model. It answers questions about text with yes-or-no, choice, or rating answers.`,
 };
 
 const SHORT = {
   jev: `Jev is ${FAST}.`,
   laya: `Laya is ${FAST}.`,
+  kev: `Kev is an open-source decision model.`,
 };
 
 // The full introduction for a model's own page and the list of models.
@@ -22,6 +24,6 @@ export const introModel = (en) => SHORT[en.id] || aboutModel(en);
 
 // The models in two sentences, for a page that names them all.
 export function introModels() {
-  const fast = ["jev", "laya"].map((id) => engineById[id]).filter(Boolean).map((e) => e.label);
-  return fast.length ? `${fast.join(" and ")} are fast decision models: they answer a yes-or-no question about a text instantly and give no reasons.` : "";
+  const models = ["jev", "laya", "kev"].map((id) => engineById[id]).filter(Boolean).map((e) => e.label);
+  return models.length ? `${models.join(", ").replace(/, ([^,]*)$/, " and $1")} are decision models that answer questions about text.` : "";
 }

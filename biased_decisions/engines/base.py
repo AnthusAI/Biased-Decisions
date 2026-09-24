@@ -1,4 +1,4 @@
-"""The engine protocol every adapter (``jev``, ``laya``, ``laya-mlx``) implements.
+"""The engine protocol every adapter (``jev``, ``laya``, ``laya-mlx``, ``kev``) implements.
 
 An engine answers one typed question about one text and returns a probability per option, in
 the record's own row shape (see ``biased_decisions.record``): a dict of question name to

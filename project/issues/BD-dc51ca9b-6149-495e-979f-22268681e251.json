@@ -3,9 +3,9 @@
   "title": "Add Kev as a benchmark engine",
   "description": "Kev is another emerging System 1 decision model. Add it to the harness as an engine adapter in the record's shape (a probability per option, the committed option order, resumable answer cache), price or time its runs first, then answer every existing cell: the seven Bias in Bios tasks under the gender-pronouns cue, the disability, religion-v2, ask-twice and option-order cues, and the batch-2 stereotype tests. Report its numbers beside Jev and Laya in RESULTS.md with floors, and score them against predictions written before the first run. Adapter must run on Apple silicon, CPU and CUDA, or be hosted with a keyed client; document which.",
   "type": "epic",
-  "status": "open",
+  "status": "in_progress",
   "priority": 2,
-  "assignee": null,
+  "assignee": "Codex GPT-6 (Kev Lead)",
   "creator": null,
   "parent": "BD-250c97a3-6ae4-4061-8d67-dbfd02bf9549",
   "labels": [
@@ -35,10 +35,70 @@
         "model": "Claude Sonnet 5",
         "name": "Board steward"
       }
+    },
+    {
+      "id": "0dfa3e62-a9b1-4157-89c7-e32a72c480b5",
+      "author": "home",
+      "text": "Ownership: Codex GPT-6 (Kev Lead); epic in progress. GPT-6 Luna sub-agent kev_implementation is actively implementing BD-ce3f5c against story BD-505817. Isolated worktree /private/tmp/biased-decisions-kev, branch codex/kev-engine, base c7e2358. Step-by-step work order: docs/kev-implementation-plan.md. First slice is offline adapter and resumable generic collection tests; lead owns pinned preregistration, runtime and GPU coordination, review, and later benchmark collection. New tasks/cues will be consumed from shared definitions after the coverage session lands them; that session retains ownership of Laya consolidation. Upstream Kev now documents an MLX path, superseding the old survey. No model runs have started.",
+      "created_at": "2026-09-24T00:00:55.514817Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "codex",
+        "model": "GPT-6",
+        "name": "Kev Lead"
+      }
+    },
+    {
+      "id": "35e16b9e-b4f4-43e7-9dd8-21c589bfe38d",
+      "author": "home",
+      "text": "Recovery after Mac reboot: the /private/tmp worktree disappeared. Restored committed branch codex/kev-engine at 1e91e86 into persistent /Users/home/Projects/Biased-Decisions/.worktrees/kev. Epic and Luna task BD-ce3f5c remain assigned and in progress. Uncommitted adapter/spec files were not present in the recovered branch and must be recreated. Restarting one GPT-6 Luna worker with small offline tests only; no model weights, GPU inference, full replay or site build. Checkpoint and push implementation slices promptly.",
+      "created_at": "2026-09-24T00:15:41.873680Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "codex",
+        "model": "GPT-6",
+        "name": "Kev Lead"
+      }
+    },
+    {
+      "id": "e73d219d-4cc2-4099-be8e-5c5516b317ed",
+      "author": "home",
+      "text": "Adapter checkpoint a909d73 passed 8 offline specs and is pushed. Study predictions and 54-cell input manifest were committed before inference in a5a6049; frozen request count is 243133. Selected Kev-0.8B checkpoint54f4f8777356cd5bbbb6c6919c657f26e6f2f6d8 with upstream serverc9c1f855505336ac32092a5f68305d397f7fcc3e, MLX backend, checkpoint temperature2.406050072164233. Isolated runtime and pinned weights are installed without GPU inference. Luna is completing generic collection; lead review identified order-fingerprint, reversed-twin, committed repeat-ID and stable-provenance edge cases and requested specs/fixes. Active Laya antisemitism job owns local inference presently. Batch2 coverage import is still pending in its separate session.",
+      "created_at": "2026-09-24T00:39:37.313179Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "codex",
+        "model": "GPT-6",
+        "name": "Kev Lead"
+      }
+    },
+    {
+      "id": "0d6c7ef9-80d4-4576-a3ad-14ca6d177a7f",
+      "author": "home",
+      "text": "Checkpoint 1724a55 is pushed: resumable collector supports all 54 frozen cells (243133 requests), with ordered input fingerprints, pinned runtime metadata, and generic incoming multi-question tasks. Targeted adapter/collector/scoring tests pass; three real localhost HTTP transport tests also pass. Leaderboard integration leaves unmeasured Kev outside rankings. Runtime import and serve help succeed. Model inference remains pending: another Laya job is active, and shared heavy-work lock is held by a queued site build. Will use the shared lock and additionally check running inference jobs before loading Kev. No real Kev answers yet.",
+      "created_at": "2026-09-24T00:54:26.300381Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "codex",
+        "model": "GPT-6",
+        "name": "Kev Lead"
+      }
+    },
+    {
+      "id": "c64cf724-3516-4e23-a51f-074cf8a64699",
+      "author": "home",
+      "text": "Actual local Kev MLX inference verified: all 20 preregistered original surgeon/physician pilot items completed through the HTTP adapter. Pinned checkpoint54f4f8777356cd5bbbb6c6919c657f26e6f2f6d8, upstream c9c1f855505336ac32092a5f68305d397f7fcc3e, MLX bfloat16, stored temperature2.406050072164233. Observed calls5.069432s including first initialization. Retained answers, metadata and per-call timing in studies/kev/pilot*. Laya and waiting replay wrapper resumed in finally after clean Kev shutdown. Prior waiting was a scheduling error, not an observed runtime failure. Full study and incoming coverage remain open; no bias conclusion from pilot.",
+      "created_at": "2026-09-24T01:40:59.132235Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "codex",
+        "model": "GPT-6",
+        "name": "Kev Lead"
+      }
     }
   ],
   "created_at": "2026-09-23T11:41:24.561784Z",
-  "updated_at": "2026-09-23T16:32:50.048331Z",
+  "updated_at": "2026-09-24T01:40:59.132279Z",
   "closed_at": null,
   "agent": {
     "platform": "claude-code",

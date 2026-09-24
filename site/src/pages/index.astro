@@ -8,16 +8,22 @@ import { data, engines, dimensions, supplementalDimensions, engineById, urls, he
   fmt, signed, unit, largestBias } from "../lib/site.js";
 
 const nDims = dimensions.length;
+const rows = data.overall.rows;
+const nTestedModels = rows.filter((r) => r.measured_on > 0).length;
 const nCells = dimensions.reduce((a, d) => a + Object.values(d.cells).filter((c) => c.status === "measured").length, 0);
 let best = null;
 for (const d of dimensions) for (const en of engines) {
   const c = d.cells[en.id];
   if (c.status === "measured" && c.detected && (!best || c.headline.value > best.c.headline.value)) best = { d, en, c };
 }
-const rows = data.overall.rows;
 const shortlistLine = evidence("shortlist-laya-attorney-500");
 let placeN = 0, lastMean = null;
-const places = rows.map((r, i) => { if (r.mean_rank !== lastMean) placeN = i + 1; lastMean = r.mean_rank; return placeN; });
+const places = rows.map((r, i) => {
+  if (r.mean_rank === null) return null;
+  if (r.mean_rank !== lastMean) placeN = i + 1;
+  lastMean = r.mean_rank;
+  return placeN;
+});
 const max = globalSpiderMax();
 const axes = dimensions.map((d) => ({ id: d.id, label: d.label, short: shortLabel(d), href: urls.dim(d.id) }));
 const charts = {
@@ -63,7 +69,7 @@ const bestItem = best ? best.c.headline.facet_label.replace(/ \/ /g, "-or-") : "
 const bestMoved = best ? (bestIsShare
   ? `changed its answer on ${fmt(best.c.headline.value)} more of every 100 ${bestItem} bios than after a harmless control edit`
   : `moved its confidence ${fmt(best.c.headline.value)} percentage points more on ${bestItem} bios than after a harmless control edit`) : "";
-const description = `Some AI models answer a yes-or-no question about a person from a short text. We change one detail, such as he to she, and count how often the answer changes. ${engines.length} models, ${nDims} characteristics, most biased first.${best ? ` The largest effect: ${best.en.label} ${bestMoved}, on ${best.d.label.toLowerCase()}.` : ""}`;
+const description = `Some AI models answer a yes-or-no question about a person from a short text. We change one detail, such as he to she, and count how often the answer changes. ${nTestedModels} tested models, ${nDims} characteristics, most biased first.${best ? ` The largest effect: ${best.en.label} ${bestMoved}, on ${best.d.label.toLowerCase()}.` : ""}`;
 const bestChange = best ? (best.d.id === "option-order" ? "only the order of the two answer options changed" : `only a ${best.d.label.toLowerCase()} detail changed`) : "";
 const kindWord = (k) => (k === "task" ? "decision" : k);
 ---
@@ -73,7 +79,7 @@ const kindWord = (k) => (k === "task" ? "decision" : k);
       <p class="kicker">Bias leaderboard for fast decision models</p>
       <h1 class="display xl">Change one detail about a person. Watch the answer move.</h1>
       <p class="deck">Some software now reads a short text about a person and answers a yes-or-no question about them, instantly, with no reasons. We take a real short professional biography and change one detail: "he" becomes "she", or a name changes. Then we ask the same question again and count how often the answer moves. Nothing else in the text changed, so the detail moved it.</p>
-      <p class="deck">We tested {engines.length} models. A model is software that reads a text and answers a question about it. {introModels()} Here you can see which model is most biased, on which of {nDims} characteristics, such as gender, race and age. We have {nCells} results, one for each model on each characteristic we tested it on, and each links to the numbers behind it.</p>
+      <p class="deck">We tested {nTestedModels} models. A model is software that reads a text and answers a question about it. {introModels()} Here you can see which model is most biased, on which of {nDims} characteristics, such as gender, race and age. We have {nCells} results, one for each model on each characteristic we tested it on, and each links to the numbers behind it.</p>
     </div>
     {best && (
       <p class="finding">
@@ -111,12 +117,12 @@ const kindWord = (k) => (k === "task" ? "decision" : k);
         const en = engineById[r.engine];
         return (
           <li class="ov-row">
-            <div class="ov-place" aria-label={`Place ${places[i]}`}>{places[i]}</div>
+            <div class="ov-place" aria-label={places[i] === null ? "Not yet ranked" : `Place ${places[i]}`}>{places[i] === null ? "—" : places[i]}</div>
             <div class="ov-name">
               <EngineName engine={en} href={urls.engine(en.id)} />
-              <div class="ov-mean" title={`Average place ${fmt(r.mean_rank)}, over the ${r.ranked_on} characteristics where it was compared with another model`}>{worstCount(r) > 0 ? <Fragment>most biased on <strong>{worstCount(r)} of the {r.ranked_on}</strong> characteristics where it was compared</Fragment> : `not the most biased on any of the ${r.ranked_on} characteristics where it was compared`}</div>
-              <div class="ov-mean">{largestBias(r.engine) > 0 ? <Fragment>largest effect: <strong>{signed(largestBias(r.engine))} percentage points</strong> beyond the control edit</Fragment> : "no clear effect on any characteristic tested"}</div>
-              {r.incomplete && <div class="flag">Incomplete: not tested on {r.unmeasured.length} of {data.overall.n_dimensions} characteristics</div>}
+              {r.mean_rank !== null && <div class="ov-mean" title={`Average place ${fmt(r.mean_rank)}, over the ${r.ranked_on} characteristics where it was compared with another model`}>{worstCount(r) > 0 ? <Fragment>most biased on <strong>{worstCount(r)} of the {r.ranked_on}</strong> characteristics where it was compared</Fragment> : `not the most biased on any of the ${r.ranked_on} characteristics where it was compared`}</div>}
+              <div class="ov-mean">{r.measured_on === 0 ? "Not yet tested" : largestBias(r.engine) > 0 ? <Fragment>largest effect: <strong>{signed(largestBias(r.engine))} percentage points</strong> beyond the control edit</Fragment> : "no clear effect on any characteristic tested"}</div>
+              {r.incomplete && <div class="flag">{r.measured_on === 0 ? `Not yet tested on any of ${data.overall.n_dimensions} characteristics` : `Incomplete: not tested on ${r.unmeasured.length} of ${data.overall.n_dimensions} characteristics`}</div>}
             </div>
             <div class="cov">
               {coverage(r).map(({ d, cls, txt, desc, worst, sole, v }) => (

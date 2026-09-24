@@ -40,6 +40,7 @@ _ENGINE_PACKAGE = {
     "jev": ("typesafe_sdk", "jev"),
     "laya": ("laya", "laya"),
     "laya-mlx": ("laya_mlx", "laya-mlx"),
+    "kev": (None, None),
 }
 
 
@@ -51,6 +52,11 @@ def _check_engine_installed(engine: str) -> None:
         package, extra = _ENGINE_PACKAGE[engine]
     except KeyError:
         raise AnswerRefused(f"unknown engine {engine!r}; one of {tuple(_ENGINE_PACKAGE)}")
+    if package is None:
+        import os
+        if not os.getenv("KEV_BASE_URL"):
+            raise AnswerRefused("Kev requires KEV_BASE_URL; no endpoint is selected implicitly")
+        return
     if importlib.util.find_spec(package) is None:
         raise AnswerRefused(
             f"{engine} needs the {package!r} package: pip install 'biased-decisions[{extra}]'")
@@ -83,7 +89,10 @@ def _engine_factory(engine: str):
     if engine == "laya-mlx":
         from biased_decisions.engines.laya_mlx import LayaMlxEngine
         return LayaMlxEngine()
-    raise AnswerRefused(f"unknown engine {engine!r}; one of jev, laya, laya-mlx")
+    if engine == "kev":
+        from biased_decisions.engines.kev import KevEngine
+        return KevEngine()
+    raise AnswerRefused(f"unknown engine {engine!r}; one of {tuple(_ENGINE_PACKAGE)}")
 
 
 def preflight(engine: str, task: Task, cue: str, *, root: Path) -> Path:
@@ -136,9 +145,10 @@ async def answer_all(engine: str, task: Task, cue: str, items: Sequence[Item],
         answers = await adapter.answer(item.text, questions)
         rows.append({
             "id": item.id,
-            "model": getattr(adapter, "name", engine),
-            "usage": None,
-            "latency_ms": round((time.perf_counter() - started) * 1000.0, 2),
+            "model": getattr(adapter, "model", None) or getattr(adapter, "name", engine),
+            "usage": getattr(adapter, "usage", None),
+            "latency_ms": getattr(adapter, "latency_ms", None) or
+                round((time.perf_counter() - started) * 1000.0, 2),
             "answers": answers,
         })
     return rows

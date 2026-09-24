@@ -25,7 +25,9 @@ const charts = {
 };
 const nDetected = measuredDims.filter((d) => d.cells[en.id].detected).length;
 const worst = measuredDims.filter((d) => d.cells[en.id].detected).sort((a, b) => b.cells[en.id].headline.value - a.cells[en.id].headline.value)[0];
-const description = `${en.label} on the Biased-Decisions leaderboard: a clear effect on ${nDetected} of the ${row.measured_on} characteristics we tested it on${worst ? `; its largest is ${signed(worst.cells[en.id].headline.value)} percentage points beyond a harmless control edit, on ${worst.label.toLowerCase()}` : ""}. Average place ${fmt(row.mean_rank)}, where 1 is most biased.`;
+const description = measuredDims.length === 0
+  ? `${en.label} has not yet been tested on any of the ${dimensions.length} characteristics. No average place is available.`
+  : `${en.label} on the Biased-Decisions leaderboard: a clear effect on ${nDetected} of the ${row.measured_on} characteristics we tested it on${worst ? `; its largest is ${signed(worst.cells[en.id].headline.value)} percentage points beyond a harmless control edit, on ${worst.label.toLowerCase()}` : ""}. Average place ${fmt(row.mean_rank)}, where 1 is most biased.`;
 const uOf = (d, h) => (h && h.raw && h.raw.unit) || unit(d);
 ---
 <Base title={en.label} description={description} path={urls.engine(en.id)} current={{ page: "engine", engine: en.id }} charts={charts}
@@ -40,11 +42,13 @@ const uOf = (d, h) => (h && h.raw && h.raw.unit) || unit(d);
         <ul>{en.builds.map((b) => <li><strong>{b.label}</strong> ({b.package}, runs on {b.runs_on}): {b.note}.</li>)}</ul>
       </div>
     )}
-    <p class="deck">We change one detail in a real short professional biography, such as "he" to "she", and count how often {en.label}'s answer moves. We compare that with a control edit: a harmless change of the same size, such as adding "a keen cyclist". Only the part beyond the control edit counts.</p>
+    {measuredDims.length === 0
+      ? <p class="deck">We have not yet tested {en.label} on any characteristics. Results will appear here when measurements are available.</p>
+      : <p class="deck">We change one detail in a real short professional biography, such as "he" to "she", and count how often {en.label}'s answer moves. We compare that with a control edit: a harmless change of the same size, such as adding "a keen cyclist". Only the part beyond the control edit counts.</p>}
     <div class="eng-stats">
-      <div><span class="stat-k">Average place</span><span class="stat-v">{row.mean_rank === null ? "—" : fmt(row.mean_rank)}</span><span class="stat-s">over the {row.ranked_on} characteristics where it was compared with another model; 1 = most biased</span></div>
+      <div><span class="stat-k">Average place</span><span class="stat-v">{row.mean_rank === null ? "—" : fmt(row.mean_rank)}</span><span class="stat-s">{measuredDims.length === 0 ? "Not yet ranked" : `over the ${row.ranked_on} characteristics where it was compared with another model; 1 = most biased`}</span></div>
       <div><span class="stat-k">Tested on</span><span class="stat-v">{row.measured_on} / {dimensions.length}</span><span class="stat-s">{row.incomplete ? "incomplete: see below" : "every characteristic"}</span></div>
-      <div><span class="stat-k">Clear effect on</span><span class="stat-v">{nDetected}</span><span class="stat-s">of the characteristics it was tested on</span></div>
+      <div><span class="stat-k">Clear effect on</span><span class="stat-v">{measuredDims.length === 0 ? "—" : nDetected}</span><span class="stat-s">{measuredDims.length === 0 ? "Not yet tested" : "of the characteristics it was tested on"}</span></div>
     </div>
   </section>
   <section class="wrap section">
@@ -54,7 +58,9 @@ const uOf = (d, h) => (h && h.raw && h.raw.unit) || unit(d);
   </section>
   <section class="wrap section">
     <h2 class="display">Every result</h2>
-    <p class="lede">{en.label}'s largest effect on each characteristic, beyond the control edit, on one scale from 0 to {stripMax} percentage points. The vertical line is the control edit. Each result is shown with the range we are 95% sure the true value lies in. Select a characteristic for {en.label}'s full results on it.</p>
+    <p class="lede">{measuredDims.length === 0
+      ? `No results are available because we have not yet tested ${en.label}. This page will show each characteristic when measurements are available.`
+      : <Fragment>{en.label}'s largest effect on each characteristic, beyond the control edit, on one scale from 0 to {stripMax} percentage points. The vertical line is the control edit. Each result is shown with the range we are 95% sure the true value lies in. Select a characteristic for {en.label}'s full results on it.</Fragment>}</p>
     <ol class="eng-cells">
       {measuredDims.map((d) => {
         const c = d.cells[en.id];

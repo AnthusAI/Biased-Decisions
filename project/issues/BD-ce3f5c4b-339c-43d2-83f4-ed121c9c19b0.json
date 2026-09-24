@@ -1,0 +1,62 @@
+{
+  "id": "BD-ce3f5c4b-339c-43d2-83f4-ed121c9c19b0",
+  "title": "Implement Kev adapter and coverage-ready resumable collection",
+  "description": "Implements story BD-505817. Follow docs/kev-implementation-plan.md. Write failing offline specs, implement isolated Kev endpoint configuration and answer validation, add a generic resumable runner, then integrate offline scoring/reporting. No live inference in this implementation slice. Parent owns study registration and runtime coordination.",
+  "type": "task",
+  "status": "in_progress",
+  "priority": 2,
+  "assignee": "Codex GPT-6 Luna",
+  "creator": null,
+  "parent": "BD-dc51ca9b-6149-495e-979f-22268681e251",
+  "labels": [],
+  "dependencies": [],
+  "comments": [
+    {
+      "id": "f90c4ce3-65b9-462f-843f-72b6531c661f",
+      "author": "home",
+      "text": "Lead review follow-up: resume identity must bind the full question.yaml (including scoring labels) and complete selected item records, not only id/text; add a failure-first regression for metadata-only and positive-class changes. CLI list/score must expose existing regulated cells. Leaderboard tests must remain valid once Kev is measured, while a controlled missing-Kev fixture verifies missing is never zero; glossary must reflect measured engine coverage. A second bounded Luna worker will make those compatibility fixes while the first adds frozen-study execution.",
+      "created_at": "2026-09-24T00:56:31.024631Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "codex",
+        "model": "GPT-6",
+        "name": "Kev Lead"
+      }
+    },
+    {
+      "id": "ab860344-29ab-4c2a-902d-a8742b2bdae2",
+      "author": "home",
+      "text": "Validation plan update: PR #7 is open in draft. The local Mac remains occupied (active Laya model job and high system load), so use the existing GitHub PR audit for full offline validation. Extend that existing workflow to include script specs and the existing site build/spec commands after byte-exact replay. This validates Kev page generation without overlapping local inference; it makes no model calls and no hosted inference purchases. The original checkout Kanbus epic is now also visibly assigned/in_progress.",
+      "created_at": "2026-09-24T01:08:36.272019Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "codex",
+        "model": "GPT-6",
+        "name": "Kev Lead"
+      }
+    },
+    {
+      "id": "df8da51e-8856-4cb9-b4b6-f6db68b4e896",
+      "author": "home",
+      "text": "Final compatibility review found a real incoming-coverage blocker: shared stereotypes question entries contain question and trope_consistent_answer but no trope field. Collector currently requires trope even though HTTP collection does not use it. Luna will add a failing regression using that exact schema, make only the unused trope field optional, and rerun targeted collector specs. Shared scorer/task import remains owned by coverage session; no stimuli changed.",
+      "created_at": "2026-09-24T01:46:45.598752Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "codex",
+        "model": "GPT-6",
+        "name": "Kev Lead"
+      }
+    }
+  ],
+  "created_at": "2026-09-23T23:59:41.823214Z",
+  "updated_at": "2026-09-24T01:46:45.598788Z",
+  "closed_at": null,
+  "agent": {
+    "platform": "codex",
+    "model": "GPT-6",
+    "name": "Kev Lead"
+  },
+  "right_now_summary": null,
+  "right_now_updated_at": null,
+  "custom": {}
+}
