@@ -10,11 +10,17 @@ Use the committed stimuli, questions, option order, scoring, and floors. New bia
 tasks are being developed in another session; consume their shared task definitions
 after they land. That session also owns consolidating the Laya implementations.
 
-Work in `/private/tmp/biased-decisions-kev` on `codex/kev-engine`, initially based on
+Work in `/Users/home/Projects/Biased-Decisions/.worktrees/kev` on `codex/kev-engine`, initially based on
 `c7e2358`. Do not edit the other checkout. Read AGENTS.md and CONTRIBUTING_AGENT.md.
 Use `KANBUS_NO_DAEMON=1 kbs` for board access. The lead handles board writes and git
 publication during the first implementation slice to avoid concurrent mutations.
 Never read or write issue JSON directly, or read, print, or source `.env`.
+
+The Mac reboot removed the original temporary worktree. The committed branch and
+board state survived; uncommitted adapter files did not. Continue in this persistent
+worktree. Checkpoint completed implementation slices in git and push promptly.
+Use one implementation agent and small offline tests during recovery; do not load
+model weights, launch GPU inference, or run a full replay or site build.
 
 ## Implementation sequence
 
