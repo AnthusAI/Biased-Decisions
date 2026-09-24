@@ -83,10 +83,22 @@
         "model": "GPT-6",
         "name": "Kev Lead"
       }
+    },
+    {
+      "id": "c64cf724-3516-4e23-a51f-074cf8a64699",
+      "author": "home",
+      "text": "Actual local Kev MLX inference verified: all 20 preregistered original surgeon/physician pilot items completed through the HTTP adapter. Pinned checkpoint54f4f8777356cd5bbbb6c6919c657f26e6f2f6d8, upstream c9c1f855505336ac32092a5f68305d397f7fcc3e, MLX bfloat16, stored temperature2.406050072164233. Observed calls5.069432s including first initialization. Retained answers, metadata and per-call timing in studies/kev/pilot*. Laya and waiting replay wrapper resumed in finally after clean Kev shutdown. Prior waiting was a scheduling error, not an observed runtime failure. Full study and incoming coverage remain open; no bias conclusion from pilot.",
+      "created_at": "2026-09-24T01:40:59.132235Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "codex",
+        "model": "GPT-6",
+        "name": "Kev Lead"
+      }
     }
   ],
   "created_at": "2026-09-23T11:41:24.561784Z",
-  "updated_at": "2026-09-24T00:54:26.300439Z",
+  "updated_at": "2026-09-24T01:40:59.132279Z",
   "closed_at": null,
   "agent": {
     "platform": "claude-code",
