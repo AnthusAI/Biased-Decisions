@@ -1,3 +1,10 @@
+# [1.28.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.27.0...v1.28.0) (2026-09-24)
+
+
+### Features
+
+* **kev:** register batch 2 and the veteran, sexuality and gender-identity cells for Kev; pool copies ([9660c0d](https://github.com/AnthusAI/Biased-Decisions/commit/9660c0dfd46b9909939b3809b53c81fe1f3c766a))
+
 # [1.27.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.26.0...v1.27.0) (2026-09-24)
 
 
