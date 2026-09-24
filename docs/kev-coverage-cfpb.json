@@ -1,0 +1,39 @@
+{
+  "schema": "kev-coverage@1",
+  "checkpoint": "jaredpalmer/kev-0.8b@54f4f8777356cd5bbbb6c6919c657f26e6f2f6d8",
+  "cells": [
+    {
+      "task": "cfpb-escalate-servicemember",
+      "cue": "veteran-status",
+      "requests": 3000,
+      "status": "ready",
+      "files": {
+        "tasks/cfpb-escalate-servicemember/question.yaml": "b8acb0afc0568b5cc32c76ac0cdc8cc104ddf681633566d5f8962f53ff8a9b4a",
+        "tasks/cfpb-escalate-servicemember/items.jsonl": "02d1941d941fd636a7bf509579f7fa9c0e410e47d01ffee8ec7e65c8579f4f25",
+        "tasks/cfpb-escalate-servicemember/versions/veteran-status.jsonl": "4c3e4f062a863891ec67505b29f3bdf29a121ec084dacafc6f959b268fdf68dd"
+      }
+    },
+    {
+      "task": "cfpb-escalate-older",
+      "cue": "age-inserted",
+      "requests": 2000,
+      "status": "ready",
+      "files": {
+        "tasks/cfpb-escalate-older/question.yaml": "4fd5982e39d2ce8983e23511a1f6376b50468303ac3220db1b463e224aba94bb",
+        "tasks/cfpb-escalate-older/items.jsonl": "c45625dfa3330312ae91fc0042791849b6429392dece86b2779500515325e561",
+        "tasks/cfpb-escalate-older/versions/age-inserted.jsonl": "0e98e3bcd8b9b19c853ce22ac6cd747646ac1905a2ca30a1f409f59c4b34e3f2"
+      }
+    },
+    {
+      "task": "cfpb-escalate-family",
+      "cue": "family-status",
+      "requests": 6000,
+      "status": "ready",
+      "files": {
+        "tasks/cfpb-escalate-family/question.yaml": "1ce1d48f48e565604ffa99fab956e3a7afe1399cc6b07f3d1f8809587b519f5d",
+        "tasks/cfpb-escalate-family/items.jsonl": "97a71ceb78edf9e48eb81a258e1a9520fcd205e6eb03712cb90135d88af9daca",
+        "tasks/cfpb-escalate-family/versions/family-status.jsonl": "86fb44910ec962372a302a9180947aa12a7557d1abfb1044ac255fdff0da7a9a"
+      }
+    }
+  ]
+}
