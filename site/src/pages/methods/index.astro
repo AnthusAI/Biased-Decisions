@@ -1,4 +1,5 @@
 ---
+import { pageIntroductions } from "../../lib/introductions.js";
 import Base from "../../layouts/Base.astro";
 import EngineName from "../../components/EngineName.astro";
 import { data, engines, dimensions, engineById, urls, fmt, int } from "../../lib/site.js";
@@ -13,8 +14,8 @@ const line = C.shortlist.line.toFixed(2);
   crumbs={[{ label: "Leaderboard", href: urls.home() }, { label: "How we measure this" }]}>
   <section class="wrap hero">
     <p class="kicker">Methods</p>
-    <h1 class="display xl">How we test AI for bias</h1>
-    <p class="deck">We give an AI model two versions of the same text, change a personal detail, and compare its answers. For example, does it identify a different job when “he” becomes “she”? This page explains how we separate the effect of that change from ordinary variation in the model’s answers.</p>
+    <h1 class="display xl">{pageIntroductions.methods.title}</h1>
+    <p class="deck">{pageIntroductions.methods.intro}</p>
     <p>We tested {engines.length} models. A model is software that reads a text and answers a question about it. {introModels()}</p>
   </section>
 

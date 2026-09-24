@@ -1,4 +1,5 @@
 ---
+import { pageIntroductions } from "../lib/introductions.js";
 import Base from "../layouts/Base.astro";
 import Chart from "../components/Chart.astro";
 import EngineName from "../components/EngineName.astro";
@@ -77,8 +78,8 @@ const kindWord = (k) => (k === "task" ? "decision" : k);
   <section class="wrap hero">
     <div class="hero-top"><div>
       <p class="kicker">Bias leaderboard for fast decision models</p>
-      <h1 class="display xl">Change one detail about a person. Watch the answer move.</h1>
-      <p class="deck">Would AI identify a different job for the same person if “he” became “she”? Would it remove the same online comment after its author said they were gay? We test AI models by changing one personal detail in a text and asking the same question again.</p>
+      <h1 class="display xl">{pageIntroductions.home.title}</h1>
+      <p class="deck">{pageIntroductions.home.intro}</p>
       <p class="deck">We compare {nTestedModels} AI models across {nDims} characteristics, including gender, race and age. The results show when their answers depend on a personal detail instead of staying consistent with the rest of the text. Start with a characteristic below, or compare the models. Every result links to the test behind it.</p>
     </div>
     {best && (

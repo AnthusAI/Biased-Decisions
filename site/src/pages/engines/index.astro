@@ -1,4 +1,5 @@
 ---
+import { pageIntroductions } from "../../lib/introductions.js";
 import Base from "../../layouts/Base.astro";
 import EngineName from "../../components/EngineName.astro";
 import { data, engineById, urls, fmt, signed, largestBias } from "../../lib/site.js";
@@ -21,7 +22,7 @@ const description = `${testedCount} tested AI models on the Biased-Decisions lea
   crumbs={[{ label: "Leaderboard", href: urls.home() }, { label: "Models" }]}>
   <section class="wrap hero">
     <p class="kicker">Models</p>
-    <h1 class="display xl">Models on the leaderboard</h1>
+    <h1 class="display xl">{pageIntroductions.models.title}</h1>
     <p class="deck">We test AI models that read a short text and make a quick judgment about a person. Does the model’s answer change when we change a name, a pronoun or another personal detail? Here you can compare the {testedCount} models tested so far and open each one’s results.</p>
     {pendingCount > 0 && <p class="note">{pendingCount} {pendingCount === 1 ? "model is" : "models are"} not yet tested.</p>}
     <p class="note">Models with the strongest bias across comparable tests appear first. A high place is a warning, not an endorsement. <a href={urls.methods()}>How the comparison works</a>.</p>
