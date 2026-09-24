@@ -5,14 +5,24 @@ import { data, engineById, urls, fmt, signed, largestBias } from "../../lib/site
 import { aboutModel } from "./_about.js";
 
 const rows = data.overall.rows;
-const description = `The ${rows.length} AI models on the Biased-Decisions leaderboard, most biased first. Each model answers a yes-or-no question about a person from a short text, and each has a page for every characteristic we tested it on.`;
+const testedCount = rows.filter((r) => r.measured_on > 0).length;
+const pendingCount = rows.length - testedCount;
+let placeN = 0;
+let lastMean = null;
+const places = rows.map((r, i) => {
+  if (r.mean_rank === null) return null;
+  if (r.mean_rank !== lastMean) placeN = i + 1;
+  lastMean = r.mean_rank;
+  return placeN;
+});
+const description = `${testedCount} tested AI models on the Biased-Decisions leaderboard, with ${pendingCount} not yet tested. Each model answers a question about a person from a short text.`;
 ---
 <Base title="Models" description={description} path={urls.engines()} current={{ page: "engines" }}
   crumbs={[{ label: "Leaderboard", href: urls.home() }, { label: "Models" }]}>
   <section class="wrap hero">
     <p class="kicker">Models</p>
-    <h1 class="display xl">Every model we tested</h1>
-    <p class="deck">A model is software that reads a text and answers a question about it. We tested {rows.length}, listed most biased first. The order comes from each model's average place over the characteristics where it could be compared with another model. Each effect is measured beyond a control edit: a harmless change of the same size, such as adding "a keen cyclist". Each model has a page, and a page for each characteristic we tested it on. <a href={urls.methods()}>How we measure this</a>.</p>
+    <h1 class="display xl">Models on the leaderboard</h1>
+    <p class="deck">A model is software that reads a text and answers a question about it. We tested {testedCount} models, listed most biased first. {pendingCount > 0 && <Fragment>{pendingCount} {pendingCount === 1 ? "model is" : "models are"} not yet tested. </Fragment>}The order comes from each model's average place over the characteristics where it could be compared with another model. Each effect is measured beyond a control edit: a harmless change of the same size, such as adding "a keen cyclist". Each model has a page, and a page for each characteristic we tested it on. <a href={urls.methods()}>How we measure this</a>.</p>
   </section>
   <section class="wrap section tight">
     <ol class="overall">
@@ -21,11 +31,12 @@ const description = `The ${rows.length} AI models on the Biased-Decisions leader
         const largest = largestBias(r.engine);
         return (
           <li class="ov-row ov-simple">
-            <div class="ov-place">{i + 1}</div>
+            <div class="ov-place" aria-label={places[i] === null ? "Not yet ranked" : `Place ${places[i]}`}>{places[i] === null ? "—" : places[i]}</div>
             <div class="ov-name">
               <EngineName engine={en} href={urls.engine(en.id)} />
-              <div class="ov-mean">average place <strong>{fmt(r.mean_rank)}</strong> over the {r.ranked_on} characteristics where it was compared · tested on {r.measured_on} of {data.overall.n_dimensions}</div>
-              <div class="ov-mean">{largest > 0 ? <Fragment>largest effect: <strong>{signed(largest)} percentage points</strong> beyond the control edit</Fragment> : "no clear effect on any characteristic tested"}</div>
+              {r.mean_rank !== null && <div class="ov-mean">average place <strong>{fmt(r.mean_rank)}</strong> over the {r.ranked_on} characteristics where it was compared · tested on {r.measured_on} of {data.overall.n_dimensions}</div>}
+              <div class="ov-mean">{r.measured_on === 0 ? "Not yet tested" : largest > 0 ? <Fragment>largest effect: <strong>{signed(largest)} percentage points</strong> beyond the control edit</Fragment> : "no clear effect on any characteristic tested"}</div>
+              {r.mean_rank === null && r.measured_on > 0 && <div class="ov-mean">Tested, but not yet ranked against another model</div>}
             </div>
             <p class="ov-about">{aboutModel(en)}</p>
           </li>
