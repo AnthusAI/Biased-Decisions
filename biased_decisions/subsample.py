@@ -19,7 +19,7 @@ def family_id(item: Item, task: str) -> str:
     """The id of the original text this item derives from, without any task prefix."""
     meta = item.metadata or {}
     family = str(meta.get("source_id") or meta.get("counterfactual_of") or item.id)
-    for prefix in {task, meta.get("source_task")}:
+    for prefix in (task, meta.get("source_task")):
         if prefix and family.startswith(f"{prefix}-"):
             return family[len(prefix) + 1:]
     return family
@@ -51,8 +51,15 @@ def cell_sample(items: Sequence[Item], task: str, cue: str, cap: Optional[int], 
     takes the first ``cap`` families of the registered ranking. With no cap the cell is whole."""
     if cap is None:
         return list(items)
+    if cue == "ask-twice":
+        return list(items)            # its committed selection (versions/ask-twice.txt) is already the sample
     committed = Path(versions_dir) / f"{cue}_jev-subsample.txt"
     if committed.exists():
         fixed = {line.strip() for line in committed.read_text(encoding="utf-8").splitlines() if line.strip()}
-        return [i for i in items if family_id(i, task) in fixed]
+        kept = [i for i in items if family_id(i, task) in fixed]
+        found = {family_id(i, task) for i in kept}
+        if not fixed or found != fixed:
+            raise ValueError(f"the committed sample {committed.name} names {len(fixed)} bios but "
+                             f"{len(fixed - found)} of them are not in this cell")
+        return kept
     return subsample(items, task, cap)
