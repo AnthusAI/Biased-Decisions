@@ -11,8 +11,12 @@ This rule is registered before any answer is collected under it, and it never lo
   side.
 - **Order.** Within a task, items are ranked by `sha256("biased-decisions-subsample-1|<task>|<item id>")`,
   smallest first, where `<item id>` is the original text's id and ties break by id. The ranking does
-  not depend on the cue, on the model, or on any answer, so every cell of a task (the edit cells, the
-  controls and the option-order and repeat checks) uses the same items in the same order.
+  not depend on the cue, on the model, or on any answer. Every cell of a task draws from the same ranking;
+  a cell with fewer eligible families (race and age need a place to insert a name or age) takes the first
+  500 of those, so its sample overlaps heavily with, but is not always identical to, its neighbours'.
+- **Committed samples come first.** A cell that already has a committed sample keeps it: the 500 bios Jev
+  answered for `race-fullname` (`tasks/surgeon-physician/versions/race-fullname_jev-subsample.txt`) and the 500
+  `ask-twice` items. Every model answers those same bios, and the ranking applies to every other cell.
 - **Cap.** A cell answers its first **500 items** in that order. A cell with 500 items or fewer is
   answered in full. The number of requests follows from the versions per item (a pronoun-swap cell is
   two requests per item, so 1,000); the run manifests state the exact counts.
