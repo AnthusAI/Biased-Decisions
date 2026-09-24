@@ -1,3 +1,10 @@
+## [1.31.1](https://github.com/AnthusAI/Biased-Decisions/compare/v1.31.0...v1.31.1) (2026-09-24)
+
+
+### Bug Fixes
+
+* **deploy:** install the build extra (spaCy and its model) in the Amplify build and the replay check ([6a1b2aa](https://github.com/AnthusAI/Biased-Decisions/commit/6a1b2aa64baa6ce177b841328fb87b5b2cb641f8))
+
 # [1.31.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.30.0...v1.31.0) (2026-09-24)
 
 
