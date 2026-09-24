@@ -173,6 +173,21 @@ def test_resume_fingerprint_includes_full_item_definition(tmp_path, field, value
         collect(tmp_path, "kev", "new-task", "as-written", engine=FakeEngine())
 
 
+def test_version_cue_resume_refuses_changed_original_item_metadata(tmp_path):
+    make_task(tmp_path)
+    interrupted = FakeEngine(fail_after=0)
+    with pytest.raises(RuntimeError, match="interrupted"):
+        collect(tmp_path, "kev", "new-task", "cue", engine=interrupted)
+    items_path = tmp_path / "tasks" / "new-task" / "items.jsonl"
+    rows = [json.loads(line) for line in items_path.read_text(encoding="utf-8").splitlines()]
+    rows[0]["metadata"]["reference_label"] = "changed"
+    items_path.write_text("".join(json.dumps(row) + "\n" for row in rows))
+    resume = FakeEngine()
+    with pytest.raises(CollectionError, match="inputs"):
+        collect(tmp_path, "kev", "new-task", "cue", engine=resume)
+    assert resume.calls == []
+
+
 def test_generated_record_is_consumable_by_existing_offline_regulated_scorer(tmp_path):
     from biased_decisions.scoring import score
     slug = "qpain-treatment"

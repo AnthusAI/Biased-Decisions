@@ -155,7 +155,7 @@ def run_pilot(root: Path, engine, provenance: Mapping, *, pilot_size: int = 20) 
                                                   provenance.get("checkpoint")}:
                         raise ValueError("pilot row model does not match provenance")
                     rows[row["id"]] = row
-        except (OSError, json.JSONDecodeError) as error:
+        except (OSError, json.JSONDecodeError):
             raise ValueError("pilot rows are corrupt; refusing unsafe resume") from None
     ordered_ids = expected_metadata["item_ids"]
     if list(rows) != ordered_ids[:len(rows)]:

@@ -148,8 +148,13 @@ def collect(root: Path = DEFAULT_ROOT, engine_name: str = "kev", task_slug: str 
         raise CollectionError("planned inputs contain duplicate item ids")
     definition_path = root / "tasks" / task_slug / "question.yaml"
     raw_definition = yaml.safe_load(definition_path.read_text(encoding="utf-8"))
+    original_items_path = root / "tasks" / task_slug / "items.jsonl"
+    if not original_items_path.is_file():
+        raise CollectionError(f"original task items file is missing: {original_items_path}")
+    original_items_hash = hashlib.sha256(original_items_path.read_bytes()).hexdigest()
     input_hash = _fingerprint({"task": task_slug, "cue": cue,
                                "definition": raw_definition,
+                               "original_items_sha256": original_items_hash,
                                "items": [asdict(i) for i in items],
                                "questions": questions, "ordered_options": list(
                                    reversed(task.options) if cue.startswith("option-order-reversed")
