@@ -84,10 +84,22 @@
         "model": "GPT-6",
         "name": "Pixel Scales Sizing"
       }
+    },
+    {
+      "id": "0a52a9bb-3f72-4628-9e1f-96d15536b5af",
+      "author": "home",
+      "text": "BD-706305 clarified by the user: the logo must be exactly 1em tall, with its bottom aligned to the text baseline, to the right of the text. Implementing font-relative width/height and baseline alignment. The earlier cap-height interpretation is superseded.",
+      "created_at": "2026-09-24T00:43:20.922833Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "codex",
+        "model": "GPT-6",
+        "name": "Pixel Scales Sizing"
+      }
     }
   ],
   "created_at": "2026-09-23T13:03:21.518944Z",
-  "updated_at": "2026-09-24T00:33:52.350406Z",
+  "updated_at": "2026-09-24T00:43:20.922912Z",
   "closed_at": null,
   "agent": {
     "platform": "claude-code",
