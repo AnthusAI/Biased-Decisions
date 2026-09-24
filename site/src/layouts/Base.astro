@@ -84,8 +84,8 @@ gtag('config', '${GA_ID}');`;
   <div class="mast-inner">
     <div class="wrap mast-row">
       <a href={urls.home()} class="brand" aria-label="Biased Decisions">
-        <span class="brand-icon" aria-hidden="true" set:html={scales}></span>
         <span><span class="brand-a">Biased</span><span class="brand-b">Decisions</span></span>
+        <span class="brand-icon" aria-hidden="true" set:html={scales}></span>
       </a>
       <nav class="topnav" aria-label="Site">
         <a href={urls.methods()} class={current.page === "methods" ? "on" : null} aria-current={current.page === "methods" ? "page" : undefined}>How we measure</a>
