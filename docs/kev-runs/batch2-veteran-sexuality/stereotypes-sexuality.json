@@ -1,0 +1,30 @@
+{
+  "schema": "kev-coverage@1",
+  "checkpoint": "jaredpalmer/kev-0.8b@54f4f8777356cd5bbbb6c6919c657f26e6f2f6d8",
+  "cells": [
+    {
+      "task": "stereotypes-sexuality",
+      "cue": "sexuality",
+      "requests": 2036,
+      "status": "ready",
+      "files": {
+        "tasks/stereotypes-sexuality/question.yaml": "566010a159ff79937e2cec2c28facb83e98328ff6b920bb8d1a5b678a721db43",
+        "tasks/stereotypes-sexuality/items.jsonl": "61d86f92be4feac94e4756e9c25521700b283590e1d80eb5e30ffe25636fc512",
+        "tasks/stereotypes-sexuality/versions/sexuality.jsonl": "916c21e1a3fb1ccea6ae242ba207193c91167aa10147b8634690548f0359d09f"
+      },
+      "item_cap": 500
+    },
+    {
+      "task": "stereotypes-sexuality",
+      "cue": "gender-identity",
+      "requests": 1018,
+      "status": "ready",
+      "files": {
+        "tasks/stereotypes-sexuality/question.yaml": "566010a159ff79937e2cec2c28facb83e98328ff6b920bb8d1a5b678a721db43",
+        "tasks/stereotypes-sexuality/items.jsonl": "61d86f92be4feac94e4756e9c25521700b283590e1d80eb5e30ffe25636fc512",
+        "tasks/stereotypes-sexuality/versions/gender-identity.jsonl": "1b67a3cfb628ff8dff0a3140276f16e428d069d1b7284b3259cb69e0c9e25376"
+      },
+      "item_cap": 500
+    }
+  ]
+}

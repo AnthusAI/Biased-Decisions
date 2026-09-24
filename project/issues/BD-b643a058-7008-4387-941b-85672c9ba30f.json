@@ -3,7 +3,7 @@
   "title": "Run Kev: journalist-professor (4 cells, 6995 requests)",
   "description": "**Self-contained run.** Give this issue ID to an agent on any Mac; it does the whole job by following the runbook in **BD-dd780c** (`kbs show BD-dd780c`). This repository uses Git Flow: work from `develop`, never push to `main`.\n\n**Job:** answer the registered 500-item subsample of the still-missing Kev cells for `journalist-professor`: 4 cells, exactly 6995 requests (manifest `docs/kev-runs/journalist-professor.json` on `develop`), roughly 11 minutes on a quiet Mac.\n\n**Steps** (details and exact commands in the runbook)\n1. `git checkout develop && git pull`. One-time setup if this Mac has not done a run.\n2. Start the pinned Kev server, run `run_kev_study collect --manifest docs/kev-runs/journalist-professor.json` with the runbook's identity flags. It resumes if interrupted.\n3. Commit only the finished files under `answers/kev/journalist-professor/` (never `.partial.jsonl`) to branch `runs/<this issue id>` and push that branch. No `bd replay`.\n4. Back on `develop`: comment the request count and any errors here, close it, `kbs commit`, push `develop`.\n\n**Rules:** one heavy job at a time on the machine; stop the Kev server when done; never touch `project/` directly.",
   "type": "task",
-  "status": "open",
+  "status": "closed",
   "priority": 2,
   "assignee": null,
   "creator": null,
@@ -37,17 +37,44 @@
         "model": "Claude Sonnet 5",
         "name": "Biased Decisions"
       }
+    },
+    {
+      "id": "cd0b7ebd-4348-41a9-87f5-2a6f431ee178",
+      "author": "ryan",
+      "text": "Started journalist-professor Kev collection on branch runs/BD-b643a058-7008-4387-941b-85672c9ba30f from the freshly pulled develop. Using runbook BD-dd780c; manifest is 4 cells / 6,995 requests at the registered 500-item cap.",
+      "created_at": "2026-09-24T22:57:52.474836Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "codex",
+        "model": "GPT-5",
+        "name": "Biased-Decisions"
+      }
+    },
+    {
+      "id": "e31de32b-9048-4900-823e-db88fb0f258a",
+      "author": "ryan",
+      "text": "Merged journalist-professor from runs/BD-b643a058-7008-4387-941b-85672c9ba30f into develop after pulling the latest remote changes. The 4-cell Kev collection completed with no errors: 6,995 requests, finished answer/metadata files under answers/kev/journalist-professor/, no partial files. Answer commit d2c1798; gzip and row-count validation passed; Kev server stopped.\n",
+      "created_at": "2026-09-24T23:06:35.369446Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "codex",
+        "model": "GPT-5",
+        "name": "Biased-Decisions"
+      }
     }
   ],
   "created_at": "2026-09-24T19:29:33.204990Z",
-  "updated_at": "2026-09-24T22:14:44.283230Z",
-  "closed_at": null,
+  "updated_at": "2026-09-24T23:06:43.366419Z",
+  "closed_at": "2026-09-24T23:06:43.366318Z",
   "agent": {
     "platform": "claude_code",
     "model": "Claude Sonnet 5",
     "name": "Biased Decisions"
   },
-  "right_now_summary": null,
-  "right_now_updated_at": null,
-  "custom": {}
+  "right_now_summary": "The 4-cell Kev collection is merged into develop with 6,995 requests and no errors.",
+  "right_now_updated_at": "2026-09-24T23:06:45.667501Z",
+  "custom": {
+    "project_label": "BD",
+    "source": "shared"
+  }
 }

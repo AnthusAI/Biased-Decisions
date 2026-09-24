@@ -3,7 +3,7 @@
   "title": "Run Kev: surgeon-physician race-fullname on Jev's 500 bios (1 cell, 8,000 requests)",
   "description": "**Self-contained run.** Give this issue ID to an agent on any Mac; it follows the runbook in **BD-dd780c** (`kbs show BD-dd780c`). This repository uses Git Flow: work from `develop`, never push to `main`.\n\n**Why:** the first Kev collection of this cell (BD-7c2154) drew its 500 bios by the registered ranking, but this cell already has a committed sample: the 500 bios Jev answered (`tasks/surgeon-physician/versions/race-fullname_jev-subsample.txt`). Only 128 bios overlapped, so Kev's answers could not be compared with Jev's. The runner now uses the committed sample, and the old Kev answers for this cell were removed.\n\n**Job:** answer that one cell: 500 bios, exactly 8,000 requests, roughly 13 minutes on a quiet Mac. Manifest: `docs/kev-runs/surgeon-physician-race-fullname.json` (on `develop` once the fix lands; check `git log` for the commit titled 'committed samples' before starting, and do not start until it is there).\n\n**Steps** (exact commands in the runbook)\n1. `git checkout develop && git pull`; confirm `answers/kev/surgeon-physician/race-fullname.jsonl.gz` does NOT exist.\n2. Start the pinned Kev server; `run_kev_study collect --manifest docs/kev-runs/surgeon-physician-race-fullname.json` with the runbook's identity flags.\n3. Commit only the two finished `race-fullname` files to branch `runs/<this issue id>` and push it. No `bd replay`.\n4. Back on `develop`: comment, close, `kbs commit`, push `develop`.\n\n**Rules:** one heavy job at a time; stop the server when done; never touch `project/` directly.",
   "type": "task",
-  "status": "in_progress",
+  "status": "closed",
   "priority": 2,
   "assignee": null,
   "creator": null,
@@ -25,11 +25,23 @@
         "model": "Claude Sonnet 5",
         "name": "Biased Decisions"
       }
+    },
+    {
+      "id": "1e73ee17-4483-4a9a-a484-10afbb5149fc",
+      "author": "home",
+      "text": "Done on the first Mac: 1 cell, 8,000 requests in 10 minutes, no errors. Checked: the 500 bios are exactly Jev's committed sample (race-fullname_jev-subsample.txt), so the cell can now be compared with Jev. Data on branch runs/BD-0941cd, merged into develop.",
+      "created_at": "2026-09-24T22:59:23.258218Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude_code",
+        "model": "Claude Sonnet 5",
+        "name": "Biased Decisions"
+      }
     }
   ],
   "created_at": "2026-09-24T21:55:26.798277Z",
-  "updated_at": "2026-09-24T22:41:12.583769Z",
-  "closed_at": null,
+  "updated_at": "2026-09-24T22:59:23.319841Z",
+  "closed_at": "2026-09-24T22:59:23.319810Z",
   "agent": {
     "platform": "claude_code",
     "model": "Claude Sonnet 5",

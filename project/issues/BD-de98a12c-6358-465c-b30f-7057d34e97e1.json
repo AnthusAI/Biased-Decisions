@@ -3,7 +3,7 @@
   "title": "Run Kev: dietitian-physician (4 cells, 6996 requests)",
   "description": "**Self-contained run.** Give this issue ID to an agent on any Mac; it does the whole job by following the runbook in **BD-dd780c** (`kbs show BD-dd780c`). This repository uses Git Flow: work from `develop`, never push to `main`.\n\n**Job:** answer the registered 500-item subsample of the still-missing Kev cells for `dietitian-physician`: 4 cells, exactly 6996 requests (manifest `docs/kev-runs/dietitian-physician.json` on `develop`), roughly 11 minutes on a quiet Mac.\n\n**Steps** (details and exact commands in the runbook)\n1. `git checkout develop && git pull`. One-time setup if this Mac has not done a run.\n2. Start the pinned Kev server, run `run_kev_study collect --manifest docs/kev-runs/dietitian-physician.json` with the runbook's identity flags. It resumes if interrupted.\n3. Commit only the finished files under `answers/kev/dietitian-physician/` (never `.partial.jsonl`) to branch `runs/<this issue id>` and push that branch. No `bd replay`.\n4. Back on `develop`: comment the request count and any errors here, close it, `kbs commit`, push `develop`.\n\n**Rules:** one heavy job at a time on the machine; stop the Kev server when done; never touch `project/` directly.",
   "type": "task",
-  "status": "open",
+  "status": "closed",
   "priority": 2,
   "assignee": null,
   "creator": null,
@@ -37,17 +37,44 @@
         "model": "Claude Sonnet 5",
         "name": "Biased Decisions"
       }
+    },
+    {
+      "id": "f45e3261-8a20-4469-ba01-69e62562bb14",
+      "author": "ryan",
+      "text": "Started dietitian-physician Kev collection on branch runs/BD-de98a12c-6358-465c-b30f-7057d34e97e1 from the freshly pulled develop. Using runbook BD-dd780c; manifest is 4 cells / 6,996 requests at the registered 500-item cap.",
+      "created_at": "2026-09-24T22:48:13.211965Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "codex",
+        "model": "GPT-5",
+        "name": "Biased-Decisions"
+      }
+    },
+    {
+      "id": "62ad4837-d05a-4e7f-88d5-3f5f875aed4e",
+      "author": "ryan",
+      "text": "Merged dietitian-physician from runs/BD-de98a12c-6358-465c-b30f-7057d34e97e1 into develop after pulling the latest remote changes. The 4-cell Kev collection completed with no errors: 6,996 requests, finished answer/metadata files under answers/kev/dietitian-physician/, no partial files. Answer commit e5a0520; gzip and row-count validation passed; Kev server stopped.\n",
+      "created_at": "2026-09-24T22:56:58.653793Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "codex",
+        "model": "GPT-5",
+        "name": "Biased-Decisions"
+      }
     }
   ],
   "created_at": "2026-09-24T19:29:33.175213Z",
-  "updated_at": "2026-09-24T22:14:44.250869Z",
-  "closed_at": null,
+  "updated_at": "2026-09-24T22:57:04.455917Z",
+  "closed_at": "2026-09-24T22:57:04.455848Z",
   "agent": {
     "platform": "claude_code",
     "model": "Claude Sonnet 5",
     "name": "Biased Decisions"
   },
-  "right_now_summary": null,
-  "right_now_updated_at": null,
-  "custom": {}
+  "right_now_summary": "The 4-cell Kev collection finished cleanly, was merged into develop, and passed validation.",
+  "right_now_updated_at": "2026-09-24T22:57:06.402457Z",
+  "custom": {
+    "project_label": "BD",
+    "source": "shared"
+  }
 }

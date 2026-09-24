@@ -152,4 +152,8 @@ cells, questions, versions, controls or scoring apply.
   `ask-twice` selections), that sample is used and the ranking is not. The first Kev collection of
   `surgeon-physician` / `race-fullname` drew a different 500 bios by ranking, before this was fixed; it is
   discarded and re-collected on Jev's bios.
+- **Runs for the registered studies:** the first-pass subsample also applies to every amendment above. One run
+  manifest per task, capped at 500 items per cell and pinning the same input files as each study's own manifest, is
+  under `docs/kev-runs/<study>/` (antisemitism, batch2-veteran-sexuality, batch3, cfpb, gendered-language,
+  housing-lending): 21 runs, 122,438 requests. Registered before any Kev answer exists for these cells.
 

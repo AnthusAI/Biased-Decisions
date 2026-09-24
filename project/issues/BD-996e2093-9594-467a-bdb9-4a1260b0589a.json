@@ -21,7 +21,7 @@
     "model": "Claude Sonnet 5",
     "name": "Biased Decisions"
   },
-  "right_now_summary": "Kev runs are mostly complete, but Jev collection awaits a collector and the user’s explicit go.",
-  "right_now_updated_at": "2026-09-24T22:37:48.906222Z",
+  "right_now_summary": "Kev data is merged; Jev collection awaits the user's go, and scoring remains.",
+  "right_now_updated_at": "2026-09-24T23:06:47.469529Z",
   "custom": {}
 }

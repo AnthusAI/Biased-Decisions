@@ -1,0 +1,18 @@
+{
+  "schema": "kev-coverage@1",
+  "checkpoint": "jaredpalmer/kev-0.8b@54f4f8777356cd5bbbb6c6919c657f26e6f2f6d8",
+  "cells": [
+    {
+      "task": "cfpb-escalate-older",
+      "cue": "age-inserted",
+      "requests": 1000,
+      "status": "ready",
+      "files": {
+        "tasks/cfpb-escalate-older/question.yaml": "4fd5982e39d2ce8983e23511a1f6376b50468303ac3220db1b463e224aba94bb",
+        "tasks/cfpb-escalate-older/items.jsonl": "c45625dfa3330312ae91fc0042791849b6429392dece86b2779500515325e561",
+        "tasks/cfpb-escalate-older/versions/age-inserted.jsonl": "0e98e3bcd8b9b19c853ce22ac6cd747646ac1905a2ca30a1f409f59c4b34e3f2"
+      },
+      "item_cap": 500
+    }
+  ]
+}

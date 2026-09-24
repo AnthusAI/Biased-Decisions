@@ -1,0 +1,28 @@
+{
+  "id": "BD-3724e953-edbc-4b3c-a435-a193f3e80981",
+  "title": "Run Kev: small-business-loan (housing-lending, 3 cells, 5,500 requests)",
+  "description": "**Part of epic BD-72c708: follow its instructions and the runbook in BD-dd780c.** Work from `develop`; never push to `main`.\n\n**Job:** Kev first pass on `small-business-loan` (housing-lending): 3 cells, exactly 5,500 requests, about 8 minutes.\n**Manifest:** `docs/kev-runs/housing-lending/small-business-loan.json` (on `develop`).\n**Writes:** `answers/kev/small-business-loan/`. Branch: `runs/<this issue id>`.\n**Then:** comment the request count and any error here, close, `kbs commit`, push `develop`.",
+  "type": "task",
+  "status": "open",
+  "priority": 2,
+  "assignee": null,
+  "creator": null,
+  "parent": "BD-72c7086b-2910-49f2-88f3-1eb23b50d474",
+  "labels": [
+    "run",
+    "model-kev"
+  ],
+  "dependencies": [],
+  "comments": [],
+  "created_at": "2026-09-24T23:15:32.550426Z",
+  "updated_at": "2026-09-24T23:15:32.550449Z",
+  "closed_at": null,
+  "agent": {
+    "platform": "claude_code",
+    "model": "Claude Sonnet 5",
+    "name": "Biased Decisions"
+  },
+  "right_now_summary": null,
+  "right_now_updated_at": null,
+  "custom": {}
+}
