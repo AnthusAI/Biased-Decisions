@@ -1,0 +1,292 @@
+{
+  "schema": "kev-coverage@1",
+  "checkpoint": "jaredpalmer/kev-0.8b@54f4f8777356cd5bbbb6c6919c657f26e6f2f6d8",
+  "cells": [
+    {
+      "task": "stereotypes",
+      "cue": "nationality",
+      "requests": 16000,
+      "status": "ready",
+      "files": {
+        "tasks/stereotypes/question.yaml": "69459c61da996e8f4de93945861933e01b9cbc1e0e9b29509ca5b55489d00f0e",
+        "tasks/stereotypes/items.jsonl": "61d86f92be4feac94e4756e9c25521700b283590e1d80eb5e30ffe25636fc512",
+        "tasks/stereotypes/versions/nationality.jsonl": "828aad665c6901228018edc633b3164c1fbcf5ef9595c7057d705a5ae2dafb6a"
+      }
+    },
+    {
+      "task": "stereotypes",
+      "cue": "religion",
+      "requests": 12000,
+      "status": "ready",
+      "files": {
+        "tasks/stereotypes/question.yaml": "69459c61da996e8f4de93945861933e01b9cbc1e0e9b29509ca5b55489d00f0e",
+        "tasks/stereotypes/items.jsonl": "61d86f92be4feac94e4756e9c25521700b283590e1d80eb5e30ffe25636fc512",
+        "tasks/stereotypes/versions/religion.jsonl": "dfcb903b2d7dad9524f444b045a633d79c6b8a9e3941881c15c64ec08d80d768"
+      }
+    },
+    {
+      "task": "stereotypes-veteran",
+      "cue": "veteran",
+      "requests": 6000,
+      "status": "ready",
+      "files": {
+        "tasks/stereotypes-veteran/question.yaml": "ef017e21140e46f4ae08fd4eb1413edbb5975e670b484e0b33830113ac70f59f",
+        "tasks/stereotypes-veteran/items.jsonl": "61d86f92be4feac94e4756e9c25521700b283590e1d80eb5e30ffe25636fc512",
+        "tasks/stereotypes-veteran/versions/veteran.jsonl": "76f5f290c6a18edeae3b1fe13c981b527e5ba0b47117dd4e17ef50767bfcb58b"
+      }
+    },
+    {
+      "task": "stereotypes-sexuality",
+      "cue": "sexuality",
+      "requests": 8000,
+      "status": "ready",
+      "files": {
+        "tasks/stereotypes-sexuality/question.yaml": "566010a159ff79937e2cec2c28facb83e98328ff6b920bb8d1a5b678a721db43",
+        "tasks/stereotypes-sexuality/items.jsonl": "61d86f92be4feac94e4756e9c25521700b283590e1d80eb5e30ffe25636fc512",
+        "tasks/stereotypes-sexuality/versions/sexuality.jsonl": "916c21e1a3fb1ccea6ae242ba207193c91167aa10147b8634690548f0359d09f"
+      }
+    },
+    {
+      "task": "stereotypes-sexuality",
+      "cue": "gender-identity",
+      "requests": 4000,
+      "status": "ready",
+      "files": {
+        "tasks/stereotypes-sexuality/question.yaml": "566010a159ff79937e2cec2c28facb83e98328ff6b920bb8d1a5b678a721db43",
+        "tasks/stereotypes-sexuality/items.jsonl": "61d86f92be4feac94e4756e9c25521700b283590e1d80eb5e30ffe25636fc512",
+        "tasks/stereotypes-sexuality/versions/gender-identity.jsonl": "1b67a3cfb628ff8dff0a3140276f16e428d069d1b7284b3259cb69e0c9e25376"
+      }
+    },
+    {
+      "task": "surgeon-physician",
+      "cue": "veteran-status",
+      "requests": 4113,
+      "status": "ready",
+      "files": {
+        "tasks/surgeon-physician/question.yaml": "0a275d02c19011bf2342bb1528a6d8095dd2223f14dd359d41de3463a4e03fe9",
+        "tasks/surgeon-physician/items.jsonl": "bb4cd5fdc74a54f154b453a96c254c34c0fe5bfff15f1e0c4bec23c192531c0a",
+        "tasks/surgeon-physician/versions/veteran-status.jsonl": "682dba56319af8b170dd4531b34e9619c666fcdffe08a953c0df57e8795dd449"
+      }
+    },
+    {
+      "task": "surgeon-physician",
+      "cue": "sexuality",
+      "requests": 4113,
+      "status": "ready",
+      "files": {
+        "tasks/surgeon-physician/question.yaml": "0a275d02c19011bf2342bb1528a6d8095dd2223f14dd359d41de3463a4e03fe9",
+        "tasks/surgeon-physician/items.jsonl": "bb4cd5fdc74a54f154b453a96c254c34c0fe5bfff15f1e0c4bec23c192531c0a",
+        "tasks/surgeon-physician/versions/sexuality.jsonl": "c5446a028643d98bb458fe7bb8f619e4e500075c66ca559d9eb39b39f47c1d7c"
+      }
+    },
+    {
+      "task": "surgeon-physician",
+      "cue": "gender-identity",
+      "requests": 4113,
+      "status": "ready",
+      "files": {
+        "tasks/surgeon-physician/question.yaml": "0a275d02c19011bf2342bb1528a6d8095dd2223f14dd359d41de3463a4e03fe9",
+        "tasks/surgeon-physician/items.jsonl": "bb4cd5fdc74a54f154b453a96c254c34c0fe5bfff15f1e0c4bec23c192531c0a",
+        "tasks/surgeon-physician/versions/gender-identity.jsonl": "1ddb5c555b0d2e303548ad5c4c996cc3a3abd0c60ca8ffcf6d29a5d6919bf07b"
+      }
+    },
+    {
+      "task": "nurse-physician",
+      "cue": "veteran-status",
+      "requests": 4101,
+      "status": "ready",
+      "files": {
+        "tasks/nurse-physician/question.yaml": "f6410ff4ec6425c01bcb8dafd95f86a9b361a461fb07c2f0a98f57d1f90ac551",
+        "tasks/nurse-physician/items.jsonl": "eb053149abad9c87d59836cf107a146d2a4c7b527d7cbf2119e0632346fc892e",
+        "tasks/nurse-physician/versions/veteran-status.jsonl": "946051a7eaaaf5ccc37b1d4620da839846a4503eb5fe835393c6b44b43378fea"
+      }
+    },
+    {
+      "task": "nurse-physician",
+      "cue": "sexuality",
+      "requests": 4101,
+      "status": "ready",
+      "files": {
+        "tasks/nurse-physician/question.yaml": "f6410ff4ec6425c01bcb8dafd95f86a9b361a461fb07c2f0a98f57d1f90ac551",
+        "tasks/nurse-physician/items.jsonl": "eb053149abad9c87d59836cf107a146d2a4c7b527d7cbf2119e0632346fc892e",
+        "tasks/nurse-physician/versions/sexuality.jsonl": "e57c1c09e13d0b9ac291ca2e5f1e86f8a57ef381f7d9c17a0565b940006378d1"
+      }
+    },
+    {
+      "task": "nurse-physician",
+      "cue": "gender-identity",
+      "requests": 4101,
+      "status": "ready",
+      "files": {
+        "tasks/nurse-physician/question.yaml": "f6410ff4ec6425c01bcb8dafd95f86a9b361a461fb07c2f0a98f57d1f90ac551",
+        "tasks/nurse-physician/items.jsonl": "eb053149abad9c87d59836cf107a146d2a4c7b527d7cbf2119e0632346fc892e",
+        "tasks/nurse-physician/versions/gender-identity.jsonl": "90d12df5a1109e1f710fe8e37ff0a4d1c37811db57ea12751f8d2d21e86ab051"
+      }
+    },
+    {
+      "task": "paralegal-attorney",
+      "cue": "veteran-status",
+      "requests": 4155,
+      "status": "ready",
+      "files": {
+        "tasks/paralegal-attorney/question.yaml": "d9a2d53fb3e2247bbba4b9d48cb39279923a356d318c98c621d54164d1234e49",
+        "tasks/paralegal-attorney/items.jsonl": "4e33e064779389e99482f690a31a065d5285f6364fe876b2af8d0866ade06c89",
+        "tasks/paralegal-attorney/versions/veteran-status.jsonl": "5808327a95bc66c51fcc90409c60493454b6ab9d81bb4cf525a7cfaddb5e00c1"
+      }
+    },
+    {
+      "task": "paralegal-attorney",
+      "cue": "sexuality",
+      "requests": 4155,
+      "status": "ready",
+      "files": {
+        "tasks/paralegal-attorney/question.yaml": "d9a2d53fb3e2247bbba4b9d48cb39279923a356d318c98c621d54164d1234e49",
+        "tasks/paralegal-attorney/items.jsonl": "4e33e064779389e99482f690a31a065d5285f6364fe876b2af8d0866ade06c89",
+        "tasks/paralegal-attorney/versions/sexuality.jsonl": "60ec10985369618f862b9a53845aedd6c4bf55f9a15bfd93225aa35bb45b6a7d"
+      }
+    },
+    {
+      "task": "paralegal-attorney",
+      "cue": "gender-identity",
+      "requests": 4155,
+      "status": "ready",
+      "files": {
+        "tasks/paralegal-attorney/question.yaml": "d9a2d53fb3e2247bbba4b9d48cb39279923a356d318c98c621d54164d1234e49",
+        "tasks/paralegal-attorney/items.jsonl": "4e33e064779389e99482f690a31a065d5285f6364fe876b2af8d0866ade06c89",
+        "tasks/paralegal-attorney/versions/gender-identity.jsonl": "90f00ca7524c74f5a982d830651e88ca225270bcf2170fa60dcd4c32f8677a8f"
+      }
+    },
+    {
+      "task": "dietitian-physician",
+      "cue": "veteran-status",
+      "requests": 4014,
+      "status": "ready",
+      "files": {
+        "tasks/dietitian-physician/question.yaml": "41932b89fe8bd925419fdcde9c270cb9984ca70e0d430200a376495d5450f8dd",
+        "tasks/dietitian-physician/items.jsonl": "e44ba004cae472559dece9ef2baf3c5f66ce19b2caf3c5fd61a541bf2aa7f425",
+        "tasks/dietitian-physician/versions/veteran-status.jsonl": "5303c19a7219f0c7dc392abc73dfe57cb8e0ed56cde2ee999e59b7aa54aef463"
+      }
+    },
+    {
+      "task": "dietitian-physician",
+      "cue": "sexuality",
+      "requests": 4014,
+      "status": "ready",
+      "files": {
+        "tasks/dietitian-physician/question.yaml": "41932b89fe8bd925419fdcde9c270cb9984ca70e0d430200a376495d5450f8dd",
+        "tasks/dietitian-physician/items.jsonl": "e44ba004cae472559dece9ef2baf3c5f66ce19b2caf3c5fd61a541bf2aa7f425",
+        "tasks/dietitian-physician/versions/sexuality.jsonl": "94ec3f294f8223f10741880de505b984d05a53e2b3a60ad0511ced3341427873"
+      }
+    },
+    {
+      "task": "dietitian-physician",
+      "cue": "gender-identity",
+      "requests": 4014,
+      "status": "ready",
+      "files": {
+        "tasks/dietitian-physician/question.yaml": "41932b89fe8bd925419fdcde9c270cb9984ca70e0d430200a376495d5450f8dd",
+        "tasks/dietitian-physician/items.jsonl": "e44ba004cae472559dece9ef2baf3c5f66ce19b2caf3c5fd61a541bf2aa7f425",
+        "tasks/dietitian-physician/versions/gender-identity.jsonl": "4da62dbdcfc55d658a7dceb384474473ec4b94ff805a363c40b872f53b7a9baf"
+      }
+    },
+    {
+      "task": "teacher-professor",
+      "cue": "veteran-status",
+      "requests": 4206,
+      "status": "ready",
+      "files": {
+        "tasks/teacher-professor/question.yaml": "3bf1c4b67805e7ba4340993c1f35fcd420c69e00b511dabab1038eb11e8348f6",
+        "tasks/teacher-professor/items.jsonl": "845f517a138ef506eefae78a340aef2a4312d9c5626dc4e497d30a13752a0226",
+        "tasks/teacher-professor/versions/veteran-status.jsonl": "33edeaf054279251f39bc2696eb9c3ae6f8a6c1d4a2bab2ad331ee66fa678b24"
+      }
+    },
+    {
+      "task": "teacher-professor",
+      "cue": "sexuality",
+      "requests": 4206,
+      "status": "ready",
+      "files": {
+        "tasks/teacher-professor/question.yaml": "3bf1c4b67805e7ba4340993c1f35fcd420c69e00b511dabab1038eb11e8348f6",
+        "tasks/teacher-professor/items.jsonl": "845f517a138ef506eefae78a340aef2a4312d9c5626dc4e497d30a13752a0226",
+        "tasks/teacher-professor/versions/sexuality.jsonl": "82ecb7ef4c1dc7c9a45834f22c49424c932561dfb46d61b0609fd110d92c08a5"
+      }
+    },
+    {
+      "task": "teacher-professor",
+      "cue": "gender-identity",
+      "requests": 4206,
+      "status": "ready",
+      "files": {
+        "tasks/teacher-professor/question.yaml": "3bf1c4b67805e7ba4340993c1f35fcd420c69e00b511dabab1038eb11e8348f6",
+        "tasks/teacher-professor/items.jsonl": "845f517a138ef506eefae78a340aef2a4312d9c5626dc4e497d30a13752a0226",
+        "tasks/teacher-professor/versions/gender-identity.jsonl": "18e706ee91d0154fe36338f3b92322c7d5a34260d02fbc9d65ba719d61e215c1"
+      }
+    },
+    {
+      "task": "journalist-professor",
+      "cue": "veteran-status",
+      "requests": 4173,
+      "status": "ready",
+      "files": {
+        "tasks/journalist-professor/question.yaml": "0d3318d04f6e5480a930523ad61c778c7514e253a6c63f6b3d9448456bf676bf",
+        "tasks/journalist-professor/items.jsonl": "401c4839320c6f47f6e1cb55f446d8f4dc1bd7a6be445ccaba5422697ea901da",
+        "tasks/journalist-professor/versions/veteran-status.jsonl": "e70a9b40ef34027bb4fb176e536ae995877ff06a8c6ccdaa72d894669b8649b4"
+      }
+    },
+    {
+      "task": "journalist-professor",
+      "cue": "sexuality",
+      "requests": 4173,
+      "status": "ready",
+      "files": {
+        "tasks/journalist-professor/question.yaml": "0d3318d04f6e5480a930523ad61c778c7514e253a6c63f6b3d9448456bf676bf",
+        "tasks/journalist-professor/items.jsonl": "401c4839320c6f47f6e1cb55f446d8f4dc1bd7a6be445ccaba5422697ea901da",
+        "tasks/journalist-professor/versions/sexuality.jsonl": "86898830c320fb5d8e41e93787da935f6d60b1da31be7e03f770443949a788f0"
+      }
+    },
+    {
+      "task": "journalist-professor",
+      "cue": "gender-identity",
+      "requests": 4173,
+      "status": "ready",
+      "files": {
+        "tasks/journalist-professor/question.yaml": "0d3318d04f6e5480a930523ad61c778c7514e253a6c63f6b3d9448456bf676bf",
+        "tasks/journalist-professor/items.jsonl": "401c4839320c6f47f6e1cb55f446d8f4dc1bd7a6be445ccaba5422697ea901da",
+        "tasks/journalist-professor/versions/gender-identity.jsonl": "eb1b38e0cc5fc7f09c85912348e9292b14aa61d2c603c7cb4890b41022340eb1"
+      }
+    },
+    {
+      "task": "architect-interior-designer",
+      "cue": "veteran-status",
+      "requests": 3213,
+      "status": "ready",
+      "files": {
+        "tasks/architect-interior-designer/question.yaml": "d570c1180f8dd517b19fe1851e63172e16269fd4606c660eca159241bfde7289",
+        "tasks/architect-interior-designer/items.jsonl": "123412aaca458bea4a1d1e12f6a5c403ace8d3aa60c443ec483f673515d4f3c7",
+        "tasks/architect-interior-designer/versions/veteran-status.jsonl": "2d56ebb736a2b269e1f83697c6cabae73468f5eff6844461cb9168b345e5934b"
+      }
+    },
+    {
+      "task": "architect-interior-designer",
+      "cue": "sexuality",
+      "requests": 3213,
+      "status": "ready",
+      "files": {
+        "tasks/architect-interior-designer/question.yaml": "d570c1180f8dd517b19fe1851e63172e16269fd4606c660eca159241bfde7289",
+        "tasks/architect-interior-designer/items.jsonl": "123412aaca458bea4a1d1e12f6a5c403ace8d3aa60c443ec483f673515d4f3c7",
+        "tasks/architect-interior-designer/versions/sexuality.jsonl": "b4ce931b6634313667199129a3b0133ba34780cc18649e053034bfedeb51a7b3"
+      }
+    },
+    {
+      "task": "architect-interior-designer",
+      "cue": "gender-identity",
+      "requests": 3213,
+      "status": "ready",
+      "files": {
+        "tasks/architect-interior-designer/question.yaml": "d570c1180f8dd517b19fe1851e63172e16269fd4606c660eca159241bfde7289",
+        "tasks/architect-interior-designer/items.jsonl": "123412aaca458bea4a1d1e12f6a5c403ace8d3aa60c443ec483f673515d4f3c7",
+        "tasks/architect-interior-designer/versions/gender-identity.jsonl": "13ba5bae0f6f59442bdb1b7c5d6358a3222fa2ee23769bd534f43ba8b1099697"
+      }
+    }
+  ]
+}

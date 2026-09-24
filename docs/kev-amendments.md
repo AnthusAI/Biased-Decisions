@@ -74,3 +74,16 @@ Later amendments (one per new package of tests) are appended here with their man
 answer on those cells: the batch 2 stereotype import, the batch 3 stereotypes and added nationalities, the
 CFPB complaint tasks, the gendered-language studies, discrim-eval and BBQ, the housing and lending tasks,
 and brand bias.
+
+## Amendment: batch 2 stereotype import and the veteran, sexuality and gender-identity studies (2026-09-24)
+
+Registered before any Kev answer exists on these cells.
+
+- **Manifest:** `docs/kev-coverage-batch2-veteran-sexuality.json`: 26 cells, **129,925 requests**, one per text.
+  - Trope studies on the shared 2,000-biography pool: `stereotypes` (`nationality`, `religion`),
+    `stereotypes-veteran` (`veteran`), `stereotypes-sexuality` (`sexuality`, `gender-identity`).
+  - Clause studies on the seven biography tasks: `veteran-status`, `sexuality` and `gender-identity`
+    on each (21 cells).
+- **Pool:** `stereotypes-veteran` and `stereotypes-sexuality` carry a byte-identical copy of
+  `tasks/stereotypes/items.jsonl`; a spec guards that.
+- **Kev predictions: none.** Descriptive; every version is reported.
