@@ -1,3 +1,10 @@
+## [1.23.1](https://github.com/AnthusAI/Biased-Decisions/compare/v1.23.0...v1.23.1) (2026-09-24)
+
+
+### Bug Fixes
+
+* **site:** explain bias tests for first-time visitors ([f643096](https://github.com/AnthusAI/Biased-Decisions/commit/f643096b52f5fe3e3a3928765d02d7252094e4cf))
+
 # [1.23.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.22.2...v1.23.0) (2026-09-24)
 
 
