@@ -3,8 +3,8 @@
 ``laya``     the original PyTorch package (``laya`` on PyPI); records go to ``answers/laya/``.
 ``laya-mlx`` the Apple-silicon MLX port (``laya-mlx``); records go to ``answers/laya-mlx/``.
 
-Both answer the same questions and agree to three decimals on the committed bios records, so a
-runner picks a build with ``--build`` and everything else (question shapes, row shape, resume
+Both answer the same questions and give the same headline results (on a single text their
+probabilities can differ by up to about 0.02: docs/mlx-runner.md), so a runner picks a build with ``--build`` and everything else (question shapes, row shape, resume
 files) is identical. The ``model`` string in every row names the build and its installed
 version, so a record says which software produced it.
 """

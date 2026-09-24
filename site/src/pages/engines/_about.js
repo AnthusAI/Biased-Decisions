@@ -7,7 +7,7 @@ const FAST = "a fast decision model: it answers a yes-or-no question about a tex
 
 const ABOUT = {
   jev: `Jev is ${FAST}. It runs as an online service, and the confidence it reports for each answer is its own, to two decimal places.`,
-  laya: `Laya is ${FAST}. Anyone can download it. We ran it two ways: an Apple MLX build (laya-mlx 0.1.0, the faster one, used wherever we have it) and the original PyTorch build its authors released (laya 0.3.7). They agree to three decimal places, so we show one Laya, and each result says which build gave it. The confidence it reports for each answer is its own.`,
+  laya: `Laya is ${FAST}. Anyone can download it. We ran it two ways: an Apple MLX build (laya-mlx 0.1.0, used wherever we have it) and the original PyTorch build its authors released (laya 0.3.7). Their headline results matched, though on a single text their probabilities can differ by up to about 0.02, so we show one Laya, and each result says which build gave it. The confidence it reports for each answer is its own.`,
 };
 
 const SHORT = {

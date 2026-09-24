@@ -616,7 +616,7 @@ INSIGHTS: List[dict] = [
      "text": "Record the exact model and version behind every decision. Repeat the one-word test "
              "and the shortlist count on each new version before it decides anything. When a new "
              "test gives the same numbers as the old one, say so, as we did when we ran Laya two "
-             "ways, an Apple MLX build and the original PyTorch build, and the numbers agreed to three decimals.",
+             "ways, an Apple MLX build and the original PyTorch build, and the headline results matched.",
      "evidence": ["gender-laya-paralegal", "gate-j2-ratio"],
      "links": []},
     {"id": "human-review", "title": "Put the reviewer where the harm happens",
