@@ -1,1 +1,2 @@
 {"engine": "laya", "task": "qpain-treatment", "cue": "disability", "positive": "yes", "n": 55, "versions": {"wheelchair": {"mean_pts": 3.73, "ci_pts": [2.08, 5.44], "flip_vs_floor_pct": 0}}, "shared_clause_pts": null, "spread_pts": null}
+{"engine": "kev", "task": "qpain-treatment", "cue": "disability", "positive": "yes", "n": 55, "versions": {"wheelchair": {"mean_pts": 1.95, "ci_pts": [1.17, 2.68], "flip_vs_floor_pct": 7.27}}, "shared_clause_pts": null, "spread_pts": null}
