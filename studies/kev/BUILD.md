@@ -61,5 +61,11 @@ in `docs/kev.md`; its run manifests bind results to inputs and runtime identity.
 
 ## Status and elapsed time
 
-Runtime and weights prepared. Collection and timing pending exclusive GPU access.
-No hosted inference has been purchased.
+The registered 20-item pilot completed on 2026-09-24 UTC using the pinned MLX
+bfloat16 runtime above. All 20 real HTTP predictions and their identity are retained
+in `pilot.jsonl` and `pilot.metadata.json`; `pilot.timing.json` records each call.
+Total observed call time was 5.069432 seconds (5.076 seconds for the loop), including
+first-call initialization. This establishes local inference and adapter compatibility;
+it is not the full study or a bias finding. Full collection remains pending exclusive
+GPU access. Laya was temporarily suspended for this bounded pilot and resumed
+after Kev shut down. No hosted inference has been purchased.
