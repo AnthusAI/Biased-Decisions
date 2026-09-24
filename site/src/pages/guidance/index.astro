@@ -11,15 +11,15 @@ const recipesFor = (iid) => C.recipes.filter((r) => r.insight === iid);
 const linkHref = (h) => (h === "methods" ? urls.methods() : urls.dim(h));
 const before = evidence("shortlist-laya-attorney-500");
 const after = evidence("twin-laya-attorney-500");
-const description = `Current insights on measuring and avoiding bias risk when a fast decision model makes a regulated decision: paired edits, floors, the four-fifths check at your own cut, twin averaging, option order, version pinning and review. Every insight links to its evidence. Not legal advice.`;
+const description = `What our results say about measuring and avoiding bias when a fast AI decision model makes a regulated decision, such as hiring: test with one-detail edits and harmless control edits, check the shortlist ratio where you cut the list, ask twice with the pronouns swapped, watch the order of the options, keep the model version fixed, and have people review. Each point links to its evidence. Not legal advice.`;
 ---
 <Base title="Guidance: measuring and avoiding the risk" description={description} path={curls.guidance()} current={{ page: "guidance" }}
   crumbs={[{ label: "Leaderboard", href: urls.home() }, { label: "Guidance" }]}>
   <section class="wrap hero">
     <p class="kicker">Guidance · regulated decisions</p>
     <h1 class="display xl">Measuring and avoiding the risk</h1>
-    <p class="deck">What this project's measurements say, today, about deploying a fast decision model for a decision the law governs. Each insight links to the result behind it; the <a href={curls.howToFail()}>inversion page</a> turns the same evidence into the ways a deployment would fail.</p>
-    <p class="finding"><span class="finding-num">{after.ratio}</span><span class="finding-txt"><a href={after.href}>{after.sentence}</a>. Without averaging the ratio was <a href={before.href}>{before.ratio}</a>. The line is {C.shortlist.line.toFixed(2)}.</span></p>
+    <p class="deck">A fast decision model answers a yes-or-no question about a person from a short text, instantly, with no reasons. Here is what our results say, today, about using one for a decision the law governs, such as hiring. Each point links to the result behind it. <a href={curls.howToFail()}>How to fail</a> turns the same evidence into the ways a deployment would go wrong.</p>
+    <p class="finding"><span class="finding-num">{after.ratio}</span><span class="finding-txt"><a href={after.href}>{after.sentence}</a>. Without averaging, the shortlist ratio (women's shortlist rate divided by men's; 1.0 is equal) was <a href={before.href}>{before.ratio}</a>. U.S. hiring guidance treats a ratio under {C.shortlist.line.toFixed(2)} as a warning sign.</span></p>
     <div class="footnote risk-notice" role="note"><p>{C.notice}</p></div>
   </section>
 
@@ -43,16 +43,16 @@ const description = `Current insights on measuring and avoiding bias risk when a
 
   <section class="wrap section" id="rules" aria-labelledby="rules-h">
     <h2 class="display" id="rules-h">The rules cited on this site</h2>
-    <p class="lede">Each rule is cited because a committed pre-registration or survey in the repository names it for the decision measured here; each links to its primary text.</p>
+    <p class="lede">Each rule below is cited for a kind of decision we measured. Each links to its official text.</p>
     <ul class="cite-list">{C.citations.map((c) => <Citation c={c} />)}</ul>
-    <h3>Named, not yet measured</h3>
+    <h3>Rules we name, for decisions we have not tested yet</h3>
     <ul class="unmeasured-list">
-      {C.unmeasured.map((u) => <li><strong>{u.decision}</strong> ({u.short}): {u.status}. <a href={`${REPO_BLOB}${u.repo_ref.path}`}>{u.repo_ref.path}</a></li>)}
+      {C.unmeasured.map((u) => <li><strong>{u.decision}</strong> ({u.short}): {u.status}. <a href={`${REPO_BLOB}${u.repo_ref.path}`}>Our notes</a>.</li>)}
     </ul>
   </section>
 
   <section class="wrap section" id="articles" aria-labelledby="articles-h">
-    <h2 class="display sm" id="articles-h">The companion articles</h2>
+    <h2 class="display sm" id="articles-h">Articles about these results</h2>
     <ul class="art-list">{C.articles.map((a) => <li><a href={a.url}>{a.title}</a></li>)}</ul>
   </section>
 </Base>

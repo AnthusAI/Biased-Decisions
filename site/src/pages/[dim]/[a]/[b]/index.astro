@@ -1,7 +1,6 @@
 ---
 // One cell of a two-axis dimension: one group asked one question (or given one task). The leaf of
-// the breakdown: its board, every engine's full measurement, what was asked, and the
-// pre-registered prediction where there is one.
+// the breakdown: its board, every engine's full measurement and what was asked.
 import Base from "../../../../layouts/Base.astro";
 import RegWarn from "../../../../components/RegWarn.astro";
 import RiskPanel from "../../../../components/RiskPanel.astro";
@@ -11,8 +10,11 @@ import EngineName from "../../../../components/EngineName.astro";
 import FacetTable from "../../../../components/FacetTable.astro";
 import Example from "../../../../components/Example.astro";
 import Stimulus from "../../../../components/Stimulus.astro";
+import HowMeasured from "../../../../components/HowMeasured.astro";
+import ModelsLine from "../../../../components/ModelsLine.astro";
+import { kindName, VERDICT_WORDS } from "../../../../scripts/util.js";
 import { engines, urls, levelPages, levelPayload, levelTitle, levelPath, describeLevel, cellOf, groupOf, itemOf,
-  cellSentence, unit, fmt, signed, cap, plural, verdictOf } from "../../../../lib/site.js";
+  cellSentence, unit, fmt, signed, cap, plural, verdictOf, isNonHiring } from "../../../../lib/site.js";
 
 export function getStaticPaths() {
   return levelPages().filter(({ level }) => level.kind === "cell")
@@ -25,7 +27,7 @@ const group = groupOf(dim, level.group);
 const item = itemOf(dim, level.item);
 const title = levelTitle(dim, level);
 const path = levelPath(dim, level);
-const payload = levelPayload(dim, level);
+const payload = { ...levelPayload(dim, level), measure_plain: dim.measure_plain, raw_unit: dim.raw_unit };
 const charts = { board: { type: "board", dim: payload }, versus: { type: "versus", dim: payload } };
 const isTrope = dim.facet_kind === "question" || !!item.trope;
 const live = (g, i) => Object.values(cellOf(dim, g, i).engines).some((f) => f.status === "measured");
@@ -43,36 +45,40 @@ const otherGroups = bd.groups.filter((g) => g.id !== group.id && live(g.id, item
   return { label: g.label, href: urls.at(dim, g.id, item.id), f, pre: c.prereg };
 });
 const leadFacet = lead ? cell.engines[lead.engine] : null;
+const G = kindName(bd.group_kind), I = kindName(bd.item_kind);
+const allFacets = Object.values(cell.engines);
 ---
 <Base title={`${title} · ${dim.long}`} description={describeLevel(dim, level)} path={path} current={{ page: "cell", dim: dim.id }} charts={charts}
   crumbs={[{ label: "Leaderboard", href: urls.home() }, { label: dim.long, href: urls.dim(dim.id) }, { label: group.label, href: urls.at(dim, group.id, null) }, { label: cap(item.label) }]}>
   <section class="wrap hero dim-hero">
-    <p class="kicker">{dim.long} · {bd.group_kind} × {bd.item_kind}</p>
+    <p class="kicker">{dim.long} · one {G}, one {I}</p>
     <h1 class="display xl"><a class="h-link" href={urls.at(dim, group.id, null)}>{group.label}</a> <span class="h-x">×</span> <a class="h-link" href={urls.at(dim, null, item.id)}>{item.label}</a></h1>
-    <RegWarn dim={dim} />
+    {!isNonHiring(level) && <RegWarn dim={dim} />}
     {lead ? <p class="deck lead-sentence">{cellSentence(dim, cell, lead.engine)}</p>
-          : <p class="deck">No engine has been measured on this cell yet.</p>}
+          : <p class="deck">No model has been tested on this combination yet.</p>}
     <dl class="defs">
       {isTrope && <div><dt>The question</dt><dd><q>{item.question}</q></dd></div>}
-      {isTrope && <div><dt>Trope it tests</dt><dd>{item.trope}</dd></div>}
-      {!isTrope && <div><dt>The task</dt><dd><q>{item.question}</q></dd></div>}
-      <div><dt>The inserted clause</dt><dd><q>{group.clause.trim()}</q>{leadFacet && leadFacet.extra && leadFacet.extra.floor_clause && <Fragment>, against the floor <q>{leadFacet.extra.floor_clause.trim()}</q></Fragment>}</dd></div>
-      {leadFacet && leadFacet.status === "measured" && <div><dt>Verdict</dt><dd><span class={`chip ${verdictOf(leadFacet).cls}`}>{verdictOf(leadFacet).text}</span> {signed(leadFacet.excess.value)} pts [{fmt(leadFacet.excess.lo)}, {fmt(leadFacet.excess.hi)}], n = {leadFacet.n.toLocaleString("en-US")}</dd></div>}
+      {isTrope && <div><dt>The stereotype it tests</dt><dd>{item.stereotype || item.trope}</dd></div>}
+      {!isTrope && <div><dt>The decision</dt><dd><q>{item.question}</q></dd></div>}
+      <div><dt>The phrase we added</dt><dd><q>{group.clause.trim()}</q>{leadFacet && leadFacet.extra && leadFacet.extra.floor_clause && <Fragment>, compared with the control edit <q>{leadFacet.extra.floor_clause.trim()}</q></Fragment>}</dd></div>
+      {leadFacet && leadFacet.status === "measured" && <div><dt>Result</dt><dd><span class={`chip ${verdictOf(leadFacet).cls}`}>{VERDICT_WORDS[verdictOf(leadFacet).cls] || verdictOf(leadFacet).text}</span> {signed(leadFacet.excess.value)} percentage points {isTrope ? "on the stereotype score" : "beyond the control edit"} [{fmt(leadFacet.excess.lo)}, {fmt(leadFacet.excess.hi)}], in {leadFacet.n.toLocaleString("en-US")} texts</dd></div>}
     </dl>
-    {dim.source === "batch2-staging" && <div class="footnote" role="note"><p>Staged batch-2 data: answered by Laya only, scored outside the harness; <code>bd replay</code> cannot regenerate these numbers yet.</p></div>}
+    <p class="note">The control edit is a harmless change of the same size. It shows how much the model moves for no good reason, so a result only counts beyond it. The range in brackets is the one we are 95% sure of.</p>
+    <ModelsLine />
+    {dim.source === "batch2-staging" && <div class="footnote" role="note"><p>Only Laya has answered these questions so far. We scored its answers separately, and our tools cannot yet re-run these numbers from the saved answers.</p></div>}
   </section>
 
   <Board board={level.board} heads={level.heads} unit={unit(dim)} facetKind={null} chartId="board" hrefFor={(e) => `${path}#${e}`} />
 
-  <RiskPanel dim={dim} level={level} place={title} />
+  {!isNonHiring(level) && <RiskPanel dim={dim} level={level} place={title} />}
 
   <section class="wrap section" id="measurements">
-    <h2 class="display">Every engine, measured</h2>
+    <h2 class="display">Every model's result</h2>
     {measured.map((e) => <p class="lede plain">{cellSentence(dim, cell, e.id)}</p>)}
-    <FacetTable dim={dim} facets={facets} facetKind="engine" caption={`${dim.long}, ${title}: every engine`}
-      rowId={(f) => f._engine} rowHref={(f) => urls.engineDim(f._engine, dim.id)} />
-    <h3>Measurement against floor</h3>
-    <p class="note">The {isTrope ? "trope score" : "measurement"} with its 95% interval against the floor it is read against{isTrope ? " (zero: the group moves like the others)" : ""}.</p>
+    <FacetTable dim={dim} facets={facets} facetKind="engine" caption={`${dim.long}, ${title}: every model`}
+      rowId={(f) => f._engine} rowHref={(f) => urls.engineDim(f._engine, dim.id)} sources={false} />
+    <h3>The real edit against the control edit</h3>
+    <p class="note">The {isTrope ? "stereotype score" : "result"}, with the range we are 95% sure of, against the control edit{isTrope ? ". Zero means this group moves the answer like the others" : ""}.</p>
     <Chart id="versus" />
   </section>
 
@@ -84,23 +90,25 @@ const leadFacet = lead ? cell.engines[lead.engine] : null;
   )}
 
   <section class="wrap section">
-    <h2 class="display sm">Around this cell</h2>
+    <h2 class="display sm">Nearby results</h2>
     <div class="around">
       <div>
-        <h3>{group.label}, every other {bd.item_kind}</h3>
+        <h3>{group.label}, every other {I}</h3>
         <ul class="around-list">
           {otherItems.map((o) => <li><a href={o.href}>{o.label}</a><span class={`av ${o.f ? verdictOf(o.f).cls : "miss"}`}>{o.f && o.f.status === "measured" ? signed(o.f.excess.value) : "—"}</span></li>)}
         </ul>
-        <p class="more-link"><a href={urls.at(dim, group.id, null)}>{group.label}: every {bd.item_kind} ranked</a></p>
+        <p class="more-link"><a href={urls.at(dim, group.id, null)}>{group.label}: every {I}, ranked</a></p>
       </div>
       <div>
-        <h3>{cap(item.label)}, every other {bd.group_kind}</h3>
+        <h3>{cap(item.label)}, every other {G}</h3>
         <ul class="around-list">
           {otherGroups.map((o) => <li><a href={o.href}>{o.label}</a><span class={`av ${o.f ? verdictOf(o.f).cls : "miss"}`}>{o.f && o.f.status === "measured" ? signed(o.f.excess.value) : "—"}</span></li>)}
         </ul>
-        <p class="more-link"><a href={urls.at(dim, null, item.id)}>{cap(item.label)}: every {bd.group_kind} ranked</a></p>
+        <p class="more-link"><a href={urls.at(dim, null, item.id)}>{cap(item.label)}: every {G}, ranked</a></p>
       </div>
     </div>
-    {lead && <p class="note">Values are {engines.find((e) => e.id === lead.engine).label}'s excess over the floor, in points.</p>}
+    {lead && <p class="note">Each number is {engines.find((e) => e.id === lead.engine).label}'s result beyond the control edit, in percentage points. For a question that tests a stereotype, the result is the stereotype score.</p>}
   </section>
+
+  <HowMeasured dim={dim} facets={allFacets} />
 </Base>

@@ -3,7 +3,7 @@
 import EngineName from "./EngineName.astro";
 import { engineById, groupLabel, itemLabel } from "../lib/site.js";
 
-const { dim, rows, heading = "Pre-registered, then measured", showEngine = true } = Astro.props;
+const { dim, rows, heading = "What we expected, and what we found", showEngine = true } = Astro.props;
 const scope = (r) => [
   ...(r.groups || []).map((g) => groupLabel(dim, g)),
   ...(r.facets || []).map((id) => (dim.breakdown.items.some((i) => i.id === id) ? itemLabel(dim, id) : groupLabel(dim, id))),
@@ -13,19 +13,19 @@ const sources = [...new Set(rows.map((r) => r.source))];
 {rows.length > 0 && (
   <div class="prereg">
     <h4>{heading}</h4>
-    <p class="note">Quoted verbatim from {sources.map((s, i) => <Fragment>{i ? " and " : ""}<code>{s}</code></Fragment>)}, section "{rows[0].section}". Each prediction was written before any engine answered.</p>
+    <p class="note">Quoted word for word from {sources.map((s, i) => <Fragment>{i ? " and " : ""}<code>{s}</code></Fragment>)}. We wrote each expectation down before any model answered.</p>
     {rows.map((p) => (
       <div class={`pr${p.observed === null ? " pending" : ""}`}>
         <div class="pr-m">
           {showEngine && p.engine && <EngineName engine={engineById[p.engine]} size={11} />}
-          {p.measurement || ""}
+          {p.plain || p.measurement || ""}
           {scope(p) && <span class="pr-f"> ({scope(p)})</span>}
         </div>
         <div class="pr-grid">
-          <div><span class="pr-k">Predicted</span><p>{p.prediction}</p></div>
-          <div><span class="pr-k">Observed</span><p>{p.observed === null ? "not yet measured" : p.observed}</p></div>
+          <div><span class="pr-k">Expected</span><p>{p.prediction}</p></div>
+          <div><span class="pr-k">Found</span><p>{p.observed === null ? "not tested yet" : p.observed}</p></div>
         </div>
-        <div class="pr-v"><span class="pr-k">Verdict</span> <span class={`verdict v-${p.verdict === "right" ? "right" : p.verdict === "wrong" ? "wrong" : "other"}`}>{p.verdict}</span></div>
+        <div class="pr-v"><span class="pr-k">Outcome</span> <span class={`verdict v-${p.verdict === "right" ? "right" : p.verdict === "wrong" ? "wrong" : "other"}`}>{p.verdict}</span></div>
         {p.note && <p class="fnote">{p.note}</p>}
       </div>
     ))}

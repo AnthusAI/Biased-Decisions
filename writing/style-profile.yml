@@ -1,0 +1,148 @@
+schemaVersion: 1
+publicationKey: biased-decisions
+voice:
+  name: Biased-Decisions plain language
+audience: "A smart reader who has never heard of this project and does not know machine learning, such as an HR lead, a lawyer, a journalist or a curious parent. They are deciding whether a fast AI model can be trusted to screen people. Nothing on the site may need the builders to explain it."
+tone:
+  - Plain and direct. Calm, never alarmist and never reassuring about bias.
+  - Speaks to one reader who is smart and busy, and is not talked down to.
+sentenceStyle:
+  - Short sentences with one idea each; aim for 20 words.
+  - Name the model as the subject and say what it did ("Laya changed its answer on 17.85 of every 100 bios").
+  - Use "X in 100" and "percentage points" spelled out; avoid bare percent signs and "pp".
+  - Define a term the first time it appears on a page, inside the sentence, in about five words.
+voicePatterns:
+  - Says what the thing is, then why it matters, then what we found, in that order.
+  - Prefers a concrete example (a paralegal, a nurse, a name) to an abstraction.
+  - Keeps measurement detail (ranges, repeat counts, file names) in a "How we measured this" section, in plain words.
+structure:
+  - Open with one sentence that says what the page shows.
+  - Put a number only after the reader knows what it counts.
+  - Say what a result does and does not show, in one sentence, next to the result.
+lexicon:
+  prefer:
+    - model
+    - characteristic
+    - the change we make
+    - control edit
+    - how often the answer changes
+    - a clear effect
+    - stereotype
+    - shortlist ratio
+    - saved answers
+    - dataset
+    - biography
+  avoid:
+    - engine
+    - dimension
+    - cue
+    - floor
+    - excess
+    - flip rate
+    - trope
+    - vignette
+    - twin
+    - counterfactual
+    - corpus
+    - tie-fair
+    - mean rank
+    - replay
+    - bootstrap
+    - pre-registered
+evidenceRules:
+  - Every number on a page comes from the data file; never invent a statistic, an anecdote or a citation.
+  - Say what a result does not show next to the result.
+  - Never describe a model or a level of bias as good, safe or clean; say "no clear effect" and give how many texts we tested.
+  - Nothing about how the page, chart or site was built; nothing about hypotheses or pre-registration.
+  - Optimize for the reader understanding cold, not for a readability score.
+checks:
+  uniformCadence: false
+  uncontractedForms: false
+  missingAttribution: false
+density:
+  minWords: 25
+  minLexicalDensity: 0.40
+  maxGzipRatio: 0.55
+rules:
+  noEmojis: true
+  bannedPhrases:
+    - this page shows
+    - as you can see
+    - it is worth noting
+    - in this section
+    - the following
+    - hypothesis
+    - pre-registered
+    - pre-registration
+  bannedIntensifiers:
+    - revolutionary
+    - seamless
+    - game-changing
+    - cutting-edge
+    - powerful
+    - robust
+  preferredPhrasing:
+    - from: flip rate
+      to: how often the answer changes
+    - from: mean rank
+      to: average place
+    - from: tie-fair
+      to: counting equally scored applicants fairly
+  bannedPatterns:
+    - pattern: '(?i)\bengines?\b'
+      message: 'Say "model". An engine is jargon.'
+    - pattern: '(?i)\bdimensions?\b'
+      message: 'Say "characteristic" or "kind of bias".'
+    - pattern: '(?i)\bcues?\b'
+      message: 'Say "the change we make" or "the edit".'
+    - pattern: '(?i)\bfloors?\b'
+      message: 'Say "control edit" and define it: a harmless change of the same size.'
+    - pattern: '(?i)\bexcess\b'
+      message: 'Say "beyond the control edit".'
+    - pattern: '(?i)\btropes?\b'
+      message: 'Say "stereotype".'
+    - pattern: '(?i)\bflip(?:s|ped| rates?)?\b'
+      message: 'Say "changed its answer" or "how often the answer changes".'
+    - pattern: '(?i)\bvignettes?\b'
+      message: 'Say "case description".'
+    - pattern: '(?i)\btwins?\b'
+      message: 'Say "the same text with the pronouns swapped".'
+    - pattern: '\bpp\b'
+      message: 'Spell out "percentage points".'
+    - pattern: '(?i)\b(?:tie-fair|counterfactuals?|corpus|facets?)\b'
+      message: 'This word only means something to the builders; say it in plain words.'
+    - pattern: '(?i)\b(?:bootstrap(?:ped)?|resamples?|seed)\b'
+      message: 'Measurement detail belongs in the "How we measured this" section, in plain words.'
+    - pattern: '(?i)\bpre-?regist\w*|\bbatch[ -]?\d\b|\bharness\b'
+      message: 'Results first. Do not talk about how the study was planned or built.'
+    - pattern: '\bn\s*=\s*[\d,]+'
+      message: 'Say "2,000 texts", not "n = 2,000".'
+referenceSamples:
+  - id: what-this-site-is
+    title: What this site measures
+    url: https://biased-decisions.anth.us/
+    path: reference-samples/what-this-site-is.md
+  - id: one-word-test
+    title: The one-word test
+    url: https://biased-decisions.anth.us/methods/
+    path: reference-samples/one-word-test.md
+  - id: control-edit
+    title: Why we also make a harmless edit
+    url: https://biased-decisions.anth.us/methods/
+    path: reference-samples/control-edit.md
+  - id: reading-the-shortlist
+    title: Reading the shortlist
+    url: https://biased-decisions.anth.us/gender/
+    path: reference-samples/reading-the-shortlist.md
+  - id: average-both-ways
+    title: One fix, and what it costs
+    url: https://biased-decisions.anth.us/guidance/
+    path: reference-samples/average-both-ways.md
+  - id: stereotype-questions
+    title: Questions that test for a stereotype
+    url: https://biased-decisions.anth.us/religion/
+    path: reference-samples/stereotype-questions.md
+  - id: reading-a-result
+    title: Reading one result
+    url: https://biased-decisions.anth.us/race/
+    path: reference-samples/reading-a-result.md

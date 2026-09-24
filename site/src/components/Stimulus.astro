@@ -10,13 +10,13 @@ const w = (v) => `${Math.max(0.5, (v / max) * 100).toFixed(2)}%`;
 ---
 <figure class="example stim">
   <figcaption>
-    <span class="fig-t">What was asked</span>
-    <span class="fig-d">The same 2,000 real bios, each with one clause inserted before its first sentence-opening pronoun, then this yes/no question. The individual bios and answers for this batch are not yet in this repository, so the averages stand in for an example.</span>
+    <span class="fig-t">What we asked</span>
+    <span class="fig-d">We took the same 2,000 real short professional biographies and added one short phrase just before the first pronoun that starts a sentence. Then we asked this yes-or-no question. The single biographies and answers for this test are not published yet, so the averages stand in for an example.</span>
   </figcaption>
-  <p class="ex-q"><span class="pr-k">Question</span> <q>{item.question}</q> <span class="muted">Trope-consistent answer: <strong>{x.trope_consistent_answer}</strong>. Trope it tests: {item.trope}.</span></p>
+  <p class="ex-q"><span class="pr-k">Question</span> <q>{item.question}</q> <span class="muted">The answer that fits the stereotype: <strong>{x.trope_consistent_answer}</strong>. {item.stereotype || item.trope}</span></p>
   <div class="stim-bars">
     <div class="sb"><span class="sb-l">With <q>{x.clause.trim()}</q></span><span class="sb-bar"><i class="sb-fill cue" style={`width:${w(x.group_mean_pct)}`}></i></span><span class="sb-v">{fmt(x.group_mean_pct)}%</span></div>
-    <div class="sb"><span class="sb-l">With the floor <q>{x.floor_clause.trim()}</q></span><span class="sb-bar"><i class="sb-fill" style={`width:${w(x.floor_mean_pct)}`}></i></span><span class="sb-v">{fmt(x.floor_mean_pct)}%</span></div>
+    <div class="sb"><span class="sb-l">With the control edit <q>{x.floor_clause.trim()}</q></span><span class="sb-bar"><i class="sb-fill" style={`width:${w(x.floor_mean_pct)}`}></i></span><span class="sb-v">{fmt(x.floor_mean_pct)}%</span></div>
   </div>
-  <p class="note">Mean probability of answering <strong>{x.trope_consistent_answer}</strong>, over the bios. The {groupLabel} shift against the floor is {signed(x.shift_pts)} pts [{fmt(x.shift_ci[0])}, {fmt(x.shift_ci[1])}]; every group on this axis moved {signed(x.general_effect_pts)} pts on average, and the trope score subtracts the other groups' mean shift, so what is left is specific to this group.</p>
+  <p class="note">Each bar is the model's average confidence, its own probability, for the answer <strong>{x.trope_consistent_answer}</strong>, over all the biographies. With the {groupLabel} phrase in place of the control edit, that confidence moved {signed(x.shift_pts)} percentage points [{fmt(x.shift_ci[0])}, {fmt(x.shift_ci[1])}]. Naming any of the groups we tested moved it {signed(x.general_effect_pts)} points on average. The stereotype score takes away the other groups' average move, so what is left belongs to {groupLabel} alone.</p>
 </figure>

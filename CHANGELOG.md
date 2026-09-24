@@ -1,3 +1,74 @@
+# [1.20.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.19.0...v1.20.0) (2026-09-24)
+
+
+### Bug Fixes
+
+* **site:** align scales size and position with wordmark ([d7801a2](https://github.com/AnthusAI/Biased-Decisions/commit/d7801a22e4bd7b8cdc830c4f354fb9fb8a542557))
+
+
+### Features
+
+* **site:** adopt imbalanced pixel scales identity ([cef895a](https://github.com/AnthusAI/Biased-Decisions/commit/cef895a718bfa92433a313375871d293ca9a76e0))
+
+# [1.19.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.18.0...v1.19.0) (2026-09-23)
+
+
+### Features
+
+* one Laya on the site, backed by the faster MLX build where we have it ([94e04fb](https://github.com/AnthusAI/Biased-Decisions/commit/94e04fbbe74fa011ed78a39488199fef1b9efb5f))
+
+# [1.18.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.17.0...v1.18.0) (2026-09-23)
+
+
+### Features
+
+* **site:** a cleaner header, Option order as a supplemental page, and compact redirect rules ([9d86326](https://github.com/AnthusAI/Biased-Decisions/commit/9d8632629da86c61b73a3ce8ae47dfe7e3dd4979))
+
+# [1.17.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.16.0...v1.17.0) (2026-09-23)
+
+
+### Features
+
+* **copy:** the leaderboard's data speaks plain language ([cb67ca1](https://github.com/AnthusAI/Biased-Decisions/commit/cb67ca197d978b5241ad0f8480dd9da5e2dea3d9))
+* **site:** plain language on the characteristic, group and result pages ([cfa6237](https://github.com/AnthusAI/Biased-Decisions/commit/cfa62377894a4145f3672d84757dd40a765f2e89))
+* **site:** plain-language sentences, card words and evidence in site/src/lib ([23e0354](https://github.com/AnthusAI/Biased-Decisions/commit/23e03546514a6c634c5ad4ebc899dde1203ebbb3))
+* **site:** the whole site in plain language ([578a5fd](https://github.com/AnthusAI/Biased-Decisions/commit/578a5fdc639c22601b506e208169ebbb125c8ee6))
+
+# [1.16.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.15.1...v1.16.0) (2026-09-23)
+
+
+### Features
+
+* Limatus for the site's copy, set up from the Anth.us profile ([a9a2320](https://github.com/AnthusAI/Biased-Decisions/commit/a9a232067496311892e02d079332a5fc38cc3360))
+
+## [1.15.1](https://github.com/AnthusAI/Biased-Decisions/compare/v1.15.0...v1.15.1) (2026-09-23)
+
+
+### Bug Fixes
+
+* **site:** say what averaging with a swapped copy means, in plain words ([08fe01d](https://github.com/AnthusAI/Biased-Decisions/commit/08fe01d58f94d55ee948f2c27b244896ce60056a))
+
+# [1.15.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.14.0...v1.15.0) (2026-09-23)
+
+
+### Features
+
+* **site:** plain dimension names: gender, age, sexuality, and gender is one board ([5363b8b](https://github.com/AnthusAI/Biased-Decisions/commit/5363b8b865f5d5d5338daabeef06623b9b10b8d7))
+
+# [1.14.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.13.0...v1.14.0) (2026-09-23)
+
+
+### Features
+
+* **report:** first-name race joins the race board as a group ([478ad3e](https://github.com/AnthusAI/Biased-Decisions/commit/478ad3ed93d018eaa9ab4f03a697a0af397ea92f))
+
+# [1.13.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.12.0...v1.13.0) (2026-09-23)
+
+
+### Features
+
+* **report:** Q-Pain and Civil Comments on the boards by characteristic ([13b591f](https://github.com/AnthusAI/Biased-Decisions/commit/13b591f6a388a23c1bc5c2b9dbf7a28d4374d61b))
+
 # [1.12.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.11.0...v1.12.0) (2026-09-23)
 
 

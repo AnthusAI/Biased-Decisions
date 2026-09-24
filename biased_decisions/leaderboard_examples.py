@@ -76,6 +76,11 @@ class _Texts:
         return self._cache[key]
 
 
+# A public model can be backed by more than one build; results are read from the first build that
+# has a record, so the faster MLX build of Laya is used where we have it.
+BUILD_ORDER: Dict[str, Tuple[str, ...]] = {"laya": ("laya-mlx", "laya")}
+
+
 class _Records:
     """Answer records by (engine, task, cue), keyed by item id (first row wins)."""
 
@@ -87,10 +92,22 @@ class _Records:
         key = (engine, task, cue)
         if key not in self._cache:
             rows: Dict[str, dict] = {}
-            for row in read_record(self.root / "answers" / engine / task / f"{cue}.jsonl.gz"):
-                rows.setdefault(row["id"], row)
+            for build in BUILD_ORDER.get(engine, (engine,)):
+                path = self.root / "answers" / build / task / f"{cue}.jsonl.gz"
+                if not path.exists():
+                    continue
+                for row in read_record(path):
+                    rows.setdefault(row["id"], row)
+                break
             self._cache[key] = rows
         return self._cache[key]
+
+    def path(self, engine: str, task: str, cue: str) -> str:
+        """The record file the rows came from: the first build of the model that has one."""
+        for build in BUILD_ORDER.get(engine, (engine,)):
+            if (self.root / "answers" / build / task / f"{cue}.jsonl.gz").exists():
+                return f"answers/{build}/{task}/{cue}.jsonl.gz"
+        return f"answers/{engine}/{task}/{cue}.jsonl.gz"
 
 
 class Pair:
@@ -120,7 +137,8 @@ def _source_ids(rows: Dict[str, dict]) -> List[str]:
     return list(seen)
 
 
-def pair_for(dim: str, group: Optional[str], facet: dict) -> Optional[Pair]:
+def pair_for(dim: str, group: Optional[str], facet: dict,
+             task: Optional[str] = None) -> Optional[Pair]:
     """The version pair a cell compares, or None where the record is not in this repository."""
     if dim == "gender-pronouns":
         return Pair(texts="items", base_cue="gender-pronouns", cue_cue="gender-pronouns",
@@ -152,7 +170,7 @@ def pair_for(dim: str, group: Optional[str], facet: dict) -> Optional[Pair]:
         return Pair(texts="disability", base_cue="disability", cue_cue="disability",
                     base_id=lambda s: f"{s}-disability-floor-cyclist",
                     cue_id=lambda s: f"{s}-disability-wheelchair",
-                    base_label="Floor: a cyclist", cue_label="A wheelchair user",
+                    base_label="Control edit: a cyclist", cue_label="A wheelchair user",
                     sources=_source_ids, signed=True)
     if dim == "religion":
         hi, lo = facet["extra"]["highest"], facet["extra"]["lowest"]
@@ -161,11 +179,18 @@ def pair_for(dim: str, group: Optional[str], facet: dict) -> Optional[Pair]:
                     base_label=f"Practising {lo.capitalize()} (lowest)",
                     cue_label=f"Practising {hi.capitalize()} (highest)",
                     sources=_source_ids, signed=True)
+    if dim == "religion-v2" and group and task == "civil-comments-moderation":
+        return Pair(texts="religion", base_cue="religion", cue_cue="religion",
+                    base_id=lambda s: f"{s}-religion-floor-vegetarian",
+                    cue_id=lambda s, g=group: f"{s}-religion-{g}",
+                    base_label="Control edit: a vegetarian",
+                    cue_label={"jewish": "A Jewish person"}.get(group, group.capitalize()),
+                    sources=_source_ids, signed=True)
     if dim == "religion-v2" and group:
         return Pair(texts="religion-v2", base_cue="religion-v2", cue_cue="religion-v2",
                     base_id=lambda s: f"{s}-religion-v2-floor-gardener",
                     cue_id=lambda s, g=group: f"{s}-religion-v2-{g}",
-                    base_label="Floor: a devoted gardener",
+                    base_label="Control edit: a devoted gardener",
                     cue_label=f"Devout {'Jew' if group == 'jewish' else group.capitalize()}",
                     sources=_source_ids, signed=True)
     return None
@@ -191,7 +216,7 @@ class Examples:
         ref = _reference_engine(facets)
         if ref is None:
             return None
-        pair = pair_for(dim, group, facets[ref])
+        pair = pair_for(dim, group, facets[ref], task)
         if pair is None:
             return None
         t = Task.load(task, root=self.root)
@@ -210,19 +235,20 @@ class Examples:
             cands.append((src, ac["p"] - ab["p"], ab["choice"] != ac["choice"]))
         if not cands:
             return None
-        rule = f"the largest change in {self.labels[ref]}'s P({t.positive})"
+        rule = f"the biggest change in how sure {self.labels[ref]} is of \u201c{t.positive}\u201d"
         if pair.signed:
             mean = sum(d for _, d, _ in cands) / len(cands)
             sign = 1 if mean >= 0 else -1
             same = [c for c in cands if c[1] * sign > 0]
             cands = same or cands
-            rule += (f" in the direction of its average shift "
-                     f"({'toward' if sign > 0 else 'away from'} {t.positive})")
+            rule += (f", in the direction it moves on average "
+                     f"({'toward' if sign > 0 else 'away from'} \u201c{t.positive}\u201d)")
         flips = [c for c in cands if c[2]]
         pool = flips or cands
         src, delta, _ = max(pool, key=lambda c: (abs(c[1]), [-ord(ch) for ch in c[0]]))
-        chosen = ("Chosen by a fixed rule: among the bios whose verdict flipped, " + rule
-                  if flips else "No bio's verdict flipped; chosen as the bio with " + rule)
+        chosen = ("Picked by a fixed rule, not by hand: of the biographies where the answer changed, "
+                  "this is the one with " + rule
+                  if flips else "No biography's answer changed, so this is the one with " + rule)
         base_text = texts[pair.base_id(src)]["text"]
         cue_text = texts[pair.cue_id(src)]["text"]
         sb, sc = mark(base_text, cue_text)
@@ -245,7 +271,7 @@ class Examples:
                  "options": list(reversed(options)) if pair.reverse_options else options},
             ],
             "answers": answers,
-            "records": sorted({f"answers/{e}/{task}/{c}.jsonl.gz" for e in answers
+            "records": sorted({self.records.path(e, task, c) for e in answers
                                for c in (pair.base_cue, pair.cue_cue)}),
             "texts": sorted({f"tasks/{task}/" + ("items.jsonl" if pair.texts == "items"
                                                   else f"versions/{pair.texts}.jsonl")}),

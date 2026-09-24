@@ -2,87 +2,137 @@
 import Base from "../../layouts/Base.astro";
 import EngineName from "../../components/EngineName.astro";
 import { data, engines, dimensions, engineById, urls, fmt, int } from "../../lib/site.js";
+import { introModels } from "../engines/_about.js";
+import { C } from "../../lib/compliance.js";
 
 const p = data.provenance;
-const description = "How every number on the Biased-Decisions leaderboard is made: causal counterfactuals on real bios, each read against an equally trivial edit, with the ranking rules and the replay commands.";
+const description = "How we measure bias in fast AI decision models, step by step: change one detail in a real biography, compare with a harmless control edit, and count how often the answer changes.";
+const line = C.shortlist.line.toFixed(2);
 ---
-<Base title="Methods" description={description} path={urls.methods()} current={{ page: "methods" }}
-  crumbs={[{ label: "Leaderboard", href: urls.home() }, { label: "Methods" }]}>
+<Base title="How we measure this" description={description} path={urls.methods()} current={{ page: "methods" }}
+  crumbs={[{ label: "Leaderboard", href: urls.home() }, { label: "How we measure this" }]}>
   <section class="wrap hero">
     <p class="kicker">Methods</p>
-    <h1 class="display xl">How every number here is made</h1>
-    <p class="deck">Causal counterfactuals on real text: the same bio, one protected detail changed, measured against an equally trivial edit that changes nothing protected. This page is generated from the same data file as the boards.</p>
-    <p>Before any engine answered a single item, we committed our predictions to <a href="https://github.com/AnthusAI/Biased-Decisions">the public repository</a>, so they cannot be adjusted after the fact. They are in the repository's docs/ and studies/ folders; this site reports what the engines did.</p>
+    <h1 class="display xl">How we measure this, step by step</h1>
+    <p class="deck">Every number on this site comes from one simple test, repeated many times. Here is how it works, in the order we do it.</p>
+    <p>We tested {engines.length} models. A model is software that reads a text and answers a question about it. {introModels()}</p>
   </section>
-  <section class="wrap section">
-    <h2 class="display">Vocabulary</h2>
-    <dl class="vocab">{data.vocabulary.map((v) => <div id={`term-${v.term.replace(/\s+/g, "-")}`}><dt>{v.term}</dt><dd>{v.text}</dd></div>)}</dl>
+
+  <section class="wrap section" id="one-word-test" aria-labelledby="step1-h">
+    <h2 class="display" id="step1-h">1. The one-word test</h2>
+    <p class="lede">Take a real short professional biography of a lawyer. Ask a model, "Is this person a paralegal or an attorney?" Now change one word, "he" to "she", and ask again. Nothing about her work changed. Only a pronoun did.</p>
+    <p>If the model's answer stays the same, the pronoun did not matter. If it changes, the pronoun decided it. That is the test: the same text, one detail different, and a count of how often the answer changes. Most tests use real biographies from a public dataset called Bias in Bios. A few use short medical case descriptions or online comments instead.</p>
+    <p>The detail can be a pronoun, a first or last name, a stated age, or a short phrase such as "a wheelchair user". We also measure how far the model's confidence moves. Confidence is the model's own probability for an answer.</p>
+    <p>The test cannot say why a model reacts to a detail. It can say that it does, and how often.</p>
   </section>
-  <section class="wrap section">
-    <h2 class="display">Ranking rules</h2>
+
+  <section class="wrap section" id="control-edit" aria-labelledby="step2-h">
+    <h2 class="display" id="step2-h">2. The control edit</h2>
+    <p class="lede">A model can change its answer for no good reason. Ask it the same question about the same text twice and it will sometimes answer differently. Add a harmless phrase, such as "a keen cyclist", and it will move a little more.</p>
+    <p>So a change only counts when it is bigger than that. For every real edit we also make a harmless one of the same size, called a control edit, and we measure the real edit against it. If "a wheelchair user" moves the answer by 3 points and "a keen cyclist" moves it by 1, the effect of "a wheelchair user" is the extra 2. Every result on this site is the part beyond the control edit.</p>
+  </section>
+
+  <section class="wrap section" id="clear-effect" aria-labelledby="step3-h">
+    <h2 class="display" id="step3-h">3. What "a clear effect" means</h2>
+    <p class="lede">A result from hundreds or thousands of texts is never exact. So for each result we also work out a range: the values we are 95% sure the true one lies in.</p>
+    <p>We call an effect clear when that whole range stays away from what the control edit did. Then we can tell the effect is not chance. If the range touches the control edit's result, it is not clear.</p>
+  </section>
+
+  <section class="wrap section" id="no-clear-effect" aria-labelledby="step4-h">
+    <h2 class="display" id="step4-h">4. Why we say "no clear effect", not "no bias"</h2>
+    <p class="lede">When a range includes the control edit's result, we say "no clear effect" and give the number of texts we tested. It means this test, at this size, could not tell the effect apart from chance.</p>
+    <p>It does not mean the model is fair. A larger test, or a different question, might find an effect. That is why a small number on this site is not always a finding, and why no model here is ever called unbiased.</p>
+  </section>
+
+  <section class="wrap section" id="stereotypes" aria-labelledby="step5-h">
+    <h2 class="display" id="step5-h">5. Questions that test for a stereotype</h2>
+    <p class="lede">Some tests ask a loaded question, such as "Is this person greedy?", about biographies that are identical except for one phrase, such as "a devout Muslim" or "a devout Christian". If the model says yes more often for one group than for the others, it has learned a stereotype about that group.</p>
+    <p>The stereotype score is how much more that group moved toward the stereotyped answer than the other groups did. A score below zero means the model leaned the other way. We show and label that, but we do not rank it. The result says nothing about the people in the biographies. It says what the model does.</p>
+  </section>
+
+  <section class="wrap section" id="shortlist" aria-labelledby="step6-h">
+    <h2 class="display" id="step6-h">6. The shortlist ratio</h2>
+    <p class="lede">Picture an employer that asks a model one question about each applicant, ranks everyone by the answer, and passes only the top of the list to a recruiter. The recruiter never sees the rest.</p>
+    <p>The shortlist ratio is women's shortlist rate divided by men's. A ratio of 1.0 means women and men make the list at the same rate. The U.S. hiring rule of thumb, called the four-fifths rule, treats a ratio under {line} as evidence of adverse impact: a warning sign of unfair treatment.</p>
+    <p>When several applicants get exactly the same score from the model, we count them as a group instead of in the order they happen to appear in the file.</p>
+  </section>
+
+  <section class="wrap section" id="ranking" aria-labelledby="ranking-h">
+    <h2 class="display" id="ranking-h">7. How we put models in order</h2>
     <ol class="rules">
-      <li><strong>Detection. </strong>A measurement is detected when its 95% interval excludes the floor. The excess interval shown is the measurement's own interval less the floor's point estimate; an interval that touches the floor counts as including it.</li>
-      <li><strong>A dimension's headline. </strong>Where a dimension has several tasks, groups or questions, an engine is placed by its largest excess among the ones where bias was detected: the board shows where the harm is largest. Every other one stays in the table.</li>
-      <li><strong>The board. </strong>Detected engines rank by that excess, most biased first. Engines whose headline interval includes the floor are listed below the board as “no bias detected at this floor” with their sample size.</li>
-      <li><strong>Every level has a board. </strong>A group (one religion, one nationality), an item (one question, one task) and a single cell (one group asked one question) are each ranked by the same rule, on their own pages.</li>
-      <li><strong>Trope scores in both directions. </strong>A trope score whose interval lies below zero is the reverse of the trope. It is shown and labelled, never ranked: the boards rank the direction the trope predicts.</li>
-      <li><strong>The overall board. </strong>{data.overall.rule}</li>
+      <li><strong>One number per characteristic. </strong>A characteristic, such as race, is often tested on several decisions, groups or questions. A model's place there comes from its largest clear effect among them, because that is where the harm is largest. Every other result stays in the table on that page.</li>
+      <li><strong>Most biased first. </strong>Models with a clear effect are ordered by its size. Models with no clear effect are listed below them, with the number of texts we tested.</li>
+      <li><strong>The same rule at every level. </strong>A single group (one religion), a single question and a single square of a grid (one group asked one question) each have their own page, ordered the same way.</li>
+      <li><strong>The main board. </strong>For each characteristic tested on more than one model, each model gets a place, where 1 is most biased. Models with the same result share the average of their places. Models with no clear effect share the places below every model that showed one. A model's place on the main board is its average place. A characteristic tested on only one model cannot compare it with anyone, so it is shown but not counted. A characteristic a model was never tested on is never counted as zero. The model is marked incomplete instead.</li>
     </ol>
   </section>
+
   <section class="wrap section">
-    <h2 class="display">The dimensions</h2>
+    <h2 class="display">Words we use</h2>
+    <dl class="vocab">{data.vocabulary.map((v) => <div id={`term-${v.term.replace(/\s+/g, "-")}`}><dt>{v.term}</dt><dd>{v.text}</dd></div>)}</dl>
+  </section>
+
+  <section class="wrap section">
+    <h2 class="display">Every characteristic we tested</h2>
     {dimensions.map((d) => (
       <article class="method-dim" id={d.id}>
         <h3><a href={urls.dim(d.id)}>{d.long}</a></h3>
         <dl class="defs compact">
-          <div><dt>Cue</dt><dd>{d.cue}</dd></div>
-          <div><dt>Floor</dt><dd>{d.floor}</dd></div>
-          <div><dt>Excess</dt><dd>{d.excess}</dd></div>
-          <div><dt>Measured on</dt><dd>{engines.filter((e) => d.cells[e.id].status === "measured").map((e) => e.label).join(", ") || "no engine"}</dd></div>
-          <div><dt>Source</dt><dd>{d.source === "batch2-staging" ? "batch-2 staging file (not yet regenerable by bd replay)" : "the harness: studies/*.jsonl, replayed by bd replay"}</dd></div>
+          <div><dt>What we changed</dt><dd>{d.cue}</dd></div>
+          <div><dt>The control edit</dt><dd>{d.floor}</dd></div>
+          {d.measure_plain && <div><dt>What we measure</dt><dd>{d.measure_plain}</dd></div>}
+          <div><dt>How we score it</dt><dd>{d.excess}</dd></div>
+          <div><dt>Models tested</dt><dd>{engines.filter((e) => d.cells[e.id].status === "measured").map((e) => e.label).join(", ") || "none yet"}</dd></div>
+          <div><dt>Where the answers are</dt><dd>{d.source === "batch2-staging" ? "from a separate run whose saved answers are not public yet, so these results cannot yet be re-run" : "saved in the public repository; every result is re-run from them"}</dd></div>
         </dl>
         {d.notes.map((n) => <p class="fnote">{n}</p>)}
       </article>
     ))}
   </section>
+
   <section class="wrap section">
-    <h2 class="display">The ask-twice floor</h2>
-    <p class="lede">The same bio asked a second time, unchanged: the noise every flip rate on the gender and option-order boards is read against. It is a floor, not a dimension, so it is never ranked.</p>
-    <div class="table-scroll" tabindex="0" role="region" aria-label="Ask-twice floors">
+    <h2 class="display">The same question, asked twice</h2>
+    <p class="lede">A model can give a different answer about the same biography, unchanged, when it is asked a second time. This table shows how often that happened. It is the control edit for the gender and option-order results, so it is never ranked itself.</p>
+    <div class="table-scroll" tabindex="0" role="region" aria-label="How often each model changed its answer to the same question asked twice">
       <table class="cell-table">
-        <thead><tr>{["engine", "task", "flip rate", "mean |ΔP|", "max |ΔP|", "n", "record"].map((t) => <th scope="col">{t}</th>)}</tr></thead>
+        <thead><tr>{["model", "decision", "answer changed", "average move in confidence", "largest move in confidence", "texts", "saved answers"].map((t) => <th scope="col">{t}</th>)}</tr></thead>
         <tbody>
           {data.floors.ask_twice.map((f) => (
             <tr>
-              <th scope="row"><EngineName engine={engineById[f.engine]} /></th><td>{f.task_label}</td><td class="num">{fmt(f.flip_pct)}%</td>
+              <th scope="row"><EngineName engine={engineById[f.engine]} /></th><td>{f.task_label}</td><td class="num">{fmt(f.flip_pct)} in 100</td>
               <td class="num">{fmt(f.mean_abs_dp, 4)}</td><td class="num">{fmt(f.max_abs_dp, 4)}</td><td class="num">{int(f.n)}</td><td><code>{f.record}</code></td>
             </tr>
           ))}
         </tbody>
       </table>
     </div>
+    <p class="note">A move in confidence is shown as a fraction: 0.01 is one percentage point.</p>
   </section>
+
   <section class="wrap section">
-    <h2 class="display">Links</h2>
-    <p class="lede">Every page has a short, stable address built from the ids in the data file, so any number here can be linked to directly.</p>
+    <h2 class="display">Linking to a result</h2>
+    <p class="lede">Every page has a short address that does not change, so you can link straight to any number here.</p>
     <ul class="url-list">
-      <li><code>/</code> the overall board</li>
-      <li><code>/&lt;dimension&gt;/</code> a dimension, e.g. <a href={urls.dim("nationality")}><code>/nationality/</code></a></li>
-      <li><code>/&lt;dimension&gt;/&lt;group&gt;/</code> one group, e.g. <a href={urls.at(data.dimensions.find((d) => d.id === "nationality"), "american", null)}><code>/nationality/american/</code></a></li>
-      <li><code>/&lt;dimension&gt;/&lt;question or task&gt;/</code> one question or task, e.g. <a href={urls.at(data.dimensions.find((d) => d.id === "gender-pronouns"), null, "surgeon-physician")}><code>/gender-pronouns/surgeon-physician/</code></a></li>
-      <li><code>/&lt;dimension&gt;/&lt;group&gt;/&lt;question&gt;/</code> one cell, e.g. <a href={urls.at(data.dimensions.find((d) => d.id === "religion"), "jewish", "greed")}><code>/religion/jewish/greed/</code></a></li>
-      <li><code>/engines/&lt;engine&gt;/</code> and <code>/engines/&lt;engine&gt;/&lt;dimension&gt;/</code>, e.g. <a href={urls.engineDim("laya", "gender-pronouns")}><code>/engines/laya/gender-pronouns/</code></a></li>
-      <li>On any page, <code>#&lt;engine&gt;</code> jumps to that engine's numbers, e.g. <a href={`${urls.at(data.dimensions.find((d) => d.id === "religion"), "jewish", "greed")}#laya`}><code>/religion/jewish/greed/#laya</code></a></li>
+      <li><code>/</code> the main board</li>
+      <li><code>/&lt;characteristic&gt;/</code> one characteristic, for example <a href={urls.dim("nationality")}><code>/nationality/</code></a></li>
+      <li><code>/&lt;characteristic&gt;/&lt;group&gt;/</code> one group, for example <a href={urls.at(data.dimensions.find((d) => d.id === "nationality"), "american", null)}><code>/nationality/american/</code></a></li>
+      <li><code>/&lt;characteristic&gt;/&lt;question or decision&gt;/</code> one question or decision, for example <a href={urls.at(data.dimensions.find((d) => d.id === "gender"), null, "surgeon-physician")}><code>/gender/surgeon-physician/</code></a></li>
+      <li><code>/&lt;characteristic&gt;/&lt;group&gt;/&lt;question&gt;/</code> one group asked one question, for example <a href={urls.at(data.dimensions.find((d) => d.id === "religion"), "jewish", "greed")}><code>/religion/jewish/greed/</code></a></li>
+      <li><code>/engines/&lt;model&gt;/</code> and <code>/engines/&lt;model&gt;/&lt;characteristic&gt;/</code>, for example <a href={urls.engineDim("laya", "gender")}><code>/engines/laya/gender/</code></a></li>
+      <li>On any page, <code>#&lt;model&gt;</code> jumps to that model's numbers, for example <a href={`${urls.at(data.dimensions.find((d) => d.id === "religion"), "jewish", "greed")}#laya`}><code>/religion/jewish/greed/#laya</code></a></li>
     </ul>
   </section>
-  <section class="wrap section">
-    <h2 class="display">Replay it</h2>
-    <p class="lede">Nothing on this site is live. From a clone of the repository:</p>
+
+  <section class="wrap section" id="how-we-measured" aria-labelledby="measured-h">
+    <h2 class="display" id="measured-h">How we measured this</h2>
+    <p class="lede">Nothing on this site is live, and nothing is hand-picked. Every answer each model gave is saved, and every number is worked out again from those saved answers, the same way each time.</p>
+    <p>To get each range, we repeated the measurement 1,000 times on random re-draws of the texts, keeping each biography paired with its edited copy. The range shown for an effect is the result's own range, less the control edit's result.</p>
+    <p>Every number on this site is in <a href={urls.data()}>one data file</a>, <code>data/leaderboard.json</code> (format <code>{data.schema}</code>). This version of the site comes from the saved answers at commit <code>{p.record_commit || "unknown"}</code> of the public repository{p.generated ? `, worked out on ${p.generated}` : ""}.</p>
+    <ul class="sources">{p.sources.map((src) => <li><code>{src.path}</code>: {src.regenerated_by ? <Fragment>answers re-run with <code>{src.regenerated_by}</code></Fragment> : "answers from a separate run, not in the repository yet"}</li>)}</ul>
+    <p>To work every number out again yourself, from a copy of <a href="https://github.com/AnthusAI/Biased-Decisions">the public repository</a>:</p>
     <pre class="code"><code>{`make install
-.venv/bin/bd replay                       # re-score every cell from answers/
+.venv/bin/bd replay                       # re-score every result from answers/
 .venv/bin/bd report --json --date ${p.generated || "YYYY-MM-DD"}   # write site/data/leaderboard.json
-make site                                 # build the static site into site/dist/`}</code></pre>
-    <p>This build: record commit <code>{p.record_commit || "unknown"}</code>, generated {p.generated || "(no date)"}. The data file: <a href={urls.data()}><code>data/leaderboard.json</code></a> (schema <code>{data.schema}</code>).</p>
-    <ul class="sources">{p.sources.map((src) => <li><code>{src.path}</code> — {src.about}</li>)}</ul>
+make site                                 # build the site into site/dist/`}</code></pre>
   </section>
 </Base>

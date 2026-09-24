@@ -10,7 +10,7 @@ import re
 
 import pytest
 
-from biased_decisions.compliance import normalise
+from biased_decisions.compliance import _one_laya, normalise
 from biased_decisions.leaderboard import generate_json
 from biased_decisions.tasks.base import DEFAULT_ROOT
 
@@ -105,7 +105,7 @@ def test_the_shortlist_block_is_the_replayed_record_row_for_row(comp):
     rows = []
     for block in comp["shortlist"]["pairs"]:
         path = DEFAULT_ROOT / block["study"]
-        want = [json.loads(line) for line in path.read_text(encoding="utf-8").splitlines() if line]
+        want = _one_laya([json.loads(line) for line in path.read_text(encoding="utf-8").splitlines() if line])
         assert block["rows"] == want, block["task"]
         rows.extend(block["rows"])
     assert rows

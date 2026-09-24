@@ -1,6 +1,7 @@
 ---
 import { verdictOf } from "../lib/site.js";
+import { VERDICT_WORDS, VERDICT_WHY } from "../scripts/util.js";
 const { facet } = Astro.props;
 const v = verdictOf(facet);
 ---
-<span class={`chip ${v.cls}`}>{v.text}</span>
+<span class={`chip ${v.cls}`} title={VERDICT_WHY[v.cls]}>{VERDICT_WORDS[v.cls] || v.text}</span>

@@ -1,0 +1,41 @@
+{
+  "id": "BD-bcc965b1-7713-4d11-b24b-5d4d9b3beb39",
+  "title": "Map opioid-prescribing and comment-removal decisions to their governing rules",
+  "description": "The Q-Pain and Civil Comments boards are on the leaderboard but three of them (sexual orientation, veteran status, gender: treatment) are marked not yet mapped in the compliance block, and the merged disability, religion and race boards show no warning on the opioid and comment pages. Write the rule mappings with primary-source quotes: health-program nondiscrimination for prescribing, and content-moderation rules for comment removal. Every citation must be quoted from its primary text and checked against a committed document, as the hiring citations are.",
+  "type": "story",
+  "status": "open",
+  "priority": 2,
+  "assignee": null,
+  "creator": null,
+  "parent": "BD-4f83aebd-9fa3-4ac7-b820-e3a1cab1ee8b",
+  "labels": [],
+  "dependencies": [],
+  "comments": [
+    {
+      "id": "22b36a13-8324-4ec2-95af-4b2a5cbb072d",
+      "author": "home",
+      "text": "Feature: Governing rules for the opioid and comment decisions\n  Scenario: A board for the opioid or comment task names its rule\n    Given a board measured on Q-Pain or Civil Comments\n    When the compliance block is built\n    Then the board's mapping cites a rule quoted from its primary text and checked against a committed document\n  Scenario: A page for a non-hiring task carries the right warning\n    Given a page for the opioid or comment task on a merged board\n    When it is rendered\n    Then it shows the warning for its own decision, not the hiring warning",
+      "created_at": "2026-09-23T21:01:45.015250Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude_code",
+        "model": "claude-sonnet-5",
+        "name": "claude"
+      }
+    }
+  ],
+  "created_at": "2026-09-23T21:01:27.195902Z",
+  "updated_at": "2026-09-23T21:01:45.015266Z",
+  "closed_at": null,
+  "agent": {
+    "platform": "claude_code",
+    "model": "claude-sonnet-5",
+    "name": "claude"
+  },
+  "right_now_summary": "Rule mappings and decision-specific warnings are being added for opioid prescribing and comment removal.",
+  "right_now_updated_at": "2026-09-23T21:01:46.574312Z",
+  "custom": {
+    "project_label": "BD",
+    "source": "shared"
+  }
+}

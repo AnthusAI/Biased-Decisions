@@ -56,6 +56,7 @@ const regulated = C.mapping.filter((m) => m.regulated).map((m) => m.dimension);
 const dimOfPath = (p) => {
   const segs = p.split("/").filter(Boolean);
   if (segs[0] === "engines") return segs.length === 3 ? segs[2] : null;
+  if (segs.slice(1).some((x) => ["qpain-treatment", "civil-comments-moderation"].includes(x))) return null;
   return DATA.dimensions.some((d) => d.id === segs[0]) ? segs[0] : null;
 };
 const primary = new Set(C.citations.map((c) => c.primary_url));
@@ -94,8 +95,8 @@ test("every risk panel links a measured result, a citation, a failure recipe and
     const ev = [...panel.matchAll(/<a class="ev-link" href="([^"]+)"/g)].map((m) => m[1]);
     assert.ok(ev.length, `${path}: panel states no measured result`);
     for (const href of ev) assert.equal(landing(href, path), null);
-    assert.match(text(panel), /\[[−-]?\d+\.\d+, [−-]?\d+\.\d+\]/, `${path}: panel quotes no interval`);
-    assert.match(text(panel), /n = \d/, `${path}: panel quotes no sample size`);
+    assert.match(text(panel), /between [−-]?\d+\.\d+ and [−-]?\d+\.\d+/, `${path}: panel quotes no interval`);
+    assert.match(text(panel), /\d[\d,]* (?:bios|texts|comments|case descriptions|women)\b/, `${path}: panel quotes no sample size`);
     const cites = [...panel.matchAll(/<a class="cite" href="([^"]+)"/g)].map((m) => m[1]);
     assert.ok(cites.length, `${path}: panel cites no rule`);
     for (const c of cites) assert.ok(primary.has(c), `${path}: ${c} is not a verified citation`);
@@ -154,7 +155,7 @@ test("every evidence entry quoted on a page shows the record's number", () => {
       const e = byEv[m[1]];
       assert.ok(e, `${path}: unknown evidence ${m[1]}`);
       const li = text(element(html, m.index, "li")).replace(/−/g, "-");
-      if (e.kind === "cell") assert.ok(li.includes(`[${fmt(e.lo)}, ${fmt(e.hi)}]`) && li.includes(fmt(e.value)), `${path}: ${e.id} shows ${li}`);
+      if (e.kind === "cell") assert.ok(li.includes(`between ${fmt(e.lo)} and ${fmt(e.hi)}`) && li.includes(fmt(e.value)), `${path}: ${e.id} shows ${li}`);
       if (e.kind === "prereg") assert.ok(li.includes(e.observed.replace(/\*/g, "").slice(0, 20)), `${path}: ${e.id}`);
       n++;
     }
@@ -164,7 +165,7 @@ test("every evidence entry quoted on a page shows the record's number", () => {
 
 test("the shortlist is on its task pages, every row deep-linkable", () => {
   for (const block of C.shortlist.pairs) {
-    const path = `/gender-pronouns/${block.task}/`;
+    const path = `/gender/${block.task}/`;
     const html = pages.get(path);
     const sec = byId(html, "shortlist");
     assert.ok(sec, `${path}: no #shortlist`);
@@ -186,4 +187,15 @@ test("the masthead links the compliance pages from every page", () => {
     if (path === "/og-gallery/" || !html.includes('class="topnav"')) continue;
     assert.match(html, /<nav class="topnav"[\s\S]*href="\/how-to-fail\/"[\s\S]*<\/nav>/, path);
   }
+});
+
+test("a page for the opioid or comment tasks carries no hiring warning", () => {
+  let n = 0;
+  for (const [path, html] of pages) {
+    const segs = path.split("/").filter(Boolean);
+    if (segs[0] === "engines" || !segs.slice(1).some((x) => ["qpain-treatment", "civil-comments-moderation"].includes(x))) continue;
+    n++;
+    assert.doesNotMatch(html, /class="reg-warn/, path);
+  }
+  assert.ok(n > 5, `only ${n} such pages found`);
 });

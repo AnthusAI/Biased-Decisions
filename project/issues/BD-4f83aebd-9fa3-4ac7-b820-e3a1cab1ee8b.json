@@ -36,16 +36,52 @@
         "model": "claude-sonnet-5",
         "name": "claude"
       }
+    },
+    {
+      "id": "b3ce43bb-fdd9-48c9-ada5-9413d4e0b934",
+      "author": "home",
+      "text": "Q-Pain and Civil Comments are on the boards: disability, religion and race gain them; sexual orientation, veteran status and gender-treatment are new; /race-fullname/ redirects. Race first-name and Q-Pain gender stay separate (different measures). Filed BD-bcc965b1 for the rule mappings.",
+      "created_at": "2026-09-23T21:01:51.811068Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude_code",
+        "model": "claude-sonnet-5",
+        "name": "claude"
+      }
+    },
+    {
+      "id": "b6dae0ee-5a5c-49bb-a6bf-babeea2d371d",
+      "author": "home",
+      "text": "Race merge shipped (478ad3e): full name, first name and the opioid and comment tasks are one race board; first-name race is the group Black first name and keeps its flip-rate unit; /race-name/ redirects. Remaining separate by design: Q-Pain gender (probability shift, not the gender flip rate). deploy/amplify-rules.json needs applying to the Amplify app.",
+      "created_at": "2026-09-23T21:12:00.481192Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude_code",
+        "model": "claude-sonnet-5",
+        "name": "claude"
+      }
+    },
+    {
+      "id": "26bdf48b-0806-41c9-ba93-89de7023cfa3",
+      "author": "home",
+      "text": "BD-706305: Installed approved 24x24 pixel scales in the shared masthead at integer 2x scale, inheriting the site foreground color. Replaced the chart favicon with adaptive SVG plus 16/32px ICO/PNG fallbacks and an Apple home-screen icon. Built all 212 pages and passed all 23 existing site checks. Browser verification confirmed the dark header and a light-token fixture at narrow width; the accessible home-link name is Biased Decisions. All four linked icon URLs returned HTTP 200. No study data or engine calls changed. Work resumed in a persistent isolated checkout after reboot removed the temporary directory.",
+      "created_at": "2026-09-24T00:18:54.480831Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "codex",
+        "model": "GPT-6",
+        "name": "Pixel Scales Integration"
+      }
     }
   ],
   "created_at": "2026-09-23T13:03:21.518944Z",
-  "updated_at": "2026-09-23T18:55:47.481025Z",
+  "updated_at": "2026-09-24T00:18:54.481228Z",
   "closed_at": null,
   "agent": {
     "platform": "claude-code",
     "model": "claude-fable-5-1"
   },
-  "right_now_summary": "The site is built, but replay checks fail on race data, so the deployment fix is still underway.",
-  "right_now_updated_at": "2026-09-23T20:39:51.405110Z",
+  "right_now_summary": "The leaderboard site is built, but replay mismatches still block a reliable build and release.",
+  "right_now_updated_at": "2026-09-23T23:26:48.143644Z",
   "custom": {}
 }

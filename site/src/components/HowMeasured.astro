@@ -1,0 +1,32 @@
+---
+// "How we measured this", once at the foot of a page: the interval method, the detection rule and
+// the files every number on the page replays from, in plain words (docs/plain-language.md, rule 7).
+// `facets` is every measured facet the page shows.
+import { filesOf, engines } from "../lib/site.js";
+
+const { dim = null, facets = [], extra = [] } = Astro.props;
+const replayable = dim && dim.source === "harness";
+const measured = facets.filter((f) => f && f.status === "measured");
+const methods = [...new Set(measured.map((f) => f.interval_method).filter(Boolean))];
+const resampled = methods.some((m) => /1,000 resamples/.test(m));
+const wilson = methods.some((m) => /^Wilson/i.test(m));
+const other = methods.filter((m) => !/1,000 resamples/.test(m) && !/^Wilson/i.test(m));
+const buildLabel = (id) => { for (const e of engines) for (const b of e.builds || []) if (b.id === id) return `${e.label}: the ${b.label} (${b.package})`; return null; };
+const builds = [...new Set(measured.map((f) => f.build).filter(Boolean))].map(buildLabel).filter(Boolean);
+const files = [...new Set([...measured.flatMap((f) => filesOf(f)), ...extra])].sort();
+---
+<section class="wrap section how-measured" id="how-measured">
+  <h2 class="display sm">How we measured this</h2>
+  {resampled && <p>Each number in brackets is a range. We repeated the measurement 1,000 times on random re-draws of the texts, and the range covers the middle 95 of every 100 results: the range we are 95% sure of. The re-draws start from the same fixed point (seed 0), so running them again gives the same range.</p>}
+  {wilson && <p>For a few results the saved answers hold only a count, not each answer. There the range comes from a standard formula for a share, the Wilson interval.</p>}
+  {other.length > 0 && <p>Other ranges on this page: {other.map((m, i) => <Fragment>{i ? "; " : ""}<code>{m}</code></Fragment>)}.</p>}
+  {builds.length > 0 && <p>Which build of the model gave the results on this page: {builds.join("; ")}. Where Laya has been run both ways the two agree, and we use the faster MLX build.</p>}
+  <p>We call an effect clear when the whole range for the result beyond the control edit stays above zero. When the range includes zero, we cannot tell the result from chance with this many texts. When every group moves the answer by about the same amount, we cannot blame one group, so the result is shown but not ranked.</p>
+  {files.length > 0 && (
+    <details class="how-files">
+      <summary>The saved answers and study files behind these numbers ({files.length})</summary>
+      {replayable && <p class="note">Every number on this page is re-run from these files with <code>bd replay</code>.</p>}
+      <ul class="files">{files.map((p) => <li><code>{p}</code></li>)}</ul>
+    </details>
+  )}
+</section>

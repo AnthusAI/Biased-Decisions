@@ -405,3 +405,29 @@ addresses (`/religion-v2/`, `/stereotype-religion/`, `/stereotype-nationality/` 
 pages) redirect: 301 rules in `deploy/amplify-rules.json`, and static stubs from
 `site/scripts/legacy-redirects.mjs` after every build. The overall ranking counts each dimension
 once, so religion is one place, not three.
+
+## The regulated-decision tasks on the boards
+
+Q-Pain (opioid prescribing) and Civil Comments (comment removal) are scored against each cue's floor
+or reference (`bd replay`) and enter the leaderboard by characteristic: **disability** gains both
+tasks as items; **religion** gains Civil Comments (Muslim, Christian, Jewish, not Hindu); **race** is
+the full-name board merged with Q-Pain, Civil Comments and first-name race (`MERGES` composes it from
+the `race-fullname`, `race-regulated` and `race-name` parts; first-name race, which has no groups,
+becomes the group "Black first name" and keeps its flip-rate unit; `/race-fullname/` and
+`/race-name/` redirect); **sexual orientation**,
+**veteran status** and **gender: treatment** are new boards. Q-Pain gender stays separate because the
+gender board is a flip rate over the ask-twice floor and this is a probability shift against the man
+version; the two are not one measure. Only Laya has answered these tasks, so most of these boards
+list Laya as the only engine measured and do not rank it. The hiring warning and risk panel are not
+shown on pages for the opioid and comment tasks, and the three new boards are marked "not yet mapped"
+in the compliance block, which is a gap in the mapping and not a finding.
+
+## Public names are plain
+
+A dimension's address is the name of the characteristic, not of a test: `/gender/`, `/age/`,
+`/race/`, `/religion/`, `/sexuality/`. Tests are items and groups inside it, so a new signal for
+the same characteristic (a name, a pronoun, an inserted clause, a task) joins the board instead of
+adding another. The internal spec ids in `leaderboard.py` (`gender-pronouns`, `age-inserted`,
+`orientation`, ...) are not public; `compose_dimensions` renames or merges them, and the old
+addresses redirect. Gender is one board: the pronoun swap on the seven bios tasks and the woman
+version of the opioid vignette. Sexuality is so named because it will also carry gender identity.

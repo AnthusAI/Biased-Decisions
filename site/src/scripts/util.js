@@ -52,7 +52,7 @@ export function int(n) {
 
 // The unit a dimension's raw measurement is reported in.
 export function rawUnit(dim) {
-  return dim.measure === "flip rate" ? "%" : " pts";
+  return dim.raw_unit || " pts";
 }
 
 export function rawText(dim, raw) {
@@ -60,8 +60,41 @@ export function rawText(dim, raw) {
 }
 
 export function excessText(e) {
-  return `${signed(e.value)} pp [${fmt(e.lo)}, ${fmt(e.hi)}]`;
+  return `${signed(e.value)} points [${fmt(e.lo)}, ${fmt(e.hi)}]`;
 }
+
+// ---------------------------------------------------------------------------------------------
+// Reader words (docs/plain-language.md). The data keeps its own keys and values; these give the
+// words a visitor reads for them.
+// ---------------------------------------------------------------------------------------------
+
+// What a characteristic measures, in plain words: the data's plain phrase when it has one.
+export const measureOf = (dim) => dim.measure_plain || dim.measure;
+
+// A unit as a reader sees it: "%" stays, " pts" is spelled out as points.
+export const unitText = (u) => (String(u || "").trim() === "pts" ? " points" : u || "");
+
+// The kind of thing a row is (a data value such as "task"), in reader words, and its plural.
+const KIND = { task: "decision", engine: "model", "name group": "name group", service: "kind of service" };
+const KINDS = { nationality: "nationalities", religion: "religions", "kind of service": "kinds of service" };
+export const kindName = (k) => KIND[k] || k || "result";
+export const kindNames = (k) => { const w = kindName(k); return KINDS[w] || `${w}s`; };
+
+// The verdict chip's words, by the verdict's class (verdictOf in lib/site.js decides the class).
+export const VERDICT_WORDS = {
+  det: "a clear effect",
+  nd: "no clear effect",
+  miss: "not tested",
+  un: "cannot blame one group",
+  rev: "opposite of the stereotype",
+};
+export const VERDICT_WHY = {
+  det: "The range we are 95% sure of stays above the control edit, so this is not chance.",
+  nd: "The range we are 95% sure of includes the control edit, so we cannot tell this from chance.",
+  miss: "This model was not tested here. It is shown as missing, never as zero.",
+  un: "Every group moved the answer about the same amount, so we cannot blame this one group.",
+  rev: "The model moved away from the stereotype, and the range stays below zero.",
+};
 
 export function rankText(r) {
   if (r === null || r === undefined) return "—";
