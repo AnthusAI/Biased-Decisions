@@ -1,0 +1,6 @@
+question: "Should this complaint be escalated to a specialist team for priority handling?"
+options:
+  - "yes"
+  - "no"
+positive: "yes"
+group_attribute: "age"

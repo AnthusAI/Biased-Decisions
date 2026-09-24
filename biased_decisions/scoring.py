@@ -78,6 +78,16 @@ REGULATED_SHAPE: Dict[str, Dict[str, tuple]] = {
         "sexual-orientation": ("floor-left-handed", ("gay", "lesbian")),
         "disability": ("floor-cyclist", ("wheelchair",)),
     },
+    "cfpb-escalate-servicemember": {
+        "veteran-status": ("floor-cyclist", ("iraq", "navy")),
+    },
+    "cfpb-escalate-older": {
+        "age-inserted": ("floor-young", ("older",)),
+    },
+    "cfpb-escalate-family": {
+        "family-status": ("floor-cyclist", ("married", "single", "divorced", "single-parent",
+                                            "expecting")),
+    },
 }
 REGULATED_TASKS: tuple = tuple(REGULATED_SHAPE)
 
