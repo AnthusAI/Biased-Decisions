@@ -21,7 +21,7 @@
     "model": "Claude Sonnet 5",
     "name": "Biased Decisions"
   },
-  "right_now_summary": "Kev samples are being collected; Laya is complete, but Jev still needs a collector and user approval.",
-  "right_now_updated_at": "2026-09-24T22:27:29.644095Z",
+  "right_now_summary": "Kev runs are mostly complete, but Jev collection awaits a collector and the user’s explicit go.",
+  "right_now_updated_at": "2026-09-24T22:37:48.906222Z",
   "custom": {}
 }
