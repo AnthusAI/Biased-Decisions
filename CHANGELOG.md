@@ -1,3 +1,10 @@
+# [1.32.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.31.2...v1.32.0) (2026-09-24)
+
+
+### Features
+
+* **runs:** seeded nested item cap, per-run Kev manifests, portable Kev launcher and the other-Mac guide ([d3bac5c](https://github.com/AnthusAI/Biased-Decisions/commit/d3bac5cb320590879ff57e37edfee6522f6ac025))
+
 ## [1.31.2](https://github.com/AnthusAI/Biased-Decisions/compare/v1.31.1...v1.31.2) (2026-09-24)
 
 
