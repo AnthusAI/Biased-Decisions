@@ -1,3 +1,22 @@
+# [1.23.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.22.2...v1.23.0) (2026-09-24)
+
+
+### Bug Fixes
+
+* **kev:** accept shared stereotype question schema ([2f877ae](https://github.com/AnthusAI/Biased-Decisions/commit/2f877aef2aa4ad6d59b77c906e10659df4f8ec96))
+* **kev:** bind scoring metadata and expose complete task coverage ([100f788](https://github.com/AnthusAI/Biased-Decisions/commit/100f78839a58b6534cd47cc5f9a72dca137f3ff2))
+* **kev:** bind source corpus to version-cue resume identity ([457e13e](https://github.com/AnthusAI/Biased-Decisions/commit/457e13ef4efd9a3bd1be5d17589ac5ea64e77bab))
+* **site:** keep unmeasured models unranked and explicit ([c70d322](https://github.com/AnthusAI/Biased-Decisions/commit/c70d3228bc7e59ba761683ef0c725376fac986ed))
+
+
+### Features
+
+* **kev:** add isolated HTTP adapter with offline contract tests ([a909d73](https://github.com/AnthusAI/Biased-Decisions/commit/a909d73724a7e35a364645a727db3808561e2df0))
+* **kev:** add resumable collection and benchmark integration ([e3f8dde](https://github.com/AnthusAI/Biased-Decisions/commit/e3f8ddecec402b19dcb6791a757ea0f2ceefd1b2))
+* **kev:** add verified MLX engine and resumable collection ([af3fc82](https://github.com/AnthusAI/Biased-Decisions/commit/af3fc82ffd945c613e8a382641ab25fff04b69b2))
+* **kev:** record verified local MLX pilot ([0aaed9e](https://github.com/AnthusAI/Biased-Decisions/commit/0aaed9e32d670cc99306b7269d9b7b08ede78bf5))
+* **kev:** validate frozen study and retain resumable timing pilot ([c67db3b](https://github.com/AnthusAI/Biased-Decisions/commit/c67db3bc0e665e8fffbc4733ed01974f506e95f2))
+
 ## [1.22.2](https://github.com/AnthusAI/Biased-Decisions/compare/v1.22.1...v1.22.2) (2026-09-24)
 
 
