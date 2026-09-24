@@ -1,6 +1,6 @@
 {
   "id": "BD-b643a058-7008-4387-941b-85672c9ba30f",
-  "title": "Run Kev: journalist-professor (4 cells, 4000 requests)",
+  "title": "Run Kev: journalist-professor (4 cells, 6995 requests)",
   "description": "**Self-contained run.** Give this issue ID to an agent on any Mac; it does the whole job by following the runbook in **BD-dd780c** (`kbs show BD-dd780c`). This repository uses Git Flow: work from `develop`, never push to `main`.\n\n**Job:** answer the registered 500-item subsample of the still-missing Kev cells for `journalist-professor`: 4 cells, exactly 6995 requests (manifest `docs/kev-runs/journalist-professor.json` on `develop`), roughly 11 minutes on a quiet Mac.\n\n**Steps** (details and exact commands in the runbook)\n1. `git checkout develop && git pull`. One-time setup if this Mac has not done a run.\n2. Start the pinned Kev server, run `run_kev_study collect --manifest docs/kev-runs/journalist-professor.json` with the runbook's identity flags. It resumes if interrupted.\n3. Commit only the finished files under `answers/kev/journalist-professor/` (never `.partial.jsonl`) to branch `runs/<this issue id>` and push that branch. No `bd replay`.\n4. Back on `develop`: comment the request count and any errors here, close it, `kbs commit`, push `develop`.\n\n**Rules:** one heavy job at a time on the machine; stop the Kev server when done; never touch `project/` directly.",
   "type": "task",
   "status": "open",
@@ -40,7 +40,7 @@
     }
   ],
   "created_at": "2026-09-24T19:29:33.204990Z",
-  "updated_at": "2026-09-24T21:24:18.282394Z",
+  "updated_at": "2026-09-24T22:14:44.283230Z",
   "closed_at": null,
   "agent": {
     "platform": "claude_code",
