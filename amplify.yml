@@ -16,7 +16,7 @@ frontend:
         - if command -v pyenv >/dev/null; then V=$(pyenv versions --bare | grep -E '^3\.1[0-9]+(\.[0-9]+)?$' | sort -V | tail -1); if [ -n "$V" ]; then pyenv global "$V"; fi; fi
         - PY=$(command -v python3.12 || command -v python3.11 || command -v python3); "$PY" -c 'import sys; assert sys.version_info >= (3, 10), sys.version' && "$PY" --version && "$PY" -m venv .venv
         - .venv/bin/pip install --quiet --upgrade pip
-        - .venv/bin/pip install --quiet -e '.[dev]'
+        - .venv/bin/pip install --quiet -e '.[dev,build]'
         # Node 22.12 or newer for Astro.
         - nvm install 22 && nvm use 22
         - npm ci --prefix site --no-fund --no-audit
