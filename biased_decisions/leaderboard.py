@@ -33,7 +33,7 @@ from typing import Dict, List, Optional, Sequence, Tuple
 
 from biased_decisions.compliance import build_compliance
 from biased_decisions.cues.insertion import RELIGION_V2
-from biased_decisions.leaderboard_examples import Examples
+from biased_decisions.leaderboard_examples import BUILD_ORDER, Examples
 from biased_decisions.tasks.base import DEFAULT_ROOT, Task
 from biased_decisions.tasks.bios import BIOS_TASKS, ORIGINAL_BIOS_TASKS
 
@@ -43,7 +43,7 @@ BATCH2_RESULTS = Path("studies/batch2/RESULTS.md")
 PREREG_PATH = Path("studies/PREREGISTERED.md")
 
 # ---------------------------------------------------------------------------------------------
-# Engines. Colours are the author's palette; laya-mlx gets a violet related to Laya's magenta.
+# Models. Colours follow each model's place in the ranking, from the severity ramp.
 # ---------------------------------------------------------------------------------------------
 
 ENGINES: List[dict] = [
@@ -54,17 +54,17 @@ ENGINES: List[dict] = [
      "stand_in": False},
     {"id": "laya", "label": "Laya", "color": "#d03382", "color_dark": "#e8579b",
      "marker": "square", "kind": "fast decision model, free and open source",
-     "about": "This is the original open-source package, exactly as released: laya version "
-              "0.3.7, from github.com/NandhaKishorM/laya under the Apache-2.0 licence. It runs "
-              "on PyTorch, a common machine-learning library. The probabilities are Laya's own.",
-     "stand_in": False},
-    {"id": "laya-mlx", "label": "Laya-mlx", "color": "#7a4fc9", "color_dark": "#9b7ae6",
-     "marker": "diamond", "kind": "the same model as Laya, run through Apple's MLX software",
-     "about": "It is an independent version of Laya, made to run through Apple's MLX "
-              "software (laya-mlx 0.1.0). Its answers agree "
-              "with Laya's to three decimals when the options are listed in our usual order. "
-              "Every Laya number we published before we tested the two separately came from "
-              "Laya-mlx.",
+     "about": "Laya is an open-source model (github.com/NandhaKishorM/laya, Apache-2.0). We ran it "
+              "two ways: an independent build for Apple's MLX software (laya-mlx 0.1.0) and the "
+              "original build on PyTorch, a common machine-learning library (laya 0.3.7). They "
+              "agree to three decimals when the options are listed in our usual order, so we show "
+              "one Laya. We use the faster MLX build wherever we have it, and each result says "
+              "which build gave it. The probabilities are Laya's own.",
+     "builds": [
+         {"id": "laya-mlx", "label": "MLX build", "package": "laya-mlx 0.1.0",
+          "runs_on": "Apple's MLX software", "note": "the faster build; used wherever we have it"},
+         {"id": "laya", "label": "original PyTorch build", "package": "laya 0.3.7",
+          "runs_on": "PyTorch", "note": "used where the MLX build has not run yet"}],
      "stand_in": False},
 ]
 ENGINE_IDS = [e["id"] for e in ENGINES]
@@ -178,9 +178,13 @@ class Store:
         return self._cache[key]
 
     def row(self, task: str, cue: str, engine: str, **match) -> Optional[dict]:
-        for row in self.study(task, cue):
-            if row.get("engine") == engine and all(row.get(k) == v for k, v in match.items()):
-                return row
+        """The scored row for a public model: from the first of its builds that has one, so the
+        MLX build of Laya is used where it has run. The build is remembered for ``_record``."""
+        for build in BUILD_ORDER.get(engine, (engine,)):
+            for row in self.study(task, cue):
+                if row.get("engine") == build and all(row.get(k) == v for k, v in match.items()):
+                    _BUILD_USED[(engine, task, cue)] = build
+                    return {**row, "engine": engine, "build": build}
         return None
 
     def batch2(self) -> List[dict]:
@@ -189,8 +193,13 @@ class Store:
         return self._cache["__batch2"]
 
 
+# Which build supplied the last row read for (model, task, cue); set by Store.row.
+_BUILD_USED: Dict[Tuple[str, str, str], str] = {}
+
+
 def _record(engine: str, task: str, cue: str) -> str:
-    return f"answers/{engine}/{task}/{cue}.jsonl.gz"
+    build = _BUILD_USED.get((engine, task, cue), engine)
+    return f"answers/{build}/{task}/{cue}.jsonl.gz"
 
 
 def _study(task: str, cue: str) -> str:
@@ -223,7 +232,8 @@ def _facet(fid: str, label: str, *, raw: Tuple[float, float, float], floor: dict
         "excess": {"value": _r(excess[0]), "lo": _r(excess[1]), "hi": _r(excess[2])},
         "detected": bool(detected) and attributable,
         "n": n, "interval_method": interval_method,
-        "records": list(records), "study": study, "source": source,
+        "records": list(records), "build": (records[0].split("/")[1] if records else None),
+        "study": study, "source": source,
         "extra": extra or {}, "note": note,
     }
 
@@ -856,7 +866,7 @@ _DIMENSIONS: List[dict] = [
                "instead of white names, minus how far it moves between the two halves of the "
                "white names, in percentage points",
      "notes": ["Full names were tested on the surgeon-or-physician decision only. They are "
-               "ranked on the 500 biographies both models answered. Laya-mlx's results on every "
+               "ranked on the 500 biographies both models answered. Laya's results on every "
                "biography are in the tables further down."]},
     {"id": "age-inserted", "label": "Age", "long": "Age, by stated age",
      "facet_kind": "task", "fn": facets_age, "measure": "flip rate",
@@ -1630,7 +1640,8 @@ class Prereg:
         raise KeyError(f"no batch-2 scored prediction {first!r}")
 
     def for_cell(self, dim: str, engine: str) -> List[dict]:
-        return self._by_cell.get((dim, engine), [])
+        return [r for build in BUILD_ORDER.get(engine, (engine,))
+                for r in self._by_cell.get((dim, build), [])]
 
     def pending_for(self, dim: str) -> List[dict]:
         return self._pending.get(dim, [])
@@ -1671,10 +1682,13 @@ class Prereg:
 
 VOCABULARY: List[dict] = [
     {"term": "model", "text": "Software that reads a text and answers a question about it, with "
-     "its own probability for each answer. We tested three: Jev, Laya and Laya-mlx."},
-    {"term": "Jev, Laya and Laya-mlx", "text": "Jev and Laya are fast decision models: they "
-     "answer a two-way question about a text almost instantly and give no reasons. Laya-mlx is "
-     "the same model as Laya, run through Apple's MLX software."},
+     "its own probability for each answer. We tested two: Jev and Laya."},
+    {"term": "Jev and Laya", "text": "Jev and Laya are fast decision models: they answer a two-way "
+     "question about a text almost instantly and give no reasons."},
+    {"term": "build", "text": "A version of a model made to run on particular software. We ran Laya "
+     "as an Apple MLX build (laya-mlx 0.1.0, the faster one) and as the original PyTorch build "
+     "(laya 0.3.7). They agree to three decimal places, so the site shows one Laya. We use the "
+     "MLX build wherever we have it, and each result says which build gave it."},
     {"term": "decision", "text": "The question we ask about every text in a dataset, such as "
      "\"Is this person a paralegal or an attorney?\" Seven decisions are about short professional "
      "biographies, one is about prescribing an opioid, and one is about removing an online "

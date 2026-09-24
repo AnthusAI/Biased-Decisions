@@ -34,6 +34,12 @@ const uOf = (d, h) => (h && h.raw && h.raw.unit) || unit(d);
     <p class="kicker">Model</p>
     <h1 class="display xl eng-title"><span class="eng-dot" style={`background:var(--eng-${en.id})`}></span>{en.label}</h1>
     <p class="deck">{aboutModel(en)}</p>
+    {en.builds && (
+      <div class="builds">
+        <h2 class="display sm">Builds and versions</h2>
+        <ul>{en.builds.map((b) => <li><strong>{b.label}</strong> ({b.package}, runs on {b.runs_on}): {b.note}.</li>)}</ul>
+      </div>
+    )}
     <p class="deck">We change one detail in a real short professional biography, such as "he" to "she", and count how often {en.label}'s answer moves. We compare that with a control edit: a harmless change of the same size, such as adding "a keen cyclist". Only the part beyond the control edit counts.</p>
     <div class="eng-stats">
       <div><span class="stat-k">Average place</span><span class="stat-v">{row.mean_rank === null ? "—" : fmt(row.mean_rank)}</span><span class="stat-s">over the {row.ranked_on} characteristics where it was compared with another model; 1 = most biased</span></div>

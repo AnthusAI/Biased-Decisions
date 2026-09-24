@@ -1,3 +1,10 @@
+# [1.19.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.18.0...v1.19.0) (2026-09-23)
+
+
+### Features
+
+* one Laya on the site, backed by the faster MLX build where we have it ([94e04fb](https://github.com/AnthusAI/Biased-Decisions/commit/94e04fbbe74fa011ed78a39488199fef1b9efb5f))
+
 # [1.18.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.17.0...v1.18.0) (2026-09-23)
 
 

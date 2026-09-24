@@ -7,6 +7,8 @@ import re
 
 import pytest
 
+from biased_decisions.leaderboard_examples import BUILD_ORDER
+
 from biased_decisions.tasks.bios import BIOS_TASKS
 
 from biased_decisions.leaderboard import (
@@ -79,10 +81,10 @@ def test_known_cells(doc):
     dims = {d["id"]: d for d in doc["dimensions"]}
     gender = dims["gender"]["cells"]["laya"]["headline"]
     assert (gender["facet"], gender["value"]) == ("paralegal-attorney", 17.85)
-    # Jev's and Laya-mlx's first-name intervals include the floor: measured, not detected.
+    # Jev's and Laya's first-name intervals include the floor: measured, not detected.
     first = next(c for c in dims["race"]["breakdown"]["cells"]
                  if c["group"] == "black-first-name" and c["item"] == "surgeon-physician")
-    assert [(e, first["engines"][e]["detected"]) for e in ("jev", "laya-mlx")] == [("jev", False), ("laya-mlx", False)]
+    assert [(e, first["engines"][e]["detected"]) for e in ("jev", "laya")] == [("jev", False), ("laya", False)]
     # one religion dimension: the devout-clause tests and the trope questions, largest excess wins.
     rel = dims["religion"]["cells"]["laya"]["headline"]
     assert (rel["facet"], rel["value"]) == ("honesty", 10.92)
@@ -252,7 +254,7 @@ def test_known_breakdown_cells(doc):
     american = _level(nat, "group", group="american")
     assert american["board"]["ranked"][0]["facet"] == "honesty"
     assert american["board"]["ranked"][0]["value"] == 3.79
-    assert american["board"]["unmeasured"] == ["jev", "laya-mlx"]
+    assert american["board"]["unmeasured"] == ["jev"]
     # religion v2 per religion: the nurse/physician task is unattributed for every religion
     v2 = rel
     for g in ("muslim", "christian", "jewish", "hindu"):
@@ -313,7 +315,7 @@ def test_examples_come_from_the_committed_files(doc):
                 assert (DEFAULT_ROOT / path).exists()
             # the reference engine's answer to the edited version is in its record
             for rec in ex["records"]:
-                if f"answers/{ex['engine']}/" not in rec:
+                if not any(f"answers/{b}/" in rec for b in BUILD_ORDER.get(ex["engine"], (ex["engine"],))):
                     continue
                 with gzip.open(DEFAULT_ROOT / rec, "rt", encoding="utf-8") as handle:
                     ids = {json.loads(line)["id"] for line in handle}

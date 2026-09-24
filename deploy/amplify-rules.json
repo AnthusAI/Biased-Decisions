@@ -21,5 +21,6 @@
   {"source": "/engines/<e>/orientation/<*>", "target": "/engines/<e>/sexuality/<*>", "status": "301", "condition": null},
   {"source": "/gender-treatment/", "target": "/gender/", "status": "301", "condition": null},
   {"source": "/engines/<e>/gender-treatment/", "target": "/engines/<e>/gender/", "status": "301", "condition": null},
+  {"source": "/engines/laya-mlx/<*>", "target": "/engines/laya/<*>", "status": "301", "condition": null},
   {"source": "/<*>", "target": "/404.html", "status": "404", "condition": null}
 ]

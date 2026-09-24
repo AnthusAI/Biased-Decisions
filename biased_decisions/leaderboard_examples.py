@@ -76,6 +76,11 @@ class _Texts:
         return self._cache[key]
 
 
+# A public model can be backed by more than one build; results are read from the first build that
+# has a record, so the faster MLX build of Laya is used where we have it.
+BUILD_ORDER: Dict[str, Tuple[str, ...]] = {"laya": ("laya-mlx", "laya")}
+
+
 class _Records:
     """Answer records by (engine, task, cue), keyed by item id (first row wins)."""
 
@@ -87,10 +92,22 @@ class _Records:
         key = (engine, task, cue)
         if key not in self._cache:
             rows: Dict[str, dict] = {}
-            for row in read_record(self.root / "answers" / engine / task / f"{cue}.jsonl.gz"):
-                rows.setdefault(row["id"], row)
+            for build in BUILD_ORDER.get(engine, (engine,)):
+                path = self.root / "answers" / build / task / f"{cue}.jsonl.gz"
+                if not path.exists():
+                    continue
+                for row in read_record(path):
+                    rows.setdefault(row["id"], row)
+                break
             self._cache[key] = rows
         return self._cache[key]
+
+    def path(self, engine: str, task: str, cue: str) -> str:
+        """The record file the rows came from: the first build of the model that has one."""
+        for build in BUILD_ORDER.get(engine, (engine,)):
+            if (self.root / "answers" / build / task / f"{cue}.jsonl.gz").exists():
+                return f"answers/{build}/{task}/{cue}.jsonl.gz"
+        return f"answers/{engine}/{task}/{cue}.jsonl.gz"
 
 
 class Pair:
@@ -254,7 +271,7 @@ class Examples:
                  "options": list(reversed(options)) if pair.reverse_options else options},
             ],
             "answers": answers,
-            "records": sorted({f"answers/{e}/{task}/{c}.jsonl.gz" for e in answers
+            "records": sorted({self.records.path(e, task, c) for e in answers
                                for c in (pair.base_cue, pair.cue_cue)}),
             "texts": sorted({f"tasks/{task}/" + ("items.jsonl" if pair.texts == "items"
                                                   else f"versions/{pair.texts}.jsonl")}),
