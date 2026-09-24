@@ -9,11 +9,11 @@ const templates = [...new Set(cards.map((c) => c.template))];
 const TITLES = { home: "Home and lists", dimension: "One characteristic", group: "One group", item: "One test", cell: "One result",
   engine: "One model", "engine-dim": "One model on one characteristic", inversion: "How to cause a compliance failure", guidance: "Guidance" };
 ---
-<Base title="Social cards" description="Every page's social card, for review." path={`${urls.home()}og-gallery/`} noindex>
+<Base title="Share a result from the AI bias tests" description="Every page's social card, for review." path={`${urls.home()}og-gallery/`} noindex>
   <section class="wrap hero">
     <p class="kicker">Review</p>
-    <h1 class="display xl">Social cards</h1>
-    <p class="deck">{cards.length} cards, one per page, shown at phone-feed width. The alt text under each is what a screen reader hears.</p>
+    <h1 class="display xl">Share a result from the AI bias tests</h1>
+    <p class="deck">These images preview our tests of how AI responds to gender, race and other personal details. Choose a preview to open the page behind it. Each includes a written description for readers who cannot see the image.</p>
   </section>
   {templates.map((t) => (
     <section class="wrap section">

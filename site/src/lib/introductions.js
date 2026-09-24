@@ -1,0 +1,93 @@
+// Reader-facing context, kept separate from the measurement record.
+export const introductions = {
+  gender: {
+    title: 'Does AI judge the same person differently as a man or a woman?',
+    intro: 'We asked AI models to identify a person’s job from a short biography. Then we changed words such as “he” and “she” and asked again. The work history stayed the same. These tests show whether the models let gender change their answer.',
+    detail: 'We also tested medical decisions: would a model recommend opioid pain medicine differently when the same patient was described as a man or a woman? Explore the job and medical results below.',
+  },
+  race: {
+    title: 'Does a name or racial identity change an AI’s answer?',
+    intro: 'We tested whether AI models judge the same text differently when it suggests a different racial identity. In job tests, we changed the person’s name while keeping their work history. In other tests, we changed a patient’s name and stated race, or added a racial identity to an online comment.',
+    detail: 'The questions covered jobs, pain medicine and whether to remove a comment. Compare the models below, then explore a particular test or set of names.',
+  },
+  age: {
+    title: 'Same work history. Different age. Different AI answer?',
+    intro: 'We asked AI models whether a person was a surgeon or a physician, using a short biography. One version said the person was 34; another said 61. Everything about their work stayed the same. We counted how often the models changed their answer.',
+    detail: 'This is a test of how AI reads age, not a comparison of younger and older people’s abilities. The results below show whether stating a different age changed the models’ judgment.',
+  },
+  disability: {
+    title: 'What changes when AI reads “a wheelchair user”?',
+    intro: 'We added “A wheelchair user” to a text and asked AI models the same question again. Would they identify a different job, recommend pain medicine differently, or become more willing to remove an online comment? The rest of each text stayed the same.',
+    detail: 'These tests examine the models’ response to that phrase. They do not measure anyone’s abilities or represent every disability. Explore the results for each kind of decision below.',
+  },
+  religion: {
+    title: 'Does naming a religion change how AI judges someone?',
+    intro: 'We tested how AI models respond when a text names a person’s religion. We added a short phrase to a biography or online comment, then asked the same question again. The person’s work history or the comment’s message stayed the same.',
+    detail: 'Some tests ask the models to identify a job or decide whether to remove a comment. Others ask about traits such as honesty to test for stereotypes in the models’ answers. The results are about the AI, not the people or religions named.',
+  },
+  nationality: {
+    title: 'Does AI read a nationality and assume a personality?',
+    intro: 'We gave AI models the same biographies with different nationalities added, then asked about traits such as honesty and hard work. Would the models judge someone differently because the text said “An American” or “A German”? Nothing about the person’s work changed.',
+    detail: 'We tested seven nationalities across six questions. These are tests for stereotypes in AI answers, not claims about people from those countries. Choose a nationality or question below to see the results.',
+  },
+  sexuality: {
+    title: 'Does AI treat a comment differently when its author says they are gay?',
+    intro: 'We asked AI models whether an online comment should be removed for breaking civility rules. Then we added “As a gay person” or “As a lesbian” and asked again. The comment itself stayed the same.',
+    detail: 'The results show whether the models became more or less willing to remove the comment after that addition. This tests the models’ response to those phrases, not the behaviour of gay or lesbian people.',
+  },
+  veteran: {
+    title: 'Does veteran status change an AI’s pain-medicine recommendation?',
+    intro: 'We asked AI models whether a patient should receive opioid pain medicine. Then we added that the patient was an Iraq war veteran or a Navy veteran and asked again. The medical details stayed the same.',
+    detail: 'The results show whether that description changed the models’ willingness to recommend the medicine. These are tests of AI responses to written cases, not treatment advice.',
+  },
+  'option-order': {
+    title: 'Can the order of two answers change an AI’s choice?',
+    intro: 'We asked AI models to identify a person’s job from a biography, then reversed the order of the two possible answers. “Surgeon or physician?” became “Physician or surgeon?” The biography stayed the same. We counted how often the models chose a different job.',
+    detail: 'This tests whether an AI’s choice depends on how a question is presented. It is separate from the tests of gender, race and other personal characteristics.',
+  },
+};
+
+export function categoryIntro(dim) {
+  return introductions[dim.id];
+}
+
+export function resultTitle(dim, group, item) {
+  const identity = group ? `${group.label}${dim.id === 'nationality' ? ' nationality' : dim.id === 'religion' ? ' identity' : ''}` : dim.label;
+  if (item?.trope || dim.facet_kind === 'question') {
+    return item ? `AI judgments about ${item.label.toLowerCase()}${group ? `: ${identity}` : ''}` : `Testing AI for nationality stereotypes: ${group.label}`;
+  }
+  if (group && !item) return `How AI responds to ${identity}${dim.id === 'race' ? ' names and identity' : ''}`;
+  if (item?.id === 'qpain-treatment') return `AI and pain medicine: ${identity}`;
+  if (item?.id === 'civil-comments-moderation') return `AI and comment removal: ${identity}`;
+  return `AI and the ${item.label.toLowerCase()} question: ${identity}`;
+}
+
+export function resultIntro(dim, group, item) {
+  const stereotype = !!item?.trope || dim.facet_kind === 'question';
+  if (!item) {
+    if (dim.id === 'nationality') return `We tested whether AI models judge the same person differently when a biography adds “${group.clause.trim().replace(/,$/, "")}”. The models answered questions about traits such as honesty and hard work. This page brings together their results for that nationality; it tests the AI’s assumptions, not anyone’s character.`;
+    if (dim.id === 'religion') return `We tested how AI models respond when a text identifies someone as ${group.label}. The tests ask about jobs, comment removal or personal traits, depending on which model and religion were tested. Below you can see where the models’ answers changed and which tests have not been run.`;
+    if (dim.id === 'race') return `We tested how AI models respond to ${group.label === 'Black first name' ? 'a Black-sounding first name' : `${group.label} names or racial identity`}. We kept the rest of each biography, medical case or online comment the same. This page shows the tests available for this set of names or identity, and how each model responded.`;
+    return categoryIntro(dim).intro;
+  }
+  const setting = item.id === 'qpain-treatment'
+    ? 'This test asks AI models whether a patient should receive opioid pain medicine, using a written medical case.'
+    : item.id === 'civil-comments-moderation'
+      ? 'This test asks AI models whether an online comment should be removed for breaking civility rules.'
+      : stereotype
+        ? 'This test asks AI models to judge a person’s character from a short professional biography.'
+        : `This test asks AI models to identify a person’s job from a short biography: “${item.question.replace('a attorney', 'an attorney')}”`;
+  let edit;
+  if (group) edit = dim.id === 'race'
+    ? `We compare answers after changing the ${item.id === 'qpain-treatment' ? 'patient’s name and stated race' : item.id === 'civil-comments-moderation' ? 'racial identity added before the comment' : 'person’s name'} to test the models’ response to ${group.label === 'Black first name' ? 'a Black-sounding first name' : `${group.label} identity`}.`
+    : `We compare answers with and without a phrase identifying the person as ${group.label}.`;
+  else edit = {
+    gender: item.id === 'qpain-treatment' ? 'We changed the patient’s name and pronouns from a man to a woman, keeping the medical details the same.' : 'We changed gendered words such as “he” and “she”, keeping the work history the same.',
+    race: 'We changed the name or stated racial identity, keeping the rest of the text the same.',
+    disability: 'We added “A wheelchair user”, keeping the rest of the text the same.',
+    religion: 'We added different religions, keeping the rest of the text the same.',
+    nationality: 'We added different nationalities, keeping the work history the same.',
+    'option-order': 'We reversed the order of the two possible answers, keeping the biography the same.',
+  }[dim.id] || categoryIntro(dim).intro;
+  return `${setting} ${edit} ${stereotype ? 'This tests for stereotypes in the AI’s answers, not whether the description is true of a group.' : 'Any results below show how the models responded to that change.'}`;
+}

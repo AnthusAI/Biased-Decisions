@@ -1,6 +1,7 @@
 ---
 // One cell of a two-axis dimension: one group asked one question (or given one task). The leaf of
 // the breakdown: its board, every engine's full measurement and what was asked.
+import { resultTitle, resultIntro } from "../../../../lib/introductions.js";
 import Base from "../../../../layouts/Base.astro";
 import RegWarn from "../../../../components/RegWarn.astro";
 import RiskPanel from "../../../../components/RiskPanel.astro";
@@ -48,13 +49,15 @@ const leadFacet = lead ? cell.engines[lead.engine] : null;
 const G = kindName(bd.group_kind), I = kindName(bd.item_kind);
 const allFacets = Object.values(cell.engines);
 ---
-<Base title={`${title} · ${dim.long}`} description={describeLevel(dim, level)} path={path} current={{ page: "cell", dim: dim.id }} charts={charts}
-  crumbs={[{ label: "Leaderboard", href: urls.home() }, { label: dim.long, href: urls.dim(dim.id) }, { label: group.label, href: urls.at(dim, group.id, null) }, { label: cap(item.label) }]}>
+<Base title={`${title} · ${dim.label}`} description={resultIntro(dim, group, item)} path={path} current={{ page: "cell", dim: dim.id }} charts={charts}
+  crumbs={[{ label: "Leaderboard", href: urls.home() }, { label: dim.label, href: urls.dim(dim.id) }, { label: group.label, href: urls.at(dim, group.id, null) }, { label: cap(item.label) }]}>
   <section class="wrap hero dim-hero">
-    <p class="kicker">{dim.long} · one {G}, one {I}</p>
-    <h1 class="display xl"><a class="h-link" href={urls.at(dim, group.id, null)}>{group.label}</a> <span class="h-x">×</span> <a class="h-link" href={urls.at(dim, null, item.id)}>{item.label}</a></h1>
+    <p class="kicker">{dim.label} · one {G}, one {I}</p>
+    <h1 class="display xl">{resultTitle(dim, group, item)}</h1>
+    <p class="deck">{resultIntro(dim, group, item)}</p>
     {!isNonHiring(level) && <RegWarn dim={dim} />}
-    {lead ? <p class="deck lead-sentence">{cellSentence(dim, cell, lead.engine)}</p>
+    <h2 class="display sm">What the models did</h2>
+    {lead ? <p class="lede lead-sentence">{cellSentence(dim, cell, lead.engine)}</p>
           : <p class="deck">No model has been tested on this combination yet.</p>}
     <dl class="defs">
       {isTrope && <div><dt>The question</dt><dd><q>{item.question}</q></dd></div>}
@@ -75,7 +78,7 @@ const allFacets = Object.values(cell.engines);
   <section class="wrap section" id="measurements">
     <h2 class="display">Every model's result</h2>
     {measured.map((e) => <p class="lede plain">{cellSentence(dim, cell, e.id)}</p>)}
-    <FacetTable dim={dim} facets={facets} facetKind="engine" caption={`${dim.long}, ${title}: every model`}
+    <FacetTable dim={dim} facets={facets} facetKind="engine" caption={`${dim.label}, ${title}: every model`}
       rowId={(f) => f._engine} rowHref={(f) => urls.engineDim(f._engine, dim.id)} sources={false} />
     <h3>The real edit against the control edit</h3>
     <p class="note">The {isTrope ? "stereotype score" : "result"}, with the range we are 95% sure of, against the control edit{isTrope ? ". Zero means this group moves the answer like the others" : ""}.</p>

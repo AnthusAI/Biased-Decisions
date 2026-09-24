@@ -7,7 +7,7 @@ import { dimensions, engines, urls } from "../lib/site.js";
   <section class="wrap hero">
     <p class="kicker">404</p>
     <h1 class="display xl">No page at this address</h1>
-    <p class="deck">Every page here is about one characteristic we tested, such as gender, or one model. Pick one:</p>
+    <p class="deck">We test whether AI judges the same person differently when a name, pronoun or other personal detail changes. This address does not lead to a result, but you can explore the tests below:</p>
     <nav class="chips" aria-label="Characteristics"><span class="chips-h">Characteristics</span>{dimensions.map((d) => <a href={urls.dim(d.id)}>{d.label}</a>)}</nav>
     <nav class="chips" aria-label="Models"><span class="chips-h">Models</span>{engines.map((e) => <a href={urls.engine(e.id)}>{e.label}</a>)}</nav>
   </section>

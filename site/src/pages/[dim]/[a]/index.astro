@@ -2,6 +2,7 @@
 // One group (a religion, a nationality, a name group) or one item (a trope question, a task) of a
 // dimension: its own board, every row under it ranked, and, where it is a leaf, the full
 // measurement per engine and a real example.
+import { resultTitle, resultIntro } from "../../../lib/introductions.js";
 import Base from "../../../layouts/Base.astro";
 import RegWarn from "../../../components/RegWarn.astro";
 import RiskPanel from "../../../components/RiskPanel.astro";
@@ -36,49 +37,34 @@ const payload = { ...levelPayload(dim, level), measure_plain: dim.measure_plain,
 const charts = { board: { type: "board", dim: payload } };
 if (!leaf) {
   charts.forest = { type: "forest", rows: forestRows(dim, under, (c) => rowLabel(dim, level, c), (c) => urls.at(dim, c.group, c.item)),
-    label: `${dim.long}, ${title}: every ${kind}, every model`, axisLabel: "beyond the control edit, percentage points" };
+    label: `${dim.label}, ${title}: every ${kind}, every model`, axisLabel: "beyond the control edit, percentage points" };
 } else {
   charts.versus = { type: "versus", dim: payload };
 }
 const group = level.group ? groupOf(dim, level.group) : null;
 const item = level.item ? itemOf(dim, level.item) : null;
-const isMixed = dim.facet_kind === "test";
 const isTrope = dim.facet_kind === "question" || (!!item && !!item.trope);
 const measuredEngines = engines.filter((e) => under.some((c) => c.engines[e.id].status === "measured"));
 const siblings = level.kind === "group"
   ? bd.groups.filter((g) => g.id !== level.group).map((g) => ({ label: g.label, href: urls.at(dim, g.id, null) }))
   : bd.items.filter((i) => i.id !== level.item).map((i) => ({ label: i.label, href: urls.at(dim, null, i.id) }));
 const siblingKind = kindName(level.kind === "group" ? (bd.group_kind || "group") : bd.item_kind);
-const kicker = `${dim.long} · ${siblingKind}`;
+const kicker = `${dim.label} · ${siblingKind}`;
 const leafFacets = leaf ? engines.map((e) => ({ ...cell.engines[e.id], label: e.label, _engine: e.id })) : [];
-const floorClause = group && isTrope ? (under.map((c) => Object.values(c.engines).find((f) => f.extra && f.extra.floor_clause)).find(Boolean)?.extra.floor_clause || "").trim() : "";
-// "a Asian ..." in a clause reads as "an Asian ...".
-const article = (t) => t.replace(/^a (?=[AEIOU])/, "an ");
 const allFacets = under.flatMap((c) => Object.values(c.engines));
 const shortlistFiles = dim.id === "gender" && item && shortlistBlock(item.id) ? [shortlistBlock(item.id).study] : [];
 ---
-<Base title={`${title} · ${dim.long}`} description={describeLevel(dim, level)} path={path} current={{ page: "level", dim: dim.id }} charts={charts}
-  crumbs={[{ label: "Leaderboard", href: urls.home() }, { label: dim.long, href: urls.dim(dim.id) }, { label: title }]}>
+<Base title={`${title} · ${dim.label}`} description={resultIntro(dim, group, item)} path={path} current={{ page: "level", dim: dim.id }} charts={charts}
+  crumbs={[{ label: "Leaderboard", href: urls.home() }, { label: dim.label, href: urls.dim(dim.id) }, { label: title }]}>
   <section class="wrap hero dim-hero">
     <p class="kicker">{kicker}</p>
-    <h1 class="display xl">{title}</h1>
+    <h1 class="display xl">{resultTitle(dim, group, item)}</h1>
+    <p class="deck">{resultIntro(dim, group, item)}</p>
     {!isNonHiring(level) && <RegWarn dim={dim} />}
-    {group && isMixed && (
-      <p class="deck">How far each model's answers moved when a short professional biography opened with <q>{group.clause.trim()}</q>, test by test. Some tests are job decisions; others are questions that test a stereotype.</p>
-    )}
-    {group && isTrope && !isMixed && (
-      <p class="deck">How far each model's answers moved when a short professional biography opened with <q>{group.clause.trim()}</q> instead of the control edit <q>{floorClause}</q>, question by question. The stereotype score is how far this {kindName(bd.group_kind)} moved the model's confidence, minus the average move for the other {plural(bd.group_kind)}, in percentage points. Zero means no stereotype.</p>
-    )}
-    {group && !isTrope && !isMixed && (
-      <p class="deck">{dim.id === "race"
-        ? (/in place of/.test(group.clause)
-          ? <Fragment>We gave each short professional biography {group.clause.trim()}, and counted how often each model changed its answer.</Fragment>
-          : <Fragment>Every result for the {group.label} group, decision by decision. In short professional biographies we used {article(group.clause.trim())} in place of a white one. Each other decision has its own control edit, shown with its result.</Fragment>)
-        : <Fragment>We added <q>{group.clause.trim()}</q> to each text, compared it with a control edit, and measured how far each model's answer moved.</Fragment>}</p>
-    )}
     {item && isTrope && (
       <Fragment>
-        <p class="deck"><q>{item.question}</q></p>
+        <h2 class="display sm">The question we asked the AI</h2>
+        <p class="lede"><q>{item.question}</q></p>
         <dl class="defs">
           <div><dt>The stereotype it tests</dt><dd>{item.stereotype || item.trope}</dd></div>
           <div><dt>The answer that fits the stereotype</dt><dd>{item.trope_consistent_answer}</dd></div>
@@ -87,7 +73,7 @@ const shortlistFiles = dim.id === "gender" && item && shortlistBlock(item.id) ? 
     )}
     {item && !isTrope && (
       <Fragment>
-        <p class="deck">The decision: <q>{item.question}</q>{multiGroup(dim) ? ` Every ${kindName(bd.group_kind)}, ranked on this decision.` : ""}</p>
+        <p class="note">The exact question: <q>{item.question}</q>{multiGroup(dim) ? ` Every ${kindName(bd.group_kind)}, ranked on this decision.` : ""}</p>
         <dl class="defs">
           <div><dt>What we changed</dt><dd>{dim.cue}</dd></div>
           <div><dt>The control edit</dt><dd>A harmless change of the same size, or simply asking again, that shows how much the model moves for no good reason. Here: {dim.floor}</dd></div>
@@ -154,7 +140,7 @@ const shortlistFiles = dim.id === "gender" && item && shortlistBlock(item.id) ? 
       <h2 class="display">Every model's result</h2>
       {measuredEngines.map((e) => <p class="lede plain">{cellSentence(dim, cell, e.id)}</p>)}
       <p class="note">Numbers in brackets are the range we are 95% sure of.</p>
-      <FacetTable dim={dim} facets={leafFacets} facetKind="engine" caption={`${dim.long}, ${title}: every model`}
+      <FacetTable dim={dim} facets={leafFacets} facetKind="engine" caption={`${dim.label}, ${title}: every model`}
         rowId={(f) => f._engine} rowHref={(f) => urls.engineDim(f._engine, dim.id)} sources={false} />
       <h3>The real edit against the control edit</h3>
       <p class="note">Each coloured mark is what the model did after the real edit, with its range. The grey band below it is the control edit, with its own range.</p>

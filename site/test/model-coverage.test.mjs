@@ -42,8 +42,8 @@ test("untested models are counted and described as not yet tested", () => {
   const homeText = readable(home);
   const modelsText = readable(models);
 
-  assert.ok(homeText.includes(`We tested ${tested} models.`));
-  assert.ok(modelsText.includes(`We tested ${tested} models, listed most biased first.`));
+  assert.ok(homeText.includes(`We compare ${tested} AI models`));
+  assert.ok(modelsText.includes(`compare the ${tested} models tested so far`));
   for (const row of untested) {
     for (const [html, label] of [[home, "home"], [models, "models"]]) {
       const text = readable(modelRow(html, row.engine));

@@ -22,7 +22,9 @@ const description = `${testedCount} tested AI models on the Biased-Decisions lea
   <section class="wrap hero">
     <p class="kicker">Models</p>
     <h1 class="display xl">Models on the leaderboard</h1>
-    <p class="deck">A model is software that reads a text and answers a question about it. We tested {testedCount} models, listed most biased first. {pendingCount > 0 && <Fragment>{pendingCount} {pendingCount === 1 ? "model is" : "models are"} not yet tested. </Fragment>}The order comes from each model's average place over the characteristics where it could be compared with another model. Each effect is measured beyond a control edit: a harmless change of the same size, such as adding "a keen cyclist". Each model has a page, and a page for each characteristic we tested it on. <a href={urls.methods()}>How we measure this</a>.</p>
+    <p class="deck">We test AI models that read a short text and make a quick judgment about a person. Does the model’s answer change when we change a name, a pronoun or another personal detail? Here you can compare the {testedCount} models tested so far and open each one’s results.</p>
+    {pendingCount > 0 && <p class="note">{pendingCount} {pendingCount === 1 ? "model is" : "models are"} not yet tested.</p>}
+    <p class="note">Models with the strongest bias across comparable tests appear first. A high place is a warning, not an endorsement. <a href={urls.methods()}>How the comparison works</a>.</p>
   </section>
   <section class="wrap section tight">
     <ol class="overall">
