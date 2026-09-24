@@ -1,0 +1,25 @@
+{
+  "id": "BD-50581797-d584-4a26-843c-98bc45cc0b23",
+  "title": "Kev answers preserve benchmark inputs and replayable records",
+  "description": "Feature: Kev participates in the shared benchmark\nScenario: Answer a task without changing its experiment\nGiven a task with committed text, ordered options, and a pinned Kev deployment\nWhen Kev answers the task\nThen each question and option retains its committed meaning and order\nAnd the answer includes validated probabilities and model provenance\nScenario: Resume interrupted collection\nGiven compatible completed and partial Kev records\nWhen collection resumes\nThen completed items are not requested again and incompatible inputs or model versions are refused\nScenario: Add new coverage\nGiven a newly registered task and cue with committed stimuli\nWhen the runner plans Kev collection\nThen the task is discovered from the shared task definitions without a Kev-specific task list\nScenario: Replay offline\nGiven a committed Kev answer record\nWhen the scorer and report run without a server\nThen the Kev result is reproduced and missing cells remain missing",
+  "type": "story",
+  "status": "open",
+  "priority": 2,
+  "assignee": null,
+  "creator": null,
+  "parent": "BD-dc51ca9b-6149-495e-979f-22268681e251",
+  "labels": [],
+  "dependencies": [],
+  "comments": [],
+  "created_at": "2026-09-23T23:58:02.249489Z",
+  "updated_at": "2026-09-23T23:58:02.249519Z",
+  "closed_at": null,
+  "agent": {
+    "platform": "codex",
+    "model": "GPT-6",
+    "name": "Kev Lead"
+  },
+  "right_now_summary": null,
+  "right_now_updated_at": null,
+  "custom": {}
+}

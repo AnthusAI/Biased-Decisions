@@ -1,0 +1,25 @@
+{
+  "id": "BD-8dafac0e-756d-4ab7-96f8-36227b4f0ba8",
+  "title": "Prepare pinned Kev study and coordinate comparable coverage",
+  "description": "Verify upstream runtime and checkpoint revisions, commit predictions before benchmark inference, inventory shared coverage and pending additions, coordinate timing and GPU access, review implementation, and collect/replay comparable cells. Paid inference needs priced explicit approval. Keep the epic open until records and reports land.",
+  "type": "task",
+  "status": "in_progress",
+  "priority": 2,
+  "assignee": "Codex GPT-6 (Kev Lead)",
+  "creator": null,
+  "parent": "BD-dc51ca9b-6149-495e-979f-22268681e251",
+  "labels": [],
+  "dependencies": [],
+  "comments": [],
+  "created_at": "2026-09-23T23:59:41.879207Z",
+  "updated_at": "2026-09-24T00:00:55.474397Z",
+  "closed_at": null,
+  "agent": {
+    "platform": "codex",
+    "model": "GPT-6",
+    "name": "Kev Lead"
+  },
+  "right_now_summary": null,
+  "right_now_updated_at": null,
+  "custom": {}
+}
