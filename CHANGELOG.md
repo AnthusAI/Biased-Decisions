@@ -1,3 +1,10 @@
+# [1.31.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.30.0...v1.31.0) (2026-09-24)
+
+
+### Features
+
+* **leaderboard:** score Kev's first slice and Laya's complaint and batch 3 answers; Kev now shown on 4 of 8 characteristics ([084b15d](https://github.com/AnthusAI/Biased-Decisions/commit/084b15dc4041db08de37d3d80401173d67bbd1d5))
+
 # [1.30.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.29.0...v1.30.0) (2026-09-24)
 
 
