@@ -3,7 +3,7 @@
   "title": "Run Kev: architect-interior-designer (batch2-veteran-sexuality, 3 cells, 4,500 requests)",
   "description": "**Part of epic BD-72c708: follow its instructions and the runbook in BD-dd780c.** Work from `develop`; never push to `main`.\n\n**Job:** Kev first pass on `architect-interior-designer` (batch2-veteran-sexuality): 3 cells, exactly 4,500 requests, about 7 minutes.\n**Manifest:** `docs/kev-runs/batch2-veteran-sexuality/architect-interior-designer.json` (on `develop`).\n**Writes:** `answers/kev/architect-interior-designer/`. Branch: `runs/<this issue id>`.\n**Then:** comment the request count and any error here, close, `kbs commit`, push `develop`.",
   "type": "task",
-  "status": "open",
+  "status": "in_progress",
   "priority": 2,
   "assignee": null,
   "creator": null,
@@ -13,16 +13,29 @@
     "model-kev"
   ],
   "dependencies": [],
-  "comments": [],
+  "comments": [
+    {
+      "id": "c6a4e13d-9179-4982-bfbf-31480b7f77e9",
+      "author": "ryan",
+      "text": "Starting the pinned Kev first-pass collection from the freshly pulled develop branch. Provenance: platform=Codex, model=GPT-5, agent=Biased-Decisions.",
+      "created_at": "2026-09-24T23:34:09.811725Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "codex",
+        "model": "GPT-5",
+        "name": "Biased-Decisions"
+      }
+    }
+  ],
   "created_at": "2026-09-24T23:15:31.913198Z",
-  "updated_at": "2026-09-24T23:15:31.913225Z",
+  "updated_at": "2026-09-24T23:34:09.811755Z",
   "closed_at": null,
   "agent": {
     "platform": "claude_code",
     "model": "Claude Sonnet 5",
     "name": "Biased Decisions"
   },
-  "right_now_summary": null,
-  "right_now_updated_at": null,
+  "right_now_summary": "Kev is collecting the first-pass responses for architect-interior-designer.",
+  "right_now_updated_at": "2026-09-24T23:34:11.541286Z",
   "custom": {}
 }
