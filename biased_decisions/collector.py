@@ -67,7 +67,7 @@ def load_definition(root: Path, slug: str) -> CollectorDefinition:
         for name, spec in definitions.items():
             if not isinstance(spec, Mapping) or not isinstance(spec.get("question"), str):
                 raise CollectionError(f"{path}: question {name!r} needs a question string")
-            if "trope_consistent_answer" not in spec or "trope" not in spec:
+            if "trope_consistent_answer" not in spec:
                 raise CollectionError(f"{path}: unsupported multi-question definition {name!r}")
             questions[name] = {"type": "noul", "instructions": spec["question"]}
         return CollectorDefinition(slug, Path(root), questions=questions)

@@ -212,9 +212,9 @@ def test_explicit_multi_noul_schema_preserves_question_ids_and_order(tmp_path):
     (folder / "versions").mkdir(parents=True)
     (folder / "question.yaml").write_text(
         'questions:\n  greed_q1:\n    question: "Does the text describe greed?"\n'
-        '    trope_consistent_answer: yes\n    trope: greed\n'
+        '    trope_consistent_answer: yes\n'
         '  competence_q2:\n    question: "Does the text describe competence?"\n'
-        '    trope_consistent_answer: no\n    trope: competence\n')
+        '    trope_consistent_answer: no\n')
     (folder / "items.jsonl").write_text(json.dumps({"id": "x", "text": "one"}) + "\n")
     engine = FakeEngine()
     collect(tmp_path, "kev", "multi-task", "as-written", engine=engine, progress=False)

@@ -43,9 +43,13 @@ the answer record as part of its provenance.
 
 Choice probabilities must cover each requested option and sum to one within the four-decimal
 rounding tolerance used by Kev's API. The adapter specifications use fake HTTP responses and
-verify request shape, option ordering, fresh repeated requests, answer coverage and probability validation. They do not download weights
-or verify hardware support. Hardware and checkpoint behavior must be established by the pinned
-runtime and recorded study run.
+verify request shape, option ordering, fresh repeated requests, answer coverage and probability
+validation. A real 20-item pilot has since verified the pinned checkpoint over HTTP on Apple
+silicon with MLX and bfloat16; its predictions, identity and timings are in the [study build
+notes](../studies/kev/BUILD.md) and [pilot metadata](../studies/kev/pilot.metadata.json). This
+verifies inference only under that setup. CPU and CUDA inference have not been verified here. The
+HTTP adapter itself has no backend dependency and can communicate with a Kev server on other
+hardware.
 
 ## Run the registered study
 
