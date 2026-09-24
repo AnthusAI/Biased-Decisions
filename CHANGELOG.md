@@ -1,3 +1,10 @@
+# [1.33.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.32.0...v1.33.0) (2026-09-24)
+
+
+### Features
+
+* **runs:** collect Kev answers for surgeon-physician ([3e997ac](https://github.com/AnthusAI/Biased-Decisions/commit/3e997ac4dfed747f0b762da436f9d9a8b6450da5))
+
 # [1.32.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.31.2...v1.32.0) (2026-09-24)
 
 
