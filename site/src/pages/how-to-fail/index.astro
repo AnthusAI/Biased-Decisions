@@ -18,18 +18,18 @@ const description = `Charlie Munger's inversion applied to fast decision models:
   crumbs={[{ label: "Leaderboard", href: urls.home() }, { label: "How to fail" }]}>
   <section class="wrap hero inv-hero">
     <p class="kicker risk-kicker"><svg class="reg-icon" viewBox="0 0 20 20" width="16" height="16" aria-hidden="true" focusable="false"><path d="M10 1.6 19.2 18H.8Z" fill="currentColor"/><path d="M9 7h2v5.4H9zM9 13.8h2V16H9z" class="reg-glyph"/></svg>Turn it around · regulated decisions</p>
-    <h1 class="display xl">How to cause a compliance failure with a fast decision model</h1>
+    <h1 class="display xl">How AI screening can go wrong</h1>
+    <p class="deck">Imagine using AI to rank job applicants, then showing a recruiter only the top names. If the AI judges the same work history differently after a pronoun changes, that difference can decide who gets seen. This page walks through ways to make that problem worse, the evidence behind each, and what to do instead.</p>
     <figure class="inv-quote">
       <blockquote><p>“{inv.quote}”</p></blockquote>
       <figcaption>{inv.attribution}. <a href={inv.source_url}>Transcript</a>.</figcaption>
     </figure>
-    <p class="deck">{inv.lede}</p>
     <p class="finding inv-finding"><span class="finding-num">{lead.ratio}</span><span class="finding-txt"><a href={lead.href}>{lead.sentence}</a>. Divide the first rate by the second and you get {lead.ratio}, the shortlist ratio, for a shortlist built the first two ways below. A ratio of 1.0 means women and men make the list at the same rate. U.S. hiring guidance treats a ratio under {C.shortlist.line.toFixed(2)} as a warning sign.</span></p>
     <div class="footnote risk-notice" role="note"><p>{C.notice}</p></div>
   </section>
 
   <nav class="wrap section tight" aria-labelledby="recipes-h">
-    <h2 class="display sm" id="recipes-h">The recipes for failure</h2>
+    <h2 class="display sm" id="recipes-h">Ways to go wrong</h2>
     <ol class="recipe-toc">
       {C.recipes.map((r) => <li><a href={`#${r.id}`}>{r.title}</a></li>)}
     </ol>

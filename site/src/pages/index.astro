@@ -78,8 +78,8 @@ const kindWord = (k) => (k === "task" ? "decision" : k);
     <div class="hero-top"><div>
       <p class="kicker">Bias leaderboard for fast decision models</p>
       <h1 class="display xl">Change one detail about a person. Watch the answer move.</h1>
-      <p class="deck">Some software now reads a short text about a person and answers a yes-or-no question about them, instantly, with no reasons. We take a real short professional biography and change one detail: "he" becomes "she", or a name changes. Then we ask the same question again and count how often the answer moves. Nothing else in the text changed, so the detail moved it.</p>
-      <p class="deck">We tested {nTestedModels} models. A model is software that reads a text and answers a question about it. {introModels()} Here you can see which model is most biased, on which of {nDims} characteristics, such as gender, race and age. We have {nCells} results, one for each model on each characteristic we tested it on, and each links to the numbers behind it.</p>
+      <p class="deck">Would AI identify a different job for the same person if “he” became “she”? Would it remove the same online comment after its author said they were gay? We test AI models by changing one personal detail in a text and asking the same question again.</p>
+      <p class="deck">We compare {nTestedModels} AI models across {nDims} characteristics, including gender, race and age. The results show when their answers depend on a personal detail instead of staying consistent with the rest of the text. Start with a characteristic below, or compare the models. Every result links to the test behind it.</p>
     </div>
     {best && (
       <p class="finding">

@@ -1,6 +1,7 @@
 ---
 // One engine on one dimension: where it stands on the board, every group, question or task it
 // was measured on, and the predictions made for it.
+import { categoryIntro } from "../../../../lib/introductions.js";
 import Base from "../../../../layouts/Base.astro";
 import RegWarn from "../../../../components/RegWarn.astro";
 import RiskPanel from "../../../../components/RiskPanel.astro";
@@ -30,25 +31,24 @@ if (measured && oneAxis) {
   const byGroup = multiGroup(dim);
   charts.forest = { type: "forest", engines: [en.id],
     rows: forestRows(dim, bd.cells, (x) => (byGroup ? groupLabel(dim, x.group) : itemLabel(dim, x.item)), (x) => urls.at(dim, x.group, x.item)),
-    label: `${en.label}, ${dim.long}: every ${byGroup ? kindWord(bd.group_kind) : kindWord(bd.item_kind)}`, axisLabel: "beyond the control edit, percentage points" };
+    label: `${en.label}, ${dim.label}: every ${byGroup ? kindWord(bd.group_kind) : kindWord(bd.item_kind)}`, axisLabel: "beyond the control edit, percentage points" };
 }
 const status = !measured ? "not tested"
   : !dim.board.contested ? (c.detected ? "the only model tested" : "the only model tested; no clear effect")
   : c.detected ? `place ${place(dim.board, en.id)} of ${nMeasured}, where 1 is most biased` : "no clear effect";
-const title = `${en.label} · ${dim.long}`;
+const title = `${en.label} · ${dim.label}`;
 const facetWord = kindWord(dim.facet_kind);
 const description = measured
-  ? `${en.label} on ${dim.long.toLowerCase()}: ${status}${c.detected ? `. Its largest effect is ${signed(c.headline.value)} percentage points beyond a harmless control edit, on ${c.headline.facet_label}` : ""}. Every ${twoAxes ? `${kindWord(bd.group_kind)} and ${kindWord(bd.item_kind)}` : facetWord} we tested, with its range.`
-  : `${en.label} has not been tested on ${dim.long.toLowerCase()}. It is shown as missing, never as zero.`;
+  ? `${en.label} on ${dim.label.toLowerCase()}: ${status}${c.detected ? `. Its largest effect is ${signed(c.headline.value)} percentage points beyond a harmless control edit, on ${c.headline.facet_label}` : ""}. Every ${twoAxes ? `${kindWord(bd.group_kind)} and ${kindWord(bd.item_kind)}` : facetWord} we tested, with its range.`
+  : `${en.label} has not been tested on ${dim.label.toLowerCase()}. It is shown as missing, never as zero.`;
 ---
 <Base title={title} description={description} path={urls.engineDim(en.id, dim.id)} current={{ page: "engine-dim", engine: en.id, dim: dim.id }} charts={charts}
-  crumbs={[{ label: "Leaderboard", href: urls.home() }, { label: "Models", href: urls.engines() }, { label: en.label, href: urls.engine(en.id) }, { label: dim.long }]}>
+  crumbs={[{ label: "Leaderboard", href: urls.home() }, { label: "Models", href: urls.engines() }, { label: en.label, href: urls.engine(en.id) }, { label: dim.label }]}>
   <section class="wrap hero dim-hero">
-    <p class="kicker"><a href={urls.engine(en.id)}>{en.label}</a> · <a href={urls.dim(dim.id)}>{dim.long}</a></p>
+    <p class="kicker"><a href={urls.engine(en.id)}>{en.label}</a> · <a href={urls.dim(dim.id)}>{dim.label}</a></p>
     <h1 class="display xl eng-title"><span class="eng-dot" style={`background:var(--eng-${en.id})`}></span>{en.label} <span class="h-x">on</span> {dim.label.toLowerCase()}</h1>
-    <p class="deck">{introModel(en)} {measured
-      ? <Fragment>{dim.id === "option-order" ? "We listed the two answer options the other way round" : `We changed one ${dim.label.toLowerCase()} detail in each text`} and counted how far {en.label}'s answers moved. We compare that with a control edit: a harmless change of the same size. Only the part beyond the control edit counts.</Fragment>
-      : <Fragment>We have not tested {en.label} on {dim.label.toLowerCase()}. It is shown as missing, never as zero, and it is marked incomplete on the main board.</Fragment>}</p>
+    <p class="deck">{introModel(en)} {measured ? categoryIntro(dim).intro : `We have not tested ${en.label} on ${dim.label.toLowerCase()} yet. There are no results to judge here; an untested model is not evidence of a fair one.`}</p>
+    {measured && <p class="lede">This page shows {en.label}’s results for these tests. We compare its response with an unrelated edit, or asking again, to check how much of the change is specific to {dim.supplemental ? "the answer order" : dim.label.toLowerCase()}.</p>}
     <RegWarn dim={dim} />
     {measured && (
       <div class="eng-stats">
@@ -65,7 +65,7 @@ const description = measured
     <section class="wrap section">
       <h2 class="display">Every {kindWord(bd.group_kind)}, every {kindWord(bd.item_kind)}</h2>
       <p class="lede">Each square is {en.label}'s effect beyond the control edit for one {kindWord(bd.group_kind)} and one {kindWord(bd.item_kind)}. Select a square for the full result, or a {kindWord(bd.group_kind)} or a {kindWord(bd.item_kind)} to compare every model.</p>
-      <Matrix dim={dim} engineId={en.id} caption={`${en.label}, ${dim.long}: every ${kindWord(bd.group_kind)} by every ${kindWord(bd.item_kind)}`} />
+      <Matrix dim={dim} engineId={en.id} caption={`${en.label}, ${dim.label}: every ${kindWord(bd.group_kind)} by every ${kindWord(bd.item_kind)}`} />
     </section>
   )}
 
@@ -81,7 +81,7 @@ const description = measured
     <section class="wrap section">
       <h2 class="display">Every {facetWord}, in a table</h2>
       <FacetTable dim={dim} facets={c.facets} headline={c.headline.facet} detected={c.detected} facetKind={dim.facet_kind}
-        caption={`${en.label}, ${dim.long}: the result for each ${facetWord}`}
+        caption={`${en.label}, ${dim.label}: the result for each ${facetWord}`}
         rowHref={!multiGroup(dim) && !multiItem(dim) ? null : (f) => `${facetHref(dim, f.id)}#${en.id}`} />
       {twoAxes && <p class="note">Each row shows the largest result over all the {kindPlural(bd.group_kind)}. The grid above has every square.</p>}
     </section>
@@ -92,7 +92,7 @@ const description = measured
       <span class="chips-h">{en.label} on</span>
       {dimensions.filter((d) => d.id !== dim.id).map((d) => <a href={urls.engineDim(en.id, d.id)} class={d.cells[en.id].status === "measured" ? null : "dim-miss"}>{d.label}</a>)}
     </nav>
-    <nav class="chips" aria-label={`Other models on ${dim.long}`}>
+    <nav class="chips" aria-label={`Other models on ${dim.label}`}>
       <span class="chips-h">{dim.label}:</span>
       {engines.filter((e) => e.id !== en.id).map((e) => <a href={urls.engineDim(e.id, dim.id)}>{e.label}</a>)}
       <a href={urls.dim(dim.id)}>every model</a>

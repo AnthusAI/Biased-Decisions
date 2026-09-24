@@ -1,4 +1,5 @@
 ---
+import { categoryIntro } from "../../lib/introductions.js";
 import Base from "../../layouts/Base.astro";
 import RegWarn from "../../components/RegWarn.astro";
 import RiskPanel from "../../components/RiskPanel.astro";
@@ -40,39 +41,28 @@ const series = engines.filter((en) => dim.cells[en.id].status === "measured").ma
 });
 if (facets.length >= 3) {
   charts.spider = { type: "spider", axes: facets.map((f) => ({ id: f.id, label: f.label, href: facetHref(dim, f.id) })), series, max: niceMax(spiderMax || 1),
-    label: `${dim.long}: how far each model moved beyond the control edit, by ${kindName(dim.facet_kind)}`,
+    label: `${dim.label}: how far each model moved beyond the control edit, by ${kindName(dim.facet_kind)}`,
     hrefs: Object.fromEntries(series.map((sr) => [sr.engine, Object.fromEntries(facets.map((f) => [f.id, `${facetHref(dim, f.id)}#${sr.engine}`]))])) };
 }
 if (oneAxis) {
   const byGroup = multiGroup(dim);
   charts.forest = { type: "forest", rows: forestRows(dim, bd.cells, (c) => (byGroup ? groupLabel(dim, c.group) : itemLabel(dim, c.item)), (c) => urls.at(dim, c.group, c.item)),
-    label: `${dim.long}: every ${kindName(byGroup ? bd.group_kind : bd.item_kind)}, every model, beyond the control edit`, axisLabel: "beyond the control edit, percentage points" };
+    label: `${dim.label}: every ${kindName(byGroup ? bd.group_kind : bd.item_kind)}, every model, beyond the control edit`, axisLabel: "beyond the control edit, percentage points" };
 }
 const singleCell = single ? bd.cells[0] : null;
 const kindWord = twoAxes ? `${kindName(bd.group_kind)} and ${kindName(bd.item_kind)}` : kindName(multiGroup(dim) ? bd.group_kind : bd.item_kind);
 const plural = (k) => kindNames(k);
 const G = kindName(bd.group_kind), I = kindName(bd.item_kind), F = kindName(dim.facet_kind);
-// The page's first sentence: what we changed and what we counted, in the reader's words.
-const OPENER = {
-  gender: "We swapped the pronouns in real short professional biographies, he to she, and counted how often each model changed its answer. On the opioid decision, we changed a patient in a case description from a man to a woman and measured how far the model's confidence moved.",
-  race: "We gave the same short professional biographies a name from a different group, a white name against a Black, Hispanic or Asian one, and measured how far each model's answer moved. We did the same in a patient's case description and at the start of an online comment.",
-  age: "We added \"At 61\" instead of \"At 34\" to the start of real short professional biographies and counted how often each model changed its answer.",
-  disability: "We added \"A wheelchair user\" to real short professional biographies, and to other texts, and measured how far each model's answer moved.",
-  religion: "We added a religion, such as \"A devout Muslim\", to real short professional biographies and measured how far each model's answer moved. Some tests ask a job question; others ask a question that tests a stereotype about a group.",
-  nationality: "We added a nationality, such as \"A German\", to real short professional biographies, asked questions that each test a stereotype about a group, and measured how far each model's answer moved.",
-  sexuality: "We started an online comment with \"As a gay person\" or \"As a lesbian\" and measured how far each model moved toward removing the comment.",
-  veteran: "We described a patient as a veteran of the Iraq war or of the Navy and measured how far each model moved on whether to prescribe opioid pain medicine.",
-  "option-order": "We listed a question's two answer options the other way round and counted how often each model changed its answer. This is not a protected characteristic: it tests whether the order of the options alone moves the model.",
-};
-const opener = dim.opener_plain || OPENER[dim.id] || `We changed one detail in each text and measured ${measureOf(dim)}.`;
+const introduction = categoryIntro(dim);
 const allFacets = engines.flatMap((en) => dim.cells[en.id].facets || []);
 ---
-<Base title={dim.long} description={describeDim(dim)} path={urls.dim(dim.id)} current={{ page: "dimension", dim: dim.id }} charts={charts}
-  crumbs={[{ label: "Leaderboard", href: urls.home() }, { label: dim.long }]}>
+<Base title={introduction.title} description={introduction.intro} path={urls.dim(dim.id)} current={{ page: "dimension", dim: dim.id }} charts={charts}
+  crumbs={[{ label: "Leaderboard", href: urls.home() }, { label: dim.label }]}>
   <section class="wrap hero dim-hero">
-    <p class="kicker">{dim.supplemental ? "Also tested, not a characteristic" : dim.source === "batch2-staging" ? "Characteristic · Laya only so far" : "Characteristic"}</p>
-    <h1 class="display xl">{dim.long}</h1>
-    <p class="deck">{opener}</p>
+    <p class="kicker">AI bias tests · {dim.label}</p>
+    <h1 class="display xl">{introduction.title}</h1>
+    <p class="deck">{introduction.intro}</p>
+    <p class="lede">{introduction.detail}</p>
     <RegWarn dim={dim} />
     <p class="note">For every real edit we also made a control edit: a harmless change of the same size, or simply asking again. It shows how much the model moves for no good reason, so a result only counts beyond it. This page's control edit is described below.</p>
     <ModelsLine />
@@ -85,19 +75,19 @@ const allFacets = engines.flatMap((en) => dim.cells[en.id].facets || []);
     {dim.notes.length > 0 && <div class="footnote" role="note">{dim.notes.map((n) => <p>{n}</p>)}</div>}
   </section>
 
-  <Board board={dim.board} heads={dim.cells} unit={unit(dim)} facetKind={dim.facet_kind} chartId="board" hrefFor={(e) => urls.engineDim(e, dim.id)} />
+  <Board heading="Compare the AI models" board={dim.board} heads={dim.cells} unit={unit(dim)} facetKind={dim.facet_kind} chartId="board" hrefFor={(e) => urls.engineDim(e, dim.id)} />
 
   <RiskPanel dim={dim} />
 
   {dim.id === "gender" && data.neutral.rows.length > 0 && (
     <Fragment>
       <section class="wrap section" id="direction">
-        <h2 class="display">Which way the bias runs</h2>
+        <h2 class="display">Which gendered words change Laya’s answer?</h2>
         <p class="lede">The pronoun swap shows that one word can change the model's answer. It does not show which word pulls the answer away. So we also rewrote each biography with no gendered pronoun at all and asked again. Where that neutral answer falls, between the answer for <q>she</q> and the answer for <q>he</q>, shows which word moves the model.</p>
         <NeutralDirection engineId="laya" />
       </section>
       <section class="wrap section" id="cost">
-        <h2 class="display">What removing the gendered words costs</h2>
+        <h2 class="display">What happens when we remove gender from the biographies?</h2>
         <p class="lede">Taking gender out narrows the gap between the women and men who reach the shortlist. It also changes how often the model matches the job the dataset lists for each person. Here are the two shortlists we can build from real biographies, each read four ways.</p>
         <NeutralCost task="paralegal-attorney" positive="attorney" />
         <NeutralCost task="nurse-physician" positive="physician" />
@@ -107,9 +97,9 @@ const allFacets = engines.flatMap((en) => dim.cells[en.id].facets || []);
 
   {twoAxes && (
     <section class="wrap section" id="breakdown">
-      <h2 class="display">Every {G}, every {I}</h2>
+      <h2 class="display">Explore the results by {G} and {I}</h2>
       <p class="lede">The ranking above uses the largest result in this grid. Each square is one {G} on one {I}, measured on its own. Select a {G} to see all its {plural(bd.item_kind)}, a {I} to see every {G}, or a square for the full result.</p>
-      <Matrix dim={dim} caption={`${dim.long}: every ${G} by every ${I}`} />
+      <Matrix dim={dim} caption={`${dim.label}: every ${G} by every ${I}`} />
       <nav class="chips" aria-label={`${cap(plural(bd.group_kind))}`}><span class="chips-h">{cap(plural(bd.group_kind))}</span>{bd.groups.map((g) => <a href={urls.at(dim, g.id, null)}>{g.label}</a>)}</nav>
       <nav class="chips" aria-label={`${cap(bd.item_kind)}s`}><span class="chips-h">{cap(bd.item_kind)}s</span>{bd.items.map((i) => <a href={urls.at(dim, null, i.id)}>{i.label}</a>)}</nav>
     </section>
@@ -117,7 +107,7 @@ const allFacets = engines.flatMap((en) => dim.cells[en.id].facets || []);
 
   {oneAxis && (
     <section class="wrap section" id="breakdown">
-      <h2 class="display">Every {kindWord}, ranked</h2>
+      <h2 class="display">Explore each {kindWord}</h2>
       <p class="lede">Each {kindWord} is measured on its own, most biased first. Each mark is one model's result beyond the control edit, with the range we are 95% sure of. A filled mark is a clear effect. A hollow mark means the range includes the control edit, so there is no clear effect. Select a {kindWord} for its page.</p>
       <div data-legend={engines.filter((e) => dim.cells[e.id].status === "measured").map((e) => e.id).join(",")}></div>
       <Chart id="forest" />
@@ -126,7 +116,7 @@ const allFacets = engines.flatMap((en) => dim.cells[en.id].facets || []);
 
   {facets.length < 3 && (
     <section class="wrap section">
-      <h2 class="display">The real edit against the control edit</h2>
+      <h2 class="display">How much did the change matter?</h2>
       <p class="lede">Each coloured mark is what the model did after the real edit, with the range we are 95% sure of. The grey band below it is the control edit, with its own range. We call the effect clear only when the model's whole range sits above the control edit's middle value.</p>
       <Chart id="versus" />
     </section>
@@ -164,8 +154,8 @@ const allFacets = engines.flatMap((en) => dim.cells[en.id].facets || []);
           {measured
             ? <Fragment>
                 <FacetTable dim={dim} facets={c.facets} headline={c.headline.facet} detected={c.detected} facetKind={dim.facet_kind}
-                  caption={`${en.label}, ${dim.long}: results by ${F}`} rowHref={single ? null : (f) => `${facetHref(dim, f.id)}#${en.id}`} sources={false} />
-                <p class="more-link"><a href={urls.engineDim(en.id, dim.id)}>{en.label} on {dim.long.toLowerCase()}: its own page</a></p>
+                  caption={`${en.label}, ${dim.label}: results by ${F}`} rowHref={single ? null : (f) => `${facetHref(dim, f.id)}#${en.id}`} sources={false} />
+                <p class="more-link"><a href={urls.engineDim(en.id, dim.id)}>{en.label} on {dim.label.toLowerCase()}: its own page</a></p>
               </Fragment>
             : <p class="note">{en.label} has not been tested on this characteristic. It is shown as missing, never as zero, and it is marked incomplete on the overall ranking.</p>}
         </details>

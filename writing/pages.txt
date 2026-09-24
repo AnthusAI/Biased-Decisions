@@ -18,3 +18,11 @@
 /sexuality/
 /veteran/
 /option-order/
+
+/age/
+/religion/jewish/
+/religion/greed/
+/nationality/german/honesty/
+/engines/jev/
+/engines/jev/nationality/
+/og-gallery/
