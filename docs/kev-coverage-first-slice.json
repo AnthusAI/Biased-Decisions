@@ -1,0 +1,123 @@
+{
+ "schema": "kev-coverage@1",
+ "baseline_commit": "9dfa868",
+ "checkpoint": "jaredpalmer/kev-0.8b@54f4f8777356cd5bbbb6c6919c657f26e6f2f6d8",
+ "cells": [
+  {
+   "task": "surgeon-physician",
+   "cue": "gender-pronouns",
+   "requests": 4000,
+   "status": "ready",
+   "files": {
+    "tasks/surgeon-physician/question.yaml": "0a275d02c19011bf2342bb1528a6d8095dd2223f14dd359d41de3463a4e03fe9",
+    "tasks/surgeon-physician/items.jsonl": "bb4cd5fdc74a54f154b453a96c254c34c0fe5bfff15f1e0c4bec23c192531c0a"
+   }
+  },
+  {
+   "task": "nurse-physician",
+   "cue": "gender-pronouns",
+   "requests": 4000,
+   "status": "ready",
+   "files": {
+    "tasks/nurse-physician/question.yaml": "f6410ff4ec6425c01bcb8dafd95f86a9b361a461fb07c2f0a98f57d1f90ac551",
+    "tasks/nurse-physician/items.jsonl": "eb053149abad9c87d59836cf107a146d2a4c7b527d7cbf2119e0632346fc892e"
+   }
+  },
+  {
+   "task": "teacher-professor",
+   "cue": "gender-pronouns",
+   "requests": 4000,
+   "status": "ready",
+   "files": {
+    "tasks/teacher-professor/question.yaml": "3bf1c4b67805e7ba4340993c1f35fcd420c69e00b511dabab1038eb11e8348f6",
+    "tasks/teacher-professor/items.jsonl": "845f517a138ef506eefae78a340aef2a4312d9c5626dc4e497d30a13752a0226"
+   }
+  },
+  {
+   "task": "paralegal-attorney",
+   "cue": "gender-pronouns",
+   "requests": 4000,
+   "status": "ready",
+   "files": {
+    "tasks/paralegal-attorney/question.yaml": "d9a2d53fb3e2247bbba4b9d48cb39279923a356d318c98c621d54164d1234e49",
+    "tasks/paralegal-attorney/items.jsonl": "4e33e064779389e99482f690a31a065d5285f6364fe876b2af8d0866ade06c89"
+   }
+  },
+  {
+   "task": "journalist-professor",
+   "cue": "gender-pronouns",
+   "requests": 4000,
+   "status": "ready",
+   "files": {
+    "tasks/journalist-professor/question.yaml": "0d3318d04f6e5480a930523ad61c778c7514e253a6c63f6b3d9448456bf676bf",
+    "tasks/journalist-professor/items.jsonl": "401c4839320c6f47f6e1cb55f446d8f4dc1bd7a6be445ccaba5422697ea901da"
+   }
+  },
+  {
+   "task": "architect-interior-designer",
+   "cue": "gender-pronouns",
+   "requests": 3796,
+   "status": "ready",
+   "files": {
+    "tasks/architect-interior-designer/question.yaml": "d570c1180f8dd517b19fe1851e63172e16269fd4606c660eca159241bfde7289",
+    "tasks/architect-interior-designer/items.jsonl": "123412aaca458bea4a1d1e12f6a5c403ace8d3aa60c443ec483f673515d4f3c7"
+   }
+  },
+  {
+   "task": "dietitian-physician",
+   "cue": "gender-pronouns",
+   "requests": 4000,
+   "status": "ready",
+   "files": {
+    "tasks/dietitian-physician/question.yaml": "41932b89fe8bd925419fdcde9c270cb9984ca70e0d430200a376495d5450f8dd",
+    "tasks/dietitian-physician/items.jsonl": "e44ba004cae472559dece9ef2baf3c5f66ce19b2caf3c5fd61a541bf2aa7f425"
+   }
+  },
+  {
+   "task": "qpain-treatment",
+   "cue": "race",
+   "requests": 220,
+   "status": "ready",
+   "files": {
+    "tasks/qpain-treatment/question.yaml": "4c21e0059db4ad603c841739cb98caa6e545a178e502e0dc3afad726a009ee7c",
+    "tasks/qpain-treatment/items.jsonl": "47adca225080d5b08c111e2dc8db391ac935d024d75135bf68df99c1120865bd",
+    "tasks/qpain-treatment/versions/race.jsonl": "e781b40aab2699aa232a65c36489e2657cb2105179ee11400d13971f7d299e6b"
+   }
+  },
+  {
+   "task": "qpain-treatment",
+   "cue": "gender",
+   "requests": 110,
+   "status": "ready",
+   "files": {
+    "tasks/qpain-treatment/question.yaml": "4c21e0059db4ad603c841739cb98caa6e545a178e502e0dc3afad726a009ee7c",
+    "tasks/qpain-treatment/items.jsonl": "47adca225080d5b08c111e2dc8db391ac935d024d75135bf68df99c1120865bd",
+    "tasks/qpain-treatment/versions/gender.jsonl": "6121a8c11c037443b7a47bf2b4048ac170046143d1e2ce6da6a25fad65231eea"
+   }
+  },
+  {
+   "task": "qpain-treatment",
+   "cue": "disability",
+   "requests": 110,
+   "status": "ready",
+   "files": {
+    "tasks/qpain-treatment/question.yaml": "4c21e0059db4ad603c841739cb98caa6e545a178e502e0dc3afad726a009ee7c",
+    "tasks/qpain-treatment/items.jsonl": "47adca225080d5b08c111e2dc8db391ac935d024d75135bf68df99c1120865bd",
+    "tasks/qpain-treatment/versions/disability.jsonl": "cd992c875ae8548e2a3fe5ed8d2dc1188e7c5b18c56280a37fe600a5b5b4c13b"
+   }
+  },
+  {
+   "task": "qpain-treatment",
+   "cue": "veteran-status",
+   "requests": 165,
+   "status": "ready",
+   "files": {
+    "tasks/qpain-treatment/question.yaml": "4c21e0059db4ad603c841739cb98caa6e545a178e502e0dc3afad726a009ee7c",
+    "tasks/qpain-treatment/items.jsonl": "47adca225080d5b08c111e2dc8db391ac935d024d75135bf68df99c1120865bd",
+    "tasks/qpain-treatment/versions/veteran-status.jsonl": "0cd93f03f3b0104c863d7a04af9bda3cc63dbcac9241db84ca7f3899868c8a64"
+   }
+  }
+ ],
+ "pending_external": [],
+ "note": "First slice of the frozen coverage (docs/kev-coverage.json), run first so all three models have partial results: the gender-pronoun cells of the seven biography tasks and the four Q-Pain cells. Cells and hashes are copied unchanged from the frozen manifest."
+}
