@@ -1,3 +1,10 @@
+## [1.31.2](https://github.com/AnthusAI/Biased-Decisions/compare/v1.31.1...v1.31.2) (2026-09-24)
+
+
+### Bug Fixes
+
+* **deploy:** skip the tokenizer-dependent housing specs where the tokenizers package is absent ([8692a1b](https://github.com/AnthusAI/Biased-Decisions/commit/8692a1ba18c7b5f3ac54760f92a89f9d4665ba76))
+
 ## [1.31.1](https://github.com/AnthusAI/Biased-Decisions/compare/v1.31.0...v1.31.1) (2026-09-24)
 
 
