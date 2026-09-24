@@ -1,3 +1,16 @@
+# [1.22.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.21.2...v1.22.0) (2026-09-24)
+
+
+### Bug Fixes
+
+* say the two Laya builds gave the same headline results, not the same three decimals ([ce15479](https://github.com/AnthusAI/Biased-Decisions/commit/ce15479c8e5c84d36b8b7a5884dfa277cd3cb952))
+
+
+### Features
+
+* **scripts:** --build laya|laya-mlx on both answer runners, with specs and a how-to ([d113356](https://github.com/AnthusAI/Biased-Decisions/commit/d113356bf9302d1dd4a257829c04918f9f81fc3e))
+* **scripts:** a resumable Laya runner for multi-question trope tasks ([81f5d5b](https://github.com/AnthusAI/Biased-Decisions/commit/81f5d5b64d32b69b1c259726436116580d205f38))
+
 ## [1.21.2](https://github.com/AnthusAI/Biased-Decisions/compare/v1.21.1...v1.21.2) (2026-09-24)
 
 
