@@ -1,0 +1,25 @@
+{
+  "id": "BD-1ad66c45-4a69-4c29-9208-bba1ad814a10",
+  "title": "Draw pixel scales icon concept",
+  "description": "Generate a reviewable pixel-grid icon of dramatically imbalanced justice scales with equal square weights. Export editable SVG, transparent PNG, and a separately drawn small favicon. Preview artwork only; no website integration requested.",
+  "type": "task",
+  "status": "open",
+  "priority": 2,
+  "assignee": null,
+  "creator": null,
+  "parent": "BD-4f83aebd-9fa3-4ac7-b820-e3a1cab1ee8b",
+  "labels": [],
+  "dependencies": [],
+  "comments": [],
+  "created_at": "2026-09-23T23:59:02.665513Z",
+  "updated_at": "2026-09-23T23:59:02.665566Z",
+  "closed_at": null,
+  "agent": {
+    "platform": "codex",
+    "model": "GPT-6",
+    "name": "Pixel Scales"
+  },
+  "right_now_summary": null,
+  "right_now_updated_at": null,
+  "custom": {}
+}
