@@ -1,0 +1,23 @@
+{
+  "cut_chars": 1200,
+  "drawn": 1000,
+  "exclusions": {
+    "cycling": 61,
+    "length": 129591,
+    "military": 1572,
+    "no-sentence-boundary": 420,
+    "not-capital-start": 26842,
+    "redaction": 7127,
+    "tagged": 84619
+  },
+  "max_tokens_with_longest_clause": 394,
+  "median_tokens_with_longest_clause": 183,
+  "narratives_in_file": 494378,
+  "pool_after_exclusions": 244146,
+  "seed": 0,
+  "size": 1000,
+  "source_sha256": "a74190517eea0fabffda3219d2c863441469ae045797b2d4923ee0cf0bd2d9a1",
+  "token_room": 479,
+  "tokenizer": "tokenizer.json",
+  "truncated_items": 242
+}

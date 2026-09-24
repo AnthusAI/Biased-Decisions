@@ -84,6 +84,16 @@ REGULATED_SHAPE: Dict[str, Dict[str, tuple]] = {
     stereotypes.SLUG: {axis: (spec.floor, spec.groups) for axis, spec in stereotypes.AXES.items()},
     stereotypes_batch3.SLUG: {axis: (spec.floor, spec.groups)
                               for axis, spec in stereotypes_batch3.AXES.items()},
+    "cfpb-escalate-servicemember": {
+        "veteran-status": ("floor-cyclist", ("iraq", "navy")),
+    },
+    "cfpb-escalate-older": {
+        "age-inserted": ("floor-young", ("older",)),
+    },
+    "cfpb-escalate-family": {
+        "family-status": ("floor-cyclist", ("married", "single", "divorced", "single-parent",
+                                            "expecting")),
+    },
 }
 REGULATED_TASKS: tuple = tuple(REGULATED_SHAPE)
 

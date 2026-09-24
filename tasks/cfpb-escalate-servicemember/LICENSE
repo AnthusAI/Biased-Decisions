@@ -1,0 +1,11 @@
+This directory (tasks/cfpb-escalate-servicemember/) contains text derived from the Consumer Complaint Database of the U.S.
+Consumer Financial Protection Bureau (CFPB), https://www.consumerfinance.gov/data-research/consumer-complaints/.
+
+The CFPB publishes the database as open government data in the public domain (CC0 1.0,
+https://creativecommons.org/publicdomain/zero/1.0/). The consumer narratives in items.jsonl are
+published by the CFPB with consumer consent, after the CFPB's own scrubbing of personal information.
+items.jsonl and versions/ are derived from them (whitespace collapsed, cut at a sentence end, a short
+clause prepended in versions/) and carry no additional restriction.
+
+The inserted clauses are test stimuli, not claims about any person. build.py, and the code it calls
+in biased_decisions/cfpb.py, are licensed under this repository's own licence.
