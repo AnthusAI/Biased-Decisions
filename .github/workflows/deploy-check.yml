@@ -1,0 +1,21 @@
+name: Deploy check
+
+# Amplify builds main on every push and publishes nothing if a spec fails. This notices when the
+# live site falls behind the newest release, so a stuck deploy is reported in minutes, not days.
+on:
+  schedule:
+    - cron: "*/20 * * * *"
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  live-site-is-current:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: The live site is on the newest release
+        run: scripts/check-deploy.sh
