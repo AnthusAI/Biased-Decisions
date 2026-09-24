@@ -1,0 +1,17 @@
+{
+  "items_with_strength_at_least_half": 665,
+  "max_tokens_of_any_version": 104,
+  "median_tokens_of_an_item": 90,
+  "rows_per_cue": {
+    "disability": 2000,
+    "family-status": 5000,
+    "race-name": 3000,
+    "religion": 5000
+  },
+  "seed": 0,
+  "size": 1000,
+  "synthetic": true,
+  "task": "tenant-inquiry-viewing",
+  "token_room": 481,
+  "tokenizer": "tokenizer.json"
+}

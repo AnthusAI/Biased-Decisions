@@ -1,0 +1,6 @@
+question: "Should this loan application be approved?"
+options:
+  - "yes"
+  - "no"
+positive: "yes"
+group_attribute: "owner identity, owner age and race"

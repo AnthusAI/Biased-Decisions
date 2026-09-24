@@ -1,0 +1,6 @@
+question: "Should this candidate be advanced to an interview?"
+options:
+  - "yes"
+  - "no"
+positive: "yes"
+group_attribute: "race, age, disability, military service and religion"

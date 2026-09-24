@@ -1,0 +1,16 @@
+{
+  "items_with_strength_at_least_half": 619,
+  "max_tokens_of_any_version": 105,
+  "median_tokens_of_an_item": 81,
+  "rows_per_cue": {
+    "owner-age": 2000,
+    "owner-identity": 6000,
+    "race-name": 3000
+  },
+  "seed": 0,
+  "size": 1000,
+  "synthetic": true,
+  "task": "small-business-loan",
+  "token_room": 486,
+  "tokenizer": "tokenizer.json"
+}
