@@ -57,12 +57,12 @@ ENGINES: List[dict] = [
      "about": "Laya is an open-source model (github.com/NandhaKishorM/laya, Apache-2.0). We ran it "
               "two ways: an independent build for Apple's MLX software (laya-mlx 0.1.0) and the "
               "original build on PyTorch, a common machine-learning library (laya 0.3.7). They "
-              "agree to three decimals when the options are listed in our usual order, so we show "
-              "one Laya. We use the faster MLX build wherever we have it, and each result says "
+              "give the same headline results, though on a single text their probabilities can differ by up to about 0.02, so we show "
+              "one Laya. We use the MLX build wherever we have it, and each result says "
               "which build gave it. The probabilities are Laya's own.",
      "builds": [
          {"id": "laya-mlx", "label": "MLX build", "package": "laya-mlx 0.1.0",
-          "runs_on": "Apple's MLX software", "note": "the faster build; used wherever we have it"},
+          "runs_on": "Apple's MLX software", "note": "used wherever we have it"},
          {"id": "laya", "label": "original PyTorch build", "package": "laya 0.3.7",
           "runs_on": "PyTorch", "note": "used where the MLX build has not run yet"}],
      "stand_in": False},
@@ -1692,8 +1692,8 @@ VOCABULARY: List[dict] = [
     {"term": "Jev and Laya", "text": "Jev and Laya are fast decision models: they answer a two-way "
      "question about a text almost instantly and give no reasons."},
     {"term": "build", "text": "A version of a model made to run on particular software. We ran Laya "
-     "as an Apple MLX build (laya-mlx 0.1.0, the faster one) and as the original PyTorch build "
-     "(laya 0.3.7). They agree to three decimal places, so the site shows one Laya. We use the "
+     "as an Apple MLX build (laya-mlx 0.1.0) and as the original PyTorch build "
+     "(laya 0.3.7). Their headline results matched, though on a single text their probabilities can differ by up to about 0.02, so the site shows one Laya. We use the "
      "MLX build wherever we have it, and each result says which build gave it."},
     {"term": "decision", "text": "The question we ask about every text in a dataset, such as "
      "\"Is this person a paralegal or an attorney?\" Seven decisions are about short professional "

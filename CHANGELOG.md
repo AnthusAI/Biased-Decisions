@@ -1,3 +1,56 @@
+## [1.22.1](https://github.com/AnthusAI/Biased-Decisions/compare/v1.22.0...v1.22.1) (2026-09-24)
+
+
+### Bug Fixes
+
+* **site:** match logo artwork to Jersey font proportions ([367e9c1](https://github.com/AnthusAI/Biased-Decisions/commit/367e9c1f19227a62d4bd8b6c8444ca9c4ee695fc))
+
+# [1.22.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.21.2...v1.22.0) (2026-09-24)
+
+
+### Bug Fixes
+
+* say the two Laya builds gave the same headline results, not the same three decimals ([ce15479](https://github.com/AnthusAI/Biased-Decisions/commit/ce15479c8e5c84d36b8b7a5884dfa277cd3cb952))
+
+
+### Features
+
+* **scripts:** --build laya|laya-mlx on both answer runners, with specs and a how-to ([d113356](https://github.com/AnthusAI/Biased-Decisions/commit/d113356bf9302d1dd4a257829c04918f9f81fc3e))
+* **scripts:** a resumable Laya runner for multi-question trope tasks ([81f5d5b](https://github.com/AnthusAI/Biased-Decisions/commit/81f5d5b64d32b69b1c259726436116580d205f38))
+
+## [1.21.2](https://github.com/AnthusAI/Biased-Decisions/compare/v1.21.1...v1.21.2) (2026-09-24)
+
+
+### Bug Fixes
+
+* **site:** size logo directly in ems as inline content ([f131e28](https://github.com/AnthusAI/Biased-Decisions/commit/f131e28ba5d6542005e60c8b017d83d717cb4bf9))
+
+## [1.21.1](https://github.com/AnthusAI/Biased-Decisions/compare/v1.21.0...v1.21.1) (2026-09-24)
+
+
+### Bug Fixes
+
+* **site:** align one-em logo to wordmark baseline ([3b7c925](https://github.com/AnthusAI/Biased-Decisions/commit/3b7c9256c1b6e278bf08c2fc4668db97e5e4378f))
+
+# [1.21.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.20.0...v1.21.0) (2026-09-24)
+
+
+### Features
+
+* **site:** localStorage opt-out for the GA4 tag ([#2](https://github.com/AnthusAI/Biased-Decisions/issues/2)) ([2193b01](https://github.com/AnthusAI/Biased-Decisions/commit/2193b01b506a6bb0bdcc042d7370952a333e9ea7))
+
+# [1.20.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.19.0...v1.20.0) (2026-09-24)
+
+
+### Bug Fixes
+
+* **site:** align scales size and position with wordmark ([d7801a2](https://github.com/AnthusAI/Biased-Decisions/commit/d7801a22e4bd7b8cdc830c4f354fb9fb8a542557))
+
+
+### Features
+
+* **site:** adopt imbalanced pixel scales identity ([cef895a](https://github.com/AnthusAI/Biased-Decisions/commit/cef895a718bfa92433a313375871d293ca9a76e0))
+
 # [1.19.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.18.0...v1.19.0) (2026-09-23)
 
 

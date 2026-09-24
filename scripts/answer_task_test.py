@@ -220,3 +220,34 @@ def test_a_bios_task_is_asked_under_the_occupation_name_the_scorer_reads():
             (task_dir / "versions" / "c.jsonl").write_text(json.dumps({"id": "v1", "text": "t", "metadata": {}}) + "\n")
             asyncio.run(run(root, slug, "c", engine=Recording(), out_dir=root / "out", skip_as_written=True))
     assert seen == [["Occupation"], ["Decision"]]
+
+
+def _tiny_task(root: Path) -> None:
+    task_dir = root / "tasks" / "t"
+    (task_dir / "versions").mkdir(parents=True)
+    (task_dir / "question.yaml").write_text(
+        "question: Q?\noptions:\n  - yes\n  - no\npositive: yes\ngroup_attribute: x\n")
+    (task_dir / "items.jsonl").write_text(
+        json.dumps({"id": "a", "text": "t", "metadata": {"split": "test"}}) + "\n")
+    (task_dir / "versions" / "c.jsonl").write_text(
+        json.dumps({"id": "v", "text": "t", "metadata": {}}) + "\n")
+
+
+def test_the_mlx_build_writes_under_answers_laya_mlx_and_names_itself_in_each_row():
+    with tempfile.TemporaryDirectory() as tmpdir:
+        root = Path(tmpdir)
+        _tiny_task(root)
+        asyncio.run(run(root, "t", "c", engine=FakeEngine(), out_dir=root, build="laya-mlx"))
+        rows = read_record(root / "answers" / "laya-mlx" / "t" / "c.jsonl.gz")
+        assert len(rows) == 1 and rows[0]["model"].startswith("laya-mlx:")
+        assert not (root / "answers" / "laya").exists()
+
+
+def test_the_default_build_is_still_the_pytorch_laya():
+    with tempfile.TemporaryDirectory() as tmpdir:
+        root = Path(tmpdir)
+        _tiny_task(root)
+        asyncio.run(run(root, "t", "c", engine=FakeEngine(), out_dir=root))
+        rows = read_record(root / "answers" / "laya" / "t" / "c.jsonl.gz")
+        assert rows[0]["model"].startswith("laya-upstream:")
+        assert not (root / "answers" / "laya-mlx").exists()

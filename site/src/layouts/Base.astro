@@ -2,6 +2,7 @@
 // Every page: head metadata (canonical URL, description, Open Graph), the masthead, the honesty
 // panel, the colophon, and the page's chart payload. The page body is static HTML.
 import "../styles/site.css";
+import scales from "../assets/scales.svg?raw";
 import { data, engines, dimensions, urls, absolute, SITE_NAME } from "../lib/site.js";
 import { cardFor } from "../lib/cards.js";
 import { curls } from "../lib/compliance.js";
@@ -33,7 +34,9 @@ const gtagInit = `window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
 gtag('config', '${GA_ID}');`;
-const favicon = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' rx='3' fill='%230c1e2b'/%3E%3Crect x='3' y='9' width='3' height='4' fill='%230389d7'/%3E%3Crect x='7' y='3' width='3' height='10' fill='%23d03382'/%3E%3Crect x='11' y='6' width='2' height='7' fill='%238a949c'/%3E%3C/svg%3E";
+// Opt-out: visit any page with ?notrack=1 to set a localStorage flag that disables GA in this browser (?notrack=0 clears it).
+// ga-disable-<ID> must be set before gtag('config'). String.raw keeps \w intact.
+const optOut = String.raw`(function(){try{var k='anthus-no-analytics',q=location.search.match(/[?&]notrack=(\w+)/);if(q){if(q[1]==='1')localStorage.setItem(k,'1');else localStorage.removeItem(k)}if(localStorage.getItem(k)==='1')window['ga-disable-G-31SC26SDGX']=true}catch(e){}})();`;
 ---
 <!doctype html>
 <html lang="en">
@@ -67,10 +70,14 @@ const favicon = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' vi
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jersey+25&family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap">
-<link rel="icon" href={favicon}>
+<link rel="icon" href={`${urls.home()}favicon.ico`} sizes="16x16 32x32">
+<link rel="icon" type="image/png" sizes="32x32" href={`${urls.home()}favicon-32.png`}>
+<link rel="icon" type="image/svg+xml" sizes="any" href={`${urls.home()}favicon.svg`}>
+<link rel="apple-touch-icon" sizes="180x180" href={`${urls.home()}apple-touch-icon.png`}>
 <link rel="alternate" type="application/json" href={urls.data()} title="The leaderboard data file">
 <style is:inline set:html={engineCss}></style>
 {import.meta.env.PROD && <Fragment>
+<script is:inline set:html={optOut}></script>
 <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}></script>
 <script is:inline set:html={gtagInit}></script>
 </Fragment>}
@@ -80,7 +87,10 @@ const favicon = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' vi
 <header class="masthead">
   <div class="mast-inner">
     <div class="wrap mast-row">
-      <a href={urls.home()} class="brand"><span class="brand-a">Biased</span><span class="brand-b">Decisions</span></a>
+      <a href={urls.home()} class="brand" aria-label="Biased Decisions">
+        <span><span class="brand-a">Biased</span><span class="brand-b">Decisions</span></span>
+        <span class="brand-icon" aria-hidden="true" set:html={scales}></span>
+      </a>
       <nav class="topnav" aria-label="Site">
         <a href={urls.methods()} class={current.page === "methods" ? "on" : null} aria-current={current.page === "methods" ? "page" : undefined}>How we measure</a>
         <a href={curls.howToFail()} class={current.page === "how-to-fail" ? "on" : null} aria-current={current.page === "how-to-fail" ? "page" : undefined}>How to fail</a>

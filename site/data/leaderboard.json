@@ -5,12 +5,12 @@
   "record_commit_short": "33d0fdf",
   "generated": null,
   "release": {
-   "version": "1.17.0",
-   "tag": "v1.17.0",
-   "date": "2026-09-23",
+   "version": "1.21.0",
+   "tag": "v1.21.0",
+   "date": "2026-09-24",
    "released": true,
-   "url": "https://github.com/AnthusAI/Biased-Decisions/releases/tag/v1.17.0",
-   "label": "v1.17.0"
+   "url": "https://github.com/AnthusAI/Biased-Decisions/releases/tag/v1.21.0",
+   "label": "v1.21.0"
   },
   "command": "bd report --json",
   "sources": [
@@ -49,14 +49,14 @@
    "color_dark": "#f5475e",
    "marker": "square",
    "kind": "fast decision model, free and open source",
-   "about": "Laya is an open-source model (github.com/NandhaKishorM/laya, Apache-2.0). We ran it two ways: an independent build for Apple's MLX software (laya-mlx 0.1.0) and the original build on PyTorch, a common machine-learning library (laya 0.3.7). They agree to three decimals when the options are listed in our usual order, so we show one Laya. We use the faster MLX build wherever we have it, and each result says which build gave it. The probabilities are Laya's own.",
+   "about": "Laya is an open-source model (github.com/NandhaKishorM/laya, Apache-2.0). We ran it two ways: an independent build for Apple's MLX software (laya-mlx 0.1.0) and the original build on PyTorch, a common machine-learning library (laya 0.3.7). They give the same headline results, though on a single text their probabilities can differ by up to about 0.02, so we show one Laya. We use the MLX build wherever we have it, and each result says which build gave it. The probabilities are Laya's own.",
    "builds": [
     {
      "id": "laya-mlx",
      "label": "MLX build",
      "package": "laya-mlx 0.1.0",
      "runs_on": "Apple's MLX software",
-     "note": "the faster build; used wherever we have it"
+     "note": "used wherever we have it"
     },
     {
      "id": "laya",
@@ -32653,7 +32653,7 @@
   },
   {
    "term": "build",
-   "text": "A version of a model made to run on particular software. We ran Laya as an Apple MLX build (laya-mlx 0.1.0, the faster one) and as the original PyTorch build (laya 0.3.7). They agree to three decimal places, so the site shows one Laya. We use the MLX build wherever we have it, and each result says which build gave it."
+   "text": "A version of a model made to run on particular software. We ran Laya as an Apple MLX build (laya-mlx 0.1.0) and as the original PyTorch build (laya 0.3.7). Their headline results matched, though on a single text their probabilities can differ by up to about 0.02, so the site shows one Laya. We use the MLX build wherever we have it, and each result says which build gave it."
   },
   {
    "term": "decision",
@@ -34963,7 +34963,7 @@
    {
     "id": "pin-versions",
     "title": "Fix the version: a new version is a new model",
-    "text": "Record the exact model and version behind every decision. Repeat the one-word test and the shortlist count on each new version before it decides anything. When a new test gives the same numbers as the old one, say so, as we did when we ran Laya two ways, an Apple MLX build and the original PyTorch build, and the numbers agreed to three decimals.",
+    "text": "Record the exact model and version behind every decision. Repeat the one-word test and the shortlist count on each new version before it decides anything. When a new test gives the same numbers as the old one, say so, as we did when we ran Laya two ways, an Apple MLX build and the original PyTorch build, and the headline results matched.",
     "evidence": [
      "gender-laya-paralegal",
      "gate-j2-ratio"

@@ -171,3 +171,12 @@ test("Google Analytics 4 tag is on every page, once, in the head", () => {
     assert.equal(head.split(`gtag('config', '${ID}')`).length - 1, 1, `${p.path}: gtag config`);
   }
 });
+
+test("the localStorage analytics opt-out script precedes the gtag config call on every page", () => {
+  const script = "(function(){try{var k='anthus-no-analytics',q=location.search.match(/[?&]notrack=(\\w+)/);if(q){if(q[1]==='1')localStorage.setItem(k,'1');else localStorage.removeItem(k)}if(localStorage.getItem(k)==='1')window['ga-disable-G-31SC26SDGX']=true}catch(e){}})();";
+  for (const p of pages) {
+    const head = p.html.slice(0, p.html.indexOf("</head>"));
+    assert.equal(head.split(script).length - 1, 1, `${p.path}: opt-out script`);
+    assert.ok(head.indexOf(script) < head.indexOf("gtag('config'"), `${p.path}: opt-out must come before gtag config`);
+  }
+});
