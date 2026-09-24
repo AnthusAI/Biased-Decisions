@@ -27,8 +27,9 @@ from biased_decisions.scoring import (
 from biased_decisions.tasks.base import DEFAULT_ROOT
 from biased_decisions.tasks.bios import BIOS_TASKS, load_task
 
-ENGINE_LABELS: Dict[str, str] = {"jev": "Jev", "laya": "Laya", "laya-mlx": "Laya-mlx"}
-GENDER_PRONOUNS_ENGINES = ("jev", "laya", "laya-mlx")
+ENGINE_LABELS: Dict[str, str] = {"jev": "Jev", "laya": "Laya", "laya-mlx": "Laya-mlx",
+                                "kev": "Kev"}
+GENDER_PRONOUNS_ENGINES = ("jev", "laya", "laya-mlx", "kev")
 SHORTLIST_PAIRS = ("paralegal-attorney", "nurse-physician")
 SHORTLIST_CUT = 500  # the cut the shortlist table reports; bd replay scores 250/500/1000 all.
 
@@ -164,7 +165,7 @@ def section_race_name(ctx: ReportContext) -> str:
 def section_race_fullname(ctx: ReportContext) -> str:
     task = ctx.tasks["surgeon-physician"]
     columns: List[Tuple[str, str, dict]] = []
-    for engine in ("jev", "laya", "laya-mlx"):
+    for engine in GENDER_PRONOUNS_ENGINES:
         for sample in ("all", "500"):
             row = ctx.try_score(score_race_fullname, engine, task, sample=sample)
             if row is not None:
@@ -206,7 +207,7 @@ def section_race_fullname(ctx: ReportContext) -> str:
 def section_age(ctx: ReportContext) -> str:
     task = ctx.tasks["surgeon-physician"]
     columns: List[Tuple[str, dict]] = []
-    for engine in ("jev", "laya", "laya-mlx"):
+    for engine in GENDER_PRONOUNS_ENGINES:
         row = ctx.try_score(score_age_inserted, engine, task)
         if row is not None:
             columns.append((engine, row))
@@ -247,7 +248,7 @@ def _insertion_table(ctx: ReportContext, cue: str, title: str, scorer: Callable,
     for slug in task_slugs:
         task = ctx.tasks[slug]
         rows_by_task[slug] = {}
-        for engine in ("jev", "laya", "laya-mlx"):
+        for engine in GENDER_PRONOUNS_ENGINES:
             row = ctx.try_score(scorer, engine, task)
             if row is None:
                 continue
@@ -330,7 +331,7 @@ def section_ask_twice(ctx: ReportContext) -> str:
     for slug in task_slugs:
         task = ctx.tasks[slug]
         rows_by_task[slug] = {}
-        for engine in ("jev", "laya", "laya-mlx"):
+        for engine in GENDER_PRONOUNS_ENGINES:
             row = ctx.try_score(score_ask_twice, engine, task)
             if row is None:
                 continue
@@ -365,7 +366,7 @@ def section_option_order(ctx: ReportContext) -> str:
     for slug in task_slugs:
         task = ctx.tasks[slug]
         rows_by_task[slug] = {}
-        for engine in ("jev", "laya", "laya-mlx"):
+        for engine in GENDER_PRONOUNS_ENGINES:
             row = ctx.try_score(score_option_order, engine, task)
             if row is None:
                 continue
@@ -442,7 +443,7 @@ def section_shortlist(ctx: ReportContext) -> str:
     for pair_slug in SHORTLIST_PAIRS:
         task = ctx.tasks[pair_slug]
         rows_for_pair = []
-        for engine in ("jev", "laya", "laya-mlx"):
+        for engine in GENDER_PRONOUNS_ENGINES:
             rows = ctx.try_score(score_shortlist, engine, task)
             if not rows:
                 continue

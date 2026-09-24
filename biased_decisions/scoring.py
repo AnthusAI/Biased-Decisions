@@ -60,7 +60,7 @@ TASK_CUES: Dict[str, tuple] = {
 # milestone-1 pairs with the largest gender skew. See biased_decisions.metrics.shortlist.
 SHORTLIST_PAIRS: tuple = ("paralegal-attorney", "nurse-physician")
 
-ENGINES: tuple = ("jev", "laya", "laya-mlx")
+ENGINES: tuple = ("jev", "laya", "laya-mlx", "kev")
 
 # The regulated-decision tasks (docs/regulated-tasks-preregistration.md): each cue's floor (or
 # reference) version and the versions read against it. Race and gender on Q-Pain are read against
