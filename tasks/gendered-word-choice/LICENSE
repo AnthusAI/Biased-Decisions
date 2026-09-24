@@ -1,0 +1,5 @@
+items.jsonl is a byte-identical copy of tasks/stereotypes/items.jsonl: 2,000 short professional
+biographies from the held-out split of the Bias in Bios corpus (De-Arteaga et al., 2019), with the
+same licence note and redaction as tasks/stereotypes/. The sentences in versions/ are test stimuli
+written for this benchmark and are released with the code under the repository licence. They are not
+statements about any person or group.

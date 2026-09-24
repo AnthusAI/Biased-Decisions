@@ -35,7 +35,7 @@ from biased_decisions.cues.insertion import eligible as insertion_eligible
 from biased_decisions.cues.insertion import GENDERED_CUES, insert_clause, versions_for
 from biased_decisions.cues.names import name_versions
 from biased_decisions.cues.neutral import neutralize
-from biased_decisions import stereotypes, stereotypes_batch3
+from biased_decisions import gendered_language, stereotypes, stereotypes_batch3
 from biased_decisions.tasks.base import Task
 from biased_decisions.tasks.items import Item
 
@@ -473,7 +473,18 @@ def write_stereotype_items(task: Task, result: BuildResult) -> Path:
     return path
 
 
+def build_gendered_language(cue: str, task: Task) -> BuildResult:
+    """A cue of one of the gendered-language tasks (``biased_decisions.gendered_language``)."""
+    if cue not in gendered_language.cues_of(task.slug):
+        raise BuildError(f"unknown {task.slug} cue {cue!r}; one of {gendered_language.cues_of(task.slug)}")
+    items = [{"id": i.id, "text": i.text, "metadata": i.metadata} for i in task.load_items()]
+    return BuildResult(rows=gendered_language.versions_for(task.slug, cue, items),
+                       excluded=gendered_language.excluded_count(items))
+
+
 def build(cue: str, task: Task) -> BuildResult:
+    if task.slug in gendered_language.TASKS:
+        return build_gendered_language(cue, task)
     if task.slug == stereotypes_batch3.SLUG:
         try:
             return STEREOTYPE_BATCH3_BUILDERS[cue](task)

@@ -220,3 +220,29 @@ above; "P(loaded) gap" is the Design-2 measure.
   number.
 
 ## Deviations
+
+Recorded 2026-09-24, before any answer exists.
+
+1. **Scale of Designs 1 and 3.** The registration says all seven biography tasks, full held-out sets.
+   Design 1 alone would be about 330,000 texts (several hundred megabytes of committed text), so
+   Designs 1 and 3 are built on the shared 2,000-biography pool (`tasks/stereotypes/`, drawn from the
+   four original tasks), the same pool Design 2 uses. The three tasks are `gendered-management`,
+   `gendered-advance` and `gendered-word-choice`. Extending to the seven full held-out sets is a later,
+   separate amendment.
+2. **Eligible biographies.** 128 of the 2,000 have no first-sentence boundary and are excluded from
+   every design; 1,872 carry every version (7,488 texts per Design 1 or 3 cue, 3,744 per Design 2 cue).
+3. **First-sentence rule.** A boundary is a full stop, `!` or `?` followed by a space and a capital,
+   digit or opening quote, where the word before is not a title (Dr, Mr, Prof ...) or a single initial;
+   the registered "first `. `" would split "Dr. Li".
+4. **Design 3 wording.** The question is "Should this person advance to the final round?", a fuller
+   wording of the registered "Advance to the final round?".
+5. **Design 2 order.** The loaded word is listed first for the odd-numbered biographies in id-sorted
+   order; both gender versions of a biography share the order, so the gender gap is order-balanced.
+   The six scene sentences are in `biased_decisions/gendered_language.py`.
+6. **Interval for the order effect.** The two groups (loaded first, loaded second) hold different
+   biographies, so its interval resamples each group independently (1,000 resamples, seed 0).
+7. **Kev.** `gendered-word-choice` asks a per-row question, which the Kev collector does not support,
+   so Kev's registered cells are Designs 1 and 3 only.
+8. **Source check.** Snyder (2014) and the Heilman et al. abstract were read; the HBR figure, the
+   Heilman word list and the three descriptor papers were not (see the task READMEs). The Snyder piece
+   does not say "emotional" was used specifically when women objected.

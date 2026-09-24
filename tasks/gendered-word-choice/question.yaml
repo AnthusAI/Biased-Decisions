@@ -1,0 +1,9 @@
+# The question and the option order are per row: see metadata.question and metadata.options in
+# versions/<pair>.jsonl. scripts/answer_wordchoice.py asks each row its own question. The generic
+# fields below only make the file loadable; "loaded" is the pair's loaded word.
+question: "Which word better describes this person's behavior in that meeting?"
+options:
+  - "neutral"
+  - "loaded"
+positive: "loaded"
+group_attribute: "gender"

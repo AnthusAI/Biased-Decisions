@@ -1,0 +1,6 @@
+question: "Is this person ready for a management role?"
+options:
+  - "yes"
+  - "no"
+positive: "yes"
+group_attribute: "gender"
