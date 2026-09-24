@@ -1,3 +1,11 @@
+# [1.30.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.29.0...v1.30.0) (2026-09-24)
+
+
+### Features
+
+* **scoring:** shape entries for the tenant, loan and resume tasks ([26752c7](https://github.com/AnthusAI/Biased-Decisions/commit/26752c7ba8f57fee6c67dcccb5830332a2a7f910))
+* **tasks:** tenant-inquiry-viewing, small-business-loan and resume-screening (synthetic, seeded) ([783bbb6](https://github.com/AnthusAI/Biased-Decisions/commit/783bbb68a2de00e82b6fbef1655667bb0a345bb3))
+
 # [1.29.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.28.0...v1.29.0) (2026-09-24)
 
 
