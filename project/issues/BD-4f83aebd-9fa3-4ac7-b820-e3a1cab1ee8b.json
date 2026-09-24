@@ -60,10 +60,22 @@
         "model": "claude-sonnet-5",
         "name": "claude"
       }
+    },
+    {
+      "id": "26bdf48b-0806-41c9-ba93-89de7023cfa3",
+      "author": "home",
+      "text": "BD-706305: Installed approved 24x24 pixel scales in the shared masthead at integer 2x scale, inheriting the site foreground color. Replaced the chart favicon with adaptive SVG plus 16/32px ICO/PNG fallbacks and an Apple home-screen icon. Built all 212 pages and passed all 23 existing site checks. Browser verification confirmed the dark header and a light-token fixture at narrow width; the accessible home-link name is Biased Decisions. All four linked icon URLs returned HTTP 200. No study data or engine calls changed. Work resumed in a persistent isolated checkout after reboot removed the temporary directory.",
+      "created_at": "2026-09-24T00:18:54.480831Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "codex",
+        "model": "GPT-6",
+        "name": "Pixel Scales Integration"
+      }
     }
   ],
   "created_at": "2026-09-23T13:03:21.518944Z",
-  "updated_at": "2026-09-23T21:12:00.481244Z",
+  "updated_at": "2026-09-24T00:18:54.481228Z",
   "closed_at": null,
   "agent": {
     "platform": "claude-code",
