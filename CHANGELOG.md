@@ -1,3 +1,13 @@
+# [1.29.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.28.0...v1.29.0) (2026-09-24)
+
+
+### Features
+
+* **gendered-language:** interaction, gap and order-effect scoring with specs ([16bf238](https://github.com/AnthusAI/Biased-Decisions/commit/16bf2385138a1670d683a5491a5e4d40890880fa))
+* **gendered-language:** Kev registration, manifest and leaderboard integration note ([c58f6db](https://github.com/AnthusAI/Biased-Decisions/commit/c58f6db42ffe0748ef1fc551994f31c84a0f4e85))
+* **gendered-language:** three tasks, builders, sourced word pairs and specs ([4fabca3](https://github.com/AnthusAI/Biased-Decisions/commit/4fabca3e35abff121e28625162b5e6153f4e682a))
+* **gendered-language:** word-choice runner and the Laya queue, with specs ([87b7e5b](https://github.com/AnthusAI/Biased-Decisions/commit/87b7e5b395a52cbb06885201620e531151282c68))
+
 # [1.28.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.27.0...v1.28.0) (2026-09-24)
 
 
