@@ -27,7 +27,7 @@ from biased_decisions.metrics import neutral as neutral_metrics
 from biased_decisions.metrics import shortlist as shortlist_metrics
 from biased_decisions.metrics.flips import Verdict, score_arm_race, score_pair
 from biased_decisions.metrics.shifts import score_arm_age, score_arm_race2
-from biased_decisions import gendered_language, gendered_scoring, stereotypes, stereotypes_batch3
+from biased_decisions import gendered_language, gendered_scoring, housing_lending, stereotypes, stereotypes_batch3
 from biased_decisions.record import read_record_by_id, record_path
 from biased_decisions.tasks.base import DEFAULT_ROOT, Task
 from biased_decisions.tasks.bios import BIOS_TASKS, ORIGINAL_BIOS_TASKS, split_test_and_twins
@@ -105,6 +105,9 @@ REGULATED_SHAPE: Dict[str, Dict[str, tuple]] = {
         "family-status": ("floor-cyclist", ("married", "single", "divorced", "single-parent",
                                             "expecting")),
     },
+    # Housing, lending and hiring (synthetic; docs/*-preregistration.md): each cue's floor and the
+    # versions read against it come from the generator that wrote the versions.
+    **{slug: housing_lending.shape_of(slug) for slug in housing_lending.TASKS},
 }
 REGULATED_TASKS: tuple = tuple(REGULATED_SHAPE)
 
