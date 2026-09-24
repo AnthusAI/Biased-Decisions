@@ -1,3 +1,10 @@
+## [1.22.2](https://github.com/AnthusAI/Biased-Decisions/compare/v1.22.1...v1.22.2) (2026-09-24)
+
+
+### Bug Fixes
+
+* **site:** tighten logo spacing ([0cba5c0](https://github.com/AnthusAI/Biased-Decisions/commit/0cba5c0a14027a85181d0305d8edafacb2465fea))
+
 ## [1.22.1](https://github.com/AnthusAI/Biased-Decisions/compare/v1.22.0...v1.22.1) (2026-09-24)
 
 

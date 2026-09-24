@@ -82,7 +82,6 @@ h3 { font-size: 18px; font-weight: 700; margin: 1.6em 0 .4em; }
 .masthead { border-bottom: 1px solid var(--rule); background: color-mix(in srgb, var(--bg) 88%, transparent); position: sticky; top: 0; z-index: 20; backdrop-filter: saturate(1.2) blur(8px); }
 .mast-row { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-top: 10px; padding-bottom: 6px; flex-wrap: wrap; }
 .brand { font-family: var(--display); font-size: 1.875em; line-height: 1; text-decoration: none; color: var(--ink); white-space: nowrap; }
-.brand-icon { margin-inline-start: .333333em; }
 .brand-icon svg { width: 1em; height: 1em; vertical-align: baseline; }
 .brand-b { color: var(--muted); margin-left: .12em; }
 .topnav { display: flex; align-items: center; gap: 4px 14px; flex-wrap: wrap; font-size: 14px; font-weight: 600; }

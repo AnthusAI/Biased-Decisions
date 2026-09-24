@@ -38,11 +38,18 @@
       "text": "Landed PR #6. The SVG now shares Jersey 25 geometry: 41 grid steps per em, 25 for cap height, matching actual artwork top and baseline. SVG remains 1em with normal inline baseline alignment. Browser measured visible top alignment within 0.01px and identical baselines. Site build and all 24 checks pass.",
       "created_at": "2026-09-24T01:00:42.120052Z",
       "comment_type": "default"
+    },
+    {
+      "id": "a12fab4f-1db1-4df5-ad90-d8bce74b37b0",
+      "author": "home",
+      "text": "Horizontal spacing tightened and verified in the local browser. Site build and 24 checks pass. Landed in PR #8.",
+      "created_at": "2026-09-24T01:31:01.893534Z",
+      "comment_type": "default"
     }
   ],
   "created_at": "2026-09-24T00:02:54.421170Z",
-  "updated_at": "2026-09-24T01:00:42.305341Z",
-  "closed_at": "2026-09-24T01:00:42.305263Z",
+  "updated_at": "2026-09-24T01:31:02.182725Z",
+  "closed_at": "2026-09-24T01:31:02.182671Z",
   "agent": {
     "platform": "codex",
     "model": "GPT-6",

@@ -120,10 +120,22 @@
         "model": "GPT-6",
         "name": "Logo Glyph Proportions"
       }
+    },
+    {
+      "id": "3bb037cf-b1b5-47fd-b73c-8b5ba0d5914e",
+      "author": "home",
+      "text": "Tighten the horizontal logo gap: remove the added one-third-em margin, retaining the normal inline space and SVG side bearing. Verify the local header visually.",
+      "created_at": "2026-09-24T01:29:48.911578Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "codex",
+        "model": "GPT-6",
+        "name": "Logo Spacing"
+      }
     }
   ],
   "created_at": "2026-09-23T13:03:21.518944Z",
-  "updated_at": "2026-09-24T00:59:40.996347Z",
+  "updated_at": "2026-09-24T01:29:48.911636Z",
   "closed_at": null,
   "agent": {
     "platform": "claude-code",
