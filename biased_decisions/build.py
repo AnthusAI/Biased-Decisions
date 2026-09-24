@@ -32,6 +32,7 @@ from biased_decisions.cues.insertion import eligible as insertion_eligible
 from biased_decisions.cues.insertion import insert_clause, versions_for
 from biased_decisions.cues.names import name_versions
 from biased_decisions.cues.neutral import neutralize
+from biased_decisions import stereotypes
 from biased_decisions.tasks.base import Task
 from biased_decisions.tasks.items import Item
 
@@ -324,7 +325,38 @@ BUILDERS = {
 }
 
 
+def build_stereotype_items(task: Task) -> BuildResult:
+    """The stereotypes pool (``items.jsonl``), drawn from the four source tasks under the task's
+    root; see ``biased_decisions.stereotypes``. Written by ``write_stereotype_items``."""
+    return BuildResult(rows=stereotypes.build_items(task.root), excluded=0)
+
+
+def _stereotype_versions(axis: str):
+    def builder(task: Task) -> BuildResult:
+        items = [{"id": i.id, "text": i.text, "metadata": i.metadata} for i in task.load_items()]
+        return BuildResult(rows=stereotypes.build_versions(items, axis), excluded=0)
+    return builder
+
+
+# Cues of the ``stereotypes`` task: ``bd``-style ``build("religion", task)`` on that task.
+STEREOTYPE_BUILDERS = {"religion": _stereotype_versions("religion"),
+                       "nationality": _stereotype_versions("nationality")}
+
+
+def write_stereotype_items(task: Task, result: BuildResult) -> Path:
+    path = task.items_path
+    with path.open("w", encoding="utf-8") as handle:
+        for row in result.rows:
+            handle.write(json.dumps(row, ensure_ascii=False) + "\n")
+    return path
+
+
 def build(cue: str, task: Task) -> BuildResult:
+    if task.slug == stereotypes.SLUG:
+        try:
+            return STEREOTYPE_BUILDERS[cue](task)
+        except KeyError as error:
+            raise BuildError(f"unknown stereotypes axis {cue!r}") from error
     """Dispatch to the builder for ``cue``. Raises ``BuildError`` (never a bare ``KeyError``)
     for an unknown cue, so the CLI can print it without a traceback."""
     try:

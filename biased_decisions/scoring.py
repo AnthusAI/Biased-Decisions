@@ -27,6 +27,7 @@ from biased_decisions.metrics import neutral as neutral_metrics
 from biased_decisions.metrics import shortlist as shortlist_metrics
 from biased_decisions.metrics.flips import Verdict, score_arm_race, score_pair
 from biased_decisions.metrics.shifts import score_arm_age, score_arm_race2
+from biased_decisions import stereotypes
 from biased_decisions.record import read_record_by_id, record_path
 from biased_decisions.tasks.base import DEFAULT_ROOT, Task
 from biased_decisions.tasks.bios import BIOS_TASKS, ORIGINAL_BIOS_TASKS, split_test_and_twins
@@ -78,6 +79,9 @@ REGULATED_SHAPE: Dict[str, Dict[str, tuple]] = {
         "sexual-orientation": ("floor-left-handed", ("gay", "lesbian")),
         "disability": ("floor-cyclist", ("wheelchair",)),
     },
+    # Batch 2's trope axes: floor version, then the groups read against it. Scored by
+    # ``score_stereotypes`` (one row per engine, not the regulated shape's rows).
+    stereotypes.SLUG: {axis: (spec.floor, spec.groups) for axis, spec in stereotypes.AXES.items()},
 }
 REGULATED_TASKS: tuple = tuple(REGULATED_SHAPE)
 
@@ -488,7 +492,18 @@ SCORERS = {
 }
 
 
+def score_stereotypes(engine: str, task: Task, cue: str) -> dict:
+    if cue not in stereotypes.AXES:
+        raise ScoreError(f"no trope axis {cue!r} on {task.slug!r}; one of {tuple(stereotypes.AXES)}")
+    try:
+        return stereotypes.score_stereotypes(engine, task, cue)
+    except KeyError as error:
+        raise ScoreError(f"({engine!r}, {task.slug!r}, {cue!r}) has no answer for {error}") from error
+
+
 def score(engine: str, task: Task, cue: str, **kwargs) -> dict:
+    if task.slug == stereotypes.SLUG:
+        return score_stereotypes(engine, task, cue)
     if task.slug in REGULATED_SHAPE:
         return score_regulated(engine, task, cue)
     try:
