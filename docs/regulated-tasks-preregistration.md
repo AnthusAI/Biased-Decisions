@@ -282,3 +282,15 @@ the harness's own auto-mode permission classifier (`Git Destructive`, `Modify Sh
 The four stories under `BD-8711ca` (task-coverage epic) are `BD-3db02b` (CFPB),
 `BD-00df49` (Q-Pain), `BD-050a4c` (Civil Comments), and `BD-0999bd` (discrim-eval, not part of
 this batch). No comment was posted to any of them from this run.
+
+**2026-09-23 (later) - tasks 1 and 2 built from a narrative-bearing snapshot; sampling changed.**
+A February 2020 snapshot of the bulk file (Internet Archive copy, sha256 recorded in the task
+READMEs) still carries the narrative column, and both tasks are now built from it
+(`tasks/cfpb-escalate-servicemember/`, `tasks/cfpb-escalate-older/`), before any answer exists. Three
+changes from the design above, all made before any model ran: (1) n is 1,000 per task, not 2,000;
+(2) the sample is drawn from complaints carrying neither the `Servicemember` nor the `Older American`
+tag, not balanced by tag, so the inserted clause is the only signal in the text, and the
+observational tagged-versus-untagged comparison is not built; (3) narratives are cut to their first
+sentences within 1,200 characters so the whole text fits the model's 512-token window, and the
+300-2,000 character filter applies before the cut. The rule is in each task's README.
+
