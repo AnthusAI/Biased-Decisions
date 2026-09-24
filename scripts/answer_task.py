@@ -9,7 +9,8 @@ from pathlib import Path
 from typing import Any, Dict, List, Mapping, Optional
 
 from biased_decisions.tasks.base import Task, DEFAULT_ROOT
-from biased_decisions.engines.laya import LayaEngine, build_question
+from biased_decisions.engines.laya import build_question
+from biased_decisions.engines.builds import BUILDS, DEFAULT_BUILD, check_build, load_engine, model_tag
 from biased_decisions.record import write_record
 from biased_decisions.tasks.bios import BIOS_TASKS
 
@@ -21,8 +22,9 @@ async def run(
     *,
     engine: Optional[Any] = None,
     out_dir: Optional[Path] = None,
-    model_name: str = "laya-upstream:0.3.7",
+    model_name: Optional[str] = None,
     skip_as_written: bool = False,
+    build: str = DEFAULT_BUILD,
 ) -> None:
     """Run the answer script on a task and cue.
 
@@ -32,11 +34,14 @@ async def run(
         cue: The cue name (e.g., "race").
         engine: The engine to use (defaults to LayaEngine).
         out_dir: The output directory (defaults to root).
-        model_name: The model name string for the record.
+        model_name: The model name string for the record (defaults to the build and its version).
         skip_as_written: If True, skip answering the as-written set.
+        build: "laya" (PyTorch) or "laya-mlx"; picks the engine and the answers/<build>/ directory.
     """
     root = Path(root)
     out_dir = Path(out_dir) if out_dir else root
+    check_build(build)
+    model_name = model_name or model_tag(build)
 
     # Load the task.
     task = Task.load(task_slug, root=root)
@@ -47,20 +52,20 @@ async def run(
 
     # Use default engine if not provided.
     if engine is None:
-        engine = LayaEngine()
+        engine = load_engine(build)
 
     # Answer the as-written set unless skipped.
     if not skip_as_written:
         await _answer_set(
             root, out_dir, task_slug, "as-written",
             task.load_items(), questions, engine, model_name,
-            split_filter="test"
+            split_filter="test", build=build,
         )
 
     # Answer the cue set.
     await _answer_set(
         root, out_dir, task_slug, cue,
-        task.load_versions(cue), questions, engine, model_name
+        task.load_versions(cue), questions, engine, model_name, build=build
     )
 
 
@@ -74,6 +79,7 @@ async def _answer_set(
     engine: Any,
     model_name: str,
     split_filter: Optional[str] = None,
+    build: str = DEFAULT_BUILD,
 ) -> None:
     """Answer a set of items and write to a record file.
 
@@ -93,7 +99,7 @@ async def _answer_set(
         items = [item for item in items if item.metadata.get("split") == split_filter]
 
     # Determine output paths.
-    answers_dir = out_dir / "answers" / "laya" / task_slug
+    answers_dir = out_dir / "answers" / build / task_slug
     answers_dir.mkdir(parents=True, exist_ok=True)
 
     final_path = answers_dir / f"{name}.jsonl.gz"
@@ -166,14 +172,16 @@ async def _answer_set(
 
 async def main():
     """Command-line entry point."""
-    parser = argparse.ArgumentParser(description="Answer a task and cue with upstream Laya")
+    parser = argparse.ArgumentParser(description="Answer a task and cue with Laya")
     parser.add_argument("task", help="Task slug (e.g., qpain-treatment)")
     parser.add_argument("cue", help="Cue name (e.g., race)")
     parser.add_argument("--root", type=Path, default=DEFAULT_ROOT, help="Project root")
+    parser.add_argument("--build", choices=BUILDS, default=DEFAULT_BUILD,
+                        help="laya (PyTorch, default) or laya-mlx (Apple MLX)")
     parser.add_argument("--skip-as-written", action="store_true", help="Skip answering the as-written set")
     args = parser.parse_args()
 
-    await run(args.root, args.task, args.cue, skip_as_written=args.skip_as_written)
+    await run(args.root, args.task, args.cue, skip_as_written=args.skip_as_written, build=args.build)
 
 
 if __name__ == "__main__":

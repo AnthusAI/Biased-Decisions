@@ -20,6 +20,8 @@ from typing import Dict, List, Optional, Tuple, Any
 
 import yaml
 
+from biased_decisions.engines.builds import BUILDS, DEFAULT_BUILD, check_build, load_model, model_tag
+
 
 def read_questions(task_dir: Path) -> Dict[str, dict]:
     """Load questions from question.yaml and format for system_one call.
@@ -61,10 +63,11 @@ def rows_versions(task_dir: Path, plan_name: str) -> List[Tuple[str, str]]:
 class Plan:
     """A single answer plan (as-written or a versions plan)."""
 
-    def __init__(self, name: str, rows: List[Tuple[str, str]], out_dir: Path, task: str):
+    def __init__(self, name: str, rows: List[Tuple[str, str]], out_dir: Path, task: str,
+                 build: str = DEFAULT_BUILD):
         self.name = name
         self.rows = rows
-        self.out_dir = out_dir / "answers" / "laya" / task
+        self.out_dir = out_dir / "answers" / build / task
         self.out = self.out_dir / f"{name}.jsonl.gz"
         self.partial = self.out_dir / f"{name}.jsonl.partial.jsonl"
 
@@ -75,6 +78,7 @@ def answer_tropes(
     plan: str,
     model: Optional[Any] = None,
     out_dir: Optional[Path] = None,
+    build: str = DEFAULT_BUILD,
 ) -> None:
     """Run the answer script on a single plan for a trope task.
 
@@ -84,7 +88,9 @@ def answer_tropes(
         plan: The plan name ("as-written" or a versions file basename).
         model: The Laya model object (defaults to laya.load()).
         out_dir: The output directory (defaults to root).
+        build: "laya" (PyTorch) or "laya-mlx".
     """
+    check_build(build)
     root = Path(root)
     out_dir = Path(out_dir) if out_dir else root
     task_dir = root / "tasks" / task
@@ -97,19 +103,15 @@ def answer_tropes(
     else:
         rows = rows_versions(task_dir, plan)
 
-    plan_obj = Plan(plan, rows, out_dir, task)
+    plan_obj = Plan(plan, rows, out_dir, task, build)
 
     # Use default model if not provided (lazy import).
     if model is None:
-        import laya
-        model = laya.load()
-        model_tag = f"laya-upstream:{laya.__version__}"
-    else:
-        # For testing with a fake model, use a fixed tag.
-        model_tag = "laya-upstream:0.3.7"
+        model = load_model(build)
+    tag = model_tag(build)
 
     # Run the plan.
-    _run_plan(plan_obj, model, model_tag, questions)
+    _run_plan(plan_obj, model, tag, questions)
 
 
 def _run_plan(plan: Plan, model: Any, model_tag: str, questions: Dict[str, dict]) -> None:
@@ -221,17 +223,18 @@ def main() -> None:
         default=None,
         help="Output directory (default: root)"
     )
+    parser.add_argument("--build", choices=BUILDS, default=DEFAULT_BUILD,
+                        help="laya (PyTorch, default) or laya-mlx (Apple MLX)")
     args = parser.parse_args()
 
     root = Path(args.root)
     out_dir = Path(args.out_dir) if args.out_dir else root
 
-    # Import Laya lazily (only when not using a fake model for testing).
-    import laya
-    model = laya.load()
-    model_tag = f"laya-upstream:{laya.__version__}"
+    # Import the build lazily (only when not using a fake model for testing).
+    model = load_model(args.build)
+    tag = model_tag(args.build)
 
-    print(f"laya {laya.__version__}")
+    print(f"{tag}")
     print(f"task: {args.task}")
     print(f"plans: {args.plans}")
 
@@ -245,8 +248,8 @@ def main() -> None:
         else:
             rows = rows_versions(task_dir, plan_name)
 
-        plan_obj = Plan(plan_name, rows, out_dir, args.task)
-        _run_plan(plan_obj, model, model_tag, questions)
+        plan_obj = Plan(plan_name, rows, out_dir, args.task, args.build)
+        _run_plan(plan_obj, model, tag, questions)
 
     print(f"\nTOTAL wall time: {time.perf_counter() - overall_start:.1f}s")
 
