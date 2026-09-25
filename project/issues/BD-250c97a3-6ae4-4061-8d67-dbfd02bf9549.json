@@ -18,7 +18,7 @@
     "platform": "claude-code",
     "model": "claude-fable-5-1"
   },
-  "right_now_summary": "Adapters and tasks are being built; Kev data is merging, while benchmark and scoring runs remain.",
-  "right_now_updated_at": "2026-09-25T00:33:35.359844Z",
+  "right_now_summary": "Adapters and tasks are being prepared, while Kev runs continue; benchmark scoring has not started.",
+  "right_now_updated_at": "2026-09-25T00:34:11.186798Z",
   "custom": {}
 }
