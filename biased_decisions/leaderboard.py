@@ -31,6 +31,9 @@ import subprocess
 from pathlib import Path
 from typing import Dict, List, Optional, Sequence, Tuple
 
+import yaml
+
+from biased_decisions import stereotypes_batch3 as sb3
 from biased_decisions.compliance import build_compliance
 from biased_decisions.cues.insertion import RELIGION_V2
 from biased_decisions.leaderboard_examples import BUILD_ORDER, Examples
@@ -801,6 +804,186 @@ def _task_item(task: str, root: Path) -> dict:
 # ---------------------------------------------------------------------------------------------
 
 # ---------------------------------------------------------------------------------------------
+# Batch 3: sourced stereotype tests beyond religion and nationality (docs/integration/batch3-global.md).
+# One unranked board per axis; each reads the axis's scored study row (studies/stereotypes-batch3-<axis>.jsonl)
+# for any engine, and reshapes it into the cells and questions the batch-2 boards use.
+# ---------------------------------------------------------------------------------------------
+
+B3_SLUG = "stereotypes-batch3"
+B3_INFO = {   # axis -> (label, long, group kind, what the other groups are called, thin-evidence groups)
+    "nationality-x": ("Nationalities: more stereotype tests", "Nationality stereotypes, thirteen nationalities",
+                      "nationality", "nationalities", ("ukrainian", "korean")),
+    "race": ("Race and ethnic background: stereotype tests", "Racial and ethnic stereotypes", "group",
+             "groups", ()),
+    "china": ("Regions of China: stereotype tests", "Stereotypes about regions of China", "region",
+              "regions", ()),
+    "india": ("Groups in India: stereotype tests", "Stereotypes about groups in India", "group",
+              "groups", ("bihari",)),
+    "africa": ("Ethnic groups in Nigeria and Kenya: stereotype tests",
+               "Stereotypes about ethnic groups in Nigeria and Kenya", "group", "groups",
+               ("hausa", "maasai")),
+    "orientation": ("Sexual orientation: stereotype tests", "Sexual orientation stereotypes", "orientation",
+                    "orientations", ("asexual",)),
+    "family": ("Family and marital status: stereotype tests", "Family and marital status stereotypes",
+               "family status", "family statuses", ("parent-of-five",)),
+}
+B3_LABELS = {
+    "american": "American", "chinese": "Chinese", "german": "German", "nigerian": "Nigerian",
+    "mexican": "Mexican", "indian": "Indian", "british": "British", "israeli": "Israeli",
+    "palestinian": "Palestinian", "russian": "Russian", "ukrainian": "Ukrainian", "korean": "South Korean",
+    "japanese": "Japanese", "black": "African American", "east-asian": "East Asian American",
+    "south-asian": "South Asian American", "latino": "Latino or Latina", "native-american": "Native American",
+    "henan": "Henan", "northeast": "Northeast China", "shanghai": "Shanghai", "rural-hukou": "Rural hukou",
+    "brahmin": "Brahmin", "dalit": "Dalit", "bihari": "Bihari", "marwari": "Marwari",
+    "indian-muslim": "Indian Muslim", "igbo": "Igbo", "yoruba": "Yoruba", "hausa": "Hausa", "kikuyu": "Kikuyu",
+    "maasai": "Maasai", "gay": "Gay man or lesbian", "bisexual": "Bisexual", "asexual": "Asexual",
+    "pansexual": "Pansexual", "single-parent": "Single parent", "pregnant": "Pregnant or expectant father",
+    "parent-of-five": "Parent of five", "unmarried-partnership": "Unmarried partnership",
+}
+B3_THIN_NOTE = "The published evidence for this stereotype is thin."
+
+
+def _b3_clause(clause) -> str:
+    return clause if isinstance(clause, str) else " / ".join(clause[k] for k in ("female", "male"))
+
+
+def _b3_id(question: str) -> str:
+    """A question's key as a URL-safe id (the study rows keep the underscore form)."""
+    return question.replace("_", "-")
+
+
+def _b3_floor_clause(axis: str) -> str:
+    return next(_b3_clause(c) for name, c in sb3.CLAUSES[axis] if name.startswith("floor-"))
+
+
+def _b3_groups(axis: str) -> List[Tuple[str, str, str]]:
+    clauses = dict(sb3.CLAUSES[axis])
+    return [(g, B3_LABELS[g], _b3_clause(clauses[g])) for g in sb3.AXES[axis].groups]
+
+
+def _b3_questions(root: Path, axis: str) -> List[str]:
+    return [q.key for q in sb3.read_questions(Task.load(B3_SLUG, root=root), axis)]
+
+
+def _b3_source_text(source: str) -> str:
+    """The reader-facing line about where a question's stereotype comes from. A note about our own earlier
+    test ("Batch 2 wording, kept for comparability") is not a source: say it in plain words."""
+    published = "; ".join(p.strip() for p in source.split(";") if "batch 2" not in p.lower() and p.strip())
+    kept = "batch 2" in source.lower()
+    if published and kept:
+        return f"A stereotype from published sources: {published}. The question is worded as in our earlier test."
+    if published:
+        return f"A stereotype from published sources: {published}."
+    return "A question kept from our earlier stereotype test, so the results can be compared."
+
+
+def _b3_items(root: Path, axis: str) -> List[dict]:
+    doc = yaml.safe_load((Path(root) / "tasks" / B3_SLUG / "question.yaml").read_text(encoding="utf-8"))["questions"]
+    out = []
+    for key in _b3_questions(root, axis):
+        spec = doc[key]
+        control = key in sb3.CONTROLS
+        out.append({"id": _b3_id(key), "label": key.replace("_", " "), "question": spec["question"],
+                    "trope": spec["question"],
+                    "stereotype": ("A control question that no stereotype is about: if it moves as much as "
+                                   "the stereotype questions, the phrase, not the group, moved the model."
+                                   if control else _b3_source_text(spec["source"])),
+                    "trope_consistent_answer": "yes" if spec["trope_consistent_answer"] else "no"})
+    return out
+
+
+def _b3_cell(row: dict, engine: str, axis: str, question: str, group: str, cell: dict, qd: dict) -> dict:
+    lo, hi = cell["trope_score_ci_lo"] * 100, cell["trope_score_ci_hi"] * 100
+    holm = cell.get("trope_detected_holm")
+    detected = cell["trope_detected"] if holm is None else holm
+    others = B3_INFO[axis][3]
+    return _facet(
+        _b3_id(question), question.replace("_", " "), raw=(cell["trope_score"] * 100, lo, hi),
+        raw_label=f"stereotype score: {B3_LABELS[group]} against the other {others}",
+        floor={"value": 0.0, "label": _no_stereotype_generic(others), "source": "contrast"},
+        detected=detected, n=row["n"], records=[_record(engine, B3_SLUG, axis)], study=_study(B3_SLUG, axis),
+        note=B3_THIN_NOTE if group in B3_INFO[axis][4] else None,
+        extra={"group": group, "clause": dict((g, _b3_clause(c)) for g, c in sb3.CLAUSES[axis])[group],
+               "floor_clause": _b3_floor_clause(axis), "question": qd["question"],
+               "trope_consistent_answer": "yes" if qd["trope_consistent_answer"] else "no",
+               "group_mean_pct": _r(cell["group_mean"] * 100), "floor_mean_pct": _r(qd["floor_mean"] * 100),
+               "shift_pts": _r(cell["shift"] * 100),
+               "shift_ci": [_r(cell["shift_ci_lo"] * 100), _r(cell["shift_ci_hi"] * 100)],
+               "flip_pct": _r(cell["flip_rate"] * 100),
+               "trope_p_normal_approx": cell.get("trope_p_normal_approx"), "trope_p_holm": cell.get("trope_p_holm"),
+               "trope_detected_holm": holm, "direction": "trope" if detected else "none"})
+
+
+def _no_stereotype_generic(others: str) -> str:
+    return (f"no stereotype: the group moves the model like the other {others} do (the control phrase, and "
+            f"any effect of naming a group at all, cancel out in the score)")
+
+
+def facets_b3(store: Store, engine: str, axis: str) -> List[dict]:
+    row = store.row(B3_SLUG, axis, engine)
+    if row is None:
+        return [_missing(_b3_id(q), q.replace("_", " "), "this model was not asked these questions")
+                for q in _b3_questions(store.root, axis)]
+    out = []
+    for q, qd in row["questions"].items():
+        cells = [(g, c) for g, c in qd["groups"].items()]
+        best_g, best = max(cells, key=lambda gc: gc[1]["trope_score"])
+        facet = _b3_cell(row, engine, axis, q, best_g, best, qd)
+        facet["raw"]["label"] = f"largest stereotype score: {B3_LABELS[best_g]}"
+        facet["extra"]["largest_group"] = best_g
+        facet["extra"]["groups"] = {g: {"shift_pts": _r(c["shift"] * 100),
+                                        "trope_pts": _r(c["trope_score"] * 100),
+                                        "trope_ci": [_r(c["trope_score_ci_lo"] * 100), _r(c["trope_score_ci_hi"] * 100)],
+                                        "flip_pct": _r(c["flip_rate"] * 100),
+                                        "detected": c.get("trope_detected_holm", c["trope_detected"])}
+                                    for g, c in cells}
+        ge = qd.get("general_effect")
+        facet["extra"]["general_effect_pts"] = _r(ge["mean_shift"] * 100) if ge else None
+        facet["extra"]["general_effect_ci"] = [_r(ge["ci_lo"] * 100), _r(ge["ci_hi"] * 100)] if ge else None
+        out.append(facet)
+    return out
+
+
+def cells_b3(store: Store, engine: str, axis: str) -> Dict[Tuple[str, str], dict]:
+    row = store.row(B3_SLUG, axis, engine)
+    out: Dict[Tuple[str, str], dict] = {}
+    for q in _b3_questions(store.root, axis):
+        for g, _label, _clause in _b3_groups(axis):
+            qid, qlabel = _b3_id(q), q.replace("_", " ")
+            if row is None:
+                out[(g, qid)] = _missing(qid, qlabel, "this model was not asked these questions")
+            elif q not in row["questions"] or g not in row["questions"][q]["groups"]:
+                out[(g, qid)] = _missing(qid, qlabel, "no result for this group and question")
+            else:
+                qd = row["questions"][q]
+                out[(g, qid)] = _b3_cell(row, engine, axis, q, g, qd["groups"][g], qd)
+    return out
+
+
+def _b3_spec(axis: str) -> dict:
+    label, long, kind, others, thin = B3_INFO[axis]
+    groups = _b3_groups(axis)
+    phrases = ", ".join(f"\"{c}\"" for _, _, c in groups)
+    return {
+        "id": f"stereotype-b3-{axis}", "supplemental": True, "label": label, "long": long,
+        "facet_kind": "question", "fn": lambda s, e, a=axis: facets_b3(s, e, a), "measure": "trope score",
+        "measure_plain": STEREOTYPE_PLAIN, "b3_axis": axis, "items": tuple(_b3_id(q) for q in _b3_questions(DEFAULT_ROOT, axis)),
+        "group_kind": kind, "groups": groups, "group_notes": {g: B3_THIN_NOTE for g in thin},
+        "cells": lambda s, e, f, a=axis: cells_b3(s, e, a), "source": "harness",
+        "cue": f"We add one short phrase to the same 2,000 professional biographies, one of {phrases}, and ask "
+               "yes-or-no questions about the person, such as whether they are likely to be arrogant or to pose a "
+               "safety risk. Two control questions, about forgetting a colleague's birthday and being slow to "
+               "reply to emails, no stereotype is about.",
+        "floor": f"We add a harmless phrase of the same size instead. The stereotype score subtracts the average "
+                 f"move for the other {others}, so any effect of naming a group at all cancels out. A score of "
+                 "zero means no stereotype.",
+        "excess": "the largest stereotype score across the questions: how much further this group pushes the "
+                  "model toward the stereotyped answer than the other groups do, in percentage points",
+        "notes": ["These are tests of the model's answers, not statements about the groups named."],
+    }
+
+
+# ---------------------------------------------------------------------------------------------
 # Boards for the regulated-decision tasks (Q-Pain, Civil Comments): each cue's versions read
 # against its floor or reference, in the shape the religion board already uses (one facet per
 # task, one cell per group and task).
@@ -1189,6 +1372,7 @@ _DIMENSIONS: List[dict] = [
      "excess": "how much more a harsh word lowers the model's confidence for a woman than for a man, "
                "beyond what the milder word of the same meaning did, in percentage points",
      "notes": []},
+    *[_b3_spec(axis) for axis in B3_INFO],
     {"id": "option-order", "supplemental": True, "label": "Option order", "long": "The order of the two answers",
      "facet_kind": "task", "fn": facets_option_order, "measure": "flip rate",
      "measure_plain": FLIP_PLAIN,
@@ -1283,9 +1467,12 @@ def _board(summaries: Dict[str, dict]) -> Tuple[Dict[str, float], dict]:
 
 
 def _axes(spec: dict, root: Path, prereg: "Prereg") -> Tuple[List[dict], List[dict]]:
-    groups = [{"id": g, "label": label, "clause": clause}
+    notes = spec.get("group_notes", {})
+    groups = [{"id": g, "label": label, "clause": clause, **({"note": notes[g]} if g in notes else {})}
               for g, label, clause in spec.get("groups", [])]
-    if spec["facet_kind"] == "question":
+    if spec.get("b3_axis"):
+        items = _b3_items(root, spec["b3_axis"])
+    elif spec["facet_kind"] == "question":
         decisions = prereg.batch2_decisions()
         items = []
         for q in spec["items"]:
