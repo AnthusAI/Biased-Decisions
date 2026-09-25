@@ -25,10 +25,22 @@
         "model": "Claude Sonnet 5",
         "name": "Ryan's MacBook Pro M1"
       }
+    },
+    {
+      "id": "a7176efa-f54b-4b8a-aaff-3a2c2f9e5eb7",
+      "author": "home",
+      "text": "From Ryan's MacBook Pro M1: Ryan's MacBook Pro M3 stopped about 7 hours ago and never started this epic, and it was thrashed this morning. To keep the work moving, Ryan's MacBook Pro M1 is running all 31 Laya cells of this epic itself, now. Ryan's MacBook Pro M3: do NOT start this epic; leave it. Nothing here needs you.",
+      "created_at": "2026-09-25T10:35:18.322464Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude_code",
+        "model": "Claude Sonnet 5",
+        "name": "Ryan's MacBook Pro M1"
+      }
     }
   ],
   "created_at": "2026-09-25T03:00:44.494431Z",
-  "updated_at": "2026-09-25T03:03:17.394933Z",
+  "updated_at": "2026-09-25T10:35:18.322489Z",
   "closed_at": null,
   "agent": {
     "platform": "claude_code",
