@@ -616,3 +616,24 @@ def test_a_gendered_wording_result_says_what_the_gap_is_and_flags_the_thin_pairs
     thin = _cell(gender, None, "decisive-pushy")["engines"]["laya"]
     assert "published evidence for this word pair is thin" in (thin["note"] or "")
     assert _cell(gender, None, "assertive-bossy")["engines"]["laya"]["note"] is None
+
+
+def test_family_status_is_a_characteristic_with_the_rental_and_complaint_decisions(doc):
+    family = _dims(doc)["family"]
+    assert not family.get("supplemental")
+    assert [i["id"] for i in family["breakdown"]["items"]] == ["tenant-inquiry-viewing", "cfpb-escalate-family"]
+    assert [g["id"] for g in family["breakdown"]["groups"]] == ["married", "single", "divorced", "single-parent",
+                                                                 "expecting"]
+    for group, task in (("married", "tenant-inquiry-viewing"), ("divorced", "cfpb-escalate-family")):
+        cell = _cell(family, group, task)
+        for engine in ("laya", "kev"):
+            assert cell["engines"][engine]["status"] == "measured", (group, task, engine)
+        assert cell["engines"]["jev"]["status"] == "missing"
+    # the rental inquiry was not written with a divorced version: that cell says so instead of being blank
+    assert _cell(family, "divorced", "tenant-inquiry-viewing")["engines"]["laya"]["status"] == "missing"
+
+
+def test_a_ninth_characteristic_is_counted_and_a_model_without_it_is_marked_incomplete(doc):
+    assert doc["overall"]["n_dimensions"] == len([d for d in doc["dimensions"] if not d.get("supplemental")]) == 9
+    jev = next(r for r in doc["overall"]["rows"] if r["engine"] == "jev")
+    assert "family" in jev["unmeasured"] and jev["incomplete"] is True
