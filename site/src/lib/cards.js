@@ -269,6 +269,7 @@ export function allCards() {
   }
   out.push(finish(`${urls.home()}how-to-fail/`, inversionCard(), pageIntroductions.failure));
   out.push(finish(`${urls.home()}guidance/`, guidanceCard(), pageIntroductions.guidance));
+  out.push(finish(`${urls.home()}stereotypes/`, { template: "guidance", alarm: false, rows: [{ text: "Seven sets of stereotype questions, each with its published sources" }] }, pageIntroductions.stereotypes));
   cache = out;
   return out;
 }

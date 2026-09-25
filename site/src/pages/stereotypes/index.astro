@@ -1,0 +1,55 @@
+---
+// The stereotype tests: what we asked, and where every stereotype comes from.
+import Base from "../../layouts/Base.astro";
+import { pageIntroductions, categoryIntro } from "../../lib/introductions.js";
+import { supplementalDimensions, engines, urls } from "../../lib/site.js";
+import { SOURCES, DROPPED, CHECKED } from "../../lib/stereotype-sources.js";
+
+const boards = supplementalDimensions.filter((d) => d.id.startsWith("stereotype-b3-"));
+const groups = [...new Set(SOURCES.map((s) => s.group))];
+const intro = pageIntroductions.stereotypes;
+---
+<Base title={intro.title} description={intro.intro} path={`${urls.home()}stereotypes/`} current={{ page: "stereotypes" }}
+  crumbs={[{ label: "Leaderboard", href: urls.home() }, { label: "Stereotype tests" }]}>
+  <section class="wrap hero">
+    <p class="kicker">Stereotype tests</p>
+    <h1 class="display xl">{intro.title}</h1>
+    <p class="deck">{intro.intro}</p>
+  </section>
+
+  <section class="wrap section" id="boards" aria-labelledby="boards-h">
+    <h2 class="display" id="boards-h">What we asked</h2>
+    <p class="lede">For each group we added one short phrase to the same short professional biography, then asked a yes-or-no question about a stereotype, such as whether the person is likely to be dishonest. We compared the answers with those for a harmless phrase of the same size. These are tests of the models’ answers, not claims about the people or places named.</p>
+    <div class="dim-grid">
+      {boards.map((d) => {
+        const bd = d.breakdown;
+        const tested = engines.filter((en) => d.cells[en.id].status === "measured").map((en) => en.label);
+        return (
+          <a class="dim-card" href={urls.dim(d.id)}>
+            <div class="dim-card-h">{d.long}</div>
+            <p>{categoryIntro(d)?.title}</p>
+            <div class="dim-card-f">{bd.groups.length} groups × {bd.items.length} questions · tested on {tested.join(" and ") || "no model yet"}</div>
+          </a>
+        );
+      })}
+    </div>
+  </section>
+
+  <section class="wrap section" id="sources" aria-labelledby="sources-h">
+    <h2 class="display" id="sources-h">Where these stereotypes come from</h2>
+    <p class="lede">We did not make these stereotypes up. Each one comes from a published source that documents it, and we checked each source before using it. Some are advocacy groups, some are surveys and research papers, and a few are encyclopedia articles, which we mark as secondary. “Checked” says how far we got with each.</p>
+    {groups.map((g) => (
+      <Fragment>
+        <h3>{g}</h3>
+        <ul class="cite-list">
+          {SOURCES.filter((s) => s.group === g).map((s) => (
+            <li>{s.url ? <a href={s.url} rel="noopener">{s.title}</a> : s.title}, {s.by}. <em>Checked: {CHECKED[s.checked].toLowerCase()}.</em></li>
+          ))}
+        </ul>
+      </Fragment>
+    ))}
+    <h3>Sources we did not use</h3>
+    <ul class="unmeasured-list">{DROPPED.map((t) => <li>{t}</li>)}</ul>
+    <p class="footnote">Our full notes are in the <a href="https://github.com/AnthusAI/Biased-Decisions/blob/main/docs/batch3-preregistration.md">public repository</a>.</p>
+  </section>
+</Base>
