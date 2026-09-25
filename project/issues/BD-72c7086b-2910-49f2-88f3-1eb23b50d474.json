@@ -71,7 +71,7 @@
     "model": "Claude Sonnet 5",
     "name": "Biased Decisions"
   },
-  "right_now_summary": "All 21 Kev runs are complete, with results merged into develop.",
-  "right_now_updated_at": "2026-09-25T02:58:50.331807Z",
+  "right_now_summary": "Kev is running the small-business-loan study; the other assigned runs are complete or handled elsewhere.",
+  "right_now_updated_at": "2026-09-25T02:59:22.294071Z",
   "custom": {}
 }
