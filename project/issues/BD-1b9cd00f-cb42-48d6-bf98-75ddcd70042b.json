@@ -3,7 +3,7 @@
   "title": "Run Kev: stereotypes-sexuality (batch2-veteran-sexuality, 2 cells, 3,054 requests)",
   "description": "**Part of epic BD-72c708: follow its instructions and the runbook in BD-dd780c.** Work from `develop`; never push to `main`.\n\n**Job:** Kev first pass on `stereotypes-sexuality` (batch2-veteran-sexuality): 2 cells, exactly 3,054 requests, about 5 minutes.\n**Manifest:** `docs/kev-runs/batch2-veteran-sexuality/stereotypes-sexuality.json` (on `develop`).\n**Writes:** `answers/kev/stereotypes-sexuality/`. Branch: `runs/<this issue id>`.\n**Then:** comment the request count and any error here, close, `kbs commit`, push `develop`.",
   "type": "task",
-  "status": "open",
+  "status": "in_progress",
   "priority": 2,
   "assignee": null,
   "creator": null,
@@ -13,16 +13,29 @@
     "model-kev"
   ],
   "dependencies": [],
-  "comments": [],
+  "comments": [
+    {
+      "id": "98c655d7-95f3-44d6-a0d0-6b51a4c6a852",
+      "author": "ryan",
+      "text": "Starting the capped first-pass manifest docs/kev-runs/batch2-veteran-sexuality/stereotypes-sexuality.json: 3,054 requests total (2,036 + 1,018), item_cap=500 in every cell. Provenance: platform=Codex, model=GPT-5, agent=Biased-Decisions.",
+      "created_at": "2026-09-25T00:26:39.797387Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "codex",
+        "model": "GPT-5",
+        "name": "Biased-Decisions"
+      }
+    }
+  ],
   "created_at": "2026-09-24T23:15:32.075594Z",
-  "updated_at": "2026-09-24T23:15:32.075621Z",
+  "updated_at": "2026-09-25T00:26:39.797411Z",
   "closed_at": null,
   "agent": {
     "platform": "claude_code",
     "model": "Claude Sonnet 5",
     "name": "Biased Decisions"
   },
-  "right_now_summary": null,
-  "right_now_updated_at": null,
+  "right_now_summary": "Kev is running the capped first pass with 3,054 requests across two cells.",
+  "right_now_updated_at": "2026-09-25T00:26:41.863332Z",
   "custom": {}
 }
