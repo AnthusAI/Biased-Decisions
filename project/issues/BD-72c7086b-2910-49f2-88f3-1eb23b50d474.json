@@ -71,7 +71,7 @@
     "model": "Claude Sonnet 5",
     "name": "Biased Decisions"
   },
-  "right_now_summary": "Kev results from all 21 runs are merged into develop, with no reported errors.",
-  "right_now_updated_at": "2026-09-25T02:48:08.056572Z",
+  "right_now_summary": "Kev is running tenant-inquiry-viewing; its 7,500 requests are the final listed run.",
+  "right_now_updated_at": "2026-09-25T02:48:51.633230Z",
   "custom": {}
 }
