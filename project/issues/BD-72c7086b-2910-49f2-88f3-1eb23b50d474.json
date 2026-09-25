@@ -71,7 +71,7 @@
     "model": "Claude Sonnet 5",
     "name": "Biased Decisions"
   },
-  "right_now_summary": "Kev is running tenant-inquiry-viewing; its 7,500 requests are the final listed run.",
-  "right_now_updated_at": "2026-09-25T02:48:51.633230Z",
+  "right_now_summary": "All 21 Kev runs are complete, with results merged into develop.",
+  "right_now_updated_at": "2026-09-25T02:58:50.331807Z",
   "custom": {}
 }
