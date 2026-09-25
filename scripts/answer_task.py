@@ -11,6 +11,7 @@ from typing import Any, Dict, List, Mapping, Optional
 from biased_decisions.tasks.base import Task, DEFAULT_ROOT
 from biased_decisions.engines.laya import build_question
 from biased_decisions.engines.builds import BUILDS, DEFAULT_BUILD, check_build, load_engine, model_tag
+from biased_decisions.subsample import cell_sample
 from biased_decisions.record import write_record
 from biased_decisions.tasks.bios import BIOS_TASKS
 
@@ -25,6 +26,7 @@ async def run(
     model_name: Optional[str] = None,
     skip_as_written: bool = False,
     build: str = DEFAULT_BUILD,
+    item_cap: Optional[int] = None,
 ) -> None:
     """Run the answer script on a task and cue.
 
@@ -37,6 +39,8 @@ async def run(
         model_name: The model name string for the record (defaults to the build and its version).
         skip_as_written: If True, skip answering the as-written set.
         build: "laya" (PyTorch) or "laya-mlx"; picks the engine and the answers/<build>/ directory.
+        item_cap: answer only the first N item families of the registered subsample
+            (docs/subsample-preregistration.md); None answers everything.
     """
     root = Path(root)
     out_dir = Path(out_dir) if out_dir else root
@@ -59,13 +63,13 @@ async def run(
         await _answer_set(
             root, out_dir, task_slug, "as-written",
             task.load_items(), questions, engine, model_name,
-            split_filter="test", build=build,
+            split_filter="test", build=build, item_cap=item_cap,
         )
 
     # Answer the cue set.
     await _answer_set(
         root, out_dir, task_slug, cue,
-        task.load_versions(cue), questions, engine, model_name, build=build
+        task.load_versions(cue), questions, engine, model_name, build=build, item_cap=item_cap,
     )
 
 
@@ -80,6 +84,7 @@ async def _answer_set(
     model_name: str,
     split_filter: Optional[str] = None,
     build: str = DEFAULT_BUILD,
+    item_cap: Optional[int] = None,
 ) -> None:
     """Answer a set of items and write to a record file.
 
@@ -97,6 +102,7 @@ async def _answer_set(
     # Filter items if split_filter is provided.
     if split_filter:
         items = [item for item in items if item.metadata.get("split") == split_filter]
+    items = cell_sample(items, task_slug, name, item_cap, root / "tasks" / task_slug / "versions")
 
     # Determine output paths.
     answers_dir = out_dir / "answers" / build / task_slug
@@ -159,8 +165,10 @@ async def _answer_set(
                 print(f"  {idx + 1 - len(existing_ids)}/{total - len(existing_ids)} items, {items_per_sec:.1f} items/sec")
                 last_print_time = now
 
-    # Write the final file with both existing and new rows.
-    all_rows = existing_rows + rows
+    # Write the final file: exactly the planned rows, in plan order. Leftover partial rows outside the
+    # plan (a larger earlier run) are dropped so a capped record covers only its registered sample.
+    by_id = {row["id"]: row for row in existing_rows + rows}
+    all_rows = [by_id[item.id] for item in items]
     write_record(final_path, all_rows)
 
     # Delete the partial file.
@@ -179,9 +187,12 @@ async def main():
     parser.add_argument("--build", choices=BUILDS, default=DEFAULT_BUILD,
                         help="laya (PyTorch, default) or laya-mlx (Apple MLX)")
     parser.add_argument("--skip-as-written", action="store_true", help="Skip answering the as-written set")
+    parser.add_argument("--item-cap", type=int, default=None,
+                        help="answer only the first N item families of the registered subsample")
     args = parser.parse_args()
 
-    await run(args.root, args.task, args.cue, skip_as_written=args.skip_as_written, build=args.build)
+    await run(args.root, args.task, args.cue, skip_as_written=args.skip_as_written, build=args.build,
+              item_cap=args.item_cap)
 
 
 if __name__ == "__main__":
