@@ -1,0 +1,36 @@
+{
+  "id": "BD-df844fc1-6ef4-4da3-8660-a8c590022709",
+  "title": "Civil Comments JEVPA replication with expanded discovery",
+  "description": "Given the checksum-pinned Civil Comments validation parquet and the first study split, when a second deterministic 30,000-row sample is frozen disjoint from the first sample before any analyst or Jev call, then it provides 500 discovery labels, 500 slice-enriched selection rows, and 1,000 random final-test rows. The analyst sees only discovery text and binary toxicity label. Four shared initial proposals must add exactly one element each; each arm gets two precommitted branch proposals. Retain nondominated candidates across overall, threat, and identity-attack selection Brier only when both sealed slices have enough toxic support. Record all calls and actual usage; enforce a 4,500 Jev-request ceiling and $35 provider ceiling.",
+  "type": "story",
+  "status": "in_progress",
+  "priority": 2,
+  "assignee": null,
+  "creator": null,
+  "parent": "BD-8711caaf-17a6-4c26-a826-496dfd6bae82",
+  "labels": [],
+  "dependencies": [],
+  "comments": [
+    {
+      "id": "9748a1b9-0de6-4046-8390-18fef12c0c62",
+      "author": "home",
+      "text": "Agent root (Codex, gpt-6-astra): Started the independent replication. The fixed design uses a 500-label discovery set, 500 selection rows, and 1,000 final-test rows drawn from a new 30,000-row sample disjoint from the first study sample. Source annotations remain sealed from the analyst.",
+      "created_at": "2026-09-25T19:56:50.416561Z",
+      "comment_type": "default"
+    }
+  ],
+  "created_at": "2026-09-25T19:55:23.230111Z",
+  "updated_at": "2026-09-25T19:56:50.416602Z",
+  "closed_at": null,
+  "agent": {
+    "platform": "codex",
+    "model": "gpt-6-astra",
+    "name": "root",
+    "settings": {
+      "study": "JEVPA replication"
+    }
+  },
+  "right_now_summary": null,
+  "right_now_updated_at": null,
+  "custom": {}
+}
