@@ -239,3 +239,15 @@ async def test_answers_come_back_normalized_from_a_request():
 
     assert result.answers["i"]["probabilities"] == {"0": 0.5, "1": 0.5}
     assert result.model == "jev-test"
+
+
+@pytest.mark.asyncio
+async def test_the_engine_reports_usage_and_model_with_each_answer_so_it_can_run_concurrently():
+    from biased_decisions.engines.jev import JevEngine
+    client = FakeClient(answers={"Decision": {"type": "choice", "choice": "yes", "probabilities": {1: 0.9}}},
+                        usage=FakeUsage(input_tokens=321, output_tokens=7))
+    engine = JevEngine(JevSession(client_factory=lambda: client))
+    answers, meta = await engine.answer_with_meta("some text", {"Decision": {"type": "choice"}})
+    assert answers["Decision"]["probabilities"] == {"1": 0.9}
+    assert meta == {"usage": {"input_tokens": 321, "output_tokens": 7}, "model": "jev-test"}
+    assert len(client.calls) == 1

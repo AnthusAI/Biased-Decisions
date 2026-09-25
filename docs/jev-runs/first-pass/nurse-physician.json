@@ -1,0 +1,54 @@
+{
+  "schema": "kev-coverage@1",
+  "checkpoint": "jaredpalmer/kev-0.8b@54f4f8777356cd5bbbb6c6919c657f26e6f2f6d8",
+  "cells": [
+    {
+      "task": "nurse-physician",
+      "cue": "disability",
+      "requests": 1000,
+      "status": "ready",
+      "files": {
+        "tasks/nurse-physician/question.yaml": "f6410ff4ec6425c01bcb8dafd95f86a9b361a461fb07c2f0a98f57d1f90ac551",
+        "tasks/nurse-physician/items.jsonl": "eb053149abad9c87d59836cf107a146d2a4c7b527d7cbf2119e0632346fc892e",
+        "tasks/nurse-physician/versions/disability.jsonl": "6e562f9c34b624f133fdf46ca3862a88d86cbe658f917f83052037c0d17d5ec4"
+      },
+      "item_cap": 500
+    },
+    {
+      "task": "nurse-physician",
+      "cue": "religion",
+      "requests": 2500,
+      "status": "ready",
+      "files": {
+        "tasks/nurse-physician/question.yaml": "f6410ff4ec6425c01bcb8dafd95f86a9b361a461fb07c2f0a98f57d1f90ac551",
+        "tasks/nurse-physician/items.jsonl": "eb053149abad9c87d59836cf107a146d2a4c7b527d7cbf2119e0632346fc892e",
+        "tasks/nurse-physician/versions/religion.jsonl": "005532ae14cf937f4ad6777ce5642ebfb872f16772a7d94d2fc67fa15044989c"
+      },
+      "item_cap": 500
+    },
+    {
+      "task": "nurse-physician",
+      "cue": "religion-v2",
+      "requests": 2500,
+      "status": "ready",
+      "files": {
+        "tasks/nurse-physician/question.yaml": "f6410ff4ec6425c01bcb8dafd95f86a9b361a461fb07c2f0a98f57d1f90ac551",
+        "tasks/nurse-physician/items.jsonl": "eb053149abad9c87d59836cf107a146d2a4c7b527d7cbf2119e0632346fc892e",
+        "tasks/nurse-physician/versions/religion-v2.jsonl": "a0235de55669156565106c6b0fb6fb7fb979ab7dee091f2f737e6ba95e0e29d2"
+      },
+      "item_cap": 500
+    },
+    {
+      "task": "nurse-physician",
+      "cue": "neutral",
+      "requests": 999,
+      "status": "ready",
+      "files": {
+        "tasks/nurse-physician/question.yaml": "f6410ff4ec6425c01bcb8dafd95f86a9b361a461fb07c2f0a98f57d1f90ac551",
+        "tasks/nurse-physician/items.jsonl": "eb053149abad9c87d59836cf107a146d2a4c7b527d7cbf2119e0632346fc892e",
+        "tasks/nurse-physician/versions/neutral.jsonl": "eb7a6fae1e1fed2c589a7b013491b7c068b285b524ff3d5adff7888270a688af"
+      },
+      "item_cap": 500
+    }
+  ]
+}

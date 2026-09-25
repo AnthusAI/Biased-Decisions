@@ -1,0 +1,77 @@
+{
+  "schema": "kev-coverage@1",
+  "checkpoint": "jaredpalmer/kev-0.8b@54f4f8777356cd5bbbb6c6919c657f26e6f2f6d8",
+  "cells": [
+    {
+      "task": "loan-narratives-antisemitism",
+      "cue": "as-written",
+      "requests": 200,
+      "status": "ready",
+      "files": {
+        "tasks/loan-narratives-antisemitism/question.yaml": "5698e9bc06140be702b06ac16c40b75b4b474336fea9cbe481f43658cb1750c1",
+        "tasks/loan-narratives-antisemitism/items.jsonl": "cebed65b268d869a3eba48b5f6fa052cf6d3e791ba355286e96df5cd4a5972e0"
+      },
+      "item_cap": 500
+    },
+    {
+      "task": "loan-narratives-antisemitism",
+      "cue": "antisemitism-religious",
+      "requests": 800,
+      "status": "ready",
+      "files": {
+        "tasks/loan-narratives-antisemitism/question.yaml": "5698e9bc06140be702b06ac16c40b75b4b474336fea9cbe481f43658cb1750c1",
+        "tasks/loan-narratives-antisemitism/items.jsonl": "cebed65b268d869a3eba48b5f6fa052cf6d3e791ba355286e96df5cd4a5972e0",
+        "tasks/loan-narratives-antisemitism/versions/antisemitism-religious.jsonl": "9e112a713bea5088f77ffd728a51ab0a9e3eb8dfa5eee701207ba36d1a5a734c"
+      },
+      "item_cap": 500
+    },
+    {
+      "task": "loan-narratives-antisemitism",
+      "cue": "antisemitism-secular",
+      "requests": 1000,
+      "status": "ready",
+      "files": {
+        "tasks/loan-narratives-antisemitism/question.yaml": "5698e9bc06140be702b06ac16c40b75b4b474336fea9cbe481f43658cb1750c1",
+        "tasks/loan-narratives-antisemitism/items.jsonl": "cebed65b268d869a3eba48b5f6fa052cf6d3e791ba355286e96df5cd4a5972e0",
+        "tasks/loan-narratives-antisemitism/versions/antisemitism-secular.jsonl": "04c152950014c73db06739552bbc3c7743ad174f850c0b47981b9500afde5617"
+      },
+      "item_cap": 500
+    },
+    {
+      "task": "loan-narratives-antisemitism",
+      "cue": "antisemitism-nationality",
+      "requests": 1000,
+      "status": "ready",
+      "files": {
+        "tasks/loan-narratives-antisemitism/question.yaml": "5698e9bc06140be702b06ac16c40b75b4b474336fea9cbe481f43658cb1750c1",
+        "tasks/loan-narratives-antisemitism/items.jsonl": "cebed65b268d869a3eba48b5f6fa052cf6d3e791ba355286e96df5cd4a5972e0",
+        "tasks/loan-narratives-antisemitism/versions/antisemitism-nationality.jsonl": "36f3480fcd4b44b509a2107462e8219165f67c06e466ad2fce629bb178e8f07e"
+      },
+      "item_cap": 500
+    },
+    {
+      "task": "loan-narratives-antisemitism",
+      "cue": "antisemitism-role",
+      "requests": 800,
+      "status": "ready",
+      "files": {
+        "tasks/loan-narratives-antisemitism/question.yaml": "5698e9bc06140be702b06ac16c40b75b4b474336fea9cbe481f43658cb1750c1",
+        "tasks/loan-narratives-antisemitism/items.jsonl": "cebed65b268d869a3eba48b5f6fa052cf6d3e791ba355286e96df5cd4a5972e0",
+        "tasks/loan-narratives-antisemitism/versions/antisemitism-role.jsonl": "6549b565ee2227774d2dd3fc07895b9a85778e76709bf4cf60d1611cc49a8eb6"
+      },
+      "item_cap": 500
+    },
+    {
+      "task": "loan-narratives-antisemitism",
+      "cue": "antisemitism-surname",
+      "requests": 400,
+      "status": "ready",
+      "files": {
+        "tasks/loan-narratives-antisemitism/question.yaml": "5698e9bc06140be702b06ac16c40b75b4b474336fea9cbe481f43658cb1750c1",
+        "tasks/loan-narratives-antisemitism/items.jsonl": "cebed65b268d869a3eba48b5f6fa052cf6d3e791ba355286e96df5cd4a5972e0",
+        "tasks/loan-narratives-antisemitism/versions/antisemitism-surname.jsonl": "31a924bc75e60e74e0212d5eb16afef60481e7d883571a93206237462d4e5ce0"
+      },
+      "item_cap": 500
+    }
+  ]
+}

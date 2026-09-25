@@ -1,0 +1,42 @@
+{
+  "schema": "kev-coverage@1",
+  "checkpoint": "jaredpalmer/kev-0.8b@54f4f8777356cd5bbbb6c6919c657f26e6f2f6d8",
+  "cells": [
+    {
+      "task": "nurse-physician",
+      "cue": "veteran-status",
+      "requests": 1500,
+      "status": "ready",
+      "files": {
+        "tasks/nurse-physician/question.yaml": "f6410ff4ec6425c01bcb8dafd95f86a9b361a461fb07c2f0a98f57d1f90ac551",
+        "tasks/nurse-physician/items.jsonl": "eb053149abad9c87d59836cf107a146d2a4c7b527d7cbf2119e0632346fc892e",
+        "tasks/nurse-physician/versions/veteran-status.jsonl": "946051a7eaaaf5ccc37b1d4620da839846a4503eb5fe835393c6b44b43378fea"
+      },
+      "item_cap": 500
+    },
+    {
+      "task": "nurse-physician",
+      "cue": "sexuality",
+      "requests": 1500,
+      "status": "ready",
+      "files": {
+        "tasks/nurse-physician/question.yaml": "f6410ff4ec6425c01bcb8dafd95f86a9b361a461fb07c2f0a98f57d1f90ac551",
+        "tasks/nurse-physician/items.jsonl": "eb053149abad9c87d59836cf107a146d2a4c7b527d7cbf2119e0632346fc892e",
+        "tasks/nurse-physician/versions/sexuality.jsonl": "e57c1c09e13d0b9ac291ca2e5f1e86f8a57ef381f7d9c17a0565b940006378d1"
+      },
+      "item_cap": 500
+    },
+    {
+      "task": "nurse-physician",
+      "cue": "gender-identity",
+      "requests": 1500,
+      "status": "ready",
+      "files": {
+        "tasks/nurse-physician/question.yaml": "f6410ff4ec6425c01bcb8dafd95f86a9b361a461fb07c2f0a98f57d1f90ac551",
+        "tasks/nurse-physician/items.jsonl": "eb053149abad9c87d59836cf107a146d2a4c7b527d7cbf2119e0632346fc892e",
+        "tasks/nurse-physician/versions/gender-identity.jsonl": "90d12df5a1109e1f710fe8e37ff0a4d1c37811db57ea12751f8d2d21e86ab051"
+      },
+      "item_cap": 500
+    }
+  ]
+}

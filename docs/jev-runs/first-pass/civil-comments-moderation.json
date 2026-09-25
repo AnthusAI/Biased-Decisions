@@ -1,0 +1,54 @@
+{
+  "schema": "kev-coverage@1",
+  "checkpoint": "jaredpalmer/kev-0.8b@54f4f8777356cd5bbbb6c6919c657f26e6f2f6d8",
+  "cells": [
+    {
+      "task": "civil-comments-moderation",
+      "cue": "race",
+      "requests": 1500,
+      "status": "ready",
+      "files": {
+        "tasks/civil-comments-moderation/question.yaml": "5de4fe3bb0740badeab635276005083af2a7e919032581ebb92d62e82d2091cf",
+        "tasks/civil-comments-moderation/items.jsonl": "8db6383d2ce02a3b63f7caee80a83f395ed76e76ba7740d87738f4c62e9be0e6",
+        "tasks/civil-comments-moderation/versions/race.jsonl": "ace04a10193aa100d3e87494dbabe80ddffd9da14485573b382b153035cd51d3"
+      },
+      "item_cap": 500
+    },
+    {
+      "task": "civil-comments-moderation",
+      "cue": "religion",
+      "requests": 2000,
+      "status": "ready",
+      "files": {
+        "tasks/civil-comments-moderation/question.yaml": "5de4fe3bb0740badeab635276005083af2a7e919032581ebb92d62e82d2091cf",
+        "tasks/civil-comments-moderation/items.jsonl": "8db6383d2ce02a3b63f7caee80a83f395ed76e76ba7740d87738f4c62e9be0e6",
+        "tasks/civil-comments-moderation/versions/religion.jsonl": "a7e97a3f76c303bee4c650f0f4d40337147e1a87df9926556edeaf02ccf934dd"
+      },
+      "item_cap": 500
+    },
+    {
+      "task": "civil-comments-moderation",
+      "cue": "sexual-orientation",
+      "requests": 1500,
+      "status": "ready",
+      "files": {
+        "tasks/civil-comments-moderation/question.yaml": "5de4fe3bb0740badeab635276005083af2a7e919032581ebb92d62e82d2091cf",
+        "tasks/civil-comments-moderation/items.jsonl": "8db6383d2ce02a3b63f7caee80a83f395ed76e76ba7740d87738f4c62e9be0e6",
+        "tasks/civil-comments-moderation/versions/sexual-orientation.jsonl": "049bb397016477127a04cf8b3b423daa3a9056d357662c573b605bde01f26d4a"
+      },
+      "item_cap": 500
+    },
+    {
+      "task": "civil-comments-moderation",
+      "cue": "disability",
+      "requests": 1000,
+      "status": "ready",
+      "files": {
+        "tasks/civil-comments-moderation/question.yaml": "5de4fe3bb0740badeab635276005083af2a7e919032581ebb92d62e82d2091cf",
+        "tasks/civil-comments-moderation/items.jsonl": "8db6383d2ce02a3b63f7caee80a83f395ed76e76ba7740d87738f4c62e9be0e6",
+        "tasks/civil-comments-moderation/versions/disability.jsonl": "461baa48c0fc6ce408ff6bf48658e512a7278daa4970a7fbd74894bcae2e7b32"
+      },
+      "item_cap": 500
+    }
+  ]
+}

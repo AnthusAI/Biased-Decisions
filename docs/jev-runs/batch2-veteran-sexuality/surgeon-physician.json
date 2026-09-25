@@ -1,0 +1,42 @@
+{
+  "schema": "kev-coverage@1",
+  "checkpoint": "jaredpalmer/kev-0.8b@54f4f8777356cd5bbbb6c6919c657f26e6f2f6d8",
+  "cells": [
+    {
+      "task": "surgeon-physician",
+      "cue": "veteran-status",
+      "requests": 1500,
+      "status": "ready",
+      "files": {
+        "tasks/surgeon-physician/question.yaml": "0a275d02c19011bf2342bb1528a6d8095dd2223f14dd359d41de3463a4e03fe9",
+        "tasks/surgeon-physician/items.jsonl": "bb4cd5fdc74a54f154b453a96c254c34c0fe5bfff15f1e0c4bec23c192531c0a",
+        "tasks/surgeon-physician/versions/veteran-status.jsonl": "682dba56319af8b170dd4531b34e9619c666fcdffe08a953c0df57e8795dd449"
+      },
+      "item_cap": 500
+    },
+    {
+      "task": "surgeon-physician",
+      "cue": "sexuality",
+      "requests": 1500,
+      "status": "ready",
+      "files": {
+        "tasks/surgeon-physician/question.yaml": "0a275d02c19011bf2342bb1528a6d8095dd2223f14dd359d41de3463a4e03fe9",
+        "tasks/surgeon-physician/items.jsonl": "bb4cd5fdc74a54f154b453a96c254c34c0fe5bfff15f1e0c4bec23c192531c0a",
+        "tasks/surgeon-physician/versions/sexuality.jsonl": "c5446a028643d98bb458fe7bb8f619e4e500075c66ca559d9eb39b39f47c1d7c"
+      },
+      "item_cap": 500
+    },
+    {
+      "task": "surgeon-physician",
+      "cue": "gender-identity",
+      "requests": 1500,
+      "status": "ready",
+      "files": {
+        "tasks/surgeon-physician/question.yaml": "0a275d02c19011bf2342bb1528a6d8095dd2223f14dd359d41de3463a4e03fe9",
+        "tasks/surgeon-physician/items.jsonl": "bb4cd5fdc74a54f154b453a96c254c34c0fe5bfff15f1e0c4bec23c192531c0a",
+        "tasks/surgeon-physician/versions/gender-identity.jsonl": "1ddb5c555b0d2e303548ad5c4c996cc3a3abd0c60ca8ffcf6d29a5d6919bf07b"
+      },
+      "item_cap": 500
+    }
+  ]
+}
