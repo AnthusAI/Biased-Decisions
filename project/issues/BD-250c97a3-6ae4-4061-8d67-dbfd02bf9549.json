@@ -18,7 +18,7 @@
     "platform": "claude-code",
     "model": "claude-fable-5-1"
   },
-  "right_now_summary": "Adapters and runners are still being built while final housing runs finish and other benchmark work awaits approval.",
-  "right_now_updated_at": "2026-09-25T03:08:15.405080Z",
+  "right_now_summary": "Ryan’s M1 is running all 31 Laya cells; Kev is merged, while adapters and new tasks are still being built.",
+  "right_now_updated_at": "2026-09-25T10:35:35.217474Z",
   "custom": {}
 }

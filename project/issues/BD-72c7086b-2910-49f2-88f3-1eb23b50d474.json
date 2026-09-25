@@ -107,7 +107,7 @@
     "model": "Claude Sonnet 5",
     "name": "Biased Decisions"
   },
-  "right_now_summary": "The final housing-lending runs are being finished before the next epic starts.",
-  "right_now_updated_at": "2026-09-25T03:08:13.131735Z",
+  "right_now_summary": "All 21 Kev runs have finished, and their results are merged into develop.",
+  "right_now_updated_at": "2026-09-25T10:35:33.359058Z",
   "custom": {}
 }
