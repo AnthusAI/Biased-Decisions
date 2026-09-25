@@ -1,3 +1,25 @@
+# [1.36.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.35.0...v1.36.0) (2026-09-25)
+
+
+### Features
+
+* **site:** consumer-complaint tasks on the veteran and age boards; gendered wording on the gender board ([f3cf911](https://github.com/AnthusAI/Biased-Decisions/commit/f3cf911f34007ca88f94472da3957f514598a84b))
+* **site:** family status as a ninth characteristic; correct the wording for the new decisions ([53cb671](https://github.com/AnthusAI/Biased-Decisions/commit/53cb671f51b662907f53b25610dee8510cab4cae))
+
+# [1.35.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.34.0...v1.35.0) (2026-09-25)
+
+
+### Bug Fixes
+
+* honor item caps in trope runner ([ecd3322](https://github.com/AnthusAI/Biased-Decisions/commit/ecd3322b843bcb1ce1622982d187cbc412f9c6fe))
+
+
+### Features
+
+* **jev:** concurrent collection of the registered subsample, and 30 Jev run manifests ([6bd29f7](https://github.com/AnthusAI/Biased-Decisions/commit/6bd29f7fe92afe99b8528e10d69704eb2df8ec49))
+* **laya:** the registered item cap for both Laya answer scripts ([e2725a8](https://github.com/AnthusAI/Biased-Decisions/commit/e2725a86048396a2b5f09e08183335d108416141))
+* **site:** housing, lending and hiring decisions on the race, age, disability, religion and veteran boards ([36591b9](https://github.com/AnthusAI/Biased-Decisions/commit/36591b95a0b662ea8b5d5b5f98f0cee3848d0999))
+
 # [1.34.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.33.0...v1.34.0) (2026-09-25)
 
 
