@@ -3,7 +3,7 @@
   "title": "Setup: Laya PyTorch build on Ryan's MacBook Pro M3",
   "description": "**Part of epic BD-4d61a6. Assigned to Ryan's MacBook Pro M3.** Do this first.\n\nMake this Mac able to run Laya's PyTorch build the same way Ryan's MacBook Pro M1 does.\n\n1. `git checkout develop && git pull` in your clone of the repository.\n2. Create the environment (Python 3.12.2 exactly, as on M1):\n```sh\npython3.12 -m venv var/laya-venv\n```\n```sh\nvar/laya-venv/bin/python -m pip install laya==0.3.7 torch==2.14.0 transformers==5.17.0 safetensors==0.8.0 tokenizers==0.23.2 numpy==2.5.3 PyYAML==6.0.3 python-dotenv\n```\n3. The first call downloads Laya's weights from Hugging Face (`convaiinnovations/laya`, plus `distilbert-base-uncased`, a few MB). The project does not yet pin the weights revision (open Kanbus task BD-32a9e2), so **record which snapshot you got**: after the first run, `ls ~/.cache/huggingface/hub/models--convaiinnovations--laya/snapshots` and comment the folder name(s) here.\n4. Sanity check on a tiny job (about a minute):\n```sh\nPYTHONPATH=. var/laya-venv/bin/python scripts/answer_tropes.py stereotypes-antisemitism as-written --item-cap 5 --build laya --out-dir /tmp/laya-check\n```\nIt must finish without error and print `wrote ... .jsonl.gz`. Comment the model string it wrote (open the file: `gzip -dc /tmp/laya-check/answers/laya/stereotypes-antisemitism/as-written.jsonl.gz | head -c 300`; the `model` field must read `laya-upstream:0.3.7`).\n\nThen close this task and start the first run task.",
   "type": "task",
-  "status": "in_progress",
+  "status": "closed",
   "priority": 2,
   "assignee": "Ryan's MacBook Pro M3",
   "creator": null,
@@ -25,17 +25,48 @@
         "model": "GPT-5",
         "name": "Biased-Decisions"
       }
+    },
+    {
+      "id": "b2c6d755-9f4f-4d21-81bb-c93e316b9519",
+      "author": "ryan",
+      "text": "Resolved the missing PyPI release without changing the pinned model: installed laya==0.3.7 from the upstream Git tag v0.3.7 (commit 2f3c81a16230a3defa45edde45a15b2bde356b54), and pip installed the exact pinned torch/transformers/safetensors/tokenizers/numpy/PyYAML versions. The documented sanity command then exposed a repository issue: scripts/answer_tropes.py rejects --item-cap, so it would run all 2,000 items instead of the required capped check. I am fixing the runner's missing cap option before any full run. Provenance: platform=Codex, model=GPT-5, agent=Biased-Decisions.",
+      "created_at": "2026-09-25T10:57:31.692510Z",
+      "comment_type": "default"
+    },
+    {
+      "id": "6c0d7b7c-3dce-4cfb-b404-d3e95b1cab4e",
+      "author": "ryan",
+      "text": "Setup now passes: the exact upstream v0.3.7 tag is installed because PyPI has no 0.3.7 release. Added the missing --item-cap support to scripts/answer_tropes.py so the documented capped sanity command is valid. Sanity check completed 5 rows and wrote laya-upstream:0.3.7; Laya snapshot: 55cf4c4ebb4ebe31b2550e8bdf3bd21b99753851. Provenance: exact agent flags below.",
+      "created_at": "2026-09-25T10:59:52.313660Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "codex",
+        "model": "GPT-5",
+        "name": "Ryan's MacBook Pro M3"
+      }
+    },
+    {
+      "id": "94e9d934-6dbe-4673-af19-c822a0265a06",
+      "author": "ryan",
+      "text": "Closed after exact v0.3.7 source-tag installation, pinned dependency install, snapshot capture, and the five-row sanity check producing laya-upstream:0.3.7. Provenance: setup completed on Ryan's MacBook Pro M3.",
+      "created_at": "2026-09-25T11:00:27.132410Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "codex",
+        "model": "GPT-5",
+        "name": "Ryan's MacBook Pro M3"
+      }
     }
   ],
   "created_at": "2026-09-25T03:00:44.569599Z",
-  "updated_at": "2026-09-25T10:40:32.697721Z",
-  "closed_at": null,
+  "updated_at": "2026-09-25T11:00:27.132440Z",
+  "closed_at": "2026-09-25T11:00:17.214017Z",
   "agent": {
     "platform": "claude_code",
     "model": "Claude Sonnet 5",
     "name": "Ryan's MacBook Pro M1"
   },
-  "right_now_summary": "The setup is blocked because laya==0.3.7 is unavailable, so no run has started.",
-  "right_now_updated_at": "2026-09-25T10:40:34.324450Z",
+  "right_now_summary": "Ryan’s M3 Mac runs Laya 0.3.7, passed the five-row check, and captured snapshot 55cf4c4.",
+  "right_now_updated_at": "2026-09-25T11:00:29.217594Z",
   "custom": {}
 }
