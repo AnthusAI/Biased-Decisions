@@ -13,9 +13,22 @@
     "model-laya"
   ],
   "dependencies": [],
-  "comments": [],
+  "comments": [
+    {
+      "id": "07f6ec81-e549-40b2-a734-6acb783b362e",
+      "author": "home",
+      "text": "Ryan's MacBook Pro M1 ran this Laya task itself (Ryan's MacBook Pro M3 was on the antisemitism runs). Every cell's row count equals the manifest requests, the data and its scored study rows are on develop, and replay in CI reproduces them.",
+      "created_at": "2026-09-25T18:23:37.105351Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude_code",
+        "model": "Claude Sonnet 5",
+        "name": "Ryan's MacBook Pro M1"
+      }
+    }
+  ],
   "created_at": "2026-09-25T03:00:44.678121Z",
-  "updated_at": "2026-09-25T03:00:44.678153Z",
+  "updated_at": "2026-09-25T18:23:37.105375Z",
   "closed_at": null,
   "agent": {
     "platform": "claude_code",
