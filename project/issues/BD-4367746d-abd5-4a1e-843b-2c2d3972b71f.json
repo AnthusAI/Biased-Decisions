@@ -1,0 +1,53 @@
+{
+  "id": "BD-4367746d-abd5-4a1e-843b-2c2d3972b71f",
+  "title": "Run Kev: stereotypes (batch2-veteran-sexuality, 2 cells, 7,070 requests)",
+  "description": "**Part of epic BD-72c708: follow its instructions and the runbook in BD-dd780c.** Work from `develop`; never push to `main`.\n\n**Job:** Kev first pass on `stereotypes` (batch2-veteran-sexuality): 2 cells, exactly 7,070 requests, about 11 minutes.\n**Manifest:** `docs/kev-runs/batch2-veteran-sexuality/stereotypes.json` (on `develop`).\n**Writes:** `answers/kev/stereotypes/`. Branch: `runs/<this issue id>`.\n**Then:** comment the request count and any error here, close, `kbs commit`, push `develop`.",
+  "type": "task",
+  "status": "closed",
+  "priority": 2,
+  "assignee": null,
+  "creator": null,
+  "parent": "BD-72c7086b-2910-49f2-88f3-1eb23b50d474",
+  "labels": [
+    "run",
+    "model-kev"
+  ],
+  "dependencies": [],
+  "comments": [
+    {
+      "id": "39459def-96fa-4b36-a92f-fe174075dbfe",
+      "author": "ryan",
+      "text": "Starting the capped first-pass manifest docs/kev-runs/batch2-veteran-sexuality/stereotypes.json: 7,070 requests total (4,040 + 3,030), item_cap=500 in every cell. Provenance: platform=Codex, model=GPT-5, agent=Biased-Decisions.",
+      "created_at": "2026-09-25T00:38:47.728972Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "codex",
+        "model": "GPT-5",
+        "name": "Biased-Decisions"
+      }
+    },
+    {
+      "id": "545da4d7-6ad1-4d78-99b0-43fb45669016",
+      "author": "ryan",
+      "text": "Completed: 2 cells, 7,070 requests, no errors. Manifest: docs/kev-runs/batch2-veteran-sexuality/stereotypes.json. Answer artifacts committed on runs/BD-4367746d-abd5-4a1e-843b-2c2d3972b71f and merged into develop. Provenance: platform=Codex, model=GPT-5, agent=Biased-Decisions.",
+      "created_at": "2026-09-25T00:51:51.337761Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "codex",
+        "model": "GPT-5",
+        "name": "Biased-Decisions"
+      }
+    }
+  ],
+  "created_at": "2026-09-24T23:15:32.147612Z",
+  "updated_at": "2026-09-25T00:51:56.828648Z",
+  "closed_at": "2026-09-25T00:51:56.828578Z",
+  "agent": {
+    "platform": "claude_code",
+    "model": "Claude Sonnet 5",
+    "name": "Biased Decisions"
+  },
+  "right_now_summary": "The run completed with 7,070 requests and no errors; its answer artifacts are merged into develop.",
+  "right_now_updated_at": "2026-09-25T00:51:58.228344Z",
+  "custom": {}
+}

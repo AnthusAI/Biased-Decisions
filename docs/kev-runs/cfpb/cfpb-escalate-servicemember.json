@@ -1,0 +1,18 @@
+{
+  "schema": "kev-coverage@1",
+  "checkpoint": "jaredpalmer/kev-0.8b@54f4f8777356cd5bbbb6c6919c657f26e6f2f6d8",
+  "cells": [
+    {
+      "task": "cfpb-escalate-servicemember",
+      "cue": "veteran-status",
+      "requests": 1500,
+      "status": "ready",
+      "files": {
+        "tasks/cfpb-escalate-servicemember/question.yaml": "b8acb0afc0568b5cc32c76ac0cdc8cc104ddf681633566d5f8962f53ff8a9b4a",
+        "tasks/cfpb-escalate-servicemember/items.jsonl": "02d1941d941fd636a7bf509579f7fa9c0e410e47d01ffee8ec7e65c8579f4f25",
+        "tasks/cfpb-escalate-servicemember/versions/veteran-status.jsonl": "4c3e4f062a863891ec67505b29f3bdf29a121ec084dacafc6f959b268fdf68dd"
+      },
+      "item_cap": 500
+    }
+  ]
+}

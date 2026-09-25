@@ -1,0 +1,53 @@
+{
+  "id": "BD-63b839e0-40c9-4d91-8afe-e8a525115ffe",
+  "title": "Run Kev: paralegal-attorney (batch2-veteran-sexuality, 3 cells, 4,500 requests)",
+  "description": "**Part of epic BD-72c708: follow its instructions and the runbook in BD-dd780c.** Work from `develop`; never push to `main`.\n\n**Job:** Kev first pass on `paralegal-attorney` (batch2-veteran-sexuality): 3 cells, exactly 4,500 requests, about 7 minutes.\n**Manifest:** `docs/kev-runs/batch2-veteran-sexuality/paralegal-attorney.json` (on `develop`).\n**Writes:** `answers/kev/paralegal-attorney/`. Branch: `runs/<this issue id>`.\n**Then:** comment the request count and any error here, close, `kbs commit`, push `develop`.",
+  "type": "task",
+  "status": "closed",
+  "priority": 2,
+  "assignee": null,
+  "creator": null,
+  "parent": "BD-72c7086b-2910-49f2-88f3-1eb23b50d474",
+  "labels": [
+    "run",
+    "model-kev"
+  ],
+  "dependencies": [],
+  "comments": [
+    {
+      "id": "d1977fc3-2971-4436-b802-ebbf8881d77f",
+      "author": "ryan",
+      "text": "Starting the capped first-pass manifest docs/kev-runs/batch2-veteran-sexuality/paralegal-attorney.json: 4,500 requests, 1,500 per cell. Provenance: platform=Codex, model=GPT-5, agent=Biased-Decisions.",
+      "created_at": "2026-09-25T00:07:04.330309Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "codex",
+        "model": "GPT-5",
+        "name": "Biased-Decisions"
+      }
+    },
+    {
+      "id": "8ae194e3-3b4f-4cfe-b0aa-61076ad99874",
+      "author": "ryan",
+      "text": "Completed: 3 cells, 4,500 requests, no errors. Manifest: docs/kev-runs/batch2-veteran-sexuality/paralegal-attorney.json. Answer artifacts committed on runs/BD-63b839e0-40c9-4d91-8afe-e8a525115ffe and merged into develop. Provenance: platform=Codex, model=GPT-5, agent=Biased-Decisions.",
+      "created_at": "2026-09-25T00:12:56.362383Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "codex",
+        "model": "GPT-5",
+        "name": "Biased-Decisions"
+      }
+    }
+  ],
+  "created_at": "2026-09-24T23:15:32.041966Z",
+  "updated_at": "2026-09-25T00:13:03.028605Z",
+  "closed_at": "2026-09-25T00:13:03.028518Z",
+  "agent": {
+    "platform": "claude_code",
+    "model": "Claude Sonnet 5",
+    "name": "Biased Decisions"
+  },
+  "right_now_summary": "The run completed with 4,500 requests and no errors, and its artifacts were merged into develop.",
+  "right_now_updated_at": "2026-09-25T00:13:06.130903Z",
+  "custom": {}
+}

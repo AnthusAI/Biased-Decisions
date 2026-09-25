@@ -16,7 +16,7 @@ from biased_decisions.engines.laya import build_question
 from biased_decisions.record import read_record, record_path
 from biased_decisions.tasks.base import DEFAULT_ROOT, Task
 from biased_decisions.tasks.bios import BIOS_TASKS
-from biased_decisions.subsample import subsample
+from biased_decisions.subsample import cell_sample
 from biased_decisions.tasks.items import Item
 
 
@@ -141,7 +141,7 @@ def collect(root: Path = DEFAULT_ROOT, engine_name: str = "kev", task_slug: str 
         raise ValueError("max_new_items must be positive")
     root = Path(root)
     task = load_definition(root, task_slug)
-    items = subsample(_items(task, cue), task_slug, item_cap)
+    items = cell_sample(_items(task, cue), task_slug, cue, item_cap, task.versions_dir())
     qname = question_name or ("Occupation" if task_slug in BIOS_TASKS else "Decision")
     questions = _questions(task, cue, qname)
     path = record_path(engine_name, task_slug, cue, root=root)

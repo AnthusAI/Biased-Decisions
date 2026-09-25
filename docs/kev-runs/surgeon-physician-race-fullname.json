@@ -1,0 +1,18 @@
+{
+  "schema": "kev-coverage@1",
+  "checkpoint": "jaredpalmer/kev-0.8b@54f4f8777356cd5bbbb6c6919c657f26e6f2f6d8",
+  "cells": [
+    {
+      "task": "surgeon-physician",
+      "cue": "race-fullname",
+      "requests": 8000,
+      "status": "ready",
+      "files": {
+        "tasks/surgeon-physician/question.yaml": "0a275d02c19011bf2342bb1528a6d8095dd2223f14dd359d41de3463a4e03fe9",
+        "tasks/surgeon-physician/items.jsonl": "bb4cd5fdc74a54f154b453a96c254c34c0fe5bfff15f1e0c4bec23c192531c0a",
+        "tasks/surgeon-physician/versions/race-fullname.jsonl": "73706c15800ac667a906afac9ab60b975d92e6d603ba23025cf8ab23450e87c2"
+      },
+      "item_cap": 500
+    }
+  ]
+}

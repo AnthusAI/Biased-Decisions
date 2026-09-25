@@ -3,7 +3,7 @@
   "title": "Run Jev: architect-interior-designer (4 cells, 4000 requests)",
   "description": "**Not yet runnable, and WAITS FOR THE USER'S EXPLICIT GO.** Jev is an online service reached through its maker's kit and may cost money. Do not start until the user has commented \"go\" on this issue.\n\n**Job:** answer the registered 500-item subsample of the still-missing Jev cells for this task (see the title for the grid size; the estimate assumed two requests per item and is low).\n\n**Missing before it can run:** the Jev collector and per-task manifests (`docs/jev-runs/`). `scripts/collect_task.py` supports only Kev, so how Jev answers are collected has to be worked out first. Once it is, this run follows the runbook in BD-dd780c with the Jev collector. `TYPESAFE_API_KEY` comes from the environment or a gitignored `.env`; never print, log or commit it.\n\n**Rules:** one job at a time; results go to branch `runs/<this issue id>`, never main; no `bd replay`; never touch `project/`.",
   "type": "task",
-  "status": "open",
+  "status": "closed",
   "priority": 2,
   "assignee": null,
   "creator": null,
@@ -14,10 +14,23 @@
     "needs-explicit-go"
   ],
   "dependencies": [],
-  "comments": [],
+  "comments": [
+    {
+      "id": "4cb9e701-8d19-4b50-bb83-7b3eb44676a5",
+      "author": "home",
+      "text": "Superseded: the Jev first pass is one task now (30 manifests, concurrent, one request per item). The approach in this placeholder was never runnable.",
+      "created_at": "2026-09-25T00:01:29.998467Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude_code",
+        "model": "Claude Sonnet 5",
+        "name": "Biased Decisions"
+      }
+    }
+  ],
   "created_at": "2026-09-24T19:29:33.354325Z",
-  "updated_at": "2026-09-24T20:03:34.527671Z",
-  "closed_at": null,
+  "updated_at": "2026-09-25T00:01:29.998485Z",
+  "closed_at": "2026-09-25T00:01:29.680157Z",
   "agent": {
     "platform": "claude_code",
     "model": "Claude Sonnet 5",

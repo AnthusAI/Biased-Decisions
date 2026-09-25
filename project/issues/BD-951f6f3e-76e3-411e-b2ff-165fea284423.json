@@ -1,0 +1,53 @@
+{
+  "id": "BD-951f6f3e-76e3-411e-b2ff-165fea284423",
+  "title": "Run Kev: loan-narratives-antisemitism (antisemitism, 6 cells, 4,200 requests)",
+  "description": "**Part of epic BD-72c708: follow its instructions and the runbook in BD-dd780c.** Work from `develop`; never push to `main`.\n\n**Job:** Kev first pass on `loan-narratives-antisemitism` (antisemitism): 6 cells, exactly 4,200 requests, about 6 minutes.\n**Manifest:** `docs/kev-runs/antisemitism/loan-narratives-antisemitism.json` (on `develop`).\n**Writes:** `answers/kev/loan-narratives-antisemitism/`. Branch: `runs/<this issue id>`.\n**Then:** comment the request count and any error here, close, `kbs commit`, push `develop`.",
+  "type": "task",
+  "status": "closed",
+  "priority": 2,
+  "assignee": null,
+  "creator": null,
+  "parent": "BD-72c7086b-2910-49f2-88f3-1eb23b50d474",
+  "labels": [
+    "run",
+    "model-kev"
+  ],
+  "dependencies": [],
+  "comments": [
+    {
+      "id": "ea7b6274-222e-48e8-abaf-df89e527dda1",
+      "author": "home",
+      "text": "Taken by the first Mac (running now). The other Mac should skip this task.",
+      "created_at": "2026-09-24T23:52:11.600792Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude_code",
+        "model": "Claude Sonnet 5",
+        "name": "Biased Decisions"
+      }
+    },
+    {
+      "id": "aa5e307c-88f6-44e0-9cfa-1af23283b630",
+      "author": "home",
+      "text": "Done on the first Mac: 6 cells, 4,200 requests, no errors, provenance identical. Branch runs/BD-951f6f, merged into develop.",
+      "created_at": "2026-09-25T01:05:03.603875Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude_code",
+        "model": "Claude Sonnet 5",
+        "name": "Biased Decisions"
+      }
+    }
+  ],
+  "created_at": "2026-09-24T23:15:32.249519Z",
+  "updated_at": "2026-09-25T01:05:03.666384Z",
+  "closed_at": "2026-09-25T01:05:03.666352Z",
+  "agent": {
+    "platform": "claude_code",
+    "model": "Claude Sonnet 5",
+    "name": "Biased Decisions"
+  },
+  "right_now_summary": null,
+  "right_now_updated_at": null,
+  "custom": {}
+}

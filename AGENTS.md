@@ -22,9 +22,12 @@ Work
 - Studies are pre-registered: commit the predictions (docs/*-preregistration.md or studies/PREREGISTERED.md) before any engine answers a single item, and score against them word for word.
 - The record is replayable: `bd replay` must reproduce studies/ byte for byte; the Amplify build fails otherwise.
 
-Git
-- Conventional Commits on every commit; Semantic Release derives versions from them on main (see CONTRIBUTING.md).
-- Work on a branch and push work in progress early; merge to main when the specs pass.
+Git (Git Flow)
+- `develop` is the integration branch and `main` is the release branch. Open pull requests into `develop` for product work and merge them there as soon as review is addressed and CI is green. Do not park finished work on long-lived branches, and do not merge product work straight to `main`.
+- Promote `develop` to `main` with a pull request when you intend to publish. Semantic Release runs only from `main`, and AWS Amplify builds and deploys the site from `main`, so a promotion is a deploy: watch the Amplify job and the Deploy check to completion, and never call it published until the live site shows it.
+- Kanbus board changes are project management, not product. After `kbs` create, update, comment or close, run `kbs commit` and push straight to `develop`. No feature branch, no pull request. Do not mix board files into a product pull request. Board changes reach `main`, and the live site, only with the next promotion.
+- Answer data collected on another machine arrives on a `runs/<issue id>` branch. Merge it into `develop`, never `main`.
+- Conventional Commits on every commit; Semantic Release derives versions from them on `main` (see CONTRIBUTING.md).
 - Never commit secrets. Keys come from the environment or a gitignored .env; never read, print or `source` a .env.
 
 Engines and hardware

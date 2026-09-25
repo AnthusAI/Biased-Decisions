@@ -1,0 +1,65 @@
+{
+  "id": "BD-e7fdc914-036a-4d23-b80d-341a6628c6f1",
+  "title": "Run Kev: architect-interior-designer (batch2-veteran-sexuality, 3 cells, 4,500 requests)",
+  "description": "**Part of epic BD-72c708: follow its instructions and the runbook in BD-dd780c.** Work from `develop`; never push to `main`.\n\n**Job:** Kev first pass on `architect-interior-designer` (batch2-veteran-sexuality): 3 cells, exactly 4,500 requests, about 7 minutes.\n**Manifest:** `docs/kev-runs/batch2-veteran-sexuality/architect-interior-designer.json` (on `develop`).\n**Writes:** `answers/kev/architect-interior-designer/`. Branch: `runs/<this issue id>`.\n**Then:** comment the request count and any error here, close, `kbs commit`, push `develop`.",
+  "type": "task",
+  "status": "closed",
+  "priority": 2,
+  "assignee": null,
+  "creator": null,
+  "parent": "BD-72c7086b-2910-49f2-88f3-1eb23b50d474",
+  "labels": [
+    "run",
+    "model-kev"
+  ],
+  "dependencies": [],
+  "comments": [
+    {
+      "id": "c6a4e13d-9179-4982-bfbf-31480b7f77e9",
+      "author": "ryan",
+      "text": "Starting the pinned Kev first-pass collection from the freshly pulled develop branch. Provenance: platform=Codex, model=GPT-5, agent=Biased-Decisions.",
+      "created_at": "2026-09-24T23:34:09.811725Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "codex",
+        "model": "GPT-5",
+        "name": "Biased-Decisions"
+      }
+    },
+    {
+      "id": "8f4ae5a1-0061-4c0c-8f78-52aafdb09fca",
+      "author": "ryan",
+      "text": "Completed: 3 cells, 4,500 requests, no errors. Answer artifacts committed on runs/BD-e7fdc914-036a-4d23-b80d-341a6628c6f1 and merged into develop. Provenance: platform=Codex, model=GPT-5, agent=Biased-Decisions.",
+      "created_at": "2026-09-24T23:40:28.921057Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "codex",
+        "model": "GPT-5",
+        "name": "Biased-Decisions"
+      }
+    },
+    {
+      "id": "ab999738-e15b-46fe-b198-1d9c966f8b4d",
+      "author": "home",
+      "text": "Message for the agent on the other Mac. Every run in this epic must be the CAPPED first pass, never a full run. Each manifest under docs/kev-runs/<study>/ has \"item_cap\": 500 on every cell and states the exact request count; run_kev_study collect --manifest <that file> honours it and prints the total. Check before you start each task: the requests count it plans must equal the number in the child issue title (for example architect batch-2 is 4,500 requests, 1,500 per cell; the full registered size would be 3,213 per cell, which is NOT what we want). If it plans more than the title says, stop, do not answer anything, and comment here. Do not use docs/kev-coverage-*.json (those are the full, uncapped registrations) and do not remove item_cap. Your architect batch-2 data (BD-e7fdc9) is correct: 1,500 rows per cell, matching its manifest. Please reply here with (1) which manifest and request count you are running right now and (2) if you have started anything that is larger than its title, what it is and how far it got. Keep going in order otherwise.",
+      "created_at": "2026-09-24T23:46:12.105788Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude_code",
+        "model": "Claude Sonnet 5",
+        "name": "Biased Decisions"
+      }
+    }
+  ],
+  "created_at": "2026-09-24T23:15:31.913198Z",
+  "updated_at": "2026-09-24T23:46:12.105827Z",
+  "closed_at": "2026-09-24T23:40:34.652320Z",
+  "agent": {
+    "platform": "claude_code",
+    "model": "Claude Sonnet 5",
+    "name": "Biased Decisions"
+  },
+  "right_now_summary": "Kev completed 4,500 requests across three cells with no errors, and the results are merged into develop.",
+  "right_now_updated_at": "2026-09-24T23:40:36.187048Z",
+  "custom": {}
+}

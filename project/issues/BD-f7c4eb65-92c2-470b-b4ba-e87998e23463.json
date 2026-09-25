@@ -1,9 +1,9 @@
 {
   "id": "BD-f7c4eb65-92c2-470b-b4ba-e87998e23463",
-  "title": "Run Kev: architect-interior-designer (4 cells, 4000 requests)",
-  "description": "**Self-contained run.** Give this issue ID to an agent on any Mac; it does the whole job by following the runbook in **BD-dd780c** (`kbs show BD-dd780c`).\n\n**Job:** answer the registered 500-item subsample of the still-missing Kev cells for `architect-interior-designer`: 4 cells, exactly 6995 requests (manifest `docs/kev-runs/architect-interior-designer.json`, on main), roughly 11 minutes on a quiet Mac.\n\n**Steps** (details and exact commands in the runbook)\n1. Pull main. One-time setup if this Mac has not done a run.\n2. Start the pinned Kev server, run `run_kev_study collect --manifest docs/kev-runs/architect-interior-designer.json` with the runbook's identity flags. It resumes if interrupted.\n3. Commit only the finished files under `answers/kev/architect-interior-designer/` (never `.partial.jsonl`) to branch `runs/<this issue id>` and push that branch. Not main. No `bd replay`.\n4. Comment the request count and any errors here, then close.\n\n**Rules:** one heavy job at a time on the machine; stop the Kev server when done; never touch `project/`.",
+  "title": "Run Kev: architect-interior-designer (4 cells, 6995 requests)",
+  "description": "**Self-contained run.** Give this issue ID to an agent on any Mac; it does the whole job by following the runbook in **BD-dd780c** (`kbs show BD-dd780c`). This repository uses Git Flow: work from `develop`, never push to `main`.\n\n**Job:** answer the registered 500-item subsample of the still-missing Kev cells for `architect-interior-designer`: 4 cells, exactly 6995 requests (manifest `docs/kev-runs/architect-interior-designer.json` on `develop`), roughly 11 minutes on a quiet Mac.\n\n**Steps** (details and exact commands in the runbook)\n1. `git checkout develop && git pull`. One-time setup if this Mac has not done a run.\n2. Start the pinned Kev server, run `run_kev_study collect --manifest docs/kev-runs/architect-interior-designer.json` with the runbook's identity flags. It resumes if interrupted.\n3. Commit only the finished files under `answers/kev/architect-interior-designer/` (never `.partial.jsonl`) to branch `runs/<this issue id>` and push that branch. No `bd replay`.\n4. Back on `develop`: comment the request count and any errors here, close it, `kbs commit`, push `develop`.\n\n**Rules:** one heavy job at a time on the machine; stop the Kev server when done; never touch `project/` directly.",
   "type": "task",
-  "status": "open",
+  "status": "closed",
   "priority": 2,
   "assignee": null,
   "creator": null,
@@ -37,17 +37,44 @@
         "model": "Claude Sonnet 5",
         "name": "Biased Decisions"
       }
+    },
+    {
+      "id": "8f91ef76-418b-4497-97f7-f3df2fb12615",
+      "author": "ryan",
+      "text": "Started architect-interior-designer Kev collection on branch runs/BD-f7c4eb65-92c2-470b-b4ba-e87998e23463 from the freshly pulled develop. Using runbook BD-dd780c; manifest is 4 cells / 6,995 requests at the registered 500-item cap.",
+      "created_at": "2026-09-24T22:38:33.398844Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "codex",
+        "model": "GPT-5",
+        "name": "Biased-Decisions"
+      }
+    },
+    {
+      "id": "7dd8c061-5e65-44a5-8775-7e9f2aa87fbe",
+      "author": "ryan",
+      "text": "Merged architect-interior-designer from runs/BD-f7c4eb65-92c2-470b-b4ba-e87998e23463 into develop after pulling the latest remote changes. The 4-cell Kev collection completed with no errors: 6,995 requests, finished answer/metadata files under answers/kev/architect-interior-designer/, no partial files. Answer commit 84d8529; gzip and row-count validation passed; Kev server stopped.\n",
+      "created_at": "2026-09-24T22:47:24.152230Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "codex",
+        "model": "GPT-5",
+        "name": "Biased-Decisions"
+      }
     }
   ],
   "created_at": "2026-09-24T19:29:33.116424Z",
-  "updated_at": "2026-09-24T20:03:45.595902Z",
-  "closed_at": null,
+  "updated_at": "2026-09-24T22:47:30.749744Z",
+  "closed_at": "2026-09-24T22:47:30.749652Z",
   "agent": {
     "platform": "claude_code",
     "model": "Claude Sonnet 5",
     "name": "Biased Decisions"
   },
-  "right_now_summary": null,
-  "right_now_updated_at": null,
-  "custom": {}
+  "right_now_summary": "Kev collection finished with 6,995 requests and no errors; results passed validation and were merged into develop.",
+  "right_now_updated_at": "2026-09-24T22:47:31.763501Z",
+  "custom": {
+    "project_label": "BD",
+    "source": "shared"
+  }
 }

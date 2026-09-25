@@ -1,0 +1,53 @@
+{
+  "id": "BD-dcf53a00-b043-4323-b941-a422785de0b4",
+  "title": "Run Kev: gendered-advance (gendered-language, 1 cells, 2,032 requests)",
+  "description": "**Part of epic BD-72c708: follow its instructions and the runbook in BD-dd780c.** Work from `develop`; never push to `main`.\n\n**Job:** Kev first pass on `gendered-advance` (gendered-language): 1 cells, exactly 2,032 requests, about 3 minutes.\n**Manifest:** `docs/kev-runs/gendered-language/gendered-advance.json` (on `develop`).\n**Writes:** `answers/kev/gendered-advance/`. Branch: `runs/<this issue id>`.\n**Then:** comment the request count and any error here, close, `kbs commit`, push `develop`.",
+  "type": "task",
+  "status": "closed",
+  "priority": 2,
+  "assignee": null,
+  "creator": null,
+  "parent": "BD-72c7086b-2910-49f2-88f3-1eb23b50d474",
+  "labels": [
+    "run",
+    "model-kev"
+  ],
+  "dependencies": [],
+  "comments": [
+    {
+      "id": "63b777ed-a7ca-4e6b-9165-3ca7f83b82a7",
+      "author": "ryan",
+      "text": "Starting the capped first-pass manifest docs/kev-runs/gendered-language/gendered-advance.json: 2,032 requests, item_cap=500. Provenance: platform=Codex, model=GPT-5, agent=Biased-Decisions.",
+      "created_at": "2026-09-25T02:44:34.815008Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "codex",
+        "model": "GPT-5",
+        "name": "Biased-Decisions"
+      }
+    },
+    {
+      "id": "0a85172f-a0ea-4201-ba3f-d64bd7ffc687",
+      "author": "ryan",
+      "text": "Completed: 1 cell, 2,032 requests, no errors. Manifest: docs/kev-runs/gendered-language/gendered-advance.json. Answer artifacts committed on runs/BD-dcf53a00-b043-4323-b941-a422785de0b4 and merged into develop. Provenance: platform=Codex, model=GPT-5, agent=Biased-Decisions.",
+      "created_at": "2026-09-25T02:47:51.510688Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "codex",
+        "model": "GPT-5",
+        "name": "Biased-Decisions"
+      }
+    }
+  ],
+  "created_at": "2026-09-24T23:15:32.450372Z",
+  "updated_at": "2026-09-25T02:48:03.675094Z",
+  "closed_at": "2026-09-25T02:48:03.674986Z",
+  "agent": {
+    "platform": "claude_code",
+    "model": "Claude Sonnet 5",
+    "name": "Biased Decisions"
+  },
+  "right_now_summary": "The run finished with 2,032 requests and no errors, and its results are merged into develop.",
+  "right_now_updated_at": "2026-09-25T02:48:04.921645Z",
+  "custom": {}
+}

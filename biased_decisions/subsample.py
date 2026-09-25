@@ -7,18 +7,20 @@ original text together with its twin, edited versions and controls; it is kept o
 from __future__ import annotations
 
 import hashlib
+from pathlib import Path
 from typing import Optional, Sequence
 
 from biased_decisions.tasks.items import Item
 
 SEED = "biased-decisions-subsample-1"
+FIRST_PASS_CAP = 500      # items (families) per cell in the registered first pass
 
 
 def family_id(item: Item, task: str) -> str:
     """The id of the original text this item derives from, without any task prefix."""
     meta = item.metadata or {}
     family = str(meta.get("source_id") or meta.get("counterfactual_of") or item.id)
-    for prefix in {task, meta.get("source_task")}:
+    for prefix in (task, meta.get("source_task")):
         if prefix and family.startswith(f"{prefix}-"):
             return family[len(prefix) + 1:]
     return family
@@ -40,3 +42,25 @@ def subsample(items: Sequence[Item], task: str, cap: Optional[int]) -> list:
         return list(items)
     chosen = set(sorted(families, key=lambda f: _rank(task, f))[:cap])
     return [i for i in items if family_id(i, task) in chosen]
+
+
+def cell_sample(items: Sequence[Item], task: str, cue: str, cap: Optional[int], versions_dir: Path) -> list:
+    """The items a capped collection answers for one cell.
+
+    A cell that already has a committed sample (``<cue>_jev-subsample.txt``, the 500 bios Jev answered for
+    race-fullname) keeps exactly those families, so every model answers the same bios. Every other cell
+    takes the first ``cap`` families of the registered ranking. With no cap the cell is whole."""
+    if cap is None:
+        return list(items)
+    if cue == "ask-twice":
+        return list(items)            # its committed selection (versions/ask-twice.txt) is already the sample
+    committed = Path(versions_dir) / f"{cue}_jev-subsample.txt"
+    if committed.exists():
+        fixed = {line.strip() for line in committed.read_text(encoding="utf-8").splitlines() if line.strip()}
+        kept = [i for i in items if family_id(i, task) in fixed]
+        found = {family_id(i, task) for i in kept}
+        if not fixed or found != fixed:
+            raise ValueError(f"the committed sample {committed.name} names {len(fixed)} bios but "
+                             f"{len(fixed - found)} of them are not in this cell")
+        return kept
+    return subsample(items, task, cap)

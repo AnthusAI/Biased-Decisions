@@ -1,0 +1,53 @@
+{
+  "id": "BD-0dfe0a9a-256b-4b21-a347-5698d4cb75e3",
+  "title": "Run Kev: cfpb-escalate-family (cfpb, 1 cells, 3,000 requests)",
+  "description": "**Part of epic BD-72c708: follow its instructions and the runbook in BD-dd780c.** Work from `develop`; never push to `main`.\n\n**Job:** Kev first pass on `cfpb-escalate-family` (cfpb): 1 cells, exactly 3,000 requests, about 4 minutes.\n**Manifest:** `docs/kev-runs/cfpb/cfpb-escalate-family.json` (on `develop`).\n**Writes:** `answers/kev/cfpb-escalate-family/`. Branch: `runs/<this issue id>`.\n**Then:** comment the request count and any error here, close, `kbs commit`, push `develop`.",
+  "type": "task",
+  "status": "closed",
+  "priority": 2,
+  "assignee": null,
+  "creator": null,
+  "parent": "BD-72c7086b-2910-49f2-88f3-1eb23b50d474",
+  "labels": [
+    "run",
+    "model-kev"
+  ],
+  "dependencies": [],
+  "comments": [
+    {
+      "id": "f131c2a3-23b4-461f-8bd0-97e4aa97e6fd",
+      "author": "ryan",
+      "text": "Starting the capped first-pass manifest docs/kev-runs/cfpb/cfpb-escalate-family.json: 3,000 requests, item_cap=500. Provenance: platform=Codex, model=GPT-5, agent=Biased-Decisions.",
+      "created_at": "2026-09-25T02:15:11.150010Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "codex",
+        "model": "GPT-5",
+        "name": "Biased-Decisions"
+      }
+    },
+    {
+      "id": "6566fb4b-893c-45f4-9dc2-8d4e18054eef",
+      "author": "ryan",
+      "text": "Completed: 1 cell, 3,000 requests, no errors. Manifest: docs/kev-runs/cfpb/cfpb-escalate-family.json. Answer artifacts committed on runs/BD-0dfe0a9a-256b-4b21-a347-5698d4cb75e3 and merged into develop. Provenance: platform=Codex, model=GPT-5, agent=Biased-Decisions.",
+      "created_at": "2026-09-25T02:20:24.562678Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "codex",
+        "model": "GPT-5",
+        "name": "Biased-Decisions"
+      }
+    }
+  ],
+  "created_at": "2026-09-24T23:15:32.347792Z",
+  "updated_at": "2026-09-25T02:20:30.914149Z",
+  "closed_at": "2026-09-25T02:20:30.914083Z",
+  "agent": {
+    "platform": "claude_code",
+    "model": "Claude Sonnet 5",
+    "name": "Biased Decisions"
+  },
+  "right_now_summary": "Completed 3,000 requests with no errors; answer artifacts were merged into develop.",
+  "right_now_updated_at": "2026-09-25T02:20:32.212517Z",
+  "custom": {}
+}

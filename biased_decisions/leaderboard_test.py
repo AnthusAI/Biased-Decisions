@@ -263,7 +263,7 @@ def test_every_cell_has_every_engine_and_levels_follow_the_board_rules(doc):
             values = [r["value"] for r in board["ranked"]]
             assert values == sorted(values, reverse=True)
             for r in board["ranked"]:
-                assert lv["heads"][r["engine"]]["detected"] and r["lo"] > 0
+                assert lv["heads"][r["engine"]]["detected"] and r["lo"] >= 0     # lo is shown to 2 dp; "detected" uses the unrounded value
             for r in board["not_detected"]:
                 assert not lv["heads"][r["engine"]]["detected"] and r["n"] > 0
             for e in board["unmeasured"]:
@@ -288,15 +288,15 @@ def test_known_breakdown_cells(doc):
     f = greed["engines"]["laya"]
     assert (f["excess"]["value"], f["excess"]["lo"], f["excess"]["hi"]) == (0.74, 0.58, 0.91)
     assert f["detected"] and greed["prereg"] and f["extra"]["clause"] == "A devout Jew, "
-    assert greed["engines"]["jev"]["status"] == "missing"
+    assert greed["engines"]["jev"]["status"] == "measured"      # Jev answered the stereotype questions (first pass)
     nat = dims["nationality"]
     arrogance = _cell(nat, "american", "arrogance")["engines"]["laya"]
     assert arrogance["excess"]["value"] == -0.84 and not arrogance["detected"]
     assert arrogance["extra"]["direction"] == "reverse"
     american = _level(nat, "group", group="american")
-    assert american["board"]["ranked"][0]["facet"] == "honesty"
-    assert american["board"]["ranked"][0]["value"] == 3.79
-    assert "jev" in american["board"]["unmeasured"]
+    laya_row = next(r for r in american["board"]["ranked"] if r["engine"] == "laya")
+    assert laya_row["facet"] == "honesty" and laya_row["value"] == 3.79
+    assert american["board"]["unmeasured"] == []
     # religion v2 per religion: the nurse/physician task is unattributed for every religion
     v2 = rel
     for g in ("muslim", "christian", "jewish", "hindu"):
@@ -423,11 +423,12 @@ def test_few_engines_each_get_their_own_step():
 
 def test_the_neutral_pronoun_rows_are_in_the_data_for_every_task_laya_answered(doc):
     rows = doc["neutral"]["rows"]
-    assert {r["task"] for r in rows} == set(BIOS_TASKS) and {r["engine"] for r in rows} == {"laya"}
-    nurse = next(r for r in rows if r["task"] == "nurse-physician")
+    assert {r["task"] for r in rows if r["engine"] == "laya"} == set(BIOS_TASKS)
+    assert {r["engine"] for r in rows} <= {"laya", "kev", "jev"}   # first-pass neutral cells add rows
+    nurse = next(r for r in rows if r["task"] == "nurse-physician" and r["engine"] == "laya")
     assert nurse["task_label"] == "nurse or physician" and nurse["reportable"] is True
     assert 0.1 < nurse["position"]["blank"]["lambda"] < 0.3 and nurse["positive"] == "physician"
-    journalist = next(r for r in rows if r["task"] == "journalist-professor")
+    journalist = next(r for r in rows if r["task"] == "journalist-professor" and r["engine"] == "laya")
     assert journalist["reportable"] is False and journalist["position"]["blank"] is None
 
 
@@ -520,3 +521,22 @@ def test_no_builder_word_reaches_a_page_from_the_data(doc):
 def test_every_characteristic_says_what_it_measures_in_plain_words(doc):
     for d in doc["dimensions"]:
         assert d["measure_plain"] and d["measure_plain"] != d["measure"], d["id"]
+
+
+def test_nationality_shows_jev_and_kev_from_their_scored_rows_and_laya_is_unchanged(doc):
+    dim = next(d for d in doc["dimensions"] if d["id"] == "nationality")
+    board = dim["board"]
+    placed = {r["engine"]: r for r in board["ranked"] + board["not_detected"]}
+    assert {"laya", "kev", "jev"} <= set(placed) and board["unmeasured"] == []
+    laya = placed["laya"]
+    assert (laya["value"], laya["lo"], laya["hi"], laya["facet"]) == (4.51, 4.22, 4.8, "worldliness")
+
+
+def test_a_stereotype_facet_from_a_scored_row_names_its_sample_and_its_file(doc):
+    dim = next(d for d in doc["dimensions"] if d["id"] == "nationality")
+    kev = [c["engines"]["kev"] for c in dim["breakdown"]["cells"] if "kev" in c["engines"]]
+    measured = [f for f in kev if f["status"] == "measured"]
+    assert measured and all(0 < f["n"] < 2000 for f in measured)
+    assert all(f["study"] == "studies/stereotypes-nationality.jsonl" for f in measured)
+    laya = [c["engines"]["laya"] for c in dim["breakdown"]["cells"]]
+    assert all(f["study"] == "studies/batch2/stereotypes-laya.jsonl" for f in laya if f["status"] == "measured")

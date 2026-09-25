@@ -1,0 +1,53 @@
+{
+  "id": "BD-48198bd2-1995-46a2-b145-b392cb0dbb3b",
+  "title": "Run Kev: gendered-management (gendered-language, 6 cells, 12,216 requests)",
+  "description": "**Part of epic BD-72c708: follow its instructions and the runbook in BD-dd780c.** Work from `develop`; never push to `main`.\n\n**Job:** Kev first pass on `gendered-management` (gendered-language): 6 cells, exactly 12,216 requests, about 18 minutes.\n**Manifest:** `docs/kev-runs/gendered-language/gendered-management.json` (on `develop`).\n**Writes:** `answers/kev/gendered-management/`. Branch: `runs/<this issue id>`.\n**Then:** comment the request count and any error here, close, `kbs commit`, push `develop`.",
+  "type": "task",
+  "status": "closed",
+  "priority": 2,
+  "assignee": null,
+  "creator": null,
+  "parent": "BD-72c7086b-2910-49f2-88f3-1eb23b50d474",
+  "labels": [
+    "run",
+    "model-kev"
+  ],
+  "dependencies": [],
+  "comments": [
+    {
+      "id": "dc5dfe3d-5d57-4a09-9386-81a318d02891",
+      "author": "ryan",
+      "text": "Starting the capped first-pass manifest docs/kev-runs/gendered-language/gendered-management.json: 12,216 requests total across 6 cells (2,036 each), item_cap=500. Provenance: platform=Codex, model=GPT-5, agent=Biased-Decisions.",
+      "created_at": "2026-09-25T02:28:19.365507Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "codex",
+        "model": "GPT-5",
+        "name": "Biased-Decisions"
+      }
+    },
+    {
+      "id": "073581e3-e8aa-4cd1-ac9d-486c10c4fd1a",
+      "author": "ryan",
+      "text": "Completed: 6 cells, 12,216 requests, no errors. Manifest: docs/kev-runs/gendered-language/gendered-management.json. Answer artifacts committed on runs/BD-48198bd2-1995-46a2-b145-b392cb0dbb3b and merged into develop. Provenance: platform=Codex, model=GPT-5, agent=Biased-Decisions.",
+      "created_at": "2026-09-25T02:43:47.450279Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "codex",
+        "model": "GPT-5",
+        "name": "Biased-Decisions"
+      }
+    }
+  ],
+  "created_at": "2026-09-24T23:15:32.484185Z",
+  "updated_at": "2026-09-25T02:43:57.476655Z",
+  "closed_at": "2026-09-25T02:43:57.476586Z",
+  "agent": {
+    "platform": "claude_code",
+    "model": "Claude Sonnet 5",
+    "name": "Biased Decisions"
+  },
+  "right_now_summary": "The six-cell run finished with 12,216 requests and no errors; its answer artifacts are merged into develop.",
+  "right_now_updated_at": "2026-09-25T02:43:58.809612Z",
+  "custom": {}
+}
