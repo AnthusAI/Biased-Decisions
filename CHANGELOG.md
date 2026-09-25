@@ -1,3 +1,10 @@
+# [1.37.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.36.0...v1.37.0) (2026-09-25)
+
+
+### Features
+
+* **site:** batch-3 stereotype tests as seven unranked boards (nationalities, race, China, India, Nigeria and Kenya, sexual orientation, family) ([d4f2139](https://github.com/AnthusAI/Biased-Decisions/commit/d4f2139516c874ddd41457d9c8dcee7d4a6b30ac))
+
 # [1.36.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.35.0...v1.36.0) (2026-09-25)
 
 
