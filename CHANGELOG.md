@@ -1,3 +1,17 @@
+## [1.37.1](https://github.com/AnthusAI/Biased-Decisions/compare/v1.37.0...v1.37.1) (2026-09-25)
+
+
+### Bug Fixes
+
+* **site:** the home page repeated the option-order sentence for every unranked board; give the stereotype tests their own section ([49df970](https://github.com/AnthusAI/Biased-Decisions/commit/49df9700a4a3b1a0b2cfc7940092e5b98e7d8d76))
+
+# [1.37.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.36.0...v1.37.0) (2026-09-25)
+
+
+### Features
+
+* **site:** batch-3 stereotype tests as seven unranked boards (nationalities, race, China, India, Nigeria and Kenya, sexual orientation, family) ([d4f2139](https://github.com/AnthusAI/Biased-Decisions/commit/d4f2139516c874ddd41457d9c8dcee7d4a6b30ac))
+
 # [1.36.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.35.0...v1.36.0) (2026-09-25)
 
 

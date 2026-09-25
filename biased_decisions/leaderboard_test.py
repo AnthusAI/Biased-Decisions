@@ -308,17 +308,26 @@ def test_known_breakdown_cells(doc):
 
 def test_batch2_clauses_and_pending_predictions_are_verbatim(doc):
     prereg = _clean((DEFAULT_ROOT / "studies" / "PREREGISTERED.md").read_text(encoding="utf-8"))
+    prereg_b3 = _clean((DEFAULT_ROOT / "docs" / "batch3-preregistration.md").read_text(encoding="utf-8"))
     for dim in doc["dimensions"]:
         bd = dim["breakdown"]
         if dim["facet_kind"] not in ("question", "test"):
             assert bd["pending"] == []
             continue
+        # batch 3 names batch 2's seven nationalities without repeating their phrases, so either document counts
+        text = prereg_b3 + prereg if dim["id"].startswith("stereotype-b3-") else prereg
+        if dim["id"] == "stereotype-b3-antisemitism":   # its phrases and questions are registered in its own document
+            text += _clean((DEFAULT_ROOT / "docs" / "antisemitic-tropes-preregistration.md").read_text(encoding="utf-8"))
         for g in bd["groups"]:
             if g.get("clause"):
-                assert f'"{g["clause"]}"' in prereg or g["clause"].strip() in prereg
+                # a phrase with separate female and male forms ("A lesbian, / A gay man, ") is verbatim in each form
+                parts = [x.strip() for x in g["clause"].split(" / ")]
+                assert all(f'"{x}"' in text or x in text for x in parts), (dim["id"], g["clause"])
         for i in bd["items"]:
             if i.get("trope"):
-                assert i["question"] in prereg and i["trope"] in prereg
+                assert i["question"] in text and i["trope"] in text
+        if dim["id"].startswith("stereotype-b3-"):
+            continue                       # batch 3 has no pending predictions: it is scored for every model that answered
         assert bd["pending"]
         for row in bd["pending"]:
             assert row["engine"] == "jev" and row["observed"] is None
@@ -637,3 +646,42 @@ def test_a_ninth_characteristic_is_counted_and_a_model_without_it_is_marked_inco
     assert doc["overall"]["n_dimensions"] == len([d for d in doc["dimensions"] if not d.get("supplemental")]) == 9
     jev = next(r for r in doc["overall"]["rows"] if r["engine"] == "jev")
     assert "family" in jev["unmeasured"] and jev["incomplete"] is True
+
+
+B3_GROUPS = {"nationality-x": 13, "race": 5, "china": 4, "india": 5, "africa": 5, "orientation": 4, "family": 4}
+
+
+def test_each_batch3_axis_has_an_unranked_stereotype_board_measured_for_laya_and_kev(doc):
+    dims = _dims(doc)
+    for axis, n_groups in B3_GROUPS.items():
+        dim = dims[f"stereotype-b3-{axis}"]
+        assert dim["supplemental"] is True and len(dim["breakdown"]["groups"]) == n_groups, axis
+        items = [i["id"] for i in dim["breakdown"]["items"]]
+        assert "control-birthday" in items and "control-email" in items and len(items) >= 6, axis
+        group = dim["breakdown"]["groups"][0]["id"]
+        cell = _cell(dim, group, items[0])
+        for engine in ("laya", "kev"):
+            assert cell["engines"][engine]["status"] == "measured", (axis, engine)
+        assert cell["engines"]["jev"]["status"] == "missing"          # Jev has not answered batch 3
+
+
+def test_a_batch3_cell_says_what_it_is_and_carries_the_holm_verdict_and_its_sources(doc):
+    dim = _dims(doc)["stereotype-b3-nationality-x"]
+    groups = {g["id"]: g for g in dim["breakdown"]["groups"]}
+    assert groups["palestinian"]["label"] == "Palestinian" and groups["palestinian"]["clause"] == "A Palestinian, "
+    item = next(i for i in dim["breakdown"]["items"] if i["id"] == "violence")
+    assert item["question"].startswith("Is this person likely to pose a physical safety risk")
+    assert "SeeGULL" in item["stereotype"]
+    facet = _cell(dim, "palestinian", "violence")["engines"]["laya"]
+    assert "stereotype score: Palestinian against the other nationalities" == facet["raw"]["label"]
+    assert "trope_p_holm" in facet["extra"] and facet["extra"]["group"] == "palestinian"
+    assert facet["extra"]["clause"] == "A Palestinian, " and facet["extra"]["floor_clause"] == "A keen cyclist, "
+    assert facet["source"] == "harness" and facet["study"] == "studies/stereotypes-batch3-nationality-x.jsonl"
+    thin = groups["ukrainian"]
+    assert "published evidence for this stereotype is thin" in (thin.get("note") or "")
+
+
+def test_no_batch3_question_shows_an_internal_note_as_its_source(doc):
+    for axis in B3_GROUPS:
+        for item in _dims(doc)[f"stereotype-b3-{axis}"]["breakdown"]["items"]:
+            assert "batch 2" not in item["stereotype"].lower(), (axis, item["id"], item["stereotype"])

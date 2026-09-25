@@ -1,5 +1,5 @@
 ---
-import { pageIntroductions } from "../lib/introductions.js";
+import { pageIntroductions, categoryIntro } from "../lib/introductions.js";
 import Base from "../layouts/Base.astro";
 import Chart from "../components/Chart.astro";
 import EngineName from "../components/EngineName.astro";
@@ -9,6 +9,7 @@ import { data, engines, dimensions, supplementalDimensions, engineById, urls, he
   fmt, signed, unit, largestBias } from "../lib/site.js";
 
 const nDims = dimensions.length;
+const stereotypeBoards = supplementalDimensions.filter((d) => d.id.startsWith("stereotype-b3-"));
 const rows = data.overall.rows;
 const nTestedModels = rows.filter((r) => r.measured_on > 0).length;
 const nCells = dimensions.reduce((a, d) => a + Object.values(d.cells).filter((c) => c.status === "measured").length, 0);
@@ -176,9 +177,27 @@ const kindWord = (k) => (k === "task" ? "decision" : k);
         );
       })}
     </div>
-    {supplementalDimensions.map((d) => (
+    {supplementalDimensions.filter((d) => d.id === "option-order").map((d) => (
       <p class="note">One more test, and it is not about a kind of person: <a href={urls.dim(d.id)}>does listing the answer options in a different order change the answer?</a></p>
     ))}
+  </section>
+
+  <section class="wrap section" id="stereotypes" aria-labelledby="stereotypes-h">
+    <h2 class="display" id="stereotypes-h">Stereotype tests</h2>
+    <p class="lede">We also asked models yes-or-no questions that test for stereotypes, such as whether a person is likely to be dishonest or arrogant. Each time, we added one short phrase to the same short professional biography and compared it with a harmless phrase of the same size. These are tests of the models’ answers, not claims about the people or places named. <a href={`${urls.home()}stereotypes/`}>Where each stereotype comes from</a>.</p>
+    <div class="dim-grid">
+      {stereotypeBoards.map((d) => {
+        const bd = d.breakdown;
+        const tested = engines.filter((en) => d.cells[en.id].status === "measured").map((en) => en.label);
+        return (
+          <a class="dim-card" href={urls.dim(d.id)}>
+            <div class="dim-card-h">{d.long}</div>
+            <p>{categoryIntro(d)?.title}</p>
+            <div class="dim-card-f">{bd.groups.length} groups × {bd.items.length} questions · tested on {tested.join(" and ") || "no model yet"}</div>
+          </a>
+        );
+      })}
+    </div>
   </section>
 
   <section class="wrap section" id="ordering" aria-labelledby="ordering-h">
