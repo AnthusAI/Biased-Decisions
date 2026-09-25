@@ -1,0 +1,50 @@
+{
+  "id": "BD-b1a1f22f-7cd6-45ba-b4c3-cf5159cea270",
+  "title": "Test JEVPA late fusion against early fusion on a third Civil Comments sample",
+  "description": "Given the previously observed high correlation between retained specialist heads, when a third 30,000-row Civil Comments sample disjoint from both prior samples is frozen before calls, then compare a greedy single head, early feature fusion, and a fixed equal-weight late fusion of the two retained heads. Fit each head only on 500 discovery labels, use 500 selection rows to select a predeclared composition, and score 1,000 held-out rows only when the selection gate is met. No analyst calls; question wording is fixed from the prior replication. The study tests whether preserving separately fit specialist heads avoids the early-fusion generalization loss.",
+  "type": "story",
+  "status": "closed",
+  "priority": 2,
+  "assignee": null,
+  "creator": null,
+  "parent": "BD-8711caaf-17a6-4c26-a826-496dfd6bae82",
+  "labels": [],
+  "dependencies": [],
+  "comments": [
+    {
+      "id": "ccbd6040-1795-4367-979e-e76fdab08524",
+      "author": "home",
+      "text": "Agent root (Codex, gpt-6-astra): Preregistered a focused composition study. It tests whether separately fitted Pareto heads should be averaged rather than merged into one refit head, using a third source-disjoint Civil Comments sample and no analyst calls.",
+      "created_at": "2026-09-25T20:40:35.567421Z",
+      "comment_type": "default"
+    },
+    {
+      "id": "b975bdb3-df3e-4816-8954-a766fc8ab2ef",
+      "author": "home",
+      "text": "Agent root (Codex, gpt-6-astra): Completed the independent composition test. Late fusion did not replicate its exploratory advantage: selection Brier 0.05406 versus greedy 0.05356; early fusion was 0.05259. The preregistered final-test gate failed, so held-out rows remain untouched. This rejects simple equal-weight head averaging as the explanation.",
+      "created_at": "2026-09-25T20:42:55.940798Z",
+      "comment_type": "default"
+    },
+    {
+      "id": "35fb6b10-987b-4f36-8d62-e6df95272182",
+      "author": "home",
+      "text": "Composition hypothesis tested on third disjoint sample; late-fusion selection gate failed.",
+      "created_at": "2026-09-25T20:42:55.972752Z",
+      "comment_type": "default"
+    }
+  ],
+  "created_at": "2026-09-25T20:40:05.993958Z",
+  "updated_at": "2026-09-25T20:42:55.992194Z",
+  "closed_at": "2026-09-25T20:42:55.992168Z",
+  "agent": {
+    "platform": "codex",
+    "model": "gpt-6-astra",
+    "name": "root",
+    "settings": {
+      "study": "JEVPA composition"
+    }
+  },
+  "right_now_summary": null,
+  "right_now_updated_at": null,
+  "custom": {}
+}
