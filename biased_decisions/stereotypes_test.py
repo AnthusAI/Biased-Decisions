@@ -108,5 +108,9 @@ def test_the_replayed_row_reproduces_every_number_in_the_staged_batch2_results(a
 
 @pytest.mark.parametrize("axis", ["religion", "nationality"])
 def test_the_committed_study_file_is_exactly_what_replay_writes_for_the_axis(axis):
-    expected = json.dumps(score("laya", TASK, axis), ensure_ascii=False) + "\n"
-    assert (ROOT / f"studies/stereotypes-{axis}.jsonl").read_text(encoding="utf-8") == expected
+    rows = [json.loads(line) for line in
+            (ROOT / f"studies/stereotypes-{axis}.jsonl").read_text(encoding="utf-8").splitlines()]
+    engines = [r["engine"] for r in rows]
+    assert len(engines) == len(set(engines)) and set(engines) <= {"laya", "jev", "kev"}
+    laya = next(r for r in rows if r["engine"] == "laya")
+    assert laya == json.loads(json.dumps(score("laya", TASK, axis), ensure_ascii=False))

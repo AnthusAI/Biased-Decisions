@@ -424,11 +424,11 @@ def test_few_engines_each_get_their_own_step():
 def test_the_neutral_pronoun_rows_are_in_the_data_for_every_task_laya_answered(doc):
     rows = doc["neutral"]["rows"]
     assert {r["task"] for r in rows if r["engine"] == "laya"} == set(BIOS_TASKS)
-    assert {r["engine"] for r in rows} <= {"laya", "kev"}     # Kev's first-pass neutral cells add rows
-    nurse = next(r for r in rows if r["task"] == "nurse-physician")
+    assert {r["engine"] for r in rows} <= {"laya", "kev", "jev"}   # first-pass neutral cells add rows
+    nurse = next(r for r in rows if r["task"] == "nurse-physician" and r["engine"] == "laya")
     assert nurse["task_label"] == "nurse or physician" and nurse["reportable"] is True
     assert 0.1 < nurse["position"]["blank"]["lambda"] < 0.3 and nurse["positive"] == "physician"
-    journalist = next(r for r in rows if r["task"] == "journalist-professor")
+    journalist = next(r for r in rows if r["task"] == "journalist-professor" and r["engine"] == "laya")
     assert journalist["reportable"] is False and journalist["position"]["blank"] is None
 
 

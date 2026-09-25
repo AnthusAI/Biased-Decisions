@@ -13,6 +13,7 @@ from typing import Optional, Sequence
 from biased_decisions.tasks.items import Item
 
 SEED = "biased-decisions-subsample-1"
+FIRST_PASS_CAP = 500      # items (families) per cell in the registered first pass
 
 
 def family_id(item: Item, task: str) -> str:
