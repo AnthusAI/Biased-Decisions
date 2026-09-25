@@ -1,0 +1,28 @@
+{
+  "id": "BD-c907917d-a494-4ac7-b863-4a8ce8912bf9",
+  "title": "Run Jev: first pass on every registered cell (30 manifests, 176,020 requests)",
+  "description": "Jev first pass at the registered 500-item cap on every cell Jev lacks: the first-pass cells (30) and every amendment study (antisemitism, batch2, batch3, cfpb, gendered-language, housing-lending). 30 run manifests under docs/jev-runs/<study>/, 176,020 requests, exactly one request per item.\n\nThe project owner approved the Jev spend in chat and said Jev is cheap. Run on the first Mac, concurrently (16 at a time) by scripts/run_jev_study.py (PR #19). Tested first on the smallest manifest: 1,000 requests in 17 s, model jev-1.13.0, same as the existing Jev records. TYPESAFE_API_KEY comes from a gitignored .env and is never printed or logged.\n\nResults and any failed manifest are logged in comments here.",
+  "type": "task",
+  "status": "open",
+  "priority": 2,
+  "assignee": null,
+  "creator": null,
+  "parent": "BD-996e2093-9594-467a-bdb9-4a1260b0589a",
+  "labels": [
+    "run",
+    "model-jev"
+  ],
+  "dependencies": [],
+  "comments": [],
+  "created_at": "2026-09-25T00:01:29.645520Z",
+  "updated_at": "2026-09-25T00:01:29.645560Z",
+  "closed_at": null,
+  "agent": {
+    "platform": "claude_code",
+    "model": "Claude Sonnet 5",
+    "name": "Biased Decisions"
+  },
+  "right_now_summary": null,
+  "right_now_updated_at": null,
+  "custom": {}
+}
