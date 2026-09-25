@@ -3,7 +3,7 @@
   "title": "Run Kev: small-business-loan (housing-lending, 3 cells, 5,500 requests)",
   "description": "**Part of epic BD-72c708: follow its instructions and the runbook in BD-dd780c.** Work from `develop`; never push to `main`.\n\n**Job:** Kev first pass on `small-business-loan` (housing-lending): 3 cells, exactly 5,500 requests, about 8 minutes.\n**Manifest:** `docs/kev-runs/housing-lending/small-business-loan.json` (on `develop`).\n**Writes:** `answers/kev/small-business-loan/`. Branch: `runs/<this issue id>`.\n**Then:** comment the request count and any error here, close, `kbs commit`, push `develop`.",
   "type": "task",
-  "status": "in_progress",
+  "status": "closed",
   "priority": 2,
   "assignee": null,
   "creator": null,
@@ -25,17 +25,29 @@
         "model": "GPT-5",
         "name": "Biased-Decisions"
       }
+    },
+    {
+      "id": "dabaf2d8-ea2e-45f5-ae1e-861319632ea8",
+      "author": "ryan",
+      "text": "Completed: 3 cells, 5,500 requests, no errors. Manifest: docs/kev-runs/housing-lending/small-business-loan.json. Answer artifacts committed on runs/BD-3724e953-edbc-4b3c-a435-a193f3e80981 and merged into develop. Provenance: platform=Codex, model=GPT-5, agent=Biased-Decisions.",
+      "created_at": "2026-09-25T03:08:02.590277Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "codex",
+        "model": "GPT-5",
+        "name": "Biased-Decisions"
+      }
     }
   ],
   "created_at": "2026-09-24T23:15:32.550426Z",
-  "updated_at": "2026-09-25T02:59:18.736787Z",
-  "closed_at": null,
+  "updated_at": "2026-09-25T03:08:09.691263Z",
+  "closed_at": "2026-09-25T03:08:09.691203Z",
   "agent": {
     "platform": "claude_code",
     "model": "Claude Sonnet 5",
     "name": "Biased Decisions"
   },
-  "right_now_summary": "Kev is collecting 5,500 requests across three cells for small-business-loan.",
-  "right_now_updated_at": "2026-09-25T02:59:20.122761Z",
+  "right_now_summary": "The 3-cell run completed 5,500 requests with no errors, and its artifacts are merged into develop.",
+  "right_now_updated_at": "2026-09-25T03:08:11.202617Z",
   "custom": {}
 }
