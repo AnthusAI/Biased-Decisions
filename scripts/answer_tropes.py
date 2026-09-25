@@ -79,6 +79,7 @@ def answer_tropes(
     model: Optional[Any] = None,
     out_dir: Optional[Path] = None,
     build: str = DEFAULT_BUILD,
+    item_cap: Optional[int] = None,
 ) -> None:
     """Run the answer script on a single plan for a trope task.
 
@@ -102,6 +103,8 @@ def answer_tropes(
         rows = rows_as_written(task_dir)
     else:
         rows = rows_versions(task_dir, plan)
+    if item_cap is not None:
+        rows = rows[:item_cap]
 
     plan_obj = Plan(plan, rows, out_dir, task, build)
 
@@ -225,6 +228,8 @@ def main() -> None:
     )
     parser.add_argument("--build", choices=BUILDS, default=DEFAULT_BUILD,
                         help="laya (PyTorch, default) or laya-mlx (Apple MLX)")
+    parser.add_argument("--item-cap", type=int, default=None,
+                        help="maximum number of items to answer per plan")
     args = parser.parse_args()
 
     root = Path(args.root)
@@ -247,6 +252,8 @@ def main() -> None:
             rows = rows_as_written(task_dir)
         else:
             rows = rows_versions(task_dir, plan_name)
+        if args.item_cap is not None:
+            rows = rows[:args.item_cap]
 
         plan_obj = Plan(plan_name, rows, out_dir, args.task, args.build)
         _run_plan(plan_obj, model, tag, questions)
