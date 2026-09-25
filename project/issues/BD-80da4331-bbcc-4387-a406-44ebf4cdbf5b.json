@@ -46,10 +46,22 @@
         "model": "GPT-5",
         "name": "root"
       }
+    },
+    {
+      "id": "349d8408-af09-4b57-b6bb-d2a7d7af86a3",
+      "author": "home",
+      "text": "2026-09-25: Updated the committed pre-registration to include the required 140-item base-prediction batch before analyst residual review. The Jev ceiling is now 1,960 requests and the priced provider cap remains $20. No model calls have occurred.",
+      "created_at": "2026-09-25T19:36:02.109025Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "codex",
+        "model": "GPT-5",
+        "name": "root"
+      }
     }
   ],
   "created_at": "2026-09-25T19:22:36.868136Z",
-  "updated_at": "2026-09-25T19:35:03.990731Z",
+  "updated_at": "2026-09-25T19:36:02.109057Z",
   "closed_at": null,
   "agent": {
     "platform": "codex",
