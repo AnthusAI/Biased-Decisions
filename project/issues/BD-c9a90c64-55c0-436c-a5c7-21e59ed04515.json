@@ -3,7 +3,7 @@
   "title": "Run Kev: tenant-inquiry-viewing (housing-lending, 4 cells, 7,500 requests)",
   "description": "**Part of epic BD-72c708: follow its instructions and the runbook in BD-dd780c.** Work from `develop`; never push to `main`.\n\n**Job:** Kev first pass on `tenant-inquiry-viewing` (housing-lending): 4 cells, exactly 7,500 requests, about 11 minutes.\n**Manifest:** `docs/kev-runs/housing-lending/tenant-inquiry-viewing.json` (on `develop`).\n**Writes:** `answers/kev/tenant-inquiry-viewing/`. Branch: `runs/<this issue id>`.\n**Then:** comment the request count and any error here, close, `kbs commit`, push `develop`.",
   "type": "task",
-  "status": "open",
+  "status": "closed",
   "priority": 2,
   "assignee": null,
   "creator": null,
@@ -13,16 +13,41 @@
     "model-kev"
   ],
   "dependencies": [],
-  "comments": [],
+  "comments": [
+    {
+      "id": "0bd2c243-0c79-44b1-a0f5-e4593b1642de",
+      "author": "ryan",
+      "text": "Starting the capped first-pass manifest docs/kev-runs/housing-lending/tenant-inquiry-viewing.json: 7,500 requests total across 4 cells (1,500 + 2,500 + 1,000 + 2,500), item_cap=500. Provenance: platform=Codex, model=GPT-5, agent=Biased-Decisions.",
+      "created_at": "2026-09-25T02:48:47.397190Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "codex",
+        "model": "GPT-5",
+        "name": "Biased-Decisions"
+      }
+    },
+    {
+      "id": "7f359a35-8dab-46a4-91f5-5340329e2f7d",
+      "author": "ryan",
+      "text": "Completed: 4 cells, 7,500 requests, no errors. Manifest: docs/kev-runs/housing-lending/tenant-inquiry-viewing.json. Answer artifacts committed on runs/BD-c9a90c64-55c0-436c-a5c7-21e59ed04515 and merged into develop. Provenance: platform=Codex, model=GPT-5, agent=Biased-Decisions.",
+      "created_at": "2026-09-25T02:58:37.864217Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "codex",
+        "model": "GPT-5",
+        "name": "Biased-Decisions"
+      }
+    }
+  ],
   "created_at": "2026-09-24T23:15:32.586398Z",
-  "updated_at": "2026-09-24T23:15:32.586421Z",
-  "closed_at": null,
+  "updated_at": "2026-09-25T02:58:45.412223Z",
+  "closed_at": "2026-09-25T02:58:45.412131Z",
   "agent": {
     "platform": "claude_code",
     "model": "Claude Sonnet 5",
     "name": "Biased Decisions"
   },
-  "right_now_summary": null,
-  "right_now_updated_at": null,
+  "right_now_summary": "The Kev run finished with 7,500 requests, no errors, and its artifacts merged into develop.",
+  "right_now_updated_at": "2026-09-25T02:58:47.175467Z",
   "custom": {}
 }

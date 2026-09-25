@@ -1,0 +1,1 @@
+{"engine": "kev", "task": "tenant-inquiry-viewing", "cue": "disability", "positive": "yes", "n": 500, "versions": {"wheelchair": {"mean_pts": -0.9, "ci_pts": [-0.92, -0.88], "flip_vs_floor_pct": 0}}, "shared_clause_pts": null, "spread_pts": null}

@@ -1,0 +1,77 @@
+{
+  "id": "BD-4d61a6d2-56a6-444a-a69f-fed2941a91c5",
+  "title": "Ryan's MacBook Pro M3 handoff 2: Laya first pass on housing-lending and antisemitism",
+  "description": "**Assigned to Ryan's MacBook Pro M3.** This epic is your whole assignment: do the setup task first, then every run task, in order, one at a time, then close the epic.\n\nMachines in this project are named **Ryan's MacBook Pro M1** (the coordinating machine; it runs Laya batch 3 and gendered language, and Jev) and **Ryan's MacBook Pro M3** (you). Use those names in Kanbus comments.\n\n**Job:** Laya (the original PyTorch build, `laya` 0.3.7) first pass at the registered 500-item-per-cell cap on the housing-and-lending tasks and the antisemitic-trope tasks: 24 cells, about 35,000 requests. Laya is a free, local open-source model. Laya uses the CPU/GPU of this machine, so **one job at a time and nothing else heavy running**.\n\n## How\n- Read `kbs show BD-dd780c` for the general workflow (Git Flow: work from `develop`, data goes to a `runs/<child id>` branch, never push to `main`; after a task, comment, close, `kbs commit`, push `develop`). Its Kev-specific steps (the Kev server, `run_kev_study`) do NOT apply here; the commands for Laya are in each child task.\n- Do the **setup task** first. Then each run task, in order. Every command already includes `--item-cap 500`; never remove it and never run a cell without it. Rows already answered in a partial file are reused, so an interrupted job just resumes when you run the same command again.\n- After a cell finishes, its file is `answers/laya/<task>/<plan>.jsonl.gz`. The row count must equal the `requests` for that same cue in `docs/kev-runs/<study>/<task>.json` (same cells, same cap). If a count differs, stop, comment the numbers on the child, and go on.\n- Commit only finished `.jsonl.gz` files, never `*.partial.jsonl`. No `bd replay`, no test suite, no site build on this machine.\n\n## Reporting\nComment on each child when it finishes (rows and any error), and comment on this epic if you stop for any reason. Ryan's MacBook Pro M1 will read your comments about every 15 minutes overnight and reply here.",
+  "type": "epic",
+  "status": "open",
+  "priority": 2,
+  "assignee": "Ryan's MacBook Pro M3",
+  "creator": null,
+  "parent": "BD-250c97a3-6ae4-4061-8d67-dbfd02bf9549",
+  "labels": [
+    "handoff",
+    "model-laya"
+  ],
+  "dependencies": [],
+  "comments": [
+    {
+      "id": "55fbffd5-6a2b-477f-bb7e-034308742a41",
+      "author": "home",
+      "text": "Added two more tasks to this epic for Ryan's MacBook Pro M3: gendered-management (6 cells) and gendered-advance (1 cell), Laya first pass at the 500-item cap. They come last, after the five housing-and-lending and antisemitism runs. That makes 31 Laya cells, about 49,000 requests, and Ryan's MacBook Pro M1 keeps only the four batch-3 cells. If you finish every task here, comment a one-line summary on the epic, close it, and stop; do not start anything else.",
+      "created_at": "2026-09-25T03:03:17.394909Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude_code",
+        "model": "Claude Sonnet 5",
+        "name": "Ryan's MacBook Pro M1"
+      }
+    },
+    {
+      "id": "a7176efa-f54b-4b8a-aaff-3a2c2f9e5eb7",
+      "author": "home",
+      "text": "From Ryan's MacBook Pro M1: Ryan's MacBook Pro M3 stopped about 7 hours ago and never started this epic, and it was thrashed this morning. To keep the work moving, Ryan's MacBook Pro M1 is running all 31 Laya cells of this epic itself, now. Ryan's MacBook Pro M3: do NOT start this epic; leave it. Nothing here needs you.",
+      "created_at": "2026-09-25T10:35:18.322464Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude_code",
+        "model": "Claude Sonnet 5",
+        "name": "Ryan's MacBook Pro M1"
+      }
+    },
+    {
+      "id": "755799df-6341-48d6-8fe3-10701b29df1e",
+      "author": "home",
+      "text": "From Ryan's MacBook Pro M1, updating my earlier note now that Ryan's MacBook Pro M3 is back: please take PART of this epic. Do (1) the setup task BD-3fbba2, then (2) BD-abfd1b (stereotypes-antisemitism) and (3) BD-cb516b (loan-narratives-antisemitism), in that order, following their instructions exactly (Laya, --item-cap 500, one job at a time, nothing else heavy running). DO NOT do the housing-lending or gendered-language tasks in this epic: Ryan's MacBook Pro M1 is running those. When BD-abfd1b and BD-cb516b are closed, comment a one-line summary here and stop. If the machine starts to thrash, stop the job and comment; the runs resume from where they stopped.",
+      "created_at": "2026-09-25T10:39:04.432328Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude_code",
+        "model": "Claude Sonnet 5",
+        "name": "Ryan's MacBook Pro M1"
+      }
+    },
+    {
+      "id": "fe284238-40b2-4324-8291-01377098242d",
+      "author": "ryan",
+      "text": "Stopped at required setup BD-3fbba2: the exact laya==0.3.7 package is unavailable from the configured package index (PyPI 404), so the two assigned antisemitism runs cannot start without resolving the pinned dependency. No housing/lending or gendered-language work was started. Provenance: platform=Codex, model=GPT-5, agent=Biased-Decisions.",
+      "created_at": "2026-09-25T10:40:38.480050Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "codex",
+        "model": "GPT-5",
+        "name": "Biased-Decisions"
+      }
+    }
+  ],
+  "created_at": "2026-09-25T03:00:44.494431Z",
+  "updated_at": "2026-09-25T10:40:38.480074Z",
+  "closed_at": null,
+  "agent": {
+    "platform": "claude_code",
+    "model": "Claude Sonnet 5",
+    "name": "Ryan's MacBook Pro M1"
+  },
+  "right_now_summary": "The setup is blocked because laya==0.3.7 is unavailable, so no runs have started.",
+  "right_now_updated_at": "2026-09-25T10:40:39.822826Z",
+  "custom": {}
+}
