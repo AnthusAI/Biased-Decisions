@@ -24,6 +24,7 @@ from biased_decisions.cues.insertion import eligible, insert_clause
 from biased_decisions.metrics import tropes
 from biased_decisions.metrics.tropes import Axis, Question
 from biased_decisions.record import read_record_by_id, record_path
+from biased_decisions.subsample import FIRST_PASS_CAP, subsample
 from biased_decisions.tasks.base import Task
 
 SLUG = "stereotypes"
@@ -110,6 +111,21 @@ def _p_yes(rows_by_id: dict, ids: List[str], question: str) -> List[float]:
     return [rows_by_id[i]["answers"][question]["noul"] for i in ids]
 
 
+def _registered_bios(task: Task, versions, items: List[str], answers: Dict[str, dict]) -> List[str]:
+    """The bios to score: all of them for a complete record, exactly the registered first-pass subsample for
+    a capped one, and a refusal (``KeyError``) for any other partial record."""
+    needed = {v.id for v in versions}
+    answered = needed & set(answers)
+    if answered == needed:
+        return items
+    kept = {v.id for v in subsample(list(versions), task.slug, FIRST_PASS_CAP)}
+    if answered != kept:
+        raise KeyError(f"the record answers {len(answered)} of {len(needed)} versions, which is neither all "
+                       f"of them nor exactly the {len(kept)}-item registered subsample")
+    bios = {v.metadata["source_id"] for v in versions if v.id in kept}
+    return [i for i in items if i in bios]
+
+
 def score_stereotypes(engine: str, task: Task, axis: str) -> dict:
     """One study row for ``(engine, axis)``: every question, every group, the general effect and
     the as-written baseline. Raises ``KeyError`` if a needed answer is missing (the caller,
@@ -120,6 +136,7 @@ def score_stereotypes(engine: str, task: Task, axis: str) -> dict:
     versions = task.load_versions(axis)
     by_bio_version = {(v.metadata["source_id"], v.metadata["version"]): v.id for v in versions}
     answers = read_record_by_id(record_path(engine, task.slug, axis, root=task.root))
+    items = _registered_bios(task, versions, items, answers)
     p_yes: Dict[str, Dict[str, List[float]]] = {}
     for q in questions:
         p_yes[q.key] = {}
