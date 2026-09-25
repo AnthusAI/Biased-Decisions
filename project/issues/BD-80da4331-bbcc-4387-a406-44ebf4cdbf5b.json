@@ -22,10 +22,34 @@
         "model": "GPT-5",
         "name": "root"
       }
+    },
+    {
+      "id": "f87d5e9c-461f-492c-8a6d-aa9e774f880a",
+      "author": "home",
+      "text": "2026-09-25: Added the Civil Comments JEVPA preregistration on the isolated branch. It separates the raw toxicity-label corpus from the existing identity-insertion task and seals threat/identity-attack annotations from the analyst.",
+      "created_at": "2026-09-25T19:25:43.352733Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "codex",
+        "model": "GPT-5",
+        "name": "root"
+      }
+    },
+    {
+      "id": "18ded944-e5f5-413a-9819-7f06ce586891",
+      "author": "home",
+      "text": "2026-09-25: Froze a checksum-verified raw Civil Comments split in the isolated worktree. The selection set is deterministically enriched for sealed threat and identity-attack slices; both meet the pre-registered 50-toxic-row support gate. No analyst or engine calls have occurred.",
+      "created_at": "2026-09-25T19:35:03.990697Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "codex",
+        "model": "GPT-5",
+        "name": "root"
+      }
     }
   ],
   "created_at": "2026-09-25T19:22:36.868136Z",
-  "updated_at": "2026-09-25T19:23:27.917197Z",
+  "updated_at": "2026-09-25T19:35:03.990731Z",
   "closed_at": null,
   "agent": {
     "platform": "codex",
