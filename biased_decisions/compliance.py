@@ -310,10 +310,10 @@ MAPPING: List[dict] = [
        "reason": "These tests ask stereotype questions about a person described in a short biography. They "
                  "are not a decision that a rule governs, so they carry no regulated-decision warning. A "
                  "fast model like this could be used to screen biographies, and rules about national "
-                 "origin, race, sex or family status may then bear on the result; we have not yet "
+                 "origin, race, religion, sex or family status may then bear on the result; we have not yet "
                  "connected them. That is a gap in our work, not a finding that no rule applies.",
        "recipes": ["test-one-characteristic"], "insights": ["measure-before-deploying"]}
-      for axis in ("nationality-x", "race", "china", "india", "africa", "orientation", "family")],
+      for axis in ("nationality-x", "race", "china", "india", "africa", "orientation", "family", "antisemitism")],
     {"dimension": "option-order", "regulated": False,
      "reason": "The order in which the two answers are offered is not a protected characteristic, "
                "so this test carries no regulated-decision warning. It still matters for "

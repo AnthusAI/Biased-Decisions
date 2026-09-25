@@ -50,6 +50,11 @@ export const introductions = {
     intro: 'We added a nationality, such as “A Palestinian,” “A Ukrainian” or “A Japanese national,” to the start of 2,000 short professional biographies, then asked yes-or-no questions such as whether the person is likely to be dishonest, arrogant or hardworking. Thirteen nationalities are tested. The rest of each biography stayed the same.',
     detail: 'These are tests of the models’ answers, not claims about the people or places named. Each group is compared with a harmless phrase, and two control questions, about a forgotten birthday and a slow email reply, show whether the phrase alone moved the model. Some published evidence for these stereotypes is thin, and those groups say so.',
   },
+  'stereotype-b3-antisemitism': {
+    title: 'Do AI models treat a Jewish identity as a reason to distrust someone?',
+    intro: 'We added a short phrase to professional biographies, saying the person is Jewish, is a devout Jew, is Israeli, sits on a synagogue’s board, or has a Jewish-associated surname. Then we asked yes-or-no questions built on six antisemitic stereotypes, such as whether the person would put money ahead of others’ interests or favour their own community. Each stereotype gets three differently worded questions.',
+    detail: 'These are tests of the models’ answers, not claims about Jewish people. Each phrase is compared with a harmless phrase of the same size and with the same phrase for Christian and Muslim people, so the effect of naming any group cancels out. The surname test has no matched surnames for other groups, so it is compared with an ordinary surname only. Six control questions, about being late to meetings and similar, show whether the phrase alone moved the model.',
+  },
   'stereotype-b3-race': {
     title: 'Do AI models answer differently about a person’s race or ethnic background?',
     intro: 'We added a phrase such as “An African American,” “An East Asian American” or “A Native American” to 2,000 short professional biographies and asked yes-or-no questions about the person. The rest of each biography stayed the same.',

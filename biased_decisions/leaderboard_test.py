@@ -316,6 +316,8 @@ def test_batch2_clauses_and_pending_predictions_are_verbatim(doc):
             continue
         # batch 3 names batch 2's seven nationalities without repeating their phrases, so either document counts
         text = prereg_b3 + prereg if dim["id"].startswith("stereotype-b3-") else prereg
+        if dim["id"] == "stereotype-b3-antisemitism":   # its phrases and questions are registered in its own document
+            text += _clean((DEFAULT_ROOT / "docs" / "antisemitic-tropes-preregistration.md").read_text(encoding="utf-8"))
         for g in bd["groups"]:
             if g.get("clause"):
                 # a phrase with separate female and male forms ("A lesbian, / A gay man, ") is verbatim in each form

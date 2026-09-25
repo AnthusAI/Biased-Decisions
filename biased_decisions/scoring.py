@@ -27,7 +27,7 @@ from biased_decisions.metrics import neutral as neutral_metrics
 from biased_decisions.metrics import shortlist as shortlist_metrics
 from biased_decisions.metrics.flips import Verdict, score_arm_race, score_pair
 from biased_decisions.metrics.shifts import score_arm_age, score_arm_race2
-from biased_decisions import gendered_language, gendered_scoring, housing_lending, stereotypes, stereotypes_batch3
+from biased_decisions import antisemitism, gendered_language, gendered_scoring, housing_lending, stereotypes, stereotypes_batch3
 from biased_decisions.record import read_record_by_id, record_path
 from biased_decisions.subsample import subsample
 from biased_decisions.tasks.base import DEFAULT_ROOT, Task
@@ -93,6 +93,10 @@ REGULATED_SHAPE: Dict[str, Dict[str, tuple]] = {
     stereotypes.SLUG: {axis: (spec.floor, spec.groups) for axis, spec in stereotypes.AXES.items()},
     stereotypes_batch3.SLUG: {axis: (spec.floor, spec.groups)
                               for axis, spec in stereotypes_batch3.AXES.items()},
+    # The antisemitic-tropes study: per cue form, the target's floor version and the versions read
+    # against it; scored by ``antisemitism.score_antisemitism``, one row per engine and cue form.
+    **{slug: {cue: (floor, (target,) + others) for cue, (target, others, floor) in antisemitism.CUES.items()}
+       for slug in antisemitism.SLUGS},
     # Gendered language: the neutral (communal) word is the floor of the loaded (agentic) word, each
     # crossed with gender; scored by ``score_gendered_language``, not by the regulated shape's rows.
     **{slug: {cue: gendered_scoring.shape_of(slug, cue) for cue in gendered_language.cues_of(slug)}
@@ -620,6 +624,15 @@ def score_stereotypes_batch3(engine: str, task: Task, cue: str) -> dict:
         raise ScoreError(f"({engine!r}, {task.slug!r}, {cue!r}) has no answer for {error}") from error
 
 
+def score_antisemitism(engine: str, task: Task, cue: str) -> dict:
+    if cue not in antisemitism.CUES:
+        raise ScoreError(f"no cue form {cue!r} on {task.slug!r}; one of {tuple(antisemitism.CUES)}")
+    try:
+        return antisemitism.score_antisemitism(engine, task, cue)
+    except KeyError as error:
+        raise ScoreError(f"({engine!r}, {task.slug!r}, {cue!r}) has no answer for {error}") from error
+
+
 def score_gendered_language(engine: str, task: Task, cue: str) -> dict:
     if cue not in gendered_language.cues_of(task.slug):
         raise ScoreError(f"no gendered-language cue {cue!r} on {task.slug!r}; "
@@ -638,6 +651,8 @@ def score_gendered_language(engine: str, task: Task, cue: str) -> dict:
 def score(engine: str, task: Task, cue: str, **kwargs) -> dict:
     if task.slug in gendered_language.TASKS:
         return score_gendered_language(engine, task, cue)
+    if task.slug in antisemitism.SLUGS:
+        return score_antisemitism(engine, task, cue)
     if task.slug == stereotypes_batch3.SLUG:
         return score_stereotypes_batch3(engine, task, cue)
     if task.slug == stereotypes.SLUG:
