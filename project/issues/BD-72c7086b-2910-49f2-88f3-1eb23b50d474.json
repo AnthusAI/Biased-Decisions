@@ -71,7 +71,7 @@
     "model": "Claude Sonnet 5",
     "name": "Biased Decisions"
   },
-  "right_now_summary": "Most Kev runs are complete; gendered-advance and tenant-inquiry-viewing still need to finish.",
-  "right_now_updated_at": "2026-09-25T02:44:38.393526Z",
+  "right_now_summary": "Kev results from all 21 runs are merged into develop, with no reported errors.",
+  "right_now_updated_at": "2026-09-25T02:48:08.056572Z",
   "custom": {}
 }
