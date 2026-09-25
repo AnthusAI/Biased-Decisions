@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "event_id": "ee4650ba-dbef-4656-9e83-1780bdaca5c8",
+  "issue_id": "BD-274fd0c4-5cdd-4f3e-b84c-249dd89eda3a",
+  "event_type": "comment_added",
+  "occurred_at": "2026-09-25T10:35:22.363Z",
+  "actor_id": "ryan",
+  "payload": {
+    "comment_id": "195a97bf-b179-42e1-99d6-d5f1831f8810",
+    "comment_author": "ryan",
+    "agent": {
+      "platform": "codex",
+      "model": "GPT-5",
+      "name": "Biased-Decisions"
+    }
+  }
+}
