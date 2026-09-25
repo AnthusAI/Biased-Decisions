@@ -3,7 +3,7 @@
   "title": "Civil Comments JEVPA feasibility study",
   "description": "As a researcher, I want to test whether Pareto retention finds complementary moderation features in real Civil Comments text, so that JEVPA is evaluated where error mechanisms can genuinely differ.\n\nFeature: Civil Comments JEVPA feasibility\n\nScenario: Sealed subtype slices reveal complementary residual mechanisms\nGiven a fixed public Civil Comments split with toxicity labels\nWhen a baseline is fit on discovery data and scored on selection data\nThen threat and identity-attack subtype annotations remain hidden from the analyst and are reported only as selection slices\nAnd the study advances only when each slice has sufficient support and different candidate questions are retained.",
   "type": "story",
-  "status": "in_progress",
+  "status": "closed",
   "priority": 2,
   "assignee": null,
   "creator": null,
@@ -70,11 +70,23 @@
         "model": "GPT-5",
         "name": "root"
       }
+    },
+    {
+      "id": "0462104c-952c-4f34-af23-59707d670039",
+      "author": "home",
+      "text": "2026-09-25: Completed the preregistered real-data run. The two fully answered initial candidates were both fit only on 140 discovery labels; initial:3 dominated initial:4 on overall, threat, and identity-attack Brier. The Pareto pool therefore had one member, so the mechanism gate failed. Per protocol, no branch or held-out test batch was sent. Results are in docs/civil-comments-jevpa-results.md.",
+      "created_at": "2026-09-25T19:51:35.347080Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "codex",
+        "model": "GPT-5",
+        "name": "root"
+      }
     }
   ],
   "created_at": "2026-09-25T19:22:36.868136Z",
-  "updated_at": "2026-09-25T19:45:10.588691Z",
-  "closed_at": null,
+  "updated_at": "2026-09-25T19:51:48.445173Z",
+  "closed_at": "2026-09-25T19:51:48.445141Z",
   "agent": {
     "platform": "codex",
     "model": "GPT-5",
