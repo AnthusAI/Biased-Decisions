@@ -45,6 +45,41 @@ export const introductions = {
     intro: 'We asked AI models whether to offer an apartment viewing after reading a rental inquiry, and whether to escalate a real consumer complaint for priority handling. Then we added one phrase to the start, such as “As a single parent” or “As a married person,” and asked again. The rest of the text stayed the same.',
     detail: 'We compared each phrase with “As a keen cyclist,” which says nothing about family. The rental inquiry has no “divorced” version. These tests show how the models respond to the phrase, not anything about the people described.',
   },
+  'stereotype-b3-nationality-x': {
+    title: 'Do AI models assume a personality from a nationality?',
+    intro: 'We added a nationality, such as “A Palestinian,” “A Ukrainian” or “A Japanese national,” to the start of 2,000 short professional biographies, then asked yes-or-no questions such as whether the person is likely to be dishonest, arrogant or hardworking. Thirteen nationalities are tested. The rest of each biography stayed the same.',
+    detail: 'These are tests of the models’ answers, not claims about the people or places named. Each group is compared with a harmless phrase, and two control questions, about a forgotten birthday and a slow email reply, show whether the phrase alone moved the model. Some published evidence for these stereotypes is thin, and those groups say so.',
+  },
+  'stereotype-b3-race': {
+    title: 'Do AI models answer differently about a person’s race or ethnic background?',
+    intro: 'We added a phrase such as “An African American,” “An East Asian American” or “A Native American” to 2,000 short professional biographies and asked yes-or-no questions about the person. The rest of each biography stayed the same.',
+    detail: 'These are tests of the models’ answers, not claims about the people or places named. Each group is compared with a harmless phrase, and two control questions, about a forgotten birthday and a slow email reply, show whether the phrase alone moved the model.',
+  },
+  'stereotype-b3-china': {
+    title: 'Do AI models judge a person differently by region within China?',
+    intro: 'We added a place of origin, such as “A native of Henan province” or “Registered under a rural hukou,” to 2,000 short professional biographies and asked yes-or-no questions about the person. The rest of each biography stayed the same.',
+    detail: 'These are tests of the models’ answers, not claims about the people or places named. Each group is compared with a harmless phrase, and two control questions, about a forgotten birthday and a slow email reply, show whether the phrase alone moved the model.',
+  },
+  'stereotype-b3-india': {
+    title: 'Do AI models judge a person differently by group within India?',
+    intro: 'We added a phrase such as “A Brahmin,” “A Dalit” or “From Bihar” to 2,000 short professional biographies and asked yes-or-no questions about the person. The rest of each biography stayed the same.',
+    detail: 'These are tests of the models’ answers, not claims about the people or places named. Each group is compared with a harmless phrase, and two control questions, about a forgotten birthday and a slow email reply, show whether the phrase alone moved the model. Caste is not a listed category in US federal law; how a rule applies here is uncertain.',
+  },
+  'stereotype-b3-africa': {
+    title: 'Do AI models judge a person differently by ethnic group in Nigeria and Kenya?',
+    intro: 'We added a phrase such as “An Igbo Nigerian,” “A Yoruba Nigerian” or “A Maasai” to 2,000 short professional biographies and asked yes-or-no questions about the person. The rest of each biography stayed the same.',
+    detail: 'These are tests of the models’ answers, not claims about the people or places named. Each group is compared with a harmless phrase, and two control questions, about a forgotten birthday and a slow email reply, show whether the phrase alone moved the model.',
+  },
+  'stereotype-b3-orientation': {
+    title: 'Do AI models judge a person differently by sexual orientation?',
+    intro: 'We added a phrase such as “A gay man,” “A lesbian” or “A bisexual woman” to 2,000 short professional biographies, compared with “A married man” or “A married woman,” and asked yes-or-no questions about the person. The rest of each biography stayed the same.',
+    detail: 'These are tests of the models’ answers, not claims about the people or places named. Each group is compared with a harmless phrase, and two control questions, about a forgotten birthday and a slow email reply, show whether the phrase alone moved the model.',
+  },
+  'stereotype-b3-family': {
+    title: 'Do AI models judge a person differently by family situation?',
+    intro: 'We added a phrase such as “A single mother,” “Currently pregnant” or “A parent of five” to 2,000 short professional biographies and asked yes-or-no questions such as whether the person is likely to be distracted by family. The rest of each biography stayed the same.',
+    detail: 'These are tests of the models’ answers, not claims about the people or places named. Each group is compared with a harmless phrase, and two control questions, about a forgotten birthday and a slow email reply, show whether the phrase alone moved the model.',
+  },
   'option-order': {
     title: 'Can the order of two answers change an AI’s choice?',
     intro: 'We asked AI models to identify a person’s job from a biography, then reversed the order of the two possible answers. “Surgeon or physician?” became “Physician or surgeon?” The biography stayed the same. We counted how often the models chose a different job.',
