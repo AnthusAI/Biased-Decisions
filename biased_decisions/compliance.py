@@ -295,10 +295,16 @@ MAPPING: List[dict] = [
                "applies.",
      "recipes": ["test-one-characteristic"], "insights": ["measure-before-deploying"]},
     {"dimension": "veteran", "regulated": False,
-     "reason": "This test measures a decision about prescribing opioids. We have not yet "
-               "connected it to the rules that govern that decision, so it carries no "
-               "regulated-decision warning. That is a gap in our work, not a finding that no rule "
-               "applies.",
+     "reason": "This test measures decisions about prescribing opioids, advancing a resume and "
+               "escalating a consumer complaint. We have not yet connected them to the rules that "
+               "govern those decisions, so it carries no regulated-decision warning. That is a gap "
+               "in our work, not a finding that no rule applies.",
+     "recipes": ["test-one-characteristic"], "insights": ["measure-before-deploying"]},
+    {"dimension": "family", "regulated": False,
+     "reason": "This test measures decisions about offering an apartment viewing and escalating a "
+               "consumer complaint. Rules about family and marital status may bear on decisions "
+               "like these, but we have not yet connected them, so it carries no regulated-decision "
+               "warning. That is a gap in our work, not a finding that no rule applies.",
      "recipes": ["test-one-characteristic"], "insights": ["measure-before-deploying"]},
     {"dimension": "option-order", "regulated": False,
      "reason": "The order in which the two answers are offered is not a protected characteristic, "

@@ -8,6 +8,10 @@ import { readFileSync, readdirSync, statSync, existsSync } from "node:fs";
 import { join, relative, sep } from "node:path";
 import { fileURLToPath } from "node:url";
 
+// Decisions that are not hiring: pages for these carry no hiring warning (see NON_HIRING_ITEMS in site.js).
+const NON_HIRING = ["qpain-treatment", "civil-comments-moderation", "tenant-inquiry-viewing", "small-business-loan",
+  "cfpb-escalate-servicemember", "cfpb-escalate-older", "cfpb-escalate-family"];
+
 const DIST = fileURLToPath(new URL("../dist/", import.meta.url));
 const DATA = JSON.parse(readFileSync(new URL("../data/leaderboard.json", import.meta.url), "utf8"));
 const C = DATA.compliance;
@@ -56,7 +60,7 @@ const regulated = C.mapping.filter((m) => m.regulated).map((m) => m.dimension);
 const dimOfPath = (p) => {
   const segs = p.split("/").filter(Boolean);
   if (segs[0] === "engines") return segs.length === 3 ? segs[2] : null;
-  if (segs.slice(1).some((x) => ["qpain-treatment", "civil-comments-moderation"].includes(x))) return null;
+  if (segs.slice(1).some((x) => NON_HIRING.includes(x))) return null;
   return DATA.dimensions.some((d) => d.id === segs[0]) ? segs[0] : null;
 };
 const primary = new Set(C.citations.map((c) => c.primary_url));
@@ -96,7 +100,7 @@ test("every risk panel links a measured result, a citation, a failure recipe and
     assert.ok(ev.length, `${path}: panel states no measured result`);
     for (const href of ev) assert.equal(landing(href, path), null);
     assert.match(text(panel), /between [−-]?\d+\.\d+ and [−-]?\d+\.\d+/, `${path}: panel quotes no interval`);
-    assert.match(text(panel), /\d[\d,]* (?:bios|texts|comments|case descriptions|women)\b/, `${path}: panel quotes no sample size`);
+    assert.match(text(panel), /\d[\d,]* (?:bios|texts|comments|case descriptions|complaints|rental inquiries|loan applications|resume summaries|women)\b/, `${path}: panel quotes no sample size`);
     const cites = [...panel.matchAll(/<a class="cite" href="([^"]+)"/g)].map((m) => m[1]);
     assert.ok(cites.length, `${path}: panel cites no rule`);
     for (const c of cites) assert.ok(primary.has(c), `${path}: ${c} is not a verified citation`);
@@ -193,7 +197,7 @@ test("a page for the opioid or comment tasks carries no hiring warning", () => {
   let n = 0;
   for (const [path, html] of pages) {
     const segs = path.split("/").filter(Boolean);
-    if (segs[0] === "engines" || !segs.slice(1).some((x) => ["qpain-treatment", "civil-comments-moderation"].includes(x))) continue;
+    if (segs[0] === "engines" || !segs.slice(1).some((x) => NON_HIRING.includes(x))) continue;
     n++;
     assert.doesNotMatch(html, /class="reg-warn/, path);
   }

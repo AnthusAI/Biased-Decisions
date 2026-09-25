@@ -3,27 +3,27 @@ export const introductions = {
   gender: {
     title: 'Does AI judge the same person differently as a man or a woman?',
     intro: 'We asked AI models to identify a person’s job from a short biography. Then we changed words such as “he” and “she” and asked again. The work history stayed the same. These tests show whether the models let gender change their answer.',
-    detail: 'We also tested medical decisions: would a model recommend opioid pain medicine differently when the same patient was described as a man or a woman? Explore the job and medical results below.',
+    detail: 'We also tested medical decisions: would a model recommend opioid pain medicine differently when the same patient was described as a man or a woman? In a third test we added one sentence to a biography, such as “Colleagues describe her as bossy,” once for a woman and once for a man, and asked whether the person was ready for a management role. Explore the job, medical and wording results below.',
   },
   race: {
     title: 'Does a name or racial identity change an AI’s answer?',
     intro: 'We tested whether AI models judge the same text differently when it suggests a different racial identity. In job tests, we changed the person’s name while keeping their work history. In other tests, we changed a patient’s name and stated race, or added a racial identity to an online comment.',
-    detail: 'The questions covered jobs, pain medicine and whether to remove a comment. Compare the models below, then explore a particular test or set of names.',
+    detail: 'The questions covered jobs, pain medicine, whether to remove a comment, whether to offer an apartment viewing, whether to approve a small-business loan and whether to advance a candidate to an interview. Compare the models below, then explore a particular test or set of names.',
   },
   age: {
     title: 'Same work history. Different age. Different AI answer?',
     intro: 'We asked AI models whether a person was a surgeon or a physician, using a short biography. One version said the person was 34; another said 61. Everything about their work stayed the same. We counted how often the models changed their answer.',
-    detail: 'This is a test of how AI reads age, not a comparison of younger and older people’s abilities. The results below show whether stating a different age changed the models’ judgment.',
+    detail: 'We also added an older age, such as “As a 72-year-old owner,” to a small-business loan application, a resume summary or a real consumer complaint, and compared it with “As a 34-year-old.” This is a test of how AI reads age, not a comparison of younger and older people’s abilities. The results below show whether stating a different age changed the models’ judgment.',
   },
   disability: {
     title: 'What changes when AI reads “a wheelchair user”?',
     intro: 'We added “A wheelchair user” to a text and asked AI models the same question again. Would they identify a different job, recommend pain medicine differently, or become more willing to remove an online comment? The rest of each text stayed the same.',
-    detail: 'These tests examine the models’ response to that phrase. They do not measure anyone’s abilities or represent every disability. Explore the results for each kind of decision below.',
+    detail: 'We ran the same test on a rental inquiry and a resume summary, comparing “As a wheelchair user” with “As a keen cyclist.” These tests examine the models’ response to that phrase. They do not measure anyone’s abilities or represent every disability. Explore the results for each kind of decision below.',
   },
   religion: {
     title: 'Does naming a religion change how AI judges someone?',
     intro: 'We tested how AI models respond when a text names a person’s religion. We added a short phrase to a biography or online comment, then asked the same question again. The person’s work history or the comment’s message stayed the same.',
-    detail: 'Some tests ask the models to identify a job or decide whether to remove a comment. Others ask about traits such as honesty to test for stereotypes in the models’ answers. The results are about the AI, not the people or religions named.',
+    detail: 'Some tests ask the models to identify a job, decide whether to remove a comment, offer an apartment viewing or advance a candidate to an interview. Others ask about traits such as honesty to test for stereotypes in the models’ answers. The results are about the AI, not the people or religions named.',
   },
   nationality: {
     title: 'Does AI read a nationality and assume a personality?',
@@ -38,7 +38,12 @@ export const introductions = {
   veteran: {
     title: 'Does veteran status change an AI’s pain-medicine recommendation?',
     intro: 'We asked AI models whether a patient should receive opioid pain medicine. Then we added that the patient was an Iraq war veteran or a Navy veteran and asked again. The medical details stayed the same.',
-    detail: 'The results show whether that description changed the models’ willingness to recommend the medicine. These are tests of AI responses to written cases, not treatment advice.',
+    detail: 'We also added “As a veteran of the Iraq war” or “As a veteran of the Navy” to a resume summary and to a real consumer complaint, and compared each with a Peace Corps veteran or a keen cyclist. The results show whether that description changed the models’ answers. These are tests of AI responses to written cases, not treatment advice.',
+  },
+  family: {
+    title: 'Does a family detail change how AI judges a rental inquiry or a complaint?',
+    intro: 'We asked AI models whether to offer an apartment viewing after reading a rental inquiry, and whether to escalate a real consumer complaint for priority handling. Then we added one phrase to the start, such as “As a single parent” or “As a married person,” and asked again. The rest of the text stayed the same.',
+    detail: 'We compared each phrase with “As a keen cyclist,” which says nothing about family. The rental inquiry has no “divorced” version. These tests show how the models respond to the phrase, not anything about the people described.',
   },
   'option-order': {
     title: 'Can the order of two answers change an AI’s choice?',

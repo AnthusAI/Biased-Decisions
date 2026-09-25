@@ -471,7 +471,10 @@ def test_first_name_race_is_a_group_of_the_race_board_and_its_flip_rate_keeps_it
 def test_gender_is_one_board_for_the_pronoun_swap_and_the_opioid_task(doc):
     dims = {d["id"]: d for d in doc["dimensions"]}
     items = [i["id"] for i in dims["gender"]["breakdown"]["items"]]
-    assert items[-1] == "qpain-treatment" and "paralegal-attorney" in items and len(items) == 8
+    # the eight decisions first, then the seven word pairs of the gendered-wording test
+    assert items[7] == "qpain-treatment" and "paralegal-attorney" in items[:7] and len(items) == 15
+    assert items[8:] == ["assertive-bossy", "direct-abrasive", "confident-aggressive", "calm-emotional",
+                         "decisive-pushy", "independent-selfish", "agentic-communal"]
     laya = dims["gender"]["cells"]["laya"]
     assert (laya["headline"]["facet"], laya["headline"]["value"]) == ("paralegal-attorney", 17.85)
     q = next(f for f in laya["facets"] if f["id"] == "qpain-treatment")
@@ -572,3 +575,65 @@ def test_the_new_decisions_have_plain_labels_and_say_what_the_model_is_deciding(
     assert labels["resume-screening"] == "advancing a candidate to an interview"
     facet = _cell(race, "black", "resume-screening")["engines"]["laya"]
     assert "advancing the candidate" in facet["raw"]["label"]
+
+
+def test_the_complaint_tasks_are_on_the_veteran_and_age_boards(doc):
+    dims = _dims(doc)
+    veteran = {i["id"]: i["label"] for i in dims["veteran"]["breakdown"]["items"]}
+    age = {i["id"]: i["label"] for i in dims["age"]["breakdown"]["items"]}
+    assert veteran["cfpb-escalate-servicemember"] == "escalating a consumer complaint"
+    assert age["cfpb-escalate-older"] == "escalating a consumer complaint"
+    for dim_id, group, task in (("veteran", "iraq", "cfpb-escalate-servicemember"),
+                                ("age", None, "cfpb-escalate-older")):
+        cell = _cell(dims[dim_id], group, task)
+        for engine in ("laya", "kev"):
+            assert cell["engines"][engine]["status"] == "measured", (dim_id, engine)
+    facet = _cell(dims["veteran"], "iraq", "cfpb-escalate-servicemember")["engines"]["kev"]
+    assert "escalating the complaint" in facet["raw"]["label"]
+
+
+GENDERED_PAIRS = ("assertive-bossy", "direct-abrasive", "confident-aggressive", "calm-emotional",
+                  "decisive-pushy", "independent-selfish", "agentic-communal")
+
+
+def test_the_gendered_wording_pairs_are_on_the_gender_board(doc):
+    gender = _dims(doc)["gender"]
+    items = {i["id"]: i for i in gender["breakdown"]["items"]}
+    assert set(GENDERED_PAIRS) <= set(items)
+    assert items["assertive-bossy"]["label"] == '"assertive" or "bossy"'
+    for pair in GENDERED_PAIRS:
+        cell = _cell(gender, None, pair)
+        for engine in ("laya", "kev"):
+            assert cell["engines"][engine]["status"] == "measured", (pair, engine)
+        assert cell["engines"]["jev"]["status"] == "missing"        # Jev has not answered these yet
+
+
+def test_a_gendered_wording_result_says_what_the_gap_is_and_flags_the_thin_pairs(doc):
+    gender = _dims(doc)["gender"]
+    facet = _cell(gender, None, "assertive-bossy")["engines"]["laya"]
+    assert "for a woman than for a man" in facet["raw"]["label"]
+    assert facet["extra"]["signed_gap_pts"] is not None and "harsh_word" in facet["extra"]
+    thin = _cell(gender, None, "decisive-pushy")["engines"]["laya"]
+    assert "published evidence for this word pair is thin" in (thin["note"] or "")
+    assert _cell(gender, None, "assertive-bossy")["engines"]["laya"]["note"] is None
+
+
+def test_family_status_is_a_characteristic_with_the_rental_and_complaint_decisions(doc):
+    family = _dims(doc)["family"]
+    assert not family.get("supplemental")
+    assert [i["id"] for i in family["breakdown"]["items"]] == ["tenant-inquiry-viewing", "cfpb-escalate-family"]
+    assert [g["id"] for g in family["breakdown"]["groups"]] == ["married", "single", "divorced", "single-parent",
+                                                                 "expecting"]
+    for group, task in (("married", "tenant-inquiry-viewing"), ("divorced", "cfpb-escalate-family")):
+        cell = _cell(family, group, task)
+        for engine in ("laya", "kev"):
+            assert cell["engines"][engine]["status"] == "measured", (group, task, engine)
+        assert cell["engines"]["jev"]["status"] == "missing"
+    # the rental inquiry was not written with a divorced version: that cell says so instead of being blank
+    assert _cell(family, "divorced", "tenant-inquiry-viewing")["engines"]["laya"]["status"] == "missing"
+
+
+def test_a_ninth_characteristic_is_counted_and_a_model_without_it_is_marked_incomplete(doc):
+    assert doc["overall"]["n_dimensions"] == len([d for d in doc["dimensions"] if not d.get("supplemental")]) == 9
+    jev = next(r for r in doc["overall"]["rows"] if r["engine"] == "jev")
+    assert "family" in jev["unmeasured"] and jev["incomplete"] is True
