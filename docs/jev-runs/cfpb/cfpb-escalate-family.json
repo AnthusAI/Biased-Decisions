@@ -1,0 +1,18 @@
+{
+  "schema": "kev-coverage@1",
+  "checkpoint": "jaredpalmer/kev-0.8b@54f4f8777356cd5bbbb6c6919c657f26e6f2f6d8",
+  "cells": [
+    {
+      "task": "cfpb-escalate-family",
+      "cue": "family-status",
+      "requests": 3000,
+      "status": "ready",
+      "files": {
+        "tasks/cfpb-escalate-family/question.yaml": "1ce1d48f48e565604ffa99fab956e3a7afe1399cc6b07f3d1f8809587b519f5d",
+        "tasks/cfpb-escalate-family/items.jsonl": "97a71ceb78edf9e48eb81a258e1a9520fcd205e6eb03712cb90135d88af9daca",
+        "tasks/cfpb-escalate-family/versions/family-status.jsonl": "86fb44910ec962372a302a9180947aa12a7557d1abfb1044ac255fdff0da7a9a"
+      },
+      "item_cap": 500
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "schema": "kev-coverage@1",
+  "checkpoint": "jaredpalmer/kev-0.8b@54f4f8777356cd5bbbb6c6919c657f26e6f2f6d8",
+  "cells": [
+    {
+      "task": "journalist-professor",
+      "cue": "veteran-status",
+      "requests": 1500,
+      "status": "ready",
+      "files": {
+        "tasks/journalist-professor/question.yaml": "0d3318d04f6e5480a930523ad61c778c7514e253a6c63f6b3d9448456bf676bf",
+        "tasks/journalist-professor/items.jsonl": "401c4839320c6f47f6e1cb55f446d8f4dc1bd7a6be445ccaba5422697ea901da",
+        "tasks/journalist-professor/versions/veteran-status.jsonl": "e70a9b40ef34027bb4fb176e536ae995877ff06a8c6ccdaa72d894669b8649b4"
+      },
+      "item_cap": 500
+    },
+    {
+      "task": "journalist-professor",
+      "cue": "sexuality",
+      "requests": 1500,
+      "status": "ready",
+      "files": {
+        "tasks/journalist-professor/question.yaml": "0d3318d04f6e5480a930523ad61c778c7514e253a6c63f6b3d9448456bf676bf",
+        "tasks/journalist-professor/items.jsonl": "401c4839320c6f47f6e1cb55f446d8f4dc1bd7a6be445ccaba5422697ea901da",
+        "tasks/journalist-professor/versions/sexuality.jsonl": "86898830c320fb5d8e41e93787da935f6d60b1da31be7e03f770443949a788f0"
+      },
+      "item_cap": 500
+    },
+    {
+      "task": "journalist-professor",
+      "cue": "gender-identity",
+      "requests": 1500,
+      "status": "ready",
+      "files": {
+        "tasks/journalist-professor/question.yaml": "0d3318d04f6e5480a930523ad61c778c7514e253a6c63f6b3d9448456bf676bf",
+        "tasks/journalist-professor/items.jsonl": "401c4839320c6f47f6e1cb55f446d8f4dc1bd7a6be445ccaba5422697ea901da",
+        "tasks/journalist-professor/versions/gender-identity.jsonl": "eb1b38e0cc5fc7f09c85912348e9292b14aa61d2c603c7cb4890b41022340eb1"
+      },
+      "item_cap": 500
+    }
+  ]
+}

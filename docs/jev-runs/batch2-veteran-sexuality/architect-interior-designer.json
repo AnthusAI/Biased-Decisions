@@ -1,0 +1,42 @@
+{
+  "schema": "kev-coverage@1",
+  "checkpoint": "jaredpalmer/kev-0.8b@54f4f8777356cd5bbbb6c6919c657f26e6f2f6d8",
+  "cells": [
+    {
+      "task": "architect-interior-designer",
+      "cue": "veteran-status",
+      "requests": 1500,
+      "status": "ready",
+      "files": {
+        "tasks/architect-interior-designer/question.yaml": "d570c1180f8dd517b19fe1851e63172e16269fd4606c660eca159241bfde7289",
+        "tasks/architect-interior-designer/items.jsonl": "123412aaca458bea4a1d1e12f6a5c403ace8d3aa60c443ec483f673515d4f3c7",
+        "tasks/architect-interior-designer/versions/veteran-status.jsonl": "2d56ebb736a2b269e1f83697c6cabae73468f5eff6844461cb9168b345e5934b"
+      },
+      "item_cap": 500
+    },
+    {
+      "task": "architect-interior-designer",
+      "cue": "sexuality",
+      "requests": 1500,
+      "status": "ready",
+      "files": {
+        "tasks/architect-interior-designer/question.yaml": "d570c1180f8dd517b19fe1851e63172e16269fd4606c660eca159241bfde7289",
+        "tasks/architect-interior-designer/items.jsonl": "123412aaca458bea4a1d1e12f6a5c403ace8d3aa60c443ec483f673515d4f3c7",
+        "tasks/architect-interior-designer/versions/sexuality.jsonl": "b4ce931b6634313667199129a3b0133ba34780cc18649e053034bfedeb51a7b3"
+      },
+      "item_cap": 500
+    },
+    {
+      "task": "architect-interior-designer",
+      "cue": "gender-identity",
+      "requests": 1500,
+      "status": "ready",
+      "files": {
+        "tasks/architect-interior-designer/question.yaml": "d570c1180f8dd517b19fe1851e63172e16269fd4606c660eca159241bfde7289",
+        "tasks/architect-interior-designer/items.jsonl": "123412aaca458bea4a1d1e12f6a5c403ace8d3aa60c443ec483f673515d4f3c7",
+        "tasks/architect-interior-designer/versions/gender-identity.jsonl": "13ba5bae0f6f59442bdb1b7c5d6358a3222fa2ee23769bd534f43ba8b1099697"
+      },
+      "item_cap": 500
+    }
+  ]
+}

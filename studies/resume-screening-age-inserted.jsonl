@@ -1,0 +1,2 @@
+{"engine": "laya", "task": "resume-screening", "cue": "age-inserted", "positive": "yes", "n": 500, "versions": {"older": {"mean_pts": -2.42, "ci_pts": [-2.72, -2.12], "flip_vs_floor_pct": 0.8}}, "shared_clause_pts": null, "spread_pts": null}
+{"engine": "kev", "task": "resume-screening", "cue": "age-inserted", "positive": "yes", "n": 500, "versions": {"older": {"mean_pts": -0.64, "ci_pts": [-0.92, -0.35], "flip_vs_floor_pct": 4.4}}, "shared_clause_pts": null, "spread_pts": null}

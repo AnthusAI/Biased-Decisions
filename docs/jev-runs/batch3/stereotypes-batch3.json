@@ -1,0 +1,101 @@
+{
+  "schema": "kev-coverage@1",
+  "checkpoint": "jaredpalmer/kev-0.8b@54f4f8777356cd5bbbb6c6919c657f26e6f2f6d8",
+  "cells": [
+    {
+      "task": "stereotypes-batch3",
+      "cue": "as-written",
+      "requests": 507,
+      "status": "ready",
+      "files": {
+        "tasks/stereotypes-batch3/question.yaml": "26e21d691889260dd623a35db8291f5309f61f166286ab5b639708119c1cc54d",
+        "tasks/stereotypes-batch3/items.jsonl": "61d86f92be4feac94e4756e9c25521700b283590e1d80eb5e30ffe25636fc512"
+      },
+      "item_cap": 500
+    },
+    {
+      "task": "stereotypes-batch3",
+      "cue": "orientation",
+      "requests": 2535,
+      "status": "ready",
+      "files": {
+        "tasks/stereotypes-batch3/question.yaml": "26e21d691889260dd623a35db8291f5309f61f166286ab5b639708119c1cc54d",
+        "tasks/stereotypes-batch3/items.jsonl": "61d86f92be4feac94e4756e9c25521700b283590e1d80eb5e30ffe25636fc512",
+        "tasks/stereotypes-batch3/versions/orientation.jsonl": "e1feb06d661da0a833901ba2954b0486127e8547e7bac6d17be49fcae8cb23cd"
+      },
+      "item_cap": 500
+    },
+    {
+      "task": "stereotypes-batch3",
+      "cue": "race",
+      "requests": 3042,
+      "status": "ready",
+      "files": {
+        "tasks/stereotypes-batch3/question.yaml": "26e21d691889260dd623a35db8291f5309f61f166286ab5b639708119c1cc54d",
+        "tasks/stereotypes-batch3/items.jsonl": "61d86f92be4feac94e4756e9c25521700b283590e1d80eb5e30ffe25636fc512",
+        "tasks/stereotypes-batch3/versions/race.jsonl": "4768e5dad5e531d91c33920622350c7529911628bdd4d0f2b4884e2328d3844b"
+      },
+      "item_cap": 500
+    },
+    {
+      "task": "stereotypes-batch3",
+      "cue": "nationality-x",
+      "requests": 7098,
+      "status": "ready",
+      "files": {
+        "tasks/stereotypes-batch3/question.yaml": "26e21d691889260dd623a35db8291f5309f61f166286ab5b639708119c1cc54d",
+        "tasks/stereotypes-batch3/items.jsonl": "61d86f92be4feac94e4756e9c25521700b283590e1d80eb5e30ffe25636fc512",
+        "tasks/stereotypes-batch3/versions/nationality-x.jsonl": "c7d439dbac0bf30e3bb7ab4ad94976f39f5e672d98e07a498a2e1b39855934fa"
+      },
+      "item_cap": 500
+    },
+    {
+      "task": "stereotypes-batch3",
+      "cue": "china",
+      "requests": 2535,
+      "status": "ready",
+      "files": {
+        "tasks/stereotypes-batch3/question.yaml": "26e21d691889260dd623a35db8291f5309f61f166286ab5b639708119c1cc54d",
+        "tasks/stereotypes-batch3/items.jsonl": "61d86f92be4feac94e4756e9c25521700b283590e1d80eb5e30ffe25636fc512",
+        "tasks/stereotypes-batch3/versions/china.jsonl": "760a3239b0e79770f3f249dd96fe07d99ba8de15b0eacee7a6c47f537d97b053"
+      },
+      "item_cap": 500
+    },
+    {
+      "task": "stereotypes-batch3",
+      "cue": "india",
+      "requests": 3042,
+      "status": "ready",
+      "files": {
+        "tasks/stereotypes-batch3/question.yaml": "26e21d691889260dd623a35db8291f5309f61f166286ab5b639708119c1cc54d",
+        "tasks/stereotypes-batch3/items.jsonl": "61d86f92be4feac94e4756e9c25521700b283590e1d80eb5e30ffe25636fc512",
+        "tasks/stereotypes-batch3/versions/india.jsonl": "2bb7cdf0fd5eb57660ca8502bb18c0fed0c0a16018af6f6a3809795b9e4645cd"
+      },
+      "item_cap": 500
+    },
+    {
+      "task": "stereotypes-batch3",
+      "cue": "africa",
+      "requests": 3042,
+      "status": "ready",
+      "files": {
+        "tasks/stereotypes-batch3/question.yaml": "26e21d691889260dd623a35db8291f5309f61f166286ab5b639708119c1cc54d",
+        "tasks/stereotypes-batch3/items.jsonl": "61d86f92be4feac94e4756e9c25521700b283590e1d80eb5e30ffe25636fc512",
+        "tasks/stereotypes-batch3/versions/africa.jsonl": "245f3fe074276786dae278988fbf029a2dd08e6cea62190f84d5493b73b57bef"
+      },
+      "item_cap": 500
+    },
+    {
+      "task": "stereotypes-batch3",
+      "cue": "family",
+      "requests": 2535,
+      "status": "ready",
+      "files": {
+        "tasks/stereotypes-batch3/question.yaml": "26e21d691889260dd623a35db8291f5309f61f166286ab5b639708119c1cc54d",
+        "tasks/stereotypes-batch3/items.jsonl": "61d86f92be4feac94e4756e9c25521700b283590e1d80eb5e30ffe25636fc512",
+        "tasks/stereotypes-batch3/versions/family.jsonl": "fbb43d30bcebdd51bf84f52e37a31cc53786aaa8c03a2a9b0c11f0a9aa387e46"
+      },
+      "item_cap": 500
+    }
+  ]
+}
