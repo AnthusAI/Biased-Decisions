@@ -199,7 +199,7 @@ export function niceMax(v) {
 }
 
 export const shortLabel = (d) => ({ "gender": "Gender", 
-  "age": "Age", "disability": "Disability", "religion": "Religion", "nationality": "Nationality", "race": "Race", "sexuality": "Sexuality", "veteran": "Veteran", "option-order": "Order" }[d.id] || d.label);
+  "age": "Age", "disability": "Disability", "religion": "Religion", "nationality": "Nationality", "race": "Race", "sexuality": "Sexuality", "veteran": "Veteran", "family": "Family", "option-order": "Order" }[d.id] || d.label);
 
 // ---------------------------------------------------------------------------------------------
 // Words
@@ -216,9 +216,22 @@ export const isRate = (u) => String(u || "").trim() === "%";
 // ---------------------------------------------------------------------------------------------
 const q = (s) => `“${s}”`;
 const an = (s) => (/^[aeiou]/i.test(s) ? "an" : "a");
+// The gendered-wording word pairs are items of the gender board (assertive-bossy, agentic-communal, ...).
+const GENDERED_ITEM = /^(assertive-bossy|direct-abrasive|confident-aggressive|calm-emotional|decisive-pushy|independent-selfish|agentic-communal)$/;
+// The phrase a family-status test puts in front of the text, as a noun phrase after "As".
+const FAMILY_CLAUSE = { married: "a married person", single: "a single person", divorced: "a divorced person",
+  "single-parent": "a single parent", expecting: "a person expecting a baby" };
+const familyClause = (g) => FAMILY_CLAUSE[g] || "a person";
 
 // A decision's name inside a sentence: "surgeon / physician" -> "surgeon-or-physician".
-const TASK_WORD = { "qpain-treatment": "prescribing", "civil-comments-moderation": "comment-removal" };
+const TASK_WORD = { "qpain-treatment": "prescribing", "civil-comments-moderation": "comment-removal",
+  "tenant-inquiry-viewing": "apartment-viewing", "small-business-loan": "loan-approval",
+  "resume-screening": "interview-screening", "cfpb-escalate-servicemember": "complaint-escalation",
+  "cfpb-escalate-older": "complaint-escalation", "cfpb-escalate-family": "complaint-escalation",
+  "assertive-bossy": "management-readiness", "direct-abrasive": "management-readiness",
+  "confident-aggressive": "management-readiness", "calm-emotional": "management-readiness",
+  "decisive-pushy": "management-readiness", "independent-selfish": "management-readiness",
+  "agentic-communal": "advancement" };
 export function taskWord(itemId, label) {
   if (TASK_WORD[itemId]) return TASK_WORD[itemId];
   if (!label) return "";
@@ -228,8 +241,16 @@ export function taskWord(itemId, label) {
 export const taskLabel = (label) => (label ? label.replace(/ \/ /g, " or ") : label);
 
 // What the texts of a decision are.
-export const textsWord = (itemId) => (itemId === "qpain-treatment" ? "case descriptions"
-  : itemId === "civil-comments-moderation" ? "comments" : "bios");
+const TEXT_NOUN = { "qpain-treatment": ["case description", "case descriptions"],
+  "civil-comments-moderation": ["comment", "comments"],
+  "tenant-inquiry-viewing": ["rental inquiry", "rental inquiries"],
+  "small-business-loan": ["loan application", "loan applications"],
+  "resume-screening": ["resume summary", "resume summaries"],
+  "cfpb-escalate-servicemember": ["complaint", "complaints"], "cfpb-escalate-older": ["complaint", "complaints"],
+  "cfpb-escalate-family": ["complaint", "complaints"] };
+// The kind of text a decision reads, singular and plural. Biographies unless the decision says otherwise.
+export const textNoun = (itemId) => (TEXT_NOUN[itemId] || ["bio", "bios"])[0];
+export const textsWord = (itemId) => (TEXT_NOUN[itemId] || ["bio", "bios"])[1];
 // The texts of a whole dimension: one word when every decision uses the same kind, else "texts".
 export function textsOf(dim, itemId = null) {
   if (itemId) return textsWord(itemId);
@@ -246,19 +267,29 @@ export function changeWhen(dim, groupId, itemId) {
   switch (dim.id) {
     case "religion":
     case "nationality":
-      return `when a ${itemId === "civil-comments-moderation" ? "comment" : "bio"} says ${q(g)}`;
+      return `when a ${textNoun(itemId)} says ${q(g)}`;
     case "race":
       if (groupId === "black-first-name") return "when only a white-sounding first name becomes a Black-sounding one";
       if (itemId === "surgeon-physician") return `when a white-sounding full name becomes ${an(g)} ${g}-sounding one`;
       if (itemId === "civil-comments-moderation") return `when a comment opens ${q(`As ${an(g)} ${g} person,`)}`;
+      if (["tenant-inquiry-viewing", "small-business-loan", "resume-screening"].includes(itemId))
+        return "when only a white-sounding first name becomes a Black-sounding one";
       return `when the patient in the case description is ${g}, not white`;
     case "sexuality": return `when a comment opens ${q(`As ${an(g)} ${g.toLowerCase()} person,`)}`;
-    case "veteran": return `when the patient is ${an(g)} ${g}`;
+    case "veteran":
+      if (itemId && itemId !== "qpain-treatment")
+        return `when a ${textNoun(itemId)} opens ${q(`As a veteran of ${groupId === "navy" ? "the Navy" : "the Iraq war"},`)}`;
+      return `when the patient is ${an(g)} ${g}`;
+    case "family": return `when a ${textNoun(itemId)} opens ${q(`As ${familyClause(groupId)},`)}`;
     case "gender":
       if (itemId === "qpain-treatment") return "when the patient is a woman, not a man";
+      if (GENDERED_ITEM.test(itemId || "")) return "when a sentence describes a woman with the harsher word, compared with a man";
       return "when only the pronouns change";
-    case "age": return "when a bio gives the age as 61, not 34";
-    case "disability": return `when a ${itemId && NON_HIRING_ITEMS.includes(itemId) ? "text" : "bio"} says ${q("a wheelchair user")}`;
+    case "age":
+      if (["small-business-loan", "resume-screening", "cfpb-escalate-older"].includes(itemId))
+        return `when a ${textNoun(itemId)} opens with an older age, not 34`;
+      return "when a bio gives the age as 61, not 34";
+    case "disability": return `when a ${["qpain-treatment", "civil-comments-moderation"].includes(itemId) ? "text" : textNoun(itemId)} says ${q("a wheelchair user")}`;
     case "option-order": return "when the two answer options swap places";
     default: return `when we change the ${dim.label.toLowerCase()}`;
   }
@@ -499,5 +530,7 @@ export function largestBias(engineId) {
 
 // The opioid and comment tasks are not hiring decisions: on a board that mixes them with hiring
 // tasks, their own pages carry no hiring warning.
-export const NON_HIRING_ITEMS = ["qpain-treatment", "civil-comments-moderation"];
+// Decisions that are not hiring: the age, disability and religion boards' hiring warning does not apply to them.
+export const NON_HIRING_ITEMS = ["qpain-treatment", "civil-comments-moderation", "tenant-inquiry-viewing",
+  "small-business-loan", "cfpb-escalate-servicemember", "cfpb-escalate-older", "cfpb-escalate-family"];
 export const isNonHiring = (level) => !!(level && level.item && NON_HIRING_ITEMS.includes(level.item));
