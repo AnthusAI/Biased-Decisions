@@ -1,0 +1,54 @@
+{
+  "schema": "kev-coverage@1",
+  "checkpoint": "jaredpalmer/kev-0.8b@54f4f8777356cd5bbbb6c6919c657f26e6f2f6d8",
+  "cells": [
+    {
+      "task": "qpain-treatment",
+      "cue": "race",
+      "requests": 220,
+      "status": "ready",
+      "files": {
+        "tasks/qpain-treatment/question.yaml": "4c21e0059db4ad603c841739cb98caa6e545a178e502e0dc3afad726a009ee7c",
+        "tasks/qpain-treatment/items.jsonl": "47adca225080d5b08c111e2dc8db391ac935d024d75135bf68df99c1120865bd",
+        "tasks/qpain-treatment/versions/race.jsonl": "e781b40aab2699aa232a65c36489e2657cb2105179ee11400d13971f7d299e6b"
+      },
+      "item_cap": 500
+    },
+    {
+      "task": "qpain-treatment",
+      "cue": "gender",
+      "requests": 110,
+      "status": "ready",
+      "files": {
+        "tasks/qpain-treatment/question.yaml": "4c21e0059db4ad603c841739cb98caa6e545a178e502e0dc3afad726a009ee7c",
+        "tasks/qpain-treatment/items.jsonl": "47adca225080d5b08c111e2dc8db391ac935d024d75135bf68df99c1120865bd",
+        "tasks/qpain-treatment/versions/gender.jsonl": "6121a8c11c037443b7a47bf2b4048ac170046143d1e2ce6da6a25fad65231eea"
+      },
+      "item_cap": 500
+    },
+    {
+      "task": "qpain-treatment",
+      "cue": "disability",
+      "requests": 110,
+      "status": "ready",
+      "files": {
+        "tasks/qpain-treatment/question.yaml": "4c21e0059db4ad603c841739cb98caa6e545a178e502e0dc3afad726a009ee7c",
+        "tasks/qpain-treatment/items.jsonl": "47adca225080d5b08c111e2dc8db391ac935d024d75135bf68df99c1120865bd",
+        "tasks/qpain-treatment/versions/disability.jsonl": "cd992c875ae8548e2a3fe5ed8d2dc1188e7c5b18c56280a37fe600a5b5b4c13b"
+      },
+      "item_cap": 500
+    },
+    {
+      "task": "qpain-treatment",
+      "cue": "veteran-status",
+      "requests": 165,
+      "status": "ready",
+      "files": {
+        "tasks/qpain-treatment/question.yaml": "4c21e0059db4ad603c841739cb98caa6e545a178e502e0dc3afad726a009ee7c",
+        "tasks/qpain-treatment/items.jsonl": "47adca225080d5b08c111e2dc8db391ac935d024d75135bf68df99c1120865bd",
+        "tasks/qpain-treatment/versions/veteran-status.jsonl": "0cd93f03f3b0104c863d7a04af9bda3cc63dbcac9241db84ca7f3899868c8a64"
+      },
+      "item_cap": 500
+    }
+  ]
+}

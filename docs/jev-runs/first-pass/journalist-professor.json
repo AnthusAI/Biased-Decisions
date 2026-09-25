@@ -1,0 +1,54 @@
+{
+  "schema": "kev-coverage@1",
+  "checkpoint": "jaredpalmer/kev-0.8b@54f4f8777356cd5bbbb6c6919c657f26e6f2f6d8",
+  "cells": [
+    {
+      "task": "journalist-professor",
+      "cue": "disability",
+      "requests": 1000,
+      "status": "ready",
+      "files": {
+        "tasks/journalist-professor/question.yaml": "0d3318d04f6e5480a930523ad61c778c7514e253a6c63f6b3d9448456bf676bf",
+        "tasks/journalist-professor/items.jsonl": "401c4839320c6f47f6e1cb55f446d8f4dc1bd7a6be445ccaba5422697ea901da",
+        "tasks/journalist-professor/versions/disability.jsonl": "9d37280453ea360f484cd348c1ae1c332d01b8e15e8cc9a49160e6d14151cd5e"
+      },
+      "item_cap": 500
+    },
+    {
+      "task": "journalist-professor",
+      "cue": "religion",
+      "requests": 2500,
+      "status": "ready",
+      "files": {
+        "tasks/journalist-professor/question.yaml": "0d3318d04f6e5480a930523ad61c778c7514e253a6c63f6b3d9448456bf676bf",
+        "tasks/journalist-professor/items.jsonl": "401c4839320c6f47f6e1cb55f446d8f4dc1bd7a6be445ccaba5422697ea901da",
+        "tasks/journalist-professor/versions/religion.jsonl": "89f679ad2fa24929aa24325ea8cedd3b82a72193901eebf33cc9bd321290901f"
+      },
+      "item_cap": 500
+    },
+    {
+      "task": "journalist-professor",
+      "cue": "religion-v2",
+      "requests": 2500,
+      "status": "ready",
+      "files": {
+        "tasks/journalist-professor/question.yaml": "0d3318d04f6e5480a930523ad61c778c7514e253a6c63f6b3d9448456bf676bf",
+        "tasks/journalist-professor/items.jsonl": "401c4839320c6f47f6e1cb55f446d8f4dc1bd7a6be445ccaba5422697ea901da",
+        "tasks/journalist-professor/versions/religion-v2.jsonl": "ff95f42cff53967b9873956dc0661d3a3d9cdbe4e5214d0627a2b172b37951fb"
+      },
+      "item_cap": 500
+    },
+    {
+      "task": "journalist-professor",
+      "cue": "neutral",
+      "requests": 995,
+      "status": "ready",
+      "files": {
+        "tasks/journalist-professor/question.yaml": "0d3318d04f6e5480a930523ad61c778c7514e253a6c63f6b3d9448456bf676bf",
+        "tasks/journalist-professor/items.jsonl": "401c4839320c6f47f6e1cb55f446d8f4dc1bd7a6be445ccaba5422697ea901da",
+        "tasks/journalist-professor/versions/neutral.jsonl": "d24ae9f1fd05dd6abcd61a03b9c3130bbf21c4d110ba46c08a2f1cee241a3d21"
+      },
+      "item_cap": 500
+    }
+  ]
+}

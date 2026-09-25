@@ -21,6 +21,8 @@ from typing import Dict, List, Optional, Tuple, Any
 import yaml
 
 from biased_decisions.engines.builds import BUILDS, DEFAULT_BUILD, check_build, load_model, model_tag
+from biased_decisions.subsample import cell_sample
+from biased_decisions.tasks.items import Item
 
 
 def read_questions(task_dir: Path) -> Dict[str, dict]:
@@ -44,19 +46,28 @@ def load_jsonl(path: Path) -> List[dict]:
     return rows
 
 
-def rows_as_written(task_dir: Path) -> List[Tuple[str, str]]:
+def _capped(records: List[dict], task_dir: Path, plan_name: str, item_cap: Optional[int]) -> List[dict]:
+    """The records of the first ``item_cap`` item families of the registered subsample (all if no cap)."""
+    if item_cap is None:
+        return records
+    items = [Item(id=r["id"], text=r["text"], metadata=r.get("metadata") or {}) for r in records]
+    keep = {i.id for i in cell_sample(items, task_dir.name, plan_name, item_cap, task_dir / "versions")}
+    return [r for r in records if r["id"] in keep]
+
+
+def rows_as_written(task_dir: Path, item_cap: Optional[int] = None) -> List[Tuple[str, str]]:
     """Load all rows from items.jsonl, returning (id, text) pairs."""
-    items = load_jsonl(task_dir / "items.jsonl")
+    items = _capped(load_jsonl(task_dir / "items.jsonl"), task_dir, "as-written", item_cap)
     return [(r["id"], r["text"]) for r in items]
 
 
-def rows_versions(task_dir: Path, plan_name: str) -> List[Tuple[str, str]]:
+def rows_versions(task_dir: Path, plan_name: str, item_cap: Optional[int] = None) -> List[Tuple[str, str]]:
     """Load all rows from a versions file, returning (id, text) pairs.
 
     plan_name is the basename of a file in versions/ (e.g., "antisemitism-religious"
     or "antisemitism-surname").
     """
-    rows = load_jsonl(task_dir / "versions" / f"{plan_name}.jsonl")
+    rows = _capped(load_jsonl(task_dir / "versions" / f"{plan_name}.jsonl"), task_dir, plan_name, item_cap)
     return [(r["id"], r["text"]) for r in rows]
 
 
@@ -90,6 +101,7 @@ def answer_tropes(
         model: The Laya model object (defaults to laya.load()).
         out_dir: The output directory (defaults to root).
         build: "laya" (PyTorch) or "laya-mlx".
+        item_cap: answer only the first N item families of the registered subsample; None answers all.
     """
     check_build(build)
     root = Path(root)
@@ -100,11 +112,9 @@ def answer_tropes(
     questions = read_questions(task_dir)
 
     if plan == "as-written":
-        rows = rows_as_written(task_dir)
+        rows = rows_as_written(task_dir, item_cap)
     else:
-        rows = rows_versions(task_dir, plan)
-    if item_cap is not None:
-        rows = rows[:item_cap]
+        rows = rows_versions(task_dir, plan, item_cap)
 
     plan_obj = Plan(plan, rows, out_dir, task, build)
 
@@ -190,11 +200,16 @@ def _finish(plan: Plan) -> None:
     if not all(i in done_ids for i, _ in plan.rows):
         return
 
+    # Exactly the planned rows, in plan order: leftover rows outside a capped plan (from an earlier, larger
+    # run) must not reach the record.
+    lines = {}
+    for line in plan.partial.read_text(encoding="utf-8").splitlines():
+        if line.strip():
+            lines[json.loads(line)["id"]] = line
     plan.out_dir.mkdir(parents=True, exist_ok=True)
-    with plan.partial.open(encoding="utf-8") as src, \
-            gzip.open(plan.out, "wt", encoding="utf-8") as dst:
-        for line in src:
-            dst.write(line)
+    with gzip.open(plan.out, "wt", encoding="utf-8") as dst:
+        for item_id, _ in plan.rows:
+            dst.write(lines[item_id] + "\n")
     print(f"  wrote {plan.out} ({plan.out.stat().st_size / 1e6:.2f} MB)")
     plan.partial.unlink()
 
@@ -229,7 +244,7 @@ def main() -> None:
     parser.add_argument("--build", choices=BUILDS, default=DEFAULT_BUILD,
                         help="laya (PyTorch, default) or laya-mlx (Apple MLX)")
     parser.add_argument("--item-cap", type=int, default=None,
-                        help="maximum number of items to answer per plan")
+                        help="answer only the first N item families of the registered subsample")
     args = parser.parse_args()
 
     root = Path(args.root)
@@ -249,11 +264,9 @@ def main() -> None:
         questions = read_questions(task_dir)
 
         if plan_name == "as-written":
-            rows = rows_as_written(task_dir)
+            rows = rows_as_written(task_dir, args.item_cap)
         else:
-            rows = rows_versions(task_dir, plan_name)
-        if args.item_cap is not None:
-            rows = rows[:args.item_cap]
+            rows = rows_versions(task_dir, plan_name, args.item_cap)
 
         plan_obj = Plan(plan_name, rows, out_dir, args.task, args.build)
         _run_plan(plan_obj, model, tag, questions)

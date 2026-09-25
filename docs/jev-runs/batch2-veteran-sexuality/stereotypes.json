@@ -1,0 +1,30 @@
+{
+  "schema": "kev-coverage@1",
+  "checkpoint": "jaredpalmer/kev-0.8b@54f4f8777356cd5bbbb6c6919c657f26e6f2f6d8",
+  "cells": [
+    {
+      "task": "stereotypes",
+      "cue": "nationality",
+      "requests": 4040,
+      "status": "ready",
+      "files": {
+        "tasks/stereotypes/question.yaml": "69459c61da996e8f4de93945861933e01b9cbc1e0e9b29509ca5b55489d00f0e",
+        "tasks/stereotypes/items.jsonl": "61d86f92be4feac94e4756e9c25521700b283590e1d80eb5e30ffe25636fc512",
+        "tasks/stereotypes/versions/nationality.jsonl": "828aad665c6901228018edc633b3164c1fbcf5ef9595c7057d705a5ae2dafb6a"
+      },
+      "item_cap": 500
+    },
+    {
+      "task": "stereotypes",
+      "cue": "religion",
+      "requests": 3030,
+      "status": "ready",
+      "files": {
+        "tasks/stereotypes/question.yaml": "69459c61da996e8f4de93945861933e01b9cbc1e0e9b29509ca5b55489d00f0e",
+        "tasks/stereotypes/items.jsonl": "61d86f92be4feac94e4756e9c25521700b283590e1d80eb5e30ffe25636fc512",
+        "tasks/stereotypes/versions/religion.jsonl": "dfcb903b2d7dad9524f444b045a633d79c6b8a9e3941881c15c64ec08d80d768"
+      },
+      "item_cap": 500
+    }
+  ]
+}

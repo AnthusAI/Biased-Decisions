@@ -1,0 +1,54 @@
+{
+  "schema": "kev-coverage@1",
+  "checkpoint": "jaredpalmer/kev-0.8b@54f4f8777356cd5bbbb6c6919c657f26e6f2f6d8",
+  "cells": [
+    {
+      "task": "teacher-professor",
+      "cue": "disability",
+      "requests": 1000,
+      "status": "ready",
+      "files": {
+        "tasks/teacher-professor/question.yaml": "3bf1c4b67805e7ba4340993c1f35fcd420c69e00b511dabab1038eb11e8348f6",
+        "tasks/teacher-professor/items.jsonl": "845f517a138ef506eefae78a340aef2a4312d9c5626dc4e497d30a13752a0226",
+        "tasks/teacher-professor/versions/disability.jsonl": "0a329298dd815ab33405f504958d9a39a64f4e848d5a59f7e8efe4e50dd5dce5"
+      },
+      "item_cap": 500
+    },
+    {
+      "task": "teacher-professor",
+      "cue": "religion",
+      "requests": 2500,
+      "status": "ready",
+      "files": {
+        "tasks/teacher-professor/question.yaml": "3bf1c4b67805e7ba4340993c1f35fcd420c69e00b511dabab1038eb11e8348f6",
+        "tasks/teacher-professor/items.jsonl": "845f517a138ef506eefae78a340aef2a4312d9c5626dc4e497d30a13752a0226",
+        "tasks/teacher-professor/versions/religion.jsonl": "79b793189b9731df93a2a5ae060f7529b192d83909a199e9122e15d03b4ca346"
+      },
+      "item_cap": 500
+    },
+    {
+      "task": "teacher-professor",
+      "cue": "religion-v2",
+      "requests": 2500,
+      "status": "ready",
+      "files": {
+        "tasks/teacher-professor/question.yaml": "3bf1c4b67805e7ba4340993c1f35fcd420c69e00b511dabab1038eb11e8348f6",
+        "tasks/teacher-professor/items.jsonl": "845f517a138ef506eefae78a340aef2a4312d9c5626dc4e497d30a13752a0226",
+        "tasks/teacher-professor/versions/religion-v2.jsonl": "0904e268b0d67bc27bba7d0781329379e678a3c9c90233fe9f439919f680c684"
+      },
+      "item_cap": 500
+    },
+    {
+      "task": "teacher-professor",
+      "cue": "neutral",
+      "requests": 994,
+      "status": "ready",
+      "files": {
+        "tasks/teacher-professor/question.yaml": "3bf1c4b67805e7ba4340993c1f35fcd420c69e00b511dabab1038eb11e8348f6",
+        "tasks/teacher-professor/items.jsonl": "845f517a138ef506eefae78a340aef2a4312d9c5626dc4e497d30a13752a0226",
+        "tasks/teacher-professor/versions/neutral.jsonl": "bc35d7a316bc2828c1058f457f070b8189dc812126d57de97e64c5e90610f444"
+      },
+      "item_cap": 500
+    }
+  ]
+}
