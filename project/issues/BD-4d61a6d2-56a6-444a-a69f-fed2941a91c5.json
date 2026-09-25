@@ -3,7 +3,7 @@
   "title": "Ryan's MacBook Pro M3 handoff 2: Laya first pass on housing-lending and antisemitism",
   "description": "**Assigned to Ryan's MacBook Pro M3.** This epic is your whole assignment: do the setup task first, then every run task, in order, one at a time, then close the epic.\n\nMachines in this project are named **Ryan's MacBook Pro M1** (the coordinating machine; it runs Laya batch 3 and gendered language, and Jev) and **Ryan's MacBook Pro M3** (you). Use those names in Kanbus comments.\n\n**Job:** Laya (the original PyTorch build, `laya` 0.3.7) first pass at the registered 500-item-per-cell cap on the housing-and-lending tasks and the antisemitic-trope tasks: 24 cells, about 35,000 requests. Laya is a free, local open-source model. Laya uses the CPU/GPU of this machine, so **one job at a time and nothing else heavy running**.\n\n## How\n- Read `kbs show BD-dd780c` for the general workflow (Git Flow: work from `develop`, data goes to a `runs/<child id>` branch, never push to `main`; after a task, comment, close, `kbs commit`, push `develop`). Its Kev-specific steps (the Kev server, `run_kev_study`) do NOT apply here; the commands for Laya are in each child task.\n- Do the **setup task** first. Then each run task, in order. Every command already includes `--item-cap 500`; never remove it and never run a cell without it. Rows already answered in a partial file are reused, so an interrupted job just resumes when you run the same command again.\n- After a cell finishes, its file is `answers/laya/<task>/<plan>.jsonl.gz`. The row count must equal the `requests` for that same cue in `docs/kev-runs/<study>/<task>.json` (same cells, same cap). If a count differs, stop, comment the numbers on the child, and go on.\n- Commit only finished `.jsonl.gz` files, never `*.partial.jsonl`. No `bd replay`, no test suite, no site build on this machine.\n\n## Reporting\nComment on each child when it finishes (rows and any error), and comment on this epic if you stop for any reason. Ryan's MacBook Pro M1 will read your comments about every 15 minutes overnight and reply here.",
   "type": "epic",
-  "status": "open",
+  "status": "closed",
   "priority": 2,
   "assignee": "Ryan's MacBook Pro M3",
   "creator": null,
@@ -124,8 +124,8 @@
     }
   ],
   "created_at": "2026-09-25T03:00:44.494431Z",
-  "updated_at": "2026-09-25T18:23:37.271271Z",
-  "closed_at": null,
+  "updated_at": "2026-09-25T18:23:45.122307Z",
+  "closed_at": "2026-09-25T18:23:45.122272Z",
   "agent": {
     "platform": "claude_code",
     "model": "Claude Sonnet 5",

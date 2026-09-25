@@ -3,7 +3,7 @@
   "title": "Run Laya: tenant-inquiry-viewing (housing-lending, 4 cells, 7,500 requests)",
   "description": "**Part of epic BD-4d61a6. Assigned to Ryan's MacBook Pro M3.** Follow the epic's instructions.\n\n**Job:** Laya first pass on `tenant-inquiry-viewing` (housing-lending): 4 cells, 7,500 requests, at the 500-item cap.\n\nRun these commands, one at a time, from the repository root (each resumes if interrupted):\n```sh\nPYTHONPATH=. var/laya-venv/bin/python scripts/answer_task.py tenant-inquiry-viewing race-name --item-cap 500 --build laya\n```\n```sh\nPYTHONPATH=. var/laya-venv/bin/python scripts/answer_task.py tenant-inquiry-viewing family-status --skip-as-written --item-cap 500 --build laya\n```\n```sh\nPYTHONPATH=. var/laya-venv/bin/python scripts/answer_task.py tenant-inquiry-viewing disability --skip-as-written --item-cap 500 --build laya\n```\n```sh\nPYTHONPATH=. var/laya-venv/bin/python scripts/answer_task.py tenant-inquiry-viewing religion --skip-as-written --item-cap 500 --build laya\n```\n\n**Check:** each finished `answers/laya/tenant-inquiry-viewing/<plan>.jsonl.gz` must have exactly as many rows as that cue's `requests` in `docs/kev-runs/housing-lending/tenant-inquiry-viewing.json`.\n**Then:** commit only the finished `.jsonl.gz` files to branch `runs/<this issue id>` and push it; on `develop` comment the row counts, close, `kbs commit`, push `develop`.",
   "type": "task",
-  "status": "open",
+  "status": "closed",
   "priority": 2,
   "assignee": "Ryan's MacBook Pro M3",
   "creator": null,
@@ -28,8 +28,8 @@
     }
   ],
   "created_at": "2026-09-25T03:00:44.606514Z",
-  "updated_at": "2026-09-25T18:23:37.147816Z",
-  "closed_at": null,
+  "updated_at": "2026-09-25T18:23:45.025243Z",
+  "closed_at": "2026-09-25T18:23:45.025212Z",
   "agent": {
     "platform": "claude_code",
     "model": "Claude Sonnet 5",
