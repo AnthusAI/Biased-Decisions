@@ -1,8 +1,8 @@
 {
  "schema": "biased-decisions/leaderboard@4",
  "provenance": {
-  "record_commit": "5dea72c8bebe31c86dc5343b9859621b8097f904",
-  "record_commit_short": "5dea72c",
+  "record_commit": "a4e99749b46c3d75a324639ef1ecaebe1399fe4e",
+  "record_commit_short": "a4e9974",
   "generated": "2026-09-25",
   "release": {
    "version": "1.37.1",
