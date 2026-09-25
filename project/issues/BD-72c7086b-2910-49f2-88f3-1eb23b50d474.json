@@ -71,7 +71,7 @@
     "model": "Claude Sonnet 5",
     "name": "Biased Decisions"
   },
-  "right_now_summary": "Kev runs continue on the remaining studies while the first Mac handles both antisemitism runs.",
-  "right_now_updated_at": "2026-09-25T00:07:08.074676Z",
+  "right_now_summary": "Kev first-pass runs continue across the remaining studies, with completed results merged into develop.",
+  "right_now_updated_at": "2026-09-25T00:13:08.493912Z",
   "custom": {}
 }
