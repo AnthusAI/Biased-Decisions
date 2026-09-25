@@ -107,7 +107,7 @@ def test_every_prediction_names_a_question_scored_on_its_axis_and_a_group_of_tha
 
 def test_the_task_definition_loads_for_the_collector_as_a_multi_question_task():
     from biased_decisions import collector
-    plan = collector.collect(ROOT, "kev", sb.SLUG, "china", dry_run=True)
+    plan = collector.collect(ROOT, "spec-probe", sb.SLUG, "china", dry_run=True)   # an engine with no record
     assert plan["total"] == 10000
 
 
