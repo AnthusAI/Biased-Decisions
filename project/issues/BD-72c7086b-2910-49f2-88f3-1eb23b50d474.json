@@ -71,7 +71,7 @@
     "model": "Claude Sonnet 5",
     "name": "Biased Decisions"
   },
-  "right_now_summary": "Kev runs are nearly finished; the remaining study results still need to be completed and merged.",
-  "right_now_updated_at": "2026-09-25T02:15:15.103737Z",
+  "right_now_summary": "All 21 Kev study runs finished, and their results are merged into develop.",
+  "right_now_updated_at": "2026-09-25T02:20:35.165672Z",
   "custom": {}
 }
