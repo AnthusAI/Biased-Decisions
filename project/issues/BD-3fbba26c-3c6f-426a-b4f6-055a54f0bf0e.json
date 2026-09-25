@@ -1,0 +1,41 @@
+{
+  "id": "BD-3fbba26c-3c6f-426a-b4f6-055a54f0bf0e",
+  "title": "Setup: Laya PyTorch build on Ryan's MacBook Pro M3",
+  "description": "**Part of epic BD-4d61a6. Assigned to Ryan's MacBook Pro M3.** Do this first.\n\nMake this Mac able to run Laya's PyTorch build the same way Ryan's MacBook Pro M1 does.\n\n1. `git checkout develop && git pull` in your clone of the repository.\n2. Create the environment (Python 3.12.2 exactly, as on M1):\n```sh\npython3.12 -m venv var/laya-venv\n```\n```sh\nvar/laya-venv/bin/python -m pip install laya==0.3.7 torch==2.14.0 transformers==5.17.0 safetensors==0.8.0 tokenizers==0.23.2 numpy==2.5.3 PyYAML==6.0.3 python-dotenv\n```\n3. The first call downloads Laya's weights from Hugging Face (`convaiinnovations/laya`, plus `distilbert-base-uncased`, a few MB). The project does not yet pin the weights revision (open Kanbus task BD-32a9e2), so **record which snapshot you got**: after the first run, `ls ~/.cache/huggingface/hub/models--convaiinnovations--laya/snapshots` and comment the folder name(s) here.\n4. Sanity check on a tiny job (about a minute):\n```sh\nPYTHONPATH=. var/laya-venv/bin/python scripts/answer_tropes.py stereotypes-antisemitism as-written --item-cap 5 --build laya --out-dir /tmp/laya-check\n```\nIt must finish without error and print `wrote ... .jsonl.gz`. Comment the model string it wrote (open the file: `gzip -dc /tmp/laya-check/answers/laya/stereotypes-antisemitism/as-written.jsonl.gz | head -c 300`; the `model` field must read `laya-upstream:0.3.7`).\n\nThen close this task and start the first run task.",
+  "type": "task",
+  "status": "in_progress",
+  "priority": 2,
+  "assignee": "Ryan's MacBook Pro M3",
+  "creator": null,
+  "parent": "BD-4d61a6d2-56a6-444a-a69f-fed2941a91c5",
+  "labels": [
+    "setup",
+    "model-laya"
+  ],
+  "dependencies": [],
+  "comments": [
+    {
+      "id": "77ecccbf-1168-4079-978e-d964da707919",
+      "author": "ryan",
+      "text": "Setup blocked: Python 3.12.2 is available and var/laya-venv was created, but the required install fails because laya==0.3.7 is not published on the configured package index (available versions jump from 0.3.6 to 0.3.9; PyPI returns 404 for /pypi/laya/0.3.7/json). I did not substitute another version, and no Laya run was started. Provenance: platform=Codex, model=GPT-5, agent=Biased-Decisions.",
+      "created_at": "2026-09-25T10:40:32.697675Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "codex",
+        "model": "GPT-5",
+        "name": "Biased-Decisions"
+      }
+    }
+  ],
+  "created_at": "2026-09-25T03:00:44.569599Z",
+  "updated_at": "2026-09-25T10:40:32.697721Z",
+  "closed_at": null,
+  "agent": {
+    "platform": "claude_code",
+    "model": "Claude Sonnet 5",
+    "name": "Ryan's MacBook Pro M1"
+  },
+  "right_now_summary": "The setup is blocked because laya==0.3.7 is unavailable, so no run has started.",
+  "right_now_updated_at": "2026-09-25T10:40:34.324450Z",
+  "custom": {}
+}

@@ -26,7 +26,7 @@ from biased_decisions.cues.insertion import insert_clause
 from biased_decisions.metrics import tropes
 from biased_decisions.metrics.tropes import Axis, Question
 from biased_decisions.record import read_record_by_id, record_path
-from biased_decisions.stereotypes import build_items  # the same 2,000-bio pool
+from biased_decisions.stereotypes import build_items, registered_bios  # the same 2,000-bio pool
 from biased_decisions.tasks.base import Task
 
 SLUG = "stereotypes-batch3"
@@ -176,6 +176,7 @@ def score_stereotypes(engine: str, task: Task, axis: str) -> dict:
     versions = task.load_versions(axis)
     by_bio_version = {(v.metadata["source_id"], v.metadata["version"]): v.id for v in versions}
     answers = read_record_by_id(record_path(engine, task.slug, axis, root=task.root))
+    items = registered_bios(task, versions, items, answers)
     p_yes: Dict[str, Dict[str, List[float]]] = {}
     for q in questions:
         p_yes[q.key] = {}
