@@ -16,6 +16,8 @@ Exclude the complete 30,000-row working samples generated with seeds
 `20260927` and take a new 30,000-row sample. Freeze and hash identifiers for
 500 discovery rows, 500 selection rows, and 1,000 random final-test rows before
 any Jev request. The analyst is not used in this study.
+The frozen split-manifest SHA-256 is
+`c8bb56f3e056d02d05568fabca419d7ab8384cda442d71c9fb0d3a9fd456202d`.
 
 All models fit only the discovery toxicity labels (`toxicity >= 0.5`). Selection
 and test labels are withheld from fitting. Source `threat` and `identity_attack`
