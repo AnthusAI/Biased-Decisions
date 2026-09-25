@@ -3,7 +3,7 @@
   "title": "Run Kev: cfpb-escalate-family (cfpb, 1 cells, 3,000 requests)",
   "description": "**Part of epic BD-72c708: follow its instructions and the runbook in BD-dd780c.** Work from `develop`; never push to `main`.\n\n**Job:** Kev first pass on `cfpb-escalate-family` (cfpb): 1 cells, exactly 3,000 requests, about 4 minutes.\n**Manifest:** `docs/kev-runs/cfpb/cfpb-escalate-family.json` (on `develop`).\n**Writes:** `answers/kev/cfpb-escalate-family/`. Branch: `runs/<this issue id>`.\n**Then:** comment the request count and any error here, close, `kbs commit`, push `develop`.",
   "type": "task",
-  "status": "open",
+  "status": "in_progress",
   "priority": 2,
   "assignee": null,
   "creator": null,
@@ -13,16 +13,29 @@
     "model-kev"
   ],
   "dependencies": [],
-  "comments": [],
+  "comments": [
+    {
+      "id": "f131c2a3-23b4-461f-8bd0-97e4aa97e6fd",
+      "author": "ryan",
+      "text": "Starting the capped first-pass manifest docs/kev-runs/cfpb/cfpb-escalate-family.json: 3,000 requests, item_cap=500. Provenance: platform=Codex, model=GPT-5, agent=Biased-Decisions.",
+      "created_at": "2026-09-25T02:15:11.150010Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "codex",
+        "model": "GPT-5",
+        "name": "Biased-Decisions"
+      }
+    }
+  ],
   "created_at": "2026-09-24T23:15:32.347792Z",
-  "updated_at": "2026-09-24T23:15:32.347814Z",
+  "updated_at": "2026-09-25T02:15:11.150032Z",
   "closed_at": null,
   "agent": {
     "platform": "claude_code",
     "model": "Claude Sonnet 5",
     "name": "Biased Decisions"
   },
-  "right_now_summary": null,
-  "right_now_updated_at": null,
+  "right_now_summary": "The capped first-pass run is starting with 3,000 requests from the manifest.",
+  "right_now_updated_at": "2026-09-25T02:15:12.549948Z",
   "custom": {}
 }
