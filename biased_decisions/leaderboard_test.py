@@ -439,7 +439,7 @@ def test_the_regulated_tasks_are_on_the_boards_of_their_characteristic(doc):
     assert "race-fullname" not in dims and "race-regulated" not in dims
     laya = lambda d: dims[d]["cells"]["laya"]
     # disability: Q-Pain's wheelchair shift is the largest on the board, and civil comments joins it
-    assert (laya("disability")["headline"]["facet"], laya("disability")["headline"]["value"]) == ("qpain-treatment", 3.73)
+    assert (laya("disability")["headline"]["facet"], laya("disability")["headline"]["value"]) == ("resume-screening", 8.02)   # the resume decision now moves Laya most on disability
     assert "civil-comments-moderation" in [i["id"] for i in dims["disability"]["breakdown"]["items"]]
     # religion: a Civil Comments cell for each religion it asked, none for Hindu
     civil = [c for c in dims["religion"]["breakdown"]["cells"] if c["item"] == "civil-comments-moderation"]
@@ -459,7 +459,8 @@ def test_first_name_race_is_a_group_of_the_race_board_and_its_flip_rate_keeps_it
     assert "race-name" not in dims
     race = dims["race"]["breakdown"]
     assert [g["id"] for g in race["groups"]] == ["black", "hispanic", "asian", "black-first-name"]
-    assert [i["id"] for i in race["items"]] == ["surgeon-physician", "qpain-treatment", "civil-comments-moderation"]
+    assert [i["id"] for i in race["items"]] == ["surgeon-physician", "qpain-treatment", "civil-comments-moderation",
+                                                 "tenant-inquiry-viewing", "small-business-loan", "resume-screening"]
     cell = next(c for c in race["cells"] if c["group"] == "black-first-name" and c["item"] == "surgeon-physician")
     jev = cell["engines"]["jev"]
     assert jev["status"] == "measured" and "how often the answer changes" in jev["raw"]["label"]
@@ -540,3 +541,34 @@ def test_a_stereotype_facet_from_a_scored_row_names_its_sample_and_its_file(doc)
     assert all(f["study"] == "studies/stereotypes-nationality.jsonl" for f in measured)
     laya = [c["engines"]["laya"] for c in dim["breakdown"]["cells"]]
     assert all(f["study"] == "studies/batch2/stereotypes-laya.jsonl" for f in laya if f["status"] == "measured")
+
+
+DECISION_PLACEMENT = {
+    # characteristic -> (tasks that must now be items, an example (group, task, cue-word) that is measured for Laya and Kev)
+    "race": (("tenant-inquiry-viewing", "small-business-loan", "resume-screening"), ("black", "resume-screening")),
+    "veteran": (("resume-screening",), ("iraq", "resume-screening")),
+    "age": (("small-business-loan", "resume-screening"), (None, "resume-screening")),
+    "disability": (("tenant-inquiry-viewing", "resume-screening"), (None, "resume-screening")),
+    "religion": (("tenant-inquiry-viewing", "resume-screening"), ("muslim", "resume-screening")),
+}
+
+
+def test_the_housing_lending_and_hiring_decisions_are_on_the_characteristic_boards(doc):
+    dims = _dims(doc)
+    for dim_id, (tasks, (group, task)) in DECISION_PLACEMENT.items():
+        items = {i["id"] for i in dims[dim_id]["breakdown"]["items"]}
+        assert set(tasks) <= items, (dim_id, items)
+        cell = _cell(dims[dim_id], group, task)
+        for engine in ("laya", "kev"):
+            assert cell["engines"][engine]["status"] == "measured", (dim_id, engine)
+        assert cell["engines"]["jev"]["status"] == "missing"          # Jev has not answered these yet
+
+
+def test_the_new_decisions_have_plain_labels_and_say_what_the_model_is_deciding(doc):
+    race = _dims(doc)["race"]
+    labels = {i["id"]: i["label"] for i in race["breakdown"]["items"]}
+    assert labels["tenant-inquiry-viewing"] == "offering an apartment viewing"
+    assert labels["small-business-loan"] == "approving a small-business loan"
+    assert labels["resume-screening"] == "advancing a candidate to an interview"
+    facet = _cell(race, "black", "resume-screening")["engines"]["laya"]
+    assert "advancing the candidate" in facet["raw"]["label"]
