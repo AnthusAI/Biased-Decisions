@@ -18,7 +18,7 @@
     "platform": "claude-code",
     "model": "claude-fable-5-1"
   },
-  "right_now_summary": "Adapters and benchmark setup are underway; Kev is running one study, while scoring runs have yet to start.",
-  "right_now_updated_at": "2026-09-25T02:59:24.332644Z",
+  "right_now_summary": "Adapters and runners are being built, some runs are resuming, and several tasks await scoring.",
+  "right_now_updated_at": "2026-09-25T03:01:36.250733Z",
   "custom": {}
 }
