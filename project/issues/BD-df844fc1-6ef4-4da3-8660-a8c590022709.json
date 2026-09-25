@@ -3,7 +3,7 @@
   "title": "Civil Comments JEVPA replication with expanded discovery",
   "description": "Given the checksum-pinned Civil Comments validation parquet and the first study split, when a second deterministic 30,000-row sample is frozen disjoint from the first sample before any analyst or Jev call, then it provides 500 discovery labels, 500 slice-enriched selection rows, and 1,000 random final-test rows. The analyst sees only discovery text and binary toxicity label. Four shared initial proposals must add exactly one element each; each arm gets two precommitted branch proposals. Retain nondominated candidates across overall, threat, and identity-attack selection Brier only when both sealed slices have enough toxic support. Record all calls and actual usage; enforce a 4,500 Jev-request ceiling and $35 provider ceiling.",
   "type": "story",
-  "status": "in_progress",
+  "status": "closed",
   "priority": 2,
   "assignee": null,
   "creator": null,
@@ -17,11 +17,25 @@
       "text": "Agent root (Codex, gpt-6-astra): Started the independent replication. The fixed design uses a 500-label discovery set, 500 selection rows, and 1,000 final-test rows drawn from a new 30,000-row sample disjoint from the first study sample. Source annotations remain sealed from the analyst.",
       "created_at": "2026-09-25T19:56:50.416561Z",
       "comment_type": "default"
+    },
+    {
+      "id": "aa7db8a5-5e5c-4120-9ab4-5950f2fb6555",
+      "author": "home",
+      "text": "Agent root (Codex, gpt-6-astra): Replication complete. Initial candidates showed a distinct threat versus identity-attack Pareto split, but the two-specialist merge lost selection to greedy (Brier 0.18839 vs 0.18308; accuracy 0.728 vs 0.742). Per preregistration, no held-out requests were made. Result document records a three-call analyst duplication deviation and incomplete shared-batch token accounting after an interrupted local window.",
+      "created_at": "2026-09-25T20:11:05.460078Z",
+      "comment_type": "default"
+    },
+    {
+      "id": "1241ed52-2524-41fc-ac84-e4e3ee534861",
+      "author": "home",
+      "text": "Reported the preregistered replication result; selection gate failed, so final test remained sealed.",
+      "created_at": "2026-09-25T20:11:05.498185Z",
+      "comment_type": "default"
     }
   ],
   "created_at": "2026-09-25T19:55:23.230111Z",
-  "updated_at": "2026-09-25T19:56:50.416602Z",
-  "closed_at": null,
+  "updated_at": "2026-09-25T20:11:05.526942Z",
+  "closed_at": "2026-09-25T20:11:05.526908Z",
   "agent": {
     "platform": "codex",
     "model": "gpt-6-astra",
