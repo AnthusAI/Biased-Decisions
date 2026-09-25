@@ -183,3 +183,10 @@ class JevEngine:
     async def answer(self, text: str, questions: Mapping[str, Mapping[str, Any]]) -> Dict[str, dict]:
         result = await self._session.ask(text, dict(questions))
         return result.answers
+
+    async def answer_with_meta(self, text: str, questions: Mapping[str, Mapping[str, Any]]):
+        """The answers plus the usage and model this one request reported, so several can be in
+        flight at once without sharing state (used by the concurrent collector)."""
+        result = await self._session.ask(text, dict(questions))
+        return result.answers, {"usage": result.usage, "model": result.model}
+

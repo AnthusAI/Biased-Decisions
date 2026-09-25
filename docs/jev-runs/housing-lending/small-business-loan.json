@@ -1,0 +1,42 @@
+{
+  "schema": "kev-coverage@1",
+  "checkpoint": "jaredpalmer/kev-0.8b@54f4f8777356cd5bbbb6c6919c657f26e6f2f6d8",
+  "cells": [
+    {
+      "task": "small-business-loan",
+      "cue": "owner-identity",
+      "requests": 3000,
+      "status": "ready",
+      "files": {
+        "tasks/small-business-loan/question.yaml": "c60b804d40b18f052ef68256b0a53afe131746b9b486814670b272b4f067d816",
+        "tasks/small-business-loan/items.jsonl": "08d3a6963a73e3b13e72589ca92c4d607eb5f01aa57d5e4117416d962f2f5676",
+        "tasks/small-business-loan/versions/owner-identity.jsonl": "7662caedc504e83ce72cee0b73879a28fc10723ab3ba847fb28368219e5477f5"
+      },
+      "item_cap": 500
+    },
+    {
+      "task": "small-business-loan",
+      "cue": "owner-age",
+      "requests": 1000,
+      "status": "ready",
+      "files": {
+        "tasks/small-business-loan/question.yaml": "c60b804d40b18f052ef68256b0a53afe131746b9b486814670b272b4f067d816",
+        "tasks/small-business-loan/items.jsonl": "08d3a6963a73e3b13e72589ca92c4d607eb5f01aa57d5e4117416d962f2f5676",
+        "tasks/small-business-loan/versions/owner-age.jsonl": "a6dbf91512ad217b1d067b87a0e61934e08c41d1d1e61fba3889015666fb2300"
+      },
+      "item_cap": 500
+    },
+    {
+      "task": "small-business-loan",
+      "cue": "race-name",
+      "requests": 1500,
+      "status": "ready",
+      "files": {
+        "tasks/small-business-loan/question.yaml": "c60b804d40b18f052ef68256b0a53afe131746b9b486814670b272b4f067d816",
+        "tasks/small-business-loan/items.jsonl": "08d3a6963a73e3b13e72589ca92c4d607eb5f01aa57d5e4117416d962f2f5676",
+        "tasks/small-business-loan/versions/race-name.jsonl": "0fdd6752e85a9401752a6879b53dd1948b66e7bd73d864fadbe59fce958ad5f2"
+      },
+      "item_cap": 500
+    }
+  ]
+}

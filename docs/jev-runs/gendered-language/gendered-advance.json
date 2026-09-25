@@ -1,0 +1,18 @@
+{
+  "schema": "kev-coverage@1",
+  "checkpoint": "jaredpalmer/kev-0.8b@54f4f8777356cd5bbbb6c6919c657f26e6f2f6d8",
+  "cells": [
+    {
+      "task": "gendered-advance",
+      "cue": "agentic-communal",
+      "requests": 2032,
+      "status": "ready",
+      "files": {
+        "tasks/gendered-advance/question.yaml": "d1591cca8c41abb8adf7ca2cf97b6dd7fa5df0eb01fa9e1deda5f50478e56b90",
+        "tasks/gendered-advance/items.jsonl": "61d86f92be4feac94e4756e9c25521700b283590e1d80eb5e30ffe25636fc512",
+        "tasks/gendered-advance/versions/agentic-communal.jsonl": "de94d5b70f14a118da51a56b2b9f9945abbc3689a9c34b194e4e53481dd969e8"
+      },
+      "item_cap": 500
+    }
+  ]
+}

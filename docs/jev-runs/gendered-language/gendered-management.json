@@ -1,0 +1,78 @@
+{
+  "schema": "kev-coverage@1",
+  "checkpoint": "jaredpalmer/kev-0.8b@54f4f8777356cd5bbbb6c6919c657f26e6f2f6d8",
+  "cells": [
+    {
+      "task": "gendered-management",
+      "cue": "assertive-bossy",
+      "requests": 2036,
+      "status": "ready",
+      "files": {
+        "tasks/gendered-management/question.yaml": "614ca0209ff37dea2982b463f277988c7a0f9b42a24edacc2b5f58ea62589861",
+        "tasks/gendered-management/items.jsonl": "61d86f92be4feac94e4756e9c25521700b283590e1d80eb5e30ffe25636fc512",
+        "tasks/gendered-management/versions/assertive-bossy.jsonl": "17a83314a2566a5b16d295c042713736b5365d742aab4f71e4c838d1cc88995e"
+      },
+      "item_cap": 500
+    },
+    {
+      "task": "gendered-management",
+      "cue": "direct-abrasive",
+      "requests": 2036,
+      "status": "ready",
+      "files": {
+        "tasks/gendered-management/question.yaml": "614ca0209ff37dea2982b463f277988c7a0f9b42a24edacc2b5f58ea62589861",
+        "tasks/gendered-management/items.jsonl": "61d86f92be4feac94e4756e9c25521700b283590e1d80eb5e30ffe25636fc512",
+        "tasks/gendered-management/versions/direct-abrasive.jsonl": "eca0b27269def598c79bcd6d8e9960d74bd2e32a31c13a728e52f1d78f3b8808"
+      },
+      "item_cap": 500
+    },
+    {
+      "task": "gendered-management",
+      "cue": "confident-aggressive",
+      "requests": 2036,
+      "status": "ready",
+      "files": {
+        "tasks/gendered-management/question.yaml": "614ca0209ff37dea2982b463f277988c7a0f9b42a24edacc2b5f58ea62589861",
+        "tasks/gendered-management/items.jsonl": "61d86f92be4feac94e4756e9c25521700b283590e1d80eb5e30ffe25636fc512",
+        "tasks/gendered-management/versions/confident-aggressive.jsonl": "aff184a7d2e798fc71c9c2f5f7b3773e7edf495c5db0a0d801ca248c6ad11d6a"
+      },
+      "item_cap": 500
+    },
+    {
+      "task": "gendered-management",
+      "cue": "calm-emotional",
+      "requests": 2036,
+      "status": "ready",
+      "files": {
+        "tasks/gendered-management/question.yaml": "614ca0209ff37dea2982b463f277988c7a0f9b42a24edacc2b5f58ea62589861",
+        "tasks/gendered-management/items.jsonl": "61d86f92be4feac94e4756e9c25521700b283590e1d80eb5e30ffe25636fc512",
+        "tasks/gendered-management/versions/calm-emotional.jsonl": "353bc5983e2a943a81cbf595b78affe6da55a9faa6c9f357efc5a9e7629817e8"
+      },
+      "item_cap": 500
+    },
+    {
+      "task": "gendered-management",
+      "cue": "decisive-pushy",
+      "requests": 2036,
+      "status": "ready",
+      "files": {
+        "tasks/gendered-management/question.yaml": "614ca0209ff37dea2982b463f277988c7a0f9b42a24edacc2b5f58ea62589861",
+        "tasks/gendered-management/items.jsonl": "61d86f92be4feac94e4756e9c25521700b283590e1d80eb5e30ffe25636fc512",
+        "tasks/gendered-management/versions/decisive-pushy.jsonl": "146c844df8db7ce7e458333a24eb32afbcebd50bb8d447e06bf6d2605f1f741a"
+      },
+      "item_cap": 500
+    },
+    {
+      "task": "gendered-management",
+      "cue": "independent-selfish",
+      "requests": 2036,
+      "status": "ready",
+      "files": {
+        "tasks/gendered-management/question.yaml": "614ca0209ff37dea2982b463f277988c7a0f9b42a24edacc2b5f58ea62589861",
+        "tasks/gendered-management/items.jsonl": "61d86f92be4feac94e4756e9c25521700b283590e1d80eb5e30ffe25636fc512",
+        "tasks/gendered-management/versions/independent-selfish.jsonl": "52d441aa21cff6c9a6c66b1060b8be588b07f1ca93972d8af0838227817c7763"
+      },
+      "item_cap": 500
+    }
+  ]
+}

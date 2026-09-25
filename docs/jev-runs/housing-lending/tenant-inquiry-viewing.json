@@ -1,0 +1,54 @@
+{
+  "schema": "kev-coverage@1",
+  "checkpoint": "jaredpalmer/kev-0.8b@54f4f8777356cd5bbbb6c6919c657f26e6f2f6d8",
+  "cells": [
+    {
+      "task": "tenant-inquiry-viewing",
+      "cue": "race-name",
+      "requests": 1500,
+      "status": "ready",
+      "files": {
+        "tasks/tenant-inquiry-viewing/question.yaml": "485eb27d1bd105632ea43e572bd4147ab2984cd2fa8e64e2be9a3b2479dc1c83",
+        "tasks/tenant-inquiry-viewing/items.jsonl": "34f0a99c4a75cc63f804f1586ef4fbdf131fde74607db0ac9abc2fd6ba3ec97d",
+        "tasks/tenant-inquiry-viewing/versions/race-name.jsonl": "b8a4816888c4dbff3212638b192f16a740ee2eb5132d734e270131fb7193712f"
+      },
+      "item_cap": 500
+    },
+    {
+      "task": "tenant-inquiry-viewing",
+      "cue": "family-status",
+      "requests": 2500,
+      "status": "ready",
+      "files": {
+        "tasks/tenant-inquiry-viewing/question.yaml": "485eb27d1bd105632ea43e572bd4147ab2984cd2fa8e64e2be9a3b2479dc1c83",
+        "tasks/tenant-inquiry-viewing/items.jsonl": "34f0a99c4a75cc63f804f1586ef4fbdf131fde74607db0ac9abc2fd6ba3ec97d",
+        "tasks/tenant-inquiry-viewing/versions/family-status.jsonl": "23a3b7b6800187686d13210d96f410d85a37be04e282f33d5074f2ea86f9f3f8"
+      },
+      "item_cap": 500
+    },
+    {
+      "task": "tenant-inquiry-viewing",
+      "cue": "disability",
+      "requests": 1000,
+      "status": "ready",
+      "files": {
+        "tasks/tenant-inquiry-viewing/question.yaml": "485eb27d1bd105632ea43e572bd4147ab2984cd2fa8e64e2be9a3b2479dc1c83",
+        "tasks/tenant-inquiry-viewing/items.jsonl": "34f0a99c4a75cc63f804f1586ef4fbdf131fde74607db0ac9abc2fd6ba3ec97d",
+        "tasks/tenant-inquiry-viewing/versions/disability.jsonl": "9bf12123b2934ebde3c2e15b22c641a60f5131562f2f83079bab65d26615dbf2"
+      },
+      "item_cap": 500
+    },
+    {
+      "task": "tenant-inquiry-viewing",
+      "cue": "religion",
+      "requests": 2500,
+      "status": "ready",
+      "files": {
+        "tasks/tenant-inquiry-viewing/question.yaml": "485eb27d1bd105632ea43e572bd4147ab2984cd2fa8e64e2be9a3b2479dc1c83",
+        "tasks/tenant-inquiry-viewing/items.jsonl": "34f0a99c4a75cc63f804f1586ef4fbdf131fde74607db0ac9abc2fd6ba3ec97d",
+        "tasks/tenant-inquiry-viewing/versions/religion.jsonl": "6c97882a428da24e4260d454e788198be5b7210c20026a15d6f9840680c88d76"
+      },
+      "item_cap": 500
+    }
+  ]
+}

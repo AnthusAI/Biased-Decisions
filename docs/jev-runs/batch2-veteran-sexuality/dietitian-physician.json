@@ -1,0 +1,42 @@
+{
+  "schema": "kev-coverage@1",
+  "checkpoint": "jaredpalmer/kev-0.8b@54f4f8777356cd5bbbb6c6919c657f26e6f2f6d8",
+  "cells": [
+    {
+      "task": "dietitian-physician",
+      "cue": "veteran-status",
+      "requests": 1500,
+      "status": "ready",
+      "files": {
+        "tasks/dietitian-physician/question.yaml": "41932b89fe8bd925419fdcde9c270cb9984ca70e0d430200a376495d5450f8dd",
+        "tasks/dietitian-physician/items.jsonl": "e44ba004cae472559dece9ef2baf3c5f66ce19b2caf3c5fd61a541bf2aa7f425",
+        "tasks/dietitian-physician/versions/veteran-status.jsonl": "5303c19a7219f0c7dc392abc73dfe57cb8e0ed56cde2ee999e59b7aa54aef463"
+      },
+      "item_cap": 500
+    },
+    {
+      "task": "dietitian-physician",
+      "cue": "sexuality",
+      "requests": 1500,
+      "status": "ready",
+      "files": {
+        "tasks/dietitian-physician/question.yaml": "41932b89fe8bd925419fdcde9c270cb9984ca70e0d430200a376495d5450f8dd",
+        "tasks/dietitian-physician/items.jsonl": "e44ba004cae472559dece9ef2baf3c5f66ce19b2caf3c5fd61a541bf2aa7f425",
+        "tasks/dietitian-physician/versions/sexuality.jsonl": "94ec3f294f8223f10741880de505b984d05a53e2b3a60ad0511ced3341427873"
+      },
+      "item_cap": 500
+    },
+    {
+      "task": "dietitian-physician",
+      "cue": "gender-identity",
+      "requests": 1500,
+      "status": "ready",
+      "files": {
+        "tasks/dietitian-physician/question.yaml": "41932b89fe8bd925419fdcde9c270cb9984ca70e0d430200a376495d5450f8dd",
+        "tasks/dietitian-physician/items.jsonl": "e44ba004cae472559dece9ef2baf3c5f66ce19b2caf3c5fd61a541bf2aa7f425",
+        "tasks/dietitian-physician/versions/gender-identity.jsonl": "4da62dbdcfc55d658a7dceb384474473ec4b94ff805a363c40b872f53b7a9baf"
+      },
+      "item_cap": 500
+    }
+  ]
+}
