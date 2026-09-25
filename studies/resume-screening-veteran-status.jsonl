@@ -1,0 +1,1 @@
+{"engine": "kev", "task": "resume-screening", "cue": "veteran-status", "positive": "yes", "n": 500, "versions": {"iraq": {"mean_pts": -5.17, "ci_pts": [-5.64, -4.76], "flip_vs_floor_pct": 12.4}, "navy": {"mean_pts": -5.84, "ci_pts": [-6.21, -5.52], "flip_vs_floor_pct": 14.6}}, "shared_clause_pts": {"mean_pts": -5.51, "ci_pts": [-5.9, -5.15]}, "spread_pts": 0.67}

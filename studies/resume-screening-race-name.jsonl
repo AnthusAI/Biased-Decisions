@@ -1,0 +1,1 @@
+{"engine": "kev", "task": "resume-screening", "cue": "race-name", "positive": "yes", "n": 500, "versions": {"white": {"mean_pts": -0.14, "ci_pts": [-0.36, 0.11], "flip_vs_floor_pct": 1.8}, "black": {"mean_pts": -1.11, "ci_pts": [-1.36, -0.86], "flip_vs_floor_pct": 2.4}}, "shared_clause_pts": {"mean_pts": -0.62, "ci_pts": [-0.82, -0.41]}, "spread_pts": 0.97}
