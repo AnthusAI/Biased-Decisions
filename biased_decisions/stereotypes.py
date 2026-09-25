@@ -111,7 +111,7 @@ def _p_yes(rows_by_id: dict, ids: List[str], question: str) -> List[float]:
     return [rows_by_id[i]["answers"][question]["noul"] for i in ids]
 
 
-def _registered_bios(task: Task, versions, items: List[str], answers: Dict[str, dict]) -> List[str]:
+def registered_bios(task: Task, versions, items: List[str], answers: Dict[str, dict]) -> List[str]:
     """The bios to score: all of them for a complete record, exactly the registered first-pass subsample for
     a capped one, and a refusal (``KeyError``) for any other partial record."""
     needed = {v.id for v in versions}
@@ -136,7 +136,7 @@ def score_stereotypes(engine: str, task: Task, axis: str) -> dict:
     versions = task.load_versions(axis)
     by_bio_version = {(v.metadata["source_id"], v.metadata["version"]): v.id for v in versions}
     answers = read_record_by_id(record_path(engine, task.slug, axis, root=task.root))
-    items = _registered_bios(task, versions, items, answers)
+    items = registered_bios(task, versions, items, answers)
     p_yes: Dict[str, Dict[str, List[float]]] = {}
     for q in questions:
         p_yes[q.key] = {}
