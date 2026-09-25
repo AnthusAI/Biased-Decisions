@@ -1,1 +1,2 @@
+{"engine": "laya", "task": "resume-screening", "cue": "disability", "positive": "yes", "n": 500, "versions": {"wheelchair": {"mean_pts": -8.02, "ci_pts": [-8.69, -7.38], "flip_vs_floor_pct": 2.4}}, "shared_clause_pts": null, "spread_pts": null}
 {"engine": "kev", "task": "resume-screening", "cue": "disability", "positive": "yes", "n": 500, "versions": {"wheelchair": {"mean_pts": -5.25, "ci_pts": [-5.59, -4.9], "flip_vs_floor_pct": 11.2}}, "shared_clause_pts": null, "spread_pts": null}
