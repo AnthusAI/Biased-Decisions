@@ -128,11 +128,46 @@ def _questions(task: Task, cue: str, question_name: str) -> dict:
     return {question_name: build_question(task.question, options)}
 
 
+async def _answer_concurrently(engine, todo, questions, concurrency, current_model, save, output) -> None:
+    """Answer ``todo`` with up to ``concurrency`` requests in flight, saving rows in item order.
+
+    Requests go out in chunks; after each chunk the rows that succeeded are written and flushed in the
+    cell's own order, and a failed request raises once the chunk is saved, so a rerun asks only for
+    what is missing. Used for hosted engines that report usage and model per request."""
+    semaphore = asyncio.Semaphore(concurrency)
+
+    async def one(item):
+        async with semaphore:
+            started = time.perf_counter()
+            answers, meta = await engine.answer_with_meta(item.text, questions)
+            return {"id": item.id,
+                    "model": meta.get("model") or getattr(engine, "model", None) or current_model,
+                    "usage": meta.get("usage"),
+                    "latency_ms": round((time.perf_counter() - started) * 1000.0, 2),
+                    "answers": answers}
+
+    size = max(concurrency * 4, 1)
+    for start in range(0, len(todo), size):
+        chunk = todo[start:start + size]
+        results = await asyncio.gather(*(one(i) for i in chunk), return_exceptions=True)
+        failed = None
+        for item, result in zip(chunk, results):
+            if isinstance(result, BaseException):
+                failed = failed or result
+                continue
+            save(item, result)
+        output.flush()
+        os.fsync(output.fileno())
+        if failed is not None:
+            raise CollectionError(f"a request failed ({type(failed).__name__}: {failed}); "
+                                  f"the rows that succeeded are saved and a rerun resumes")
+
+
 def collect(root: Path = DEFAULT_ROOT, engine_name: str = "kev", task_slug: str = "",
             cue: str = "", *, engine: Any = None, model: str | None = None,
             provenance: Mapping | None = None, question_name: str | None = None,
             dry_run: bool = False, max_new_items: int | None = None,
-            item_cap: int | None = None, progress: bool = True) -> dict:
+            item_cap: int | None = None, concurrency: int = 1, progress: bool = True) -> dict:
     """Collect one cell. ``dry_run`` only reads definitions and existing files.
 
     ``item_cap`` answers only the first N item families of the registered subsample
@@ -248,28 +283,34 @@ def collect(root: Path = DEFAULT_ROOT, engine_name: str = "kev", task_slug: str 
     run_started = time.perf_counter()
     new_count = 0
     with partial.open("a", encoding="utf-8") as output:
-        for item in items:
-            if item.id in existing:
-                continue
-            if max_new_items is not None and new_count >= max_new_items:
-                break
-            started = time.perf_counter()
-            answers = asyncio.run(engine.answer(item.text, questions))
-            row = {"id": item.id,
-                   "model": getattr(engine, "model", None) or current_model,
-                   "usage": getattr(engine, "usage", None),
-                   "latency_ms": getattr(engine, "latency_ms", None) or
-                       round((time.perf_counter() - started) * 1000.0, 2),
-                   "answers": answers}
+        def save(item, row):
+            nonlocal new_count
             output.write(json.dumps(row, ensure_ascii=False) + "\n")
-            output.flush()
-            os.fsync(output.fileno())
             existing[item.id] = row
             new_count += 1
             if progress and new_count % 100 == 0:
                 elapsed = time.perf_counter() - run_started
                 print(f"{new_count} new items answered; {sum(i.id not in existing for i in items)} pending; "
                       f"{elapsed:.1f}s elapsed")
+
+        todo = [i for i in items if i.id not in existing]
+        if max_new_items is not None:
+            todo = todo[:max_new_items]
+        if concurrency > 1 and hasattr(engine, "answer_with_meta"):
+            asyncio.run(_answer_concurrently(engine, todo, questions, concurrency, current_model, save, output))
+        else:
+            for item in todo:
+                started = time.perf_counter()
+                answers = asyncio.run(engine.answer(item.text, questions))
+                row = {"id": item.id,
+                       "model": getattr(engine, "model", None) or current_model,
+                       "usage": getattr(engine, "usage", None),
+                       "latency_ms": getattr(engine, "latency_ms", None) or
+                           round((time.perf_counter() - started) * 1000.0, 2),
+                       "answers": answers}
+                save(item, row)
+                output.flush()
+                os.fsync(output.fileno())
     pending = sum(i.id not in existing for i in items)
     if pending:
         return {"path": path, "total": len(items), "pending": pending,

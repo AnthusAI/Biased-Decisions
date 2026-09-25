@@ -264,3 +264,84 @@ def test_an_item_cap_below_one_is_refused(tmp_path):
     make_task(tmp_path)
     with pytest.raises(ValueError):
         collect(tmp_path, "kev", "new-task", "gender-pronouns", engine=FakeEngine(), dry_run=True, item_cap=0)
+
+
+class MetaEngine(FakeEngine):
+    """An engine that reports usage and model per request, so it can be called concurrently."""
+    model = "jev-test"
+
+    def __init__(self, fail_on=None, delay=0.01):
+        super().__init__()
+        self.in_flight = 0
+        self.peak = 0
+        self.fail_on = fail_on
+        self.delay = delay
+
+    async def answer(self, text, questions):
+        import asyncio
+        self.in_flight += 1
+        self.peak = max(self.peak, self.in_flight)
+        try:
+            await asyncio.sleep(self.delay)
+            return await FakeEngine.answer(self, text, questions)
+        finally:
+            self.in_flight -= 1
+
+    async def answer_with_meta(self, text, questions):
+        import asyncio
+        self.in_flight += 1
+        self.peak = max(self.peak, self.in_flight)
+        try:
+            await asyncio.sleep(self.delay)
+            if self.fail_on == text:
+                raise RuntimeError("request failed")
+            answers = await FakeEngine.answer(self, text, questions)     # records one call
+            return answers, {"usage": {"input_tokens": len(text), "output_tokens": 3}, "model": "jev-test"}
+        finally:
+            self.in_flight -= 1
+
+
+def concurrent_root(tmp_path, count=12):
+    folder = tmp_path / "tasks" / "new-task"
+    folder.mkdir(parents=True)
+    (folder / "question.yaml").write_text(
+        "question: Which action?\noptions: [approve, reject]\npositive: approve\ngroup_attribute: group\n")
+    (folder / "items.jsonl").write_text("\n".join(
+        json.dumps({"id": f"i{n}", "text": f"text {n}", "metadata": {"split": "test"}})
+        for n in range(count)) + "\n")
+    (folder / "versions").mkdir()
+
+
+def test_a_concurrent_collection_keeps_item_order_and_records_usage_and_model_per_request(tmp_path):
+    concurrent_root(tmp_path)
+    engine = MetaEngine()
+    result = collect(tmp_path, "jev", "new-task", "as-written", engine=engine, model="jev-test",
+                     concurrency=4, provenance={"model": "jev-test"})
+    assert result["complete"] and engine.peak > 1
+    rows = read_record(result["path"])
+    assert [r["id"] for r in rows] == [f"i{n}" for n in range(12)]
+    assert rows[0]["usage"] == {"input_tokens": len("text 0"), "output_tokens": 3}
+    assert {r["model"] for r in rows} == {"jev-test"} and all(r["latency_ms"] >= 0 for r in rows)
+
+
+def test_a_failed_request_keeps_the_rows_that_succeeded_and_the_rerun_asks_only_for_the_rest(tmp_path):
+    concurrent_root(tmp_path)
+    bad = MetaEngine(fail_on="text 7")
+    with pytest.raises(CollectionError, match="failed"):
+        collect(tmp_path, "jev", "new-task", "as-written", engine=bad, model="jev-test", concurrency=4,
+                provenance={"model": "jev-test"})
+    partial = tmp_path / "answers" / "jev" / "new-task" / "as-written.jsonl.gz.partial.jsonl"
+    saved = {json.loads(line)["id"] for line in partial.read_text().splitlines()}
+    assert "i0" in saved and "i7" not in saved
+    good = MetaEngine()
+    result = collect(tmp_path, "jev", "new-task", "as-written", engine=good, model="jev-test", concurrency=4,
+                     provenance={"model": "jev-test"})
+    assert result["complete"] and len(good.calls) == 12 - len(saved)
+
+
+def test_the_default_is_still_one_request_at_a_time(tmp_path):
+    concurrent_root(tmp_path, count=6)
+    engine = MetaEngine()
+    collect(tmp_path, "jev", "new-task", "as-written", engine=engine, model="jev-test",
+            provenance={"model": "jev-test"})
+    assert engine.peak == 1

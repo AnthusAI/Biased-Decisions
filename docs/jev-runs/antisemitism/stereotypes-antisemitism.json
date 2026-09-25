@@ -1,0 +1,77 @@
+{
+  "schema": "kev-coverage@1",
+  "checkpoint": "jaredpalmer/kev-0.8b@54f4f8777356cd5bbbb6c6919c657f26e6f2f6d8",
+  "cells": [
+    {
+      "task": "stereotypes-antisemitism",
+      "cue": "as-written",
+      "requests": 503,
+      "status": "ready",
+      "files": {
+        "tasks/stereotypes-antisemitism/question.yaml": "5698e9bc06140be702b06ac16c40b75b4b474336fea9cbe481f43658cb1750c1",
+        "tasks/stereotypes-antisemitism/items.jsonl": "9c62b2306dae257a5e519ec6e7bf5d6a1bd0c2c562ab09c41c06af4b6415d040"
+      },
+      "item_cap": 500
+    },
+    {
+      "task": "stereotypes-antisemitism",
+      "cue": "antisemitism-religious",
+      "requests": 2000,
+      "status": "ready",
+      "files": {
+        "tasks/stereotypes-antisemitism/question.yaml": "5698e9bc06140be702b06ac16c40b75b4b474336fea9cbe481f43658cb1750c1",
+        "tasks/stereotypes-antisemitism/items.jsonl": "9c62b2306dae257a5e519ec6e7bf5d6a1bd0c2c562ab09c41c06af4b6415d040",
+        "tasks/stereotypes-antisemitism/versions/antisemitism-religious.jsonl": "a7d83fadbafa19d39c021ff4fca7703b3ee6dc1a901d5d3a33d02cacabd62cef"
+      },
+      "item_cap": 500
+    },
+    {
+      "task": "stereotypes-antisemitism",
+      "cue": "antisemitism-secular",
+      "requests": 2500,
+      "status": "ready",
+      "files": {
+        "tasks/stereotypes-antisemitism/question.yaml": "5698e9bc06140be702b06ac16c40b75b4b474336fea9cbe481f43658cb1750c1",
+        "tasks/stereotypes-antisemitism/items.jsonl": "9c62b2306dae257a5e519ec6e7bf5d6a1bd0c2c562ab09c41c06af4b6415d040",
+        "tasks/stereotypes-antisemitism/versions/antisemitism-secular.jsonl": "738f56b2005a07169f02196544b6527743ccea079f5005bb51ea491d00f9e8cb"
+      },
+      "item_cap": 500
+    },
+    {
+      "task": "stereotypes-antisemitism",
+      "cue": "antisemitism-nationality",
+      "requests": 2500,
+      "status": "ready",
+      "files": {
+        "tasks/stereotypes-antisemitism/question.yaml": "5698e9bc06140be702b06ac16c40b75b4b474336fea9cbe481f43658cb1750c1",
+        "tasks/stereotypes-antisemitism/items.jsonl": "9c62b2306dae257a5e519ec6e7bf5d6a1bd0c2c562ab09c41c06af4b6415d040",
+        "tasks/stereotypes-antisemitism/versions/antisemitism-nationality.jsonl": "7967ef76197ff35aceae590de8473403cc9c7012458e1ea906acfaab8e924e8d"
+      },
+      "item_cap": 500
+    },
+    {
+      "task": "stereotypes-antisemitism",
+      "cue": "antisemitism-role",
+      "requests": 2000,
+      "status": "ready",
+      "files": {
+        "tasks/stereotypes-antisemitism/question.yaml": "5698e9bc06140be702b06ac16c40b75b4b474336fea9cbe481f43658cb1750c1",
+        "tasks/stereotypes-antisemitism/items.jsonl": "9c62b2306dae257a5e519ec6e7bf5d6a1bd0c2c562ab09c41c06af4b6415d040",
+        "tasks/stereotypes-antisemitism/versions/antisemitism-role.jsonl": "bb5084a27f8d63d0d470f40f1e4291ca79c36eb8478ba01513a5fae7a54e62d8"
+      },
+      "item_cap": 500
+    },
+    {
+      "task": "stereotypes-antisemitism",
+      "cue": "antisemitism-surname",
+      "requests": 1006,
+      "status": "ready",
+      "files": {
+        "tasks/stereotypes-antisemitism/question.yaml": "5698e9bc06140be702b06ac16c40b75b4b474336fea9cbe481f43658cb1750c1",
+        "tasks/stereotypes-antisemitism/items.jsonl": "9c62b2306dae257a5e519ec6e7bf5d6a1bd0c2c562ab09c41c06af4b6415d040",
+        "tasks/stereotypes-antisemitism/versions/antisemitism-surname.jsonl": "df5a6990220dba4c2337de84abb0f35c57cbd16b5c245b539e8ce660831c8033"
+      },
+      "item_cap": 500
+    }
+  ]
+}

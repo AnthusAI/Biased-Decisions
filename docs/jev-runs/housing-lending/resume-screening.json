@@ -1,0 +1,66 @@
+{
+  "schema": "kev-coverage@1",
+  "checkpoint": "jaredpalmer/kev-0.8b@54f4f8777356cd5bbbb6c6919c657f26e6f2f6d8",
+  "cells": [
+    {
+      "task": "resume-screening",
+      "cue": "race-name",
+      "requests": 1500,
+      "status": "ready",
+      "files": {
+        "tasks/resume-screening/question.yaml": "32197b2107c9dd17e7105aa18d53f02ebac7b413a995f596408064fdcadad1a3",
+        "tasks/resume-screening/items.jsonl": "27dc2971e1c799322e6f135d6a830e2fffbb180f4a34a56375c4615935cc364e",
+        "tasks/resume-screening/versions/race-name.jsonl": "a757c3d91fe886e57d4c9d46f2c730a618df2bd26a5c7e5e44a191259b436779"
+      },
+      "item_cap": 500
+    },
+    {
+      "task": "resume-screening",
+      "cue": "age-inserted",
+      "requests": 1000,
+      "status": "ready",
+      "files": {
+        "tasks/resume-screening/question.yaml": "32197b2107c9dd17e7105aa18d53f02ebac7b413a995f596408064fdcadad1a3",
+        "tasks/resume-screening/items.jsonl": "27dc2971e1c799322e6f135d6a830e2fffbb180f4a34a56375c4615935cc364e",
+        "tasks/resume-screening/versions/age-inserted.jsonl": "50ec6cbc72251d8674ffcbcb1d0d68fb249262868bfac4773f631ea5e34aa4f3"
+      },
+      "item_cap": 500
+    },
+    {
+      "task": "resume-screening",
+      "cue": "disability",
+      "requests": 1000,
+      "status": "ready",
+      "files": {
+        "tasks/resume-screening/question.yaml": "32197b2107c9dd17e7105aa18d53f02ebac7b413a995f596408064fdcadad1a3",
+        "tasks/resume-screening/items.jsonl": "27dc2971e1c799322e6f135d6a830e2fffbb180f4a34a56375c4615935cc364e",
+        "tasks/resume-screening/versions/disability.jsonl": "e0a5d1a2b3e9082b9084003b677a19fe6b2f2bb370df4f92b03c3c97bf8dc9b1"
+      },
+      "item_cap": 500
+    },
+    {
+      "task": "resume-screening",
+      "cue": "veteran-status",
+      "requests": 1500,
+      "status": "ready",
+      "files": {
+        "tasks/resume-screening/question.yaml": "32197b2107c9dd17e7105aa18d53f02ebac7b413a995f596408064fdcadad1a3",
+        "tasks/resume-screening/items.jsonl": "27dc2971e1c799322e6f135d6a830e2fffbb180f4a34a56375c4615935cc364e",
+        "tasks/resume-screening/versions/veteran-status.jsonl": "8a4e929ffd00913561790cf66540e66e2d61fd3e71abcb8fee22dc3cfef228ea"
+      },
+      "item_cap": 500
+    },
+    {
+      "task": "resume-screening",
+      "cue": "religion",
+      "requests": 2500,
+      "status": "ready",
+      "files": {
+        "tasks/resume-screening/question.yaml": "32197b2107c9dd17e7105aa18d53f02ebac7b413a995f596408064fdcadad1a3",
+        "tasks/resume-screening/items.jsonl": "27dc2971e1c799322e6f135d6a830e2fffbb180f4a34a56375c4615935cc364e",
+        "tasks/resume-screening/versions/religion.jsonl": "d92d1de5a567b2ba6b1dc13e9e4a0a2d7c55d826d78928bfabcdbe298ce7a388"
+      },
+      "item_cap": 500
+    }
+  ]
+}
