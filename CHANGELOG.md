@@ -1,3 +1,18 @@
+# [1.34.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.33.0...v1.34.0) (2026-09-25)
+
+
+### Bug Fixes
+
+* **scoring:** the batch-2 stereotypes scorer accepts the registered first-pass subsample ([83f515e](https://github.com/AnthusAI/Biased-Decisions/commit/83f515e635033cde1b7e2eddee7c0a3f4ce081e3))
+* **scoring:** the batch-3 stereotypes scorer accepts the registered first-pass subsample ([3439ec8](https://github.com/AnthusAI/Biased-Decisions/commit/3439ec86dd9a29148fd07c90f36dc666bcd7c0f1))
+* **subsample:** refuse an empty committed sample, leave ask-twice whole, fix the prefix order ([d820a36](https://github.com/AnthusAI/Biased-Decisions/commit/d820a36a956cb7c40c18b3f11ffd607e6be27cc7))
+
+
+### Features
+
+* **site:** stereotype results for every engine, not only Laya; regenerate the leaderboard (Jev, Kev and Laya each on 8 of 8) ([74433db](https://github.com/AnthusAI/Biased-Decisions/commit/74433db1240f5cd7a673c578234113e0bb4c575f))
+* **subsample:** committed samples take precedence, and scoring accepts the registered subsample ([41d15e5](https://github.com/AnthusAI/Biased-Decisions/commit/41d15e5fe844f33bd30aeb7bdf298948d3607ab5))
+
 # [1.33.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.32.0...v1.33.0) (2026-09-24)
 
 

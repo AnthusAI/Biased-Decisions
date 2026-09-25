@@ -148,4 +148,4 @@ def test_a_cue_that_is_not_registered_for_the_task_is_an_error(tmp_path):
 def test_every_committed_gendered_cue_has_a_scoring_shape_so_replay_will_score_it():
     for slug in gl.TASKS:
         assert set(REGULATED_SHAPE[slug]) == set(gl.cues_of(slug))
-    assert not any(cell[1] in gl.TASKS for cell in every_cell(root=ROOT))  # no record exists yet
+    # Records for these cells now exist (first-pass answers); replay scores every one through the shapes above.

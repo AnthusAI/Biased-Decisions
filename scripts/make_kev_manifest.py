@@ -22,8 +22,8 @@ from biased_decisions.tasks.base import DEFAULT_ROOT
 from scripts.run_kev_study import _sha256, collection_cue, load_coverage
 
 
-def _cell(root: Path, task: str, cue: str, item_cap: int | None = None) -> dict:
-    plan = collect(root, "kev", task, collection_cue(cue), dry_run=True, item_cap=item_cap)
+def _cell(root: Path, task: str, cue: str, item_cap: int | None = None, plan_engine: str = "kev") -> dict:
+    plan = collect(root, plan_engine, task, collection_cue(cue), dry_run=True, item_cap=item_cap)
     files = {}
     for relative in (f"tasks/{task}/question.yaml", f"tasks/{task}/items.jsonl",
                      f"tasks/{task}/versions/{cue}.jsonl"):
@@ -39,11 +39,12 @@ def _cell(root: Path, task: str, cue: str, item_cap: int | None = None) -> dict:
 
 
 def build_manifest(root: Path, cells: Iterable[Tuple[str, str]], frozen: Path | None = None,
-                   item_cap: int | None = None) -> dict:
+                   item_cap: int | None = None, plan_engine: str = "kev") -> dict:
+    """``plan_engine`` only names whose records the dry run reads; the counts do not depend on it."""
     root = Path(root)
     frozen_manifest = load_coverage(frozen or root / "docs" / "kev-coverage.json")
     return {"schema": "kev-coverage@1", "checkpoint": frozen_manifest["checkpoint"],
-            "cells": [_cell(root, task, cue, item_cap) for task, cue in cells]}
+            "cells": [_cell(root, task, cue, item_cap, plan_engine) for task, cue in cells]}
 
 
 def write_run_manifests(root: Path, engine: str, frozen: Path, out_dir: Path,

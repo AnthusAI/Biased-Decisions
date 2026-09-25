@@ -534,10 +534,39 @@ def _no_stereotype(axis: str) -> str:
             f"control phrase, and any effect of naming a group at all, cancel out in the score)")
 
 
-def _batch2_facets(store: Store, engine: str, axis: str) -> List[dict]:
+def _batch2_source(store: Store, engine: str, axis: str):
+    """The stereotype results for one engine on one axis, as (meta, rows, study path).
+
+    Laya's are the staged file's records (unchanged). Any other engine's come from its scored study row,
+    ``studies/stereotypes-<axis>.jsonl``, reshaped into the same records, so a model that answered the
+    stereotype questions later (Jev, Kev; a first-pass sample is fine, its size rides along as ``n_bios``)
+    is measured like Laya. ``(None, [], None)`` when the engine has no results on this axis."""
     rows = store.batch2()
     meta = next((r for r in rows if r.get("record") == "meta"), None)
-    if engine != BATCH2_ENGINE or meta is None or axis not in meta.get("axes_scored", []):
+    if engine == BATCH2_ENGINE:
+        if meta is not None and axis in meta.get("axes_scored", []):
+            return meta, rows, str(BATCH2_PATH)
+        return None, [], None
+    scored = store.row("stereotypes", axis, engine)
+    if scored is None:
+        return None, [], None
+    out_meta = {"record": "meta", "axes_scored": [axis], "engine": engine, "n_bios": scored["n"],
+                "questions": {q: {"question": d["question"],
+                                  "trope_consistent_answer": bool(d["trope_consistent_answer"])}
+                              for q, d in scored["questions"].items()}}
+    out = []
+    for q, d in scored["questions"].items():
+        if d.get("general_effect"):
+            out.append({"record": "general_effect", "axis": axis, "question": q, **d["general_effect"]})
+        for g, cell in d["groups"].items():
+            out.append({"record": "shift", "axis": axis, "question": q, "group": g,
+                        "floor_mean": d["floor_mean"], "n_bios": scored["n"], **cell})
+    return out_meta, out, f"studies/stereotypes-{axis}.jsonl"
+
+
+def _batch2_facets(store: Store, engine: str, axis: str) -> List[dict]:
+    meta, rows, study = _batch2_source(store, engine, axis)
+    if meta is None:
         return [_missing(q, q, "this model was not asked these questions") for q in BATCH2_QUESTIONS]
     out = []
     for q in BATCH2_QUESTIONS:
@@ -555,7 +584,7 @@ def _batch2_facets(store: Store, engine: str, axis: str) -> List[dict]:
                  best["trope_score_ci_hi"] * 100),
             raw_label=f"largest stereotype score: {best['group'].capitalize()}",
             floor={"value": 0.0, "label": _no_stereotype(axis), "source": "contrast"},
-            n=best["n_bios"], records=[], study=str(BATCH2_PATH), source="batch2-staging",
+            n=best["n_bios"], records=[], study=study, source="batch2-staging",
             extra={"question": meta["questions"][q]["question"],
                    "trope_consistent_answer": "yes" if meta["questions"][q][
                        "trope_consistent_answer"] else "no",
@@ -604,11 +633,10 @@ BATCH2_FLOOR_CLAUSE = {"religion": "A devoted gardener, ", "nationality": "A kee
 def _batch2_cells(store: Store, engine: str, axis: str) -> Dict[Tuple[str, str], dict]:
     """One facet per (group, question): the group's trope score, with the raw shift against the
     axis floor and both mean probabilities kept beside it."""
-    rows = store.batch2()
-    meta = next((r for r in rows if r.get("record") == "meta"), None)
+    meta, rows, study = _batch2_source(store, engine, axis)
     groups = BATCH2_GROUPS[axis]
     out: Dict[Tuple[str, str], dict] = {}
-    measured = engine == BATCH2_ENGINE and meta is not None and axis in meta.get("axes_scored", [])
+    measured = meta is not None
     for q in BATCH2_QUESTIONS:
         general = next((r for r in rows if r.get("record") == "general_effect"
                         and r.get("axis") == axis and r.get("question") == q), None)
@@ -627,7 +655,7 @@ def _batch2_cells(store: Store, engine: str, axis: str) -> Dict[Tuple[str, str],
                 raw_label=f"stereotype score: {label} against the other {_OTHERS[axis]}",
                 floor={"value": 0.0, "label": _no_stereotype(axis), "source": "contrast"},
                 detected=row["trope_detected"], n=row["n_bios"], records=[],
-                study=str(BATCH2_PATH), source="batch2-staging",
+                study=study, source="batch2-staging",
                 extra={"group": g, "clause": clause, "floor_clause": BATCH2_FLOOR_CLAUSE[axis],
                        "question": meta["questions"][q]["question"],
                        "trope_consistent_answer": "yes" if meta["questions"][q][
