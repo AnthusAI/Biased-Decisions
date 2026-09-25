@@ -18,7 +18,7 @@
     "platform": "claude-code",
     "model": "claude-fable-5-1"
   },
-  "right_now_summary": "Kev runs are complete and merged; adapters and new tasks are underway, but scoring has not started.",
-  "right_now_updated_at": "2026-09-25T10:39:25.008200Z",
+  "right_now_summary": "Kev runs are complete; other adapters and scoring await setup, dependencies, or approval.",
+  "right_now_updated_at": "2026-09-25T10:40:42.125311Z",
   "custom": {}
 }
