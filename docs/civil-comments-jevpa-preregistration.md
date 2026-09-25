@@ -48,10 +48,12 @@ At freeze time, the sealed selection slices contain 73 toxic threat rows and
 26 toxic rows and remains unread until a winner is frozen.
 
 The budget is eight analyst calls: four shared initial calls, then two greedy
-and two JEVPA branch calls. Jev has at most three batches: 440 shared-initial,
-880 branch, and 500 final-test item requests, for a cap of 1,820. The analyst
+and two JEVPA branch calls. Jev has at most four batches: 140 discovery-base,
+440 shared-initial, 880 branch, and 500 final-test item requests, for a cap of
+1,960. The discovery-base batch supplies the starting model prediction before
+the first analyst sees residuals. The analyst
 uses Bedrock `us.moonshotai.kimi-k3`, Standard tier. At the current US cross-
 region rate of $3.30 per million input tokens and $16.50 per million output
 tokens, the Jev forecast uses 1,000 input and 300 output tokens per request:
-$14.88 for the 1,820-request ceiling. The study's provider-cost ceiling is
+$16.07 for the 1,960-request ceiling. The study's provider-cost ceiling is
 $20, including analyst calls. Stop a batch before exceeding either ceiling.
