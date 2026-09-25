@@ -1,3 +1,11 @@
+# [1.36.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.35.0...v1.36.0) (2026-09-25)
+
+
+### Features
+
+* **site:** consumer-complaint tasks on the veteran and age boards; gendered wording on the gender board ([f3cf911](https://github.com/AnthusAI/Biased-Decisions/commit/f3cf911f34007ca88f94472da3957f514598a84b))
+* **site:** family status as a ninth characteristic; correct the wording for the new decisions ([53cb671](https://github.com/AnthusAI/Biased-Decisions/commit/53cb671f51b662907f53b25610dee8510cab4cae))
+
 # [1.35.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.34.0...v1.35.0) (2026-09-25)
 
 
