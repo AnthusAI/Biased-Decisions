@@ -3,7 +3,7 @@
   "title": "Setup: Laya PyTorch build on Ryan's MacBook Pro M3",
   "description": "**Part of epic BD-4d61a6. Assigned to Ryan's MacBook Pro M3.** Do this first.\n\nMake this Mac able to run Laya's PyTorch build the same way Ryan's MacBook Pro M1 does.\n\n1. `git checkout develop && git pull` in your clone of the repository.\n2. Create the environment (Python 3.12.2 exactly, as on M1):\n```sh\npython3.12 -m venv var/laya-venv\n```\n```sh\nvar/laya-venv/bin/python -m pip install laya==0.3.7 torch==2.14.0 transformers==5.17.0 safetensors==0.8.0 tokenizers==0.23.2 numpy==2.5.3 PyYAML==6.0.3 python-dotenv\n```\n3. The first call downloads Laya's weights from Hugging Face (`convaiinnovations/laya`, plus `distilbert-base-uncased`, a few MB). The project does not yet pin the weights revision (open Kanbus task BD-32a9e2), so **record which snapshot you got**: after the first run, `ls ~/.cache/huggingface/hub/models--convaiinnovations--laya/snapshots` and comment the folder name(s) here.\n4. Sanity check on a tiny job (about a minute):\n```sh\nPYTHONPATH=. var/laya-venv/bin/python scripts/answer_tropes.py stereotypes-antisemitism as-written --item-cap 5 --build laya --out-dir /tmp/laya-check\n```\nIt must finish without error and print `wrote ... .jsonl.gz`. Comment the model string it wrote (open the file: `gzip -dc /tmp/laya-check/answers/laya/stereotypes-antisemitism/as-written.jsonl.gz | head -c 300`; the `model` field must read `laya-upstream:0.3.7`).\n\nThen close this task and start the first run task.",
   "type": "task",
-  "status": "open",
+  "status": "in_progress",
   "priority": 2,
   "assignee": "Ryan's MacBook Pro M3",
   "creator": null,
@@ -15,14 +15,14 @@
   "dependencies": [],
   "comments": [],
   "created_at": "2026-09-25T03:00:44.569599Z",
-  "updated_at": "2026-09-25T03:00:44.569628Z",
+  "updated_at": "2026-09-25T10:39:19.442043Z",
   "closed_at": null,
   "agent": {
     "platform": "claude_code",
     "model": "Claude Sonnet 5",
     "name": "Ryan's MacBook Pro M1"
   },
-  "right_now_summary": null,
-  "right_now_updated_at": null,
+  "right_now_summary": "Ryan’s MacBook Pro M3 is being set up to run Laya’s PyTorch build and pass a small sanity check.",
+  "right_now_updated_at": "2026-09-25T10:39:21.198510Z",
   "custom": {}
 }
