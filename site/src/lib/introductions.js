@@ -150,6 +150,10 @@ export const pageIntroductions = {
     title: 'Before you let AI judge people',
     intro: 'An AI model can read a biography and help decide who reaches a recruiter. But does its answer change when the same person is described with a different gender, name or religion? Our tests examine that problem. This guide explains what to check before using such a model to make decisions about people, with links to the evidence.',
   },
+  stereotypes: {
+    title: 'Tests for stereotypes, and where they come from',
+    intro: 'We asked AI models yes-or-no questions built on stereotypes, such as whether a person seems dishonest or arrogant, after adding one short phrase about who the person is. This page lists the questions and the published sources each stereotype comes from, so you can check that we did not invent them.',
+  },
   failure: {
     title: 'How AI screening can go wrong',
     intro: 'Imagine using AI to rank job applicants, then showing a recruiter only the top names. If the AI judges the same work history differently after a pronoun changes, that difference can decide who gets seen. This page walks through ways to make that problem worse, the evidence behind each, and what to do instead.',
