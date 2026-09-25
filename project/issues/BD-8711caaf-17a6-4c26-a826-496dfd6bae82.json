@@ -51,8 +51,8 @@
     "model": "Claude Opus 5.5",
     "name": "Biased-Decisions coordinator"
   },
-  "right_now_summary": "Four regulated-decision tasks are being built and preregistered, but scoring runs have not started.",
-  "right_now_updated_at": "2026-09-23T16:52:51.495303Z",
+  "right_now_summary": "The team built and preregistered new regulated-decision tasks, but engine runs have not started.",
+  "right_now_updated_at": "2026-09-25T19:23:32.528260Z",
   "custom": {
     "project_label": "BD",
     "source": "shared"

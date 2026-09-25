@@ -1,0 +1,38 @@
+{
+  "id": "BD-80da4331-bbcc-4387-a406-44ebf4cdbf5b",
+  "title": "Civil Comments JEVPA feasibility study",
+  "description": "As a researcher, I want to test whether Pareto retention finds complementary moderation features in real Civil Comments text, so that JEVPA is evaluated where error mechanisms can genuinely differ.\n\nFeature: Civil Comments JEVPA feasibility\n\nScenario: Sealed subtype slices reveal complementary residual mechanisms\nGiven a fixed public Civil Comments split with toxicity labels\nWhen a baseline is fit on discovery data and scored on selection data\nThen threat and identity-attack subtype annotations remain hidden from the analyst and are reported only as selection slices\nAnd the study advances only when each slice has sufficient support and different candidate questions are retained.",
+  "type": "story",
+  "status": "in_progress",
+  "priority": 2,
+  "assignee": null,
+  "creator": null,
+  "parent": "BD-8711caaf-17a6-4c26-a826-496dfd6bae82",
+  "labels": [],
+  "dependencies": [],
+  "comments": [
+    {
+      "id": "54924bc4-239d-442f-8787-e26b719fa4bd",
+      "author": "home",
+      "text": "2026-09-25: Downloaded the fixed public validation split and completed a no-model baseline audit. The source annotations support threat and identity-attack selection slices; no analyst or engine calls were made.",
+      "created_at": "2026-09-25T19:23:27.917156Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "codex",
+        "model": "GPT-5",
+        "name": "root"
+      }
+    }
+  ],
+  "created_at": "2026-09-25T19:22:36.868136Z",
+  "updated_at": "2026-09-25T19:23:27.917197Z",
+  "closed_at": null,
+  "agent": {
+    "platform": "codex",
+    "model": "GPT-5",
+    "name": "root"
+  },
+  "right_now_summary": "The fixed Civil Comments split was downloaded and audited without fitting a model or making analyst calls.",
+  "right_now_updated_at": "2026-09-25T19:23:29.939419Z",
+  "custom": {}
+}
