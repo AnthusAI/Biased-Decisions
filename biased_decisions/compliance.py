@@ -313,7 +313,7 @@ MAPPING: List[dict] = [
                  "origin, race, religion, sex or family status may then bear on the result; we have not yet "
                  "connected them. That is a gap in our work, not a finding that no rule applies.",
        "recipes": ["test-one-characteristic"], "insights": ["measure-before-deploying"]}
-      for axis in ("nationality-x", "race", "china", "india", "africa", "orientation", "family", "antisemitism")],
+      for axis in ("nationality-x", "race", "china", "india", "africa", "orientation", "family", "antisemitism", "antisemitism-loans")],
     {"dimension": "option-order", "regulated": False,
      "reason": "The order in which the two answers are offered is not a protected characteristic, "
                "so this test carries no regulated-decision warning. It still matters for "
