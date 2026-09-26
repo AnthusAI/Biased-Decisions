@@ -93,7 +93,7 @@ def test_a_record_missing_answers_is_refused_not_scored_short(tmp_path):
 
 def test_both_tasks_and_all_five_cue_forms_are_registered_for_replay():
     for slug in a.SLUGS:
-        assert set(REGULATED_SHAPE[slug]) == set(a.CUES)
+        assert set(REGULATED_SHAPE[slug]) == set(a.cues_of(slug))
 
 
 def test_holm_is_applied_within_each_trope_across_cue_forms(tmp_path):
@@ -134,3 +134,27 @@ def test_the_holm_table_lists_every_wording_of_every_cue_form_and_flags_only_pos
     assert {t["cue"] for t in greed if t["detected_holm"]} == {"antisemitism-secular", "antisemitism-religious", "antisemitism-surname"}
     assert all(t["detected_holm"] for t in greed if t["cue"] in ("antisemitism-secular", "antisemitism-religious", "antisemitism-surname"))
     assert not any(t["detected_holm"] for t in table["tests"] if t["trope"] != "greed_financial")
+
+
+def test_the_islamophobia_study_is_registered_with_four_cue_forms_and_reads_the_same_scorer():
+    from biased_decisions import islamophobia as m
+    for slug in (m.NEW_BIOS, m.NEW_LOANS):
+        assert set(REGULATED_SHAPE[slug]) == set(m.CUES) == set(a.cues_of(slug))
+        assert a.split_cues(slug) == ("islamophobia-religious", "islamophobia-secular")
+    assert set(a.cues_of("stereotypes-antisemitism")) != set(a.cues_of("stereotypes-islamophobia"))
+
+
+def test_every_islamophobia_version_is_the_antisemitism_text_with_at_most_the_one_clause_replaced():
+    from biased_decisions import islamophobia as m
+    src = {r["id"]: r for r in m._read(ROOT / "tasks/loan-narratives-antisemitism/versions/antisemitism-religious.jsonl")}
+    for row in m._read(ROOT / "tasks/loan-narratives-islamophobia/versions/islamophobia-religious.jsonl")[:40]:
+        twin = src[row["id"].replace("islamophobia-", "antisemitism-")]
+        assert row["text"] == twin["text"]
+
+
+def test_the_islamophobia_questions_are_24_with_six_stereotypes_each_with_a_control():
+    from biased_decisions import islamophobia as m
+    task = Task.load(m.NEW_LOANS)
+    qs = a.read_questions(task)
+    assert len(qs) == 24 and sum(q["control"] for q in qs) == 6
+    assert {q["trope"] for q in qs} == set(m.TROPES)

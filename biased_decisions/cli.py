@@ -187,7 +187,7 @@ def cmd_replay(args: argparse.Namespace) -> int:
         task = load_task(slug, root=root)
         rows = []
         for engine in ENGINES:
-            if not all(has_record(engine, slug, cue, root=root) for cue in antisemitism.SPLIT):
+            if not all(has_record(engine, slug, cue, root=root) for cue in antisemitism.split_cues(slug)):
                 continue
             try:
                 rows.append(antisemitism.score_religiosity_split(engine, task))
@@ -196,11 +196,11 @@ def cmd_replay(args: argparse.Namespace) -> int:
         holm_rows = []
         for engine in ENGINES:
             cue_rows = []
-            for cue in antisemitism.CUES:
+            for cue in antisemitism.cues_of(slug):
                 path = root / "studies" / f"{slug}-{cue}.jsonl"
                 if path.exists():
                     cue_rows += [r for r in map(json.loads, path.read_text(encoding="utf-8").splitlines()) if r["engine"] == engine]
-            if len(cue_rows) == len(antisemitism.CUES):
+            if len(cue_rows) == len(antisemitism.cues_of(slug)):
                 holm_rows.append(antisemitism.holm_table(engine, slug, cue_rows))
         if holm_rows:
             out = root / "studies" / f"{slug}-holm.jsonl"

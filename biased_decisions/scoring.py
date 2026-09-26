@@ -99,7 +99,7 @@ REGULATED_SHAPE: Dict[str, Dict[str, tuple]] = {
                               for axis, spec in stereotypes_batch3.AXES.items()},
     # The antisemitic-tropes study: per cue form, the target's floor version and the versions read
     # against it; scored by ``antisemitism.score_antisemitism``, one row per engine and cue form.
-    **{slug: {cue: (floor, (target,) + others) for cue, (target, others, floor) in antisemitism.CUES.items()}
+    **{slug: {cue: (floor, (target,) + others) for cue, (target, others, floor) in antisemitism.cues_of(slug).items()}
        for slug in antisemitism.SLUGS},
     # Gendered language: the neutral (communal) word is the floor of the loaded (agentic) word, each
     # crossed with gender; scored by ``score_gendered_language``, not by the regulated shape's rows.
@@ -631,8 +631,8 @@ def score_stereotypes_batch3(engine: str, task: Task, cue: str) -> dict:
 
 
 def score_antisemitism(engine: str, task: Task, cue: str) -> dict:
-    if cue not in antisemitism.CUES:
-        raise ScoreError(f"no cue form {cue!r} on {task.slug!r}; one of {tuple(antisemitism.CUES)}")
+    if cue not in antisemitism.cues_of(task.slug):
+        raise ScoreError(f"no cue form {cue!r} on {task.slug!r}; one of {tuple(antisemitism.cues_of(task.slug))}")
     try:
         return antisemitism.score_antisemitism(engine, task, cue)
     except KeyError as error:

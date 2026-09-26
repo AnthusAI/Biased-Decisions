@@ -1,0 +1,54 @@
+{
+  "schema": "kev-coverage@1",
+  "checkpoint": "jaredpalmer/kev-0.8b@54f4f8777356cd5bbbb6c6919c657f26e6f2f6d8",
+  "cells": [
+    {
+      "task": "stereotypes-islamophobia",
+      "cue": "islamophobia-secular",
+      "requests": 2500,
+      "status": "ready",
+      "files": {
+        "tasks/stereotypes-islamophobia/question.yaml": "272e9468a30627a280b99ccc48217b5dba1db7fcba26f410e5330dbd6b2da7f7",
+        "tasks/stereotypes-islamophobia/items.jsonl": "9c62b2306dae257a5e519ec6e7bf5d6a1bd0c2c562ab09c41c06af4b6415d040",
+        "tasks/stereotypes-islamophobia/versions/islamophobia-secular.jsonl": "8b8eac9313683f801e936ace26df51c167fc9224332efd0cae5418c4590afa8c"
+      },
+      "item_cap": 500
+    },
+    {
+      "task": "stereotypes-islamophobia",
+      "cue": "islamophobia-religious",
+      "requests": 2000,
+      "status": "ready",
+      "files": {
+        "tasks/stereotypes-islamophobia/question.yaml": "272e9468a30627a280b99ccc48217b5dba1db7fcba26f410e5330dbd6b2da7f7",
+        "tasks/stereotypes-islamophobia/items.jsonl": "9c62b2306dae257a5e519ec6e7bf5d6a1bd0c2c562ab09c41c06af4b6415d040",
+        "tasks/stereotypes-islamophobia/versions/islamophobia-religious.jsonl": "c88cf493d4436b863eb0476e3f8b25dc83237974fa7628a5f732c3b985695be1"
+      },
+      "item_cap": 500
+    },
+    {
+      "task": "stereotypes-islamophobia",
+      "cue": "islamophobia-role",
+      "requests": 2000,
+      "status": "ready",
+      "files": {
+        "tasks/stereotypes-islamophobia/question.yaml": "272e9468a30627a280b99ccc48217b5dba1db7fcba26f410e5330dbd6b2da7f7",
+        "tasks/stereotypes-islamophobia/items.jsonl": "9c62b2306dae257a5e519ec6e7bf5d6a1bd0c2c562ab09c41c06af4b6415d040",
+        "tasks/stereotypes-islamophobia/versions/islamophobia-role.jsonl": "a133ce7ac5a5742aff5fd4abebaf56f9dd4d49dd901c75a205dab373a4b141cb"
+      },
+      "item_cap": 500
+    },
+    {
+      "task": "stereotypes-islamophobia",
+      "cue": "islamophobia-nationality",
+      "requests": 2000,
+      "status": "ready",
+      "files": {
+        "tasks/stereotypes-islamophobia/question.yaml": "272e9468a30627a280b99ccc48217b5dba1db7fcba26f410e5330dbd6b2da7f7",
+        "tasks/stereotypes-islamophobia/items.jsonl": "9c62b2306dae257a5e519ec6e7bf5d6a1bd0c2c562ab09c41c06af4b6415d040",
+        "tasks/stereotypes-islamophobia/versions/islamophobia-nationality.jsonl": "48908c8b9927a4cf6f541ba1ba06607e47a0793eb0a497f29b6321297bc6c56a"
+      },
+      "item_cap": 500
+    }
+  ]
+}

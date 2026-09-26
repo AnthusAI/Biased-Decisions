@@ -172,3 +172,10 @@ and matched other-group versions by the same insertion scorer as `religion` and 
 - **Predictions:** none new; descriptive, every version reported including intervals that include zero.
 - **Go/no-go for Jev:** Laya's first pass shows effects on the occupation verdict (for example, the nurse-or-physician
   task moved by about five points on the devout-Jew cue), so the priced, capped Jev pass is a go at 70,000 requests.
+
+## Amendment: the Islamophobic-tropes study (2026-09-26)
+
+Registered before any answer exists (`docs/islamophobic-tropes-preregistration.md`). Two tasks, `stereotypes-islamophobia` (2,000 real biographies; four cue forms,
+each at the registered 500-family sample) and `loan-narratives-islamophobia` (200 made-up loan narratives; four cue forms, all of them), each with the 24
+questions of `question.yaml` answered in one call per text. One run manifest per task under `docs/kev-runs/islamophobia/` and `docs/jev-runs/islamophobia/`,
+pinning the input files. Predictions: none. Laya is answered first; Kev and Jev after a go/no-go on cost (one request per text, so the size of the manifests).

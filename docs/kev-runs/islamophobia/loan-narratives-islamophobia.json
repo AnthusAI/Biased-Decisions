@@ -1,0 +1,54 @@
+{
+  "schema": "kev-coverage@1",
+  "checkpoint": "jaredpalmer/kev-0.8b@54f4f8777356cd5bbbb6c6919c657f26e6f2f6d8",
+  "cells": [
+    {
+      "task": "loan-narratives-islamophobia",
+      "cue": "islamophobia-secular",
+      "requests": 1000,
+      "status": "ready",
+      "files": {
+        "tasks/loan-narratives-islamophobia/question.yaml": "272e9468a30627a280b99ccc48217b5dba1db7fcba26f410e5330dbd6b2da7f7",
+        "tasks/loan-narratives-islamophobia/items.jsonl": "cebed65b268d869a3eba48b5f6fa052cf6d3e791ba355286e96df5cd4a5972e0",
+        "tasks/loan-narratives-islamophobia/versions/islamophobia-secular.jsonl": "b8ef0f81b7dfd471893ab119ee37d911c4686a4a392ad63cf01e3bbddffb4e5c"
+      },
+      "item_cap": 500
+    },
+    {
+      "task": "loan-narratives-islamophobia",
+      "cue": "islamophobia-religious",
+      "requests": 800,
+      "status": "ready",
+      "files": {
+        "tasks/loan-narratives-islamophobia/question.yaml": "272e9468a30627a280b99ccc48217b5dba1db7fcba26f410e5330dbd6b2da7f7",
+        "tasks/loan-narratives-islamophobia/items.jsonl": "cebed65b268d869a3eba48b5f6fa052cf6d3e791ba355286e96df5cd4a5972e0",
+        "tasks/loan-narratives-islamophobia/versions/islamophobia-religious.jsonl": "5406430c969e751459f6cb1ebcd51eac62d2d46d7a7f23251d89c6bc90811758"
+      },
+      "item_cap": 500
+    },
+    {
+      "task": "loan-narratives-islamophobia",
+      "cue": "islamophobia-role",
+      "requests": 800,
+      "status": "ready",
+      "files": {
+        "tasks/loan-narratives-islamophobia/question.yaml": "272e9468a30627a280b99ccc48217b5dba1db7fcba26f410e5330dbd6b2da7f7",
+        "tasks/loan-narratives-islamophobia/items.jsonl": "cebed65b268d869a3eba48b5f6fa052cf6d3e791ba355286e96df5cd4a5972e0",
+        "tasks/loan-narratives-islamophobia/versions/islamophobia-role.jsonl": "e5e61078ad24575defc43ab949ac77a68c9e7eb3e9d9247abc67ef40c1cc20dc"
+      },
+      "item_cap": 500
+    },
+    {
+      "task": "loan-narratives-islamophobia",
+      "cue": "islamophobia-nationality",
+      "requests": 800,
+      "status": "ready",
+      "files": {
+        "tasks/loan-narratives-islamophobia/question.yaml": "272e9468a30627a280b99ccc48217b5dba1db7fcba26f410e5330dbd6b2da7f7",
+        "tasks/loan-narratives-islamophobia/items.jsonl": "cebed65b268d869a3eba48b5f6fa052cf6d3e791ba355286e96df5cd4a5972e0",
+        "tasks/loan-narratives-islamophobia/versions/islamophobia-nationality.jsonl": "5cfea913812db0b0aac7afd9966b57b3d13ce18da5aaabca446a75e83527a488"
+      },
+      "item_cap": 500
+    }
+  ]
+}
