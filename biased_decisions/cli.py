@@ -182,6 +182,37 @@ def cmd_replay(args: argparse.Namespace) -> int:
                 n_rows += len(rows)
                 print(f"{task_slug}-{cue}: {len(rows)} row(s) -> {out}")
 
+    from biased_decisions import antisemitism
+    for slug in antisemitism.SLUGS:
+        task = load_task(slug, root=root)
+        rows = []
+        for engine in ENGINES:
+            if not all(has_record(engine, slug, cue, root=root) for cue in antisemitism.SPLIT):
+                continue
+            try:
+                rows.append(antisemitism.score_religiosity_split(engine, task))
+            except (KeyError, ScoreError) as error:
+                print(f"bd replay: skipping the religiosity split ({engine}, {slug}): {error}", file=sys.stderr)
+        holm_rows = []
+        for engine in ENGINES:
+            cue_rows = []
+            for cue in antisemitism.CUES:
+                path = root / "studies" / f"{slug}-{cue}.jsonl"
+                if path.exists():
+                    cue_rows += [r for r in map(json.loads, path.read_text(encoding="utf-8").splitlines()) if r["engine"] == engine]
+            if len(cue_rows) == len(antisemitism.CUES):
+                holm_rows.append(antisemitism.holm_table(engine, slug, cue_rows))
+        if holm_rows:
+            out = root / "studies" / f"{slug}-holm.jsonl"
+            write_rows(out, holm_rows, ("engine",))
+            n_rows += len(holm_rows)
+            print(f"{slug}-holm: {len(holm_rows)} row(s) -> {out}")
+        if rows:
+            out = root / "studies" / f"{slug}-religiosity-split.jsonl"
+            write_rows(out, rows, ("engine",))
+            n_rows += len(rows)
+            print(f"{slug}-religiosity-split: {len(rows)} row(s) -> {out}")
+
     for pair_slug in SHORTLIST_PAIRS:
         task = load_task(pair_slug, root=root)
         out = root / "studies" / f"{pair_slug}-shortlist.jsonl"

@@ -106,3 +106,31 @@ def test_holm_is_applied_within_each_trope_across_cue_forms(tmp_path):
     assert len([k for k in adj if k[0] == "greed_financial"]) == 6
     assert all(0 <= p <= 1 for p in adj.values())
     assert adj[("greed_financial", "antisemitism-religious", "greed_q1")] <= 1.0
+
+
+def test_the_religiosity_split_is_the_difference_of_the_two_cue_forms_scores(tmp_path):
+    task = _task(tmp_path)
+    _write(tmp_path, task, "antisemitism-religious", _bump_jewish_on({"greed_q1", "greed_q2", "greed_q3"}, 0.2))
+    _write(tmp_path, task, "antisemitism-secular", _bump_jewish_on({"greed_q1", "greed_q2", "greed_q3"}, 0.05))
+    row = a.score_religiosity_split("laya", task)
+    g = row["tropes"]["greed_financial"]
+    assert g["religious"] == pytest.approx(0.2) and g["secular"] == pytest.approx(0.05)
+    assert g["difference"] == pytest.approx(0.15) and g["distinguishable"] is True
+    assert row["tropes"]["dual_loyalty"]["difference"] == pytest.approx(0.0)
+    assert row["tropes"]["dual_loyalty"]["distinguishable"] is False
+
+
+def test_the_holm_table_lists_every_wording_of_every_cue_form_and_flags_only_positive_survivors(tmp_path):
+    task = _task(tmp_path)
+    rows = []
+    for cue in a.CUES:
+        _write(tmp_path, task, cue, _bump_jewish_on({"greed_q1", "greed_q2", "greed_q3"}, 0.1))
+        rows.append(score("laya", task, cue))
+    table = a.holm_table("laya", SLUG, rows)
+    assert len(table["tests"]) == 5 * 18
+    greed = [t for t in table["tests"] if t["trope"] == "greed_financial"]
+    assert len(greed) == 15
+    # the synthetic bump is on the "jewish" version, which is the target of three of the five cue forms
+    assert {t["cue"] for t in greed if t["detected_holm"]} == {"antisemitism-secular", "antisemitism-religious", "antisemitism-surname"}
+    assert all(t["detected_holm"] for t in greed if t["cue"] in ("antisemitism-secular", "antisemitism-religious", "antisemitism-surname"))
+    assert not any(t["detected_holm"] for t in table["tests"] if t["trope"] != "greed_financial")

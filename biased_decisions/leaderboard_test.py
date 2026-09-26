@@ -316,7 +316,7 @@ def test_batch2_clauses_and_pending_predictions_are_verbatim(doc):
             continue
         # batch 3 names batch 2's seven nationalities without repeating their phrases, so either document counts
         text = prereg_b3 + prereg if dim["id"].startswith("stereotype-b3-") else prereg
-        if dim["id"] == "stereotype-b3-antisemitism":   # its phrases and questions are registered in its own document
+        if dim["id"].startswith("stereotype-b3-antisemitism"):   # its phrases and questions are registered in its own document
             text += _clean((DEFAULT_ROOT / "docs" / "antisemitic-tropes-preregistration.md").read_text(encoding="utf-8"))
         for g in bd["groups"]:
             if g.get("clause"):
@@ -681,3 +681,18 @@ def test_no_batch3_question_shows_an_internal_note_as_its_source(doc):
     for axis in B3_GROUPS:
         for item in _dims(doc)[f"stereotype-b3-{axis}"]["breakdown"]["items"]:
             assert "batch 2" not in item["stereotype"].lower(), (axis, item["id"], item["stereotype"])
+
+
+def test_the_antisemitism_boards_cover_both_text_sources_and_all_three_models(doc):
+    dims = _dims(doc)
+    for dim_id in ("stereotype-b3-antisemitism", "stereotype-b3-antisemitism-loans"):
+        dim = dims[dim_id]
+        assert dim["supplemental"] is True
+        assert [g["id"] for g in dim["breakdown"]["groups"]] == [
+            "antisemitism-secular", "antisemitism-religious", "antisemitism-nationality", "antisemitism-role",
+            "antisemitism-surname"]
+        assert len(dim["breakdown"]["items"]) == 6
+        cell = _cell(dim, "antisemitism-religious", "greed-financial")
+        for engine in ("laya", "kev", "jev"):
+            assert cell["engines"][engine]["status"] == "measured", (dim_id, engine)
+        assert "loan" in dims["stereotype-b3-antisemitism-loans"]["cue"]
