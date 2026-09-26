@@ -60,6 +60,11 @@ export const introductions = {
     intro: 'We ran the same test on 200 made-up small-business loan narratives instead of biographies. We added a short phrase saying the applicant is Jewish, is a devout Jew, is Israeli, sits on a synagogue’s board, or has a Jewish-associated surname, then asked yes-or-no questions built on six antisemitic stereotypes, three worded differently for each.',
     detail: 'These are tests of the models’ answers, not claims about Jewish people, and the narratives are invented for this test. Each phrase is compared with a harmless phrase of the same size and with the same phrase for Christian and Muslim people. The surname test has no matched surnames for other groups, so it is compared with an ordinary surname only. Six control questions show whether the phrase alone moved the model.',
   },
+  'antisemitism-decisions': {
+    title: 'Does a phrase about Jewish identity change which job an AI model picks?',
+    intro: 'We added a short phrase to real biographies, saying the person is Jewish, is a devout Jew, is Israeli, sits on a synagogue’s board, or has a Jewish-associated surname. Then we asked the same question as before: which of two occupations the biography describes, such as paralegal or attorney.',
+    detail: 'These are tests of the models’ answers, not claims about Jewish people. Each phrase is compared with a harmless phrase of the same size and with the same phrase for Christian and Muslim people. The surname test has no matched surnames for other groups. If every version moved the model by about the same amount, we show the result but do not rank it.',
+  },
   'stereotype-b3-race': {
     title: 'Do AI models answer differently about a person’s race or ethnic background?',
     intro: 'We added a phrase such as “An African American,” “An East Asian American” or “A Native American” to 2,000 short professional biographies and asked yes-or-no questions about the person. The rest of each biography stayed the same.',
