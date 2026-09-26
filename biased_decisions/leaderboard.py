@@ -2408,6 +2408,49 @@ HONESTY: List[dict] = [
 ]
 
 
+def _antisemitism_summary(root: Path) -> dict:
+    """What the antisemitism page shows, from the scored study rows: per text source and model, each stereotype's
+    pooled score on each way of saying who the person is, how many of its three wordings agree, and the
+    religiosity-versus-Jewishness split (the devout-Jew cue minus the plain "Jewish" cue)."""
+    store = Store(root)
+    sources = {"bios": AS_SLUG, "loans": AS_LOANS_SLUG}
+    results: dict = {}
+    split: dict = {}
+    for name, slug in sources.items():
+        results[name], split[name] = {}, {}
+        for engine in ENGINE_IDS:
+            per: dict = {}
+            for cue, *_ in AS_GROUPS:
+                row = store.row(slug, cue, engine)
+                if row is None:
+                    continue
+                for trope, (tid, *_rest) in AS_TROPES.items():
+                    t = row["tropes"][trope]
+                    per.setdefault(tid, {})[cue] = {
+                        "score_pts": _r(t["trope_score"] * 100), "lo": _r(t["ci_lo"] * 100), "hi": _r(t["ci_hi"] * 100),
+                        "detected": bool(t["detected"]), "wordings_agree": t["wordings_agree"], "n": row["n"]}
+            if per:
+                results[name][engine] = per
+            path = root / "studies" / f"{slug}-religiosity-split.jsonl"
+            if path.exists():
+                for line in path.read_text(encoding="utf-8").splitlines():
+                    r = json.loads(line) if line.strip() else None
+                    if r and r["engine"] == engine:
+                        split[name][engine] = {AS_TROPES[t][0]: {
+                            "religious_pts": _r(v["religious"] * 100), "secular_pts": _r(v["secular"] * 100),
+                            "difference_pts": _r(v["difference"] * 100), "lo": _r(v["ci_lo"] * 100),
+                            "hi": _r(v["ci_hi"] * 100), "distinguishable": v["distinguishable"], "n": v["n"]}
+                            for t, v in r["tropes"].items()}
+    return {
+        "tropes": [{"id": tid, "label": label, "alleges": alleges, "source": src}
+                   for tid, label, alleges, src in AS_TROPES.values()],
+        "cues": [{"id": cue, "label": label, "phrase": phrase} for cue, label, phrase, _f in AS_GROUPS],
+        "boards": {"bios": "stereotype-b3-antisemitism", "loans": "stereotype-b3-antisemitism-loans",
+                   "decisions": AI_ID},
+        "results": results, "split": split,
+    }
+
+
 def _neutral(root: Path) -> dict:
     """The neutral-pronoun control's rows (studies/<task>-neutral.jsonl), one per engine and task,
     as scored by ``bd replay``; the site draws which way the bias runs from them."""
@@ -2513,6 +2556,7 @@ def generate_json(root: Path = DEFAULT_ROOT, *, date: Optional[str] = None) -> d
         "overall": overall,
         "floors": {"ask_twice": floors},
         "neutral": _neutral(root),
+        "antisemitism": _antisemitism_summary(root),
         "honesty": HONESTY,
         "vocabulary": VOCABULARY,
         "compliance": build_compliance(root, dimensions, floors, prereg),
