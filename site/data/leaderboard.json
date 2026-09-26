@@ -80829,7 +80829,7 @@
    }
   },
   {
-   "id": "stereotype-b3-nationality-x",
+   "id": "nationality-stereotypes",
    "supplemental": true,
    "label": "Nationalities: more stereotype tests",
    "long": "Nationality stereotypes, thirteen nationalities",
@@ -127415,7 +127415,7 @@
    }
   },
   {
-   "id": "stereotype-b3-race",
+   "id": "racial-and-ethnic-stereotypes",
    "supplemental": true,
    "label": "Race and ethnic background: stereotype tests",
    "long": "Racial and ethnic stereotypes",
@@ -145456,7 +145456,7 @@
    }
   },
   {
-   "id": "stereotype-b3-china",
+   "id": "china-regional-stereotypes",
    "supplemental": true,
    "label": "Regions of China: stereotype tests",
    "long": "Stereotypes about regions of China",
@@ -158906,7 +158906,7 @@
    }
   },
   {
-   "id": "stereotype-b3-india",
+   "id": "india-caste-and-regional-stereotypes",
    "supplemental": true,
    "label": "Groups in India: stereotype tests",
    "long": "Stereotypes about groups in India",
@@ -173122,7 +173122,7 @@
    }
   },
   {
-   "id": "stereotype-b3-africa",
+   "id": "african-ethnic-stereotypes",
    "supplemental": true,
    "label": "Ethnic groups in Nigeria and Kenya: stereotype tests",
    "long": "Stereotypes about ethnic groups in Nigeria and Kenya",
@@ -187342,7 +187342,7 @@
    }
   },
   {
-   "id": "stereotype-b3-orientation",
+   "id": "sexual-orientation-stereotypes",
    "supplemental": true,
    "label": "Sexual orientation: stereotype tests",
    "long": "Sexual orientation stereotypes",
@@ -197583,7 +197583,7 @@
    }
   },
   {
-   "id": "stereotype-b3-family",
+   "id": "family-status-stereotypes",
    "supplemental": true,
    "label": "Family and marital status: stereotype tests",
    "long": "Family and marital status stereotypes",
@@ -211008,7 +211008,7 @@
    }
   },
   {
-   "id": "stereotype-b3-antisemitism",
+   "id": "antisemitic-stereotypes",
    "supplemental": true,
    "label": "Antisemitic stereotypes: stereotype tests",
    "long": "Antisemitic stereotypes, six stereotypes, five ways of saying who the person is",
@@ -223011,7 +223011,7 @@
    }
   },
   {
-   "id": "stereotype-b3-antisemitism-loans",
+   "id": "antisemitic-stereotypes-loan-narratives",
    "supplemental": true,
    "label": "Antisemitic stereotypes in loan narratives: stereotype tests",
    "long": "Antisemitic stereotypes in small-business loan narratives, six stereotypes, five ways of saying who the applicant is",
@@ -252205,8 +252205,8 @@
    }
   ],
   "boards": {
-   "bios": "stereotype-b3-antisemitism",
-   "loans": "stereotype-b3-antisemitism-loans",
+   "bios": "antisemitic-stereotypes",
+   "loans": "antisemitic-stereotypes-loan-narratives",
    "decisions": "antisemitism-decisions"
   },
   "results": {
@@ -254606,7 +254606,7 @@
     ]
    },
    {
-    "dimension": "stereotype-b3-nationality-x",
+    "dimension": "nationality-stereotypes",
     "regulated": false,
     "reason": "These tests ask stereotype questions about a person described in a short biography. They are not a decision that a rule governs, so they carry no regulated-decision warning. A fast model like this could be used to screen biographies, and rules about national origin, race, religion, sex or family status may then bear on the result; we have not yet connected them. That is a gap in our work, not a finding that no rule applies.",
     "recipes": [
@@ -254617,7 +254617,7 @@
     ]
    },
    {
-    "dimension": "stereotype-b3-race",
+    "dimension": "racial-and-ethnic-stereotypes",
     "regulated": false,
     "reason": "These tests ask stereotype questions about a person described in a short biography. They are not a decision that a rule governs, so they carry no regulated-decision warning. A fast model like this could be used to screen biographies, and rules about national origin, race, religion, sex or family status may then bear on the result; we have not yet connected them. That is a gap in our work, not a finding that no rule applies.",
     "recipes": [
@@ -254628,7 +254628,7 @@
     ]
    },
    {
-    "dimension": "stereotype-b3-china",
+    "dimension": "china-regional-stereotypes",
     "regulated": false,
     "reason": "These tests ask stereotype questions about a person described in a short biography. They are not a decision that a rule governs, so they carry no regulated-decision warning. A fast model like this could be used to screen biographies, and rules about national origin, race, religion, sex or family status may then bear on the result; we have not yet connected them. That is a gap in our work, not a finding that no rule applies.",
     "recipes": [
@@ -254639,7 +254639,7 @@
     ]
    },
    {
-    "dimension": "stereotype-b3-india",
+    "dimension": "india-caste-and-regional-stereotypes",
     "regulated": false,
     "reason": "These tests ask stereotype questions about a person described in a short biography. They are not a decision that a rule governs, so they carry no regulated-decision warning. A fast model like this could be used to screen biographies, and rules about national origin, race, religion, sex or family status may then bear on the result; we have not yet connected them. That is a gap in our work, not a finding that no rule applies.",
     "recipes": [
@@ -254650,7 +254650,7 @@
     ]
    },
    {
-    "dimension": "stereotype-b3-africa",
+    "dimension": "african-ethnic-stereotypes",
     "regulated": false,
     "reason": "These tests ask stereotype questions about a person described in a short biography. They are not a decision that a rule governs, so they carry no regulated-decision warning. A fast model like this could be used to screen biographies, and rules about national origin, race, religion, sex or family status may then bear on the result; we have not yet connected them. That is a gap in our work, not a finding that no rule applies.",
     "recipes": [
@@ -254661,7 +254661,7 @@
     ]
    },
    {
-    "dimension": "stereotype-b3-orientation",
+    "dimension": "sexual-orientation-stereotypes",
     "regulated": false,
     "reason": "These tests ask stereotype questions about a person described in a short biography. They are not a decision that a rule governs, so they carry no regulated-decision warning. A fast model like this could be used to screen biographies, and rules about national origin, race, religion, sex or family status may then bear on the result; we have not yet connected them. That is a gap in our work, not a finding that no rule applies.",
     "recipes": [
@@ -254672,7 +254672,7 @@
     ]
    },
    {
-    "dimension": "stereotype-b3-family",
+    "dimension": "family-status-stereotypes",
     "regulated": false,
     "reason": "These tests ask stereotype questions about a person described in a short biography. They are not a decision that a rule governs, so they carry no regulated-decision warning. A fast model like this could be used to screen biographies, and rules about national origin, race, religion, sex or family status may then bear on the result; we have not yet connected them. That is a gap in our work, not a finding that no rule applies.",
     "recipes": [
@@ -254683,7 +254683,7 @@
     ]
    },
    {
-    "dimension": "stereotype-b3-antisemitism",
+    "dimension": "antisemitic-stereotypes",
     "regulated": false,
     "reason": "These tests ask stereotype questions about a person described in a short biography. They are not a decision that a rule governs, so they carry no regulated-decision warning. A fast model like this could be used to screen biographies, and rules about national origin, race, religion, sex or family status may then bear on the result; we have not yet connected them. That is a gap in our work, not a finding that no rule applies.",
     "recipes": [
@@ -254694,7 +254694,7 @@
     ]
    },
    {
-    "dimension": "stereotype-b3-antisemitism-loans",
+    "dimension": "antisemitic-stereotypes-loan-narratives",
     "regulated": false,
     "reason": "These tests ask stereotype questions about a person described in a short biography. They are not a decision that a rule governs, so they carry no regulated-decision warning. A fast model like this could be used to screen biographies, and rules about national origin, race, religion, sex or family status may then bear on the result; we have not yet connected them. That is a gap in our work, not a finding that no rule applies.",
     "recipes": [
