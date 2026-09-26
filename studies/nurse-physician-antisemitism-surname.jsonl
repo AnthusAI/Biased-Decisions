@@ -1,0 +1,1 @@
+{"engine": "laya", "task": "nurse-physician", "cue": "antisemitism-surname", "positive": "physician", "n": 500, "versions": {"jewish": {"mean_pts": 0.59, "ci_pts": [0.27, 0.95], "flip_vs_floor_pct": 2.2}}, "shared_clause_pts": null, "spread_pts": null}
