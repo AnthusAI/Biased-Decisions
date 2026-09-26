@@ -13,8 +13,9 @@ let max = 0;
 for (const r of grid) for (const c of r.cells) if (c.status === "measured" && (c.detected || c.reverse)) max = Math.max(max, Math.abs(c.value));
 ---
 <div class="table-scroll matrix-scroll" tabindex="0" role="region" aria-label={caption}>
-  <table class="matrix">
+  <table class="matrix" style={`--n:${bd.items.length}`}>
     <caption class="sr">{caption}</caption>
+    <colgroup><col class="mx-first" />{bd.items.map(() => <col class="mx-col" />)}</colgroup>
     <thead>
       <tr>
         <th scope="col" class="mx-corner"><span>{kindName(bd.group_kind)}</span> <span class="muted">/ {kindName(bd.item_kind)}</span></th>

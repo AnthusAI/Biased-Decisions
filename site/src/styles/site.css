@@ -395,13 +395,18 @@ details.cell > *:not(summary) { margin-left: 18px; margin-right: 18px; }
 
 /* Group x item matrix */
 .matrix-scroll { margin-top: 8px; }
-.matrix { border-collapse: separate; border-spacing: 4px; font-size: 13.5px; width: 100%; min-width: 560px; }
+.matrix { border-collapse: separate; border-spacing: 4px; font-size: 13.5px; width: 100%; table-layout: fixed;
+  min-width: calc(168px + var(--n, 4) * 96px); }
+/* the row-header column has a fixed width and every other column shares the rest equally, whatever its header says;
+   a long header wraps and its row grows taller */
+.matrix col.mx-first { width: 168px; }
+.matrix thead th { overflow-wrap: anywhere; hyphens: auto; }
 .matrix th { text-align: left; font-weight: 700; padding: 4px 6px; }
 .matrix thead th { font-size: 12.5px; vertical-align: bottom; }
 .matrix thead th a, .matrix tbody th a { color: var(--ink); text-decoration: none; }
 .matrix thead th a:hover, .matrix tbody th a:hover { text-decoration: underline; }
 .matrix .mx-corner { color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: .08em; }
-.matrix tbody th { position: sticky; left: 0; background: var(--bg); z-index: 1; white-space: nowrap; }
+.matrix tbody th { position: sticky; left: 0; background: var(--bg); z-index: 1; white-space: normal; overflow-wrap: anywhere; }
 .mx { padding: 0; border-radius: 8px; background: var(--surface); border: 1px solid var(--rule); }
 .mx a { display: flex; flex-direction: column; gap: 2px; padding: 8px 9px; min-height: 58px; color: var(--ink); text-decoration: none; border-radius: 7px; }
 .mx a:hover { outline: 2px solid var(--ink-2); outline-offset: 1px; }
