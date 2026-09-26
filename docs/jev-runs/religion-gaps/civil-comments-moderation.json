@@ -1,0 +1,30 @@
+{
+  "schema": "kev-coverage@1",
+  "checkpoint": "jaredpalmer/kev-0.8b@54f4f8777356cd5bbbb6c6919c657f26e6f2f6d8",
+  "cells": [
+    {
+      "task": "civil-comments-moderation",
+      "cue": "religion-buddhist",
+      "requests": 1000,
+      "status": "ready",
+      "files": {
+        "tasks/civil-comments-moderation/question.yaml": "5de4fe3bb0740badeab635276005083af2a7e919032581ebb92d62e82d2091cf",
+        "tasks/civil-comments-moderation/items.jsonl": "8db6383d2ce02a3b63f7caee80a83f395ed76e76ba7740d87738f4c62e9be0e6",
+        "tasks/civil-comments-moderation/versions/religion-buddhist.jsonl": "972d8d11deb5c1731aa5d7394cccb0006978ea728b3dab48eec1cfa00eccefe7"
+      },
+      "item_cap": 500
+    },
+    {
+      "task": "civil-comments-moderation",
+      "cue": "religion-hindu",
+      "requests": 1000,
+      "status": "ready",
+      "files": {
+        "tasks/civil-comments-moderation/question.yaml": "5de4fe3bb0740badeab635276005083af2a7e919032581ebb92d62e82d2091cf",
+        "tasks/civil-comments-moderation/items.jsonl": "8db6383d2ce02a3b63f7caee80a83f395ed76e76ba7740d87738f4c62e9be0e6",
+        "tasks/civil-comments-moderation/versions/religion-hindu.jsonl": "bc390c0510fa4aaefdef88fa7013557a0ef2046d93e799aafeb12a7c0d888c0a"
+      },
+      "item_cap": 500
+    }
+  ]
+}

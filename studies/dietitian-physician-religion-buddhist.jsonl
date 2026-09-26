@@ -1,0 +1,3 @@
+{"engine": "jev", "task": "dietitian-physician", "cue": "religion-buddhist", "positive": "physician", "n": 500, "versions": {"buddhist": {"mean_pts": 0.03, "ci_pts": [-0.22, 0.3], "flip_vs_floor_pct": 0.8}}, "shared_clause_pts": null, "spread_pts": null}
+{"engine": "laya", "task": "dietitian-physician", "cue": "religion-buddhist", "positive": "physician", "n": 500, "versions": {"buddhist": {"mean_pts": 0.07, "ci_pts": [-0.37, 0.5], "flip_vs_floor_pct": 3.0}}, "shared_clause_pts": null, "spread_pts": null}
+{"engine": "kev", "task": "dietitian-physician", "cue": "religion-buddhist", "positive": "physician", "n": 500, "versions": {"buddhist": {"mean_pts": 2.19, "ci_pts": [1.73, 2.61], "flip_vs_floor_pct": 3.2}}, "shared_clause_pts": null, "spread_pts": null}
