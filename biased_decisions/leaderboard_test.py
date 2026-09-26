@@ -696,3 +696,17 @@ def test_the_antisemitism_boards_cover_both_text_sources_and_all_three_models(do
         for engine in ("laya", "kev", "jev"):
             assert cell["engines"][engine]["status"] == "measured", (dim_id, engine)
         assert "loan" in dims["stereotype-b3-antisemitism-loans"]["cue"]
+
+
+def test_the_antisemitism_occupation_board_has_five_cue_forms_seven_decisions_and_all_three_models(doc):
+    dim = _dims(doc)["antisemitism-decisions"]
+    assert dim["supplemental"] is True
+    assert len(dim["breakdown"]["groups"]) == 5 and len(dim["breakdown"]["items"]) == 7
+    for group in dim["breakdown"]["groups"]:
+        assert group["clause"].strip()
+    cell = _cell(dim, "antisemitism-religious", "nurse-physician")
+    for engine in ("laya", "kev", "jev"):
+        assert cell["engines"][engine]["status"] == "measured", engine
+    # every version moving alike is shown but never ranked: the devout-Jew cue on nurse-or-physician
+    laya = cell["engines"]["laya"]
+    assert laya["attributable"] is False and "cannot blame" in laya["note"]
