@@ -49,9 +49,13 @@ INSERTION_CUES: tuple = ("disability", "religion", "religion-v2")
 # Imported studies (docs/veteran-status-preregistration.md,
 # docs/sexuality-gender-identity-preregistration.md): same insertion mechanics, on all seven tasks.
 NEW_INSERTION_CUES: tuple = ("veteran-status", "sexuality", "gender-identity")
+# The antisemitic-tropes cues (docs/antisemitic-tropes-preregistration.md, tasks/ANTISEMITISM_CUES.md): the same
+# occupation-invariance pattern, on all seven tasks: does the occupation verdict itself move when a bio says who the person is.
+ANTISEMITISM_INSERTION_CUES: tuple = ("antisemitism-secular", "antisemitism-religious", "antisemitism-nationality",
+                                      "antisemitism-role", "antisemitism-surname")
 NOISE_FLOOR_CUES: tuple = ("ask-twice", "option-order")
 NEUTRAL_CUES: tuple = ("neutral",)
-_ALL_INSERTION_CUES = INSERTION_CUES + NEW_INSERTION_CUES
+_ALL_INSERTION_CUES = INSERTION_CUES + NEW_INSERTION_CUES + ANTISEMITISM_INSERTION_CUES
 TASK_CUES: Dict[str, tuple] = {
     "surgeon-physician": (("gender-pronouns", "race-name", "race-fullname", "age-inserted")
                          + _ALL_INSERTION_CUES + NOISE_FLOOR_CUES + NEUTRAL_CUES),
@@ -277,11 +281,12 @@ _INSERTION_SHAPE: Dict[str, tuple] = {
     # their own scorers below, and these entries only name the versions each one is measured on.
     "sexuality": ("floor-married", ("same-sex-spouse", "opposite-sex-spouse")),
     "gender-identity": ("asis", ("floor-woman", "transgender")),
+    **{cue: (floor, (target,) + others) for cue, (target, others, floor) in antisemitism.CUES.items()},
 }
 
 # Cues scored with the house bootstrap (the same one every regulated cue uses). Batch 1's
 # religion cues keep the local convention their published numbers were computed with.
-_HOUSE_BOOTSTRAP_CUES = ("disability",) + NEW_INSERTION_CUES
+_HOUSE_BOOTSTRAP_CUES = ("disability",) + NEW_INSERTION_CUES + ANTISEMITISM_INSERTION_CUES
 
 
 def _insertion_by_source(task: Task, cue: str, answers: Dict[str, dict]) -> Dict[str, Dict]:
@@ -601,6 +606,7 @@ SCORERS = {
     "veteran-status": score_veteran_status,
     "sexuality": score_sexuality,
     "gender-identity": score_gender_identity,
+    **{cue: (lambda engine, task, cue=cue: score_insertion(engine, task, cue)) for cue in ANTISEMITISM_INSERTION_CUES},
     "ask-twice": score_ask_twice,
     "option-order": score_option_order,
 }

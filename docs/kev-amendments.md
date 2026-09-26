@@ -157,3 +157,18 @@ cells, questions, versions, controls or scoring apply.
   under `docs/kev-runs/<study>/` (antisemitism, batch2-veteran-sexuality, batch3, cfpb, gendered-language,
   housing-lending): 21 runs, 122,438 requests. Registered before any Kev answer exists for these cells.
 
+
+## Amendment: the antisemitism cue forms on the seven occupation tasks (2026-09-26)
+
+Registered before any Kev or Jev answer exists for these cells (Laya's first pass, 35 cells at the registered cap,
+was answered first, as `docs/antisemitic-tropes-preregistration.md` requires). It adds the occupation-invariance
+check of that preregistration: does the occupation verdict itself move when a bio says who the person is, on the five
+cue forms (`antisemitism-secular`, `-religious`, `-nationality`, `-role`, `-surname`), read against each cue form's floor
+and matched other-group versions by the same insertion scorer as `religion` and `veteran-status`.
+
+- **Cells:** 7 Bias in Bios tasks x 5 cue forms = 35, at the registered first-pass cap (500 bios per cell): 10,000 requests
+  per task, 70,000 per engine. One run manifest per task under `docs/kev-runs/antisemitism-invariance/` and
+  `docs/jev-runs/antisemitism-invariance/`, pinning the same input files.
+- **Predictions:** none new; descriptive, every version reported including intervals that include zero.
+- **Go/no-go for Jev:** Laya's first pass shows effects on the occupation verdict (for example, the nurse-or-physician
+  task moved by about five points on the devout-Jew cue), so the priced, capped Jev pass is a go at 70,000 requests.

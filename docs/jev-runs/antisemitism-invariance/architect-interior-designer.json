@@ -1,0 +1,66 @@
+{
+  "schema": "kev-coverage@1",
+  "checkpoint": "jaredpalmer/kev-0.8b@54f4f8777356cd5bbbb6c6919c657f26e6f2f6d8",
+  "cells": [
+    {
+      "task": "architect-interior-designer",
+      "cue": "antisemitism-secular",
+      "requests": 2500,
+      "status": "ready",
+      "files": {
+        "tasks/architect-interior-designer/question.yaml": "d570c1180f8dd517b19fe1851e63172e16269fd4606c660eca159241bfde7289",
+        "tasks/architect-interior-designer/items.jsonl": "123412aaca458bea4a1d1e12f6a5c403ace8d3aa60c443ec483f673515d4f3c7",
+        "tasks/architect-interior-designer/versions/antisemitism-secular.jsonl": "bb2882f9024f4bfa11a9565acade48f46432813e0d890b7b7d8ae178d0977cc2"
+      },
+      "item_cap": 500
+    },
+    {
+      "task": "architect-interior-designer",
+      "cue": "antisemitism-religious",
+      "requests": 2000,
+      "status": "ready",
+      "files": {
+        "tasks/architect-interior-designer/question.yaml": "d570c1180f8dd517b19fe1851e63172e16269fd4606c660eca159241bfde7289",
+        "tasks/architect-interior-designer/items.jsonl": "123412aaca458bea4a1d1e12f6a5c403ace8d3aa60c443ec483f673515d4f3c7",
+        "tasks/architect-interior-designer/versions/antisemitism-religious.jsonl": "91e08efef004136f9b7a61bcb24fe52c76059ad09445b3f63607cf7e4dc7a18f"
+      },
+      "item_cap": 500
+    },
+    {
+      "task": "architect-interior-designer",
+      "cue": "antisemitism-nationality",
+      "requests": 2500,
+      "status": "ready",
+      "files": {
+        "tasks/architect-interior-designer/question.yaml": "d570c1180f8dd517b19fe1851e63172e16269fd4606c660eca159241bfde7289",
+        "tasks/architect-interior-designer/items.jsonl": "123412aaca458bea4a1d1e12f6a5c403ace8d3aa60c443ec483f673515d4f3c7",
+        "tasks/architect-interior-designer/versions/antisemitism-nationality.jsonl": "b61f5d3640ba292d73ec61bd1c735134b9756fb25c08a4348f2e20a2936c38d0"
+      },
+      "item_cap": 500
+    },
+    {
+      "task": "architect-interior-designer",
+      "cue": "antisemitism-role",
+      "requests": 2000,
+      "status": "ready",
+      "files": {
+        "tasks/architect-interior-designer/question.yaml": "d570c1180f8dd517b19fe1851e63172e16269fd4606c660eca159241bfde7289",
+        "tasks/architect-interior-designer/items.jsonl": "123412aaca458bea4a1d1e12f6a5c403ace8d3aa60c443ec483f673515d4f3c7",
+        "tasks/architect-interior-designer/versions/antisemitism-role.jsonl": "c18dd1b39658ce5b1fbff0b905787c075f6ddf16fe82c723d3041e6cb6ca8eb7"
+      },
+      "item_cap": 500
+    },
+    {
+      "task": "architect-interior-designer",
+      "cue": "antisemitism-surname",
+      "requests": 1000,
+      "status": "ready",
+      "files": {
+        "tasks/architect-interior-designer/question.yaml": "d570c1180f8dd517b19fe1851e63172e16269fd4606c660eca159241bfde7289",
+        "tasks/architect-interior-designer/items.jsonl": "123412aaca458bea4a1d1e12f6a5c403ace8d3aa60c443ec483f673515d4f3c7",
+        "tasks/architect-interior-designer/versions/antisemitism-surname.jsonl": "06129381cb945979f6ee352de00db9c9fe88a7bbb698aa87f6d5e04d478af73f"
+      },
+      "item_cap": 500
+    }
+  ]
+}
