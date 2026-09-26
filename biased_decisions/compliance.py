@@ -306,14 +306,16 @@ MAPPING: List[dict] = [
                "like these, but we have not yet connected them, so it carries no regulated-decision "
                "warning. That is a gap in our work, not a finding that no rule applies.",
      "recipes": ["test-one-characteristic"], "insights": ["measure-before-deploying"]},
-    *[{"dimension": f"stereotype-b3-{axis}", "regulated": False,
+    *[{"dimension": dim_id, "regulated": False,
        "reason": "These tests ask stereotype questions about a person described in a short biography. They "
                  "are not a decision that a rule governs, so they carry no regulated-decision warning. A "
                  "fast model like this could be used to screen biographies, and rules about national "
                  "origin, race, religion, sex or family status may then bear on the result; we have not yet "
                  "connected them. That is a gap in our work, not a finding that no rule applies.",
        "recipes": ["test-one-characteristic"], "insights": ["measure-before-deploying"]}
-      for axis in ("nationality-x", "race", "china", "india", "africa", "orientation", "family", "antisemitism", "antisemitism-loans")],
+      for dim_id in ("nationality-stereotypes", "racial-and-ethnic-stereotypes", "china-regional-stereotypes",
+                     "india-caste-and-regional-stereotypes", "african-ethnic-stereotypes", "sexual-orientation-stereotypes",
+                     "family-status-stereotypes", "antisemitic-stereotypes", "antisemitic-stereotypes-loan-narratives")],
     {"dimension": "antisemitism-decisions", "regulated": False,
      "reason": "These tests ask which of two occupations a short biography describes, with a phrase about Jewish "
                "identity added. Rules about religion and national origin may bear on a decision like this if it screens "

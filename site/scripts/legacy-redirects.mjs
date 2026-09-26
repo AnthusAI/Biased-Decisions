@@ -6,7 +6,7 @@ import { join, relative } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const DIST = join(fileURLToPath(new URL("..", import.meta.url)), "dist");
-export const MOVED = [["religion-v2", "religion"], ["stereotype-religion", "religion"], ["stereotype-nationality", "nationality"], ["race-fullname", "race"], ["race-name", "race"], ["gender-pronouns", "gender"], ["age-inserted", "age"], ["orientation", "sexuality"], ["gender-treatment", "gender", "root"]];
+export const MOVED = [["religion-v2", "religion"], ["stereotype-religion", "religion"], ["stereotype-nationality", "nationality"], ["race-fullname", "race"], ["race-name", "race"], ["gender-pronouns", "gender"], ["age-inserted", "age"], ["orientation", "sexuality"], ["gender-treatment", "gender", "root"], ["stereotype-b3-antisemitism-loans", "antisemitic-stereotypes-loan-narratives"], ["stereotype-b3-antisemitism", "antisemitic-stereotypes"], ["stereotype-b3-nationality-x", "nationality-stereotypes"], ["stereotype-b3-race", "racial-and-ethnic-stereotypes"], ["stereotype-b3-china", "china-regional-stereotypes"], ["stereotype-b3-india", "india-caste-and-regional-stereotypes"], ["stereotype-b3-africa", "african-ethnic-stereotypes"], ["stereotype-b3-orientation", "sexual-orientation-stereotypes"], ["stereotype-b3-family", "family-status-stereotypes"]];
 const SITE = process.env.SITE_URL || "https://biased-decisions.anth.us";
 
 function dirsUnder(root) {

@@ -811,6 +811,11 @@ def _task_item(task: str, root: Path) -> dict:
 # ---------------------------------------------------------------------------------------------
 
 B3_SLUG = "stereotypes-batch3"
+# The boards' addresses: adjective-first English that says what the page is (they are search results and shared links).
+B3_BOARD_IDS = {"nationality-x": "nationality-stereotypes", "race": "racial-and-ethnic-stereotypes",
+                "china": "china-regional-stereotypes", "india": "india-caste-and-regional-stereotypes",
+                "africa": "african-ethnic-stereotypes", "orientation": "sexual-orientation-stereotypes",
+                "family": "family-status-stereotypes"}
 B3_INFO = {   # axis -> (label, long, group kind, what the other groups are called, thin-evidence groups)
     "nationality-x": ("Nationalities: more stereotype tests", "Nationality stereotypes, thirteen nationalities",
                       "nationality", "nationalities", ("ukrainian", "korean")),
@@ -966,7 +971,7 @@ def _b3_spec(axis: str) -> dict:
     groups = _b3_groups(axis)
     phrases = ", ".join(f"\"{c}\"" for _, _, c in groups)
     return {
-        "id": f"stereotype-b3-{axis}", "supplemental": True, "label": label, "long": long,
+        "id": B3_BOARD_IDS[axis], "supplemental": True, "label": label, "long": long,
         "facet_kind": "question", "fn": lambda s, e, a=axis: facets_b3(s, e, a), "measure": "trope score",
         "measure_plain": STEREOTYPE_PLAIN, "b3_axis": axis, "items": tuple(_b3_id(q) for q in _b3_questions(DEFAULT_ROOT, axis)),
         "group_kind": kind, "groups": groups, "group_notes": {g: B3_THIN_NOTE for g in thin},
@@ -1175,7 +1180,7 @@ def cells_as(store: Store, engine: str, slug: str = AS_SLUG) -> Dict[Tuple[str, 
 def _as_spec(slug: str = AS_SLUG) -> dict:
     loans = slug == AS_LOANS_SLUG
     return {
-        "id": "stereotype-b3-antisemitism-loans" if loans else "stereotype-b3-antisemitism",
+        "id": "antisemitic-stereotypes-loan-narratives" if loans else "antisemitic-stereotypes",
         "supplemental": True, "as_board": True, "as_slug": slug,
         "label": "Antisemitic stereotypes in loan narratives: stereotype tests" if loans else "Antisemitic stereotypes: stereotype tests",
         "long": ("Antisemitic stereotypes in small-business loan narratives, six stereotypes, five ways of saying who the applicant is"
@@ -2462,7 +2467,7 @@ def _antisemitism_summary(root: Path) -> dict:
         "tropes": [{"id": tid, "label": label, "alleges": alleges, "source": src}
                    for tid, label, alleges, src in AS_TROPES.values()],
         "cues": [{"id": cue, "label": label, "phrase": phrase} for cue, label, phrase, _f in AS_GROUPS],
-        "boards": {"bios": "stereotype-b3-antisemitism", "loans": "stereotype-b3-antisemitism-loans",
+        "boards": {"bios": "antisemitic-stereotypes", "loans": "antisemitic-stereotypes-loan-narratives",
                    "decisions": AI_ID},
         "results": results, "split": split,
     }
