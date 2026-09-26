@@ -129,5 +129,8 @@ def test_the_holm_table_lists_every_wording_of_every_cue_form_and_flags_only_pos
     table = a.holm_table("laya", SLUG, rows)
     assert len(table["tests"]) == 5 * 18
     greed = [t for t in table["tests"] if t["trope"] == "greed_financial"]
-    assert len(greed) == 15 and all(t["detected_holm"] for t in greed)
+    assert len(greed) == 15
+    # the synthetic bump is on the "jewish" version, which is the target of three of the five cue forms
+    assert {t["cue"] for t in greed if t["detected_holm"]} == {"antisemitism-secular", "antisemitism-religious", "antisemitism-surname"}
+    assert all(t["detected_holm"] for t in greed if t["cue"] in ("antisemitism-secular", "antisemitism-religious", "antisemitism-surname"))
     assert not any(t["detected_holm"] for t in table["tests"] if t["trope"] != "greed_financial")
