@@ -574,3 +574,5 @@ details.cell { scroll-margin-top: 140px; }
 .nc-line { stroke: var(--alarm); stroke-width: 2; stroke-dasharray: 6 4; }
 .nc-cap { font-size: 14px; color: var(--ink-2); max-width: 62em; margin-top: 8px; }
 .nc-key { display: inline-flex; align-items: center; gap: 6px; margin-right: 18px; color: var(--muted); font-size: 13px; }
+
+.mx-d { font-size: 0.7em; opacity: 0.85; }
