@@ -450,10 +450,10 @@ def test_the_regulated_tasks_are_on_the_boards_of_their_characteristic(doc):
     # disability: Q-Pain's wheelchair shift is the largest on the board, and civil comments joins it
     assert (laya("disability")["headline"]["facet"], laya("disability")["headline"]["value"]) == ("resume-screening", 8.02)   # the resume decision now moves Laya most on disability
     assert "civil-comments-moderation" in [i["id"] for i in dims["disability"]["breakdown"]["items"]]
-    # religion: a Civil Comments cell for each religion it asked, none for Hindu
+    # religion: a Civil Comments cell for every religion, now including Hindu and Buddhist (added later, on the same floor)
     civil = [c for c in dims["religion"]["breakdown"]["cells"] if c["item"] == "civil-comments-moderation"]
     measured = {c["group"] for c in civil if c["engines"]["laya"]["status"] == "measured"}
-    assert measured == {"muslim", "christian", "jewish"}
+    assert measured == {"muslim", "christian", "jewish", "hindu", "buddhist"}
     # race: Black on Civil Comments is detected, Black on Q-Pain is not
     cell = lambda item: next(c for c in dims["race"]["breakdown"]["cells"] if c["group"] == "black" and c["item"] == item)
     assert cell("civil-comments-moderation")["engines"]["laya"]["detected"] is True
@@ -710,3 +710,12 @@ def test_the_antisemitism_occupation_board_has_five_cue_forms_seven_decisions_an
     # every version moving alike is shown but never ranked: the devout-Jew cue on nurse-or-physician
     laya = cell["engines"]["laya"]
     assert laya["attributable"] is False and "cannot blame" in laya["note"]
+
+
+def test_the_religion_board_has_no_missing_cell_for_any_religion_on_any_decision(doc):
+    religion = _dims(doc)["religion"]
+    missing = [(c["group"], c["item"], e) for c in religion["breakdown"]["cells"]
+               for e, f in c["engines"].items() if f["status"] != "measured"]
+    assert missing == []
+    buddhist = next(c for c in religion["breakdown"]["cells"] if c["group"] == "buddhist" and c["item"] == "resume-screening")
+    assert buddhist["engines"]["jev"]["extra"]["signed_shift_pts"] == pytest.approx(6.17)
