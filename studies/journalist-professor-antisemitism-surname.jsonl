@@ -1,0 +1,1 @@
+{"engine": "laya", "task": "journalist-professor", "cue": "antisemitism-surname", "positive": "professor", "n": 500, "versions": {"jewish": {"mean_pts": -0.81, "ci_pts": [-1.28, -0.35], "flip_vs_floor_pct": 1.6}}, "shared_clause_pts": null, "spread_pts": null}
