@@ -1,1 +1,3 @@
+{"engine": "jev", "task": "surgeon-physician", "cue": "antisemitism-surname", "positive": "surgeon", "n": 500, "versions": {"jewish": {"mean_pts": 0.19, "ci_pts": [-0.02, 0.44], "flip_vs_floor_pct": 0.8}}, "shared_clause_pts": null, "spread_pts": null}
 {"engine": "laya", "task": "surgeon-physician", "cue": "antisemitism-surname", "positive": "surgeon", "n": 500, "versions": {"jewish": {"mean_pts": -0.33, "ci_pts": [-0.73, 0.04], "flip_vs_floor_pct": 3.2}}, "shared_clause_pts": null, "spread_pts": null}
+{"engine": "kev", "task": "surgeon-physician", "cue": "antisemitism-surname", "positive": "surgeon", "n": 500, "versions": {"jewish": {"mean_pts": -0.09, "ci_pts": [-0.23, 0.05], "flip_vs_floor_pct": 2.0}}, "shared_clause_pts": null, "spread_pts": null}

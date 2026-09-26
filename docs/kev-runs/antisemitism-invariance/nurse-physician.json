@@ -1,0 +1,66 @@
+{
+  "schema": "kev-coverage@1",
+  "checkpoint": "jaredpalmer/kev-0.8b@54f4f8777356cd5bbbb6c6919c657f26e6f2f6d8",
+  "cells": [
+    {
+      "task": "nurse-physician",
+      "cue": "antisemitism-secular",
+      "requests": 2500,
+      "status": "ready",
+      "files": {
+        "tasks/nurse-physician/question.yaml": "f6410ff4ec6425c01bcb8dafd95f86a9b361a461fb07c2f0a98f57d1f90ac551",
+        "tasks/nurse-physician/items.jsonl": "eb053149abad9c87d59836cf107a146d2a4c7b527d7cbf2119e0632346fc892e",
+        "tasks/nurse-physician/versions/antisemitism-secular.jsonl": "79fbfc76f910c7a97edfdcac67c0cc270bc871dfc7cc1c8f5944345fea063b90"
+      },
+      "item_cap": 500
+    },
+    {
+      "task": "nurse-physician",
+      "cue": "antisemitism-religious",
+      "requests": 2000,
+      "status": "ready",
+      "files": {
+        "tasks/nurse-physician/question.yaml": "f6410ff4ec6425c01bcb8dafd95f86a9b361a461fb07c2f0a98f57d1f90ac551",
+        "tasks/nurse-physician/items.jsonl": "eb053149abad9c87d59836cf107a146d2a4c7b527d7cbf2119e0632346fc892e",
+        "tasks/nurse-physician/versions/antisemitism-religious.jsonl": "10c7329b61d78df36a275a61ea271e8781c30159d0d0de62e31e5b7535ab7021"
+      },
+      "item_cap": 500
+    },
+    {
+      "task": "nurse-physician",
+      "cue": "antisemitism-nationality",
+      "requests": 2500,
+      "status": "ready",
+      "files": {
+        "tasks/nurse-physician/question.yaml": "f6410ff4ec6425c01bcb8dafd95f86a9b361a461fb07c2f0a98f57d1f90ac551",
+        "tasks/nurse-physician/items.jsonl": "eb053149abad9c87d59836cf107a146d2a4c7b527d7cbf2119e0632346fc892e",
+        "tasks/nurse-physician/versions/antisemitism-nationality.jsonl": "3378a3fe3195e0b63aba38efe80943e20760c95fce74e0391a7ee22e2feb8e11"
+      },
+      "item_cap": 500
+    },
+    {
+      "task": "nurse-physician",
+      "cue": "antisemitism-role",
+      "requests": 2000,
+      "status": "ready",
+      "files": {
+        "tasks/nurse-physician/question.yaml": "f6410ff4ec6425c01bcb8dafd95f86a9b361a461fb07c2f0a98f57d1f90ac551",
+        "tasks/nurse-physician/items.jsonl": "eb053149abad9c87d59836cf107a146d2a4c7b527d7cbf2119e0632346fc892e",
+        "tasks/nurse-physician/versions/antisemitism-role.jsonl": "e09d9a6411cb55298d38d028ca24da0f088706ab299c716846a9a9bc0f6dd57e"
+      },
+      "item_cap": 500
+    },
+    {
+      "task": "nurse-physician",
+      "cue": "antisemitism-surname",
+      "requests": 1000,
+      "status": "ready",
+      "files": {
+        "tasks/nurse-physician/question.yaml": "f6410ff4ec6425c01bcb8dafd95f86a9b361a461fb07c2f0a98f57d1f90ac551",
+        "tasks/nurse-physician/items.jsonl": "eb053149abad9c87d59836cf107a146d2a4c7b527d7cbf2119e0632346fc892e",
+        "tasks/nurse-physician/versions/antisemitism-surname.jsonl": "a8a5d3cc7b7557ed6c3842f84e04e5a48451059ad54e2a0376abfd2177ebe311"
+      },
+      "item_cap": 500
+    }
+  ]
+}

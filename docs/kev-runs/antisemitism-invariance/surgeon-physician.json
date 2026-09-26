@@ -1,0 +1,66 @@
+{
+  "schema": "kev-coverage@1",
+  "checkpoint": "jaredpalmer/kev-0.8b@54f4f8777356cd5bbbb6c6919c657f26e6f2f6d8",
+  "cells": [
+    {
+      "task": "surgeon-physician",
+      "cue": "antisemitism-secular",
+      "requests": 2500,
+      "status": "ready",
+      "files": {
+        "tasks/surgeon-physician/question.yaml": "0a275d02c19011bf2342bb1528a6d8095dd2223f14dd359d41de3463a4e03fe9",
+        "tasks/surgeon-physician/items.jsonl": "bb4cd5fdc74a54f154b453a96c254c34c0fe5bfff15f1e0c4bec23c192531c0a",
+        "tasks/surgeon-physician/versions/antisemitism-secular.jsonl": "4e56beba37d81c805daa4f2538f5faff62dea0e85b28b9ef970647058799e4c7"
+      },
+      "item_cap": 500
+    },
+    {
+      "task": "surgeon-physician",
+      "cue": "antisemitism-religious",
+      "requests": 2000,
+      "status": "ready",
+      "files": {
+        "tasks/surgeon-physician/question.yaml": "0a275d02c19011bf2342bb1528a6d8095dd2223f14dd359d41de3463a4e03fe9",
+        "tasks/surgeon-physician/items.jsonl": "bb4cd5fdc74a54f154b453a96c254c34c0fe5bfff15f1e0c4bec23c192531c0a",
+        "tasks/surgeon-physician/versions/antisemitism-religious.jsonl": "3a535317c18228d8cf3740450c11b53d4a8b05d681147c6e0773f3b877e39c82"
+      },
+      "item_cap": 500
+    },
+    {
+      "task": "surgeon-physician",
+      "cue": "antisemitism-nationality",
+      "requests": 2500,
+      "status": "ready",
+      "files": {
+        "tasks/surgeon-physician/question.yaml": "0a275d02c19011bf2342bb1528a6d8095dd2223f14dd359d41de3463a4e03fe9",
+        "tasks/surgeon-physician/items.jsonl": "bb4cd5fdc74a54f154b453a96c254c34c0fe5bfff15f1e0c4bec23c192531c0a",
+        "tasks/surgeon-physician/versions/antisemitism-nationality.jsonl": "0f63ddf6becba82e55bac600d761ba942b9a6042edea190651e674f07217c622"
+      },
+      "item_cap": 500
+    },
+    {
+      "task": "surgeon-physician",
+      "cue": "antisemitism-role",
+      "requests": 2000,
+      "status": "ready",
+      "files": {
+        "tasks/surgeon-physician/question.yaml": "0a275d02c19011bf2342bb1528a6d8095dd2223f14dd359d41de3463a4e03fe9",
+        "tasks/surgeon-physician/items.jsonl": "bb4cd5fdc74a54f154b453a96c254c34c0fe5bfff15f1e0c4bec23c192531c0a",
+        "tasks/surgeon-physician/versions/antisemitism-role.jsonl": "039804903efa5312d5f429326011c59cbe1f7b4cf05d4380b28c41e769f1db06"
+      },
+      "item_cap": 500
+    },
+    {
+      "task": "surgeon-physician",
+      "cue": "antisemitism-surname",
+      "requests": 1000,
+      "status": "ready",
+      "files": {
+        "tasks/surgeon-physician/question.yaml": "0a275d02c19011bf2342bb1528a6d8095dd2223f14dd359d41de3463a4e03fe9",
+        "tasks/surgeon-physician/items.jsonl": "bb4cd5fdc74a54f154b453a96c254c34c0fe5bfff15f1e0c4bec23c192531c0a",
+        "tasks/surgeon-physician/versions/antisemitism-surname.jsonl": "a8ed256a04f95dbbda7dbef89fa2f6e8e7469b1fcf3997cebc722a642eb928e6"
+      },
+      "item_cap": 500
+    }
+  ]
+}

@@ -1,0 +1,66 @@
+{
+  "schema": "kev-coverage@1",
+  "checkpoint": "jaredpalmer/kev-0.8b@54f4f8777356cd5bbbb6c6919c657f26e6f2f6d8",
+  "cells": [
+    {
+      "task": "paralegal-attorney",
+      "cue": "antisemitism-secular",
+      "requests": 2500,
+      "status": "ready",
+      "files": {
+        "tasks/paralegal-attorney/question.yaml": "d9a2d53fb3e2247bbba4b9d48cb39279923a356d318c98c621d54164d1234e49",
+        "tasks/paralegal-attorney/items.jsonl": "4e33e064779389e99482f690a31a065d5285f6364fe876b2af8d0866ade06c89",
+        "tasks/paralegal-attorney/versions/antisemitism-secular.jsonl": "f4ebe46597daf039d75d266dcb25ad8e30dcab9a10f9c75b14ff4a0411b74fa9"
+      },
+      "item_cap": 500
+    },
+    {
+      "task": "paralegal-attorney",
+      "cue": "antisemitism-religious",
+      "requests": 2000,
+      "status": "ready",
+      "files": {
+        "tasks/paralegal-attorney/question.yaml": "d9a2d53fb3e2247bbba4b9d48cb39279923a356d318c98c621d54164d1234e49",
+        "tasks/paralegal-attorney/items.jsonl": "4e33e064779389e99482f690a31a065d5285f6364fe876b2af8d0866ade06c89",
+        "tasks/paralegal-attorney/versions/antisemitism-religious.jsonl": "75350393a3ad6da94557cab7ac4f608873dd17743cbda13088d154276c72b304"
+      },
+      "item_cap": 500
+    },
+    {
+      "task": "paralegal-attorney",
+      "cue": "antisemitism-nationality",
+      "requests": 2500,
+      "status": "ready",
+      "files": {
+        "tasks/paralegal-attorney/question.yaml": "d9a2d53fb3e2247bbba4b9d48cb39279923a356d318c98c621d54164d1234e49",
+        "tasks/paralegal-attorney/items.jsonl": "4e33e064779389e99482f690a31a065d5285f6364fe876b2af8d0866ade06c89",
+        "tasks/paralegal-attorney/versions/antisemitism-nationality.jsonl": "be4ff3716ab5bb4e82ed5de2f42c32408875bf46580bf4c753fb4a4117d35bb0"
+      },
+      "item_cap": 500
+    },
+    {
+      "task": "paralegal-attorney",
+      "cue": "antisemitism-role",
+      "requests": 2000,
+      "status": "ready",
+      "files": {
+        "tasks/paralegal-attorney/question.yaml": "d9a2d53fb3e2247bbba4b9d48cb39279923a356d318c98c621d54164d1234e49",
+        "tasks/paralegal-attorney/items.jsonl": "4e33e064779389e99482f690a31a065d5285f6364fe876b2af8d0866ade06c89",
+        "tasks/paralegal-attorney/versions/antisemitism-role.jsonl": "465946eac74b2cf0031ebbfd8dae39a2f3011ecca4d1870f8320129f7f7c0284"
+      },
+      "item_cap": 500
+    },
+    {
+      "task": "paralegal-attorney",
+      "cue": "antisemitism-surname",
+      "requests": 1000,
+      "status": "ready",
+      "files": {
+        "tasks/paralegal-attorney/question.yaml": "d9a2d53fb3e2247bbba4b9d48cb39279923a356d318c98c621d54164d1234e49",
+        "tasks/paralegal-attorney/items.jsonl": "4e33e064779389e99482f690a31a065d5285f6364fe876b2af8d0866ade06c89",
+        "tasks/paralegal-attorney/versions/antisemitism-surname.jsonl": "9c0832e973f0d40e954108adabffbe870f8af189c461ad999a743f0c0c1098e9"
+      },
+      "item_cap": 500
+    }
+  ]
+}

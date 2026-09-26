@@ -1,0 +1,66 @@
+{
+  "schema": "kev-coverage@1",
+  "checkpoint": "jaredpalmer/kev-0.8b@54f4f8777356cd5bbbb6c6919c657f26e6f2f6d8",
+  "cells": [
+    {
+      "task": "journalist-professor",
+      "cue": "antisemitism-secular",
+      "requests": 2500,
+      "status": "ready",
+      "files": {
+        "tasks/journalist-professor/question.yaml": "0d3318d04f6e5480a930523ad61c778c7514e253a6c63f6b3d9448456bf676bf",
+        "tasks/journalist-professor/items.jsonl": "401c4839320c6f47f6e1cb55f446d8f4dc1bd7a6be445ccaba5422697ea901da",
+        "tasks/journalist-professor/versions/antisemitism-secular.jsonl": "ca541ef1dda521c7232a4387cdab543a9d46e4e0d0a8ef72555a1fb1fa4d1346"
+      },
+      "item_cap": 500
+    },
+    {
+      "task": "journalist-professor",
+      "cue": "antisemitism-religious",
+      "requests": 2000,
+      "status": "ready",
+      "files": {
+        "tasks/journalist-professor/question.yaml": "0d3318d04f6e5480a930523ad61c778c7514e253a6c63f6b3d9448456bf676bf",
+        "tasks/journalist-professor/items.jsonl": "401c4839320c6f47f6e1cb55f446d8f4dc1bd7a6be445ccaba5422697ea901da",
+        "tasks/journalist-professor/versions/antisemitism-religious.jsonl": "bc4e904431feb8495473dcc36d72e52ff6a27a685ac283dbce5bc34b8116c662"
+      },
+      "item_cap": 500
+    },
+    {
+      "task": "journalist-professor",
+      "cue": "antisemitism-nationality",
+      "requests": 2500,
+      "status": "ready",
+      "files": {
+        "tasks/journalist-professor/question.yaml": "0d3318d04f6e5480a930523ad61c778c7514e253a6c63f6b3d9448456bf676bf",
+        "tasks/journalist-professor/items.jsonl": "401c4839320c6f47f6e1cb55f446d8f4dc1bd7a6be445ccaba5422697ea901da",
+        "tasks/journalist-professor/versions/antisemitism-nationality.jsonl": "995c16168df404d4ee3f217f47ef70feda2927bc68d70f9b2cb35456cee7a053"
+      },
+      "item_cap": 500
+    },
+    {
+      "task": "journalist-professor",
+      "cue": "antisemitism-role",
+      "requests": 2000,
+      "status": "ready",
+      "files": {
+        "tasks/journalist-professor/question.yaml": "0d3318d04f6e5480a930523ad61c778c7514e253a6c63f6b3d9448456bf676bf",
+        "tasks/journalist-professor/items.jsonl": "401c4839320c6f47f6e1cb55f446d8f4dc1bd7a6be445ccaba5422697ea901da",
+        "tasks/journalist-professor/versions/antisemitism-role.jsonl": "b3d04a3d4cffea85eccb236b16e7f309ee35a9e07dbd0bd16d5039c044ab50ea"
+      },
+      "item_cap": 500
+    },
+    {
+      "task": "journalist-professor",
+      "cue": "antisemitism-surname",
+      "requests": 1000,
+      "status": "ready",
+      "files": {
+        "tasks/journalist-professor/question.yaml": "0d3318d04f6e5480a930523ad61c778c7514e253a6c63f6b3d9448456bf676bf",
+        "tasks/journalist-professor/items.jsonl": "401c4839320c6f47f6e1cb55f446d8f4dc1bd7a6be445ccaba5422697ea901da",
+        "tasks/journalist-professor/versions/antisemitism-surname.jsonl": "6d7b61186674fd447f147862b4659dea3b0450ad60b4c9f8b2528f1185c6d771"
+      },
+      "item_cap": 500
+    }
+  ]
+}
