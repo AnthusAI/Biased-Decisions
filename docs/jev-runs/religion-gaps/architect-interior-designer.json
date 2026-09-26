@@ -1,0 +1,18 @@
+{
+  "schema": "kev-coverage@1",
+  "checkpoint": "jaredpalmer/kev-0.8b@54f4f8777356cd5bbbb6c6919c657f26e6f2f6d8",
+  "cells": [
+    {
+      "task": "architect-interior-designer",
+      "cue": "religion-buddhist",
+      "requests": 1000,
+      "status": "ready",
+      "files": {
+        "tasks/architect-interior-designer/question.yaml": "d570c1180f8dd517b19fe1851e63172e16269fd4606c660eca159241bfde7289",
+        "tasks/architect-interior-designer/items.jsonl": "123412aaca458bea4a1d1e12f6a5c403ace8d3aa60c443ec483f673515d4f3c7",
+        "tasks/architect-interior-designer/versions/religion-buddhist.jsonl": "a6cf6711700d02ff6f5c55f780b6895bdadb5b4db280caa115df8493ae579eef"
+      },
+      "item_cap": 500
+    }
+  ]
+}

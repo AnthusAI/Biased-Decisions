@@ -1,0 +1,18 @@
+{
+  "schema": "kev-coverage@1",
+  "checkpoint": "jaredpalmer/kev-0.8b@54f4f8777356cd5bbbb6c6919c657f26e6f2f6d8",
+  "cells": [
+    {
+      "task": "nurse-physician",
+      "cue": "religion-buddhist",
+      "requests": 1000,
+      "status": "ready",
+      "files": {
+        "tasks/nurse-physician/question.yaml": "f6410ff4ec6425c01bcb8dafd95f86a9b361a461fb07c2f0a98f57d1f90ac551",
+        "tasks/nurse-physician/items.jsonl": "eb053149abad9c87d59836cf107a146d2a4c7b527d7cbf2119e0632346fc892e",
+        "tasks/nurse-physician/versions/religion-buddhist.jsonl": "5b209cbc01b8c76e761f8bc44c2bdac1bb04dc3387e3a88ae41fb5441082dde6"
+      },
+      "item_cap": 500
+    }
+  ]
+}
