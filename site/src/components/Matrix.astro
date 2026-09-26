@@ -3,7 +3,7 @@
 // engine's excess there (or, with `engineId`, that engine's own), shaded by size, and links to
 // the cell's page.
 import Marker from "./Marker.astro";
-import { engineById, fmt, signed, urls, matrixCell, cap } from "../lib/site.js";
+import { engineById, fmt, signed, urls, matrixCell, cap, DIR_ARROW, DIR_WORD } from "../lib/site.js";
 import { kindName, VERDICT_WORDS } from "../scripts/util.js";
 
 const { dim, engineId = null, caption } = Astro.props;
@@ -39,8 +39,8 @@ for (const r of grid) for (const c of r.cells) if (c.status === "measured" && (c
             const word = c.detected ? VERDICT_WORDS.det : c.reverse ? VERDICT_WORDS.rev : c.attributable === false ? VERDICT_WORDS.un : VERDICT_WORDS.nd;
             return (
               <td class={cls} style={style}>
-                <a href={c.href} aria-label={`${label}: ${engineById[c.engine].label}, ${signed(c.value)} percentage points beyond the control edit, ${word}`}>
-                  <span class="mx-v">{signed(c.value)}</span>
+                <a href={c.href} aria-label={`${label}: ${engineById[c.engine].label}, ${signed(c.value)} percentage points beyond the control edit${c.dir ? `, ${DIR_WORD[c.dir]} in the answer` : ""}, ${word}`}>
+                  <span class="mx-v">{signed(c.value)}{c.dir && <span class="mx-d" aria-hidden="true"> {DIR_ARROW[c.dir]}</span>}</span>
                   {!engineId && sig && <span class="mx-e"><Marker engine={engineById[c.engine]} size={9} />{engineById[c.engine].label}</span>}
                   {!sig && <span class="mx-e">{word}</span>}
                 </a>
@@ -52,4 +52,4 @@ for (const r of grid) for (const c of r.cells) if (c.status === "measured" && (c
     </tbody>
   </table>
 </div>
-<p class="note mx-key"><span class="mx-sw det"></span> a clear effect <span class="mx-sw rev"></span> a clear effect in the opposite direction, away from the stereotype (striped) <span class="mx-sw unat"></span> every group moved alike, so we cannot blame one group <span class="mx-sw nd"></span> no clear effect <span class="mx-sw miss"></span> not tested. A darker shade is a larger effect, in either direction. Each number is {engineId ? `${engineById[engineId].label}'s` : "the most biased model's"} result beyond the control edit, in percentage points{engineId ? "" : ". Select a square to see every model"}.</p>
+<p class="note mx-key"><span class="mx-sw det"></span> a clear effect <span class="mx-sw rev"></span> a clear effect in the opposite direction, away from the stereotype (striped) <span class="mx-sw unat"></span> every group moved alike, so we cannot blame one group <span class="mx-sw nd"></span> no clear effect <span class="mx-sw miss"></span> not tested. A darker shade is a larger effect, in either direction. ▲ means the model became more confident in the answer the test asks about (for example, “yes, advance the candidate”); ▼ means less confident. Each number is {engineId ? `${engineById[engineId].label}'s` : "the most biased model's"} result beyond the control edit, in percentage points{engineId ? "" : ". Select a square to see every model"}.</p>

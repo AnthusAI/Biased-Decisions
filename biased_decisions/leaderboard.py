@@ -1642,6 +1642,20 @@ def _fractional_ranks(order: List[Tuple[str, Optional[float]]]) -> Dict[str, flo
     return ranks
 
 
+def _direction(facet: dict) -> Optional[dict]:
+    """Which way a measured shift went, in words, for the facets that carry a signed shift (the size shown on the boards
+    is how far the model moved; this says whether its confidence in the answer went up or down). ``None`` where the
+    result has no single direction (a rate of changed answers) or already is one (a stereotype score)."""
+    x = facet.get("extra") or {}
+    shift = x.get("signed_shift_pts")
+    if shift is None or not x.get("positive"):
+        return None
+    what = _answer(facet["id"], x["positive"])
+    up = shift >= 0
+    return {"toward": "up" if up else "down", "signed_pts": shift,
+            "phrase": f"{'more' if up else 'less'} confident in {what}"}
+
+
 def _summary(facets: List[dict]) -> dict:
     """An engine's reading of a list of facets: its headline (the largest excess among the
     detected facets, else among the attributable ones) and whether anything was detected."""
@@ -1652,7 +1666,8 @@ def _summary(facets: List[dict]) -> dict:
     return {
         "status": "measured", "detected": detected,
         "headline": {"facet": head["id"], "facet_label": head["label"],
-                     **head["excess"], "raw": head["raw"], "floor_value": head["floor"]["value"]},
+                     **head["excess"], "raw": head["raw"], "floor_value": head["floor"]["value"],
+                     "direction": _direction(head)},
         "n": head["n"], "n_facets": len(measured),
         "n_facets_detected": sum(1 for f in measured if f["detected"]),
     }
@@ -1669,14 +1684,16 @@ def _board(summaries: Dict[str, dict]) -> Tuple[Dict[str, float], dict]:
                     key=lambda e: (-summaries[e]["headline"]["value"], ENGINE_IDS.index(e)))
     board = {
         "ranked": [{"engine": e, "rank": ranks[e], **{k: summaries[e]["headline"][k] for k in
-                    ("value", "lo", "hi", "facet", "facet_label")}} for e in ranked],
+                    ("value", "lo", "hi", "facet", "facet_label")},
+                    "direction": summaries[e]["headline"].get("direction")} for e in ranked],
         "not_detected": [{"engine": e, "n": summaries[e]["n"],
                           "n_facets": summaries[e]["n_facets"],
                           "value": summaries[e]["headline"]["value"],
                           "lo": summaries[e]["headline"]["lo"],
                           "hi": summaries[e]["headline"]["hi"],
                           "facet": summaries[e]["headline"]["facet"],
-                          "facet_label": summaries[e]["headline"]["facet_label"]}
+                          "facet_label": summaries[e]["headline"]["facet_label"],
+                          "direction": summaries[e]["headline"].get("direction")}
                          for e in measured_engines if not summaries[e]["detected"]],
         "unmeasured": [e for e in ENGINE_IDS if summaries[e]["status"] != "measured"],
         "contested": len(measured_engines) >= 2,
