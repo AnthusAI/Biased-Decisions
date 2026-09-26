@@ -165,6 +165,10 @@ export const pageIntroductions = {
     title: 'Before you let AI judge people',
     intro: 'An AI model can read a biography and help decide who reaches a recruiter. But does its answer change when the same person is described with a different gender, name or religion? Our tests examine that problem. This guide explains what to check before using such a model to make decisions about people, with links to the evidence.',
   },
+  antisemitism: {
+    title: 'Do AI models repeat antisemitic stereotypes?',
+    intro: 'We asked three AI models yes-or-no questions built on six antisemitic stereotypes, after adding a short phrase saying the person is Jewish. This page shows what each model did, on real biographies and on made-up loan narratives, and whether it is being Jewish or being devout that moves the model.',
+  },
   stereotypes: {
     title: 'Tests for stereotypes, and where they come from',
     intro: 'We asked AI models yes-or-no questions built on stereotypes, such as whether a person seems dishonest or arrogant, after adding one short phrase about who the person is. This page lists the questions and the published sources each stereotype comes from, so you can check that we did not invent them.',

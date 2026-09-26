@@ -42,8 +42,8 @@ const localPath = (url) => decodeURIComponent(new URL(url, SITE).pathname);
 
 test("the build produced the pages the data file implies", () => {
   const levels = DATA.dimensions.reduce((n, d) => n + d.breakdown.levels.length, 0);
-  // home, engines, methods, how-to-fail, guidance, stereotypes
-  const expected = 1 + 1 + 1 + 3 + DATA.dimensions.length + levels + DATA.engines.length * (1 + DATA.dimensions.length);
+  // home, engines, methods, how-to-fail, guidance, stereotypes, antisemitism
+  const expected = 1 + 1 + 1 + 4 + DATA.dimensions.length + levels + DATA.engines.length * (1 + DATA.dimensions.length);
   assert.equal(content.length, expected);
 });
 

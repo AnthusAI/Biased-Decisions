@@ -710,3 +710,16 @@ def test_the_antisemitism_occupation_board_has_five_cue_forms_seven_decisions_an
     # every version moving alike is shown but never ranked: the devout-Jew cue on nurse-or-physician
     laya = cell["engines"]["laya"]
     assert laya["attributable"] is False and "cannot blame" in laya["note"]
+
+
+def test_the_antisemitism_page_data_covers_both_text_sources_the_split_and_all_three_models(doc):
+    a = doc["antisemitism"]
+    assert [t["id"] for t in a["tropes"]] == ["greed-financial", "banks-media-government", "dual-loyalty", "wars",
+                                             "conspiracy", "clannishness"]
+    assert len(a["cues"]) == 5 and set(a["boards"]) == {"bios", "loans", "decisions"}
+    for source in ("bios", "loans"):
+        assert set(a["results"][source]) == {"laya", "kev", "jev"} == set(a["split"][source])
+        cell = a["results"][source]["laya"]["dual-loyalty"]["antisemitism-nationality"]
+        assert cell["lo"] <= cell["score_pts"] <= cell["hi"] and cell["wordings_agree"] in (0, 1, 2, 3)
+        diff = a["split"][source]["laya"]["clannishness"]
+        assert diff["difference_pts"] == pytest.approx(diff["religious_pts"] - diff["secular_pts"], abs=0.02)
