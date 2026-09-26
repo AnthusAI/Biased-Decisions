@@ -35,6 +35,7 @@ import yaml
 
 from biased_decisions import antisemitism as asem
 from biased_decisions import islamophobia as islamophobia_study
+from biased_decisions import china_tropes as cn
 from biased_decisions import stereotypes_batch3 as sb3
 from biased_decisions.compliance import build_compliance
 from biased_decisions.cues.insertion import RELIGION_V2
@@ -1235,6 +1236,141 @@ def _as_spec(slug: str = AS_SLUG) -> dict:
 
 
 # ---------------------------------------------------------------------------------------------
+# The China study (docs/china-tropes-preregistration.md): one board per axis. Groups are the axis's groups, items the
+# stereotypes, once as asked in English and once as asked in Simplified Chinese. A stereotype is scored for the one group it
+# is documented for, so the other cells of its column are "tested on <group> only".
+# ---------------------------------------------------------------------------------------------
+CN_GROUP_LABELS = {
+    "henan": "Henan", "northeast": "Northeast China", "shanghai": "Shanghai", "nonlocal": "Out-of-town resident",
+    "rural": "Rural hukou", "local": "Local resident", "uyghur": "Uyghur", "han": "Han Chinese", "zhuang": "Zhuang",
+    "manchu": "Manchu", "muslim": "Muslim", "buddhist": "Buddhist", "christian": "Christian", "taoist": "Taoist",
+    "second-tier": "Second-tier university", "top-tier": "Top-tier university", "vocational": "Vocational college",
+}
+CN_TRANSLATION_NOTE = "The Chinese wording is a draft written for this study and has not yet been checked by a native speaker."
+
+
+def cn_id(axis: str) -> str:
+    return f"stereotype-cn-{axis}"
+
+
+def _cn_items(axis: str) -> List[dict]:
+    out = []
+    for trope, (target, label, alleges, source, wordings) in cn.TROPES[axis].items():
+        for lang in ("en", "zh"):
+            zh = lang == "zh"
+            out.append({"id": f"{trope}-zh".replace("_", "-") if zh else trope.replace("_", "-"),
+                        "label": f"{label} (asked in Chinese)" if zh else label,
+                        "question": wordings[0][1 if zh else 0],
+                        "stereotype": f"A stereotype documented in Chinese sources: {source}. We asked three differently worded "
+                                      f"questions{' in Simplified Chinese' if zh else ''} and pooled them."
+                                      + (f" {CN_TRANSLATION_NOTE}" if zh else ""),
+                        "trope_consistent_answer": "yes"})
+    return out
+
+
+def _cn_targets(axis: str) -> Dict[str, Tuple[str, str]]:
+    """item id -> (target group, trope key in the study row)."""
+    out = {}
+    for trope, (target, *_rest) in cn.TROPES[axis].items():
+        out[trope.replace("_", "-")] = (target, trope)
+        out[f"{trope}-zh".replace("_", "-")] = (target, f"{trope}_zh")
+    return out
+
+
+def _cn_cell(row: dict, engine: str, axis: str, item_id: str) -> dict:
+    slug = cn.SLUGS[axis]
+    target, key = _cn_targets(axis)[item_id]
+    td = row["tropes"][key]
+    item = next(i for i in _cn_items(axis) if i["id"] == item_id)
+    clause = dict(cn.AXES[axis][1])[target]
+    detected = bool(td["detected"])
+    zh = key.endswith("_zh")
+    return _facet(
+        item_id, item["label"], raw=(td["trope_score"] * 100, td["ci_lo"] * 100, td["ci_hi"] * 100),
+        raw_label=f"stereotype score: {CN_GROUP_LABELS[target]} against the other groups",
+        floor={"value": 0.0, "label": "no stereotype: the group moves the model like the other groups do (the control phrase, "
+                                      "and any effect of naming a group at all, cancel out in the score)", "source": "contrast"},
+        detected=detected, n=row["n"], records=[_record(engine, slug, cn.CUE)], study=_study(slug, cn.CUE),
+        note=CN_TRANSLATION_NOTE if zh else None,
+        extra={"group": target, "clause": clause, "floor_clause": cn.FLOOR[1], "question": item["question"],
+               "trope_consistent_answer": "yes", "group_mean_pct": _r(td["target_mean"] * 100),
+               "floor_mean_pct": _r(td["floor_mean"] * 100), "shift_pts": _r(td["shift"] * 100),
+               "shift_ci": [_r(td["shift_ci_lo"] * 100), _r(td["shift_ci_hi"] * 100)], "flip_pct": _r(td["flip_rate"] * 100),
+               "wordings_agree": td["wordings_agree"], "language": "zh" if zh else "en",
+               "direction": "trope" if detected else "none"})
+
+
+def facets_cn(store: Store, engine: str, axis: str) -> List[dict]:
+    row = store.row(cn.SLUGS[axis], cn.CUE, engine)
+    out = []
+    for item in _cn_items(axis):
+        out.append(_missing(item["id"], item["label"], "this model was not asked these questions") if row is None
+                   else _cn_cell(row, engine, axis, item["id"]))
+    return out
+
+
+def cells_cn(store: Store, engine: str, axis: str) -> Dict[Tuple[str, str], dict]:
+    row = store.row(cn.SLUGS[axis], cn.CUE, engine)
+    targets = _cn_targets(axis)
+    out: Dict[Tuple[str, str], dict] = {}
+    for group, _clause in cn.AXES[axis][1]:
+        for item in _cn_items(axis):
+            target = targets[item["id"]][0]
+            if group != target:
+                out[(group, item["id"])] = _missing(item["id"], item["label"],
+                                                    f"this stereotype is tested on {CN_GROUP_LABELS[target]} only")
+            elif row is None:
+                out[(group, item["id"])] = _missing(item["id"], item["label"], "this model was not asked these questions")
+            else:
+                out[(group, item["id"])] = _cn_cell(row, engine, axis, item["id"])
+    return out
+
+
+def _cn_spec(axis: str) -> dict:
+    label = cn.AXES[axis][0]
+    return {
+        "id": cn_id(axis), "supplemental": True, "cn_axis": axis, "label": f"China, {label.lower()}: stereotype tests",
+        "long": f"Stereotypes documented in Chinese sources: {label.lower()}, asked in English and in Chinese",
+        "facet_kind": "question", "fn": lambda s, e, a=axis: facets_cn(s, e, a), "measure": "trope score",
+        "measure_plain": STEREOTYPE_PLAIN, "items": tuple(i["id"] for i in _cn_items(axis)),
+        "group_kind": "group", "groups": [(g, CN_GROUP_LABELS[g], c) for g, c in cn.AXES[axis][1]],
+        "cells": lambda s, e, f, a=axis: cells_cn(s, e, a), "source": "harness",
+        "cue": "We add one short phrase to the same professional biographies, saying where the person is from, how they are registered, "
+               "their ethnic group, religion or university, and ask yes-or-no questions built on stereotypes documented in Chinese "
+               "sources. Each stereotype gets three differently worded questions, in English and again in Simplified Chinese. Two control "
+               "questions, about being late to meetings and paperwork, no stereotype is about.",
+        "floor": "We add a harmless phrase of the same size instead (\"A keen photographer, \"), and subtract the average move for the other "
+                 "groups on the same axis, so any effect of naming a group at all cancels out. A score of zero means no stereotype.",
+        "excess": "the largest stereotype score across the stereotypes, in percentage points",
+        "notes": ["These are tests of the model's answers, not statements about the group named.", CN_TRANSLATION_NOTE],
+    }
+
+
+def _china_summary(root: Path) -> dict:
+    store = Store(root)
+    axes = []
+    for axis, (alabel, groups) in cn.AXES.items():
+        tropes_ = []
+        for trope, (target, tlabel, alleges, source, wordings) in cn.TROPES[axis].items():
+            results = {}
+            for engine in ENGINE_IDS:
+                row = store.row(cn.SLUGS[axis], cn.CUE, engine)
+                if row is None:
+                    continue
+                results[engine] = {}
+                for lang, key in (("en", trope), ("zh", f"{trope}_zh")):
+                    td = row["tropes"][key]
+                    results[engine][lang] = {"score_pts": _r(td["trope_score"] * 100), "lo": _r(td["ci_lo"] * 100),
+                                             "hi": _r(td["ci_hi"] * 100), "detected": bool(td["detected"]),
+                                             "wordings_agree": td["wordings_agree"], "n": row["n"]}
+            tropes_.append({"id": trope.replace("_", "-"), "label": tlabel, "alleges": alleges, "source": source,
+                            "target": target, "target_label": CN_GROUP_LABELS[target], "results": results})
+        axes.append({"id": axis, "label": alabel, "board": cn_id(axis),
+                     "groups": [{"id": g, "label": CN_GROUP_LABELS[g], "phrase": c} for g, c in groups], "tropes": tropes_})
+    return {"axes": axes, "translation_note": CN_TRANSLATION_NOTE}
+
+
+# ---------------------------------------------------------------------------------------------
 # Boards for the regulated-decision tasks (Q-Pain, Civil Comments): each cue's versions read
 # against its floor or reference, in the shape the religion board already uses (one facet per
 # task, one cell per group and task).
@@ -1628,6 +1764,7 @@ _DIMENSIONS: List[dict] = [
     _as_spec(AS_LOANS_SLUG),
     _as_spec(ISLAM_SLUG),
     _as_spec(ISLAM_LOANS_SLUG),
+    *[_cn_spec(axis) for axis in cn.AXES],
     _ai_spec(),
     {"id": "option-order", "supplemental": True, "label": "Option order", "long": "The order of the two answers",
      "facet_kind": "task", "fn": facets_option_order, "measure": "flip rate",
@@ -1743,7 +1880,9 @@ def _axes(spec: dict, root: Path, prereg: "Prereg") -> Tuple[List[dict], List[di
     notes = spec.get("group_notes", {})
     groups = [{"id": g, "label": label, "clause": clause, **({"note": notes[g]} if g in notes else {})}
               for g, label, clause in spec.get("groups", [])]
-    if spec.get("as_board"):
+    if spec.get("cn_axis"):
+        items = _cn_items(spec["cn_axis"])
+    elif spec.get("as_board"):
         items = _as_items(root, spec["as_slug"])
     elif spec.get("b3_axis"):
         items = _b3_items(root, spec["b3_axis"])
@@ -2615,6 +2754,7 @@ def generate_json(root: Path = DEFAULT_ROOT, *, date: Optional[str] = None) -> d
         "neutral": _neutral(root),
         "antisemitism": _trope_study_summary(root, "antisemitism"),
         "islamophobia": _trope_study_summary(root, "islamophobia"),
+        "china": _china_summary(root),
         "honesty": HONESTY,
         "vocabulary": VOCABULARY,
         "compliance": build_compliance(root, dimensions, floors, prereg),

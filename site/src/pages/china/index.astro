@@ -1,0 +1,58 @@
+---
+// The China study: stereotypes documented in Chinese sources, asked in English and in Simplified Chinese.
+import Base from "../../layouts/Base.astro";
+import { pageIntroductions } from "../../lib/introductions.js";
+import { data, engines, urls, fmt } from "../../lib/site.js";
+
+const C = data.china;
+const intro = pageIntroductions.china;
+const label = (id) => engines.find((e) => e.id === id).label;
+const order = engines.map((e) => e.id);
+const one = (r) => r ? `${fmt(r.score_pts)} points (range ${fmt(r.lo)} to ${fmt(r.hi)})${r.detected ? "" : ", no clear sign"}` : "not tested";
+---
+<Base title={intro.title} description={intro.intro} path={`${urls.home()}china/`} current={{ page: "china" }}
+  crumbs={[{ label: "Leaderboard", href: urls.home() }, { label: "Stereotype tests", href: `${urls.home()}stereotypes/` }, { label: "China" }]}>
+  <section class="wrap hero">
+    <p class="kicker">China</p>
+    <h1 class="display xl">{intro.title}</h1>
+    <p class="deck">{intro.intro}</p>
+    <div class="footnote risk-notice" role="note"><p>These are tests of what the models answer. They say nothing about the people or places named. {C.translation_note}</p></div>
+  </section>
+
+  <section class="wrap section" id="how" aria-labelledby="how-h">
+    <h2 class="display" id="how-h">What we asked</h2>
+    <p class="lede">We took short professional biographies and added one phrase saying where the person is from, how they are registered, their ethnic group, religion or university. Then we asked yes-or-no questions built on a stereotype that Chinese sources document for one of those groups. Each stereotype got three differently worded questions, once in English and once in Simplified Chinese, and we averaged the three. The score is how many percentage points more often the model gave the answer the stereotype predicts for that group than for the other groups on the same list, after subtracting the effect of a harmless phrase.</p>
+    <p class="note">The stereotypes come from published sources, above all CBBQ, a Chinese bias benchmark built from Chinese research articles and public discussion. <a href={`${urls.home()}stereotypes/#sources`}>Where these stereotypes come from</a> lists them.</p>
+  </section>
+
+  {C.axes.map((a) => (
+    <section class="wrap section" id={a.id} aria-labelledby={`${a.id}-h`}>
+      <h2 class="display" id={`${a.id}-h`}>{a.label}</h2>
+      <p class="lede">Groups compared: {a.groups.map((g) => g.label).join(", ")}. <a href={`${urls.home()}${a.board}/`}>Every result on its own page</a>.</p>
+      {a.tropes.map((t) => (
+        <Fragment>
+          <h3>{t.label[0].toUpperCase() + t.label.slice(1)}: the idea that {t.target_label} people or places are {t.alleges}</h3>
+          <p class="note">Source: {t.source}.</p>
+          <ul class="cite-list">
+            {order.map((e) => {
+              const r = t.results[e];
+              if (!r) return <li><strong>{label(e)}</strong>: not tested yet.</li>;
+              return <li><strong>{label(e)}</strong>: in English, {one(r.en)}; in Chinese, {one(r.zh)}.</li>;
+            })}
+          </ul>
+        </Fragment>
+      ))}
+    </section>
+  ))}
+
+  <section class="wrap section" id="limits" aria-labelledby="limits-h">
+    <h2 class="display sm" id="limits-h">What this does not show</h2>
+    <ul class="unmeasured-list">
+      <li>{C.translation_note} Until one has, treat differences between the English and Chinese results with care.</li>
+      <li>Only 500 biographies were answered by each model so far.</li>
+      <li>The Uyghur “keeping apart” stereotype rests on a single example in one source, and we did not test the criminality or “hard to accommodate” stereotypes because their sources are weak.</li>
+      <li>Gender, including the “leftover women” label, is not tested yet.</li>
+      <li>A score near zero means we found no clear sign in these tests, not that a model is free of bias.</li>
+    </ul>
+  </section>
+</Base>

@@ -318,6 +318,10 @@ def test_batch2_clauses_and_pending_predictions_are_verbatim(doc):
         text = prereg_b3 + prereg if dim["id"].startswith("stereotype-b3-") else prereg
         if dim["id"].startswith("stereotype-b3-antisemitism"):   # its phrases and questions are registered in its own document
             text += _clean((DEFAULT_ROOT / "docs" / "antisemitic-tropes-preregistration.md").read_text(encoding="utf-8"))
+        for prefix, doc_name in (("stereotype-b3-islamophobia", "islamophobic-tropes-preregistration.md"),
+                                 ("stereotype-cn-", "china-tropes-preregistration.md")):
+            if dim["id"].startswith(prefix):
+                text += _clean((DEFAULT_ROOT / "docs" / doc_name).read_text(encoding="utf-8"))
         for g in bd["groups"]:
             if g.get("clause"):
                 # a phrase with separate female and male forms ("A lesbian, / A gay man, ") is verbatim in each form
@@ -326,8 +330,8 @@ def test_batch2_clauses_and_pending_predictions_are_verbatim(doc):
         for i in bd["items"]:
             if i.get("trope"):
                 assert i["question"] in text and i["trope"] in text
-        if dim["id"].startswith("stereotype-b3-"):
-            continue                       # batch 3 has no pending predictions: it is scored for every model that answered
+        if dim["id"].startswith(("stereotype-b3-", "stereotype-cn-")):
+            continue                       # batch 3 and the China study have no pending predictions: it is scored for every model that answered
         assert bd["pending"]
         for row in bd["pending"]:
             assert row["engine"] == "jev" and row["observed"] is None
