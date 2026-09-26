@@ -1,0 +1,18 @@
+{
+  "schema": "kev-coverage@1",
+  "checkpoint": "jaredpalmer/kev-0.8b@54f4f8777356cd5bbbb6c6919c657f26e6f2f6d8",
+  "cells": [
+    {
+      "task": "resume-screening",
+      "cue": "religion-buddhist",
+      "requests": 1000,
+      "status": "ready",
+      "files": {
+        "tasks/resume-screening/question.yaml": "32197b2107c9dd17e7105aa18d53f02ebac7b413a995f596408064fdcadad1a3",
+        "tasks/resume-screening/items.jsonl": "27dc2971e1c799322e6f135d6a830e2fffbb180f4a34a56375c4615935cc364e",
+        "tasks/resume-screening/versions/religion-buddhist.jsonl": "4873fd8ab36af258a0e5da102f988b76177f769909880985272a20ad08c79fd8"
+      },
+      "item_cap": 500
+    }
+  ]
+}

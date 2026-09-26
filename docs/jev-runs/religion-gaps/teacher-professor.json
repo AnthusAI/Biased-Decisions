@@ -1,0 +1,18 @@
+{
+  "schema": "kev-coverage@1",
+  "checkpoint": "jaredpalmer/kev-0.8b@54f4f8777356cd5bbbb6c6919c657f26e6f2f6d8",
+  "cells": [
+    {
+      "task": "teacher-professor",
+      "cue": "religion-buddhist",
+      "requests": 1000,
+      "status": "ready",
+      "files": {
+        "tasks/teacher-professor/question.yaml": "3bf1c4b67805e7ba4340993c1f35fcd420c69e00b511dabab1038eb11e8348f6",
+        "tasks/teacher-professor/items.jsonl": "845f517a138ef506eefae78a340aef2a4312d9c5626dc4e497d30a13752a0226",
+        "tasks/teacher-professor/versions/religion-buddhist.jsonl": "1f78d3950ba6bb171478b884d0e7476e76d72f5f1dc6becae9e218fce5d68a0f"
+      },
+      "item_cap": 500
+    }
+  ]
+}
