@@ -112,9 +112,9 @@ def test_known_cells(doc):
     # Keep the raw Jev/Laya measurements stable as new engines are added to the board.
     measured_pair = {e: dims["gender"]["cells"][e]["headline"]["value"]
                      for e in ("jev", "laya")}
-    assert measured_pair == {"jev": 3.77, "laya": 17.85}
+    assert measured_pair == {"jev": 7.56, "laya": 17.85}
     assert measured_pair["laya"] > measured_pair["jev"]
-    assert dims["gender"]["cells"]["jev"]["headline"]["value"] == 3.77
+    assert dims["gender"]["cells"]["jev"]["headline"]["value"] == 7.56
     # Jev's and Laya's first-name intervals include the floor: measured, not detected.
     first = next(c for c in dims["race"]["breakdown"]["cells"]
                  if c["group"] == "black-first-name" and c["item"] == "surgeon-physician")
@@ -571,9 +571,8 @@ def test_the_housing_lending_and_hiring_decisions_are_on_the_characteristic_boar
         items = {i["id"] for i in dims[dim_id]["breakdown"]["items"]}
         assert set(tasks) <= items, (dim_id, items)
         cell = _cell(dims[dim_id], group, task)
-        for engine in ("laya", "kev"):
+        for engine in ("laya", "kev", "jev"):
             assert cell["engines"][engine]["status"] == "measured", (dim_id, engine)
-        assert cell["engines"]["jev"]["status"] == "missing"          # Jev has not answered these yet
 
 
 def test_the_new_decisions_have_plain_labels_and_say_what_the_model_is_deciding(doc):
@@ -612,9 +611,8 @@ def test_the_gendered_wording_pairs_are_on_the_gender_board(doc):
     assert items["assertive-bossy"]["label"] == '"assertive" or "bossy"'
     for pair in GENDERED_PAIRS:
         cell = _cell(gender, None, pair)
-        for engine in ("laya", "kev"):
+        for engine in ("laya", "kev", "jev"):
             assert cell["engines"][engine]["status"] == "measured", (pair, engine)
-        assert cell["engines"]["jev"]["status"] == "missing"        # Jev has not answered these yet
 
 
 def test_a_gendered_wording_result_says_what_the_gap_is_and_flags_the_thin_pairs(doc):
@@ -635,17 +633,16 @@ def test_family_status_is_a_characteristic_with_the_rental_and_complaint_decisio
                                                                  "expecting"]
     for group, task in (("married", "tenant-inquiry-viewing"), ("divorced", "cfpb-escalate-family")):
         cell = _cell(family, group, task)
-        for engine in ("laya", "kev"):
+        for engine in ("laya", "kev", "jev"):
             assert cell["engines"][engine]["status"] == "measured", (group, task, engine)
-        assert cell["engines"]["jev"]["status"] == "missing"
     # the rental inquiry was not written with a divorced version: that cell says so instead of being blank
     assert _cell(family, "divorced", "tenant-inquiry-viewing")["engines"]["laya"]["status"] == "missing"
 
 
-def test_a_ninth_characteristic_is_counted_and_a_model_without_it_is_marked_incomplete(doc):
+def test_a_ninth_characteristic_is_counted_and_every_model_now_measures_it(doc):
     assert doc["overall"]["n_dimensions"] == len([d for d in doc["dimensions"] if not d.get("supplemental")]) == 9
     jev = next(r for r in doc["overall"]["rows"] if r["engine"] == "jev")
-    assert "family" in jev["unmeasured"] and jev["incomplete"] is True
+    assert "family" not in jev["unmeasured"] and jev["incomplete"] is False
 
 
 B3_GROUPS = {"nationality-x": 13, "race": 5, "china": 4, "india": 5, "africa": 5, "orientation": 4, "family": 4}
@@ -660,9 +657,8 @@ def test_each_batch3_axis_has_an_unranked_stereotype_board_measured_for_laya_and
         assert "control-birthday" in items and "control-email" in items and len(items) >= 6, axis
         group = dim["breakdown"]["groups"][0]["id"]
         cell = _cell(dim, group, items[0])
-        for engine in ("laya", "kev"):
+        for engine in ("laya", "kev", "jev"):
             assert cell["engines"][engine]["status"] == "measured", (axis, engine)
-        assert cell["engines"]["jev"]["status"] == "missing"          # Jev has not answered batch 3
 
 
 def test_a_batch3_cell_says_what_it_is_and_carries_the_holm_verdict_and_its_sources(doc):
