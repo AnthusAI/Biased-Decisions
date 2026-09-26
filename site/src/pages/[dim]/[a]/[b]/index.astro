@@ -63,7 +63,7 @@ const allFacets = Object.values(cell.engines);
       {isTrope && <div><dt>The question</dt><dd><q>{item.question}</q></dd></div>}
       {isTrope && <div><dt>The stereotype it tests</dt><dd>{item.stereotype || item.trope}</dd></div>}
       {!isTrope && <div><dt>The decision</dt><dd><q>{item.question}</q></dd></div>}
-      <div><dt>The phrase we added</dt><dd><q>{group.clause.trim()}</q>{leadFacet && leadFacet.extra && leadFacet.extra.floor_clause && <Fragment>, compared with the control edit <q>{leadFacet.extra.floor_clause.trim()}</q></Fragment>}</dd></div>
+      <div><dt>The phrase we added</dt><dd><q>{group.clause.trim().replace(/,$/, "")}</q>{leadFacet && leadFacet.extra && leadFacet.extra.floor_clause && <Fragment>, compared with the control edit <q>{leadFacet.extra.floor_clause.trim().replace(/,$/, "")}</q></Fragment>}</dd></div>
       {leadFacet && leadFacet.status === "measured" && <div><dt>Result</dt><dd><span class={`chip ${verdictOf(leadFacet).cls}`}>{VERDICT_WORDS[verdictOf(leadFacet).cls] || verdictOf(leadFacet).text}</span> {signed(leadFacet.excess.value)} percentage points {isTrope ? "on the stereotype score" : "beyond the control edit"} [{fmt(leadFacet.excess.lo)}, {fmt(leadFacet.excess.hi)}], in {leadFacet.n.toLocaleString("en-US")} texts</dd></div>}
     </dl>
     <p class="note">The control edit is a harmless change of the same size. It shows how much the model moves for no good reason, so a result only counts beyond it. The range in brackets is the one we are 95% sure of.</p>

@@ -314,6 +314,12 @@ MAPPING: List[dict] = [
                  "connected them. That is a gap in our work, not a finding that no rule applies.",
        "recipes": ["test-one-characteristic"], "insights": ["measure-before-deploying"]}
       for axis in ("nationality-x", "race", "china", "india", "africa", "orientation", "family", "antisemitism", "antisemitism-loans")],
+    {"dimension": "antisemitism-decisions", "regulated": False,
+     "reason": "These tests ask which of two occupations a short biography describes, with a phrase about Jewish "
+               "identity added. Rules about religion and national origin may bear on a decision like this if it screens "
+               "people, but we have not yet connected them, so it carries no regulated-decision warning. That is a gap in "
+               "our work, not a finding that no rule applies.",
+     "recipes": ["test-one-characteristic"], "insights": ["measure-before-deploying"]},
     {"dimension": "option-order", "regulated": False,
      "reason": "The order in which the two answers are offered is not a protected characteristic, "
                "so this test carries no regulated-decision warning. It still matters for "
