@@ -1,0 +1,66 @@
+{
+  "schema": "kev-coverage@1",
+  "checkpoint": "jaredpalmer/kev-0.8b@54f4f8777356cd5bbbb6c6919c657f26e6f2f6d8",
+  "cells": [
+    {
+      "task": "dietitian-physician",
+      "cue": "antisemitism-secular",
+      "requests": 2500,
+      "status": "ready",
+      "files": {
+        "tasks/dietitian-physician/question.yaml": "41932b89fe8bd925419fdcde9c270cb9984ca70e0d430200a376495d5450f8dd",
+        "tasks/dietitian-physician/items.jsonl": "e44ba004cae472559dece9ef2baf3c5f66ce19b2caf3c5fd61a541bf2aa7f425",
+        "tasks/dietitian-physician/versions/antisemitism-secular.jsonl": "75ade912d2cc0d7b34368cc0ed3d9d8076b0e89e27c9763334524fb04ce51d11"
+      },
+      "item_cap": 500
+    },
+    {
+      "task": "dietitian-physician",
+      "cue": "antisemitism-religious",
+      "requests": 2000,
+      "status": "ready",
+      "files": {
+        "tasks/dietitian-physician/question.yaml": "41932b89fe8bd925419fdcde9c270cb9984ca70e0d430200a376495d5450f8dd",
+        "tasks/dietitian-physician/items.jsonl": "e44ba004cae472559dece9ef2baf3c5f66ce19b2caf3c5fd61a541bf2aa7f425",
+        "tasks/dietitian-physician/versions/antisemitism-religious.jsonl": "ea68d59648db1c5d210362776066ac6ac0371ad23a7ac9ca3a9304d478fe8b12"
+      },
+      "item_cap": 500
+    },
+    {
+      "task": "dietitian-physician",
+      "cue": "antisemitism-nationality",
+      "requests": 2500,
+      "status": "ready",
+      "files": {
+        "tasks/dietitian-physician/question.yaml": "41932b89fe8bd925419fdcde9c270cb9984ca70e0d430200a376495d5450f8dd",
+        "tasks/dietitian-physician/items.jsonl": "e44ba004cae472559dece9ef2baf3c5f66ce19b2caf3c5fd61a541bf2aa7f425",
+        "tasks/dietitian-physician/versions/antisemitism-nationality.jsonl": "512c5856bc5ddad7a8ae42d627e19b9f8cdbfcd50b5d9ea70aa74c10370e3c72"
+      },
+      "item_cap": 500
+    },
+    {
+      "task": "dietitian-physician",
+      "cue": "antisemitism-role",
+      "requests": 2000,
+      "status": "ready",
+      "files": {
+        "tasks/dietitian-physician/question.yaml": "41932b89fe8bd925419fdcde9c270cb9984ca70e0d430200a376495d5450f8dd",
+        "tasks/dietitian-physician/items.jsonl": "e44ba004cae472559dece9ef2baf3c5f66ce19b2caf3c5fd61a541bf2aa7f425",
+        "tasks/dietitian-physician/versions/antisemitism-role.jsonl": "5e7f94c529c779782cf707fdd1d813d0a52ea7666a990fba47f64714e61f4629"
+      },
+      "item_cap": 500
+    },
+    {
+      "task": "dietitian-physician",
+      "cue": "antisemitism-surname",
+      "requests": 1000,
+      "status": "ready",
+      "files": {
+        "tasks/dietitian-physician/question.yaml": "41932b89fe8bd925419fdcde9c270cb9984ca70e0d430200a376495d5450f8dd",
+        "tasks/dietitian-physician/items.jsonl": "e44ba004cae472559dece9ef2baf3c5f66ce19b2caf3c5fd61a541bf2aa7f425",
+        "tasks/dietitian-physician/versions/antisemitism-surname.jsonl": "3cd5b914e7933410e7243067394c9696afdf82a0ad80ee3c7553be04d4d855f7"
+      },
+      "item_cap": 500
+    }
+  ]
+}

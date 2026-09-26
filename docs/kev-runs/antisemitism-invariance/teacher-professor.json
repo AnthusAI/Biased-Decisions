@@ -1,0 +1,66 @@
+{
+  "schema": "kev-coverage@1",
+  "checkpoint": "jaredpalmer/kev-0.8b@54f4f8777356cd5bbbb6c6919c657f26e6f2f6d8",
+  "cells": [
+    {
+      "task": "teacher-professor",
+      "cue": "antisemitism-secular",
+      "requests": 2500,
+      "status": "ready",
+      "files": {
+        "tasks/teacher-professor/question.yaml": "3bf1c4b67805e7ba4340993c1f35fcd420c69e00b511dabab1038eb11e8348f6",
+        "tasks/teacher-professor/items.jsonl": "845f517a138ef506eefae78a340aef2a4312d9c5626dc4e497d30a13752a0226",
+        "tasks/teacher-professor/versions/antisemitism-secular.jsonl": "e082d4c42b097fedfc8ff3b57d30f24e77e174128d7850e40338c6f72c19fc61"
+      },
+      "item_cap": 500
+    },
+    {
+      "task": "teacher-professor",
+      "cue": "antisemitism-religious",
+      "requests": 2000,
+      "status": "ready",
+      "files": {
+        "tasks/teacher-professor/question.yaml": "3bf1c4b67805e7ba4340993c1f35fcd420c69e00b511dabab1038eb11e8348f6",
+        "tasks/teacher-professor/items.jsonl": "845f517a138ef506eefae78a340aef2a4312d9c5626dc4e497d30a13752a0226",
+        "tasks/teacher-professor/versions/antisemitism-religious.jsonl": "c40ed36a7eddfc5b7e4e8dfdf534c680825bbfb2cee28fc35a6e0fdbe0c76350"
+      },
+      "item_cap": 500
+    },
+    {
+      "task": "teacher-professor",
+      "cue": "antisemitism-nationality",
+      "requests": 2500,
+      "status": "ready",
+      "files": {
+        "tasks/teacher-professor/question.yaml": "3bf1c4b67805e7ba4340993c1f35fcd420c69e00b511dabab1038eb11e8348f6",
+        "tasks/teacher-professor/items.jsonl": "845f517a138ef506eefae78a340aef2a4312d9c5626dc4e497d30a13752a0226",
+        "tasks/teacher-professor/versions/antisemitism-nationality.jsonl": "e1f555a4119983fbf54facb262cf42032ee91c3d595390863f25871f856f57e9"
+      },
+      "item_cap": 500
+    },
+    {
+      "task": "teacher-professor",
+      "cue": "antisemitism-role",
+      "requests": 2000,
+      "status": "ready",
+      "files": {
+        "tasks/teacher-professor/question.yaml": "3bf1c4b67805e7ba4340993c1f35fcd420c69e00b511dabab1038eb11e8348f6",
+        "tasks/teacher-professor/items.jsonl": "845f517a138ef506eefae78a340aef2a4312d9c5626dc4e497d30a13752a0226",
+        "tasks/teacher-professor/versions/antisemitism-role.jsonl": "428eed7d65ee2c365e091e1a4c7622d8c6e634fe0468901cb9fc82b8456cd155"
+      },
+      "item_cap": 500
+    },
+    {
+      "task": "teacher-professor",
+      "cue": "antisemitism-surname",
+      "requests": 1000,
+      "status": "ready",
+      "files": {
+        "tasks/teacher-professor/question.yaml": "3bf1c4b67805e7ba4340993c1f35fcd420c69e00b511dabab1038eb11e8348f6",
+        "tasks/teacher-professor/items.jsonl": "845f517a138ef506eefae78a340aef2a4312d9c5626dc4e497d30a13752a0226",
+        "tasks/teacher-professor/versions/antisemitism-surname.jsonl": "6d8def528ea1fe4fc442605adee5df7170086a66f57217fcf69fb857727ba90c"
+      },
+      "item_cap": 500
+    }
+  ]
+}
