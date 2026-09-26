@@ -271,6 +271,7 @@ export function allCards() {
   out.push(finish(`${urls.home()}guidance/`, guidanceCard(), pageIntroductions.guidance));
   out.push(finish(`${urls.home()}stereotypes/`, { template: "guidance", alarm: false, rows: [{ text: "Eight sets of stereotype questions, each with its published sources" }] }, pageIntroductions.stereotypes));
   out.push(finish(`${urls.home()}antisemitism/`, { template: "guidance", alarm: false, rows: [{ text: "Six stereotypes, five ways of saying who the person is, three models" }] }, pageIntroductions.antisemitism));
+  out.push(finish(`${urls.home()}islamophobia/`, { template: "guidance", alarm: false, rows: [{ text: "Six stereotypes, four ways of saying who the person is, three models" }] }, pageIntroductions.islamophobia));
   cache = out;
   return out;
 }

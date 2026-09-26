@@ -1,0 +1,18 @@
+{
+  "schema": "kev-coverage@1",
+  "checkpoint": "jaredpalmer/kev-0.8b@54f4f8777356cd5bbbb6c6919c657f26e6f2f6d8",
+  "cells": [
+    {
+      "task": "stereotypes-china-education",
+      "cue": "china",
+      "requests": 2036,
+      "status": "ready",
+      "files": {
+        "tasks/stereotypes-china-education/question.yaml": "0e51fa4a5ce54a7bb455b9df6795c97ad2df252c6279808def942f7d55600f3f",
+        "tasks/stereotypes-china-education/items.jsonl": "61d86f92be4feac94e4756e9c25521700b283590e1d80eb5e30ffe25636fc512",
+        "tasks/stereotypes-china-education/versions/china.jsonl": "d3efca0f12fc2fab677bd3f91fd9ddcba2f902ad795d801c9f07b1e79b79e849"
+      },
+      "item_cap": 500
+    }
+  ]
+}

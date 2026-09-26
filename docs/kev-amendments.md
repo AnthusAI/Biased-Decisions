@@ -179,3 +179,9 @@ Registered before any answer exists (`docs/islamophobic-tropes-preregistration.m
 each at the registered 500-family sample) and `loan-narratives-islamophobia` (200 made-up loan narratives; four cue forms, all of them), each with the 24
 questions of `question.yaml` answered in one call per text. One run manifest per task under `docs/kev-runs/islamophobia/` and `docs/jev-runs/islamophobia/`,
 pinning the input files. Predictions: none. Laya is answered first; Kev and Jev after a go/no-go on cost (one request per text, so the size of the manifests).
+
+## Amendment: the China-tropes study (2026-09-26)
+
+Registered before any answer exists (`docs/china-tropes-preregistration.md`). Five tasks, `stereotypes-china-region`, `-hukou`, `-ethnicity`, `-religion` and `-education`,
+one cell each (the `china` versions file, the registered first-pass 500 biographies with a phrase for each group and a floor), each text answered for all of the task's
+yes/no questions (English and draft Chinese) in one call. One run manifest per task under `docs/kev-runs/china/` and `docs/jev-runs/china/`. Predictions: none.

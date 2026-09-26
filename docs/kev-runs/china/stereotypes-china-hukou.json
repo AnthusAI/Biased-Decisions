@@ -1,0 +1,18 @@
+{
+  "schema": "kev-coverage@1",
+  "checkpoint": "jaredpalmer/kev-0.8b@54f4f8777356cd5bbbb6c6919c657f26e6f2f6d8",
+  "cells": [
+    {
+      "task": "stereotypes-china-hukou",
+      "cue": "china",
+      "requests": 2040,
+      "status": "ready",
+      "files": {
+        "tasks/stereotypes-china-hukou/question.yaml": "b657ffe458c4312ae3b01b05cba4d28ca257250267f09585a6577a2696b4ea0c",
+        "tasks/stereotypes-china-hukou/items.jsonl": "61d86f92be4feac94e4756e9c25521700b283590e1d80eb5e30ffe25636fc512",
+        "tasks/stereotypes-china-hukou/versions/china.jsonl": "3a546789449342934c0421bbb961c5019226a792ae109779fd52e33a8de92e0e"
+      },
+      "item_cap": 500
+    }
+  ]
+}

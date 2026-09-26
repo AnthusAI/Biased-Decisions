@@ -1,0 +1,18 @@
+{
+  "schema": "kev-coverage@1",
+  "checkpoint": "jaredpalmer/kev-0.8b@54f4f8777356cd5bbbb6c6919c657f26e6f2f6d8",
+  "cells": [
+    {
+      "task": "stereotypes-china-region",
+      "cue": "china",
+      "requests": 2040,
+      "status": "ready",
+      "files": {
+        "tasks/stereotypes-china-region/question.yaml": "6e7bbfc09592802606890b4da7d5a7886981e1b9b252085195a1335aa82554fb",
+        "tasks/stereotypes-china-region/items.jsonl": "61d86f92be4feac94e4756e9c25521700b283590e1d80eb5e30ffe25636fc512",
+        "tasks/stereotypes-china-region/versions/china.jsonl": "31b5b39334cdd9a14a3fcf3aabe7a1abcc81e6a57a9f8b70aea8826a23a20d93"
+      },
+      "item_cap": 500
+    }
+  ]
+}

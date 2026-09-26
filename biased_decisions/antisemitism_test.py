@@ -158,3 +158,41 @@ def test_the_islamophobia_questions_are_24_with_six_stereotypes_each_with_a_cont
     qs = a.read_questions(task)
     assert len(qs) == 24 and sum(q["control"] for q in qs) == 6
     assert {q["trope"] for q in qs} == set(m.TROPES)
+
+
+def test_the_china_study_has_five_axes_each_question_in_english_and_chinese_about_a_group_on_its_axis():
+    from biased_decisions import china_tropes as c
+    import yaml
+    assert set(c.SLUGS) == {"region", "hukou", "ethnicity", "religion", "education"}
+    for axis, slug in c.SLUGS.items():
+        assert set(a.cues_of(slug)) == {"china"} and set(REGULATED_SHAPE[slug]) == {"china"}
+        doc = yaml.safe_load((ROOT / "tasks" / slug / "question.yaml").read_text(encoding="utf-8"))["questions"]
+        groups = {g for g, _c in c.AXES[axis][1]}
+        for key, spec in doc.items():
+            if spec["trope"] != "control":
+                assert spec["target"] in groups, (slug, key)
+        en = {k for k, v in doc.items() if v["lang"] == "en"}
+        zh = {k for k, v in doc.items() if v["lang"] == "zh"}
+        assert len(en) == len(zh) and all(any("一" <= ch <= "鿿" for ch in doc[k]["question"]) for k in zh)
+
+
+def test_a_china_question_scores_its_own_target_group_against_the_other_groups_on_the_axis(tmp_path):
+    from biased_decisions import china_tropes as c
+    slug = c.SLUGS["region"]
+    (tmp_path / "tasks").mkdir()
+    (tmp_path / "tasks" / slug).symlink_to(ROOT / "tasks" / slug)
+    task = Task.load(slug, root=tmp_path)
+    questions = [q["key"] for q in a.read_questions(task, "china")]
+    path = record_path("laya", slug, "china", root=tmp_path)
+    path.parent.mkdir(parents=True)
+    with gzip.open(path, "wt", encoding="utf-8") as fh:
+        for v in task.load_versions("china"):
+            # Northeast natives get more "rough" answers; nothing else moves
+            bump = 0.2 if v.metadata["version"] == "northeast" else 0.0
+            answers = {q: {"noul": 0.5 + (bump if q.startswith("roughness") else 0.0)} for q in questions}
+            fh.write(json.dumps({"id": v.id, "model": "m", "usage": {}, "latency_ms": 1, "answers": answers}) + "\n")
+    row = score("laya", task, "china")
+    assert row["tropes"]["roughness"]["trope_score"] == pytest.approx(0.2)
+    assert row["tropes"]["roughness_zh"]["trope_score"] == pytest.approx(0.2)
+    assert row["tropes"]["dishonesty"]["trope_score"] == pytest.approx(0.0)
+    assert row["questions"]["roughness_q1"]["target"] == "northeast"

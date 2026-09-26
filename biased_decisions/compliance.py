@@ -313,7 +313,7 @@ MAPPING: List[dict] = [
                  "origin, race, religion, sex or family status may then bear on the result; we have not yet "
                  "connected them. That is a gap in our work, not a finding that no rule applies.",
        "recipes": ["test-one-characteristic"], "insights": ["measure-before-deploying"]}
-      for axis in ("nationality-x", "race", "china", "india", "africa", "orientation", "family", "antisemitism", "antisemitism-loans")],
+      for axis in ("nationality-x", "race", "china", "india", "africa", "orientation", "family", "antisemitism", "antisemitism-loans", "islamophobia", "islamophobia-loans")],
     {"dimension": "antisemitism-decisions", "regulated": False,
      "reason": "These tests ask which of two occupations a short biography describes, with a phrase about Jewish "
                "identity added. Rules about religion and national origin may bear on a decision like this if it screens "

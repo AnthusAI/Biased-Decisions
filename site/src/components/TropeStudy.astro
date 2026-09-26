@@ -1,0 +1,95 @@
+---
+// A trope study in one place (props: study = "antisemitism" | "islamophobia"): what we asked, what each model did, and whether it is being Jewish or being devout that moves the model.
+import Base from "../layouts/Base.astro";
+import { pageIntroductions } from "../lib/introductions.js";
+import { data, engines, urls, fmt, signed } from "../lib/site.js";
+
+const { study } = Astro.props;
+const A = data[study];
+const intro = pageIntroductions[study];
+const adjective = study === "islamophobia" ? "Islamophobic" : "Antisemitic";
+const cueLabel = Object.fromEntries(A.cues.map((c) => [c.id, c.label]));
+const tropeLabel = Object.fromEntries(A.tropes.map((t) => [t.id, t.label]));
+const order = engines.map((e) => e.id);
+const label = (id) => engines.find((e) => e.id === id).label;
+const SOURCES = [{ id: "bios", name: "Real short professional biographies", board: A.boards.bios },
+                 { id: "loans", name: "Made-up small-business loan narratives", board: A.boards.loans }];
+
+// each model's largest stereotype score on one text source, and how many of the six stereotypes it clearly showed anywhere
+function summary(src, engine) {
+  const per = A.results[src][engine];
+  if (!per) return null;
+  let best = null, shown = 0;
+  for (const [tid, byCue] of Object.entries(per)) {
+    let any = false;
+    for (const [cue, r] of Object.entries(byCue)) {
+      if (r.detected) any = true;
+      if (r.detected && (!best || r.score_pts > best.r.score_pts)) best = { tid, cue, r };
+    }
+    if (any) shown += 1;
+  }
+  return { best, shown };
+}
+const splitRows = (src) => order.filter((e) => A.split[src][e]).map((e) => ({
+  engine: e, rows: A.tropes.map((t) => ({ t, v: A.split[src][e][t.id] })) }));
+---
+<Base title={intro.title} description={intro.intro} path={`${urls.home()}${study}/`} current={{ page: study }}
+  crumbs={[{ label: "Leaderboard", href: urls.home() }, { label: "Stereotype tests", href: `${urls.home()}stereotypes/` }, { label: `${adjective} stereotypes` }]}>
+  <section class="wrap hero">
+    <p class="kicker">{adjective} stereotypes</p>
+    <h1 class="display xl">{intro.title}</h1>
+    <p class="deck">{intro.intro}</p>
+    <div class="footnote risk-notice" role="note"><p>These are tests of what the models answer. They say nothing about {A.subject}, and the stereotypes are described only so the tests can be checked.</p></div>
+  </section>
+
+  <section class="wrap section" id="tested" aria-labelledby="tested-h">
+    <h2 class="display" id="tested-h">What we asked</h2>
+    <p class="lede">We took short professional biographies and added one phrase saying who the person is. Then we asked yes-or-no questions about the person, three worded differently for each of six {adjective.toLowerCase()} stereotypes, and we averaged the three. We compared each answer with the answer after a harmless phrase of the same size, and with the same phrase for Christian and Muslim people, so the effect of naming any group cancels out. The score is how many percentage points more often the model gave the answer the stereotype predicts.</p>
+    <h3>The six stereotypes</h3>
+    <ul class="cite-list">{A.tropes.map((t) => <li><strong>{t.label[0].toUpperCase() + t.label.slice(1)}</strong>: the idea that {A.subject} are {t.alleges}. Source: {t.source}</li>)}</ul>
+    <p class="note">Each comes from a published source. <a href={`${urls.home()}stereotypes/#sources`}>Where these stereotypes come from</a> lists the sources and how far we checked each.</p>
+    <h3>The five ways of saying who the person is</h3>
+    <ul class="cite-list">{A.cues.map((c) => <li><strong>{c.label}</strong>: <q>{c.phrase.trim().replace(/,$/, "")}</q></li>)}</ul>
+  </section>
+
+  {SOURCES.map((s) => (
+    <section class="wrap section" id={s.id} aria-labelledby={`${s.id}-h`}>
+      <h2 class="display" id={`${s.id}-h`}>{s.name}</h2>
+      <p class="lede">{s.id === "bios" ? "Two thousand real biographies, 500 of them answered by each model in this first pass." : "Two hundred loan narratives written for this test, so no real person is described."} <a href={`${urls.home()}${s.board}/`}>Every result on its own page</a>.</p>
+      <ul class="cite-list">
+        {order.map((e) => {
+          const m = summary(s.id, e);
+          if (!m) return <li><strong>{label(e)}</strong>: not tested here.</li>;
+          if (!m.best) return <li><strong>{label(e)}</strong>: no clear sign of any of the six stereotypes.</li>;
+          return <li><strong>{label(e)}</strong>: its largest result was {fmt(m.best.r.score_pts)} percentage points on {tropeLabel[m.best.tid]}, when the phrase was <q>{cueLabel[m.best.cue]}</q> (range {fmt(m.best.r.lo)} to {fmt(m.best.r.hi)}).</li>;
+        })}
+      </ul>
+    </section>
+  ))}
+
+  <section class="wrap section" id="split" aria-labelledby="split-h">
+    <h2 class="display" id="split-h">Being {A.who}, or being devout?</h2>
+    <p class="lede">A phrase such as “a devout Jew” carries two signals at once: religious practice and Jewish identity. Earlier work found that almost any religious label moves a model on some questions. To separate the two, we compare “a devout {A.who}” with the plain phrase “a {A.who}” on the same biographies. A positive score means the model gave the answer the stereotype predicts more often. A difference well away from zero means the two phrases do not move the model alike.</p>
+    {splitRows("bios").map((m) => (
+      <Fragment>
+        <h3>{label(m.engine)}</h3>
+        <ul class="cite-list">{m.rows.map(({ t, v }) => <li><strong>{t.label[0].toUpperCase() + t.label.slice(1)}</strong>: “a devout {A.who}” scored {fmt(v.religious_pts)} and “a {A.who}” scored {fmt(v.secular_pts)}. The difference, {signed(v.difference_pts)} points (range {fmt(v.lo)} to {fmt(v.hi)}), is {v.distinguishable ? "clearly away from zero" : "not clearly different from zero"}.</li>)}</ul>
+      </Fragment>
+    ))}
+  </section>
+
+  {A.boards.decisions && <section class="wrap section" id="decisions" aria-labelledby="decisions-h">
+    <h2 class="display" id="decisions-h">Does the job it picks change?</h2>
+    <p class="lede">We also asked whether the same phrases change which of two occupations a model says a biography describes, such as paralegal or attorney. <a href={`${urls.home()}${A.boards.decisions}/`}>The occupation results</a> are on their own board.</p>
+  </section>}
+
+  <section class="wrap section" id="limits" aria-labelledby="limits-h">
+    <h2 class="display sm" id="limits-h">What this does not show</h2>
+    <ul class="unmeasured-list">
+      {study === "antisemitism" && <li>The surname test has no matched surnames for other groups, so it is compared only with an ordinary surname.</li>}
+      {study === "islamophobia" && <li>We left out a surname test: we have no verified list of Muslim-associated surnames. “A Saudi” is a nationality, not a religion, and is read against Italian and Canadian people.</li>}
+      <li>Only 500 of the 2,000 biographies were answered by each model so far, and the loan narratives are invented.</li>
+      <li>A score near zero means we found no clear sign in these tests, not that a model is free of bias.</li>
+    </ul>
+  </section>
+</Base>

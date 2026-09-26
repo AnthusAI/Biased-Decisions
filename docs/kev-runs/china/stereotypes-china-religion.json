@@ -1,0 +1,18 @@
+{
+  "schema": "kev-coverage@1",
+  "checkpoint": "jaredpalmer/kev-0.8b@54f4f8777356cd5bbbb6c6919c657f26e6f2f6d8",
+  "cells": [
+    {
+      "task": "stereotypes-china-religion",
+      "cue": "china",
+      "requests": 2545,
+      "status": "ready",
+      "files": {
+        "tasks/stereotypes-china-religion/question.yaml": "6a410ed5212bf3edde6a46ef21048e5548104895e30e03be7306d5408a932f7a",
+        "tasks/stereotypes-china-religion/items.jsonl": "61d86f92be4feac94e4756e9c25521700b283590e1d80eb5e30ffe25636fc512",
+        "tasks/stereotypes-china-religion/versions/china.jsonl": "25f9e17800f537371ba7e0dc787979dfd12e1321757c877ad6ab5873d0c4fe52"
+      },
+      "item_cap": 500
+    }
+  ]
+}

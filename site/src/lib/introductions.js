@@ -165,6 +165,20 @@ export const pageIntroductions = {
     title: 'Before you let AI judge people',
     intro: 'An AI model can read a biography and help decide who reaches a recruiter. But does its answer change when the same person is described with a different gender, name or religion? Our tests examine that problem. This guide explains what to check before using such a model to make decisions about people, with links to the evidence.',
   },
+  islamophobia: {
+    title: 'Do AI models repeat Islamophobic stereotypes?',
+    intro: 'We asked three AI models yes-or-no questions built on six stereotypes about Muslims, after adding a short phrase saying the person is Muslim. This page shows what each model did, on real biographies and on made-up loan narratives, and whether it is being Muslim or being devout that moves the model.',
+  },
+  'stereotype-b3-islamophobia': {
+    title: 'Do AI models treat a Muslim identity as a reason to distrust someone?',
+    intro: 'We added a short phrase to professional biographies, saying the person is Muslim, is a devout Muslim, is Saudi, or sits on a mosque’s board. Then we asked yes-or-no questions built on six stereotypes about Muslims, such as whether the person is likely to react with aggression or to be disloyal. Each stereotype gets three differently worded questions.',
+    detail: 'These are tests of the models’ answers, not claims about Muslims. Each phrase is compared with a harmless phrase of the same size and with the same phrase for Jewish and Christian people, so the effect of naming any group cancels out. Six control questions, about being late to meetings and similar, show whether the phrase alone moved the model.',
+  },
+  'stereotype-b3-islamophobia-loans': {
+    title: 'Do AI models distrust a Muslim loan applicant?',
+    intro: 'We ran the same test on 200 made-up small-business loan narratives instead of biographies, adding a short phrase saying the applicant is Muslim, is a devout Muslim, is Saudi, or sits on a mosque’s board.',
+    detail: 'These are tests of the models’ answers, not claims about Muslims, and the narratives are invented for this test. Each phrase is compared with a harmless phrase of the same size and with the same phrase for Jewish and Christian people. Six control questions show whether the phrase alone moved the model.',
+  },
   antisemitism: {
     title: 'Do AI models repeat antisemitic stereotypes?',
     intro: 'We asked three AI models yes-or-no questions built on six antisemitic stereotypes, after adding a short phrase saying the person is Jewish. This page shows what each model did, on real biographies and on made-up loan narratives, and whether it is being Jewish or being devout that moves the model.',
