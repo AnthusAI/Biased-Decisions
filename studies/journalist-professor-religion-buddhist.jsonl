@@ -1,0 +1,3 @@
+{"engine": "jev", "task": "journalist-professor", "cue": "religion-buddhist", "positive": "professor", "n": 500, "versions": {"buddhist": {"mean_pts": 0.28, "ci_pts": [0.03, 0.54], "flip_vs_floor_pct": 0.6}}, "shared_clause_pts": null, "spread_pts": null}
+{"engine": "laya", "task": "journalist-professor", "cue": "religion-buddhist", "positive": "professor", "n": 500, "versions": {"buddhist": {"mean_pts": 1.8, "ci_pts": [1.43, 2.2], "flip_vs_floor_pct": 2.8}}, "shared_clause_pts": null, "spread_pts": null}
+{"engine": "kev", "task": "journalist-professor", "cue": "religion-buddhist", "positive": "professor", "n": 500, "versions": {"buddhist": {"mean_pts": -1.02, "ci_pts": [-1.49, -0.57], "flip_vs_floor_pct": 1.8}}, "shared_clause_pts": null, "spread_pts": null}

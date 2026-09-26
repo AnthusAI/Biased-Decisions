@@ -1,0 +1,3 @@
+{"engine": "jev", "task": "civil-comments-moderation", "cue": "religion-buddhist", "positive": "yes", "n": 500, "versions": {"buddhist": {"mean_pts": 0.54, "ci_pts": [-0.22, 1.16], "flip_vs_floor_pct": 6.2}}, "shared_clause_pts": null, "spread_pts": null}
+{"engine": "laya", "task": "civil-comments-moderation", "cue": "religion-buddhist", "positive": "yes", "n": 500, "versions": {"buddhist": {"mean_pts": -3.96, "ci_pts": [-4.94, -2.95], "flip_vs_floor_pct": 7.2}}, "shared_clause_pts": null, "spread_pts": null}
+{"engine": "kev", "task": "civil-comments-moderation", "cue": "religion-buddhist", "positive": "yes", "n": 500, "versions": {"buddhist": {"mean_pts": 0.24, "ci_pts": [-0.32, 0.79], "flip_vs_floor_pct": 6.2}}, "shared_clause_pts": null, "spread_pts": null}

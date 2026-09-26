@@ -30,10 +30,13 @@ def _make(root: Path, slug: str, cue: str, versions: dict, n: int = 30):
 
 def test_every_cue_of_the_three_tasks_has_a_shape_entry_with_its_floor():
     for task in hl.TASKS:
-        assert set(REGULATED_SHAPE[task]) == set(hl.CUES[task])
+        from biased_decisions import religion_gaps
+        gap = set(religion_gaps.gap_cues_of(task))         # the religions added later have their own versions files and shapes
+        assert set(REGULATED_SHAPE[task]) == set(hl.CUES[task]) | gap
         for cue, (floor, groups) in REGULATED_SHAPE[task].items():
             assert floor not in groups
-            assert floor in [v for v, _ in hl.CUES[task][cue].versions]
+            if cue not in gap:
+                assert floor in [v for v, _ in hl.CUES[task][cue].versions]
 
 
 def test_the_three_tasks_are_replayed_with_the_other_regulated_tasks():
