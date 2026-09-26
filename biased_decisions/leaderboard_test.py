@@ -719,3 +719,26 @@ def test_the_religion_board_has_no_missing_cell_for_any_religion_on_any_decision
     assert missing == []
     buddhist = next(c for c in religion["breakdown"]["cells"] if c["group"] == "buddhist" and c["item"] == "resume-screening")
     assert buddhist["engines"]["jev"]["extra"]["signed_shift_pts"] == pytest.approx(6.17)
+
+
+def test_the_antisemitism_page_data_covers_both_text_sources_the_split_and_all_three_models(doc):
+    a = doc["antisemitism"]
+    assert [t["id"] for t in a["tropes"]] == ["greed-financial", "banks-media-government", "dual-loyalty", "wars",
+                                             "conspiracy", "clannishness"]
+    assert len(a["cues"]) == 5 and set(a["boards"]) == {"bios", "loans", "decisions"}
+    for source in ("bios", "loans"):
+        assert set(a["results"][source]) == {"laya", "kev", "jev"} == set(a["split"][source])
+        cell = a["results"][source]["laya"]["dual-loyalty"]["antisemitism-nationality"]
+        assert cell["lo"] <= cell["score_pts"] <= cell["hi"] and cell["wordings_agree"] in (0, 1, 2, 3)
+        diff = a["split"][source]["laya"]["clannishness"]
+        assert diff["difference_pts"] == pytest.approx(diff["religious_pts"] - diff["secular_pts"], abs=0.02)
+
+
+def test_a_board_row_says_which_way_the_model_moved_where_the_result_has_a_direction(doc):
+    religion = _dims(doc)["religion"]
+    rows = {r["engine"]: r for r in religion["board"]["ranked"] + religion["board"]["not_detected"]}
+    jev = rows["jev"]
+    assert jev["direction"] == {"toward": "up", "signed_pts": 8.93, "phrase": "more confident in advancing the candidate"}
+    assert rows["kev"]["direction"]["toward"] == "down" and rows["kev"]["direction"]["signed_pts"] < 0
+    # the size is how far it moved; a stereotype score is toward the stereotype by construction, so it has no direction
+    assert rows["laya"]["direction"] is None

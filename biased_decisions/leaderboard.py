@@ -1697,6 +1697,20 @@ def _fractional_ranks(order: List[Tuple[str, Optional[float]]]) -> Dict[str, flo
     return ranks
 
 
+def _direction(facet: dict) -> Optional[dict]:
+    """Which way a measured shift went, in words, for the facets that carry a signed shift (the size shown on the boards
+    is how far the model moved; this says whether its confidence in the answer went up or down). ``None`` where the
+    result has no single direction (a rate of changed answers) or already is one (a stereotype score)."""
+    x = facet.get("extra") or {}
+    shift = x.get("signed_shift_pts")
+    if shift is None or not x.get("positive"):
+        return None
+    what = _answer(facet["id"], x["positive"])
+    up = shift >= 0
+    return {"toward": "up" if up else "down", "signed_pts": shift,
+            "phrase": f"{'more' if up else 'less'} confident in {what}"}
+
+
 def _summary(facets: List[dict]) -> dict:
     """An engine's reading of a list of facets: its headline (the largest excess among the
     detected facets, else among the attributable ones) and whether anything was detected."""
@@ -1707,7 +1721,8 @@ def _summary(facets: List[dict]) -> dict:
     return {
         "status": "measured", "detected": detected,
         "headline": {"facet": head["id"], "facet_label": head["label"],
-                     **head["excess"], "raw": head["raw"], "floor_value": head["floor"]["value"]},
+                     **head["excess"], "raw": head["raw"], "floor_value": head["floor"]["value"],
+                     "direction": _direction(head)},
         "n": head["n"], "n_facets": len(measured),
         "n_facets_detected": sum(1 for f in measured if f["detected"]),
     }
@@ -1724,14 +1739,16 @@ def _board(summaries: Dict[str, dict]) -> Tuple[Dict[str, float], dict]:
                     key=lambda e: (-summaries[e]["headline"]["value"], ENGINE_IDS.index(e)))
     board = {
         "ranked": [{"engine": e, "rank": ranks[e], **{k: summaries[e]["headline"][k] for k in
-                    ("value", "lo", "hi", "facet", "facet_label")}} for e in ranked],
+                    ("value", "lo", "hi", "facet", "facet_label")},
+                    "direction": summaries[e]["headline"].get("direction")} for e in ranked],
         "not_detected": [{"engine": e, "n": summaries[e]["n"],
                           "n_facets": summaries[e]["n_facets"],
                           "value": summaries[e]["headline"]["value"],
                           "lo": summaries[e]["headline"]["lo"],
                           "hi": summaries[e]["headline"]["hi"],
                           "facet": summaries[e]["headline"]["facet"],
-                          "facet_label": summaries[e]["headline"]["facet_label"]}
+                          "facet_label": summaries[e]["headline"]["facet_label"],
+                          "direction": summaries[e]["headline"].get("direction")}
                          for e in measured_engines if not summaries[e]["detected"]],
         "unmeasured": [e for e in ENGINE_IDS if summaries[e]["status"] != "measured"],
         "contested": len(measured_engines) >= 2,
@@ -2463,6 +2480,49 @@ HONESTY: List[dict] = [
 ]
 
 
+def _antisemitism_summary(root: Path) -> dict:
+    """What the antisemitism page shows, from the scored study rows: per text source and model, each stereotype's
+    pooled score on each way of saying who the person is, how many of its three wordings agree, and the
+    religiosity-versus-Jewishness split (the devout-Jew cue minus the plain "Jewish" cue)."""
+    store = Store(root)
+    sources = {"bios": AS_SLUG, "loans": AS_LOANS_SLUG}
+    results: dict = {}
+    split: dict = {}
+    for name, slug in sources.items():
+        results[name], split[name] = {}, {}
+        for engine in ENGINE_IDS:
+            per: dict = {}
+            for cue, *_ in AS_GROUPS:
+                row = store.row(slug, cue, engine)
+                if row is None:
+                    continue
+                for trope, (tid, *_rest) in AS_TROPES.items():
+                    t = row["tropes"][trope]
+                    per.setdefault(tid, {})[cue] = {
+                        "score_pts": _r(t["trope_score"] * 100), "lo": _r(t["ci_lo"] * 100), "hi": _r(t["ci_hi"] * 100),
+                        "detected": bool(t["detected"]), "wordings_agree": t["wordings_agree"], "n": row["n"]}
+            if per:
+                results[name][engine] = per
+            path = root / "studies" / f"{slug}-religiosity-split.jsonl"
+            if path.exists():
+                for line in path.read_text(encoding="utf-8").splitlines():
+                    r = json.loads(line) if line.strip() else None
+                    if r and r["engine"] == engine:
+                        split[name][engine] = {AS_TROPES[t][0]: {
+                            "religious_pts": _r(v["religious"] * 100), "secular_pts": _r(v["secular"] * 100),
+                            "difference_pts": _r(v["difference"] * 100), "lo": _r(v["ci_lo"] * 100),
+                            "hi": _r(v["ci_hi"] * 100), "distinguishable": v["distinguishable"], "n": v["n"]}
+                            for t, v in r["tropes"].items()}
+    return {
+        "tropes": [{"id": tid, "label": label, "alleges": alleges, "source": src}
+                   for tid, label, alleges, src in AS_TROPES.values()],
+        "cues": [{"id": cue, "label": label, "phrase": phrase} for cue, label, phrase, _f in AS_GROUPS],
+        "boards": {"bios": "stereotype-b3-antisemitism", "loans": "stereotype-b3-antisemitism-loans",
+                   "decisions": AI_ID},
+        "results": results, "split": split,
+    }
+
+
 def _neutral(root: Path) -> dict:
     """The neutral-pronoun control's rows (studies/<task>-neutral.jsonl), one per engine and task,
     as scored by ``bd replay``; the site draws which way the bias runs from them."""
@@ -2568,6 +2628,7 @@ def generate_json(root: Path = DEFAULT_ROOT, *, date: Optional[str] = None) -> d
         "overall": overall,
         "floors": {"ask_twice": floors},
         "neutral": _neutral(root),
+        "antisemitism": _antisemitism_summary(root),
         "honesty": HONESTY,
         "vocabulary": VOCABULARY,
         "compliance": build_compliance(root, dimensions, floors, prereg),

@@ -57,7 +57,7 @@ function tipHtml(dim, engine, cell, extra = "") {
     : `<b>no clear effect</b> (the largest is shown: ${esc(hd.facet_label)})`;
   return `<div class="tip-h"><span class="sw" style="background:var(--eng-${engine.id})"></span>${esc(engine.label)} · ${esc(dim.label)}</div>
     <div class="tip-v">${signed(hd.value)} points <span>[${fmt(hd.lo)}, ${fmt(hd.hi)}]</span> beyond the control edit</div>
-    <div>${status}</div>
+    <div>${status}${hd.direction ? `; it became ${esc(hd.direction.phrase)}` : ""}</div>
     <div class="tip-s">after the edit ${fmt(hd.raw.value)}${unitText(rawUnit(dim))}, control edit ${fmt(hd.floor_value)}${unitText(rawUnit(dim))}; ${hd && cell.n ? cell.n.toLocaleString("en-US") : "—"} texts tested</div>${extra}`;
 }
 
@@ -121,7 +121,7 @@ export function heroMatrix(data, { animate = true } = {}) {
         const hd = c.headline;
         const y = yMid + (j - (measured.length - 1) / 2) * (narrow ? 8 : 9);
         const a = s("a", { href: c.href, class: "mark-link" + (c.detected ? "" : " nd"),
-          "aria-label": `${e.label}, ${d.label}: ${c.detected ? "a clear effect, " : "no clear effect, "}${fmt(hd.value)} percentage points beyond the control edit, range ${fmt(hd.lo)} to ${fmt(hd.hi)}` });
+          "aria-label": `${e.label}, ${d.label}: ${c.detected ? "a clear effect, " : "no clear effect, "}${fmt(hd.value)} percentage points beyond the control edit, range ${fmt(hd.lo)} to ${fmt(hd.hi)}${hd.direction ? `, it became ${hd.direction.phrase}` : ""}` });
         const grp = s("g", { class: "mv" });
         grp.append(s("line", { x1: X(hd.lo), x2: X(hd.hi), y1: y, y2: y, class: "whisker", stroke: `var(--eng-${e.id})`, "stroke-dasharray": c.detected ? null : "3 3" }));
         grp.append(marker(e.marker, X(hd.value), y, 5.5, c.detected
@@ -180,7 +180,7 @@ export function boardChart(data, dim, onPick) {
       const y = yTop + (narrow ? 42 : rowH / 2);
       const head = c.facets.find((f) => f.id === hd.facet);
       const grp = s("a", { href: c.href, class: "board-row", "aria-label":
-        `Place ${boardPlace(dim, r.engine)}: ${e.label}, ${fmt(r.value)} percentage points beyond the control edit, on ${r.facet_label}. Open ${e.label}'s results.` });
+        `Place ${boardPlace(dim, r.engine)}: ${e.label}, ${fmt(r.value)} percentage points beyond the control edit, on ${r.facet_label}${r.direction ? `, it became ${r.direction.phrase}` : ""}. Open ${e.label}'s results.` });
       if (onPick) grp.addEventListener("click", (ev) => { ev.preventDefault(); onPick(e.id); });
       grp.append(s("rect", { x: 0, y: yTop + 2, width: w, height: rowH - 4, class: "hit row-hit" }));
       const lx = narrow ? x0 : 0, ly = narrow ? yTop + 16 : y + 5;

@@ -14,7 +14,7 @@ const anyDetected = findings.some((f) => f.detected);
   <section class="wrap section" id="risk" aria-labelledby="risk-h">
     <div class="risk-panel">
       <p class="risk-kicker"><svg class="reg-icon" viewBox="0 0 20 20" width="16" height="16" aria-hidden="true" focusable="false"><path d="M10 1.6 19.2 18H.8Z" fill="currentColor"/><path d="M9 7h2v5.4H9zM9 13.8h2V16H9z" class="reg-glyph"/></svg>Regulated decision · {practiceById[m.practice].label}</p>
-      <h2 class="display" id="risk-h">The compliance risk{place ? ` on ${place}` : ""}</h2>
+      <h2 class="display" id="risk-h">The compliance risk</h2>
       <p class="risk-decision"><strong>The decision.</strong> {m.decision}. A screening tool that uses a model for it is {practiceById[m.practice].decision}.</p>
       <p class="note">Each finding below gives the model's result, the range we are 95% sure of in brackets, the control edit it is measured against, and n, the number of texts tested.</p>
       <div class="risk-grid">

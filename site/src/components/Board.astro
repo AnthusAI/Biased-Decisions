@@ -20,7 +20,7 @@ const u = unitText(unit);
         <Chart id={chartId} />
         {shows && <p class="note board-shows">{shows}</p>}
         <ol class="board-list sr">
-          {ranked.map((r) => <li>{engineById[r.engine].label}: {signed(r.value)} percentage points beyond the control edit, range {fmt(r.lo)} to {fmt(r.hi)}, on {r.facet_label}</li>)}
+          {ranked.map((r) => <li>{engineById[r.engine].label}: {fmt(r.value)} percentage points beyond the control edit, range {fmt(r.lo)} to {fmt(r.hi)}, on {r.facet_label}{r.direction ? `; it became ${r.direction.phrase}` : ""}</li>)}
         </ol>
       </Fragment>
     : <Fragment>
@@ -37,7 +37,7 @@ const u = unitText(unit);
             <li>
               <EngineName engine={engineById[r.engine]} href={hrefFor(r.engine)} />
               <span class="nd-n">{int(r.n)} texts tested{r.n_facets > 1 ? ` (the largest of ${r.n_facets} ${kindNames(facetKind)})` : ""}.</span>
-              <span class="nd-v">After the edit {fmt(hd.raw.value)}{u} [{fmt(hd.raw.lo)}, {fmt(hd.raw.hi)}], control edit {fmt(hd.floor_value)}{u}; beyond the control edit {signed(r.value)} percentage points [{fmt(r.lo)}, {fmt(r.hi)}].</span>
+              <span class="nd-v">After the edit {fmt(hd.raw.value)}{u} [{fmt(hd.raw.lo)}, {fmt(hd.raw.hi)}], control edit {fmt(hd.floor_value)}{u}; beyond the control edit {signed(r.value)} percentage points [{fmt(r.lo)}, {fmt(r.hi)}]{r.direction ? `; it became ${r.direction.phrase}` : ""}.</span>
             </li>
           );
         })}

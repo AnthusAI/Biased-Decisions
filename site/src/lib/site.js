@@ -472,6 +472,12 @@ export function facetHref(dim, facetId) {
   return urls.at(dim, null, facetId);
 }
 
+// Which way a measured shift went: "up" when the model became more confident in the answer the test asks about (for
+// example "yes, advance the candidate"), "down" when less, null where the result has no single direction.
+export const dirOf = (f) => (f && f.extra && typeof f.extra.signed_shift_pts === "number" ? (f.extra.signed_shift_pts >= 0 ? "up" : "down") : null);
+export const DIR_ARROW = { up: "\u25B2", down: "\u25BC" };
+export const DIR_WORD = { up: "raised its confidence", down: "lowered its confidence" };
+
 // One matrix cell: the most biased engine at that cell (or, with nothing detected, how the
 // measured engines read), for the dimension page's group x item grid. With `engineId`, that
 // engine's own value instead.
@@ -481,7 +487,7 @@ export function matrixCell(dim, cell, engineId = null) {
     const f = cell.engines[engineId];
     if (f.status !== "measured") return { status: "missing", href };
     return { status: "measured", engine: engineId, value: f.excess.value, lo: f.excess.lo, hi: f.excess.hi,
-      detected: f.detected, attributable: f.attributable, reverse: !!(f.extra && f.extra.direction === "reverse"),
+      detected: f.detected, attributable: f.attributable, reverse: !!(f.extra && f.extra.direction === "reverse"), dir: dirOf(f),
       href: `${href}#${engineId}`, prereg: cell.prereg };
   }
   const level = dim.breakdown.levels.find((l) => l.group === cell.group && l.item === cell.item &&
@@ -490,11 +496,11 @@ export function matrixCell(dim, cell, engineId = null) {
   const measured = engines.filter((e) => cell.engines[e.id].status === "measured");
   if (!measured.length) return { status: "missing", href, prereg: cell.prereg };
   const top = board && board.ranked[0];
-  if (top) return { status: "measured", engine: top.engine, value: top.value, lo: top.lo, hi: top.hi, detected: true, href, prereg: cell.prereg, n_measured: measured.length };
+  if (top) return { status: "measured", engine: top.engine, value: top.value, lo: top.lo, hi: top.hi, detected: true, dir: dirOf(cell.engines[top.engine]), href, prereg: cell.prereg, n_measured: measured.length };
   const best = measured.map((e) => ({ e, f: cell.engines[e.id] })).sort((a, b) => b.f.excess.value - a.f.excess.value)[0];
   const allReverse = measured.every((e) => cell.engines[e.id].extra && cell.engines[e.id].extra.direction === "reverse");
   return { status: "measured", engine: best.e.id, value: best.f.excess.value, lo: best.f.excess.lo, hi: best.f.excess.hi,
-    detected: false, attributable: best.f.attributable, reverse: allReverse, href, prereg: cell.prereg, n_measured: measured.length };
+    detected: false, attributable: best.f.attributable, reverse: allReverse, dir: dirOf(best.f), href, prereg: cell.prereg, n_measured: measured.length };
 }
 
 // Rows of a forest chart for a level (or a whole dimension's single axis): sorted most biased
