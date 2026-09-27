@@ -25,13 +25,14 @@ const pct = (value) => `${Number(value).toFixed(2)}%`;
         <h2 class="display" id="results-h">Results from the models we tested</h2>
         <p class="lede">Each model saw the same three claims in each row and answered yes or no. The percentage is that model’s average probability of yes; the range shows its lowest and highest probability among the three claims. These are the models’ answers to a direct prompt, not findings about any group.</p>
         <div class="table-scroll" tabindex="0" role="region" aria-label="Opinion-claim results by model and claim family">
-          <table class="cell-table">
+          <table class="cell-table opinion-claims-table">
+            <colgroup><col class="opinion-claim-family-col" /><col span={opinionClaims.results.length} /></colgroup>
             <thead><tr><th scope="col">claim family</th>{opinionClaims.results.map((result) => <th scope="col">{result.label}: yes</th>)}</tr></thead>
             <tbody>{opinionClaims.domains.map((domain) => <tr>
-              <th scope="row"><strong>{domain.label}</strong><span>{domain.source}</span></th>
+              <th scope="row"><strong class="opinion-claim-family">{domain.label}</strong><span class="opinion-claim-source">{domain.source}</span></th>
               {opinionClaims.results.map((result) => {
                 const score = result.domains[domain.id];
-                return <td>{score ? <><strong>{pct(score.agree_pct)}</strong><span>range {pct(score.lowest_pct)}–{pct(score.highest_pct)}</span>{score.excess_pct !== undefined && <span>vs control: {pct(score.excess_pct)}</span>}</> : "not measured"}</td>;
+                return <td class="opinion-claim-score">{score ? <><strong>{pct(score.agree_pct)}</strong><span>range {pct(score.lowest_pct)}–{pct(score.highest_pct)}</span>{score.excess_pct !== undefined && <span>vs control: {pct(score.excess_pct)}</span>}</> : "not measured"}</td>;
               })}
             </tr>)}</tbody>
           </table>
