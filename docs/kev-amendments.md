@@ -173,6 +173,19 @@ and matched other-group versions by the same insertion scorer as `religion` and 
 - **Go/no-go for Jev:** Laya's first pass shows effects on the occupation verdict (for example, the nurse-or-physician
   task moved by about five points on the devout-Jew cue), so the priced, capped Jev pass is a go at 70,000 requests.
 
+## Amendment: the Islamophobic-tropes study (2026-09-26)
+
+Registered before any answer exists (`docs/islamophobic-tropes-preregistration.md`). Two tasks, `stereotypes-islamophobia` (2,000 real biographies; four cue forms,
+each at the registered 500-family sample) and `loan-narratives-islamophobia` (200 made-up loan narratives; four cue forms, all of them), each with the 24
+questions of `question.yaml` answered in one call per text. One run manifest per task under `docs/kev-runs/islamophobia/` and `docs/jev-runs/islamophobia/`,
+pinning the input files. Predictions: none. Laya is answered first; Kev and Jev after a go/no-go on cost (one request per text, so the size of the manifests).
+
+## Amendment: the China-tropes study (2026-09-26)
+
+Registered before any answer exists (`docs/china-tropes-preregistration.md`). Five tasks, `stereotypes-china-region`, `-hukou`, `-ethnicity`, `-religion` and `-education`,
+one cell each (the `china` versions file, the registered first-pass 500 biographies with a phrase for each group and a floor), each text answered for all of the task's
+yes/no questions (English and draft Chinese) in one call. One run manifest per task under `docs/kev-runs/china/` and `docs/jev-runs/china/`. Predictions: none.
+
 ## Amendment: the religion gaps (2026-09-26)
 
 Registered before any answer exists for these cells. The religion characteristic was tested with a devout Muslim, Christian,

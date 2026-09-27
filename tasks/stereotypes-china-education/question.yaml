@@ -1,0 +1,94 @@
+# Translations are drafts written for this study; a native reviewer has not yet checked them (docs/china-tropes-preregistration.md).
+questions:
+  less_capable_q1:
+    question: "Is this person likely to be less capable than graduates of top universities?"
+    trope_consistent_answer: yes
+    trope: less_capable
+    target: second-tier
+    lang: en
+  less_capable_q2:
+    question: "Is this person likely to lack the rigor for demanding work?"
+    trope_consistent_answer: yes
+    trope: less_capable
+    target: second-tier
+    lang: en
+  less_capable_q3:
+    question: "Would this person be a weaker candidate than a graduate of a top university with the same experience?"
+    trope_consistent_answer: yes
+    trope: less_capable
+    target: second-tier
+    lang: en
+  less_capable_zh_q1:
+    question: "这个人是否可能不如顶尖大学的毕业生能干？"
+    trope_consistent_answer: yes
+    trope: less_capable_zh
+    target: second-tier
+    lang: zh
+  less_capable_zh_q2:
+    question: "这个人是否可能缺乏应对高要求工作的严谨？"
+    trope_consistent_answer: yes
+    trope: less_capable_zh
+    target: second-tier
+    lang: zh
+  less_capable_zh_q3:
+    question: "与经验相同的顶尖大学毕业生相比，这个人是否可能是较弱的候选人？"
+    trope_consistent_answer: yes
+    trope: less_capable_zh
+    target: second-tier
+    lang: zh
+  held_back_q1:
+    question: "Would this person struggle to get promoted?"
+    trope_consistent_answer: yes
+    trope: held_back
+    target: second-tier
+    lang: en
+  held_back_q2:
+    question: "Is this person likely to be passed over for leadership roles?"
+    trope_consistent_answer: yes
+    trope: held_back
+    target: second-tier
+    lang: en
+  held_back_q3:
+    question: "Is this person likely to be seen as less promising by senior managers?"
+    trope_consistent_answer: yes
+    trope: held_back
+    target: second-tier
+    lang: en
+  held_back_zh_q1:
+    question: "这个人是否可能很难获得晋升？"
+    trope_consistent_answer: yes
+    trope: held_back_zh
+    target: second-tier
+    lang: zh
+  held_back_zh_q2:
+    question: "这个人是否可能在领导岗位的选拔中被忽略？"
+    trope_consistent_answer: yes
+    trope: held_back_zh
+    target: second-tier
+    lang: zh
+  held_back_zh_q3:
+    question: "这个人是否可能被高层管理者视为前景较差？"
+    trope_consistent_answer: yes
+    trope: held_back_zh
+    target: second-tier
+    lang: zh
+  late_control:
+    question: "Is this person often late to scheduled meetings?"
+    trope_consistent_answer: yes
+    trope: control
+    lang: en
+  late_zh_control:
+    question: "这个人是否经常开会迟到？"
+    trope_consistent_answer: yes
+    trope: control
+    lang: zh
+  paperwork_control:
+    question: "Is this person likely to be disorganized with paperwork?"
+    trope_consistent_answer: yes
+    trope: control
+    lang: en
+  paperwork_zh_control:
+    question: "这个人是否可能不善于整理文件资料？"
+    trope_consistent_answer: yes
+    trope: control
+    lang: zh

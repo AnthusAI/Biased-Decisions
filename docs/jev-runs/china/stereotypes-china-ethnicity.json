@@ -1,0 +1,18 @@
+{
+  "schema": "kev-coverage@1",
+  "checkpoint": "jaredpalmer/kev-0.8b@54f4f8777356cd5bbbb6c6919c657f26e6f2f6d8",
+  "cells": [
+    {
+      "task": "stereotypes-china-ethnicity",
+      "cue": "china",
+      "requests": 2525,
+      "status": "ready",
+      "files": {
+        "tasks/stereotypes-china-ethnicity/question.yaml": "69b04f55587b4fa9158a748e7f3e595670778f6133c9450293c6b01290a68b76",
+        "tasks/stereotypes-china-ethnicity/items.jsonl": "61d86f92be4feac94e4756e9c25521700b283590e1d80eb5e30ffe25636fc512",
+        "tasks/stereotypes-china-ethnicity/versions/china.jsonl": "62e681b9a9de9178ba7911e482d5bcab79e52aad885424a4246f5a5d45238446"
+      },
+      "item_cap": 500
+    }
+  ]
+}

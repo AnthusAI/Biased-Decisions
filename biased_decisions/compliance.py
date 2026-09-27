@@ -315,7 +315,10 @@ MAPPING: List[dict] = [
        "recipes": ["test-one-characteristic"], "insights": ["measure-before-deploying"]}
       for dim_id in ("nationality-stereotypes", "racial-and-ethnic-stereotypes", "china-regional-stereotypes",
                      "india-caste-and-regional-stereotypes", "african-ethnic-stereotypes", "sexual-orientation-stereotypes",
-                     "family-status-stereotypes", "antisemitic-stereotypes", "antisemitic-stereotypes-loan-narratives")],
+                     "family-status-stereotypes", "antisemitic-stereotypes", "antisemitic-stereotypes-loan-narratives",
+                     "islamophobic-stereotypes", "islamophobic-stereotypes-loan-narratives", "china-stereotypes-region",
+                     "china-stereotypes-hukou", "china-stereotypes-ethnicity", "china-stereotypes-religion",
+                     "china-stereotypes-education")],
     {"dimension": "antisemitism-decisions", "regulated": False,
      "reason": "These tests ask which of two occupations a short biography describes, with a phrase about Jewish "
                "identity added. Rules about religion and national origin may bear on a decision like this if it screens "

@@ -326,6 +326,10 @@ def test_batch2_clauses_and_pending_predictions_are_verbatim(doc):
         text = prereg_b3 + prereg if _is_stereotype_board(dim["id"]) else prereg
         if dim["id"].startswith("antisemitic-stereotypes"):   # its phrases and questions are registered in its own document
             text += _clean((DEFAULT_ROOT / "docs" / "antisemitic-tropes-preregistration.md").read_text(encoding="utf-8"))
+        for prefix, doc_name in (("islamophobic-stereotypes", "islamophobic-tropes-preregistration.md"),
+                                 ("china-stereotypes-", "china-tropes-preregistration.md")):
+            if dim["id"].startswith(prefix):
+                text += _clean((DEFAULT_ROOT / "docs" / doc_name).read_text(encoding="utf-8"))
         for g in bd["groups"]:
             if g.get("clause"):
                 # a phrase with separate female and male forms ("A lesbian, / A gay man, ") is verbatim in each form
@@ -750,3 +754,32 @@ def test_a_board_row_says_which_way_the_model_moved_where_the_result_has_a_direc
     assert rows["kev"]["direction"]["toward"] == "down" and rows["kev"]["direction"]["signed_pts"] < 0
     # the size is how far it moved; a stereotype score is toward the stereotype by construction, so it has no direction
     assert rows["laya"]["direction"] is None
+
+
+def test_the_islamophobia_and_china_boards_are_measured_for_all_three_models(doc):
+    dims = _dims(doc)
+    for dim_id in ("islamophobic-stereotypes", "islamophobic-stereotypes-loan-narratives"):
+        dim = dims[dim_id]
+        assert len(dim["breakdown"]["items"]) == 6 and len(dim["breakdown"]["groups"]) == 4
+        cell = _cell(dim, "islamophobia-religious", "violence")
+        for engine in ("laya", "kev", "jev"):
+            assert cell["engines"][engine]["status"] == "measured", (dim_id, engine)
+    region = dims["china-stereotypes-region"]
+    assert [i["id"] for i in region["breakdown"]["items"]] == [
+        "dishonesty", "dishonesty-zh", "roughness", "roughness-zh", "snobbery", "snobbery-zh"]
+    henan = _cell(region, "henan", "dishonesty-zh")
+    for engine in ("laya", "kev", "jev"):
+        assert henan["engines"][engine]["status"] == "measured"
+        assert "not yet been checked by a native speaker" in henan["engines"][engine]["note"]
+    # a stereotype is scored for the one group it is documented for
+    assert _cell(region, "shanghai", "dishonesty")["engines"]["laya"]["status"] == "missing"
+
+
+def test_the_china_page_data_has_every_axis_with_english_and_chinese_results(doc):
+    china = doc["china"]
+    assert [a["id"] for a in china["axes"]] == ["region", "hukou", "ethnicity", "religion", "education"]
+    for axis in china["axes"]:
+        for trope in axis["tropes"]:
+            for engine in ("laya", "kev", "jev"):
+                assert set(trope["results"][engine]) == {"en", "zh"}
+    assert "native speaker" in china["translation_note"]
