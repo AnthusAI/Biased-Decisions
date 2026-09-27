@@ -1,0 +1,46 @@
+---
+import Base from "../../layouts/Base.astro";
+import { pageIntroductions } from "../../lib/introductions.js";
+import { urls } from "../../lib/site.js";
+
+const intro = pageIntroductions.antisemitismIsrael;
+---
+<Base title={intro.title} description={intro.intro} path={`${urls.home()}antisemitism-and-israel/`} current={{ page: "antisemitism-israel" }}
+  crumbs={[{ label: "Leaderboard", href: urls.home() }, { label: "Antisemitism, Israeli identity and anti-Israel claims" }]}>
+  <section class="wrap hero">
+    <p class="kicker">Related studies</p>
+    <h1 class="display xl">{intro.title}</h1>
+    <p class="deck">{intro.intro}</p>
+  </section>
+
+  <section class="wrap section" aria-labelledby="start-h">
+    <h2 class="display" id="start-h">Start with the question you have</h2>
+    <div class="card-grid">
+      <article class="result-card"><h3>Does a model repeat antisemitic stereotypes?</h3><p>Read the dedicated study across professional biographies and synthetic loan narratives. It tests model answers to stereotype questions, not people.</p><a href={`${urls.home()}antisemitism/`}>Open antisemitic stereotype results</a></article>
+      <article class="result-card"><h3>Does stating Israeli nationality change a decision?</h3><p>Compare the same small-business-loan application after a nationality sentence changes. This is treatment in a loan decision, not a test of political views.</p><a href={urls.dim("nationality")}>Open nationality decision results</a></article>
+      <article class="result-card"><h3>Will a model agree with anti-Israel rhetoric?</h3><p>See the three fixed, IHRA-sourced direct-opinion claims about self-determination, double standards and Nazi comparisons. These rates have no neutral comparison verdict.</p><a href={`${urls.home()}opinion-claims/#anti_israel`}>Open anti-Israel opinion claims</a></article>
+    </div>
+  </section>
+
+  <section class="wrap section" aria-labelledby="map-h">
+    <h2 class="display" id="map-h">What each study does—and does not—measure</h2>
+    <div class="table-scroll" tabindex="0" role="region" aria-label="Map of antisemitism and Israel-related studies">
+      <table class="cell-table"><thead><tr><th scope="col">Study</th><th scope="col">What changes or is asked</th><th scope="col">What it does not establish</th></tr></thead><tbody>
+        <tr><th scope="row"><a href={`${urls.home()}antisemitism/`}>Antisemitic stereotype study</a></th><td>A biography or loan narrative says a person is Jewish, devout Jewish, Israeli, connected with a synagogue, or has a Jewish-associated surname.</td><td>It does not measure a model’s views on the Israeli–Palestinian conflict or the truth of any stereotype.</td></tr>
+        <tr><th scope="row"><a href={urls.dim("nationality")}>Israeli-nationality decision arm</a></th><td>The same synthetic loan application identifies its principal with a nationality, including Israeli and Palestinian.</td><td>It does not measure beliefs about Israel, Palestine, Zionism, a government, or a conflict.</td></tr>
+        <tr><th scope="row"><a href={`${urls.home()}opinion-claims/#anti_israel`}>Anti-Israel opinion claims</a></th><td>The model is directly asked whether it agrees with three fixed statements drawn from IHRA’s Israel-related examples.</td><td>It does not measure treatment of a person in a decision, and it does not label a direct-agreement rate as a bias verdict.</td></tr>
+      </tbody></table>
+    </div>
+  </section>
+
+  <section class="wrap section" aria-labelledby="gaza-h">
+    <h2 class="display" id="gaza-h">Israel–Gaza: not a completed study here</h2>
+    <p class="lede">We do not currently publish an Israel–Gaza or Gaza/Hamas evaluation. The ADL’s <em>Generating Hate</em> report includes that domain; our source review records it as a gap, not as a result we recreated. The existing anti-Israel opinion arm is narrower: it asks three fixed statements about Israel’s legitimacy, double standards and Nazi comparisons.</p>
+    <p class="note">That distinction matters. A future Israel–Gaza study would need its own preregistration, question set and controls before any model is asked a new item.</p>
+  </section>
+
+  <section class="wrap section" aria-labelledby="sources-h">
+    <h2 class="display" id="sources-h">Source and study records</h2>
+    <p class="lede">The opinion-claim arm is adapted from the direct-claim style used in ADL’s <em>Generating Hate</em>; it is not a claim that this project reproduced ADL’s full evaluation. See the <a href="https://github.com/AnthusAI/Biased-Decisions/blob/main/docs/opinion-claims-preregistration.md">opinion study plan</a>, the <a href="https://github.com/AnthusAI/Biased-Decisions/blob/main/docs/antisemitic-tropes-preregistration.md">stereotype study plan</a>, and the <a href="https://github.com/AnthusAI/Biased-Decisions/blob/main/docs/tropes-round2-sources.md">ADL source review and gap note</a>.</p>
+  </section>
+</Base>
