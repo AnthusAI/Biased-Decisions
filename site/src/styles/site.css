@@ -365,6 +365,10 @@ details.cell > *:not(summary) { margin-left: 18px; margin-right: 18px; }
   .masthead { position: static; backdrop-filter: none; }
   .mast-row { gap: 6px; }
   .topnav { gap: 2px 12px; font-size: 13.5px; }
+  /* On a narrow screen, wrap the pill nav onto more lines instead of scrolling it sideways: a
+     horizontally-scrolling primary nav is easy to miss and awkward to use with a thumb. */
+  .rail { flex-wrap: wrap; overflow-x: visible; -webkit-mask-image: none; mask-image: none; padding-bottom: 6px; }
+  .rail-sep { display: none; }
 }
 
 /* ---------------------------------------------------------------------------------------------
