@@ -3,16 +3,41 @@
   "title": "Opinion-claims study: review and publish the real results page",
   "description": "Data collection and scoring are done: preregistration, scorer, and Laya/Kev/Jev answers for the 15-claim, 5-domain opinion-claims-antisemitism study are committed on branch feat/opinion-claims-page (cherry-picked from feat/opinion-claims + a real results page wired in, replacing the /opinion-claims/ placeholder). biased_decisions/leaderboard.py gained _opinion_claims_summary(); site/src/pages/opinion-claims/index.astro now renders each domain's sourced claims and each model's agree_pct/range per domain, including the Holocaust-denial-adjacent domain. Per docs/opinion-claims-preregistration.md's own publishing rule, a person must read the exact page copy before this goes live -- that review has not happened yet. Remaining work: review page copy, run 'make site PY=python3' + site tests on that branch, open a PR, and merge/release.",
   "type": "story",
-  "status": "open",
+  "status": "in_progress",
   "priority": 2,
   "assignee": null,
   "creator": null,
   "parent": null,
   "labels": [],
   "dependencies": [],
-  "comments": [],
+  "comments": [
+    {
+      "id": "82d205d1-b63d-4da4-9a1c-44ae6cb5b1a1",
+      "author": "home",
+      "text": "Production deployment for the merged opinion-claims drill-down failed in biased_decisions/leaderboard_test.py: the test still requires Jev to be complete after the newly published Laya-only Israeli-nationality study. The public record correctly reports Jev as incomplete. I am updating the obsolete test expectation, rerunning the relevant checks, and releasing the merged page.",
+      "created_at": "2026-09-27T19:53:43.060455Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "codex",
+        "model": "GPT-5",
+        "name": "root"
+      }
+    },
+    {
+      "id": "f0a110c1-452d-4df6-a512-ba48d88f22fd",
+      "author": "home",
+      "text": "Verified the deployment correction with the Amplify-equivalent command: 599 Python checks passed, then the Astro build and 28 site checks passed. The update now asserts the accurate published state: Jev is incomplete only for the Laya-only Israeli-nationality decisions study.",
+      "created_at": "2026-09-27T20:09:20.400772Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "codex",
+        "model": "GPT-5",
+        "name": "root"
+      }
+    }
+  ],
   "created_at": "2026-09-27T17:11:40.357131Z",
-  "updated_at": "2026-09-27T17:11:47.340820Z",
+  "updated_at": "2026-09-27T20:09:20.400798Z",
   "closed_at": null,
   "agent": {
     "platform": "claude_code",
