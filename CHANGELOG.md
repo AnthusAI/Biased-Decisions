@@ -1,3 +1,10 @@
+# [1.41.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.40.3...v1.41.0) (2026-09-27)
+
+
+### Features
+
+* **site:** combine nationality study results ([1d1be9b](https://github.com/AnthusAI/Biased-Decisions/commit/1d1be9b97126e50ef6018ed2c976f05377c6fb31))
+
 ## [1.40.3](https://github.com/AnthusAI/Biased-Decisions/compare/v1.40.2...v1.40.3) (2026-09-27)
 
 
