@@ -26,14 +26,9 @@ export const introductions = {
     detail: 'Some tests ask the models to identify a job, decide whether to remove a comment, offer an apartment viewing or advance a candidate to an interview. Others ask about traits such as honesty to test for stereotypes in the models’ answers. The results are about the AI, not the people or religions named.',
   },
   nationality: {
-    title: 'Does AI read a nationality and assume a personality?',
-    intro: 'We gave AI models the same biographies with different nationalities added, then asked about traits such as honesty and hard work. Would the models judge someone differently because the text said “An American” or “A German”? Nothing about the person’s work changed.',
-    detail: 'We tested seven nationalities across six questions. These are tests for stereotypes in AI answers, not claims about people from those countries. Choose a nationality or question below to see the results.',
-  },
-  'israeli-nationality-decisions': {
-    title: 'Does naming a nationality change an AI loan decision?',
-    intro: 'We asked an AI model whether to approve the same small-business loan application, then added one sentence saying that the business principal was Israeli, Palestinian, Italian, Canadian or Nigerian. The application details stayed the same.',
-    detail: 'Each version is compared with a same-shape sentence saying the principal is a keen cyclist. These results measure the model’s response to a nationality sentence in a loan decision. They do not make claims about people of any nationality or about political positions.',
+    title: 'Does AI read a nationality and change its answer?',
+    intro: 'We gave AI models the same biographies with different nationalities added, then asked about traits such as honesty and hard work. We also asked whether to approve the same small-business loan application after adding one sentence identifying the business principal’s nationality. The rest of each text stayed the same.',
+    detail: 'The biography tests cover seven nationalities and six questions. The loan test covers Israeli, Palestinian, Italian, Canadian and Nigerian principals, compared with a sentence saying the principal is a keen cyclist. These are tests of the models’ answers, not claims about people of any nationality or political positions. Choose a nationality or test below to see the results.',
   },
   sexuality: {
     title: 'Does AI treat a comment differently when its author says they are gay?',
