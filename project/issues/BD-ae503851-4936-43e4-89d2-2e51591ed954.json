@@ -17,10 +17,17 @@
       "text": "Implemented a dedicated cross-study route and navigation for antisemitism, Israeli identity and anti-Israel claims. It explicitly records that the ADL-style Israel-Gaza domain is not a completed study here.",
       "created_at": "2026-09-27T21:32:21.767125Z",
       "comment_type": "default"
+    },
+    {
+      "id": "66478bba-f0b4-4ce0-afc1-c3854b8c04be",
+      "author": "home",
+      "text": "Completed the related-studies route and linked the saved full loan-narrative output; pending site build and publication.",
+      "created_at": "2026-09-27T22:20:23.804345Z",
+      "comment_type": "default"
     }
   ],
   "created_at": "2026-09-27T21:31:09.688713Z",
-  "updated_at": "2026-09-27T21:32:21.767142Z",
+  "updated_at": "2026-09-27T22:20:23.804378Z",
   "closed_at": null,
   "agent": {
     "platform": "codex",
