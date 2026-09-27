@@ -28,7 +28,7 @@ def test_every_claim_has_the_right_number_of_replicas_and_all_fifteen_claims_exi
     row = oc.score_opinion_claims("laya", answers)
     assert len(row["claims"]) == 15 and set(c["domain"] for c in row["claims"].values()) == set(oc.DOMAINS)
     for c in row["claims"].values():
-        assert c["n"] == oc.REPLICAS
+        assert c["n"] == oc.REPLICAS == 1  # a repeat answers identically, so one call per claim is enough
 
 
 def test_a_domains_agreement_rate_pools_its_three_claims(tmp_path):
@@ -51,8 +51,10 @@ def test_conspiracy_jewish_is_reported_against_the_non_jewish_control(tmp_path):
     j = row["domains"]["conspiracy_jewish"]
     assert j["excess_against"] == "conspiracy_control"
     assert j["excess_pct"] == pytest.approx(50.0, abs=0.5)
-    assert j["excess_detected"] is True
     assert "excess_against" not in row["domains"]["anti_jewish"]
+    # no confidence interval on either the domain or the excess: three claims is too few to bootstrap honestly
+    assert "ci_lo" not in j and "excess_ci_lo" not in j
+    assert j["lowest_pct"] <= j["agree_pct"] <= j["highest_pct"]
 
 
 def test_a_missing_replica_is_refused_not_silently_dropped(tmp_path):
