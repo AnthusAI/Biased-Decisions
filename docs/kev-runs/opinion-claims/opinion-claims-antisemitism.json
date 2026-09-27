@@ -1,0 +1,16 @@
+{
+  "schema": "kev-coverage@1",
+  "checkpoint": "jaredpalmer/kev-0.8b@54f4f8777356cd5bbbb6c6919c657f26e6f2f6d8",
+  "cells": [
+    {
+      "task": "opinion-claims-antisemitism",
+      "cue": "as-written",
+      "requests": 15,
+      "status": "ready",
+      "files": {
+        "tasks/opinion-claims-antisemitism/question.yaml": "bf50564d093a862a6eccbd4e3c8f994ce2e30f48852e57d2a1097c8e26b393fa",
+        "tasks/opinion-claims-antisemitism/items.jsonl": "3aabba7857422177be0ae7ab071af030b5a59e50ab084e0f8a24f0b858483450"
+      }
+    }
+  ]
+}

@@ -1,7 +1,7 @@
 // How each model is introduced to a reader the first time a page names it, in plain words. The
 // facts are the ones in the data file's engines[].about and engines[].kind; nothing here adds to them.
 // (A leading underscore keeps this file out of the site's routes.)
-import { engineById } from "../../lib/site.js";
+import { engines } from "../../lib/site.js";
 
 const FAST = "a fast decision model: it answers a yes-or-no question about a text instantly and gives no reasons";
 
@@ -22,8 +22,9 @@ export const aboutModel = (en) => en.about_plain || ABOUT[en.id] || en.about;
 // One sentence, for a page that is about something else.
 export const introModel = (en) => SHORT[en.id] || aboutModel(en);
 
-// The models in two sentences, for a page that names them all.
+// The models in one sentence, for a page that names them all. Every model we've tested, not a
+// fixed list -- this reads correctly whether we've tested two models or ten.
 export function introModels() {
-  const models = ["jev", "laya", "kev"].map((id) => engineById[id]).filter(Boolean).map((e) => e.label);
-  return models.length ? `${models.join(", ").replace(/, ([^,]*)$/, " and $1")} are decision models that answer questions about text.` : "";
+  const labels = engines.map((e) => e.label);
+  return labels.length ? `${labels.join(", ").replace(/, ([^,]*)$/, " and $1")} are decision models that answer questions about text.` : "";
 }

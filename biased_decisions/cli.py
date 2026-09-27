@@ -182,6 +182,25 @@ def cmd_replay(args: argparse.Namespace) -> int:
                 n_rows += len(rows)
                 print(f"{task_slug}-{cue}: {len(rows)} row(s) -> {out}")
 
+    from biased_decisions import opinion_claims as oc
+    from biased_decisions.record import read_record_by_id, record_path
+    oc_rows = []
+    for engine in ENGINES:
+        if not has_record(engine, oc.SLUG, "as-written", root=root):
+            continue
+        try:
+            answers = read_record_by_id(record_path(engine, oc.SLUG, "as-written", root=root))
+            oc_rows.append(oc.score_opinion_claims(engine, answers))
+        except KeyError as error:
+            print(f"bd replay: skipping ({engine}, {oc.SLUG}, opinion-claims): {error}", file=sys.stderr)
+            continue
+        n_cells += 1
+    if oc_rows:
+        out = root / "studies" / f"{oc.SLUG}.jsonl"
+        write_rows(out, oc_rows, ("engine",))
+        n_rows += len(oc_rows)
+        print(f"{oc.SLUG}: {len(oc_rows)} row(s) -> {out}")
+
     from biased_decisions import antisemitism
     for slug in antisemitism.SLUGS:
         task = load_task(slug, root=root)
