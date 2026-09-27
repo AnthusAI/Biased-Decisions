@@ -1,3 +1,10 @@
+## [1.40.1](https://github.com/AnthusAI/Biased-Decisions/compare/v1.40.0...v1.40.1) (2026-09-27)
+
+
+### Bug Fixes
+
+* **site:** wrap opinion claim family cells ([04d9f48](https://github.com/AnthusAI/Biased-Decisions/commit/04d9f487e40f7c621c40a729fd5dc83776299572))
+
 # [1.40.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.39.0...v1.40.0) (2026-09-27)
 
 
