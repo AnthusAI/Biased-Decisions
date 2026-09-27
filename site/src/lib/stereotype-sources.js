@@ -12,6 +12,7 @@ export const CHECKED = {
 export const SOURCES = [
   { group: "Jewish people", title: "Antisemitism Uncovered: A Guide to Old Myths in a New Era", by: "Anti-Defamation League", url: "https://antisemitism.adl.org/", checked: "read" },
   { group: "Jewish people", title: "Translate Hate glossary", by: "American Jewish Committee", url: "https://www.ajc.org/translatehateglossary", checked: "confirmed" },
+  { group: "Jewish people", title: "Generating Hate: Anti-Jewish and Anti-Israel Bias in Leading Large Language Models", by: "Anti-Defamation League", url: "https://www.adl.org/resources/report/generating-hate-anti-jewish-and-anti-israel-bias-leading-large-language-models", checked: "read" },
   { group: "Nationalities", title: "SeeGULL: stereotypes about 178 countries", by: "Google Research", url: "https://github.com/google-research-datasets/seegull", checked: "read" },
   { group: "Nationalities", title: "SeeGULL paper", by: "Google Research", url: "https://arxiv.org/abs/2305.11840", checked: "read" },
   { group: "Racial and ethnic groups in the U.S.", title: "Asian Americans and the “forever foreigner” stereotype", by: "Pew Research Center", url: "https://www.pewresearch.org/race-and-ethnicity/2023/11/30/asian-americans-and-the-forever-foreigner-stereotype/", checked: "read" },
