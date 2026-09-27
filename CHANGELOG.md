@@ -1,3 +1,10 @@
+## [1.40.3](https://github.com/AnthusAI/Biased-Decisions/compare/v1.40.2...v1.40.3) (2026-09-27)
+
+
+### Bug Fixes
+
+* **site:** wrap top filter rail ([8e37921](https://github.com/AnthusAI/Biased-Decisions/commit/8e379217c13054138b9be80d9b91a8c0cc434bc8))
+
 ## [1.40.2](https://github.com/AnthusAI/Biased-Decisions/compare/v1.40.1...v1.40.2) (2026-09-27)
 
 
