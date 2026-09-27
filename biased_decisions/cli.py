@@ -309,8 +309,8 @@ def build_parser() -> argparse.ArgumentParser:
     p_answer = sub.add_parser(
         "answer", help="fill a record cell (needs a key or a GPU; refuses without one)")
     p_answer.add_argument("engine", choices=ENGINES)
-    p_answer.add_argument("task", choices=BIOS_TASKS + REGULATED_TASKS)
-    p_answer.add_argument("--cue", required=True, choices=SCORE_CUES)
+    p_answer.add_argument("task", choices=BIOS_TASKS)
+    p_answer.add_argument("--cue", required=True, choices=CUES)
     p_answer.add_argument("--price-only", action="store_true",
                           help="print a cost estimate and exit; place no request")
     p_answer.set_defaults(func=cmd_answer)
