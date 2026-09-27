@@ -1,18 +1,13 @@
 ---
-// The inversion page (BD-1c8487): Munger's "invert, always invert" applied to deploying a fast
-// decision model. Each recipe is a deployment pattern, the regulated decision it would hit, the
-// measurement that shows why, and the practice that inverts it. Every recipe has a stable anchor
-// (its id in the data contract) so risk panels can deep-link to it.
+// Munger's inversion applied to fast decision models: identify the choices that could cause a
+// bad outcome, then avoid them. Compact cards retain stable anchors for risk-panel deep links.
 import Base from "../../layouts/Base.astro";
-import EvidenceItem from "../../components/EvidenceItem.astro";
-import { dimById, urls } from "../../lib/site.js";
-import { C, curls, practiceLabel, insightById, citationById, REPO_BLOB, evidence } from "../../lib/compliance.js";
+import { urls } from "../../lib/site.js";
+import { C, curls, REPO_BLOB, evidence } from "../../lib/compliance.js";
 
 const inv = C.inversion;
-const dimsFor = (rid) => C.mapping.filter((m) => m.recipes.includes(rid)).map((m) => dimById[m.dimension]);
-const citesFor = (rid) => [...new Set(C.mapping.filter((m) => m.regulated && m.recipes.includes(rid)).flatMap((m) => m.citations))].map((c) => citationById[c]);
 const lead = evidence("shortlist-laya-attorney-500");
-const description = `Charlie Munger's inversion applied to fast decision models: ${C.recipes.length} ways to deploy one that would reliably put a regulated decision at risk, each tied to a measured result and paired with the practice that inverts it. Not legal advice.`;
+const description = "Charlie Munger's inversion for fast decision models: they can be useful, so ask what deployment choices would make them fail—and avoid those choices. Not legal advice.";
 ---
 <Base title="How to cause a compliance failure" description={description} path={curls.howToFail()} current={{ page: "how-to-fail" }}
   crumbs={[{ label: "Leaderboard", href: urls.home() }, { label: "How to fail" }]}>
@@ -23,50 +18,28 @@ const description = `Charlie Munger's inversion applied to fast decision models:
       <blockquote><p>“{inv.quote}”</p></blockquote>
       <figcaption>{inv.attribution}. <a href={inv.source_url}>Transcript</a>.</figcaption>
     </figure>
-    <p class="deck">{inv.lede}</p>
-    <p class="finding inv-finding"><span class="finding-num">{lead.ratio}</span><span class="finding-txt"><a href={lead.href}>{lead.sentence}</a>: the four-fifths ratio of a shortlist built the first two ways below. The line is {C.shortlist.line.toFixed(2)}.</span></p>
+    <p class="deck">Decision models can be genuinely useful. Inversion asks the more useful second question: <strong>what choices would make this deployment fail?</strong> The cards below name those choices and the safer alternative.</p>
+    <p class="finding inv-finding"><span class="finding-num">{lead.ratio}</span><span class="finding-txt"><a href={lead.href}>Laya's measured shortlist fell below the {C.shortlist.line.toFixed(2)} four-fifths line.</a> That is why the deployment choices matter.</span></p>
     <div class="footnote risk-notice" role="note"><p>{C.notice}</p></div>
   </section>
 
-  <nav class="wrap section tight" aria-labelledby="recipes-h">
-    <h2 class="display sm" id="recipes-h">The recipes</h2>
-    <ol class="recipe-toc">
-      {C.recipes.map((r) => <li><a href={`#${r.id}`}>{r.title}</a></li>)}
-    </ol>
-  </nav>
-
-  {C.recipes.map((r, i) => (
-    <article class="wrap section recipe" id={r.id} aria-labelledby={`${r.id}-h`}>
-      <p class="recipe-n">Recipe {i + 1} <a class="anchor" href={`#${r.id}`} aria-label={`Link to recipe ${i + 1}`}>#</a></p>
-      <h2 class="display" id={`${r.id}-h`}>{r.title}</h2>
-      <div class="recipe-grid">
-        <div class="recipe-do">
-          <h3>The deployment pattern</h3>
-          <p>{r.pattern}</p>
-          <h3>The regulated decision it hits</h3>
-          <p>{r.practices.map(practiceLabel).join("; ")}.{dimsFor(r.id).length > 0 && <Fragment> Flagged on these boards: {dimsFor(r.id).map((d, k) => <Fragment>{k ? ", " : ""}<a href={urls.dim(d.id)}>{d.label.toLowerCase()}</a></Fragment>)}.</Fragment>}</p>
-          {citesFor(r.id).length > 0 && <p class="cite-line">Could create exposure under {citesFor(r.id).map((c, k) => <Fragment>{k ? ", " : ""}<a class="cite" href={c.primary_url}>{c.short}</a></Fragment>)}.</p>}
-        </div>
-        <div class="recipe-ev">
-          <h3>What our tests show</h3>
-          <p>{r.what_happens}</p>
-          <ul class="ev-list">{r.evidence.map((id) => <EvidenceItem id={id} />)}</ul>
-        </div>
-      </div>
-      <div class="inverse">
-        <h3>Invert it</h3>
-        <p>{r.inverse}</p>
-        <p class="more-link"><a href={curls.guidance(r.insight)}>Guidance: {insightById[r.insight].title.toLowerCase()}</a></p>
-      </div>
-    </article>
-  ))}
+  <section class="wrap section" aria-labelledby="recipes-h">
+    <h2 class="display sm" id="recipes-h">The failure modes</h2>
+    <p class="lede">These are not instructions. They are a pre-mortem: if a deployment harmed people or broke a rule, which shortcut would have caused it?</p>
+    <div class="compact-cards">
+      {C.recipes.map((r, i) => (
+        <article class="recipe compact-card" id={r.id} aria-labelledby={`${r.id}-h`}>
+          <p class="recipe-n">{String(i + 1).padStart(2, "0")}</p>
+          <h3 id={`${r.id}-h`}>{r.title} <a class="anchor" href={`#${r.id}`} aria-label={`Link to ${r.title}`}>#</a></h3>
+          <p><strong>Instead:</strong> {r.inverse}</p>
+          <p class="card-links"><a href={curls.guidance(r.insight)}>What to do</a><span aria-hidden="true"> · </span>{r.evidence.map((id, k) => <Fragment>{k ? ", " : ""}<a class="ev-link" href={evidence(id).href}>evidence {k + 1}</a></Fragment>)}</p>
+        </article>
+      ))}
+    </div>
+  </section>
 
   <section class="wrap section" id="not-yet-measured" aria-labelledby="nym-h">
     <h2 class="display sm" id="nym-h">Pre-registered, not yet measured</h2>
-    <p class="lede">These decisions are named in the project's pre-registrations with the rules that govern them, but no engine has answered them yet. No warning is shown for them, and no recipe above claims them.</p>
-    <ul class="unmeasured-list">
-      {C.unmeasured.map((u) => <li><strong>{u.decision}</strong> ({u.short}): {u.status}. <a href={`${REPO_BLOB}${u.repo_ref.path}`}>{u.repo_ref.path}</a></li>)}
-    </ul>
-    <p class="note">The companion articles: {C.articles.map((a, k) => <Fragment>{k ? ", " : ""}<a href={a.url}>{a.title}</a></Fragment>)}.</p>
+    <p class="lede">We do not claim a result where no engine has been measured. <a href={`${REPO_BLOB}${C.unmeasured[0].repo_ref.path}`}>See the pre-registered decisions and governing rules.</a></p>
   </section>
 </Base>

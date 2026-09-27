@@ -3,7 +3,7 @@
   "title": "Inversion page: how to cause a compliance failure with a fast decision model",
   "description": "A page applying Charlie Munger's inversion: deployment patterns that would reliably create violations (e.g. using the verdict as the decision, one model for every firm, gating on the cue, unpinned versions, no outcome check), each tied to a measured result and paired with the inverse practice.",
   "type": "story",
-  "status": "open",
+  "status": "in_progress",
   "priority": 2,
   "assignee": null,
   "creator": null,
@@ -34,10 +34,22 @@
         "model": "Claude Opus 5.5",
         "name": "Leaderboard architect"
       }
+    },
+    {
+      "id": "303ffc8f-d5e8-434f-9205-41d2edb0e323",
+      "author": "home",
+      "text": "Rewriting the inversion page as a compact Munger-style thought experiment: fast decision models can be useful, so ask what deployment choices would make them fail; preserve measured-result links and stable anchors while removing repeated detail.",
+      "created_at": "2026-09-27T17:24:12.309687Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "codex",
+        "model": "gpt-5",
+        "name": "root"
+      }
     }
   ],
   "created_at": "2026-09-23T16:19:08.316260Z",
-  "updated_at": "2026-09-23T16:46:05.847771Z",
+  "updated_at": "2026-09-27T17:24:12.309721Z",
   "closed_at": null,
   "agent": {
     "platform": "claude_code",

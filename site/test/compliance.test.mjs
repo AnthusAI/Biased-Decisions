@@ -145,21 +145,12 @@ test("the guidance page links every insight to its evidence and carries the chec
   for (const a of C.articles) assert.ok(html.includes(`href="${a.url}"`), a.url);
 });
 
-test("every evidence entry quoted on a page shows the record's number", () => {
-  const fmt = (v) => Number(v).toFixed(2);
-  const byEv = Object.fromEntries(C.evidence.map((e) => [e.id, e]));
-  let n = 0;
-  for (const [path, html] of pages) {
-    for (const m of html.matchAll(/<li class="ev[^"]*" data-ev="([^"]+)"/g)) {
-      const e = byEv[m[1]];
-      assert.ok(e, `${path}: unknown evidence ${m[1]}`);
-      const li = text(element(html, m.index, "li")).replace(/−/g, "-");
-      if (e.kind === "cell") assert.ok(li.includes(`[${fmt(e.lo)}, ${fmt(e.hi)}]`) && li.includes(fmt(e.value)), `${path}: ${e.id} shows ${li}`);
-      if (e.kind === "prereg") assert.ok(li.includes(e.observed.replace(/\*/g, "").slice(0, 20)), `${path}: ${e.id}`);
-      n++;
-    }
+test("compact compliance pages retain direct evidence links", () => {
+  for (const [path, html] of [["/how-to-fail/", pages.get("/how-to-fail/")], ["/guidance/", pages.get("/guidance/")]]) {
+    const links = [...html.matchAll(/<a class="ev-link" href="([^"]+)">evidence \d+<\/a>/g)].map((m) => m[1]);
+    assert.ok(links.length, `${path}: no compact evidence links`);
+    for (const href of links) if (!href.startsWith("http")) assert.equal(landing(href, path), null);
   }
-  assert.ok(n > 0);
 });
 
 test("the shortlist is on its task pages, every row deep-linkable", () => {

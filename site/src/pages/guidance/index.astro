@@ -1,58 +1,42 @@
 ---
-// The guidance page (BD-3da5fe): what the measurements say about measuring and avoiding the risk,
-// each insight linked to its evidence, and a short pre-deployment checklist.
+// A short, evidence-linked checklist for deploying a fast decision model.
 import Base from "../../layouts/Base.astro";
-import EvidenceItem from "../../components/EvidenceItem.astro";
-import Citation from "../../components/Citation.astro";
 import { urls } from "../../lib/site.js";
-import { C, curls, insightById, REPO_BLOB, evidence } from "../../lib/compliance.js";
+import { C, curls, REPO_BLOB, evidence } from "../../lib/compliance.js";
 
-const recipesFor = (iid) => C.recipes.filter((r) => r.insight === iid);
 const linkHref = (h) => (h === "methods" ? urls.methods() : urls.dim(h));
 const before = evidence("shortlist-laya-attorney-500");
 const after = evidence("twin-laya-attorney-500");
-const description = `Current insights on measuring and avoiding bias risk when a fast decision model makes a regulated decision: paired edits, floors, the four-fifths check at your own cut, twin averaging, option order, version pinning and review. Every insight links to its evidence. Not legal advice.`;
+const description = "A short, evidence-linked checklist for deploying fast decision models in regulated decisions. Not legal advice.";
 ---
 <Base title="Guidance: measuring and avoiding the risk" description={description} path={curls.guidance()} current={{ page: "guidance" }}
   crumbs={[{ label: "Leaderboard", href: urls.home() }, { label: "Guidance" }]}>
   <section class="wrap hero">
     <p class="kicker">Guidance · regulated decisions</p>
     <h1 class="display xl">Measuring and avoiding the risk</h1>
-    <p class="deck">What this project's measurements say, today, about deploying a fast decision model for a decision the law governs. Each insight links to the result behind it; the <a href={curls.howToFail()}>inversion page</a> turns the same evidence into the ways a deployment would fail.</p>
+    <p class="deck">A short checklist for using a fast decision model where the decision matters. Measure the actual outcome, keep the version fixed, and check again when anything changes. The <a href={curls.howToFail()}>inversion page</a> asks the companion question: what could go wrong?</p>
     <p class="finding"><span class="finding-num">{after.ratio}</span><span class="finding-txt"><a href={after.href}>{after.sentence}</a>. Without averaging the ratio was <a href={before.href}>{before.ratio}</a>. The line is {C.shortlist.line.toFixed(2)}.</span></p>
     <div class="footnote risk-notice" role="note"><p>{C.notice}</p></div>
   </section>
 
   <section class="wrap section tight" id="checklist" aria-labelledby="checklist-h">
-    <h2 class="display" id="checklist-h">Before deploying: a checklist</h2>
+    <h2 class="display" id="checklist-h">Before deploying</h2>
     <ol class="checklist">
       {C.checklist.map((c) => <li>{c.text} <a href={`#${c.insight}`}>Why</a></li>)}
     </ol>
   </section>
 
-  {C.insights.map((i) => (
-    <section class="wrap section insight" id={i.id} aria-labelledby={`${i.id}-h`}>
-      <h2 class="display" id={`${i.id}-h`}>{i.title} <a class="anchor" href={`#${i.id}`} aria-label={`Link to ${i.title}`}>#</a></h2>
-      <p class="lede">{i.text}</p>
-      {i.evidence.length > 0 && <Fragment><h3>The evidence</h3><ul class="ev-list">{i.evidence.map((id) => <EvidenceItem id={id} />)}</ul></Fragment>}
-      {(i.links.length > 0 || recipesFor(i.id).length > 0) && (
-        <p class="more-link">{i.links.map((l) => <Fragment><a href={linkHref(l.href)}>{l.label}</a> · </Fragment>)}{recipesFor(i.id).map((r, k) => <Fragment>{k ? " · " : ""}<a href={curls.howToFail(r.id)}>How to fail: {r.title.toLowerCase()}</a></Fragment>)}</p>
-      )}
-    </section>
-  ))}
-
-  <section class="wrap section" id="rules" aria-labelledby="rules-h">
-    <h2 class="display" id="rules-h">The rules cited on this site</h2>
-    <p class="lede">Each rule is cited because a committed pre-registration or survey in the repository names it for the decision measured here; each links to its primary text.</p>
-    <ul class="cite-list">{C.citations.map((c) => <Citation c={c} />)}</ul>
-    <h3>Named, not yet measured</h3>
-    <ul class="unmeasured-list">
-      {C.unmeasured.map((u) => <li><strong>{u.decision}</strong> ({u.short}): {u.status}. <a href={`${REPO_BLOB}${u.repo_ref.path}`}>{u.repo_ref.path}</a></li>)}
-    </ul>
-  </section>
-
-  <section class="wrap section" id="articles" aria-labelledby="articles-h">
-    <h2 class="display sm" id="articles-h">The companion articles</h2>
-    <ul class="art-list">{C.articles.map((a) => <li><a href={a.url}>{a.title}</a></li>)}</ul>
+  <section class="wrap section" aria-labelledby="guidance-h">
+    <h2 class="display sm" id="guidance-h">Why each check matters</h2>
+    <div class="compact-cards">
+      {C.insights.map((i) => (
+        <article class="insight compact-card" id={i.id} aria-labelledby={`${i.id}-h`}>
+          <h3 id={`${i.id}-h`}>{i.title} <a class="anchor" href={`#${i.id}`} aria-label={`Link to ${i.title}`}>#</a></h3>
+          <p>{i.text}</p>
+          <p class="card-links">{i.links.map((l, k) => <Fragment>{k ? " · " : ""}<a href={linkHref(l.href)}>{l.label}</a></Fragment>)}{i.links.length ? <span aria-hidden="true"> · </span> : null}{i.evidence.map((id, k) => <Fragment>{k ? ", " : ""}<a class="ev-link" href={evidence(id).href}>evidence {k + 1}</a></Fragment>)}</p>
+        </article>
+      ))}
+    </div>
+    <p class="note">For the rules and decisions this project has not yet measured, see the <a href={`${REPO_BLOB}${C.unmeasured[0].repo_ref.path}`}>pre-registrations</a>. {C.articles.map((a, k) => <Fragment>{k ? " · " : ""}<a href={a.url}>{a.title}</a></Fragment>)}</p>
   </section>
 </Base>

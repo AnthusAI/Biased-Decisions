@@ -543,6 +543,11 @@ details.cell { scroll-margin-top: 140px; }
 .recipe-grid { display: grid; gap: 8px 40px; }
 @media (min-width: 900px) { .recipe-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); } }
 .recipe h3, .insight h3 { font-size: 13px; text-transform: uppercase; letter-spacing: .1em; color: var(--muted); margin: 18px 0 6px; }
+.compact-cards { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); }
+.compact-card { border: 1px solid var(--rule); border-radius: 10px; padding: 16px; background: var(--surface); }
+.compact-card h3 { color: var(--ink); margin: 0 0 8px; }
+.compact-card p { margin: 0 0 10px; }
+.compact-card .card-links { margin: 0; font-size: 13px; color: var(--muted); }
 .inverse { margin-top: 18px; border-left: 4px solid var(--ink); padding: 4px 0 4px 16px; max-width: 52em; }
 .inverse h3 { margin-top: 4px; }
 .checklist { padding-left: 1.4em; max-width: 52em; }
