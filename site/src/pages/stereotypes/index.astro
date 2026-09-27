@@ -3,7 +3,7 @@
 import Base from "../../layouts/Base.astro";
 import { pageIntroductions, categoryIntro } from "../../lib/introductions.js";
 import { supplementalDimensions, engines, urls } from "../../lib/site.js";
-import { SOURCES, DROPPED, CHECKED } from "../../lib/stereotype-sources.js";
+import { SOURCES, CHECKED } from "../../lib/stereotype-sources.js";
 
 const boards = supplementalDimensions.filter((d) => d.family === "stereotype-question");
 const groups = [...new Set(SOURCES.map((s) => s.group))];
@@ -39,19 +39,17 @@ const intro = pageIntroductions.stereotypes;
 
   <section class="wrap section" id="sources" aria-labelledby="sources-h">
     <h2 class="display" id="sources-h">Where these stereotypes come from</h2>
-    <p class="lede">We did not make these stereotypes up. Each one comes from a published source that documents it, and we checked each source before using it. Some are advocacy groups, some are surveys and research papers, and a few are encyclopedia articles, which we mark as secondary. “Checked” says how far we got with each.</p>
+    <p class="lede">We did not make these stereotypes up. Each one comes from a published source that documents it. Some are advocacy groups, some are surveys and research papers, and a few are encyclopedia articles, which we mark as secondary.</p>
     {groups.map((g) => (
       <Fragment>
         <h3>{g}</h3>
         <ul class="cite-list">
           {SOURCES.filter((s) => s.group === g).map((s) => (
-            <li>{s.url ? <a href={s.url} rel="noopener">{s.title}</a> : s.title}, {s.by}. <em>Checked: {CHECKED[s.checked].toLowerCase()}.</em></li>
+            <li>{s.url ? <a href={s.url} rel="noopener">{s.title}</a> : s.title}, {s.by}.{CHECKED[s.checked] && <Fragment> ({CHECKED[s.checked]})</Fragment>}</li>
           ))}
         </ul>
       </Fragment>
     ))}
-    <h3>Sources we did not use</h3>
-    <ul class="unmeasured-list">{DROPPED.map((t) => <li>{t}</li>)}</ul>
     <p class="footnote">Our full notes are in the <a href="https://github.com/AnthusAI/Biased-Decisions/blob/main/docs/batch3-preregistration.md">public repository</a>.</p>
   </section>
 </Base>
