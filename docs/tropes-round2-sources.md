@@ -90,3 +90,24 @@ the antisemitism study's phrases (a plain label, a devout label, a nationality o
 exist for the group, matched other-group controls, both text sources (Bias in Bios and the loan narratives), and the same scoring
 (target minus matched groups, paired bootstrap, wording agreement, Holm within a stereotype). Muslims first; then Kenya and
 Nigeria; then Uyghurs on the one stereotype the sources support; caste after its sources are read. Registered before any answer.
+
+## A fourth source confirming the antisemitism trope choices, and a gap it exposes (added 2026-09-27)
+
+Anti-Defamation League, Center for Technology and Society, with the ADL Ratings & Assessments Institute and Builders For Tomorrow,
+"Generating Hate: Anti-Jewish and Anti-Israel Bias in Leading Large Language Models" (2025-03-20). Read directly (fetched and summarised).
+Tested GPT, Claude, Gemini and Llama: 8,600 queries each (34,400 responses), 86 statements across six domains -- anti-Jewish bias,
+anti-Israel bias, the Gaza/Hamas war, Jewish/Israeli conspiracy theories, Holocaust conspiracy theories, and non-Jewish conspiracy
+theories as a control -- plus a persona-name axis (Jewish, Arab, Anglo-American). Found bias in every model tested, most on
+conspiracy questions specific to Jews; did not test Kev, Laya or Jev.
+
+**What this confirms.** It independently converges on the same conspiracy and outsized-influence tropes this project already tests
+(`dual_loyalty`, `conspiracy`, `banks_media_government`).
+
+**A gap it exposes.** The report treats "anti-Jewish bias" and "anti-Israel bias" as two separate domains. This project's `antisemitism-nationality`
+cue ("An Israeli," read against Italian, Canadian and Nigerian) only tests whether an Israeli nationality label triggers the *same six antisemitic
+tropes* -- it is a way of saying "Jewish" indirectly, not a test of anti-Israel bias itself (views on the Israeli-Palestinian conflict, Israel's
+legitimacy, government policy). This project's own preregistration (`docs/antisemitic-tropes-preregistration.md`) scopes "anti-Zionism/anti-Israel
+delegitimization" out, alongside deicide, blood libel and Holocaust denial, "because they are religious-historical or political-discourse claims, not
+claims that map onto a yes/no professional-screening question." **That scope decision is unchanged by this source and stands.** A genuine anti-Israel-bias
+study (of the kind the ADL report runs) is a different, more politically fraught design -- opinion questions about a live conflict, not a
+professional-screening stereotype -- and is not started here.
