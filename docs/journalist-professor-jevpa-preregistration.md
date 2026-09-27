@@ -27,6 +27,8 @@ Two text-defined, sealed selection slices are registered before sampling:
 The selection set reserves 200 rows matching each slice, then fills the
 remaining 200 from the seeded remainder. Slice membership, selection/test
 labels, and gender are never presented to the analyst or used in fitting.
+The frozen split-manifest SHA-256 is
+`1b327fdcaf64a223786a1fb6043f7233c5c75b3465303bcd12a4700389483fcc`.
 
 ## Search and retention
 
