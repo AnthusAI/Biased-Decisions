@@ -22,10 +22,22 @@
         "model": "gpt-5",
         "name": "root"
       }
+    },
+    {
+      "id": "e63679f6-20d5-40e7-b0b5-08e99f321618",
+      "author": "home",
+      "text": "Laya completed all 6,000 pre-registered loan-decision versions. The replayed record and public nationality-lending board are in PR #71. Verified 69 relevant Python tests and 28 rendered-site tests; no Jev spend.",
+      "created_at": "2026-09-27T19:20:44.081009Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "codex",
+        "model": "gpt-5",
+        "name": "root"
+      }
     }
   ],
   "created_at": "2026-09-27T19:06:14.812606Z",
-  "updated_at": "2026-09-27T19:08:29.495588Z",
+  "updated_at": "2026-09-27T19:20:44.081041Z",
   "closed_at": null,
   "agent": {
     "platform": "codex",
