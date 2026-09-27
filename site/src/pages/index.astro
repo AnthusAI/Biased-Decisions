@@ -9,7 +9,7 @@ import { data, engines, dimensions, supplementalDimensions, engineById, urls, he
   fmt, signed, unit, largestBias } from "../lib/site.js";
 
 const nDims = dimensions.length;
-const stereotypeBoards = supplementalDimensions.filter((d) => /-stereotypes(-|$)/.test(d.id));
+const stereotypeBoards = supplementalDimensions.filter((d) => d.family === "stereotype-question");
 const rows = data.overall.rows;
 const nTestedModels = rows.filter((r) => r.measured_on > 0).length;
 const nCells = dimensions.reduce((a, d) => a + Object.values(d.cells).filter((c) => c.status === "measured").length, 0);

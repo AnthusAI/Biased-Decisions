@@ -92,11 +92,13 @@ h3 { font-size: 18px; font-weight: 700; margin: 1.6em 0 .4em; }
 .rail a { position: relative; white-space: nowrap; color: var(--ink-2); text-decoration: none; padding: 3px 10px; border: 1px solid var(--rule); border-radius: 999px; background: var(--surface); }
 .rail a:hover { border-color: var(--ink-2); }
 .rail a.on { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+.rail-sep { align-self: center; width: 1px; height: 16px; background: var(--rule); margin: 0 2px; flex: none; }
 .mk { flex: none; vertical-align: -1px; }
 
 /* Hero */
 .hero { padding-top: clamp(36px, 7vw, 88px); padding-bottom: 16px; }
 .kicker { text-transform: uppercase; letter-spacing: .14em; font-size: 12px; font-weight: 700; color: var(--muted); margin: 0 0 14px; }
+.family-explain { color: var(--muted); margin-top: -4px; }
 .deck { font-size: clamp(17px, 2vw, 21px); line-height: 1.55; max-width: 44em; color: var(--ink-2); margin: 8px 0 28px; }
 .finding { display: flex; gap: 18px; align-items: baseline; flex-wrap: wrap; border-top: 3px solid var(--alarm); padding-top: 16px; margin: 0 0 40px; max-width: 58em; }
 .finding-num { font-family: var(--display); font-size: clamp(64px, 10vw, 120px); line-height: .8; color: var(--alarm); }
@@ -317,7 +319,11 @@ details.cell > *:not(summary) { margin-left: 18px; margin-right: 18px; }
 .rules li { margin-bottom: 12px; }
 .method-dim { border-top: 1px solid var(--rule); padding: 8px 0 18px; }
 .method-dim h3 { margin: 12px 0 0; font-size: 20px; }
-.code { background: var(--ink); color: var(--bg); padding: 16px 18px; border-radius: 10px; overflow-x: auto; }
+.code { background: var(--ink); color: var(--bg); padding: 16px 18px; border-radius: 10px; overflow-x: auto; white-space: pre-wrap; word-break: break-word; }
+.diagram { margin: 20px 0; text-align: center; }
+.diagram img { max-width: 100%; height: auto; border-radius: 10px; background: #fff; border: 1px solid var(--rule); }
+.req-resp { margin-top: 18px; padding: 16px 18px; border: 1px solid var(--rule); border-radius: 10px; background: var(--surface-2); }
+.req-resp h3 { margin: 0 0 6px; font-size: 15px; }
 .code code { background: none; color: inherit; padding: 0; }
 .sources li { margin-bottom: 8px; font-size: 14.5px; }
 
@@ -364,6 +370,10 @@ details.cell > *:not(summary) { margin-left: 18px; margin-right: 18px; }
   .masthead { position: static; backdrop-filter: none; }
   .mast-row { gap: 6px; }
   .topnav { gap: 2px 12px; font-size: 13.5px; }
+  /* On a narrow screen, wrap the pill nav onto more lines instead of scrolling it sideways: a
+     horizontally-scrolling primary nav is easy to miss and awkward to use with a thumb. */
+  .rail { flex-wrap: wrap; overflow-x: visible; -webkit-mask-image: none; mask-image: none; padding-bottom: 6px; }
+  .rail-sep { display: none; }
 }
 
 /* ---------------------------------------------------------------------------------------------

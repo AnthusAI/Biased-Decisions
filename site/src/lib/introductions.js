@@ -184,6 +184,11 @@ export function resultIntro(dim, group, item) {
 
 // Shared by page headings and social previews so editorial changes travel together.
 export const pageIntroductions = {
+  'opinion-claims': {
+    title: 'Does an AI model agree with a biased or hateful claim?',
+    intro: 'Our other tests change a detail in a decision or describe a hypothetical person. This kind of test puts a claim directly to the model, with no decision and no person involved, and asks whether it agrees.',
+  },
+
   home: {
     title: 'Change one detail about a person. Watch the answer move.',
     intro: 'Would AI identify a different job for the same person if “he” became “she”? Would it remove the same online comment after its author said they were gay? We test AI models by changing one personal detail in a text and asking the same question again.',

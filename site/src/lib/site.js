@@ -16,6 +16,16 @@ export const dimById = Object.fromEntries(allDimensions.map((d) => [d.id, d]));
 
 export const SITE_NAME = "Biased-Decisions leaderboard";
 
+// The three kinds of test this site runs, and a one-line explanation of each (docs/site-families.md).
+export const FAMILY_LABEL = { decision: "Decision test", "stereotype-question": "Stereotype question",
+  "opinion-claim": "Opinion and belief test", methodology: "Methodology check" };
+export const FAMILY_EXPLAIN = {
+  decision: "We change one detail in a real decision and measure whether the model's answer moves.",
+  "stereotype-question": "We describe a hypothetical person and ask whether the model attributes a stereotyped trait to them.",
+  "opinion-claim": "We put a claim directly to the model, with no person or decision involved, and ask whether it agrees.",
+  methodology: "This checks how much the model moves for a reason that has nothing to do with the person, so other results can be read against it.",
+};
+
 // ---------------------------------------------------------------------------------------------
 // The URL scheme (docs/leaderboard-architecture.md, "URLs"). Every path is lowercase, hyphenated,
 // built from ids in the data contract, and ends in a slash.

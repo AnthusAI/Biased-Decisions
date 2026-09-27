@@ -1,0 +1,37 @@
+# Three kinds of test this site runs, side by side: what varies, what is asked, what is measured.
+vars: {
+  d2-config: {
+    theme-id: 0
+  }
+}
+direction: down
+
+decision: {
+  label: "Decision test"
+  shape: rectangle
+  style: { fill: "#e6f2fa"; stroke: "#0389d7"; font-color: "#0c1e2b"; stroke-width: 2 }
+  varies: "A detail in a real decision\n(a pronoun, a name, a phrase)" { style: { fill: "#ffffff"; stroke: "#cfdfea" } }
+  asks: "The decision's own question\n(\"paralegal or attorney?\")" { style: { fill: "#ffffff"; stroke: "#cfdfea" } }
+  measures: "How far the answer moves,\nbeyond a control edit" { style: { fill: "#fdecef"; stroke: "#c8102e"; font-color: "#b3122e" } }
+  varies -> asks -> measures
+}
+
+stereotype: {
+  label: "Stereotype-question test"
+  shape: rectangle
+  style: { fill: "#e6f2fa"; stroke: "#d03382"; font-color: "#0c1e2b"; stroke-width: 2 }
+  varies: "A phrase describing\na hypothetical person" { style: { fill: "#ffffff"; stroke: "#cfdfea" } }
+  asks: "A yes/no stereotype question\n(\"is this person greedy?\")" { style: { fill: "#ffffff"; stroke: "#cfdfea" } }
+  measures: "How much more that group\nis called the stereotype" { style: { fill: "#fdecef"; stroke: "#c8102e"; font-color: "#b3122e" } }
+  varies -> asks -> measures
+}
+
+opinion: {
+  label: "Opinion and belief test"
+  shape: rectangle
+  style: { fill: "#e6f2fa"; stroke: "#8a949c"; font-color: "#0c1e2b"; stroke-width: 2 }
+  varies: "Nothing: no person,\nno decision" { style: { fill: "#ffffff"; stroke: "#cfdfea" } }
+  asks: "A claim, put to the model\ndirectly (\"do you agree?\")" { style: { fill: "#ffffff"; stroke: "#cfdfea" } }
+  measures: "How often the model\nsays it agrees" { style: { fill: "#fdecef"; stroke: "#c8102e"; font-color: "#b3122e" } }
+  varies -> asks -> measures
+}

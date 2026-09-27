@@ -95,14 +95,16 @@ const optOut = String.raw`(function(){try{var k='anthus-no-analytics',q=location
         <a href={urls.methods()} class={current.page === "methods" ? "on" : null} aria-current={current.page === "methods" ? "page" : undefined}>How we measure</a>
         <a href={curls.howToFail()} class={current.page === "how-to-fail" ? "on" : null} aria-current={current.page === "how-to-fail" ? "page" : undefined}>How to fail</a>
         <a href={curls.guidance()} class={current.page === "guidance" ? "on" : null} aria-current={current.page === "guidance" ? "page" : undefined}>Guidance</a>
-        <a href={`${urls.home()}stereotypes/`} class={current.page === "stereotypes" ? "on" : null} aria-current={current.page === "stereotypes" ? "page" : undefined}>Stereotype tests</a>
       </nav>
     </div>
     <div class="wrap">
-      <nav class="rail" aria-label="Characteristics we tested">
+      <nav class="rail" aria-label="What we tested">
         {dimensions.map((d) => (
           <a href={urls.dim(d.id)} class={current.dim === d.id ? "on" : null} aria-current={current.dim === d.id && current.page === "dimension" ? "page" : undefined}>{d.label}</a>
         ))}
+        <span class="rail-sep" aria-hidden="true"></span>
+        <a href={`${urls.home()}stereotypes/`} class={current.page === "stereotypes" ? "on" : null} aria-current={current.page === "stereotypes" ? "page" : undefined}>Stereotypes</a>
+        <a href={`${urls.home()}opinion-claims/`} class={current.page === "opinion-claims" ? "on" : null} aria-current={current.page === "opinion-claims" ? "page" : undefined}>Opinions</a>
       </nav>
     </div>
   </div>
