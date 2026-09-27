@@ -22,21 +22,31 @@ const pct = (value) => `${Number(value).toFixed(2)}%`;
 
   {opinionClaims.results.length > 0
     ? <section class="wrap section" id="results" aria-labelledby="results-h">
-        <h2 class="display" id="results-h">Results from the models we tested</h2>
-        <p class="lede">Each model saw the same three claims in each row and answered yes or no. The percentage is that model’s average probability of yes; the range shows its lowest and highest probability among the three claims. These are the models’ answers to a direct prompt, not findings about any group.</p>
-        <div class="table-scroll" tabindex="0" role="region" aria-label="Opinion-claim results by model and claim family">
-          <table class="cell-table">
-            <thead><tr><th scope="col">claim family</th>{opinionClaims.results.map((result) => <th scope="col">{result.label}: yes</th>)}</tr></thead>
-            <tbody>{opinionClaims.domains.map((domain) => <tr>
-              <th scope="row"><strong>{domain.label}</strong><span>{domain.source}</span></th>
-              {opinionClaims.results.map((result) => {
-                const score = result.domains[domain.id];
-                return <td>{score ? <><strong>{pct(score.agree_pct)}</strong><span>range {pct(score.lowest_pct)}–{pct(score.highest_pct)}</span>{score.excess_pct !== undefined && <span>vs control: {pct(score.excess_pct)}</span>}</> : "not measured"}</td>;
-              })}
-            </tr>)}</tbody>
-          </table>
-        </div>
-        <p class="note">Read the <a href="https://github.com/AnthusAI/Biased-Decisions/blob/ebc3e5028ad4e16c8a6138ec1a1be821ed91713f/docs/opinion-claims-preregistration.md">exact claims, sources and scoring rule</a>. Every result above is worked out again from the saved answers.</p>
+        <h2 class="display" id="results-h">What the models were asked</h2>
+        <p class="lede">Every model received this fixed question: <q>{opinionClaims.question}</q> It could answer <strong>yes</strong> or <strong>no</strong>. The figures below are the model’s probability of yes for each exact statement—not a judgment that the statement is true, nor a general measure of bias.</p>
+
+        <h2 class="display" id="detail-h">Claim-by-claim results</h2>
+        <p class="lede">Open a claim family to see all three statements, why they were included, and every model’s answer. Only the Jewish-conspiracy family has a registered comparison with a control family. The other families, including anti-Israel claims, are reported as direct-response rates only.</p>
+        {opinionClaims.domains.map((domain) => <details class="claim-detail" id={domain.id}>
+          <summary><strong>{domain.label}</strong><span>3 exact statements · open the evidence</span></summary>
+          <p class="note"><strong>Why these statements:</strong> {domain.source}</p>
+          <div class="table-scroll" tabindex="0" role="region" aria-label={`${domain.label} claim-by-claim model answers`}>
+            <table class="cell-table">
+              <thead><tr><th scope="col">exact statement</th>{opinionClaims.results.map((result) => <th scope="col">{result.label}: probability of yes</th>)}</tr></thead>
+              <tbody>{domain.claims.map((claim) => <tr>
+                <th scope="row"><q>{claim.text}</q></th>
+                {opinionClaims.results.map((result) => {
+                  const score = result.claims[`${domain.id}-${claim.id}`];
+                  return <td>{score ? <strong>{pct(score.agree_pct)}</strong> : "not measured"}</td>;
+                })}
+              </tr>)}</tbody>
+            </table>
+          </div>
+          {opinionClaims.results.some((result) => result.domains[domain.id]?.excess_pct !== undefined)
+            ? <p class="note"><strong>Registered comparison:</strong> this family’s average is also shown against the non-Jewish conspiracy control. That comparison is not used for any other family.</p>
+            : <p class="note"><strong>No comparison verdict:</strong> this family has no registered neutral counterpart, so the page does not label a rate as bias detected or not detected.</p>}
+        </details>)}
+        <p class="note">Read the <a href="https://github.com/AnthusAI/Biased-Decisions/blob/ebc3e5028ad4e16c8a6138ec1a1be821ed91713f/docs/opinion-claims-preregistration.md">study plan with sources and scoring rules</a>. Every displayed result is recomputed from saved answers.</p>
       </section>
     : <section class="wrap section" id="coming" aria-labelledby="coming-h">
         <h2 class="display sm" id="coming-h">No results published here yet</h2>
