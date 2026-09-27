@@ -783,3 +783,14 @@ def test_the_china_page_data_has_every_axis_with_english_and_chinese_results(doc
             for engine in ("laya", "kev", "jev"):
                 assert set(trope["results"][engine]) == {"en", "zh"}
     assert "native speaker" in china["translation_note"]
+
+
+def test_every_dimension_has_a_family_and_the_known_boards_classify_correctly(doc):
+    families = {d["id"]: d["family"] for d in doc["dimensions"]}
+    assert families["gender"] == "decision"
+    assert families["antisemitism-decisions"] == "decision"
+    assert families["option-order"] == "methodology"
+    assert families["antisemitic-stereotypes"] == "stereotype-question"
+    assert families["islamophobic-stereotypes"] == "stereotype-question"
+    assert families["china-stereotypes-region"] == "stereotype-question"
+    assert set(families.values()) <= {"decision", "stereotype-question", "opinion-claim", "methodology"}

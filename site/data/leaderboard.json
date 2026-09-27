@@ -1,9 +1,9 @@
 {
  "schema": "biased-decisions/leaderboard@4",
  "provenance": {
-  "record_commit": "dbea4f2c68531f95d86a8e889ef264b7878cc294",
-  "record_commit_short": "dbea4f2",
-  "generated": "2026-09-26",
+  "record_commit": "32f06b4ddbab5663c3fd353b78cb5d162825be09",
+  "record_commit_short": "32f06b4",
+  "generated": "2026-09-27",
   "release": {
    "version": "1.37.1",
    "tag": "v1.37.1",
@@ -12,7 +12,7 @@
    "url": "https://github.com/AnthusAI/Biased-Decisions/releases/tag/v1.37.1",
    "label": "v1.37.1"
   },
-  "command": "bd report --json --date 2026-09-26",
+  "command": "bd report --json --date 2026-09-27",
   "sources": [
    {
     "id": "harness",
@@ -8037,7 +8037,8 @@
     ],
     "pending": [],
     "example_note": null
-   }
+   },
+   "family": "decision"
   },
   {
    "id": "race",
@@ -15700,7 +15701,8 @@
     ],
     "pending": [],
     "example_note": "To change a full name, we replace every word a name-finding program marked as a name. So some texts have extra words swapped, such as the name of an insurer or a school. The example shows the text exactly as the model saw it."
-   }
+   },
+   "family": "decision"
   },
   {
    "id": "age",
@@ -17927,7 +17929,8 @@
     ],
     "pending": [],
     "example_note": null
-   }
+   },
+   "family": "decision"
   },
   {
    "id": "disability",
@@ -23810,7 +23813,8 @@
     ],
     "pending": [],
     "example_note": null
-   }
+   },
+   "family": "decision"
   },
   {
    "id": "religion",
@@ -58618,7 +58622,8 @@
      }
     ],
     "example_note": null
-   }
+   },
+   "family": "decision"
   },
   {
    "id": "nationality",
@@ -75319,7 +75324,8 @@
      }
     ],
     "example_note": null
-   }
+   },
+   "family": "decision"
   },
   {
    "id": "sexuality",
@@ -76393,7 +76399,8 @@
     ],
     "pending": [],
     "example_note": null
-   }
+   },
+   "family": "decision"
   },
   {
    "id": "veteran",
@@ -79663,7 +79670,8 @@
     ],
     "pending": [],
     "example_note": null
-   }
+   },
+   "family": "decision"
   },
   {
    "id": "family",
@@ -84078,7 +84086,8 @@
     ],
     "pending": [],
     "example_note": null
-   }
+   },
+   "family": "decision"
   },
   {
    "id": "nationality-stereotypes",
@@ -130664,7 +130673,8 @@
     ],
     "pending": [],
     "example_note": null
-   }
+   },
+   "family": "stereotype-question"
   },
   {
    "id": "racial-and-ethnic-stereotypes",
@@ -148705,7 +148715,8 @@
     ],
     "pending": [],
     "example_note": null
-   }
+   },
+   "family": "stereotype-question"
   },
   {
    "id": "china-regional-stereotypes",
@@ -162155,7 +162166,8 @@
     ],
     "pending": [],
     "example_note": null
-   }
+   },
+   "family": "stereotype-question"
   },
   {
    "id": "india-caste-and-regional-stereotypes",
@@ -176371,7 +176383,8 @@
     ],
     "pending": [],
     "example_note": null
-   }
+   },
+   "family": "stereotype-question"
   },
   {
    "id": "african-ethnic-stereotypes",
@@ -190591,7 +190604,8 @@
     ],
     "pending": [],
     "example_note": null
-   }
+   },
+   "family": "stereotype-question"
   },
   {
    "id": "sexual-orientation-stereotypes",
@@ -200832,7 +200846,8 @@
     ],
     "pending": [],
     "example_note": null
-   }
+   },
+   "family": "stereotype-question"
   },
   {
    "id": "family-status-stereotypes",
@@ -214257,7 +214272,8 @@
     ],
     "pending": [],
     "example_note": null
-   }
+   },
+   "family": "stereotype-question"
   },
   {
    "id": "antisemitic-stereotypes",
@@ -226260,7 +226276,8 @@
     ],
     "pending": [],
     "example_note": null
-   }
+   },
+   "family": "stereotype-question"
   },
   {
    "id": "antisemitic-stereotypes-loan-narratives",
@@ -238254,7 +238271,8 @@
     ],
     "pending": [],
     "example_note": null
-   }
+   },
+   "family": "stereotype-question"
   },
   {
    "id": "islamophobic-stereotypes",
@@ -248247,7 +248265,8 @@
     ],
     "pending": [],
     "example_note": null
-   }
+   },
+   "family": "stereotype-question"
   },
   {
    "id": "islamophobic-stereotypes-loan-narratives",
@@ -258215,7 +258234,8 @@
     ],
     "pending": [],
     "example_note": null
-   }
+   },
+   "family": "stereotype-question"
   },
   {
    "id": "china-stereotypes-region",
@@ -262859,7 +262879,8 @@
     ],
     "pending": [],
     "example_note": null
-   }
+   },
+   "family": "stereotype-question"
   },
   {
    "id": "china-stereotypes-hukou",
@@ -266022,7 +266043,8 @@
     ],
     "pending": [],
     "example_note": null
-   }
+   },
+   "family": "stereotype-question"
   },
   {
    "id": "china-stereotypes-ethnicity",
@@ -269338,7 +269360,8 @@
     ],
     "pending": [],
     "example_note": null
-   }
+   },
+   "family": "stereotype-question"
   },
   {
    "id": "china-stereotypes-religion",
@@ -271182,7 +271205,8 @@
     ],
     "pending": [],
     "example_note": null
-   }
+   },
+   "family": "stereotype-question"
   },
   {
    "id": "china-stereotypes-education",
@@ -274254,7 +274278,8 @@
     ],
     "pending": [],
     "example_note": null
-   }
+   },
+   "family": "stereotype-question"
   },
   {
    "id": "antisemitism-decisions",
@@ -287641,7 +287666,8 @@
     ],
     "pending": [],
     "example_note": null
-   }
+   },
+   "family": "decision"
   },
   {
    "id": "option-order",
@@ -289708,7 +289734,8 @@
     ],
     "pending": [],
     "example_note": null
-   }
+   },
+   "family": "methodology"
   }
  ],
  "overall": {

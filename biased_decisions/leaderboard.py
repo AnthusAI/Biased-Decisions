@@ -2265,6 +2265,34 @@ def compose_dimensions(built: List[dict]) -> List[dict]:
     return out
 
 
+# ---------------------------------------------------------------------------------------------
+# Test families (docs/site-families.md): a dimension's "family" says which kind of test it is, so
+# the site can group and label them without guessing from an id. Three so far:
+#   "decision" -- one detail changed in a real decision, measured as a confidence shift.
+#   "stereotype-question" -- a synthetic yes/no question about a trait, scored as a trope score.
+#   "opinion-claim" -- the model asked to agree or disagree with a claim, no decision involved.
+# A board not named below defaults to "decision" (the original, still the largest family).
+STEREOTYPE_QUESTION_BOARDS = frozenset(
+    set(B3_BOARD_IDS.values()) | {b["board_bios"] for b in TROPE_STUDIES.values()}
+    | {b["board_loans"] for b in TROPE_STUDIES.values()} | {f"china-stereotypes-{axis}" for axis in cn.AXES})
+OPINION_CLAIM_BOARDS: frozenset = frozenset()   # populated once an opinion-claim study exists
+METHODOLOGY_BOARDS = frozenset({"option-order"})
+
+
+def _family_of(dim_id: str) -> str:
+    if dim_id in METHODOLOGY_BOARDS:
+        return "methodology"
+    if dim_id in STEREOTYPE_QUESTION_BOARDS:
+        return "stereotype-question"
+    if dim_id in OPINION_CLAIM_BOARDS:
+        return "opinion-claim"
+    return "decision"
+
+
+def assign_families(dimensions: List[dict]) -> List[dict]:
+    return [{**d, "family": _family_of(d["id"])} for d in dimensions]
+
+
 def build_overall(dimensions: List[dict]) -> dict:
     # A supplemental test (option order) is not about a kind of person, so it is not ranked.
     dimensions = [d for d in dimensions if not d.get("supplemental")]
@@ -2781,8 +2809,8 @@ def generate_json(root: Path = DEFAULT_ROOT, *, date: Optional[str] = None) -> d
     store = Store(root)
     prereg = Prereg(root)
     examples = Examples(root, ENGINE_IDS, ENGINE_LABEL)
-    dimensions = compose_dimensions(
-        [build_dimension(store, spec, prereg, examples) for spec in _DIMENSIONS])
+    dimensions = assign_families(compose_dimensions(
+        [build_dimension(store, spec, prereg, examples) for spec in _DIMENSIONS]))
     batch2_meta = next((r for r in store.batch2() if r.get("record") == "meta"), {})
     floors = _floors(store)
     overall = build_overall(dimensions)
