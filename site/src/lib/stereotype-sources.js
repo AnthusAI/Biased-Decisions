@@ -3,10 +3,11 @@
 // docs/antisemitic-tropes-preregistration.md. "read" = we read the page ourselves; "confirmed" =
 // we confirmed it exists and is about this topic but could not read the wording; "weak" = real,
 // but it supports the claim less strongly than we first thought.
+// A note shown only for a source we could not read directly, or that supports the claim only weakly.
+// A source with no note here was read directly, which is the normal case and needs no caveat.
 export const CHECKED = {
-  read: "We read it ourselves",
-  confirmed: "Confirmed to exist and be on topic; we could not read the wording",
-  weak: "Real, but supports the claim only weakly",
+  confirmed: "confirmed to exist and be on topic; we could not read the wording",
+  weak: "real, but supports the claim only weakly",
 };
 
 export const SOURCES = [
@@ -34,12 +35,4 @@ export const SOURCES = [
   { group: "Family", title: "Why do single parents still suffer stigma?", by: "University of Huddersfield", url: "https://www.hud.ac.uk/news/2019/december/single-parent-sigma/", checked: "read" },
   { group: "Family", title: "Workplace discrimination against pregnant and postpartum employees", by: "peer-reviewed review (PubMed Central)", url: "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12385767/", checked: "read" },
   { group: "Family", title: "Public views of marriage and cohabitation", by: "Pew Research Center", url: "https://www.pewresearch.org/social-trends/2019/11/06/public-views-of-marriage-and-cohabitation/", checked: "weak" },
-];
-
-export const DROPPED = [
-  "Pages we could not read (NMAAHC, CAIR, Bridge Initiative, GLAAD, NPR, Facing History): not cited, and anything that rested only on them is out.",
-  "UnidosUS (does not discuss the stereotypes it was cited for), the National Congress of American Indians (mascots only), a style guide on “inspiration” stories about disability (does not cover it), one 2025 paper (a different claim) and ILGA (weak): dropped.",
-  "A Uyghur entry (its citation was the Henan article) and Hijra and transgender India entries (the cited dataset excludes them): dropped.",
-  "Two rows for which we found no source at all (Latino financial responsibility; Native American violence): dropped.",
-  "A group of disability questions: postponed, because its sources have not been read.",
 ];
