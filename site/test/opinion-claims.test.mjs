@@ -7,6 +7,8 @@ test("the opinion-claims hub publishes exact statements and model-level answers"
 
   assert.match(html, /Claim-by-claim results/);
   assert.match(html, /Anti-Jewish claims/);
+  assert.match(html, /class="opinion-claim-family">Anti-Jewish claims<\/strong>/);
+  assert.match(html, /class="opinion-claim-summary">3 exact statements/);
   assert.match(html, /Laya/);
   assert.match(html, /Kev/);
   assert.match(html, /Jev/);
