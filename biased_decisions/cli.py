@@ -213,13 +213,16 @@ def cmd_replay(args: argparse.Namespace) -> int:
             except (KeyError, ScoreError) as error:
                 print(f"bd replay: skipping the religiosity split ({engine}, {slug}): {error}", file=sys.stderr)
         holm_rows = []
+        # The full nationality loan axis reports raw per-question response shifts.  It is not a
+        # trope-score cue and is therefore deliberately outside the historical Holm family.
+        holm_cues = [cue for cue in antisemitism.cues_of(slug) if cue != "nationality-loan-axis"]
         for engine in ENGINES:
             cue_rows = []
-            for cue in antisemitism.cues_of(slug):
+            for cue in holm_cues:
                 path = root / "studies" / f"{slug}-{cue}.jsonl"
                 if path.exists():
                     cue_rows += [r for r in map(json.loads, path.read_text(encoding="utf-8").splitlines()) if r["engine"] == engine]
-            if len(cue_rows) == len(antisemitism.cues_of(slug)):
+            if len(cue_rows) == len(holm_cues):
                 holm_rows.append(antisemitism.holm_table(engine, slug, cue_rows))
         if holm_rows:
             out = root / "studies" / f"{slug}-holm.jsonl"
