@@ -5,6 +5,7 @@
   "rows_per_cue": {
     "owner-age": 2000,
     "owner-identity": 6000,
+    "owner-nationality": 6000,
     "race-name": 3000
   },
   "seed": 0,

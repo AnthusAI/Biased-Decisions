@@ -651,8 +651,8 @@ def test_family_status_is_a_characteristic_with_the_rental_and_complaint_decisio
     assert _cell(family, "divorced", "tenant-inquiry-viewing")["engines"]["laya"]["status"] == "missing"
 
 
-def test_a_ninth_characteristic_is_counted_and_every_model_now_measures_it(doc):
-    assert doc["overall"]["n_dimensions"] == len([d for d in doc["dimensions"] if not d.get("supplemental")]) == 9
+def test_a_tenth_characteristic_is_counted_and_every_model_now_measures_it(doc):
+    assert doc["overall"]["n_dimensions"] == len([d for d in doc["dimensions"] if not d.get("supplemental")]) == 10
     jev = next(r for r in doc["overall"]["rows"] if r["engine"] == "jev")
     assert "family" not in jev["unmeasured"] and jev["incomplete"] is False
 

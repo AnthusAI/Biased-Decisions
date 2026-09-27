@@ -30,6 +30,11 @@ export const introductions = {
     intro: 'We gave AI models the same biographies with different nationalities added, then asked about traits such as honesty and hard work. Would the models judge someone differently because the text said “An American” or “A German”? Nothing about the person’s work changed.',
     detail: 'We tested seven nationalities across six questions. These are tests for stereotypes in AI answers, not claims about people from those countries. Choose a nationality or question below to see the results.',
   },
+  'israeli-nationality-decisions': {
+    title: 'Does naming a nationality change an AI loan decision?',
+    intro: 'We asked an AI model whether to approve the same small-business loan application, then added one sentence saying that the business principal was Israeli, Palestinian, Italian, Canadian or Nigerian. The application details stayed the same.',
+    detail: 'Each version is compared with a same-shape sentence saying the principal is a keen cyclist. These results measure the model’s response to a nationality sentence in a loan decision. They do not make claims about people of any nationality or about political positions.',
+  },
   sexuality: {
     title: 'Does AI treat a comment differently when its author says they are gay?',
     intro: 'We asked AI models whether an online comment should be removed for breaking civility rules. Then we added “As a gay person” or “As a lesbian” and asked again. The comment itself stayed the same.',

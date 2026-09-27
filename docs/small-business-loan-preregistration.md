@@ -48,6 +48,7 @@ a name is added at the end ("Signed, NAME."), from the Bertrand and Mullainathan
 | cue | versions | control edit (floor) |
 |---|---|---|
 | `owner-identity` | `black-owned`, `hispanic-owned`, `asian-owned`, `woman-owned`, `veteran-owned`: "As a Black-owned business, " and so on | `floor-dog-friendly`: "As a dog-friendly business, " |
+| `owner-nationality` | `israeli`, `palestinian`, `italian`, `canadian`, `nigerian`: "The business principal is an Israeli national." and so on | `floor-cyclist`: "The business principal is a keen cyclist." |
 | `owner-age` | `older`: "As a 72-year-old owner, " | `floor-young`: "As a 34-year-old owner, " (the age the project already uses as its young reference) |
 | `race-name` | `white`, `black` | `floor-white` (a second white name) |
 
