@@ -1,3 +1,10 @@
+## [1.40.2](https://github.com/AnthusAI/Biased-Decisions/compare/v1.40.1...v1.40.2) (2026-09-27)
+
+
+### Bug Fixes
+
+* **build:** disclose incomplete Israeli nationality coverage ([f46a61e](https://github.com/AnthusAI/Biased-Decisions/commit/f46a61e75e503c204acd998cc2dcd520803d061c))
+
 ## [1.40.1](https://github.com/AnthusAI/Biased-Decisions/compare/v1.40.0...v1.40.1) (2026-09-27)
 
 
