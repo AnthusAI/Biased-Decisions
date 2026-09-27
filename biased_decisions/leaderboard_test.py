@@ -651,10 +651,12 @@ def test_family_status_is_a_characteristic_with_the_rental_and_complaint_decisio
     assert _cell(family, "divorced", "tenant-inquiry-viewing")["engines"]["laya"]["status"] == "missing"
 
 
-def test_a_tenth_characteristic_is_counted_and_every_model_now_measures_it(doc):
+def test_a_tenth_characteristic_is_counted_and_unmeasured_models_are_disclosed(doc):
     assert doc["overall"]["n_dimensions"] == len([d for d in doc["dimensions"] if not d.get("supplemental")]) == 10
     jev = next(r for r in doc["overall"]["rows"] if r["engine"] == "jev")
-    assert "family" not in jev["unmeasured"] and jev["incomplete"] is False
+    assert "family" not in jev["unmeasured"]
+    assert jev["unmeasured"] == ["israeli-nationality-decisions"]
+    assert jev["incomplete"] is True
 
 
 B3_GROUPS = {"nationality-x": 13, "race": 5, "china": 4, "india": 5, "africa": 5, "orientation": 4, "family": 4}
