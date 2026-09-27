@@ -6,6 +6,7 @@
     "owner-age": 2000,
     "owner-identity": 6000,
     "owner-nationality": 6000,
+    "owner-nationality-axis": 14000,
     "race-name": 3000
   },
   "seed": 0,

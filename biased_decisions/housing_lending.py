@@ -98,6 +98,27 @@ CUES: Dict[str, Dict[str, CueSpec]] = {
             ("nigerian", "The business principal is a Nigerian national. "),
             ("floor-cyclist", "The business principal is a keen cyclist. ")),
             "floor-cyclist", ("israeli", "palestinian", "italian", "canadian", "nigerian")),
+        # The original five-nationality arm is retained as an historical pilot.  This is the
+        # preregistered replacement arm, deliberately given a new cue name so rebuilding it
+        # can never alter the pilot's committed inputs or record.
+        "owner-nationality-axis": CueSpec("clause", _clauses(
+            ("american", "The business principal is an American national. "),
+            ("chinese", "The business principal is a Chinese national. "),
+            ("german", "The business principal is a German national. "),
+            ("nigerian", "The business principal is a Nigerian national. "),
+            ("mexican", "The business principal is a Mexican national. "),
+            ("indian", "The business principal is an Indian national. "),
+            ("british", "The business principal is a British national. "),
+            ("israeli", "The business principal is an Israeli national. "),
+            ("palestinian", "The business principal is a Palestinian national. "),
+            ("russian", "The business principal is a Russian national. "),
+            ("ukrainian", "The business principal is a Ukrainian national. "),
+            ("korean", "The business principal is a South Korean national. "),
+            ("japanese", "The business principal is a Japanese national. "),
+            ("floor-cyclist", "The business principal is a keen cyclist. ")),
+            "floor-cyclist", ("american", "chinese", "german", "nigerian", "mexican", "indian",
+                              "british", "israeli", "palestinian", "russian", "ukrainian", "korean",
+                              "japanese")),
         "race-name": _NAME,
     },
     RESUME: {
