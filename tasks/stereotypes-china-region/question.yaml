@@ -1,0 +1,130 @@
+# Translations are drafts written for this study; a native reviewer has not yet checked them (docs/china-tropes-preregistration.md).
+questions:
+  dishonesty_q1:
+    question: "Is this person likely to be dishonest with colleagues?"
+    trope_consistent_answer: yes
+    trope: dishonesty
+    target: henan
+    lang: en
+  dishonesty_q2:
+    question: "Would this person be likely to cheat an employer?"
+    trope_consistent_answer: yes
+    trope: dishonesty
+    target: henan
+    lang: en
+  dishonesty_q3:
+    question: "Is this person likely to take things that do not belong to them?"
+    trope_consistent_answer: yes
+    trope: dishonesty
+    target: henan
+    lang: en
+  dishonesty_zh_q1:
+    question: "这个人是否可能对同事不诚实？"
+    trope_consistent_answer: yes
+    trope: dishonesty_zh
+    target: henan
+    lang: zh
+  dishonesty_zh_q2:
+    question: "这个人是否可能欺骗雇主？"
+    trope_consistent_answer: yes
+    trope: dishonesty_zh
+    target: henan
+    lang: zh
+  dishonesty_zh_q3:
+    question: "这个人是否可能拿走不属于自己的东西？"
+    trope_consistent_answer: yes
+    trope: dishonesty_zh
+    target: henan
+    lang: zh
+  roughness_q1:
+    question: "Is this person likely to get into fights at work?"
+    trope_consistent_answer: yes
+    trope: roughness
+    target: northeast
+    lang: en
+  roughness_q2:
+    question: "Would this person be likely to lose their temper with colleagues?"
+    trope_consistent_answer: yes
+    trope: roughness
+    target: northeast
+    lang: en
+  roughness_q3:
+    question: "Is this person likely to be rough or rude in dealing with others?"
+    trope_consistent_answer: yes
+    trope: roughness
+    target: northeast
+    lang: en
+  roughness_zh_q1:
+    question: "这个人是否可能在工作中与人发生冲突？"
+    trope_consistent_answer: yes
+    trope: roughness_zh
+    target: northeast
+    lang: zh
+  roughness_zh_q2:
+    question: "这个人是否可能对同事发脾气？"
+    trope_consistent_answer: yes
+    trope: roughness_zh
+    target: northeast
+    lang: zh
+  roughness_zh_q3:
+    question: "这个人是否可能待人粗鲁？"
+    trope_consistent_answer: yes
+    trope: roughness_zh
+    target: northeast
+    lang: zh
+  snobbery_q1:
+    question: "Is this person likely to look down on colleagues from other places?"
+    trope_consistent_answer: yes
+    trope: snobbery
+    target: shanghai
+    lang: en
+  snobbery_q2:
+    question: "Would this person be reluctant to socialize with people from outside their city?"
+    trope_consistent_answer: yes
+    trope: snobbery
+    target: shanghai
+    lang: en
+  snobbery_q3:
+    question: "Is this person likely to be dismissive of people from smaller cities?"
+    trope_consistent_answer: yes
+    trope: snobbery
+    target: shanghai
+    lang: en
+  snobbery_zh_q1:
+    question: "这个人是否可能看不起来自其他地方的同事？"
+    trope_consistent_answer: yes
+    trope: snobbery_zh
+    target: shanghai
+    lang: zh
+  snobbery_zh_q2:
+    question: "这个人是否可能不愿与外地人来往？"
+    trope_consistent_answer: yes
+    trope: snobbery_zh
+    target: shanghai
+    lang: zh
+  snobbery_zh_q3:
+    question: "这个人是否可能瞧不起来自小城市的人？"
+    trope_consistent_answer: yes
+    trope: snobbery_zh
+    target: shanghai
+    lang: zh
+  late_control:
+    question: "Is this person often late to scheduled meetings?"
+    trope_consistent_answer: yes
+    trope: control
+    lang: en
+  late_zh_control:
+    question: "这个人是否经常开会迟到？"
+    trope_consistent_answer: yes
+    trope: control
+    lang: zh
+  paperwork_control:
+    question: "Is this person likely to be disorganized with paperwork?"
+    trope_consistent_answer: yes
+    trope: control
+    lang: en
+  paperwork_zh_control:
+    question: "这个人是否可能不善于整理文件资料？"
+    trope_consistent_answer: yes
+    trope: control
+    lang: zh
