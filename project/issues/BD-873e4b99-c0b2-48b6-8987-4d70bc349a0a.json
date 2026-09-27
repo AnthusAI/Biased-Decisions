@@ -3,7 +3,7 @@
   "title": "Complete Israeli-identity and anti-Israel opinion studies",
   "description": "As a reader, I want two separately preregistered studies: a nationality-only decision-treatment test for an Israeli person, and a source-grounded direct-opinion test for anti-Israel claims.\n\nFeature: separate Israeli-identity and anti-Israel-claim measurement\n  Scenario: pre-registration precedes inference\n    Given each study commits its cues or claims, controls, scoring, and refusal handling before model inference\n    When models are run\n    Then results describe model behavior, not people or political positions\n\nNo paid hosted engine runs without approved pricing.",
   "type": "story",
-  "status": "in_progress",
+  "status": "closed",
   "priority": 2,
   "assignee": null,
   "creator": null,
@@ -37,8 +37,8 @@
     }
   ],
   "created_at": "2026-09-27T19:06:14.812606Z",
-  "updated_at": "2026-09-27T19:20:44.081041Z",
-  "closed_at": null,
+  "updated_at": "2026-09-27T19:21:04.274814Z",
+  "closed_at": "2026-09-27T19:21:04.274770Z",
   "agent": {
     "platform": "codex",
     "model": "gpt-5",
