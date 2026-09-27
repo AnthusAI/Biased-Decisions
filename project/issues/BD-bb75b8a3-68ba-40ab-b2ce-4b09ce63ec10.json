@@ -3,7 +3,7 @@
   "title": "Expand the nationality axis: Israeli, Palestinian, Russian, Ukrainian, Korean and others",
   "description": "Batch 2's nationality axis has seven groups (American, Chinese, German, Nigerian, Mexican, Indian, British). Add Israeli, Russian and Korean (author's request), with paired counterparts so the axis is balanced and contrasts are meaningful: Palestinian with Israeli, Ukrainian with Russian, Japanese with Korean (and 'South Korean' vs 'Korean' to check the North/South ambiguity). Consider Iranian, Pakistani, Brazilian and French if sources support testable tropes. Tropes per nationality come only from verified sources (SeeGULL country-attribute pairs, CC BY 4.0; academic and survey sources), turned into yes/no professional and financial screening questions, alongside batch 2's six questions so results compare. Trope score = the group's shift minus the mean shift of the other nationalities. Keep the Israeli nationality cue distinct from the Jewish identity cues in the antisemitic-tropes story, and report both, so nationality and religion or ethnicity are not conflated.",
   "type": "story",
-  "status": "open",
+  "status": "in_progress",
   "priority": 2,
   "assignee": null,
   "creator": null,
@@ -22,10 +22,34 @@
         "model": "Claude Opus 5.5",
         "name": "Biased-Decisions coordinator"
       }
+    },
+    {
+      "id": "9f5c89cb-861a-4845-a403-923dad8c518a",
+      "author": "home",
+      "text": "The site currently exposes the small-business-loan nationality study as a second top-level characteristic, “Nationality: lending.” I am merging it into the existing Nationality board so readers find all nationality evidence together, while retaining the distinct loan-decision context in the drill-down.",
+      "created_at": "2026-09-27T20:34:39.848232Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "codex",
+        "model": "GPT-5",
+        "name": "root"
+      }
+    },
+    {
+      "id": "d925c951-8d2e-4f96-8a2b-58a9e49ca602",
+      "author": "home",
+      "text": "Merged the loan-decision study into the existing Nationality board. The page now makes both study contexts available under one characteristic, with their individual cells and coverage preserved. Verified 55 leaderboard checks and 28 site checks.",
+      "created_at": "2026-09-27T20:40:38.681268Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "codex",
+        "model": "GPT-5",
+        "name": "root"
+      }
     }
   ],
   "created_at": "2026-09-23T16:25:59.392654Z",
-  "updated_at": "2026-09-23T16:26:06.205111Z",
+  "updated_at": "2026-09-27T20:40:38.681305Z",
   "closed_at": null,
   "agent": {
     "platform": "claude_code",

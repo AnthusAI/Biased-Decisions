@@ -128,7 +128,9 @@ def test_known_cells(doc):
     nurse = next(f for f in dims["religion"]["cells"]["laya"]["facets"]
                  if f["id"] == "nurse-physician")
     assert nurse["attributable"] is False and nurse["detected"] is False
-    assert dims["nationality"]["source"] == "batch2-staging"
+    # Lending is another nationality decision context, not a separate characteristic.
+    assert dims["nationality"]["source"] == "mixed"
+    assert "israeli-nationality-decisions" not in dims
 
 
 def test_model_glossary_does_not_claim_unmeasured_models_were_tested(doc):
@@ -326,6 +328,8 @@ def test_batch2_clauses_and_pending_predictions_are_verbatim(doc):
         text = prereg_b3 + prereg if _is_stereotype_board(dim["id"]) else prereg
         if dim["id"].startswith("antisemitic-stereotypes"):   # its phrases and questions are registered in its own document
             text += _clean((DEFAULT_ROOT / "docs" / "antisemitic-tropes-preregistration.md").read_text(encoding="utf-8"))
+        if dim["id"] == "nationality":
+            text += _clean((DEFAULT_ROOT / "docs" / "israeli-identity-and-anti-israel-preregistration.md").read_text(encoding="utf-8"))
         for prefix, doc_name in (("islamophobic-stereotypes", "islamophobic-tropes-preregistration.md"),
                                  ("china-stereotypes-", "china-tropes-preregistration.md")):
             if dim["id"].startswith(prefix):
@@ -548,13 +552,16 @@ def test_every_characteristic_says_what_it_measures_in_plain_words(doc):
         assert d["measure_plain"] and d["measure_plain"] != d["measure"], d["id"]
 
 
-def test_nationality_shows_jev_and_kev_from_their_scored_rows_and_laya_is_unchanged(doc):
+def test_nationality_includes_the_stereotype_and_lending_results(doc):
     dim = next(d for d in doc["dimensions"] if d["id"] == "nationality")
     board = dim["board"]
     placed = {r["engine"]: r for r in board["ranked"] + board["not_detected"]}
     assert {"laya", "kev", "jev"} <= set(placed) and board["unmeasured"] == []
     laya = placed["laya"]
-    assert (laya["value"], laya["lo"], laya["hi"], laya["facet"]) == (4.51, 4.22, 4.8, "worldliness")
+    assert (laya["value"], laya["lo"], laya["hi"], laya["facet"]) == (8.45, 8.15, 8.77, "palestinian")
+    loan = _cell(dim, "israeli", "small-business-loan")
+    assert loan["engines"]["laya"]["status"] == "measured"
+    assert loan["engines"]["jev"]["status"] == "missing"
 
 
 def test_a_stereotype_facet_from_a_scored_row_names_its_sample_and_its_file(doc):
@@ -564,7 +571,10 @@ def test_a_stereotype_facet_from_a_scored_row_names_its_sample_and_its_file(doc)
     assert measured and all(0 < f["n"] < 2000 for f in measured)
     assert all(f["study"] == "studies/stereotypes-nationality.jsonl" for f in measured)
     laya = [c["engines"]["laya"] for c in dim["breakdown"]["cells"]]
-    assert all(f["study"] == "studies/batch2/stereotypes-laya.jsonl" for f in laya if f["status"] == "measured")
+    assert {f["study"] for f in laya if f["status"] == "measured"} == {
+        "studies/batch2/stereotypes-laya.jsonl",
+        "studies/small-business-loan-owner-nationality.jsonl",
+    }
 
 
 DECISION_PLACEMENT = {
@@ -651,12 +661,14 @@ def test_family_status_is_a_characteristic_with_the_rental_and_complaint_decisio
     assert _cell(family, "divorced", "tenant-inquiry-viewing")["engines"]["laya"]["status"] == "missing"
 
 
-def test_a_tenth_characteristic_is_counted_and_unmeasured_models_are_disclosed(doc):
-    assert doc["overall"]["n_dimensions"] == len([d for d in doc["dimensions"] if not d.get("supplemental")]) == 10
+def test_nationality_lending_is_part_of_nationality_not_a_tenth_characteristic(doc):
+    assert doc["overall"]["n_dimensions"] == len([d for d in doc["dimensions"] if not d.get("supplemental")]) == 9
+    dims = _dims(doc)
+    assert "nationality" in dims and "israeli-nationality-decisions" not in dims
     jev = next(r for r in doc["overall"]["rows"] if r["engine"] == "jev")
     assert "family" not in jev["unmeasured"]
-    assert jev["unmeasured"] == ["israeli-nationality-decisions"]
-    assert jev["incomplete"] is True
+    assert jev["unmeasured"] == []
+    assert jev["incomplete"] is False
 
 
 B3_GROUPS = {"nationality-x": 13, "race": 5, "china": 4, "india": 5, "africa": 5, "orientation": 4, "family": 4}
