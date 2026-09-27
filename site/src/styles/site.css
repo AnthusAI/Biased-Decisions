@@ -319,7 +319,11 @@ details.cell > *:not(summary) { margin-left: 18px; margin-right: 18px; }
 .rules li { margin-bottom: 12px; }
 .method-dim { border-top: 1px solid var(--rule); padding: 8px 0 18px; }
 .method-dim h3 { margin: 12px 0 0; font-size: 20px; }
-.code { background: var(--ink); color: var(--bg); padding: 16px 18px; border-radius: 10px; overflow-x: auto; }
+.code { background: var(--ink); color: var(--bg); padding: 16px 18px; border-radius: 10px; overflow-x: auto; white-space: pre-wrap; word-break: break-word; }
+.diagram { margin: 20px 0; text-align: center; }
+.diagram img { max-width: 100%; height: auto; border-radius: 10px; background: #fff; border: 1px solid var(--rule); }
+.req-resp { margin-top: 18px; padding: 16px 18px; border: 1px solid var(--rule); border-radius: 10px; background: var(--surface-2); }
+.req-resp h3 { margin: 0 0 6px; font-size: 15px; }
 .code code { background: none; color: inherit; padding: 0; }
 .sources li { margin-bottom: 8px; font-size: 14.5px; }
 
