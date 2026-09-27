@@ -306,12 +306,6 @@ MAPPING: List[dict] = [
                "like these, but we have not yet connected them, so it carries no regulated-decision "
                "warning. That is a gap in our work, not a finding that no rule applies.",
      "recipes": ["test-one-characteristic"], "insights": ["measure-before-deploying"]},
-    {"dimension": "israeli-nationality-decisions", "regulated": False,
-     "reason": "This test measures whether to approve a small-business loan after a nationality sentence is added. "
-               "Rules about lending and national origin may bear on a real use, but we have not yet connected "
-               "a cited lending regime to this decision, so it carries no regulated-decision warning. That is a "
-               "gap in our work, not a finding that no rule applies.",
-     "recipes": ["test-one-characteristic"], "insights": ["measure-before-deploying"]},
     *[{"dimension": dim_id, "regulated": False,
        "reason": "These tests ask stereotype questions about a person described in a short biography. They "
                  "are not a decision that a rule governs, so they carry no regulated-decision warning. A "
