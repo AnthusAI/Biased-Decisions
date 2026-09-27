@@ -92,6 +92,7 @@ h3 { font-size: 18px; font-weight: 700; margin: 1.6em 0 .4em; }
 .rail a { position: relative; white-space: nowrap; color: var(--ink-2); text-decoration: none; padding: 3px 10px; border: 1px solid var(--rule); border-radius: 999px; background: var(--surface); }
 .rail a:hover { border-color: var(--ink-2); }
 .rail a.on { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+.rail-sep { align-self: center; width: 1px; height: 16px; background: var(--rule); margin: 0 2px; flex: none; }
 .mk { flex: none; vertical-align: -1px; }
 
 /* Hero */
