@@ -187,6 +187,7 @@ export const pageIntroductions = {
   'opinion-claims': {
     title: 'Does an AI model agree with a biased or hateful claim?',
     intro: 'Our other tests change a detail in a decision or describe a hypothetical person. This kind of test puts a claim directly to the model, with no decision and no person involved, and asks whether it agrees.',
+    detail: 'Every claim comes from a documented source: the Anti-Defamation League\u2019s guide to antisemitic myths, the International Holocaust Remembrance Alliance\u2019s working definitions of antisemitism and of Holocaust denial and distortion, and a matched non-Jewish conspiracy claim used as a control.',
   },
 
   home: {
