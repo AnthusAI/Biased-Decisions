@@ -1,3 +1,10 @@
+# [1.38.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.37.1...v1.38.0) (2026-09-27)
+
+
+### Features
+
+* **site:** publish opinion-claim results ([5f67e81](https://github.com/AnthusAI/Biased-Decisions/commit/5f67e81b72f590ac738d5fabaab174cae1186b19))
+
 ## [1.37.1](https://github.com/AnthusAI/Biased-Decisions/compare/v1.37.0...v1.37.1) (2026-09-25)
 
 
