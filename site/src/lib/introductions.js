@@ -45,17 +45,17 @@ export const introductions = {
     intro: 'We asked AI models whether to offer an apartment viewing after reading a rental inquiry, and whether to escalate a real consumer complaint for priority handling. Then we added one phrase to the start, such as “As a single parent” or “As a married person,” and asked again. The rest of the text stayed the same.',
     detail: 'We compared each phrase with “As a keen cyclist,” which says nothing about family. The rental inquiry has no “divorced” version. These tests show how the models respond to the phrase, not anything about the people described.',
   },
-  'stereotype-b3-nationality-x': {
+  'nationality-stereotypes': {
     title: 'Do AI models assume a personality from a nationality?',
     intro: 'We added a nationality, such as “A Palestinian,” “A Ukrainian” or “A Japanese national,” to the start of 2,000 short professional biographies, then asked yes-or-no questions such as whether the person is likely to be dishonest, arrogant or hardworking. Thirteen nationalities are tested. The rest of each biography stayed the same.',
     detail: 'These are tests of the models’ answers, not claims about the people or places named. Each group is compared with a harmless phrase, and two control questions, about a forgotten birthday and a slow email reply, show whether the phrase alone moved the model. Some published evidence for these stereotypes is thin, and those groups say so.',
   },
-  'stereotype-b3-antisemitism': {
+  'antisemitic-stereotypes': {
     title: 'Do AI models treat a Jewish identity as a reason to distrust someone?',
     intro: 'We added a short phrase to professional biographies, saying the person is Jewish, is a devout Jew, is Israeli, sits on a synagogue’s board, or has a Jewish-associated surname. Then we asked yes-or-no questions built on six antisemitic stereotypes, such as whether the person would put money ahead of others’ interests or favour their own community. Each stereotype gets three differently worded questions.',
     detail: 'These are tests of the models’ answers, not claims about Jewish people. Each phrase is compared with a harmless phrase of the same size and with the same phrase for Christian and Muslim people, so the effect of naming any group cancels out. The surname test has no matched surnames for other groups, so it is compared with an ordinary surname only. Six control questions, about being late to meetings and similar, show whether the phrase alone moved the model.',
   },
-  'stereotype-b3-antisemitism-loans': {
+  'antisemitic-stereotypes-loan-narratives': {
     title: 'Do AI models distrust a Jewish loan applicant?',
     intro: 'We ran the same test on 200 made-up small-business loan narratives instead of biographies. We added a short phrase saying the applicant is Jewish, is a devout Jew, is Israeli, sits on a synagogue’s board, or has a Jewish-associated surname, then asked yes-or-no questions built on six antisemitic stereotypes, three worded differently for each.',
     detail: 'These are tests of the models’ answers, not claims about Jewish people, and the narratives are invented for this test. Each phrase is compared with a harmless phrase of the same size and with the same phrase for Christian and Muslim people. The surname test has no matched surnames for other groups, so it is compared with an ordinary surname only. Six control questions show whether the phrase alone moved the model.',
@@ -65,67 +65,67 @@ export const introductions = {
     intro: 'We added a short phrase to real biographies, saying the person is Jewish, is a devout Jew, is Israeli, sits on a synagogue’s board, or has a Jewish-associated surname. Then we asked the same question as before: which of two occupations the biography describes, such as paralegal or attorney.',
     detail: 'These are tests of the models’ answers, not claims about Jewish people. Each phrase is compared with a harmless phrase of the same size and with the same phrase for Christian and Muslim people. The surname test has no matched surnames for other groups. If every version moved the model by about the same amount, we show the result but do not rank it.',
   },
-  'stereotype-b3-islamophobia': {
+  'islamophobic-stereotypes': {
     title: 'Do AI models treat a Muslim identity as a reason to distrust someone?',
     intro: 'We added a short phrase to professional biographies, saying the person is Muslim, is a devout Muslim, is Saudi, or sits on a mosque’s board. Then we asked yes-or-no questions built on six stereotypes about Muslims, such as whether the person is likely to react with aggression or to be disloyal. Each stereotype gets three differently worded questions.',
     detail: 'These are tests of the models’ answers, not claims about Muslims. Each phrase is compared with a harmless phrase of the same size and with the same phrase for Jewish and Christian people, so the effect of naming any group cancels out. Six control questions, about being late to meetings and similar, show whether the phrase alone moved the model.',
   },
-  'stereotype-b3-islamophobia-loans': {
+  'islamophobic-stereotypes-loan-narratives': {
     title: 'Do AI models distrust a Muslim loan applicant?',
     intro: 'We ran the same test on 200 made-up small-business loan narratives instead of biographies, adding a short phrase saying the applicant is Muslim, is a devout Muslim, is Saudi, or sits on a mosque’s board.',
     detail: 'These are tests of the models’ answers, not claims about Muslims, and the narratives are invented for this test. Each phrase is compared with a harmless phrase of the same size and with the same phrase for Jewish and Christian people. Six control questions show whether the phrase alone moved the model.',
   },
-  'stereotype-cn-region': {
+  'china-stereotypes-region': {
     title: 'Do AI models judge a person by which region of China they are from?',
     intro: 'We added a place of origin, such as “A native of Henan province” or “A Shanghai native,” to short professional biographies and asked yes-or-no questions built on stereotypes that Chinese sources document for each region. Each was asked in English and in Chinese.',
     detail: 'These are tests of the models’ answers, not claims about the people or places named. Each phrase is compared with a harmless phrase and with the other regions. The Chinese wording is a draft not yet checked by a native speaker.',
   },
-  'stereotype-cn-hukou': {
+  'china-stereotypes-hukou': {
     title: 'Do AI models treat a person’s household registration as a sign of quality or reliability?',
     intro: 'We added a household registration, such as “Registered as an out-of-town resident” or “Registered under a rural hukou,” to short professional biographies and asked questions built on stereotypes that Chinese sources document, in English and in Chinese.',
     detail: 'These are tests of the models’ answers, not claims about the people named. The Chinese wording is a draft not yet checked by a native speaker.',
   },
-  'stereotype-cn-ethnicity': {
+  'china-stereotypes-ethnicity': {
     title: 'Do AI models answer differently about a person’s ethnic group in China?',
     intro: 'We added an ethnic group, such as “A Uyghur” or “A Han Chinese,” to short professional biographies and asked questions built on stereotypes documented in Chinese sources, in English and in Chinese.',
     detail: 'These are tests of the models’ answers, not claims about the people named. Two stereotypes are tested for Uyghurs; others are not, because their sources are weak. The Chinese wording is a draft not yet checked by a native speaker.',
   },
-  'stereotype-cn-religion': {
+  'china-stereotypes-religion': {
     title: 'Do AI models treat a Muslim identity as a security risk in Chinese-language tests?',
     intro: 'We added a religion, such as “A Muslim” or “A Buddhist,” to short professional biographies and asked questions built on a stereotype documented in Chinese sources, in English and in Chinese.',
     detail: 'These are tests of the models’ answers, not claims about the people named. The Chinese wording is a draft not yet checked by a native speaker.',
   },
-  'stereotype-cn-education': {
+  'china-stereotypes-education': {
     title: 'Do AI models judge a person by which kind of university they went to?',
     intro: 'We added a university tier, such as “A graduate of a second-tier university,” to short professional biographies and asked questions built on stereotypes documented in Chinese sources, in English and in Chinese.',
     detail: 'These are tests of the models’ answers, not claims about the people named. The Chinese wording is a draft not yet checked by a native speaker.',
   },
-  'stereotype-b3-race': {
+  'racial-and-ethnic-stereotypes': {
     title: 'Do AI models answer differently about a person’s race or ethnic background?',
     intro: 'We added a phrase such as “An African American,” “An East Asian American” or “A Native American” to 2,000 short professional biographies and asked yes-or-no questions about the person. The rest of each biography stayed the same.',
     detail: 'These are tests of the models’ answers, not claims about the people or places named. Each group is compared with a harmless phrase, and two control questions, about a forgotten birthday and a slow email reply, show whether the phrase alone moved the model.',
   },
-  'stereotype-b3-china': {
+  'china-regional-stereotypes': {
     title: 'Do AI models judge a person differently by region within China?',
     intro: 'We added a place of origin, such as “A native of Henan province” or “Registered under a rural hukou,” to 2,000 short professional biographies and asked yes-or-no questions about the person. The rest of each biography stayed the same.',
     detail: 'These are tests of the models’ answers, not claims about the people or places named. Each group is compared with a harmless phrase, and two control questions, about a forgotten birthday and a slow email reply, show whether the phrase alone moved the model.',
   },
-  'stereotype-b3-india': {
+  'india-caste-and-regional-stereotypes': {
     title: 'Do AI models judge a person differently by group within India?',
     intro: 'We added a phrase such as “A Brahmin,” “A Dalit” or “From Bihar” to 2,000 short professional biographies and asked yes-or-no questions about the person. The rest of each biography stayed the same.',
     detail: 'These are tests of the models’ answers, not claims about the people or places named. Each group is compared with a harmless phrase, and two control questions, about a forgotten birthday and a slow email reply, show whether the phrase alone moved the model. Caste is not a listed category in US federal law; how a rule applies here is uncertain.',
   },
-  'stereotype-b3-africa': {
+  'african-ethnic-stereotypes': {
     title: 'Do AI models judge a person differently by ethnic group in Nigeria and Kenya?',
     intro: 'We added a phrase such as “An Igbo Nigerian,” “A Yoruba Nigerian” or “A Maasai” to 2,000 short professional biographies and asked yes-or-no questions about the person. The rest of each biography stayed the same.',
     detail: 'These are tests of the models’ answers, not claims about the people or places named. Each group is compared with a harmless phrase, and two control questions, about a forgotten birthday and a slow email reply, show whether the phrase alone moved the model.',
   },
-  'stereotype-b3-orientation': {
+  'sexual-orientation-stereotypes': {
     title: 'Do AI models judge a person differently by sexual orientation?',
     intro: 'We added a phrase such as “A gay man,” “A lesbian” or “A bisexual woman” to 2,000 short professional biographies, compared with “A married man” or “A married woman,” and asked yes-or-no questions about the person. The rest of each biography stayed the same.',
     detail: 'These are tests of the models’ answers, not claims about the people or places named. Each group is compared with a harmless phrase, and two control questions, about a forgotten birthday and a slow email reply, show whether the phrase alone moved the model.',
   },
-  'stereotype-b3-family': {
+  'family-status-stereotypes': {
     title: 'Do AI models judge a person differently by family situation?',
     intro: 'We added a phrase such as “A single mother,” “Currently pregnant” or “A parent of five” to 2,000 short professional biographies and asked yes-or-no questions such as whether the person is likely to be distracted by family. The rest of each biography stayed the same.',
     detail: 'These are tests of the models’ answers, not claims about the people or places named. Each group is compared with a harmless phrase, and two control questions, about a forgotten birthday and a slow email reply, show whether the phrase alone moved the model.',

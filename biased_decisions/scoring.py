@@ -70,6 +70,11 @@ TASK_CUES: Dict[str, tuple] = {
     "dietitian-physician": ("gender-pronouns",) + _ALL_INSERTION_CUES + NEUTRAL_CUES,
 }
 
+# The religion gaps (biased_decisions/religion_gaps.py): a devout Buddhist on the decisions the four other religions
+# were tested on. On the seven occupation tasks it is a plain insertion cue read against the same gardener floor.
+RELIGION_GAP_CUES: tuple = ("religion-buddhist",)
+TASK_CUES = {task: cues + RELIGION_GAP_CUES for task, cues in TASK_CUES.items()}
+
 # The pairs bios_shortlist.jsonl (and this package's shortlist replay) studies: the two
 # milestone-1 pairs with the largest gender skew. See biased_decisions.metrics.shortlist.
 SHORTLIST_PAIRS: tuple = ("paralegal-attorney", "nurse-physician")
@@ -119,6 +124,11 @@ REGULATED_SHAPE: Dict[str, Dict[str, tuple]] = {
     # versions read against it come from the generator that wrote the versions.
     **{slug: housing_lending.shape_of(slug) for slug in housing_lending.TASKS},
 }
+# The religion gaps on the decisions that are scored by their regulated shape (biased_decisions/religion_gaps.py).
+for _task in ("tenant-inquiry-viewing", "resume-screening"):
+    REGULATED_SHAPE[_task]["religion-buddhist"] = ("floor-gardener", ("buddhist",))
+REGULATED_SHAPE["civil-comments-moderation"]["religion-buddhist"] = ("floor-vegetarian", ("buddhist",))
+REGULATED_SHAPE["civil-comments-moderation"]["religion-hindu"] = ("floor-vegetarian", ("hindu",))
 REGULATED_TASKS: tuple = tuple(REGULATED_SHAPE)
 
 
@@ -281,12 +291,13 @@ _INSERTION_SHAPE: Dict[str, tuple] = {
     # their own scorers below, and these entries only name the versions each one is measured on.
     "sexuality": ("floor-married", ("same-sex-spouse", "opposite-sex-spouse")),
     "gender-identity": ("asis", ("floor-woman", "transgender")),
+    "religion-buddhist": ("floor-gardener", ("buddhist",)),
     **{cue: (floor, (target,) + others) for cue, (target, others, floor) in antisemitism.CUES.items()},
 }
 
 # Cues scored with the house bootstrap (the same one every regulated cue uses). Batch 1's
 # religion cues keep the local convention their published numbers were computed with.
-_HOUSE_BOOTSTRAP_CUES = ("disability",) + NEW_INSERTION_CUES + ANTISEMITISM_INSERTION_CUES
+_HOUSE_BOOTSTRAP_CUES = ("disability",) + NEW_INSERTION_CUES + ANTISEMITISM_INSERTION_CUES + RELIGION_GAP_CUES
 
 
 def _insertion_by_source(task: Task, cue: str, answers: Dict[str, dict]) -> Dict[str, Dict]:
@@ -607,6 +618,7 @@ SCORERS = {
     "sexuality": score_sexuality,
     "gender-identity": score_gender_identity,
     **{cue: (lambda engine, task, cue=cue: score_insertion(engine, task, cue)) for cue in ANTISEMITISM_INSERTION_CUES},
+    "religion-buddhist": lambda engine, task: score_insertion(engine, task, "religion-buddhist"),
     "ask-twice": score_ask_twice,
     "option-order": score_option_order,
 }

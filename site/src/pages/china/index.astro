@@ -8,7 +8,7 @@ const C = data.china;
 const intro = pageIntroductions.china;
 const label = (id) => engines.find((e) => e.id === id).label;
 const order = engines.map((e) => e.id);
-const one = (r) => r ? `${fmt(r.score_pts)} points (range ${fmt(r.lo)} to ${fmt(r.hi)})${r.detected ? "" : ", no clear sign"}` : "not tested";
+const one = (r) => r ? `${fmt(r.score_pts)} points (range ${fmt(r.lo)} to ${fmt(r.hi)})${r.detected ? "" : r.hi < 0 ? ", the opposite direction" : ", no clear sign"}` : "not tested";
 ---
 <Base title={intro.title} description={intro.intro} path={`${urls.home()}china/`} current={{ page: "china" }}
   crumbs={[{ label: "Leaderboard", href: urls.home() }, { label: "Stereotype tests", href: `${urls.home()}stereotypes/` }, { label: "China" }]}>
@@ -31,7 +31,7 @@ const one = (r) => r ? `${fmt(r.score_pts)} points (range ${fmt(r.lo)} to ${fmt(
       <p class="lede">Groups compared: {a.groups.map((g) => g.label).join(", ")}. <a href={`${urls.home()}${a.board}/`}>Every result on its own page</a>.</p>
       {a.tropes.map((t) => (
         <Fragment>
-          <h3>{t.label[0].toUpperCase() + t.label.slice(1)}: the idea that {t.target_label} people or places are {t.alleges}</h3>
+          <h3>{t.label[0].toUpperCase() + t.label.slice(1)}: the idea that {t.target_noun} are {t.alleges}</h3>
           <p class="note">Source: {t.source}.</p>
           <ul class="cite-list">
             {order.map((e) => {

@@ -12,6 +12,7 @@ from biased_decisions.leaderboard_examples import BUILD_ORDER
 from biased_decisions.tasks.bios import BIOS_TASKS
 
 from biased_decisions.leaderboard import (
+    B3_BOARD_IDS,
     ENGINE_IDS, SEVERITY_DARK, SEVERITY_LIGHT, _board, _clean, _fractional_ranks, _magnitude,
     _wilson, build_overall, generate_json, release_info, severity_colours, write_json,
 )
@@ -270,6 +271,13 @@ def test_every_cell_has_every_engine_and_levels_follow_the_board_rules(doc):
                 assert lv["heads"][e]["status"] == "missing"
 
 
+import re as _re
+
+
+def _is_stereotype_board(dim_id):
+    return bool(_re.search(r'-stereotypes(-|$)', dim_id))
+
+
 def test_the_dimension_headline_is_the_largest_detected_cell(doc):
     for dim in doc["dimensions"]:
         for engine, cell in dim["cells"].items():
@@ -315,11 +323,11 @@ def test_batch2_clauses_and_pending_predictions_are_verbatim(doc):
             assert bd["pending"] == []
             continue
         # batch 3 names batch 2's seven nationalities without repeating their phrases, so either document counts
-        text = prereg_b3 + prereg if dim["id"].startswith("stereotype-b3-") else prereg
-        if dim["id"].startswith("stereotype-b3-antisemitism"):   # its phrases and questions are registered in its own document
+        text = prereg_b3 + prereg if _is_stereotype_board(dim["id"]) else prereg
+        if dim["id"].startswith("antisemitic-stereotypes"):   # its phrases and questions are registered in its own document
             text += _clean((DEFAULT_ROOT / "docs" / "antisemitic-tropes-preregistration.md").read_text(encoding="utf-8"))
-        for prefix, doc_name in (("stereotype-b3-islamophobia", "islamophobic-tropes-preregistration.md"),
-                                 ("stereotype-cn-", "china-tropes-preregistration.md")):
+        for prefix, doc_name in (("islamophobic-stereotypes", "islamophobic-tropes-preregistration.md"),
+                                 ("china-stereotypes-", "china-tropes-preregistration.md")):
             if dim["id"].startswith(prefix):
                 text += _clean((DEFAULT_ROOT / "docs" / doc_name).read_text(encoding="utf-8"))
         for g in bd["groups"]:
@@ -330,8 +338,8 @@ def test_batch2_clauses_and_pending_predictions_are_verbatim(doc):
         for i in bd["items"]:
             if i.get("trope"):
                 assert i["question"] in text and i["trope"] in text
-        if dim["id"].startswith(("stereotype-b3-", "stereotype-cn-")):
-            continue                       # batch 3 and the China study have no pending predictions: it is scored for every model that answered
+        if _is_stereotype_board(dim["id"]):
+            continue                       # batch 3 has no pending predictions: it is scored for every model that answered
         assert bd["pending"]
         for row in bd["pending"]:
             assert row["engine"] == "jev" and row["observed"] is None
@@ -454,10 +462,10 @@ def test_the_regulated_tasks_are_on_the_boards_of_their_characteristic(doc):
     # disability: Q-Pain's wheelchair shift is the largest on the board, and civil comments joins it
     assert (laya("disability")["headline"]["facet"], laya("disability")["headline"]["value"]) == ("resume-screening", 8.02)   # the resume decision now moves Laya most on disability
     assert "civil-comments-moderation" in [i["id"] for i in dims["disability"]["breakdown"]["items"]]
-    # religion: a Civil Comments cell for each religion it asked, none for Hindu
+    # religion: a Civil Comments cell for every religion, now including Hindu and Buddhist (added later, on the same floor)
     civil = [c for c in dims["religion"]["breakdown"]["cells"] if c["item"] == "civil-comments-moderation"]
     measured = {c["group"] for c in civil if c["engines"]["laya"]["status"] == "measured"}
-    assert measured == {"muslim", "christian", "jewish"}
+    assert measured == {"muslim", "christian", "jewish", "hindu", "buddhist"}
     # race: Black on Civil Comments is detected, Black on Q-Pain is not
     cell = lambda item: next(c for c in dims["race"]["breakdown"]["cells"] if c["group"] == "black" and c["item"] == item)
     assert cell("civil-comments-moderation")["engines"]["laya"]["detected"] is True
@@ -655,7 +663,7 @@ B3_GROUPS = {"nationality-x": 13, "race": 5, "china": 4, "india": 5, "africa": 5
 def test_each_batch3_axis_has_an_unranked_stereotype_board_measured_for_laya_and_kev(doc):
     dims = _dims(doc)
     for axis, n_groups in B3_GROUPS.items():
-        dim = dims[f"stereotype-b3-{axis}"]
+        dim = dims[B3_BOARD_IDS[axis]]
         assert dim["supplemental"] is True and len(dim["breakdown"]["groups"]) == n_groups, axis
         items = [i["id"] for i in dim["breakdown"]["items"]]
         assert "control-birthday" in items and "control-email" in items and len(items) >= 6, axis
@@ -666,7 +674,7 @@ def test_each_batch3_axis_has_an_unranked_stereotype_board_measured_for_laya_and
 
 
 def test_a_batch3_cell_says_what_it_is_and_carries_the_holm_verdict_and_its_sources(doc):
-    dim = _dims(doc)["stereotype-b3-nationality-x"]
+    dim = _dims(doc)["nationality-stereotypes"]
     groups = {g["id"]: g for g in dim["breakdown"]["groups"]}
     assert groups["palestinian"]["label"] == "Palestinian" and groups["palestinian"]["clause"] == "A Palestinian, "
     item = next(i for i in dim["breakdown"]["items"] if i["id"] == "violence")
@@ -683,13 +691,13 @@ def test_a_batch3_cell_says_what_it_is_and_carries_the_holm_verdict_and_its_sour
 
 def test_no_batch3_question_shows_an_internal_note_as_its_source(doc):
     for axis in B3_GROUPS:
-        for item in _dims(doc)[f"stereotype-b3-{axis}"]["breakdown"]["items"]:
+        for item in _dims(doc)[B3_BOARD_IDS[axis]]["breakdown"]["items"]:
             assert "batch 2" not in item["stereotype"].lower(), (axis, item["id"], item["stereotype"])
 
 
 def test_the_antisemitism_boards_cover_both_text_sources_and_all_three_models(doc):
     dims = _dims(doc)
-    for dim_id in ("stereotype-b3-antisemitism", "stereotype-b3-antisemitism-loans"):
+    for dim_id in ("antisemitic-stereotypes", "antisemitic-stereotypes-loan-narratives"):
         dim = dims[dim_id]
         assert dim["supplemental"] is True
         assert [g["id"] for g in dim["breakdown"]["groups"]] == [
@@ -699,7 +707,7 @@ def test_the_antisemitism_boards_cover_both_text_sources_and_all_three_models(do
         cell = _cell(dim, "antisemitism-religious", "greed-financial")
         for engine in ("laya", "kev", "jev"):
             assert cell["engines"][engine]["status"] == "measured", (dim_id, engine)
-        assert "loan" in dims["stereotype-b3-antisemitism-loans"]["cue"]
+        assert "loan" in dims["antisemitic-stereotypes-loan-narratives"]["cue"]
 
 
 def test_the_antisemitism_occupation_board_has_five_cue_forms_seven_decisions_and_all_three_models(doc):
@@ -714,6 +722,15 @@ def test_the_antisemitism_occupation_board_has_five_cue_forms_seven_decisions_an
     # every version moving alike is shown but never ranked: the devout-Jew cue on nurse-or-physician
     laya = cell["engines"]["laya"]
     assert laya["attributable"] is False and "cannot blame" in laya["note"]
+
+
+def test_the_religion_board_has_no_missing_cell_for_any_religion_on_any_decision(doc):
+    religion = _dims(doc)["religion"]
+    missing = [(c["group"], c["item"], e) for c in religion["breakdown"]["cells"]
+               for e, f in c["engines"].items() if f["status"] != "measured"]
+    assert missing == []
+    buddhist = next(c for c in religion["breakdown"]["cells"] if c["group"] == "buddhist" and c["item"] == "resume-screening")
+    assert buddhist["engines"]["jev"]["extra"]["signed_shift_pts"] == pytest.approx(6.17)
 
 
 def test_the_antisemitism_page_data_covers_both_text_sources_the_split_and_all_three_models(doc):
@@ -737,3 +754,32 @@ def test_a_board_row_says_which_way_the_model_moved_where_the_result_has_a_direc
     assert rows["kev"]["direction"]["toward"] == "down" and rows["kev"]["direction"]["signed_pts"] < 0
     # the size is how far it moved; a stereotype score is toward the stereotype by construction, so it has no direction
     assert rows["laya"]["direction"] is None
+
+
+def test_the_islamophobia_and_china_boards_are_measured_for_all_three_models(doc):
+    dims = _dims(doc)
+    for dim_id in ("islamophobic-stereotypes", "islamophobic-stereotypes-loan-narratives"):
+        dim = dims[dim_id]
+        assert len(dim["breakdown"]["items"]) == 6 and len(dim["breakdown"]["groups"]) == 4
+        cell = _cell(dim, "islamophobia-religious", "violence")
+        for engine in ("laya", "kev", "jev"):
+            assert cell["engines"][engine]["status"] == "measured", (dim_id, engine)
+    region = dims["china-stereotypes-region"]
+    assert [i["id"] for i in region["breakdown"]["items"]] == [
+        "dishonesty", "dishonesty-zh", "roughness", "roughness-zh", "snobbery", "snobbery-zh"]
+    henan = _cell(region, "henan", "dishonesty-zh")
+    for engine in ("laya", "kev", "jev"):
+        assert henan["engines"][engine]["status"] == "measured"
+        assert "not yet been checked by a native speaker" in henan["engines"][engine]["note"]
+    # a stereotype is scored for the one group it is documented for
+    assert _cell(region, "shanghai", "dishonesty")["engines"]["laya"]["status"] == "missing"
+
+
+def test_the_china_page_data_has_every_axis_with_english_and_chinese_results(doc):
+    china = doc["china"]
+    assert [a["id"] for a in china["axes"]] == ["region", "hukou", "ethnicity", "religion", "education"]
+    for axis in china["axes"]:
+        for trope in axis["tropes"]:
+            for engine in ("laya", "kev", "jev"):
+                assert set(trope["results"][engine]) == {"en", "zh"}
+    assert "native speaker" in china["translation_note"]
