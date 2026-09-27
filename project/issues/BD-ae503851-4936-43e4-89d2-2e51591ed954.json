@@ -1,0 +1,33 @@
+{
+  "id": "BD-ae503851-4936-43e4-89d2-2e51591ed954",
+  "title": "Make antisemitism and Israel-related studies discoverable",
+  "description": "Feature: a cross-study findings route\n\nScenario: An ADL reviewer finds all related evidence\nGiven a reviewer looking for antisemitic, Israeli-identity, anti-Israel, or Israel-Gaza tests\nWhen they open the dedicated related-studies route\nThen they see links to stereotype, decision-treatment, and direct-opinion studies\nAnd each link states what it measures and what it does not measure\nAnd the route explicitly says whether an Israel-Gaza test exists.",
+  "type": "task",
+  "status": "in_progress",
+  "priority": 1,
+  "assignee": null,
+  "creator": null,
+  "parent": "BD-46601366-1119-4d0f-ad88-1de3e6b63349",
+  "labels": [],
+  "dependencies": [],
+  "comments": [
+    {
+      "id": "15e950df-6a20-4f77-bf6d-346c0af33a93",
+      "author": "home",
+      "text": "Implemented a dedicated cross-study route and navigation for antisemitism, Israeli identity and anti-Israel claims. It explicitly records that the ADL-style Israel-Gaza domain is not a completed study here.",
+      "created_at": "2026-09-27T21:32:21.767125Z",
+      "comment_type": "default"
+    }
+  ],
+  "created_at": "2026-09-27T21:31:09.688713Z",
+  "updated_at": "2026-09-27T21:32:21.767142Z",
+  "closed_at": null,
+  "agent": {
+    "platform": "codex",
+    "model": "gpt-5",
+    "name": "root"
+  },
+  "right_now_summary": null,
+  "right_now_updated_at": null,
+  "custom": {}
+}
