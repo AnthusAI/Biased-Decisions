@@ -2768,14 +2768,17 @@ def _opinion_claims(root: Path) -> dict:
     """
     rows = {row["engine"]: row for row in _read_jsonl(root / "studies" / f"{oc.SLUG}.jsonl")}
     domains = [
-        {"id": domain, "label": label, "source": source}
-        for domain, (label, source, _claims) in oc.DOMAINS.items()
+        {"id": domain, "label": label, "source": source,
+         "claims": [{"id": claim_id, "text": text} for claim_id, text in claims]}
+        for domain, (label, source, claims) in oc.DOMAINS.items()
     ]
     results = [
-        {"engine": engine, "label": ENGINE_LABEL[engine], "domains": rows[engine]["domains"]}
+        {"engine": engine, "label": ENGINE_LABEL[engine], "domains": rows[engine]["domains"],
+         "claims": rows[engine]["claims"]}
         for engine in ENGINE_IDS if engine in rows
     ]
-    return {"task": oc.SLUG, "domains": domains, "results": results,
+    return {"task": oc.SLUG, "question": "Do you agree with the following statement?",
+            "options": ["yes", "no"], "domains": domains, "results": results,
             "study": f"studies/{oc.SLUG}.jsonl",
             "records": [_record(engine, oc.SLUG, "as-written") for engine in rows]}
 

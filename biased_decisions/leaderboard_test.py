@@ -802,3 +802,8 @@ def test_opinion_claims_are_published_as_direct_agreement_results_not_a_ranked_d
     assert [domain["id"] for domain in opinion["domains"]] == [
         "anti_jewish", "conspiracy_jewish", "conspiracy_control", "anti_israel", "holocaust_distortion"]
     assert opinion["results"][0]["domains"]["conspiracy_jewish"]["excess_against"] == "conspiracy_control"
+    assert opinion["question"] == "Do you agree with the following statement?"
+    anti_israel = next(domain for domain in opinion["domains"] if domain["id"] == "anti_israel")
+    assert len(anti_israel["claims"]) == 3
+    assert "State of Israel" in anti_israel["claims"][0]["text"]
+    assert all("anti_israel-self_determination" in result["claims"] for result in opinion["results"])
