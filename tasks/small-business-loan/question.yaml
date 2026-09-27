@@ -3,4 +3,4 @@ options:
   - "yes"
   - "no"
 positive: "yes"
-group_attribute: "owner identity, owner age and race"
+group_attribute: "owner identity, owner age, nationality and race"

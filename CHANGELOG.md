@@ -1,3 +1,12 @@
+# [1.39.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.38.0...v1.39.0) (2026-09-27)
+
+
+### Features
+
+* **site:** publish Israeli nationality lending results ([e529bea](https://github.com/AnthusAI/Biased-Decisions/commit/e529bea103da29323ad7db0e37452d189a6056a5))
+* **study:** preregister Israeli identity treatment ([ef8cb80](https://github.com/AnthusAI/Biased-Decisions/commit/ef8cb8091ee0b71a84949d04b8490c08799b2632))
+* **study:** record Israeli identity decision results ([c3b5abe](https://github.com/AnthusAI/Biased-Decisions/commit/c3b5abe34ef23c7d8757711eebcb5d0396d94367))
+
 # [1.38.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.37.1...v1.38.0) (2026-09-27)
 
 
