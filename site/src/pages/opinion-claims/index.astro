@@ -28,7 +28,7 @@ const pct = (value) => `${Number(value).toFixed(2)}%`;
         <h2 class="display" id="detail-h">Claim-by-claim results</h2>
         <p class="lede">Open a claim family to see all three statements, why they were included, and every model’s answer. Only the Jewish-conspiracy family has a registered comparison with a control family. The other families, including anti-Israel claims, are reported as direct-response rates only.</p>
         {opinionClaims.domains.map((domain) => <details class="claim-detail" id={domain.id}>
-          <summary><strong>{domain.label}</strong><span>3 exact statements · open the evidence</span></summary>
+          <summary><strong class="opinion-claim-family">{domain.label}</strong><span class="opinion-claim-summary">3 exact statements · open the evidence</span></summary>
           <p class="note"><strong>Why these statements:</strong> {domain.source}</p>
           <div class="table-scroll" tabindex="0" role="region" aria-label={`${domain.label} claim-by-claim model answers`}>
             <table class="cell-table">

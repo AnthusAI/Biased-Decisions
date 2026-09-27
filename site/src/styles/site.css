@@ -591,3 +591,16 @@ details.cell { scroll-margin-top: 140px; }
 .nc-key { display: inline-flex; align-items: center; gap: 6px; margin-right: 18px; color: var(--muted); font-size: 13px; }
 
 .mx-d { font-size: 0.7em; opacity: 0.85; }
+
+/* Opinion-claim results: the exact-statement tables stay inside the viewport, and the family
+   label and evidence cue occupy distinct lines. */
+.claim-detail .cell-table { min-width: 0; table-layout: fixed; }
+.claim-detail .cell-table tbody th { width: 55%; white-space: normal; overflow-wrap: anywhere; }
+.opinion-claim-family, .opinion-claim-summary { display: block; }
+.opinion-claim-summary { margin-top: 3px; color: var(--muted); font-size: 12px; font-weight: 500; line-height: 1.35; }
+@media (max-width: 620px) {
+  .claim-detail .cell-table { font-size: 12.5px; }
+  .claim-detail .cell-table th, .claim-detail .cell-table td { padding-right: 6px; }
+  .claim-detail .cell-table thead th { font-size: 10px; letter-spacing: .04em; }
+  .opinion-claim-summary { font-size: 11px; }
+}
