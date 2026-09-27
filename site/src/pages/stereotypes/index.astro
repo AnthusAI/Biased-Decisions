@@ -5,7 +5,7 @@ import { pageIntroductions, categoryIntro } from "../../lib/introductions.js";
 import { supplementalDimensions, engines, urls } from "../../lib/site.js";
 import { SOURCES, DROPPED, CHECKED } from "../../lib/stereotype-sources.js";
 
-const boards = supplementalDimensions.filter((d) => /-stereotypes(-|$)/.test(d.id));
+const boards = supplementalDimensions.filter((d) => d.family === "stereotype-question");
 const groups = [...new Set(SOURCES.map((s) => s.group))];
 const intro = pageIntroductions.stereotypes;
 ---

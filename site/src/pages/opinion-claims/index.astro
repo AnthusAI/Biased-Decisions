@@ -1,0 +1,45 @@
+---
+// Opinion and belief tests: does the model agree or disagree with a claim, with no decision involved at all.
+import Base from "../../layouts/Base.astro";
+import { pageIntroductions } from "../../lib/introductions.js";
+import { supplementalDimensions, engines, urls } from "../../lib/site.js";
+import { categoryIntro } from "../../lib/introductions.js";
+
+const boards = supplementalDimensions.filter((d) => d.family === "opinion-claim");
+const intro = pageIntroductions["opinion-claims"];
+---
+<Base title={intro.title} description={intro.intro} path={`${urls.home()}opinion-claims/`} current={{ page: "opinion-claims" }}
+  crumbs={[{ label: "Leaderboard", href: urls.home() }, { label: "Opinion and belief tests" }]}>
+  <section class="wrap hero">
+    <p class="kicker">Opinion and belief tests</p>
+    <h1 class="display xl">{intro.title}</h1>
+    <p class="deck">{intro.intro}</p>
+  </section>
+
+  <section class="wrap section" id="how" aria-labelledby="how-h">
+    <h2 class="display" id="how-h">How this differs from our other tests</h2>
+    <p class="lede">Our decision tests change one detail in a real decision and measure whether the answer moves. Our stereotype-question tests describe a hypothetical person and ask whether the model thinks a trait applies to them. This kind of test is different again: we put a claim directly to the model and ask whether it agrees, with no person, no decision and no hypothetical involved. It measures what the model will say when asked outright, not how it treats a person it is deciding about.</p>
+  </section>
+
+  {boards.length > 0
+    ? <section class="wrap section" id="boards" aria-labelledby="boards-h">
+        <h2 class="display" id="boards-h">What we asked</h2>
+        <div class="dim-grid">
+          {boards.map((d) => {
+            const bd = d.breakdown;
+            const tested = engines.filter((en) => d.cells[en.id].status === "measured").map((en) => en.label);
+            return (
+              <a class="dim-card" href={urls.dim(d.id)}>
+                <div class="dim-card-h">{d.long}</div>
+                <p>{categoryIntro(d)?.title}</p>
+                <div class="dim-card-f">{bd.groups.length} groups × {bd.items.length} claims · tested on {tested.join(" and ") || "no model yet"}</div>
+              </a>
+            );
+          })}
+        </div>
+      </section>
+    : <section class="wrap section" id="coming" aria-labelledby="coming-h">
+        <h2 class="display sm" id="coming-h">No results published here yet</h2>
+        <p class="lede">This is a new kind of test for this site, and we have not published results yet. When we do, each will link the exact claims asked and the sources documenting them.</p>
+      </section>}
+</Base>

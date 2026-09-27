@@ -16,7 +16,7 @@ import HowMeasured from "../../components/HowMeasured.astro";
 import ModelsLine from "../../components/ModelsLine.astro";
 import { kindName, kindNames, measureOf } from "../../scripts/util.js";
 import { data, allDimensions, engines, urls, boardPayload, describeDim, facetHref, multiGroup, multiItem, niceMax, unit,
-  fmt, signed, int, cap, forestRows, groupLabel, itemLabel } from "../../lib/site.js";
+  fmt, signed, int, cap, forestRows, groupLabel, itemLabel, FAMILY_LABEL, FAMILY_EXPLAIN } from "../../lib/site.js";
 
 export function getStaticPaths() {
   return allDimensions.map((dim) => ({ params: { dim: dim.id }, props: { dim } }));
@@ -59,8 +59,9 @@ const allFacets = engines.flatMap((en) => dim.cells[en.id].facets || []);
 <Base title={introduction.title} description={introduction.intro} path={urls.dim(dim.id)} current={{ page: "dimension", dim: dim.id }} charts={charts}
   crumbs={[{ label: "Leaderboard", href: urls.home() }, { label: dim.label }]}>
   <section class="wrap hero dim-hero">
-    <p class="kicker">AI bias tests · {dim.label}</p>
+    <p class="kicker">{FAMILY_LABEL[dim.family] || "AI bias test"} · {dim.label}</p>
     <h1 class="display xl">{introduction.title}</h1>
+    <p class="note family-explain">{FAMILY_EXPLAIN[dim.family]}</p>
     <p class="deck">{introduction.intro}</p>
     <p class="lede">{introduction.detail}</p>
     <RegWarn dim={dim} />
