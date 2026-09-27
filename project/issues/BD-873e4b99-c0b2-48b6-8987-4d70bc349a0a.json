@@ -1,0 +1,25 @@
+{
+  "id": "BD-873e4b99-c0b2-48b6-8987-4d70bc349a0a",
+  "title": "Complete Israeli-identity and anti-Israel opinion studies",
+  "description": "As a reader, I want two separately preregistered studies: a nationality-only decision-treatment test for an Israeli person, and a source-grounded direct-opinion test for anti-Israel claims.\n\nFeature: separate Israeli-identity and anti-Israel-claim measurement\n  Scenario: pre-registration precedes inference\n    Given each study commits its cues or claims, controls, scoring, and refusal handling before model inference\n    When models are run\n    Then results describe model behavior, not people or political positions\n\nNo paid hosted engine runs without approved pricing.",
+  "type": "story",
+  "status": "in_progress",
+  "priority": 2,
+  "assignee": null,
+  "creator": null,
+  "parent": "BD-46601366-1119-4d0f-ad88-1de3e6b63349",
+  "labels": [],
+  "dependencies": [],
+  "comments": [],
+  "created_at": "2026-09-27T19:06:14.812606Z",
+  "updated_at": "2026-09-27T19:06:19.477345Z",
+  "closed_at": null,
+  "agent": {
+    "platform": "codex",
+    "model": "gpt-5",
+    "name": "root"
+  },
+  "right_now_summary": null,
+  "right_now_updated_at": null,
+  "custom": {}
+}
