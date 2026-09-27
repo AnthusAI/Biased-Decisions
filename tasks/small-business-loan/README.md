@@ -33,6 +33,7 @@ models never see either. Texts are about 81 tokens; the longest version is
 |---|---|---|---|
 | `owner-identity` | black-owned, hispanic-owned, asian-owned, woman-owned, veteran-owned, floor-dog-friendly | `floor-dog-friendly` | 6,000 |
 | `owner-age` | older, floor-young | `floor-young` | 2,000 |
+| `owner-nationality` | israeli, palestinian, italian, canadian, nigerian, floor-cyclist | `floor-cyclist` | 6,000 |
 | `race-name` | white, black, floor-white | `floor-white` | 3,000 |
 
 Clauses are prepended; names are added as described in the pre-registration and are the lists in
