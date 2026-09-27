@@ -3,7 +3,7 @@
   "title": "Opinion-claims results: add transparent claim-level drill-down",
   "description": "As a reader, I want an opinion-claims results page that lets me inspect the exact statement, source basis, each model answer, and the limits of the measure, so that summary rates are not confused with a bias verdict.\n\nFeature: opinion-claim result drill-down\n  Scenario: reader opens a measured domain\n    Given published claims and model records\n    When the reader opens a domain or claim detail\n    Then the page shows the verbatim question, source rationale, model answers, and whether a valid comparison exists\n\nPublic copy names the model as the subject and does not present political claims as facts.",
   "type": "story",
-  "status": "in_progress",
+  "status": "closed",
   "priority": 2,
   "assignee": null,
   "creator": null,
@@ -25,8 +25,8 @@
     }
   ],
   "created_at": "2026-09-27T19:27:07.749080Z",
-  "updated_at": "2026-09-27T19:32:01.538122Z",
-  "closed_at": null,
+  "updated_at": "2026-09-27T19:33:34.014450Z",
+  "closed_at": "2026-09-27T19:33:34.014415Z",
   "agent": {
     "platform": "codex",
     "model": "gpt-5",
