@@ -2,11 +2,10 @@
 // Opinion and belief tests: does the model agree or disagree with a claim, with no decision involved at all.
 import Base from "../../layouts/Base.astro";
 import { pageIntroductions } from "../../lib/introductions.js";
-import { supplementalDimensions, engines, urls } from "../../lib/site.js";
-import { categoryIntro } from "../../lib/introductions.js";
+import { opinionClaims, urls } from "../../lib/site.js";
 
-const boards = supplementalDimensions.filter((d) => d.family === "opinion-claim");
 const intro = pageIntroductions["opinion-claims"];
+const pct = (value) => `${Number(value).toFixed(2)}%`;
 ---
 <Base title={intro.title} description={intro.intro} path={`${urls.home()}opinion-claims/`} current={{ page: "opinion-claims" }}
   crumbs={[{ label: "Leaderboard", href: urls.home() }, { label: "Opinion and belief tests" }]}>
@@ -21,22 +20,23 @@ const intro = pageIntroductions["opinion-claims"];
     <p class="lede">Our decision tests change one detail in a real decision and measure whether the answer moves. Our stereotype-question tests describe a hypothetical person and ask whether the model thinks a trait applies to them. This kind of test is different again: we put a claim directly to the model and ask whether it agrees, with no person, no decision and no hypothetical involved. It measures what the model will say when asked outright, not how it treats a person it is deciding about.</p>
   </section>
 
-  {boards.length > 0
-    ? <section class="wrap section" id="boards" aria-labelledby="boards-h">
-        <h2 class="display" id="boards-h">What we asked</h2>
-        <div class="dim-grid">
-          {boards.map((d) => {
-            const bd = d.breakdown;
-            const tested = engines.filter((en) => d.cells[en.id].status === "measured").map((en) => en.label);
-            return (
-              <a class="dim-card" href={urls.dim(d.id)}>
-                <div class="dim-card-h">{d.long}</div>
-                <p>{categoryIntro(d)?.title}</p>
-                <div class="dim-card-f">{bd.groups.length} groups × {bd.items.length} claims · tested on {tested.join(" and ") || "no model yet"}</div>
-              </a>
-            );
-          })}
+  {opinionClaims.results.length > 0
+    ? <section class="wrap section" id="results" aria-labelledby="results-h">
+        <h2 class="display" id="results-h">Results from the models we tested</h2>
+        <p class="lede">Each model saw the same three claims in each row and answered yes or no. The percentage is that model’s average probability of yes; the range shows its lowest and highest probability among the three claims. These are the models’ answers to a direct prompt, not findings about any group.</p>
+        <div class="table-scroll" tabindex="0" role="region" aria-label="Opinion-claim results by model and claim family">
+          <table class="cell-table">
+            <thead><tr><th scope="col">claim family</th>{opinionClaims.results.map((result) => <th scope="col">{result.label}: yes</th>)}</tr></thead>
+            <tbody>{opinionClaims.domains.map((domain) => <tr>
+              <th scope="row"><strong>{domain.label}</strong><span>{domain.source}</span></th>
+              {opinionClaims.results.map((result) => {
+                const score = result.domains[domain.id];
+                return <td>{score ? <><strong>{pct(score.agree_pct)}</strong><span>range {pct(score.lowest_pct)}–{pct(score.highest_pct)}</span>{score.excess_pct !== undefined && <span>vs control: {pct(score.excess_pct)}</span>}</> : "not measured"}</td>;
+              })}
+            </tr>)}</tbody>
+          </table>
         </div>
+        <p class="note">Read the <a href="https://github.com/AnthusAI/Biased-Decisions/blob/ebc3e5028ad4e16c8a6138ec1a1be821ed91713f/docs/opinion-claims-preregistration.md">exact claims, sources and scoring rule</a>. Every result above is worked out again from the saved answers.</p>
       </section>
     : <section class="wrap section" id="coming" aria-labelledby="coming-h">
         <h2 class="display sm" id="coming-h">No results published here yet</h2>

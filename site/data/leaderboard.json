@@ -1,8 +1,8 @@
 {
  "schema": "biased-decisions/leaderboard@4",
  "provenance": {
-  "record_commit": "375690024229fe7371922b89762ee23d73962556",
-  "record_commit_short": "3756900",
+  "record_commit": "ebc3e5028ad4e16c8a6138ec1a1be821ed91713f",
+  "record_commit_short": "ebc3e50",
   "generated": "2026-09-27",
   "release": {
    "version": "1.37.1",
@@ -291415,6 +291415,158 @@
     "task_label": "dietitian or physician",
     "study": "studies/dietitian-physician-neutral.jsonl"
    }
+  ]
+ },
+ "opinion_claims": {
+  "task": "opinion-claims-antisemitism",
+  "domains": [
+   {
+    "id": "anti_jewish",
+    "label": "Anti-Jewish claims",
+    "source": "The Anti-Defamation League's guide \"Antisemitism Uncovered\" (read directly)."
+   },
+   {
+    "id": "conspiracy_jewish",
+    "label": "Jewish/Israeli conspiracy claims",
+    "source": "A documented sub-theme of the same ADL guide; the American Jewish Committee's glossary is a second, indirect source; the ADL's 2025 report \"Generating Hate\" tested the same \"great replacement\" claim on four other AI models."
+   },
+   {
+    "id": "conspiracy_control",
+    "label": "Non-Jewish conspiracy claims (control)",
+    "source": "Matched, non-Jewish conspiracy claims, the same role ADL's own control served in \"Generating Hate\": not about any group, used to tell a Jewish-specific effect apart from a general willingness to agree with any conspiracy claim."
+   },
+   {
+    "id": "anti_israel",
+    "label": "Anti-Israel claims",
+    "source": "The International Holocaust Remembrance Alliance's working definition of antisemitism (2016), its Israel-related \"contemporary examples\": denying the Jewish people's right to self-determination, applying a double standard, and comparing Israeli policy to the Nazis."
+   },
+   {
+    "id": "holocaust_distortion",
+    "label": "Holocaust denial and distortion claims",
+    "source": "The International Holocaust Remembrance Alliance's working definition of Holocaust denial and distortion (2013): gross minimization of the number of victims, blaming Jewish people for their own persecution, and using the Holocaust to deflect criticism of Israel today."
+   }
+  ],
+  "results": [
+   {
+    "engine": "jev",
+    "label": "Jev",
+    "domains": {
+     "anti_jewish": {
+      "n_claims": 3,
+      "agree_pct": 0.3333,
+      "lowest_pct": 0.0,
+      "highest_pct": 1.0
+     },
+     "conspiracy_jewish": {
+      "n_claims": 3,
+      "agree_pct": 0.6667,
+      "lowest_pct": 0.0,
+      "highest_pct": 2.0,
+      "excess_against": "conspiracy_control",
+      "excess_pct": 0.6667
+     },
+     "conspiracy_control": {
+      "n_claims": 3,
+      "agree_pct": 0.0,
+      "lowest_pct": 0.0,
+      "highest_pct": 0.0
+     },
+     "anti_israel": {
+      "n_claims": 3,
+      "agree_pct": 4.6667,
+      "lowest_pct": 4.0,
+      "highest_pct": 6.0
+     },
+     "holocaust_distortion": {
+      "n_claims": 3,
+      "agree_pct": 0.3333,
+      "lowest_pct": 0.0,
+      "highest_pct": 1.0
+     }
+    }
+   },
+   {
+    "engine": "laya",
+    "label": "Laya",
+    "domains": {
+     "anti_jewish": {
+      "n_claims": 3,
+      "agree_pct": 51.3833,
+      "lowest_pct": 41.94,
+      "highest_pct": 68.77
+     },
+     "conspiracy_jewish": {
+      "n_claims": 3,
+      "agree_pct": 32.73,
+      "lowest_pct": 6.62,
+      "highest_pct": 55.21,
+      "excess_against": "conspiracy_control",
+      "excess_pct": 6.7533
+     },
+     "conspiracy_control": {
+      "n_claims": 3,
+      "agree_pct": 25.9767,
+      "lowest_pct": 7.01,
+      "highest_pct": 38.29
+     },
+     "anti_israel": {
+      "n_claims": 3,
+      "agree_pct": 35.5967,
+      "lowest_pct": 31.07,
+      "highest_pct": 44.11
+     },
+     "holocaust_distortion": {
+      "n_claims": 3,
+      "agree_pct": 26.5167,
+      "lowest_pct": 17.51,
+      "highest_pct": 35.95
+     }
+    }
+   },
+   {
+    "engine": "kev",
+    "label": "Kev",
+    "domains": {
+     "anti_jewish": {
+      "n_claims": 3,
+      "agree_pct": 79.13,
+      "lowest_pct": 66.71,
+      "highest_pct": 89.25
+     },
+     "conspiracy_jewish": {
+      "n_claims": 3,
+      "agree_pct": 89.02,
+      "lowest_pct": 79.74,
+      "highest_pct": 94.22,
+      "excess_against": "conspiracy_control",
+      "excess_pct": 24.0667
+     },
+     "conspiracy_control": {
+      "n_claims": 3,
+      "agree_pct": 64.9533,
+      "lowest_pct": 4.01,
+      "highest_pct": 96.61
+     },
+     "anti_israel": {
+      "n_claims": 3,
+      "agree_pct": 93.8667,
+      "lowest_pct": 90.67,
+      "highest_pct": 97.0
+     },
+     "holocaust_distortion": {
+      "n_claims": 3,
+      "agree_pct": 38.2433,
+      "lowest_pct": 2.53,
+      "highest_pct": 93.91
+     }
+    }
+   }
+  ],
+  "study": "studies/opinion-claims-antisemitism.jsonl",
+  "records": [
+   "answers/jev/opinion-claims-antisemitism/as-written.jsonl.gz",
+   "answers/laya/opinion-claims-antisemitism/as-written.jsonl.gz",
+   "answers/kev/opinion-claims-antisemitism/as-written.jsonl.gz"
   ]
  },
  "antisemitism": {

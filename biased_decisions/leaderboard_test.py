@@ -794,3 +794,11 @@ def test_every_dimension_has_a_family_and_the_known_boards_classify_correctly(do
     assert families["islamophobic-stereotypes"] == "stereotype-question"
     assert families["china-stereotypes-region"] == "stereotype-question"
     assert set(families.values()) <= {"decision", "stereotype-question", "opinion-claim", "methodology"}
+
+
+def test_opinion_claims_are_published_as_direct_agreement_results_not_a_ranked_dimension(doc):
+    opinion = doc["opinion_claims"]
+    assert [row["engine"] for row in opinion["results"]] == ["jev", "laya", "kev"]
+    assert [domain["id"] for domain in opinion["domains"]] == [
+        "anti_jewish", "conspiracy_jewish", "conspiracy_control", "anti_israel", "holocaust_distortion"]
+    assert opinion["results"][0]["domains"]["conspiracy_jewish"]["excess_against"] == "conspiracy_control"
