@@ -87,7 +87,7 @@ h3 { font-size: 18px; font-weight: 700; margin: 1.6em 0 .4em; }
 .topnav { display: flex; align-items: center; gap: 4px 14px; flex-wrap: wrap; font-size: 14px; font-weight: 600; }
 .topnav a { color: var(--ink-2); text-decoration: none; padding: 4px 0; border-bottom: 2px solid transparent; display: inline-flex; align-items: center; gap: 6px; }
 .topnav a:hover, .topnav a.on { color: var(--ink); border-bottom-color: var(--ink); }
-.rail { display: flex; gap: 6px; overflow-x: auto; padding: 4px 0 10px; scrollbar-width: thin; font-size: 13px; -webkit-mask-image: linear-gradient(90deg, #000 92%, transparent); mask-image: linear-gradient(90deg, #000 92%, transparent); }
+.rail { display: flex; flex-wrap: wrap; gap: 6px; overflow-x: visible; padding: 4px 0 10px; font-size: 13px; }
 .rail-h { color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: .08em; font-size: 11px; align-self: center; padding-right: 4px; white-space: nowrap; }
 .rail a { position: relative; white-space: nowrap; color: var(--ink-2); text-decoration: none; padding: 3px 10px; border: 1px solid var(--rule); border-radius: 999px; background: var(--surface); }
 .rail a:hover { border-color: var(--ink-2); }
