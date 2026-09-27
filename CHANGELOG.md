@@ -1,3 +1,10 @@
+# [1.40.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.39.0...v1.40.0) (2026-09-27)
+
+
+### Features
+
+* **site:** add opinion claim drill-down ([5ac972c](https://github.com/AnthusAI/Biased-Decisions/commit/5ac972cb91255afe3ffd2521390c2093735327ef))
+
 # [1.39.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.38.0...v1.39.0) (2026-09-27)
 
 
