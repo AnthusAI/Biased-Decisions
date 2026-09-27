@@ -270,8 +270,8 @@ export function allCards() {
   out.push(finish(`${urls.home()}how-to-fail/`, inversionCard(), pageIntroductions.failure));
   out.push(finish(`${urls.home()}guidance/`, guidanceCard(), pageIntroductions.guidance));
   out.push(finish(`${urls.home()}stereotypes/`, { template: "guidance", alarm: false, rows: [{ text: "Eight sets of stereotype questions, each with its published sources" }] }, pageIntroductions.stereotypes));
-  out.push(finish(`${urls.home()}antisemitism/`, { template: "guidance", alarm: false, rows: [{ text: "Six stereotypes, five ways of saying who the person is, three models" }] }, pageIntroductions.antisemitism));
-  out.push(finish(`${urls.home()}islamophobia/`, { template: "guidance", alarm: false, rows: [{ text: "Six stereotypes, four ways of saying who the person is, three models" }] }, pageIntroductions.islamophobia));
+  out.push(finish(`${urls.home()}antisemitism/`, { template: "guidance", alarm: false, rows: [{ text: `Six stereotypes, five ways of saying who the person is, ${engines.length} model${engines.length === 1 ? "" : "s"}` }] }, pageIntroductions.antisemitism));
+  out.push(finish(`${urls.home()}islamophobia/`, { template: "guidance", alarm: false, rows: [{ text: `Six stereotypes, four ways of saying who the person is, ${engines.length} model${engines.length === 1 ? "" : "s"}` }] }, pageIntroductions.islamophobia));
   out.push(finish(`${urls.home()}opinion-claims/`, { template: "guidance", alarm: false, rows: [{ text: "A new kind of test: does the model agree with a claim, no decision involved" }] }, pageIntroductions["opinion-claims"]));
   out.push(finish(`${urls.home()}china/`, { template: "guidance", alarm: false, rows: [{ text: "Stereotypes documented in Chinese sources, asked in English and in Chinese" }] }, pageIntroductions.china));
   cache = out;

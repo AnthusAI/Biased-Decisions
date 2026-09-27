@@ -36,6 +36,7 @@ import yaml
 from biased_decisions import antisemitism as asem
 from biased_decisions import islamophobia as islamophobia_study
 from biased_decisions import china_tropes as cn
+from biased_decisions import opinion_claims as oc
 from biased_decisions import religion_gaps
 from biased_decisions import stereotypes_batch3 as sb3
 from biased_decisions.compliance import build_compliance
@@ -2759,6 +2760,26 @@ def _neutral(root: Path) -> dict:
     return {"rows": rows}
 
 
+def _opinion_claims(root: Path) -> dict:
+    """The direct-agreement study, kept separate from decision and stereotype boards.
+
+    A claim has no edited counterpart or zero-point floor, so forcing it into the ordinary
+    dimension shape would imply a ranking the pre-registration explicitly does not make.
+    """
+    rows = {row["engine"]: row for row in _read_jsonl(root / "studies" / f"{oc.SLUG}.jsonl")}
+    domains = [
+        {"id": domain, "label": label, "source": source}
+        for domain, (label, source, _claims) in oc.DOMAINS.items()
+    ]
+    results = [
+        {"engine": engine, "label": ENGINE_LABEL[engine], "domains": rows[engine]["domains"]}
+        for engine in ENGINE_IDS if engine in rows
+    ]
+    return {"task": oc.SLUG, "domains": domains, "results": results,
+            "study": f"studies/{oc.SLUG}.jsonl",
+            "records": [_record(engine, oc.SLUG, "as-written") for engine in rows]}
+
+
 def _floors(store: Store) -> List[dict]:
     out = []
     for task in ORIGINAL_BIOS_TASKS:
@@ -2849,6 +2870,7 @@ def generate_json(root: Path = DEFAULT_ROOT, *, date: Optional[str] = None) -> d
         "overall": overall,
         "floors": {"ask_twice": floors},
         "neutral": _neutral(root),
+        "opinion_claims": _opinion_claims(root),
         "antisemitism": _trope_study_summary(root, "antisemitism"),
         "islamophobia": _trope_study_summary(root, "islamophobia"),
         "china": _china_summary(root),
