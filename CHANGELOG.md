@@ -1,3 +1,18 @@
+# [1.42.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.41.0...v1.42.0) (2026-09-27)
+
+
+### Bug Fixes
+
+* **cli:** preserve regulated answer preflight boundary ([f4ac49a](https://github.com/AnthusAI/Biased-Decisions/commit/f4ac49a5a6a503856852618d71ed6c6536c44fe0))
+* **study:** publish full nationality narrative axis ([d7acf15](https://github.com/AnthusAI/Biased-Decisions/commit/d7acf15bbf647e58f807494da12fed9e06c6447d))
+
+
+### Features
+
+* **site:** connect antisemitism and Israel studies ([de2dce9](https://github.com/AnthusAI/Biased-Decisions/commit/de2dce9c439ec28997216fba763f23ab535e8cb5))
+* **study:** add full nationality loan axes ([43140a8](https://github.com/AnthusAI/Biased-Decisions/commit/43140a88385015d5089ed77004036b1275dc5465))
+* **study:** publish full nationality loan results ([9ac0e4c](https://github.com/AnthusAI/Biased-Decisions/commit/9ac0e4c3138abdf74b41c1e1589a280a3287f2ed))
+
 # [1.41.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.40.3...v1.41.0) (2026-09-27)
 
 
