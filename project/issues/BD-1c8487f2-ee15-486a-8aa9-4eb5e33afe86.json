@@ -3,7 +3,7 @@
   "title": "Inversion page: how to cause a compliance failure with a fast decision model",
   "description": "A page applying Charlie Munger's inversion: deployment patterns that would reliably create violations (e.g. using the verdict as the decision, one model for every firm, gating on the cue, unpinned versions, no outcome check), each tied to a measured result and paired with the inverse practice.",
   "type": "story",
-  "status": "in_progress",
+  "status": "closed",
   "priority": 2,
   "assignee": null,
   "creator": null,
@@ -46,11 +46,30 @@
         "model": "gpt-5",
         "name": "root"
       }
+    },
+    {
+      "id": "16cf11e6-58ee-4d4f-b4e2-aa65689ed42f",
+      "author": "home",
+      "text": "Completed in 784d4df: reduced the page to a Munger inversion framing, compact failure-mode cards, concise safer alternatives, and direct evidence links. Verified with the site build and compliance tests.",
+      "created_at": "2026-09-27T17:29:11.310024Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "codex",
+        "model": "gpt-5",
+        "name": "root"
+      }
+    },
+    {
+      "id": "7365a551-c713-4834-ac0c-269659716c8b",
+      "author": "home",
+      "text": "Shipped in 784d4df.",
+      "created_at": "2026-09-27T17:29:16.411535Z",
+      "comment_type": "default"
     }
   ],
   "created_at": "2026-09-23T16:19:08.316260Z",
-  "updated_at": "2026-09-27T17:24:12.309721Z",
-  "closed_at": null,
+  "updated_at": "2026-09-27T17:29:18.656513Z",
+  "closed_at": "2026-09-27T17:29:18.656471Z",
   "agent": {
     "platform": "claude_code",
     "model": "Claude Opus 5.5",
