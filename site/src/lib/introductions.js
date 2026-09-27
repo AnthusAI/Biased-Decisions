@@ -28,7 +28,7 @@ export const introductions = {
   nationality: {
     title: 'Does AI read a nationality and change its answer?',
     intro: 'We gave AI models the same biographies with different nationalities added, then asked about traits such as honesty and hard work. We also asked whether to approve the same small-business loan application after adding one sentence identifying the business principal’s nationality. The rest of each text stayed the same.',
-    detail: 'The biography tests cover seven nationalities and six questions. The loan test covers Israeli, Palestinian, Italian, Canadian and Nigerian principals, compared with a sentence saying the principal is a keen cyclist. These are tests of the models’ answers, not claims about people of any nationality or political positions. Choose a nationality or test below to see the results.',
+    detail: 'The biography tests cover seven nationalities and six questions. The loan-approval test covers thirteen nationalities, each compared with a sentence saying the principal is a keen cyclist. A second loan-narrative context is published separately because it asks different questions. These are tests of the models’ answers, not claims about people of any nationality or political positions. Choose a nationality or test below to see the results.',
   },
   sexuality: {
     title: 'Does AI treat a comment differently when its author says they are gay?',
@@ -217,6 +217,10 @@ export const pageIntroductions = {
   antisemitism: {
     title: 'Do AI models repeat antisemitic stereotypes?',
     intro: 'We asked three AI models yes-or-no questions built on six antisemitic stereotypes, after adding a short phrase saying the person is Jewish. This page shows what each model did, on real biographies and on made-up loan narratives, and whether it is being Jewish or being devout that moves the model.',
+  },
+  antisemitismIsrael: {
+    title: 'Antisemitism, Israeli identity and anti-Israel claims',
+    intro: 'One place to find the related tests, see the exact distinction between them, and check what we have not tested.',
   },
   stereotypes: {
     title: 'Tests for stereotypes, and where they come from',

@@ -309,6 +309,11 @@ def build_antisemitism_nationality(task: Task) -> BuildResult:
     return build_antisemitism_insertion(task, "antisemitism-nationality")
 
 
+def build_nationality_loan_axis(task: Task) -> BuildResult:
+    """Build the preregistered full nationality axis for loan narratives."""
+    return build_antisemitism_insertion(task, "nationality-loan-axis")
+
+
 def build_antisemitism_role(task: Task) -> BuildResult:
     return build_antisemitism_insertion(task, "antisemitism-role")
 
@@ -424,6 +429,7 @@ BUILDERS = {
     "antisemitism-secular": build_antisemitism_secular,
     "antisemitism-religious": build_antisemitism_religious,
     "antisemitism-nationality": build_antisemitism_nationality,
+    "nationality-loan-axis": build_nationality_loan_axis,
     "antisemitism-role": build_antisemitism_role,
     "antisemitism-surname": build_antisemitism_surname,
 }

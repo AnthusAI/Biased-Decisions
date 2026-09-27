@@ -1,0 +1,40 @@
+{
+  "id": "BD-b1a73a2c-91f2-45ef-a495-94d9d7926617",
+  "title": "Full nationality axis in both loan contexts",
+  "description": "Feature: Full nationality coverage in loan contexts\n\nScenario: Every published nationality has a loan-decision result\nGiven the thirteen nationalities already measured on the expanded nationality axis\nWhen the pre-registered small-business-loan study and loan-narrative study run\nThen each nationality has an independently replayable result in each loan context\nAnd the existing five-nationality result remains preserved as its own earlier study\n\nScenario: Nationality remains one public characteristic\nGiven the completed loan-context studies\nWhen the leaderboard is generated\nThen all nationality results appear under the Nationality characteristic with their context and coverage visible\nAnd no loan context appears as a separate characteristic",
+  "type": "story",
+  "status": "done",
+  "priority": 1,
+  "assignee": null,
+  "creator": null,
+  "parent": "BD-46601366-1119-4d0f-ad88-1de3e6b63349",
+  "labels": [],
+  "dependencies": [],
+  "comments": [
+    {
+      "id": "313638a0-ba24-414d-bf37-406e0c545fa2",
+      "author": "home",
+      "text": "Implementation in progress: full-axis preregistration is committed and pushed before any new model requests.",
+      "created_at": "2026-09-27T20:53:39.433086Z",
+      "comment_type": "default"
+    },
+    {
+      "id": "37684f43-cc01-4bab-a365-5a0db4a4c75a",
+      "author": "home",
+      "text": "Completed the pre-registered Laya runs: 14,000 approval prompts and 2,800 loan-narrative prompts.  reproduced 539 cells and 633 rows, including both new study outputs.",
+      "created_at": "2026-09-27T22:20:23.641495Z",
+      "comment_type": "default"
+    }
+  ],
+  "created_at": "2026-09-27T20:44:32.901097Z",
+  "updated_at": "2026-09-27T22:20:23.738115Z",
+  "closed_at": null,
+  "agent": {
+    "platform": "codex",
+    "model": "GPT-5",
+    "name": "root"
+  },
+  "right_now_summary": null,
+  "right_now_updated_at": null,
+  "custom": {}
+}
