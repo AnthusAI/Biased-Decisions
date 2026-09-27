@@ -305,7 +305,7 @@ def test_known_breakdown_cells(doc):
     assert arrogance["extra"]["direction"] == "reverse"
     american = _level(nat, "group", group="american")
     laya_row = next(r for r in american["board"]["ranked"] if r["engine"] == "laya")
-    assert laya_row["facet"] == "honesty" and laya_row["value"] == 3.79
+    assert laya_row["facet"] == "small-business-loan" and laya_row["value"] == 4.57
     assert american["board"]["unmeasured"] == []
     # religion v2 per religion: the nurse/physician task is unattributed for every religion
     v2 = rel
@@ -330,6 +330,7 @@ def test_batch2_clauses_and_pending_predictions_are_verbatim(doc):
             text += _clean((DEFAULT_ROOT / "docs" / "antisemitic-tropes-preregistration.md").read_text(encoding="utf-8"))
         if dim["id"] == "nationality":
             text += _clean((DEFAULT_ROOT / "docs" / "israeli-identity-and-anti-israel-preregistration.md").read_text(encoding="utf-8"))
+            text += _clean((DEFAULT_ROOT / "docs" / "full-nationality-loan-contexts-preregistration.md").read_text(encoding="utf-8"))
         for prefix, doc_name in (("islamophobic-stereotypes", "islamophobic-tropes-preregistration.md"),
                                  ("china-stereotypes-", "china-tropes-preregistration.md")):
             if dim["id"].startswith(prefix):

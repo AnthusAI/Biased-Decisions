@@ -107,7 +107,8 @@ def score_nationality_loan_axis(engine: str, task: Task, cue: str) -> dict:
     This is deliberately not the historic trope scorer: the pre-registration
     forbids reducing this full axis to a target-versus-other-groups verdict.
     """
-    _target, groups, floor = cues_of(task.slug)[cue]
+    target, others, floor = cues_of(task.slug)[cue]
+    groups = (target,) + others
     versions = [_with_item_id(v, cue) for v in task.load_versions(cue)]
     have = {v.metadata["source_id"] for v in versions}
     items = [i.id for i in task.load_items() if i.id in have]
