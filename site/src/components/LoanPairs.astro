@@ -287,13 +287,13 @@ const jevBorderlineFlips = getFlipsSorted(
                   <tr>
                     <td>{label}</td>
                     <td>
-                      {fmt(approveToDeny)}% [{fmt(approveToDenyCI[0])}, {fmt(approveToDenyCI[1])}]
+                      {fmt(approveToDeny, 1)}% [{fmt(approveToDenyCI[0], 1)}, {fmt(approveToDenyCI[1], 1)}]
                     </td>
                     <td>
-                      {fmt(denyToApprove)}% [{fmt(denyToApproveCI[0])}, {fmt(denyToApproveCI[1])}]
+                      {fmt(denyToApprove, 1)}% [{fmt(denyToApproveCI[0], 1)}, {fmt(denyToApproveCI[1], 1)}]
                     </td>
                     <td>
-                      {fmt(net)}% [{fmt(netCI[0])}, {fmt(netCI[1])}]
+                      {fmt(net, 1)}% [{fmt(netCI[0], 1)}, {fmt(netCI[1], 1)}]
                     </td>
                   </tr>
                 )
@@ -305,5 +305,5 @@ const jevBorderlineFlips = getFlipsSorted(
     </>
   ))}
 
-  <p class="note">This analysis was added after the answers were collected.</p>
+  <p class="note">This comparison was added after the answers were collected; unlike the studies above, its predictions were not written down first.</p>
 </section>

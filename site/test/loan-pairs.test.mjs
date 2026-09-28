@@ -48,8 +48,8 @@ test("nationality lending pairs sections exist with correct structure", () => {
   )[0];
   assert.match(sectionC, /Borderline applications/);
 
-  // Laya's borderline flips should contain Palestinian with 34.80%
-  assert.match(sectionC, /Palestinian[\s\S]*?34\.80%/);
+  // Laya's borderline flips should contain Palestinian with 34.8%
+  assert.match(sectionC, /Palestinian[\s\S]*?34\.8%/);
 
   // No NaN or undefined anywhere on the page
   assert.doesNotMatch(html, /NaN/);
