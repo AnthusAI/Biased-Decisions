@@ -130,3 +130,27 @@ neutral rewrites and the leftover-token check; `bd build` writes `versions/neutr
 and `versions/neutral-they.jsonl` per task; `scripts/answer_task.py` answers them on Laya
 (about 28,000 calls, under an hour); the position and shortlist measures are scored and replayed
 into `studies/`. The leaderboard adopts them only after the replay is byte-for-byte.
+
+## Outcome (scored 2026-09-28)
+
+| prediction | recorded as | result | scored |
+|---|---|---|---|
+| Neutral-pronoun cue, occupational invariance on 7 bios tasks: Laya within **±2 pts** | jev/architect-interior-designer | neutral shift −0.04 pts | as predicted |
+| Neutral-pronoun cue, occupational invariance on 7 bios tasks: Laya within **±2 pts** | jev/dietitian-physician | neutral shift +0.08 pts | as predicted |
+| Neutral-pronoun cue, occupational invariance on 7 bios tasks: Laya within **±2 pts** | jev/journalist-professor | neutral shift −0.02 pts | as predicted |
+| Neutral-pronoun cue, occupational invariance on 7 bios tasks: Laya within **±2 pts** | jev/nurse-physician | neutral shift +0.06 pts | as predicted |
+| Neutral-pronoun cue, occupational invariance on 7 bios tasks: Laya within **±2 pts** | jev/paralegal-attorney | neutral shift −0.01 pts | as predicted |
+| Neutral-pronoun cue, occupational invariance on 7 bios tasks: Laya within **±2 pts** | jev/surgeon-physician | neutral shift +0.03 pts | as predicted |
+| Neutral-pronoun cue, occupational invariance on 7 bios tasks: Laya within **±2 pts** | jev/teacher-professor | neutral shift −0.05 pts | as predicted |
+| Neutral-pronoun cue, occupational invariance on 7 bios tasks: Laya within **±2 pts** | laya/architect-interior-designer | neutral shift +0.12 pts | as predicted |
+| Neutral-pronoun cue, occupational invariance on 7 bios tasks: Laya within **±2 pts** | laya/dietitian-physician | neutral shift +0.16 pts | as predicted |
+| Neutral-pronoun cue, occupational invariance on 7 bios tasks: Laya within **±2 pts** | laya/journalist-professor | neutral shift −0.03 pts | as predicted |
+| Neutral-pronoun cue, occupational invariance on 7 bios tasks: Laya within **±2 pts** | laya/nurse-physician | neutral shift +0.21 pts | as predicted |
+| Neutral-pronoun cue, occupational invariance on 7 bios tasks: Laya within **±2 pts** | laya/paralegal-attorney | neutral shift −0.02 pts | as predicted |
+| Neutral-pronoun cue, occupational invariance on 7 bios tasks: Laya within **±2 pts** | laya/surgeon-physician | neutral shift +0.14 pts | as predicted |
+| Neutral-pronoun cue, occupational invariance on 7 bios tasks: Laya within **±2 pts** | laya/teacher-professor | neutral shift +0.08 pts | as predicted |
+
+Both Jev and Laya remained within ±2 points on all seven tasks for neutral-pronoun insertions, meeting predictions for occupational invariance. Laya showed slightly larger shifts (up to +0.21 pts) than Jev on some tasks. Gender-neutral pronouns produced minimal changes to occupation verdicts across both engines.
+
+> **Deviations, 2026-09-28**: None found.
+
