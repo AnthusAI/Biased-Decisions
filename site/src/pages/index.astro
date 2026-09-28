@@ -123,7 +123,7 @@ const kindWord = (k) => (k === "task" ? "decision" : k);
             <div class="ov-name">
               <EngineName engine={en} href={urls.engine(en.id)} />
               {r.mean_rank !== null && <div class="ov-mean" title={`Average place ${fmt(r.mean_rank)}, over the ${r.ranked_on} characteristics where it was compared with another model`}>{worstCount(r) > 0 ? <Fragment>most biased on <strong>{worstCount(r)} of the {r.ranked_on}</strong> characteristics where it was compared</Fragment> : `not the most biased on any of the ${r.ranked_on} characteristics where it was compared`}</div>}
-              <div class="ov-mean">{r.measured_on === 0 ? "Not yet tested" : largestBias(r.engine) > 0 ? <Fragment>largest effect: <strong>{signed(largestBias(r.engine))} percentage points</strong> beyond the control edit</Fragment> : "no clear effect on any characteristic tested"}</div>
+              <div class="ov-mean">{r.measured_on === 0 ? "Not yet tested" : largestBias(r.engine) > 0 ? <Fragment>largest effect: <strong>{size(largestBias(r.engine))} percentage points</strong> beyond the control edit</Fragment> : "no clear effect on any characteristic tested"}</div>
               {r.incomplete && <div class="flag">{r.measured_on === 0 ? `Not yet tested on any of ${data.overall.n_dimensions} characteristics` : `Incomplete: not tested on ${r.unmeasured.length} of ${data.overall.n_dimensions} characteristics`}</div>}
             </div>
             <div class="cov">

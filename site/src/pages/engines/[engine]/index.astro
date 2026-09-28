@@ -1,7 +1,7 @@
 ---
 import Base from "../../../layouts/Base.astro";
 import Chart from "../../../components/Chart.astro";
-import { data, engines, dimensions, urls, engineSeries, globalSpiderMax, niceMax, place, fmt, signed , unit } from "../../../lib/site.js";
+import { data, engines, dimensions, urls, engineSeries, globalSpiderMax, niceMax, place, fmt, signed, size, unit } from "../../../lib/site.js";
 import { rankText } from "../../../scripts/util.js";
 import { aboutModel, introModel } from "../_about.js";
 
@@ -27,7 +27,7 @@ const nDetected = measuredDims.filter((d) => d.cells[en.id].detected).length;
 const worst = measuredDims.filter((d) => d.cells[en.id].detected).sort((a, b) => b.cells[en.id].headline.value - a.cells[en.id].headline.value)[0];
 const description = measuredDims.length === 0
   ? `${en.label} has not yet been tested on any of the ${dimensions.length} characteristics. No average place is available.`
-  : `${en.label} on the Biased-Decisions leaderboard: a clear effect on ${nDetected} of the ${row.measured_on} characteristics we tested it on${worst ? `; its largest is ${signed(worst.cells[en.id].headline.value)} percentage points beyond a harmless control edit, on ${worst.label.toLowerCase()}` : ""}. Average place ${fmt(row.mean_rank)}, where 1 is most biased.`;
+  : `${en.label} on the Biased-Decisions leaderboard: a clear effect on ${nDetected} of the ${row.measured_on} characteristics we tested it on${worst ? `; its largest is ${size(worst.cells[en.id].headline.value)} percentage points beyond a harmless control edit, on ${worst.label.toLowerCase()}` : ""}. Average place ${fmt(row.mean_rank)}, where 1 is most biased.`;
 const uOf = (d, h) => (h && h.raw && h.raw.unit) || unit(d);
 ---
 <Base title={en.label} description={description} path={urls.engine(en.id)} current={{ page: "engine", engine: en.id }} charts={charts}
@@ -66,7 +66,7 @@ const uOf = (d, h) => (h && h.raw && h.raw.unit) || unit(d);
             <a href={urls.engineDim(en.id, d.id)} class="ec-name">{d.label}</a>
             <span class={`ec-status${c.detected ? "" : " nd"}`}>{status}</span>
             <Chart id={`strip-${d.id}`} cls="chart-box strip-box" />
-            <span class="ec-v">{signed(c.headline.value)} percentage points<span class="ci-t"> (range {fmt(c.headline.lo)} to {fmt(c.headline.hi)})</span><span class="ec-f">{c.headline.facet_label}; control edit {fmt(c.headline.floor_value)}{u.trim() === "%" ? " in 100" : " points"}</span></span>
+            <span class="ec-v">{size(c.headline.value)} percentage points<span class="ci-t"> (range {fmt(c.headline.lo)} to {fmt(c.headline.hi)})</span><span class="ec-f">{c.headline.facet_label}; control edit {fmt(c.headline.floor_value)}{u.trim() === "%" ? " in 100" : " points"}</span></span>
           </li>
         );
       })}

@@ -128,7 +128,7 @@ const shortlistFiles = dim.id === "gender" && item && shortlistBlock(item.id) ? 
         return (
           <div class="eng-line" id={e.id}>
             <EngineName engine={e} href={urls.engineDim(e.id, dim.id)} />
-            <span>{h.status !== "measured" ? "not tested here" : h.detected ? `${signed(h.headline.value)} percentage points beyond a control edit of ${fmt(h.headline.floor_value)}${unit(dim).trim() === "pts" ? " points" : unit(dim)} at its largest, on ${h.headline.facet_label}. ${h.n_facets_detected} of ${h.n_facets} ${plural(kind)} show a clear effect.` : `No clear effect on any of its ${h.n_facets} ${plural(kind)}, in ${h.n.toLocaleString("en-US")} texts.`}</span>
+            <span>{h.status !== "measured" ? "not tested here" : h.detected ? `${size(h.headline.value)} percentage points beyond a control edit of ${fmt(h.headline.floor_value)}${unit(dim).trim() === "pts" ? " points" : unit(dim)} at its largest, on ${h.headline.facet_label}. ${h.n_facets_detected} of ${h.n_facets} ${plural(kind)} show a clear effect.` : `No clear effect on any of its ${h.n_facets} ${plural(kind)}, in ${h.n.toLocaleString("en-US")} texts.`}</span>
           </div>
         );
       })}
