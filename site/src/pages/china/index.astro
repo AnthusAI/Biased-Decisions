@@ -31,8 +31,8 @@ const one = (r) => r ? `${fmt(r.score_pts)} points (range ${fmt(r.lo)} to ${fmt(
       <p class="lede">Groups compared: {a.groups.map((g) => g.label).join(", ")}. <a href={`${urls.home()}${a.board}/`}>Every result on its own page</a>.</p>
       {a.tropes.map((t) => (
         <Fragment>
-          <h3>{t.label[0].toUpperCase() + t.label.slice(1)}: the idea that {t.target_noun} are {t.alleges}</h3>
-          <p class="note">Source: {t.source}.</p>
+          <h3>{t.label[0].toUpperCase() + t.label.slice(1)}: what each model answered when the bio mentioned {t.target_noun}</h3>
+          <p class="note">Stereotype tested: the stereotype that {t.target_noun} are {t.alleges}. Source: {t.source}.</p>
           <ul class="cite-list">
             {order.map((e) => {
               const r = t.results[e];

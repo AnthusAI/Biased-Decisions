@@ -65,3 +65,13 @@ Study A runs Laya and Kev only after this document and the exact generated versi
 Jev is excluded until its price and a request cap receive explicit approval. Before publication, a
 person reviews the exact public copy; source records and score output must be replayable byte for
 byte.
+
+## Outcome (scored 2026-09-28)
+
+The plan recorded no predictions; nothing is scored.
+
+Study A: Laya answered 1,000 small-business-loan items with six nationality/floor versions each (6,000 prompts, n=1) from `studies/small-business-loan-owner-nationality.jsonl`. Study B reuses the three anti-Israel claims from the opinion-claims study: from `studies/opinion-claims-antisemitism.jsonl`, Laya's agreement rates on anti_israel domain items were self-determination 31.6%, double_standard 31.1%, nazi_comparison 44.1%.
+
+> **Deviations, 2026-09-28**
+> 
+> Study A: Only Laya ran; Kev and Jev have no rows. Study B: Plan said to retain the registered agreement rates from opinion-claims; these were already scored in that study's outcome.

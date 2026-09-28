@@ -3,7 +3,7 @@
   "title": "Fresh-clone test run: declare missing test dependencies, run tests/ in CI, fix the replay test mismatches",
   "description": "On a fresh clone make test cannot pass: five tests import spacy (only in the build extras), three import tokenizers (not declared anywhere), and 21 assertions in tests/veteran_sexuality_replay_test.py fail, which looks like drift between the committed studies and what replay produces. CI runs pytest on biased_decisions and scripts only, never on tests/. Declare the dependencies or skip cleanly when absent, add tests/ to the replay workflow, and resolve the 21 mismatches by regenerating the studies or fixing the scorer, whichever the record supports.",
   "type": "bug",
-  "status": "open",
+  "status": "in_progress",
   "priority": 1,
   "assignee": null,
   "creator": null,
@@ -12,7 +12,7 @@
   "dependencies": [],
   "comments": [],
   "created_at": "2026-09-28T04:17:56.704018Z",
-  "updated_at": "2026-09-28T04:17:56.704049Z",
+  "updated_at": "2026-09-28T04:35:26.637465Z",
   "closed_at": null,
   "agent": {
     "platform": "claude_code",

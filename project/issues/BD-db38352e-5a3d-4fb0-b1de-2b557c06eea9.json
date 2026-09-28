@@ -3,7 +3,7 @@
   "title": "Detection rule: test the excess over the floor with a paired bootstrap",
   "description": "A facet is currently 'detected' when the raw interval's lower bound is above the floor's point estimate, so the floor's own uncertainty never enters. Bootstrap the difference (cue minus floor) on the same resampled texts and call an effect clear only when that interval excludes zero. Re-score every board and note which facets change status; the site's methods page must describe the new rule.",
   "type": "task",
-  "status": "open",
+  "status": "in_progress",
   "priority": 1,
   "assignee": null,
   "creator": null,
@@ -12,7 +12,7 @@
   "dependencies": [],
   "comments": [],
   "created_at": "2026-09-28T04:17:56.325705Z",
-  "updated_at": "2026-09-28T04:17:56.325760Z",
+  "updated_at": "2026-09-28T04:35:26.805054Z",
   "closed_at": null,
   "agent": {
     "platform": "claude_code",

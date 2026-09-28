@@ -56,6 +56,8 @@ def _check_engine_installed(engine: str) -> None:
         import os
         if not os.getenv("KEV_BASE_URL"):
             raise AnswerRefused("Kev requires KEV_BASE_URL; no endpoint is selected implicitly")
+        if not os.getenv("KEV_MODEL"):
+            raise AnswerRefused("Kev requires KEV_MODEL; no default model is selected")
         return
     if importlib.util.find_spec(package) is None:
         raise AnswerRefused(

@@ -3,17 +3,25 @@
   "title": "Write the About page copy",
   "description": "Plain language, under 400 words: who makes the site, funding, how each engine was accessed and the relationship (paid API access only for the hosted engine), a contact address, how to report an error in a result, and the analytics notice with the opt-out. Run make copy-check.",
   "type": "sub-task",
-  "status": "open",
+  "status": "closed",
   "priority": 1,
   "assignee": null,
   "creator": null,
   "parent": "BD-f29665c2-fedb-4b5b-91b6-da711ada0594",
   "labels": [],
   "dependencies": [],
-  "comments": [],
+  "comments": [
+    {
+      "id": "07a65fe2-4b97-4bb8-bab6-c552865c1641",
+      "author": "home",
+      "text": "Merged to develop in PR #86: /about/ page linked from header and footer; engine descriptions carry maker, access terms, versions and the Kev checkpoint; KEV_MODEL is now required.",
+      "created_at": "2026-09-28T04:49:46.826566Z",
+      "comment_type": "default"
+    }
+  ],
   "created_at": "2026-09-28T04:20:21.618766Z",
-  "updated_at": "2026-09-28T04:20:21.618810Z",
-  "closed_at": null,
+  "updated_at": "2026-09-28T04:49:46.869358Z",
+  "closed_at": "2026-09-28T04:49:46.869320Z",
   "agent": {
     "platform": "claude_code",
     "model": "Claude Fable 5.1",

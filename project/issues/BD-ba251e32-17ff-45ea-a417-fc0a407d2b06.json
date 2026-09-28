@@ -3,17 +3,25 @@
   "title": "Build a same-signal trivial edit for the pronoun-swap tasks",
   "description": "A deterministic builder that changes the text by about the same number of tokens as the pronoun swap without changing any protected signal (for example a second neutral phrasing of a date or a place). Pre-register it, build for all seven Bias in Bios tasks, and record the cue in scoring TASK_CUES.",
   "type": "sub-task",
-  "status": "open",
+  "status": "closed",
   "priority": 1,
   "assignee": null,
   "creator": null,
   "parent": "BD-4d0d224c-2229-4b23-a94d-a8e6540c9d65",
   "labels": [],
   "dependencies": [],
-  "comments": [],
+  "comments": [
+    {
+      "id": "de14d049-240c-4b1e-b674-8469e94b9dd0",
+      "author": "home",
+      "text": "Merged to develop in PR #90. Rule: fifteen meaning-preserving swaps, at most three per bio; coverage 42-72% per task, about 0.9 tokens changed on average, so the floor flip rate is reported over the touched bios with the coverage beside it (docs/trivial-edit-floor-preregistration.md). Answers not yet collected.",
+      "created_at": "2026-09-28T04:58:17.008038Z",
+      "comment_type": "default"
+    }
+  ],
   "created_at": "2026-09-28T04:20:22.030986Z",
-  "updated_at": "2026-09-28T04:20:22.031021Z",
-  "closed_at": null,
+  "updated_at": "2026-09-28T04:58:17.068127Z",
+  "closed_at": "2026-09-28T04:58:17.068101Z",
   "agent": {
     "platform": "claude_code",
     "model": "Claude Fable 5.1",
