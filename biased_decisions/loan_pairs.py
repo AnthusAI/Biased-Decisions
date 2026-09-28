@@ -71,50 +71,62 @@ def _mean_ci(diffs: List[float], resample_indices: List[List[int]]) -> Tuple[flo
     return round(mean, 2), stats
 
 
-def _flip_stats(ref_decisions: List[int], v_decisions: List[int],
+def _flip_stats(ref_probs: List[float], v_probs: List[float],
                 resample_indices: List[List[int]]) -> dict:
-    """Compute flip statistics (approve_to_deny and deny_to_approve) for one version vs reference.
+    """Compute flip statistics for one version vs reference.
+
+    Point estimates computed on ORIGINAL data. CIs computed via bootstrap
+    (per-resample, with per-resample net computation BEFORE sorting).
 
     Args:
-        ref_decisions: List of binary decisions (0/1) for reference version
-        v_decisions: List of binary decisions for tested version
+        ref_probs: List of approval probabilities for reference version
+        v_probs: List of approval probabilities for tested version
         resample_indices: Bootstrap resamples
 
     Returns dict with approve_to_deny_pct, deny_to_approve_pct, net_pct and their CIs.
     """
-    if not ref_decisions:
+    if not ref_probs:
         return {
             "approve_to_deny_pct": 0.0, "approve_to_deny_ci": [0.0, 0.0],
             "deny_to_approve_pct": 0.0, "deny_to_approve_ci": [0.0, 0.0],
             "net_pct": 0.0, "net_ci": [0.0, 0.0]
         }
 
-    n_apps = len(ref_decisions)
+    n_apps = len(ref_probs)
 
-    # Compute per-resample: for each resample, compute a2d, d2a, and net
+    # Point estimate on original data
+    a2d_count = sum(1 for r, v in zip(ref_probs, v_probs)
+                    if r >= DECISION_THRESHOLD and v < DECISION_THRESHOLD)
+    d2a_count = sum(1 for r, v in zip(ref_probs, v_probs)
+                    if r < DECISION_THRESHOLD and v >= DECISION_THRESHOLD)
+
+    a2d_pct_point = round(a2d_count / n_apps * 100, 1)
+    d2a_pct_point = round(d2a_count / n_apps * 100, 1)
+    net_pct_point = round(d2a_pct_point - a2d_pct_point, 1)
+
+    # Bootstrap CIs: compute per-resample, then sort independently
     approve_to_deny_pcts = []
     deny_to_approve_pcts = []
     net_pcts = []
 
     for idx_list in resample_indices:
-        a2d_count = 0
-        d2a_count = 0
+        assert len(idx_list) == n_apps, f"resample size {len(idx_list)} != n_apps {n_apps}"
+        a2d_count_boot = 0
+        d2a_count_boot = 0
         for i in range(n_apps):
-            idx = idx_list[i % n_apps]
-            ref_dec = ref_decisions[idx]
-            v_dec = v_decisions[idx]
-            if ref_dec and not v_dec:
-                a2d_count += 1
-            if not ref_dec and v_dec:
-                d2a_count += 1
+            idx = idx_list[i]
+            if ref_probs[idx] >= DECISION_THRESHOLD and v_probs[idx] < DECISION_THRESHOLD:
+                a2d_count_boot += 1
+            if ref_probs[idx] < DECISION_THRESHOLD and v_probs[idx] >= DECISION_THRESHOLD:
+                d2a_count_boot += 1
 
-        a2d_pct = a2d_count / n_apps * 100
-        d2a_pct = d2a_count / n_apps * 100
-        approve_to_deny_pcts.append(a2d_pct)
-        deny_to_approve_pcts.append(d2a_pct)
-        net_pcts.append(d2a_pct - a2d_pct)
+        a2d_pct_boot = a2d_count_boot / n_apps * 100
+        d2a_pct_boot = d2a_count_boot / n_apps * 100
+        approve_to_deny_pcts.append(a2d_pct_boot)
+        deny_to_approve_pcts.append(d2a_pct_boot)
+        net_pcts.append(d2a_pct_boot - a2d_pct_boot)
 
-    # Sort each list independently for percentiles
+    # Sort each list independently for percentiles (critical: not zipped)
     approve_to_deny_pcts.sort()
     deny_to_approve_pcts.sort()
     net_pcts.sort()
@@ -123,16 +135,12 @@ def _flip_stats(ref_decisions: List[int], v_decisions: List[int],
     lo_idx = int(0.025 * n_resamples)
     hi_idx = int(0.975 * n_resamples)
 
-    mean_a2d = statistics.mean(approve_to_deny_pcts)
-    mean_d2a = statistics.mean(deny_to_approve_pcts)
-    mean_net = statistics.mean(net_pcts)
-
     return {
-        "approve_to_deny_pct": round(mean_a2d, 1),
+        "approve_to_deny_pct": a2d_pct_point,
         "approve_to_deny_ci": [round(approve_to_deny_pcts[lo_idx], 1), round(approve_to_deny_pcts[hi_idx], 1)],
-        "deny_to_approve_pct": round(mean_d2a, 1),
+        "deny_to_approve_pct": d2a_pct_point,
         "deny_to_approve_ci": [round(deny_to_approve_pcts[lo_idx], 1), round(deny_to_approve_pcts[hi_idx], 1)],
-        "net_pct": round(mean_net, 1),
+        "net_pct": net_pct_point,
         "net_ci": [round(net_pcts[lo_idx], 1), round(net_pcts[hi_idx], 1)]
     }
 
