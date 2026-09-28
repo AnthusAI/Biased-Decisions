@@ -24,9 +24,11 @@ site/dist/<path>/index.html              one static page per path, charts drawn 
 `bd report --json` reads the scored cells rather than rescoring the record (the only files it
 opens besides them are the committed bios and answers it quotes as examples), and every number it
 emits is one a committed file already carries, so any value on
-the site can be found by hand in `studies/`. It computes no new bootstrap. The deploy build
-(`scripts/site-build.sh`, run by Amplify) closes the loop by running `bd replay` first and failing if the replay does not reproduce
-`studies/` byte for byte, so the published data is always the record's.
+the site can be found by hand in `studies/`. It computes no new bootstrap. Contributors close the
+loop locally before committing the data file: `make refresh-site-data` runs `bd replay` and fails
+if it does not reproduce `studies/` byte for byte, then writes the committed JSON. GitHub CI
+builds and tests that committed input and sends the exact static output to Amplify; neither cloud
+system replays the record or generates leaderboard data.
 
 The generated date is an argument, not the clock, so a given commit always produces the same
 file (the unit test checks byte-for-byte determinism). `provenance.record_commit` is the last
