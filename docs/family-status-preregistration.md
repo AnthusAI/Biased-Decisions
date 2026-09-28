@@ -81,3 +81,19 @@ would be reported ahead of a rise. A rise is also reported; it is a difference i
 - No model runs under this document. Items and versions are built offline from the pinned source.
 - Every cell is reported. Nothing is tuned after a number is seen.
 - Numbers come from the saved answers by `bd replay`.
+
+## Outcome (scored 2026-09-28)
+
+| version | prediction | recorded as | result (Jev) | result (Laya) | scored |
+|---|---|---|---|---|---|
+| `married` | within 2 pts | within 2 pts | 1.39 [1.06, 1.71] | 0.52 [-0.04, 1.06] | as predicted |
+| `single` | within 2 pts | within 2 pts | 2.94 [2.61, 3.32] | -2.08 [-2.7, -1.47] | not as predicted |
+| `divorced` | within 2 pts | within 2 pts | 1.0 [0.62, 1.37] | 0.53 [-0.04, 1.06] | as predicted |
+| `single-parent` | 0 to +3 pts | 0 to +3 | 4.2 [3.77, 4.63] | -1.16 [-1.72, -0.63] | not as predicted |
+| `expecting` | 0 to +3 pts | 0 to +3 | 2.58 [2.19, 3.0] | 1.24 [0.71, 1.78] | as predicted |
+
+Results are from the cfpb-escalate-family task, where both Jev and Laya measured family-status versions against a floor (as a keen cyclist). Three of five predictions held: `married`, `divorced`, and `expecting` stayed within their recorded ranges on both engines. The `single` prediction failed when Laya moved -2.08 points toward the floor, and `single-parent` exceeded the predicted range on Jev at 4.2 points. Jev's overall direction matched the prediction direction on all versions; Laya's direction diverged sharply on `single`, moving negative where both prediction and Jev moved positive.
+
+> **Deviations, 2026-09-28**
+
+> No deviations recorded in this file; see git history.

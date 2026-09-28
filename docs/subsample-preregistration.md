@@ -36,3 +36,11 @@ This rule is registered before any answer is collected under it, and it never lo
 Each run in Kanbus epic BD-996e20 is one task's still-missing cells for one model, with a manifest
 under `docs/kev-runs/` or `docs/jev-runs/` that pins the same input files as the frozen coverage.
 Results come back as answer files committed to a `runs/<issue id>` branch.
+
+## Outcome (scored 2026-09-28)
+
+This document records no predictions and no study. It defines the subsample selection rule applied to all first-pass runs across Jev, Laya, and Kev. The rule ranks items deterministically within each task before any model sees an answer, selects the first 500 items per cell, and is never reordered after observation. All cells using this rule as of 2026-09-28 show their sample size (500 or fewer) in the leaderboard. Results are recorded by task and cue in studies/*.jsonl files and summarized in site/data/leaderboard.json.
+
+> **Deviations, 2026-09-28**
+
+> No deviations recorded in this file; see git history.

@@ -65,3 +65,11 @@ Study A runs Laya and Kev only after this document and the exact generated versi
 Jev is excluded until its price and a request cap receive explicit approval. Before publication, a
 person reviews the exact public copy; source records and score output must be replayable byte for
 byte.
+
+## Outcome (scored 2026-09-28)
+
+Not yet run as of 2026-09-28; no engine has answered any item under this plan.
+
+> **Deviations, 2026-09-28**
+
+> No deviations recorded in this file; see git history.

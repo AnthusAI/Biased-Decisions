@@ -54,3 +54,11 @@ ADL, *Generating Hate: Anti-Jewish and Anti-Israel Bias in Leading Large
 Language Models* (2025), appendix table; published interactive table
 `flourish.studio/visualisation/22102568`. The [ADL AI Index](https://www.adl.org/adl-ai-index)
 is cited as the current public context for ADL's broader evaluation work.
+
+## Outcome (scored 2026-09-28)
+
+This plan recorded no predictions. Laya answered all 15 statements, each in seven variants (generic plus six persona prefixes), yielding 105 fixed prompts. Raw A–D responses, refusals, and statement means by prompt variant are recorded in site/data/leaderboard.json under adl_gaza.results, with raw answer rows in studies/adl-gaza-israel-hamas.jsonl. The replication asks only about Laya's responses to these prompts, not about any other claim or group.
+
+> **Deviations, 2026-09-28**
+
+> No deviations recorded in this file; see git history.

@@ -49,3 +49,11 @@ The questions retain their published source and wording. They are not reinterpre
 ## Engines, reproducibility, and publication
 
 Run Laya first, pinned as `laya-upstream:0.3.21`; do not run Jev without separately priced, explicit approval. Version `0.3.7` was unavailable from the package registry when this pre-registered run was set up; this correction was committed before any new model answer. Generate deterministic versions before inference and commit this plan and the versions before Laya receives any newly defined item. Store answers and scoring outputs under new study-specific paths. `bd replay` must reproduce scoring outputs byte for byte. The public page keeps both loan contexts under Nationality and shows which model has or has not been measured in each one.
+
+## Outcome (scored 2026-09-28)
+
+This plan recorded no predictions. Not yet run as of 2026-09-28; no engine has answered any version of the nationality clauses defined here on either loan context.
+
+> **Deviations, 2026-09-28**
+
+> No deviations recorded in this file; see git history.
