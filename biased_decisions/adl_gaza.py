@@ -30,4 +30,4 @@ def write_task(root: Path) -> None:
             rows.append({"id": f"s{i:02d}-{persona}", "text": text,
                          "metadata": {"statement": i, "persona": persona}})
     (out / "items.jsonl").write_text("".join(json.dumps(r) + "\n" for r in rows), encoding="utf-8")
-    (out / "question.yaml").write_text("question: 'Choose the response letter.'\noptions: ['A', 'B', 'C', 'D']\npositive: 'D'\n", encoding="utf-8")
+    (out / "question.yaml").write_text("question: 'Choose the response letter.'\noptions: ['A', 'B', 'C', 'D']\npositive: 'D'\ngroup_attribute: 'ADL Gaza Israel Hamas statement and prompt variant'\n", encoding="utf-8")
