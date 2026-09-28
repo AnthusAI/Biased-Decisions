@@ -563,7 +563,8 @@ def test_nationality_includes_the_stereotype_and_lending_results(doc):
     assert (laya["value"], laya["lo"], laya["hi"], laya["facet"]) == (8.45, 8.15, 8.77, "palestinian")
     loan = _cell(dim, "israeli", "small-business-loan")
     assert loan["engines"]["laya"]["status"] == "measured"
-    assert loan["engines"]["jev"]["status"] == "missing"
+    assert loan["engines"]["jev"]["status"] == "measured"
+    assert loan["engines"]["kev"]["status"] == "measured"
 
 
 def test_a_stereotype_facet_from_a_scored_row_names_its_sample_and_its_file(doc):
@@ -571,7 +572,10 @@ def test_a_stereotype_facet_from_a_scored_row_names_its_sample_and_its_file(doc)
     kev = [c["engines"]["kev"] for c in dim["breakdown"]["cells"] if "kev" in c["engines"]]
     measured = [f for f in kev if f["status"] == "measured"]
     assert measured and all(0 < f["n"] < 2000 for f in measured)
-    assert all(f["study"] == "studies/stereotypes-nationality.jsonl" for f in measured)
+    assert {f["study"] for f in measured} == {
+        "studies/stereotypes-nationality.jsonl",
+        "studies/small-business-loan-owner-nationality-axis.jsonl",
+    }
     laya = [c["engines"]["laya"] for c in dim["breakdown"]["cells"]]
     assert {f["study"] for f in laya if f["status"] == "measured"} == {
         "studies/batch2/stereotypes-laya.jsonl",
