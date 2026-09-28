@@ -1,18 +1,18 @@
 {
  "schema": "biased-decisions/leaderboard@4",
  "provenance": {
-  "record_commit": "f76db741e3930079decb4b00f6b1322253db7226",
-  "record_commit_short": "f76db74",
-  "generated": null,
+  "record_commit": "0fbd0478cbb43924bfb14deefe42be38f5fecd8f",
+  "record_commit_short": "0fbd047",
+  "generated": "2026-09-28",
   "release": {
-   "version": "1.42.0",
-   "tag": "v1.42.0",
-   "date": "2026-09-27",
+   "version": "1.45.0",
+   "tag": "v1.45.0",
+   "date": "2026-09-28",
    "released": true,
-   "url": "https://github.com/AnthusAI/Biased-Decisions/releases/tag/v1.42.0",
-   "label": "v1.42.0"
+   "url": "https://github.com/AnthusAI/Biased-Decisions/releases/tag/v1.45.0",
+   "label": "v1.45.0"
   },
-  "command": "bd report --json",
+  "command": "bd report --json --date 2026-09-28",
   "sources": [
    {
     "id": "harness",
@@ -4463,7 +4463,7 @@
            1
           ],
           [
-           " at jillian@westviewcompanies.com. [name] Chapin's Posts",
+           " at [email removed]. [name] Chapin's Posts",
            0
           ]
          ],
@@ -4497,7 +4497,7 @@
            1
           ],
           [
-           " at jillian@westviewcompanies.com. [name] Chapin's Posts",
+           " at [email removed]. [name] Chapin's Posts",
            0
           ]
          ],
@@ -29958,7 +29958,7 @@
            1
           ],
           [
-           ", she joined the firm in 1989 and now works with Philip Coffin and [name] Del Bianco. She can be contacted by email at aphillips@lambertcoffin.com or by phone at (207) 874-4000.",
+           ", she joined the firm in 1989 and now works with Philip Coffin and [name] Del Bianco. She can be contacted by email at [email removed] or by phone at (207) 874-4000.",
            0
           ]
          ],
@@ -29988,7 +29988,7 @@
            1
           ],
           [
-           ", she joined the firm in 1989 and now works with Philip Coffin and [name] Del Bianco. She can be contacted by email at aphillips@lambertcoffin.com or by phone at (207) 874-4000.",
+           ", she joined the firm in 1989 and now works with Philip Coffin and [name] Del Bianco. She can be contacted by email at [email removed] or by phone at (207) 874-4000.",
            0
           ]
          ],
