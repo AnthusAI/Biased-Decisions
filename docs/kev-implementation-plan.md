@@ -10,8 +10,8 @@ Use the committed stimuli, questions, option order, scoring, and floors. New bia
 tasks are being developed in another session; consume their shared task definitions
 after they land. That session also owns consolidating the Laya implementations.
 
-Work in `/Users/home/Projects/Biased-Decisions/.worktrees/kev` on `codex/kev-engine`, initially based on
-`c7e2358`. Do not edit the other checkout. Read AGENTS.md and CONTRIBUTING_AGENT.md.
+Work on the `codex/kev-engine` branch in a temporary worktree, initially based on
+`c7e2358`. Do not edit the main checkout. Read AGENTS.md and CONTRIBUTING_AGENT.md.
 Use `KANBUS_NO_DAEMON=1 kbs` for board access. The lead handles board writes and git
 publication during the first implementation slice to avoid concurrent mutations.
 Never read or write issue JSON directly, or read, print, or source `.env`.

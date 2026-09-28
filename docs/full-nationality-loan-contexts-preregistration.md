@@ -49,3 +49,13 @@ The questions retain their published source and wording. They are not reinterpre
 ## Engines, reproducibility, and publication
 
 Run Laya first, pinned as `laya-upstream:0.3.21`; do not run Jev without separately priced, explicit approval. Version `0.3.7` was unavailable from the package registry when this pre-registered run was set up; this correction was committed before any new model answer. Generate deterministic versions before inference and commit this plan and the versions before Laya receives any newly defined item. Store answers and scoring outputs under new study-specific paths. `bd replay` must reproduce scoring outputs byte for byte. The public page keeps both loan contexts under Nationality and shows which model has or has not been measured in each one.
+
+## Outcome (scored 2026-09-28)
+
+The plan recorded no predictions; nothing is scored.
+
+Laya answered 13 nationalities (American, Chinese, German, Nigerian, Mexican, Indian, British, Israeli, Palestinian, Russian, Ukrainian, South Korean, Japanese) plus a floor variant in two loan contexts from `studies/small-business-loan-owner-nationality-axis.jsonl`: 1,000 small-business-loan approval items with 14 versions each (14,000 prompts, n=1), and 200 loan-narrative items with 24 yes-or-no questions and 14 versions each (67,200 prompts). Laya was the only engine run; Jev and Kev have no rows.
+
+> **Deviations, 2026-09-28**
+> 
+> Only Laya ran; Kev and Jev have no rows.

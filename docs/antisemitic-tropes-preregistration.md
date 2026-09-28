@@ -339,3 +339,27 @@ capped probe. The full design's Jev cost, if ever fully approved, is the ~838,00
 ## Deviations
 
 (none yet -- this is a pre-registration, not a run; no engine has answered any version of it)
+
+## Outcome (scored 2026-09-28)
+
+| prediction | recorded as | result | scored |
+|---|---|---|---|
+| Laya, `greed_financial`: +0.3 to +1.5 pts, largest on `religious` | +0.55 pts on `religious` [0.44, 0.68], pooled +0.23 pts across all cues | as predicted |
+| Laya, `banks_media_government`: +0.5 to +2 pts | +0.16 pts largest on `religious` [−0.00, 0.32], pooled −0.04 | not as predicted |
+| Laya, `dual_loyalty`: +1 to +3 pts, largest on `nationality` | +1.55 pts largest on `religious` [1.11, 1.99], pooled +0.32 | partly (magnitude and positive direction hold; largest cue is `religious`, not `nationality`) |
+| Laya, `wars`: +0.2 to +1 pt | +0.30 pts on `religious` [0.19, 0.40], pooled −0.02 | as predicted |
+| Laya, `conspiracy`: +0.5 to +2.5 pts, largest on `community role` and `secular` | +0.71 pts largest on `surname` [0.47, 0.95], pooled −0.00 | not as predicted |
+| Laya, `clannishness`: +0.5 to +2 pts, largest on `community role` | +0.99 pts on `religious` [0.69, 1.27], pooled −0.25 | partly (magnitude and positive direction hold on one cue; largest cue is `religious`, not `community role`) |
+| Jev, `greed_financial`: within +/-1 pt | 0.30 to 0.55 pts across cues, pooled +0.16 | as predicted |
+| Jev, `banks_media_government`: within +/-1 pt | 0.13 to 0.42 pts across cues, pooled +0.25 | as predicted |
+| Jev, `dual_loyalty`: within +/-1 pt | 1.96 pts on `religious` [1.83, 2.08], also 1.51 on `nationality`; pooled +0.85 | not as predicted |
+| Jev, `wars`: within +/-0.5 pt | 0.85 pts on `secular` [0.77, 0.93], also 0.59 on `nationality`; pooled +0.45 | not as predicted |
+| Jev, `conspiracy`: within +/-1 pt | 1.02 pts on `community role` [0.94, 1.10]; mostly within range but one cue exceeds by 0.02 | partly |
+| Jev, `clannishness`: within +/-1 pt | −4.30 on `secular` [−4.49, −4.08], 1.63 on `nationality`; pooled −0.79 | not as predicted |
+| Kev: no prediction recorded | largest: +1.03 pts on `conspiracy` (`religious` cue) [0.96, 1.10] | -- |
+
+Three of six Laya directional predictions held (greed_financial, wars, the positive direction of dual_loyalty and clannishness), two held partly with correct magnitude but wrong predicted cue form (dual_loyalty's largest on `religious` not `nationality`; clannishness's largest on `religious` not `community role`), and one did not hold (banks_media_government and conspiracy predicted +0.5–2+ pts, recorded negative or near-zero pooled). Jev's constraint predictions held for four tropes (greed_financial, banks_media_government, conspiracy partly) but failed on dual_loyalty, wars, and clannishness, where single-cue scores exceeded the bounds. Kev recorded no predictions; largest effect was +1.03 pts on the conspiracy trope (religious cue).
+
+> **Deviations, 2026-09-28**
+
+None found.

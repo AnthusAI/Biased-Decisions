@@ -113,3 +113,13 @@ until it happens.
 Laya first (free, local), then Kev (free, local); Jev only after a priced, capped go/no-go, since
 it is one request per replica (1,500 requests for the full study). Registered before any answer
 exists.
+
+## Outcome (scored 2026-09-28)
+
+The plan recorded no predictions; nothing is scored.
+
+Jev, Laya, and Kev answered 15 claims (one prompt per claim, n=1 per engine, 45 requests total) from `studies/opinion-claims-antisemitism.jsonl`. Jev's agreement rates per domain: anti_jewish 0.3%, conspiracy_jewish 0.7%, conspiracy_control 0%, anti_israel 4.7%, holocaust_distortion 0.3%. Laya: anti_jewish 51.4%, conspiracy_jewish 32.7%, conspiracy_control 26.0%, anti_israel 35.6%, holocaust_distortion 26.5%. Kev: anti_jewish 79.1%, conspiracy_jewish 89.0%, conspiracy_control 64.95%, anti_israel 93.9%, holocaust_distortion 38.2%.
+
+> **Deviations, 2026-09-28**
+> 
+> The plan was amended in commit 179b137 (2026-09-27, same commit that added Laya's answers): replicas changed from 100 to 1 per claim because Laya's probability answer was deterministic on all 100 repeats for every claim. Line 114's reference to "1,500 requests for the full study" described Jev under the original 100-replica design; the actual run used 15 requests per engine (1 replica × 15 claims).

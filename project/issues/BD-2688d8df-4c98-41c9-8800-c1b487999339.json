@@ -10,9 +10,22 @@
   "parent": "BD-5f522b97-a78e-4c3b-b0ed-9454c4f9d92e",
   "labels": [],
   "dependencies": [],
-  "comments": [],
+  "comments": [
+    {
+      "id": "ac9fd969-5407-4c18-98a7-d8c1d9b40ecd",
+      "author": "home",
+      "text": "Decision, 2026-09-28: unpublish the two direct-statement arms (the ADL statement set and the opinion claims) from the site until the controlled version has run. Reasons, from the record: on the ADL arm the engine chose 'strongly agree' for 13 of 15 statements including pairs that contradict each other, so the arm measures how the model answers agree/disagree prompts, not a stance; the opinion claims are one prompt each with no interval; neither arm has a reversed-statement, option-order or floor control, and the follow-up pre-registration itself calls the prompt unsuitable for a decision model. The saved answers stay in the record and the scored rows stay in studies/; the methods page will say the arms exist, why they are not shown, and what has to be collected before they return (BD-2ec4f8, BD-bf2b57). The Gaza decision-status study, which has a no-name control, stays published with the answer distributions shown in full and no 'selected response' label where the top probability is under one half.",
+      "created_at": "2026-09-28T04:53:58.482099Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude_code",
+        "model": "Claude Fable 5.1",
+        "name": "Project Assessment"
+      }
+    }
+  ],
   "created_at": "2026-09-28T04:19:39.643776Z",
-  "updated_at": "2026-09-28T04:19:39.643812Z",
+  "updated_at": "2026-09-28T04:53:58.482125Z",
   "closed_at": null,
   "agent": {
     "platform": "claude_code",

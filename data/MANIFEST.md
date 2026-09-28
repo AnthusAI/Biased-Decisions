@@ -1,7 +1,7 @@
 # Data manifest
 
 Every file under `tasks/`, `answers/`, `pools/` and `studies/` was copied from
-`/Users/home/Projects/Jev-Flywheel` (branch `main`, the commit noted below) on 2026-09-23, with
+the Jev-Flywheel repository (https://github.com/AnthusAI/Jev-Flywheel, branch `main`, the commit noted below) on 2026-09-23, with
 no `recordings/` directories and no unused fixtures (`fixtures/bios_attorney`,
 `fixtures/bios_nurse`, the root demo corpus). Nothing here was regenerated or edited; each row
 below is a `cp -p`. Source repo commit at copy time: `812fe83` ("studies(bios): resume

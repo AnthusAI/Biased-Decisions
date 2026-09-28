@@ -46,8 +46,8 @@ const splitRows = (src) => order.filter((e) => A.split[src][e]).map((e) => ({
   <section class="wrap section" id="tested" aria-labelledby="tested-h">
     <h2 class="display" id="tested-h">What we asked</h2>
     <p class="lede">We took short professional biographies and added one phrase saying who the person is. Then we asked yes-or-no questions about the person, three worded differently for each of six {adjective.toLowerCase()} stereotypes, and we averaged the three. We compared each answer with the answer after a harmless phrase of the same size, and with the same phrase for Christian and Muslim people, so the effect of naming any group cancels out. The score is how many percentage points more often the model gave the answer the stereotype predicts.</p>
-    <h3>The six stereotypes</h3>
-    <ul class="cite-list">{A.tropes.map((t) => <li><strong>{t.label[0].toUpperCase() + t.label.slice(1)}</strong>: the idea that {A.subject} are {t.alleges}. Source: {t.source}</li>)}</ul>
+    <h3>The six stereotypes we tested</h3>
+    <ul class="cite-list">{A.tropes.map((t) => <li><strong>{t.label[0].toUpperCase() + t.label.slice(1)}</strong>: the stereotype that {A.subject} are {t.alleges}. Source: {t.source}</li>)}</ul>
     <p class="note">Each comes from a published source. <a href={`${urls.home()}stereotypes/#sources`}>Where these stereotypes come from</a> lists the sources and how far we checked each.</p>
     <h3>The five ways of saying who the person is</h3>
     <ul class="cite-list">{A.cues.map((c) => <li><strong>{c.label}</strong>: <q>{c.phrase.trim().replace(/,$/, "")}</q></li>)}</ul>

@@ -48,7 +48,7 @@ def test_forwards_questions_unchanged_and_carries_actual_response_metadata():
 
 def test_repeated_identical_inputs_make_fresh_requests():
     transport = FakeTransport(response())
-    engine = KevEngine(base_url="http://localhost:8009", transport=transport)
+    engine = KevEngine(base_url="http://localhost:8009", model="kev-latest", transport=transport)
     asyncio.run(engine.answer("same", question()))
     asyncio.run(engine.answer("same", question()))
     assert len(transport.calls) == 2
@@ -63,7 +63,7 @@ def test_repeated_identical_inputs_make_fresh_requests():
 def test_rejects_invalid_probability_maps(probabilities):
     body = response()
     body["answers"]["Occupation"]["probabilities"] = probabilities
-    engine = KevEngine(base_url="http://localhost:8009", transport=FakeTransport(body))
+    engine = KevEngine(base_url="http://localhost:8009", model="kev-latest", transport=FakeTransport(body))
     with pytest.raises(ValueError):
         asyncio.run(engine.answer("x", question()))
 
@@ -73,7 +73,7 @@ def test_rejects_invalid_choice_or_answer_coverage():
                                         "probabilities": {"physician": .5, "surgeon": .5}}},
                     {"extra": {}}):
         body = response(answers=answers)
-        engine = KevEngine(base_url="http://localhost:8009", transport=FakeTransport(body))
+        engine = KevEngine(base_url="http://localhost:8009", model="kev-latest", transport=FakeTransport(body))
         with pytest.raises(ValueError):
             asyncio.run(engine.answer("x", question()))
 
@@ -87,7 +87,7 @@ def test_multiple_questions_and_type_are_preserved():
         "Confidence": {"type": "noul", "noul": 0.8},
     })
     transport = FakeTransport(body)
-    result = asyncio.run(KevEngine(base_url="http://localhost:8009", transport=transport).answer("x", qs))
+    result = asyncio.run(KevEngine(base_url="http://localhost:8009", model="kev-latest", transport=transport).answer("x", qs))
     assert list(result) == ["Occupation", "Confidence"]
     assert list(result["Occupation"]["probabilities"]) == ["physician", "surgeon"]
 
@@ -97,7 +97,7 @@ def test_rejects_wrong_answer_type_and_bad_probability_total():
         {"type": "noul", "choice": "surgeon", "probabilities": {"physician": .5, "surgeon": .5}},
         {"type": "choice", "choice": "surgeon", "probabilities": {"physician": 0, "surgeon": 0}},
     ):
-        engine = KevEngine(base_url="http://localhost:8009",
+        engine = KevEngine(base_url="http://localhost:8009", model="kev-latest",
                            transport=FakeTransport(response(answers={"Occupation": answer})))
         with pytest.raises(ValueError):
             asyncio.run(engine.answer("x", question()))
@@ -108,7 +108,7 @@ def test_accepts_upstream_four_decimal_probability_rounding():
                  "criteria": {"a": "A", "b": "B", "c": "C"}}}
     body = response(answers={"Q": {"type": "choice", "choice": "a",
                                     "probabilities": {"a": .3333, "b": .3333, "c": .3333}}})
-    result = asyncio.run(KevEngine(base_url="http://localhost:8009",
+    result = asyncio.run(KevEngine(base_url="http://localhost:8009", model="kev-latest",
                                    transport=FakeTransport(body)).answer("x", qs))
     assert result["Q"]["probabilities"]["c"] == .3333
 
@@ -127,6 +127,10 @@ def test_factory_registry_and_report_metadata_include_kev(monkeypatch):
     with pytest.raises(AnswerRefused, match="KEV_BASE_URL"):
         _check_engine_installed("kev")
     monkeypatch.setenv("KEV_BASE_URL", "http://127.0.0.1:8009")
+    monkeypatch.delenv("KEV_MODEL", raising=False)
+    with pytest.raises(AnswerRefused, match="KEV_MODEL"):
+        _check_engine_installed("kev")
+    monkeypatch.setenv("KEV_MODEL", "kev-latest")
     assert isinstance(_engine_factory("kev"), KevEngine)
     assert "kev" in ENGINES and "kev" in GENDER_PRONOUNS_ENGINES
     assert ENGINE_LABELS["kev"] == "Kev"
@@ -141,7 +145,7 @@ def test_provenance_pins_models_endpoint_and_excludes_dynamic_cache_counters():
         "prefix_cache": {"enabled": False, "size": 4, "min_state_tokens": 80,
                           "hits": 11, "misses": 3},
     }]})
-    engine = KevEngine(base_url="http://localhost:8009", transport=transport)
+    engine = KevEngine(base_url="http://localhost:8009", model="kev-latest", transport=transport)
     provenance = engine.provenance(server_revision=sha, base_revision="b" * 40,
                                    backend="mlx", dtype="bfloat16",
                                    calibration="2.406050072164233")
@@ -155,7 +159,7 @@ def test_provenance_pins_models_endpoint_and_excludes_dynamic_cache_counters():
 
 def test_provenance_rejects_unpinned_checkpoint():
     transport = FakeTransport(models={"models": [{"name": "kev-latest", "run": "jaredpalmer/kev-0.8b"}]})
-    engine = KevEngine(base_url="http://localhost:8009", transport=transport)
+    engine = KevEngine(base_url="http://localhost:8009", model="kev-latest", transport=transport)
     with pytest.raises(ValueError, match="40-hex"):
         engine.provenance(server_revision="a" * 40, base_revision="b" * 40,
                           backend="mlx", dtype="bfloat16", calibration="2.4")
@@ -164,7 +168,7 @@ def test_provenance_rejects_unpinned_checkpoint():
 @pytest.mark.parametrize("value", [float("nan"), -0.1, 1.1, True])
 def test_noul_values_must_be_finite_and_bounded(value):
     qs = {"greed_q1": {"type": "noul", "instructions": "Is this greed?"}}
-    engine = KevEngine(base_url="http://localhost:8009", transport=FakeTransport(
+    engine = KevEngine(base_url="http://localhost:8009", model="kev-latest", transport=FakeTransport(
         response(answers={"greed_q1": {"type": "noul", "noul": value}})))
     with pytest.raises(ValueError, match="noul"):
         asyncio.run(engine.answer("x", qs))
