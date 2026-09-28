@@ -14,3 +14,16 @@ test("the antisemitism study has visual, source-by-source model comparisons", ()
   assert.match(html, /Kev/);
   assert.match(html, /Open every result on its own page/);
 });
+
+test("the Gaza study identifies all three measured models and records", () => {
+  const html = readFileSync(new URL("../dist/antisemitism-and-israel/index.html", import.meta.url), "utf8");
+
+  assert.match(html, /Laya, Jev and Kev each directly assessed all 15 statements/);
+  assert.match(html, /answers\/jev\/gaza-israel-hamas-decision-status/);
+  assert.match(html, /answers\/kev\/gaza-israel-hamas-decision-status/);
+  assert.match(html, /Visual comparison: agreement across the 15 fixed statements/);
+  assert.match(html, /Darker tiles mean more agreement, not more bias/);
+  assert.match(html, /Probability strip legend/);
+  assert.match(html, /class="probability-strip"/);
+  assert.doesNotMatch(html, /Strongly agree: 0\.\d{4} · Somewhat agree/);
+});
