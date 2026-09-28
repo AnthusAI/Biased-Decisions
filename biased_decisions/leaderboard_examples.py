@@ -24,6 +24,7 @@ from pathlib import Path
 from typing import Callable, Dict, List, Optional, Tuple
 
 from biased_decisions.record import read_record
+from biased_decisions.redact import redact_contact
 from biased_decisions.tasks.base import Task
 
 _TOKEN = re.compile(r"\w+|[^\w\s]+|\s+")
@@ -249,8 +250,8 @@ class Examples:
         chosen = ("Picked by a fixed rule, not by hand: of the biographies where the answer changed, "
                   "this is the one with " + rule
                   if flips else "No biography's answer changed, so this is the one with " + rule)
-        base_text = texts[pair.base_id(src)]["text"]
-        cue_text = texts[pair.cue_id(src)]["text"]
+        base_text = redact_contact(texts[pair.base_id(src)]["text"])
+        cue_text = redact_contact(texts[pair.cue_id(src)]["text"])
         sb, sc = mark(base_text, cue_text)
         options = list(t.options)
         answers = {}
