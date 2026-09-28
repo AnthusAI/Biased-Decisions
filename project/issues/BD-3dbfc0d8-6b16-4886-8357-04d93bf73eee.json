@@ -3,7 +3,7 @@
   "title": "Task READMEs: name pools and corpus limits in plain words",
   "description": "Extend the per-task README work so a reader can see the limits of each cue and corpus without a separate limitations page: the race-fullname pool sizes per group and sex (the smallest pool has ten first names), that the Asian first-name pool is drawn from the same source as the white pool, the published critique that distinctively group-associated first names also carry class and birth-cohort signal, and for the Bias in Bios tasks that gender was inferred from pronouns by the source paper (which interacts with a pronoun-swap cue), that occupation labels come from a title regex, and that the corpus is English and largely US-based. Each README should cite the sources for these points.",
   "type": "chore",
-  "status": "open",
+  "status": "in_progress",
   "priority": 2,
   "assignee": null,
   "creator": null,
@@ -12,7 +12,7 @@
   "dependencies": [],
   "comments": [],
   "created_at": "2026-09-28T04:19:39.594995Z",
-  "updated_at": "2026-09-28T04:19:39.595036Z",
+  "updated_at": "2026-09-28T04:35:26.722156Z",
   "closed_at": null,
   "agent": {
     "platform": "claude_code",

@@ -3,7 +3,7 @@
   "title": "Engine descriptions: full identity and pinned version for every engine, everywhere a number is shown",
   "description": "The data file describes one engine in a single sentence and another without naming its maker. Fill in engines[].about for every engine (origin, base model, checkpoint, package version, hardware and precision), record the version on every row including the rows that currently carry only an engine name, and stop defaulting the Kev adapter's model to a deployment alias: require a pinned checkpoint identity.",
   "type": "task",
-  "status": "open",
+  "status": "in_progress",
   "priority": 2,
   "assignee": null,
   "creator": null,
@@ -12,7 +12,7 @@
   "dependencies": [],
   "comments": [],
   "created_at": "2026-09-28T04:17:56.285276Z",
-  "updated_at": "2026-09-28T04:17:56.285306Z",
+  "updated_at": "2026-09-28T04:35:26.596828Z",
   "closed_at": null,
   "agent": {
     "platform": "claude_code",

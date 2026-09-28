@@ -3,7 +3,7 @@
   "title": "Remove third-party contact details from task texts and the published data file",
   "description": "A small number of scraped biographies in the architect-interior-designer, gendered-advance and gendered-management tasks carry a personal email address in the text, and those texts are copied into site/data/leaderboard.json. Redact the addresses in the task items (and any versions files built from them), rebuild the affected records only if a redaction changes an answered text, and confirm the data file and site carry none. Add a build check that refuses to publish an item text containing an email address. Do not quote the addresses in this issue or its comments.",
   "type": "bug",
-  "status": "open",
+  "status": "in_progress",
   "priority": 0,
   "assignee": null,
   "creator": null,
@@ -25,7 +25,7 @@
     }
   ],
   "created_at": "2026-09-28T04:17:56.154721Z",
-  "updated_at": "2026-09-28T04:31:31.741798Z",
+  "updated_at": "2026-09-28T04:33:03.677977Z",
   "closed_at": null,
   "agent": {
     "platform": "claude_code",

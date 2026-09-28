@@ -3,7 +3,7 @@
   "title": "Build a same-signal trivial edit for the pronoun-swap tasks",
   "description": "A deterministic builder that changes the text by about the same number of tokens as the pronoun swap without changing any protected signal (for example a second neutral phrasing of a date or a place). Pre-register it, build for all seven Bias in Bios tasks, and record the cue in scoring TASK_CUES.",
   "type": "sub-task",
-  "status": "open",
+  "status": "in_progress",
   "priority": 1,
   "assignee": null,
   "creator": null,
@@ -12,7 +12,7 @@
   "dependencies": [],
   "comments": [],
   "created_at": "2026-09-28T04:20:22.030986Z",
-  "updated_at": "2026-09-28T04:20:22.031021Z",
+  "updated_at": "2026-09-28T04:35:26.988635Z",
   "closed_at": null,
   "agent": {
     "platform": "claude_code",

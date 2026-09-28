@@ -3,7 +3,7 @@
   "title": "Stereotype pages: make the model the subject of every heading and tile",
   "description": "Some headings and tile labels on the China, stereotypes-source and trope pages phrase the stereotype with the group as the subject (for example a heading that reads as a statement about people from a region). The writing rule for this site is that the model is the subject of every finding. Rewrite every heading, tile label and introduction on the stereotype pages so it reads as what the model did when the phrase was inserted, keep the source citation for each stereotype, and add a copy check that flags a heading whose grammatical subject is a group name.",
   "type": "task",
-  "status": "open",
+  "status": "in_progress",
   "priority": 2,
   "assignee": null,
   "creator": null,
@@ -12,7 +12,7 @@
   "dependencies": [],
   "comments": [],
   "created_at": "2026-09-28T04:19:39.453802Z",
-  "updated_at": "2026-09-28T04:19:39.453830Z",
+  "updated_at": "2026-09-28T04:35:26.765662Z",
   "closed_at": null,
   "agent": {
     "platform": "claude_code",
