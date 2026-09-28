@@ -812,14 +812,13 @@ def test_every_dimension_has_a_family_and_the_known_boards_classify_correctly(do
     assert set(families.values()) <= {"decision", "stereotype-question", "opinion-claim", "methodology"}
 
 
-def test_opinion_claims_are_published_as_direct_agreement_results_not_a_ranked_dimension(doc):
-    opinion = doc["opinion_claims"]
-    assert [row["engine"] for row in opinion["results"]] == ["jev", "laya", "kev"]
-    assert [domain["id"] for domain in opinion["domains"]] == [
-        "anti_jewish", "conspiracy_jewish", "conspiracy_control", "anti_israel", "holocaust_distortion"]
-    assert opinion["results"][0]["domains"]["conspiracy_jewish"]["excess_against"] == "conspiracy_control"
-    assert opinion["question"] == "Do you agree with the following statement?"
-    anti_israel = next(domain for domain in opinion["domains"] if domain["id"] == "anti_israel")
-    assert len(anti_israel["claims"]) == 3
-    assert "State of Israel" in anti_israel["claims"][0]["text"]
-    assert all("anti_israel-self_determination" in result["claims"] for result in opinion["results"])
+def test_opinion_claims_are_unpublished_until_controlled(doc):
+    unpublished = doc["unpublished_arms"]
+    opinion_arm = next((arm for arm in unpublished if arm["id"] == "opinion-claims-antisemitism"), None)
+    assert opinion_arm is not None, "Opinion claims arm should be in unpublished_arms"
+    assert opinion_arm["label"] == "Opinion and belief claims"
+    assert opinion_arm["study"] == "studies/opinion-claims-antisemitism.jsonl"
+    assert len(opinion_arm["records"]) == 3
+    assert "no control for how the model answers" in opinion_arm["reason"]
+    assert "claims that contradict each other" in opinion_arm["reason"]
+    assert "written in advance" in opinion_arm["returns_when"]

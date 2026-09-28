@@ -3,7 +3,7 @@ import Base from "../../layouts/Base.astro";
 import GazaStatusVisual from "../../components/GazaStatusVisual.astro";
 import ProbabilityStrip from "../../components/ProbabilityStrip.astro";
 import { pageIntroductions } from "../../lib/introductions.js";
-import { gazaStatus, urls } from "../../lib/site.js";
+import { gazaStatus, unpublishedArms, urls } from "../../lib/site.js";
 
 const intro = pageIntroductions.antisemitismIsrael;
 ---
@@ -21,7 +21,6 @@ const intro = pageIntroductions.antisemitismIsrael;
       <article class="result-card"><h3>Does a model repeat antisemitic stereotypes?</h3><p>Read the dedicated study across professional biographies and synthetic loan narratives. It tests model answers to stereotype questions, not people.</p><a href={`${urls.home()}antisemitism/`}>Open antisemitic stereotype results</a></article>
       <article class="result-card"><h3>Does stating Israeli nationality change a decision?</h3><p>Compare the same small-business-loan application after a nationality sentence changes. This is treatment in a loan decision, not a test of political views.</p><a href={urls.dim("nationality")}>Open nationality decision results</a></article>
       <article class="result-card"><h3>How do nationality wordings move loan-narrative answers?</h3><p>Inspect the full per-question record for the same thirteen nationalities in 200 synthetic loan narratives. It is reported as raw model response shifts, not a cross-nationality verdict.</p><a href="https://github.com/AnthusAI/Biased-Decisions/blob/main/studies/loan-narratives-antisemitism-nationality-loan-axis.jsonl">Open the saved narrative-study result</a></article>
-      <article class="result-card"><h3>Will a model agree with anti-Israel rhetoric?</h3><p>See the three fixed, IHRA-sourced direct-opinion claims about self-determination, double standards and Nazi comparisons. These rates have no neutral comparison verdict.</p><a href={`${urls.home()}opinion-claims/#anti_israel`}>Open anti-Israel opinion claims</a></article>
     </div>
   </section>
 
@@ -31,7 +30,6 @@ const intro = pageIntroductions.antisemitismIsrael;
       <table class="cell-table"><thead><tr><th scope="col">Study</th><th scope="col">What changes or is asked</th><th scope="col">What it does not establish</th></tr></thead><tbody>
         <tr><th scope="row"><a href={`${urls.home()}antisemitism/`}>Antisemitic stereotype study</a></th><td>A biography or loan narrative says a person is Jewish, devout Jewish, Israeli, connected with a synagogue, or has a Jewish-associated surname.</td><td>It does not measure a model’s views on the Israeli–Palestinian conflict or the truth of any stereotype.</td></tr>
         <tr><th scope="row"><a href={urls.dim("nationality")}>Israeli-nationality decision arm</a></th><td>The same synthetic loan application identifies its principal with a nationality, including Israeli and Palestinian.</td><td>It does not measure beliefs about Israel, Palestine, Zionism, a government, or a conflict.</td></tr>
-        <tr><th scope="row"><a href={`${urls.home()}opinion-claims/#anti_israel`}>Anti-Israel opinion claims</a></th><td>The model is directly asked whether it agrees with three fixed statements drawn from IHRA’s Israel-related examples.</td><td>It does not measure treatment of a person in a decision, and it does not label a direct-agreement rate as a bias verdict.</td></tr>
       </tbody></table>
     </div>
   </section>
@@ -46,14 +44,14 @@ const intro = pageIntroductions.antisemitismIsrael;
       <h3 class="display sm">{result.label}: no-name control</h3>
       <div class="table-scroll" tabindex="0" role="region" aria-label={`${result.label} no-name Gaza Israel Hamas responses`}>
         <table class="cell-table"><thead><tr><th scope="col">exact statement</th><th scope="col">selected response</th><th scope="col">response probabilities</th><th scope="col">mean response</th></tr></thead><tbody>
-          {gazaStatus.statements.map((statement) => { const answer = result.statements[statement.id].statuses.no_name; return <tr><th scope="row"><q>{statement.text}</q></th><td><strong>{answer.choice}</strong></td><td><ProbabilityStrip options={gazaStatus.options} probabilities={answer.probabilities} label={`${result.label}, ${statement.text}, no name`} /></td><td>{answer.mean_response.toFixed(4)}</td></tr>; })}
+          {gazaStatus.statements.map((statement) => { const answer = result.statements[statement.id].statuses.no_name; return <tr><th scope="row"><q>{statement.text}</q></th><td><strong>{answer.clear_choice ? answer.choice : "no clear choice"}</strong></td><td><ProbabilityStrip options={gazaStatus.options} probabilities={answer.probabilities} label={`${result.label}, ${statement.text}, no name`} /></td><td>{answer.mean_response.toFixed(4)}</td></tr>; })}
         </tbody></table>
       </div>
       <p class="note">Mean response is the recorded probability-weighted four-response scale. It keeps all choices visible; it is not a bias score.</p>
       <details class="claim-detail"><summary><strong class="opinion-claim-family">All decision-request status values</strong><span class="opinion-claim-summary">15 statements × a no-name control and six named fields</span></summary>
         <div class="table-scroll" tabindex="0" role="region" aria-label={`${result.label} Gaza Israel Hamas decision statuses`}>
           <table class="cell-table"><thead><tr><th scope="col">statement</th>{Object.entries(gazaStatus.statuses).map(([status, value]) => <th scope="col">{status === "no_name" ? "no name" : value.replace(".", "")}</th>)}</tr></thead><tbody>
-            {gazaStatus.statements.map((statement) => <tr><th scope="row"><q>{statement.text}</q></th>{Object.keys(gazaStatus.statuses).map((status) => { const answer = result.statements[statement.id].statuses[status]; const request = status === "no_name" ? "no name" : gazaStatus.statuses[status]; return <td><strong>{answer.choice}</strong><ProbabilityStrip options={gazaStatus.options} probabilities={answer.probabilities} label={`${result.label}, ${statement.text}, ${request}`} /></td>; })}</tr>)}
+            {gazaStatus.statements.map((statement) => <tr><th scope="row"><q>{statement.text}</q></th>{Object.keys(gazaStatus.statuses).map((status) => { const answer = result.statements[statement.id].statuses[status]; const request = status === "no_name" ? "no name" : gazaStatus.statuses[status]; return <td><strong>{answer.clear_choice ? answer.choice : "no clear choice"}</strong><ProbabilityStrip options={gazaStatus.options} probabilities={answer.probabilities} label={`${result.label}, ${statement.text}, ${request}`} /></td>; })}</tr>)}
           </tbody></table>
         </div>
       </details>
@@ -61,8 +59,27 @@ const intro = pageIntroductions.antisemitismIsrael;
     <p class="note">Read the <a href="https://github.com/AnthusAI/Biased-Decisions/blob/main/docs/gaza-israel-hamas-decision-status-preregistration.md">study plan written before the prompts were run</a>, the <a href="https://github.com/AnthusAI/Biased-Decisions/blob/main/studies/gaza-israel-hamas-decision-status.jsonl">scored study row</a>, and the saved raw answers for <a href="https://github.com/AnthusAI/Biased-Decisions/blob/main/answers/laya/gaza-israel-hamas-decision-status/as-written.jsonl.gz">Laya</a>, <a href="https://github.com/AnthusAI/Biased-Decisions/blob/main/answers/jev/gaza-israel-hamas-decision-status/as-written.jsonl.gz">Jev</a>, and <a href="https://github.com/AnthusAI/Biased-Decisions/blob/main/answers/kev/gaza-israel-hamas-decision-status/as-written.jsonl.gz">Kev</a>. The source framework is ADL’s <a href="https://www.adl.org/resources/report/generating-hate-anti-jewish-and-anti-israel-bias-leading-large-language-models">Generating Hate</a> and <a href="https://www.adl.org/adl-ai-index">AI Index</a>.</p>
   </section>}
 
+  <section class="wrap section" id="not-shown-yet" aria-labelledby="unpub-h">
+    <h2 class="display" id="unpub-h">Not shown yet</h2>
+    <p class="lede">Two arms that tested direct statements have not been published because they lack controls for how a model answers agree-or-disagree prompts. See their saved answers and the study plans in the repository.</p>
+    {unpublishedArms.map((arm) => (
+      <details class="claim-detail">
+        <summary><strong>{arm.label}</strong></summary>
+        <p><strong>Why not shown:</strong> {arm.reason}</p>
+        <p><strong>Returns when:</strong> {arm.returns_when}</p>
+        <p><strong>Study file:</strong> <a href={`https://github.com/AnthusAI/Biased-Decisions/blob/main/${arm.study}`}>{arm.study}</a></p>
+        <p><strong>Saved answers:</strong></p>
+        <ul>
+          {arm.records.map((record) => (
+            <li><a href={`https://github.com/AnthusAI/Biased-Decisions/blob/main/${record}`}>{record}</a></li>
+          ))}
+        </ul>
+      </details>
+    ))}
+  </section>
+
   <section class="wrap section" aria-labelledby="sources-h">
     <h2 class="display" id="sources-h">Source and study records</h2>
-    <p class="lede">The opinion-claim arm is separate from the completed Gaza/Israel–Hamas prompt replication above. See the <a href="https://www.adl.org/adl-ai-index">ADL AI Index</a>, the <a href="https://github.com/AnthusAI/Biased-Decisions/blob/main/docs/opinion-claims-preregistration.md">opinion study plan</a>, the <a href="https://github.com/AnthusAI/Biased-Decisions/blob/main/docs/antisemitic-tropes-preregistration.md">stereotype study plan</a>, and the <a href="https://github.com/AnthusAI/Biased-Decisions/blob/main/docs/tropes-round2-sources.md">ADL source review</a>.</p>
+    <p class="lede">See the <a href="https://www.adl.org/adl-ai-index">ADL AI Index</a>, the <a href="https://github.com/AnthusAI/Biased-Decisions/blob/main/docs/antisemitic-tropes-preregistration.md">stereotype study plan</a>, and the <a href="https://github.com/AnthusAI/Biased-Decisions/blob/main/docs/tropes-round2-sources.md">ADL source review</a>.</p>
   </section>
 </Base>
