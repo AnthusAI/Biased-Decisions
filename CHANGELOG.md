@@ -1,3 +1,18 @@
+# [1.44.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.43.0...v1.44.0) (2026-09-28)
+
+
+### Bug Fixes
+
+* **collector:** collect unsplit registered tasks ([5c96680](https://github.com/AnthusAI/Biased-Decisions/commit/5c96680e6d039aa30f06b73264a68d1472d7cf54))
+
+
+### Features
+
+* **site:** visualize antisemitism study results ([217172f](https://github.com/AnthusAI/Biased-Decisions/commit/217172fa2a536ac48ea9f1e8129bb7976bfbcd72))
+* **study:** add Gaza decision status task ([90cdd1f](https://github.com/AnthusAI/Biased-Decisions/commit/90cdd1f847cf09ba94872d10e1420d88a19fd139))
+* **study:** replace Gaza name-prefix protocol ([73b0378](https://github.com/AnthusAI/Biased-Decisions/commit/73b0378fe000eca272d75357d17f282cb1b29028))
+* **study:** replace Gaza name-prefix protocol ([e1c4082](https://github.com/AnthusAI/Biased-Decisions/commit/e1c40825e2d0525234fad99ac46325434f80a9a3))
+
 # [1.43.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.42.0...v1.43.0) (2026-09-28)
 
 
