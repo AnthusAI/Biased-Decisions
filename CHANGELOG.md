@@ -1,3 +1,10 @@
+# [1.47.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.46.0...v1.47.0) (2026-09-28)
+
+
+### Features
+
+* **nationality:** complete Jev and Kev loan axis ([1b87cdd](https://github.com/AnthusAI/Biased-Decisions/commit/1b87cddd72f1d67696c8caacd2d854a1276090e4))
+
 # [1.46.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.45.0...v1.46.0) (2026-09-28)
 
 
