@@ -87,7 +87,7 @@ h3 { font-size: 18px; font-weight: 700; margin: 1.6em 0 .4em; }
 .topnav { display: flex; align-items: center; gap: 4px 14px; flex-wrap: wrap; font-size: 14px; font-weight: 600; }
 .topnav a { color: var(--ink-2); text-decoration: none; padding: 4px 0; border-bottom: 2px solid transparent; display: inline-flex; align-items: center; gap: 6px; }
 .topnav a:hover, .topnav a.on { color: var(--ink); border-bottom-color: var(--ink); }
-.rail { display: flex; gap: 6px; overflow-x: auto; padding: 4px 0 10px; scrollbar-width: thin; font-size: 13px; -webkit-mask-image: linear-gradient(90deg, #000 92%, transparent); mask-image: linear-gradient(90deg, #000 92%, transparent); }
+.rail { display: flex; flex-wrap: wrap; gap: 6px; overflow-x: visible; padding: 4px 0 10px; font-size: 13px; }
 .rail-h { color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: .08em; font-size: 11px; align-self: center; padding-right: 4px; white-space: nowrap; }
 .rail a { position: relative; white-space: nowrap; color: var(--ink-2); text-decoration: none; padding: 3px 10px; border: 1px solid var(--rule); border-radius: 999px; background: var(--surface); }
 .rail a:hover { border-color: var(--ink-2); }
@@ -592,17 +592,59 @@ details.cell { scroll-margin-top: 140px; }
 
 .mx-d { font-size: 0.7em; opacity: 0.85; }
 
-/* Opinion-claim results: keep the table inside the viewport, and make the family and source
-   distinct lines rather than adjacent inline text. */
-.opinion-claims-table { min-width: 0; table-layout: fixed; }
-.opinion-claim-family-col { width: 40%; }
-.opinion-claims-table tbody th { white-space: normal; overflow-wrap: anywhere; }
-.opinion-claim-family, .opinion-claim-source, .opinion-claim-score span { display: block; }
-.opinion-claim-source, .opinion-claim-score span { margin-top: 3px; color: var(--muted); font-size: 12px; font-weight: 500; line-height: 1.35; }
-.opinion-claim-score { overflow-wrap: anywhere; }
+/* Opinion-claim results: the exact-statement tables stay inside the viewport, and the family
+   label and evidence cue occupy distinct lines. */
+.claim-detail .cell-table { min-width: 0; table-layout: fixed; }
+.claim-detail .cell-table tbody th { width: 55%; white-space: normal; overflow-wrap: anywhere; }
+.opinion-claim-family, .opinion-claim-summary { display: block; }
+.opinion-claim-summary { margin-top: 3px; color: var(--muted); font-size: 12px; font-weight: 500; line-height: 1.35; }
 @media (max-width: 620px) {
-  .opinion-claims-table { font-size: 12.5px; }
-  .opinion-claims-table th, .opinion-claims-table td { padding-right: 6px; }
-  .opinion-claims-table thead th { font-size: 10px; letter-spacing: .04em; }
-  .opinion-claim-source, .opinion-claim-score span { font-size: 11px; }
+  .claim-detail .cell-table { font-size: 12.5px; }
+  .claim-detail .cell-table th, .claim-detail .cell-table td { padding-right: 6px; }
+  .claim-detail .cell-table thead th { font-size: 10px; letter-spacing: .04em; }
+  .opinion-claim-summary { font-size: 11px; }
 }
+
+/* Antisemitism and Islamophobia study comparison grids. Each tile is a link to the complete,
+   cue-level result board; the fill is only a compact summary, never a severity ranking. */
+.trope-visual { margin: 22px 0 20px; border: 1px solid var(--rule); border-radius: 12px; background: var(--surface); box-shadow: var(--shadow); overflow: hidden; }
+.trope-visual-scroll { overflow-x: auto; }
+.trope-visual-table { width: 100%; min-width: 760px; border-collapse: separate; border-spacing: 0; font-size: 13px; }
+.trope-visual-table caption { caption-side: top; padding: 14px 16px 10px; font-family: var(--display); font-size: 22px; text-align: left; color: var(--ink); }
+.trope-visual-table th, .trope-visual-table td { padding: 7px; border-top: 1px solid var(--rule); vertical-align: middle; }
+.trope-visual-table thead th { border-top: 0; background: var(--surface-2); color: var(--ink-2); font-size: 11px; letter-spacing: .05em; line-height: 1.3; text-transform: uppercase; text-align: left; }
+.trope-visual-table tbody th { width: 104px; white-space: nowrap; font-weight: 700; }
+.trope-engine-dot { display: inline-block; width: 8px; height: 8px; margin-right: 6px; border-radius: 50%; background: var(--engine); }
+.trope-tile { position: relative; display: grid; min-height: 48px; padding: 7px 8px; border-radius: 6px; overflow: hidden; color: var(--ink); text-decoration: none; background: var(--surface-2); }
+.trope-tile::before { position: absolute; content: ""; inset: 0 auto 0 0; width: var(--tile, 0); background: color-mix(in srgb, var(--engine) 26%, transparent); border-left: 4px solid var(--engine); }
+.trope-tile > * { position: relative; }
+.trope-tile strong { align-self: end; font-family: var(--display); font-size: 22px; line-height: .95; }
+.trope-tile span:not(.trope-none) { margin-top: 4px; color: var(--ink-2); font-size: 11.5px; line-height: 1.15; }
+.trope-tile:hover, .trope-tile:focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+.trope-none { align-self: center; color: var(--muted); font-size: 12px; line-height: 1.25; }
+.trope-visual > .note { margin: 0; padding: 10px 16px 12px; border-top: 1px solid var(--rule); }
+@media (max-width: 620px) { .trope-visual { margin-left: -4px; margin-right: -4px; } .trope-visual-table caption { font-size: 20px; } }
+
+/* Gaza/Israel--Hamas direct-response comparison. */
+.gaza-visual { margin: 22px 0 20px; border: 1px solid var(--rule); border-radius: 12px; background: var(--surface); box-shadow: var(--shadow); overflow: hidden; }
+.gaza-visual-scroll { overflow-x: auto; }
+.gaza-visual-table { width: 100%; min-width: 780px; border-collapse: separate; border-spacing: 0; font-size: 13px; }
+.gaza-visual-table caption { caption-side: top; padding: 14px 16px 10px; font-family: var(--display); font-size: 22px; text-align: left; color: var(--ink); }
+.gaza-visual-table th, .gaza-visual-table td { padding: 7px; border-top: 1px solid var(--rule); vertical-align: middle; }
+.gaza-visual-table thead th { border-top: 0; background: var(--surface-2); color: var(--ink-2); font-size: 11px; letter-spacing: .05em; line-height: 1.3; text-transform: uppercase; text-align: left; }
+.gaza-visual-table tbody th { width: 108px; white-space: nowrap; font-weight: 700; }
+.gaza-engine-dot { display: inline-block; width: 9px; height: 9px; margin-right: 6px; border-radius: 50%; background: var(--engine); }
+.gaza-heat { min-width: 76px; padding: 10px 7px; border: 1px solid color-mix(in srgb, var(--engine) 38%, var(--rule)); border-radius: 7px; background: linear-gradient(90deg, color-mix(in srgb, var(--engine) 54%, transparent) var(--agreement), var(--surface-2) var(--agreement)); color: var(--ink); text-align: center; }
+.gaza-heat strong { font-variant-numeric: tabular-nums; }
+.gaza-visual > .note { margin: 0; padding: 10px 16px 12px; border-top: 1px solid var(--rule); }
+
+/* Full four-choice distributions, shown once as a visual language instead of repeated dense text. */
+.probability-strip { display: flex; width: 100%; min-width: 112px; height: 13px; overflow: hidden; border: 1px solid var(--rule); border-radius: 999px; background: var(--surface-2); }
+.probability-segment { display: block; width: var(--probability); min-width: 0; }
+.probability-segment.s1, .probability-legend .s1 { background: #b75750; }
+.probability-segment.s2, .probability-legend .s2 { background: #d69954; }
+.probability-segment.s3, .probability-legend .s3 { background: #72a48b; }
+.probability-segment.s4, .probability-legend .s4 { background: #397b70; }
+.probability-legend { display: flex; flex-wrap: wrap; gap: 8px 16px; margin: -6px 0 18px; color: var(--muted); font-size: 12px; }
+.probability-legend span { display: inline-flex; align-items: center; gap: 5px; }
+.probability-legend i { width: 11px; height: 11px; border-radius: 2px; }

@@ -201,6 +201,42 @@ def cmd_replay(args: argparse.Namespace) -> int:
         n_rows += len(oc_rows)
         print(f"{oc.SLUG}: {len(oc_rows)} row(s) -> {out}")
 
+    from biased_decisions import adl_gaza
+    adl_rows = []
+    for engine in ENGINES:
+        if not has_record(engine, adl_gaza.SLUG, "as-written", root=root):
+            continue
+        try:
+            answers = read_record_by_id(record_path(engine, adl_gaza.SLUG, "as-written", root=root))
+            adl_rows.append(adl_gaza.score_adl_gaza(engine, answers))
+        except KeyError as error:
+            print(f"bd replay: skipping ({engine}, {adl_gaza.SLUG}): {error}", file=sys.stderr)
+            continue
+        n_cells += 1
+    if adl_rows:
+        out = root / "studies" / f"{adl_gaza.SLUG}.jsonl"
+        write_rows(out, adl_rows, ("engine",))
+        n_rows += len(adl_rows)
+        print(f"{adl_gaza.SLUG}: {len(adl_rows)} row(s) -> {out}")
+
+    from biased_decisions import gaza_status
+    status_rows = []
+    for engine in ENGINES:
+        if not has_record(engine, gaza_status.SLUG, "as-written", root=root):
+            continue
+        try:
+            answers = read_record_by_id(record_path(engine, gaza_status.SLUG, "as-written", root=root))
+            status_rows.append(gaza_status.score_gaza_status(engine, answers))
+        except KeyError as error:
+            print(f"bd replay: skipping ({engine}, {gaza_status.SLUG}): {error}", file=sys.stderr)
+            continue
+        n_cells += 1
+    if status_rows:
+        out = root / "studies" / f"{gaza_status.SLUG}.jsonl"
+        write_rows(out, status_rows, ("engine",))
+        n_rows += len(status_rows)
+        print(f"{gaza_status.SLUG}: {len(status_rows)} row(s) -> {out}")
+
     from biased_decisions import antisemitism
     for slug in antisemitism.SLUGS:
         task = load_task(slug, root=root)
@@ -213,13 +249,16 @@ def cmd_replay(args: argparse.Namespace) -> int:
             except (KeyError, ScoreError) as error:
                 print(f"bd replay: skipping the religiosity split ({engine}, {slug}): {error}", file=sys.stderr)
         holm_rows = []
+        # The full nationality loan axis reports raw per-question response shifts.  It is not a
+        # trope-score cue and is therefore deliberately outside the historical Holm family.
+        holm_cues = [cue for cue in antisemitism.cues_of(slug) if cue != "nationality-loan-axis"]
         for engine in ENGINES:
             cue_rows = []
-            for cue in antisemitism.cues_of(slug):
+            for cue in holm_cues:
                 path = root / "studies" / f"{slug}-{cue}.jsonl"
                 if path.exists():
                     cue_rows += [r for r in map(json.loads, path.read_text(encoding="utf-8").splitlines()) if r["engine"] == engine]
-            if len(cue_rows) == len(antisemitism.cues_of(slug)):
+            if len(cue_rows) == len(holm_cues):
                 holm_rows.append(antisemitism.holm_table(engine, slug, cue_rows))
         if holm_rows:
             out = root / "studies" / f"{slug}-holm.jsonl"
@@ -299,8 +338,8 @@ def build_parser() -> argparse.ArgumentParser:
     p_list.set_defaults(func=cmd_list)
 
     p_build = sub.add_parser("build", help="write a cue's versions file from items.jsonl")
-    p_build.add_argument("task", choices=BIOS_TASKS)
-    p_build.add_argument("--cue", required=True, choices=BUILD_CUES)
+    p_build.add_argument("task", choices=BIOS_TASKS + REGULATED_TASKS)
+    p_build.add_argument("--cue", required=True, choices=tuple(dict.fromkeys(BUILD_CUES + SCORE_CUES)))
     p_build.set_defaults(func=cmd_build)
 
     p_answer = sub.add_parser(

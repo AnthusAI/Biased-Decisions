@@ -1,3 +1,114 @@
+# [1.45.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.44.0...v1.45.0) (2026-09-28)
+
+
+### Bug Fixes
+
+* **site:** name all Gaza study models ([44a333d](https://github.com/AnthusAI/Biased-Decisions/commit/44a333d7af51f8529db980495c77c6609684c303))
+
+
+### Features
+
+* **site:** visualize Gaza response probabilities ([030a63c](https://github.com/AnthusAI/Biased-Decisions/commit/030a63c8db14b7044f5cbfc0d1ad85461c4030cd))
+* **site:** visualize Gaza study comparisons ([d00f1f6](https://github.com/AnthusAI/Biased-Decisions/commit/d00f1f63d64e06dc6a4f1b4e86b900e42bfd7376))
+* **site:** visualize Gaza study results ([6e0e65f](https://github.com/AnthusAI/Biased-Decisions/commit/6e0e65f7e98144acdc2ce9128f9edadb7edb6dd5))
+
+# [1.44.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.43.0...v1.44.0) (2026-09-28)
+
+
+### Bug Fixes
+
+* **collector:** collect unsplit registered tasks ([5c96680](https://github.com/AnthusAI/Biased-Decisions/commit/5c96680e6d039aa30f06b73264a68d1472d7cf54))
+
+
+### Features
+
+* **site:** visualize antisemitism study results ([217172f](https://github.com/AnthusAI/Biased-Decisions/commit/217172fa2a536ac48ea9f1e8129bb7976bfbcd72))
+* **study:** add Gaza decision status task ([90cdd1f](https://github.com/AnthusAI/Biased-Decisions/commit/90cdd1f847cf09ba94872d10e1420d88a19fd139))
+* **study:** replace Gaza name-prefix protocol ([73b0378](https://github.com/AnthusAI/Biased-Decisions/commit/73b0378fe000eca272d75357d17f282cb1b29028))
+* **study:** replace Gaza name-prefix protocol ([e1c4082](https://github.com/AnthusAI/Biased-Decisions/commit/e1c40825e2d0525234fad99ac46325434f80a9a3))
+
+# [1.43.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.42.0...v1.43.0) (2026-09-28)
+
+
+### Bug Fixes
+
+* **site:** prioritize Jewish and Israel studies ([5ff713e](https://github.com/AnthusAI/Biased-Decisions/commit/5ff713e639c1c61a41be97b6c6ef0201dd8c2d4b))
+* **site:** remove uncompleted-study notice ([b440176](https://github.com/AnthusAI/Biased-Decisions/commit/b4401767e06d31db9c07b5432726855341da4345))
+* **site:** use plain language for study plan ([a2b8726](https://github.com/AnthusAI/Biased-Decisions/commit/a2b87263a86ada68cf3a3d6e909caa71952db575))
+* **study:** complete ADL task schema ([f86d9cb](https://github.com/AnthusAI/Biased-Decisions/commit/f86d9cbdd79e521d123c1f882cb67e2d0418ab1e))
+
+
+### Features
+
+* **study:** add ADL Gaza Hamas task ([6cca635](https://github.com/AnthusAI/Biased-Decisions/commit/6cca63593dcef4f3acad0a09f9479c3df2d604f7))
+* **study:** publish ADL Gaza Hamas replication ([18d3648](https://github.com/AnthusAI/Biased-Decisions/commit/18d36486f3fb0ee736d3a74e52d1c7aea066834e))
+
+# [1.42.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.41.0...v1.42.0) (2026-09-27)
+
+
+### Bug Fixes
+
+* **cli:** preserve regulated answer preflight boundary ([f4ac49a](https://github.com/AnthusAI/Biased-Decisions/commit/f4ac49a5a6a503856852618d71ed6c6536c44fe0))
+* **study:** publish full nationality narrative axis ([d7acf15](https://github.com/AnthusAI/Biased-Decisions/commit/d7acf15bbf647e58f807494da12fed9e06c6447d))
+
+
+### Features
+
+* **site:** connect antisemitism and Israel studies ([de2dce9](https://github.com/AnthusAI/Biased-Decisions/commit/de2dce9c439ec28997216fba763f23ab535e8cb5))
+* **study:** add full nationality loan axes ([43140a8](https://github.com/AnthusAI/Biased-Decisions/commit/43140a88385015d5089ed77004036b1275dc5465))
+* **study:** publish full nationality loan results ([9ac0e4c](https://github.com/AnthusAI/Biased-Decisions/commit/9ac0e4c3138abdf74b41c1e1589a280a3287f2ed))
+
+# [1.41.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.40.3...v1.41.0) (2026-09-27)
+
+
+### Features
+
+* **site:** combine nationality study results ([1d1be9b](https://github.com/AnthusAI/Biased-Decisions/commit/1d1be9b97126e50ef6018ed2c976f05377c6fb31))
+
+## [1.40.3](https://github.com/AnthusAI/Biased-Decisions/compare/v1.40.2...v1.40.3) (2026-09-27)
+
+
+### Bug Fixes
+
+* **site:** wrap top filter rail ([8e37921](https://github.com/AnthusAI/Biased-Decisions/commit/8e379217c13054138b9be80d9b91a8c0cc434bc8))
+
+## [1.40.2](https://github.com/AnthusAI/Biased-Decisions/compare/v1.40.1...v1.40.2) (2026-09-27)
+
+
+### Bug Fixes
+
+* **build:** disclose incomplete Israeli nationality coverage ([f46a61e](https://github.com/AnthusAI/Biased-Decisions/commit/f46a61e75e503c204acd998cc2dcd520803d061c))
+
+## [1.40.1](https://github.com/AnthusAI/Biased-Decisions/compare/v1.40.0...v1.40.1) (2026-09-27)
+
+
+### Bug Fixes
+
+* **site:** wrap opinion claim family cells ([04d9f48](https://github.com/AnthusAI/Biased-Decisions/commit/04d9f487e40f7c621c40a729fd5dc83776299572))
+
+# [1.40.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.39.0...v1.40.0) (2026-09-27)
+
+
+### Features
+
+* **site:** add opinion claim drill-down ([5ac972c](https://github.com/AnthusAI/Biased-Decisions/commit/5ac972cb91255afe3ffd2521390c2093735327ef))
+
+# [1.39.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.38.0...v1.39.0) (2026-09-27)
+
+
+### Features
+
+* **site:** publish Israeli nationality lending results ([e529bea](https://github.com/AnthusAI/Biased-Decisions/commit/e529bea103da29323ad7db0e37452d189a6056a5))
+* **study:** preregister Israeli identity treatment ([ef8cb80](https://github.com/AnthusAI/Biased-Decisions/commit/ef8cb8091ee0b71a84949d04b8490c08799b2632))
+* **study:** record Israeli identity decision results ([c3b5abe](https://github.com/AnthusAI/Biased-Decisions/commit/c3b5abe34ef23c7d8757711eebcb5d0396d94367))
+
+# [1.38.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.37.1...v1.38.0) (2026-09-27)
+
+
+### Features
+
+* **site:** publish opinion-claim results ([5f67e81](https://github.com/AnthusAI/Biased-Decisions/commit/5f67e81b72f590ac738d5fabaab174cae1186b19))
+
 ## [1.37.1](https://github.com/AnthusAI/Biased-Decisions/compare/v1.37.0...v1.37.1) (2026-09-25)
 
 

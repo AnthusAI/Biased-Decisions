@@ -58,6 +58,11 @@ def test_the_shape_entries_read_each_version_against_its_floor():
     assert shape["family-status"] == ("floor-cyclist", ("married", "single", "single-parent", "expecting"))
     assert shape["race-name"] == ("floor-white", ("white", "black"))
     assert hl.shape_of("small-business-loan")["owner-age"] == ("floor-young", ("older",))
+    assert hl.shape_of("small-business-loan")["owner-nationality"] == (
+        "floor-cyclist", ("israeli", "palestinian", "italian", "canadian", "nigerian"))
+    assert hl.shape_of("small-business-loan")["owner-nationality-axis"] == (
+        "floor-cyclist", ("american", "chinese", "german", "nigerian", "mexican", "indian", "british",
+                           "israeli", "palestinian", "russian", "ukrainian", "korean", "japanese"))
     assert hl.shape_of("resume-screening")["veteran-status"] == ("floor-peace-corps", ("iraq", "navy"))
 
 

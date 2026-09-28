@@ -1,0 +1,59 @@
+{
+  "id": "BD-ae503851-4936-43e4-89d2-2e51591ed954",
+  "title": "Make antisemitism and Israel-related studies discoverable",
+  "description": "Feature: a cross-study findings route\n\nScenario: An ADL reviewer finds all related evidence\nGiven a reviewer looking for antisemitic, Israeli-identity, anti-Israel, or Israel-Gaza tests\nWhen they open the dedicated related-studies route\nThen they see links to stereotype, decision-treatment, and direct-opinion studies\nAnd each link states what it measures and what it does not measure\nAnd the route explicitly says whether an Israel-Gaza test exists.",
+  "type": "task",
+  "status": "closed",
+  "priority": 1,
+  "assignee": null,
+  "creator": null,
+  "parent": "BD-46601366-1119-4d0f-ad88-1de3e6b63349",
+  "labels": [],
+  "dependencies": [],
+  "comments": [
+    {
+      "id": "15e950df-6a20-4f77-bf6d-346c0af33a93",
+      "author": "home",
+      "text": "Implemented a dedicated cross-study route and navigation for antisemitism, Israeli identity and anti-Israel claims. It explicitly records that the ADL-style Israel-Gaza domain is not a completed study here.",
+      "created_at": "2026-09-27T21:32:21.767125Z",
+      "comment_type": "default"
+    },
+    {
+      "id": "66478bba-f0b4-4ce0-afc1-c3854b8c04be",
+      "author": "home",
+      "text": "Completed the related-studies route and linked the saved full loan-narrative output; pending site build and publication.",
+      "created_at": "2026-09-27T22:20:23.804345Z",
+      "comment_type": "default"
+    },
+    {
+      "id": "b0e12294-f3c0-4e81-8847-9e53de16c2c3",
+      "author": "home",
+      "text": "[agent: codex/gpt-5] Pre-registered and ran the ADL Gaza/Israel–Hamas 15-statement, 7-variant replication on local Laya (105 saved responses). Added replayable scoring and a public drill-down with exact prompts, selected A–D response, probability distribution, preregistration, source, and raw-record links. Site build and focused tests pass; preparing the review/publish change.",
+      "created_at": "2026-09-28T00:33:21.284841Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "codex",
+        "model": "gpt-5",
+        "name": "root"
+      }
+    },
+    {
+      "id": "21ea9e6c-f2b4-4842-b973-62537f496941",
+      "author": "home",
+      "text": "[agent: codex/gpt-5] Published in release v1.43.0. Live verification: the Jewish & Israel page now serves the completed 15-statement ADL Gaza/Israel–Hamas result drill-down with all prompt variants; raw answers and scored study are public.",
+      "created_at": "2026-09-28T01:41:28.659452Z",
+      "comment_type": "default"
+    }
+  ],
+  "created_at": "2026-09-27T21:31:09.688713Z",
+  "updated_at": "2026-09-28T01:42:34.703825Z",
+  "closed_at": "2026-09-28T01:42:34.703793Z",
+  "agent": {
+    "platform": "codex",
+    "model": "gpt-5",
+    "name": "root"
+  },
+  "right_now_summary": null,
+  "right_now_updated_at": null,
+  "custom": {}
+}

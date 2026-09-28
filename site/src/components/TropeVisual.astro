@@ -1,0 +1,54 @@
+---
+// A compact, static comparison for a trope study.  Each cell keeps the largest
+// clearly positive score visible while the linked board retains every cue and interval.
+import { engines, fmt, urls } from "../lib/site.js";
+
+const { source, title, study } = Astro.props;
+const result = study.results[source];
+const scale = Math.max(1, ...Object.values(result).flatMap((byTrope) =>
+  Object.values(byTrope).flatMap((byCue) => Object.values(byCue)
+    .filter((row) => row.detected && row.score_pts > 0)
+    .map((row) => row.score_pts))));
+
+function largestClear(byCue) {
+  return Object.entries(byCue)
+    .filter(([, row]) => row.detected && row.score_pts > 0)
+    .sort(([, a], [, b]) => b.score_pts - a.score_pts)[0] || null;
+}
+---
+<div class="trope-visual" role="region" aria-label={`Visual comparison: ${title}`}>
+  <div class="trope-visual-scroll" tabindex="0">
+    <table class="trope-visual-table">
+      <caption>Visual comparison: {title}</caption>
+      <thead>
+        <tr>
+          <th scope="col">Model</th>
+          {study.tropes.map((trope) => <th scope="col">{trope.label}</th>)}
+        </tr>
+      </thead>
+      <tbody>
+        {engines.map((engine) => (
+          <tr>
+            <th scope="row"><span class="trope-engine-dot" style={`--engine: var(--eng-${engine.id})`}></span>{engine.label}</th>
+            {study.tropes.map((trope) => {
+              const best = largestClear(result[engine.id]?.[trope.id] || {});
+              const cue = best ? study.cues.find((item) => item.id === best[0]) : null;
+              const row = best?.[1];
+              const fill = row ? Math.max(14, Math.round((row.score_pts / scale) * 100)) : 0;
+              const label = row
+                ? `${engine.label}, ${trope.label}: ${fmt(row.score_pts)} percentage points, largest clear score when ${cue.label.toLowerCase()}. Open every result on its own page.`
+                : `${engine.label}, ${trope.label}: no clear positive score in the five wordings. Open every result on its own page.`;
+              return <td>
+                <a href={`${urls.home()}${study.boards[source]}/`} class:list={["trope-tile", { "has-result": !!row }]}
+                  style={row ? `--tile: ${fill}%; --engine: var(--eng-${engine.id})` : undefined} aria-label={label}>
+                  {row ? <Fragment><strong>{fmt(row.score_pts)}</strong><span>{cue.label}</span></Fragment> : <span class="trope-none">No clear positive score</span>}
+                </a>
+              </td>;
+            })}
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  <p class="note">Largest clear score across the five wordings. Each tile opens the full board, including every wording and range. “No clear positive score” is not zero and does not mean the model is free of bias.</p>
+</div>

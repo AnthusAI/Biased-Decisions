@@ -86,7 +86,14 @@ def _items(task: Task, cue: str) -> list[Item]:
     if cue == "as-written":
         if task.questions is not None:
             return task.load_items()
-        return [i for i in task.load_items() if i.metadata.get("split") == "test"]
+        items = task.load_items()
+        # Bios use explicit train/test splits.  Registered decision studies such
+        # as the Gaza/Israel--Hamas protocol deliberately have no held-out
+        # split: every frozen item is an evaluation item.  Do not turn such a
+        # study into an empty, apparently-complete collection.
+        if any("split" in item.metadata for item in items):
+            return [item for item in items if item.metadata.get("split") == "test"]
+        return items
     if cue == "gender-pronouns":
         return [i for i in task.load_items() if i.metadata.get("split") in ("test", "counterfactual")]
     if cue in ("option-order-reversed", "option-order-reversed-twins"):

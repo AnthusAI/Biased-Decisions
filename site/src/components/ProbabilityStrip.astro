@@ -1,0 +1,10 @@
+---
+// Render a complete four-choice distribution compactly. Exact values stay in
+// the accessible name and raw record; the bar makes the shape scannable.
+const { options, probabilities, label } = Astro.props;
+const values = options.map((option) => Math.max(0, Number(probabilities[option]) || 0));
+const accessible = options.map((option, index) => `${option}: ${(values[index] * 100).toFixed(1)}%`).join(", ");
+---
+<div class="probability-strip" role="img" aria-label={`${label}. ${accessible}`} title={accessible}>
+  {values.map((value, index) => <span class={`probability-segment s${index + 1}`} style={`--probability: ${value * 100}%`}></span>)}
+</div>

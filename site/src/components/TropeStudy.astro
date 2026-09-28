@@ -1,6 +1,7 @@
 ---
 // A trope study in one place (props: study = "antisemitism" | "islamophobia"): what we asked, what each model did, and whether it is being Jewish or being devout that moves the model.
 import Base from "../layouts/Base.astro";
+import TropeVisual from "./TropeVisual.astro";
 import { pageIntroductions } from "../lib/introductions.js";
 import { data, engines, urls, fmt, signed } from "../lib/site.js";
 
@@ -56,6 +57,7 @@ const splitRows = (src) => order.filter((e) => A.split[src][e]).map((e) => ({
     <section class="wrap section" id={s.id} aria-labelledby={`${s.id}-h`}>
       <h2 class="display" id={`${s.id}-h`}>{s.name}</h2>
       <p class="lede">{s.id === "bios" ? "Two thousand real biographies, 500 of them answered by each model in this first pass." : "Two hundred loan narratives written for this test, so no real person is described."} <a href={`${urls.home()}${s.board}/`}>Every result on its own page</a>.</p>
+      <TropeVisual source={s.id} title={s.name.toLowerCase()} study={A} />
       <ul class="cite-list">
         {order.map((e) => {
           const m = summary(s.id, e);
