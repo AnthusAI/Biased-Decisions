@@ -1,3 +1,11 @@
+## [1.47.2](https://github.com/AnthusAI/Biased-Decisions/compare/v1.47.1...v1.47.2) (2026-09-28)
+
+
+### Bug Fixes
+
+* **site:** drop the plus sign from effect sizes on engine and overview pages ([2465d9e](https://github.com/AnthusAI/Biased-Decisions/commit/2465d9e91fb38738c1e9d03bf304c7ce0f60e75a))
+* **site:** stop showing a plus sign on effect sizes ([7e63169](https://github.com/AnthusAI/Biased-Decisions/commit/7e63169cc9da9b4a9a0923a9650b0413302fb025))
+
 ## [1.47.1](https://github.com/AnthusAI/Biased-Decisions/compare/v1.47.0...v1.47.1) (2026-09-28)
 
 
