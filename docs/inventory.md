@@ -1,6 +1,6 @@
 # Inventory: what the Jev-Flywheel bias studies depend on (read-only findings, 2026-09-23)
 
-Source repo: /Users/home/Projects/Jev-Flywheel (branch main). Everything below was verified by reading.
+Source repo: https://github.com/AnthusAI/Jev-Flywheel (branch main). Everything below was verified by reading.
 
 ## Modules to port (jev_flywheel/)
 | module | third-party | internal imports | exports used |

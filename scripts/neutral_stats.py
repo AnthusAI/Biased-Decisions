@@ -4,8 +4,10 @@ import gzip
 from pathlib import Path
 from collections import defaultdict
 
-def get_stats(task_slug: str, root: Path = Path("/Users/home/Projects/Biased-Decisions-neutral")) -> dict:
+def get_stats(task_slug: str, root: Path = None) -> dict:
     """Get build statistics for neutral cue on a task."""
+    if root is None:
+        root = Path.cwd()
     versions_path = root / "tasks" / task_slug / "versions" / "neutral.jsonl"
 
     if not versions_path.exists():
