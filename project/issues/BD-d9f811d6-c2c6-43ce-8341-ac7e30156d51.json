@@ -3,17 +3,25 @@
   "title": "Fresh-clone test run: declare missing test dependencies, run tests/ in CI, fix the replay test mismatches",
   "description": "On a fresh clone make test cannot pass: five tests import spacy (only in the build extras), three import tokenizers (not declared anywhere), and 21 assertions in tests/veteran_sexuality_replay_test.py fail, which looks like drift between the committed studies and what replay produces. CI runs pytest on biased_decisions and scripts only, never on tests/. Declare the dependencies or skip cleanly when absent, add tests/ to the replay workflow, and resolve the 21 mismatches by regenerating the studies or fixing the scorer, whichever the record supports.",
   "type": "bug",
-  "status": "in_progress",
+  "status": "closed",
   "priority": 1,
   "assignee": null,
   "creator": null,
   "parent": "BD-045ab742-cc9e-4848-891d-f34ae74e8294",
   "labels": [],
   "dependencies": [],
-  "comments": [],
+  "comments": [
+    {
+      "id": "46ec30c0-c9d9-497f-8a4d-22c74cae0c16",
+      "author": "home",
+      "text": "Merged to develop in PR #93. Root cause of the 21 mismatches: the byte-for-byte test compared one engine's row against a study file holding three engines' rows; it is now parametrised per engine. tokenizers declared, make install installs dev and build, CI and pytest cover tests/.",
+      "created_at": "2026-09-28T06:03:30.035089Z",
+      "comment_type": "default"
+    }
+  ],
   "created_at": "2026-09-28T04:17:56.704018Z",
-  "updated_at": "2026-09-28T04:35:26.637465Z",
-  "closed_at": null,
+  "updated_at": "2026-09-28T06:03:30.089260Z",
+  "closed_at": "2026-09-28T06:03:30.089230Z",
   "agent": {
     "platform": "claude_code",
     "model": "Claude Fable 5.1",
