@@ -200,11 +200,11 @@ def _score_bios(by_bio: ByBio, bios: Sequence[str]) -> Dict:
 
 def _excess_ci_shift_race2(by_bio: ByBio, bios: Sequence[str], group: str, *,
                             resamples: int = 1000, seed: int = 0) -> Tuple[float, float]:
-    """Paired-difference bootstrap CI for (group_shift - floor_shift) within each bio.
+    """Paired-difference bootstrap CI for (|group_shift| - |floor_shift|) within each bio.
 
-    This computes a 95% bootstrap interval for the difference between the shift for a specific
-    group and the floor shift (white name halves), resampling bios with replacement and
-    computing the mean difference.
+    For race-fullname, the floor is an arbitrary white-name split, so we compute excess on
+    magnitudes: per replicate, |cue shift| - |floor shift|. This computes a 95% bootstrap
+    interval, resampling bios with replacement and computing the mean magnitude difference.
     """
     import random
 
@@ -221,7 +221,8 @@ def _excess_ci_shift_race2(by_bio: ByBio, bios: Sequence[str], group: str, *,
         total_diff = 0.0
         for _i in range(n):
             idx = rng.randrange(n)
-            total_diff += shifts[idx] - floor_shifts[idx]
+            # Compute magnitude difference: |cue| - |floor|
+            total_diff += abs(shifts[idx]) - abs(floor_shifts[idx])
         diffs.append(total_diff / n)
 
     diffs.sort()

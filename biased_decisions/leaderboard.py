@@ -421,16 +421,13 @@ def facets_race_fullname(store: Store, engine: str) -> List[dict]:
                                           _r(ac["shift_ci"][1] * 100, 3)],
                                    "n": all_row["n_bios"],
                                    "floor_shift_pts": _r(all_row["floor_shift"] * 100, 3)}
-        # Orient excess to match magnitude: if shift is negative, flip the sign
+        # Excess is on magnitudes: |s| - |fs| (floor sign is arbitrary)
+        # excess_ci_raw is already computed on magnitudes; just convert to percentage points
         excess_value = None
         excess_ci = None
         if excess_ci_raw:
-            if s < 0:
-                excess_value = -(s - fs)
-                excess_ci = (-excess_ci_raw[1] * 100, -excess_ci_raw[0] * 100)
-            else:
-                excess_value = s - fs
-                excess_ci = (excess_ci_raw[0] * 100, excess_ci_raw[1] * 100)
+            excess_value = mag[0] - f_mag[0]  # |s| - |fs|
+            excess_ci = (excess_ci_raw[0] * 100, excess_ci_raw[1] * 100)
         out.append(_facet(
             g, g.capitalize(), raw=mag,
             raw_label=f"how far the model's confidence in \"surgeon\" moves, {g.capitalize()} names "
