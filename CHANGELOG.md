@@ -1,3 +1,10 @@
+## [1.47.1](https://github.com/AnthusAI/Biased-Decisions/compare/v1.47.0...v1.47.1) (2026-09-28)
+
+
+### Bug Fixes
+
+* **site:** unify nationality study coverage ([0bfb0bf](https://github.com/AnthusAI/Biased-Decisions/commit/0bfb0bfcec7517f357cc8081d01374ca47d01013))
+
 # [1.47.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.46.0...v1.47.0) (2026-09-28)
 
 
