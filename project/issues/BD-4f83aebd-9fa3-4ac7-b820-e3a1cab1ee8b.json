@@ -36,10 +36,22 @@
         "model": "GPT-6",
         "name": "Pixel Scales"
       }
+    },
+    {
+      "id": "35936594-07a2-4aeb-9609-53932ccf83f2",
+      "author": "home",
+      "text": "Log 2026-09-28: Cost-reduction implementation started. Decision: `site/data/leaderboard.json` is prepared and committed locally; GitHub CI runs source/site tests and the Astro build without `bd replay` or `bd report`; a successful `main` artifact is deployed to a new manual Amplify app using GitHub OIDC. The existing Git-connected Amplify app remains available only for rollback until the production cutover is verified.",
+      "created_at": "2026-09-28T22:45:09.239535Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "codex",
+        "model": "GPT-5",
+        "name": "root"
+      }
     }
   ],
   "created_at": "2026-09-23T13:03:21.518944Z",
-  "updated_at": "2026-09-24T00:01:09.182745Z",
+  "updated_at": "2026-09-28T22:45:09.239581Z",
   "closed_at": null,
   "agent": {
     "platform": "claude-code",
