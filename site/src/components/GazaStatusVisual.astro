@@ -1,34 +1,6 @@
 ---
-// A compact heat-map for the completed direct-response study.  It summarizes
-// the recorded probability of agreement across all 15 statements; the tables
-// immediately below retain each statement and the full four-choice distribution.
+// Show full answer distributions for all statements and all decision-request statuses.
+// Each statement shows the selected response label (or "no clear choice" if top_probability < 0.5)
+// and the probability distribution.
 const { study } = Astro.props;
-const statuses = Object.entries(study.statuses);
 ---
-<div class="gaza-visual" role="region" aria-label="Visual comparison of model agreement rates by decision request status">
-  <div class="gaza-visual-scroll" tabindex="0">
-    <table class="gaza-visual-table">
-      <caption>Visual comparison: agreement across the 15 fixed statements</caption>
-      <thead>
-        <tr>
-          <th scope="col">Model</th>
-          {statuses.map(([status, value]) => <th scope="col">{status === "no_name" ? "No name" : value.replace(".", "")}</th>)}
-        </tr>
-      </thead>
-      <tbody>
-        {study.results.map((result) => <tr>
-          <th scope="row"><span class="gaza-engine-dot" style={`--engine: var(--eng-${result.engine})`}></span>{result.label}</th>
-          {statuses.map(([status]) => {
-            const pct = result.summary[status].agree_pct;
-            return <td>
-              <div class="gaza-heat" style={`--agreement: ${pct}%; --engine: var(--eng-${result.engine})`} aria-label={`${result.label}, ${status === "no_name" ? "no name" : study.statuses[status]}: ${pct.toFixed(1)} percent agreement across 15 statements`}>
-                <strong>{pct.toFixed(1)}%</strong>
-              </div>
-            </td>;
-          })}
-        </tr>)}
-      </tbody>
-    </table>
-  </div>
-  <p class="note">Each tile is the model’s probability-weighted agreement rate across the same 15 statements. Darker tiles mean more agreement, not more bias; the full statement-by-statement distributions remain below.</p>
-</div>
