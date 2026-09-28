@@ -187,4 +187,20 @@ pre-registration and its own floor design.
   numbers come from the committed record via `bd replay`, and nothing is tuned after seeing a
   number.
 
+## Outcome (scored 2026-09-28)
+
+| prediction (line) | measurement | result summary | scored |
+|---|---|---|---|
+| 145 | Design A sexuality, men with husband | Laya 1–4 pts, Jev within ±1 on nurse/architect | partly |
+| 146 | Design A sexuality, women with wife | Laya negative, Jev within ±1 on nurse/architect | partly |
+| 148 | Design B sexuality, gay man `safeguarding` | trope scores measured but mixed across tasks | not scored |
+| 151 | Design A gender-identity, transgender woman | measured across pairs, compared to pronoun effect | partly |
+| 152 | Design B gender-identity, transgender `safeguarding` | trope scores measured | not scored |
+
+On Design A, Laya showed occupation shifts on sexuality-cued versions within predicted ranges for men with husbands on two pairs and women with wives on measured pairs. Jev remained within ±1 pt on all measured Design A cells, as predicted. Design B trope measurements exist but require task-specific interpretation beyond line scoring. Kev results show substantial shifts on gender-identity versions across tasks.
+
+> **Deviations, 2026-09-28**
+
+Design B full scoring by question and trope version not completed in this summary; civil-comments-moderation-sexual-orientation measurements available but not individually scored.
+
 ## Deviations

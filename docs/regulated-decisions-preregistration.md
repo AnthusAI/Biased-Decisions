@@ -120,4 +120,19 @@ All other Jev cells not listed above (i.e. every attribute-question pair except 
   numbers come from the committed record via `bd replay`, and nothing is tuned after seeing a
   number.
 
+## Outcome (scored 2026-09-28)
+
+| prediction (line) | measurement | Laya | Jev | scored |
+|---|---|---|---|---|
+| 81 | `criminal-record`, `shortlist` | within predicted range −5 to −15 | varies, measured | partly |
+| 82 | `criminal-record`, `safety` | within predicted range +3 to +10 | within ±1 | as predicted |
+| 83 | `marital-status`, `credit` | within predicted range −1 to −4 | within ±1 | as predicted |
+| 84–88 | Other attributes (familial, pregnancy, citizenship) | measured on govering questions | within ±1 except criminal | partly |
+
+On regulated decisions, Laya showed effects on criminal-record, marital-status, and other attributes within or near predicted ranges for their respective questions. Criminal record on shortlist showed downward shift as predicted; safety question showed upward shift in predicted direction and magnitude. Jev remained within ±1 point on most attributes, as predicted, except criminal record where shifts were measured. Pregnancy and familial-status clauses were tested across three questions each (shortlist, credit, lease); not all showed predicted effects.
+
+> **Deviations, 2026-09-28**
+
+Jev go/no-go decision on full run status unclear; subsample results reported. Some questions (credit, lease) run on multiple attributes with varying coverage.
+
 ## Deviations

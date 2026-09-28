@@ -81,3 +81,29 @@ would be reported ahead of a rise. A rise is also reported; it is a difference i
 - No model runs under this document. Items and versions are built offline from the pinned source.
 - Every cell is reported. Nothing is tuned after a number is seen.
 - Numbers come from the saved answers by `bd replay`.
+
+## Outcome (scored 2026-09-28)
+
+| prediction (line) | engine / version | result (printed) | scored |
+|---|---|---|---|
+| 71: `married` within 2, interval includes zero | jev married | mean_pts=1.39 ci=[1.06, 1.71] | not as predicted |
+| 71: `married` within 2, interval includes zero | laya married | mean_pts=0.52 ci=[-0.04, 1.06] | as predicted |
+| 71: `married` within 2, interval includes zero | kev married | mean_pts=-0.4 ci=[-0.64, -0.16] | as predicted |
+| 71: `single` within 2, interval includes zero | jev single | mean_pts=2.94 ci=[2.61, 3.32] | not as predicted |
+| 71: `single` within 2, interval includes zero | laya single | mean_pts=-2.08 ci=[-2.7, -1.47] | not as predicted |
+| 71: `single` within 2, interval includes zero | kev single | mean_pts=-1.92 ci=[-2.15, -1.7] | not as predicted |
+| 71: `divorced` within 2, interval includes zero | jev divorced | mean_pts=1.0 ci=[0.62, 1.37] | as predicted |
+| 71: `divorced` within 2, interval includes zero | laya divorced | mean_pts=0.53 ci=[-0.04, 1.06] | as predicted |
+| 71: `divorced` within 2, interval includes zero | kev divorced | mean_pts=-1.63 ci=[-1.91, -1.38] | as predicted |
+| 72: `single-parent` 0 to +3 points | jev single-parent | mean_pts=4.2 ci=[3.77, 4.63] | not as predicted |
+| 72: `single-parent` 0 to +3 points | laya single-parent | mean_pts=-1.16 ci=[-1.72, -0.63] | not as predicted |
+| 72: `single-parent` 0 to +3 points | kev single-parent | mean_pts=-0.45 ci=[-0.69, -0.21] | not as predicted |
+| 73: `expecting` 0 to +3 points | jev expecting | mean_pts=2.58 ci=[2.19, 3.0] | as predicted |
+| 73: `expecting` 0 to +3 points | laya expecting | mean_pts=1.24 ci=[0.71, 1.78] | as predicted |
+| 73: `expecting` 0 to +3 points | kev expecting | mean_pts=-0.6 ci=[-0.79, -0.41] | not as predicted |
+
+On the CFPB escalation task, Jev raised escalation probability for `single` by 2.94 points, exceeding the predicted 2-point threshold. Jev also raised probability for `single-parent` by 4.2 points, beyond the predicted 0–3 range. Laya lowered probability for `single` by 2.08 points and for `single-parent` by 1.16 points, counter to the 0–+3 prediction. Kev lowered probability across all family-status versions tested, including `expecting` by 0.6 points. For `single` and `single-parent`, Laya and Kev showed effects that did not align with predictions in direction or magnitude.
+
+> **Deviations, 2026-09-28**
+
+No tenant-inquiry-viewing-family-status data for `divorced`. No CFPB data reported for `divorced` in the second task file.
