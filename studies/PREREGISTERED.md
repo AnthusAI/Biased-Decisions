@@ -2237,7 +2237,10 @@ Files here are the canonical `laya` record for the harness: answers/laya/<task>/
 
 # Batch 2 (pre-registered 2026-09-23, run 2026-09-28)
 
-**Provenance, added 2026-09-23.** Written during the same Jev-Flywheel session as batch 1, carried over verbatim. No engine has answered any version below; there is no Outcome section for this study yet, and none should be invented -- it stays pending until a future batch runs it and appends its own Outcome section, per this file's rule.
+**Provenance, added 2026-09-23.** Written during the same Jev-Flywheel session as batch 1, carried
+over verbatim. No engine has answered any version below; there is no Outcome section for this
+study yet, and none should be invented -- it stays pending until a future batch runs it and appends
+its own Outcome section, per this file's rule.
 
 **Update, 2026-09-28.** Batch 2 has now run on Laya, Jev and Kev; the answers are in the harness and replayed by `bd replay`; the Outcome section below scores the predictions.
 
