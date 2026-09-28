@@ -1,8 +1,6 @@
 """``bd report --json``: the leaderboard's data contract, built from the scored record.
 
-Reads the scored cells ``bd replay`` writes (``studies/<task>-<cue>.jsonl``), plus one second
-source that is not yet part of the harness (``studies/batch2/stereotypes-laya.jsonl``, batch 2's
-stereotype axes, copied from the staging area -- see ``studies/batch2/README.md``), and writes one
+Reads the scored cells ``bd replay`` writes (``studies/<task>-<cue>.jsonl``) and writes one
 JSON document the static site under ``site/`` renders. Nothing here calls an engine and nothing
 here recomputes a bootstrap: every interval is one the record already carries, and every number
 on the site can be traced to a row in a committed file.
@@ -48,8 +46,6 @@ from biased_decisions.tasks.base import DEFAULT_ROOT, Task
 from biased_decisions.tasks.bios import BIOS_TASKS, ORIGINAL_BIOS_TASKS
 
 SCHEMA = "biased-decisions/leaderboard@4"
-BATCH2_PATH = Path("studies/batch2/stereotypes-laya.jsonl")
-BATCH2_RESULTS = Path("studies/batch2/RESULTS.md")
 PREREG_PATH = Path("studies/PREREGISTERED.md")
 
 # ---------------------------------------------------------------------------------------------
@@ -218,10 +214,6 @@ class Store:
                     return {**row, "engine": engine, "build": build}
         return None
 
-    def batch2(self) -> List[dict]:
-        if "__batch2" not in self._cache:
-            self._cache["__batch2"] = _read_jsonl(self.root / BATCH2_PATH)
-        return self._cache["__batch2"]
 
 
 # Which build supplied the last row read for (model, task, cue); set by Store.row.
@@ -574,31 +566,41 @@ def _no_stereotype(axis: str) -> str:
 def _batch2_source(store: Store, engine: str, axis: str):
     """The stereotype results for one engine on one axis, as (meta, rows, study path).
 
-    Laya's are the staged file's records (unchanged). Any other engine's come from its scored study row,
-    ``studies/stereotypes-<axis>.jsonl``, reshaped into the same records, so a model that answered the
-    stereotype questions later (Jev, Kev; a first-pass sample is fine, its size rides along as ``n_bios``)
-    is measured like Laya. ``(None, [], None)`` when the engine has no results on this axis."""
-    rows = store.batch2()
-    meta = next((r for r in rows if r.get("record") == "meta"), None)
-    if engine == BATCH2_ENGINE:
-        if meta is not None and axis in meta.get("axes_scored", []):
-            return meta, rows, str(BATCH2_PATH)
+    All engines' data come from the scored study rows in ``studies/stereotypes-<axis>.jsonl``.
+    For Laya, the rows include detailed records (meta, as_written_baseline, general_effect, shift)
+    from the batch2 scorer. For other engines (Jev, Kev), rows are reshaped from the compact format
+    into the same detailed records, so all models are measured consistently.
+    Returns ``(None, [], None)`` when the engine has no results on this axis."""
+    # Read all rows for this axis from the study file
+    study_path = store.root / f"studies/stereotypes-{axis}.jsonl"
+    if not study_path.exists():
         return None, [], None
-    scored = store.row("stereotypes", axis, engine)
-    if scored is None:
-        return None, [], None
-    out_meta = {"record": "meta", "axes_scored": [axis], "engine": engine, "n_bios": scored["n"],
-                "questions": {q: {"question": d["question"],
-                                  "trope_consistent_answer": bool(d["trope_consistent_answer"])}
-                              for q, d in scored["questions"].items()}}
-    out = []
-    for q, d in scored["questions"].items():
-        if d.get("general_effect"):
-            out.append({"record": "general_effect", "axis": axis, "question": q, **d["general_effect"]})
-        for g, cell in d["groups"].items():
-            out.append({"record": "shift", "axis": axis, "question": q, "group": g,
-                        "floor_mean": d["floor_mean"], "n_bios": scored["n"], **cell})
-    return out_meta, out, f"studies/stereotypes-{axis}.jsonl"
+
+    all_rows = _read_jsonl(study_path)
+
+    # Find meta record for this engine
+    meta = next((r for r in all_rows if r.get("record") == "meta" and r.get("engine") == engine and axis in r.get("axes_scored", [])), None)
+    if meta is None:
+        # For engines with compact format (jev, kev), read from the compact row and reshape
+        scored = store.row("stereotypes", axis, engine)
+        if scored is None:
+            return None, [], None
+        out_meta = {"record": "meta", "axes_scored": [axis], "engine": engine, "n_bios": scored["n"],
+                    "questions": {q: {"question": d["question"],
+                                      "trope_consistent_answer": bool(d["trope_consistent_answer"])}
+                                  for q, d in scored["questions"].items()}}
+        out = []
+        for q, d in scored["questions"].items():
+            if d.get("general_effect"):
+                out.append({"record": "general_effect", "axis": axis, "question": q, **d["general_effect"]})
+            for g, cell in d["groups"].items():
+                out.append({"record": "shift", "axis": axis, "question": q, "group": g,
+                            "floor_mean": d["floor_mean"], "n_bios": scored["n"], **cell})
+        return out_meta, out, str(study_path)
+
+    # For laya with detailed format, extract relevant rows
+    rows = [meta] + [r for r in all_rows if r.get("engine") == engine and r.get("axis") == axis and r.get("record") != "meta"]
+    return meta, rows, str(study_path)
 
 
 def _batch2_facets(store: Store, engine: str, axis: str) -> List[dict]:
@@ -621,7 +623,7 @@ def _batch2_facets(store: Store, engine: str, axis: str) -> List[dict]:
                  best["trope_score_ci_hi"] * 100),
             raw_label=f"largest stereotype score: {best['group'].capitalize()}",
             floor={"value": 0.0, "label": _no_stereotype(axis), "source": "contrast"},
-            n=best["n_bios"], records=[], study=study, source="batch2-staging",
+            n=best["n_bios"], records=[], study=study, source="harness",
             extra={"question": meta["questions"][q]["question"],
                    "trope_consistent_answer": "yes" if meta["questions"][q][
                        "trope_consistent_answer"] else "no",
@@ -692,7 +694,7 @@ def _batch2_cells(store: Store, engine: str, axis: str) -> Dict[Tuple[str, str],
                 raw_label=f"stereotype score: {label} against the other {_OTHERS[axis]}",
                 floor={"value": 0.0, "label": _no_stereotype(axis), "source": "contrast"},
                 detected=row["trope_detected"], n=row["n_bios"], records=[],
-                study=study, source="batch2-staging",
+                study=study, source="harness",
                 extra={"group": g, "clause": clause, "floor_clause": BATCH2_FLOOR_CLAUSE[axis],
                        "question": meta["questions"][q]["question"],
                        "trope_consistent_answer": "yes" if meta["questions"][q][
@@ -2907,7 +2909,6 @@ def generate_json(root: Path = DEFAULT_ROOT, *, date: Optional[str] = None) -> d
     examples = Examples(root, ENGINE_IDS, ENGINE_LABEL)
     dimensions = assign_families(compose_dimensions(
         [build_dimension(store, spec, prereg, examples) for spec in _DIMENSIONS]))
-    batch2_meta = next((r for r in store.batch2() if r.get("record") == "meta"), {})
     floors = _floors(store)
     overall = build_overall(dimensions)
     order = [r["engine"] for r in overall["rows"]]
@@ -2929,12 +2930,6 @@ def generate_json(root: Path = DEFAULT_ROOT, *, date: Optional[str] = None) -> d
                 {"id": "harness", "path": "studies/<task>-<cue>.jsonl",
                  "regenerated_by": "bd replay",
                  "about": "Every result, worked out again from the saved answers."},
-                {"id": "batch2-staging", "path": str(BATCH2_PATH),
-                 "regenerated_by": None,
-                 "engine": batch2_meta.get("engine"), "n_bios": batch2_meta.get("n_bios"),
-                 "about": "The stereotype questions, answered by Laya (laya 0.3.7) and scored "
-                          "separately. Laya's saved answers to them are not yet published, so "
-                          "these results cannot yet be worked out again from them."},
             ],
         },
         "engines": engines,

@@ -83,7 +83,6 @@ const shortlistFiles = dim.id === "gender" && item && shortlistBlock(item.id) ? 
     )}
     {!(item && !isTrope) && <p class="note">The control edit is a harmless change of the same size. It shows how much the model moves for no good reason, so a result only counts beyond it.</p>}
     <ModelsLine />
-    {dim.source === "batch2-staging" && <div class="footnote" role="note"><p>Only Laya has answered these questions so far. We scored its answers separately, and our tools cannot yet re-run these numbers from the saved answers.</p></div>}
   </section>
 
   <Board board={level.board} heads={level.heads} unit={unit(dim)} facetKind={leaf ? null : kind} chartId="board"
