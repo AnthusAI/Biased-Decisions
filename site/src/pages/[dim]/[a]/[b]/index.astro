@@ -15,7 +15,7 @@ import HowMeasured from "../../../../components/HowMeasured.astro";
 import ModelsLine from "../../../../components/ModelsLine.astro";
 import { kindName, VERDICT_WORDS } from "../../../../scripts/util.js";
 import { engines, urls, levelPages, levelPayload, levelTitle, levelPath, describeLevel, cellOf, groupOf, itemOf,
-  cellSentence, unit, fmt, signed, cap, plural, verdictOf, isNonHiring } from "../../../../lib/site.js";
+  cellSentence, unit, fmt, signed, size, cap, plural, verdictOf, isNonHiring } from "../../../../lib/site.js";
 
 export function getStaticPaths() {
   return levelPages().filter(({ level }) => level.kind === "cell")
@@ -64,7 +64,7 @@ const allFacets = Object.values(cell.engines);
       {isTrope && <div><dt>The stereotype it tests</dt><dd>{item.stereotype || item.trope}</dd></div>}
       {!isTrope && <div><dt>The decision</dt><dd><q>{item.question}</q></dd></div>}
       <div><dt>The phrase we added</dt><dd><q>{group.clause.trim().replace(/,$/, "")}</q>{leadFacet && leadFacet.extra && leadFacet.extra.floor_clause && <Fragment>, compared with the control edit <q>{leadFacet.extra.floor_clause.trim().replace(/,$/, "")}</q></Fragment>}</dd></div>
-      {leadFacet && leadFacet.status === "measured" && <div><dt>Result</dt><dd><span class={`chip ${verdictOf(leadFacet).cls}`}>{VERDICT_WORDS[verdictOf(leadFacet).cls] || verdictOf(leadFacet).text}</span> {signed(leadFacet.excess.value)} percentage points {isTrope ? "on the stereotype score" : "beyond the control edit"} [{fmt(leadFacet.excess.lo)}, {fmt(leadFacet.excess.hi)}], in {leadFacet.n.toLocaleString("en-US")} texts</dd></div>}
+      {leadFacet && leadFacet.status === "measured" && <div><dt>Result</dt><dd><span class={`chip ${verdictOf(leadFacet).cls}`}>{VERDICT_WORDS[verdictOf(leadFacet).cls] || verdictOf(leadFacet).text}</span> {size(leadFacet.excess.value)} percentage points {isTrope ? "on the stereotype score" : "beyond the control edit"} [{fmt(leadFacet.excess.lo)}, {fmt(leadFacet.excess.hi)}], in {leadFacet.n.toLocaleString("en-US")} texts</dd></div>}
     </dl>
     <p class="note">The control edit is a harmless change of the same size. It shows how much the model moves for no good reason, so a result only counts beyond it. The range in brackets is the one we are 95% sure of.</p>
     <ModelsLine />
@@ -98,14 +98,14 @@ const allFacets = Object.values(cell.engines);
       <div>
         <h3>{group.label}, every other {I}</h3>
         <ul class="around-list">
-          {otherItems.map((o) => <li><a href={o.href}>{o.label}</a><span class={`av ${o.f ? verdictOf(o.f).cls : "miss"}`}>{o.f && o.f.status === "measured" ? signed(o.f.excess.value) : "—"}</span></li>)}
+          {otherItems.map((o) => <li><a href={o.href}>{o.label}</a><span class={`av ${o.f ? verdictOf(o.f).cls : "miss"}`}>{o.f && o.f.status === "measured" ? size(o.f.excess.value) : "—"}</span></li>)}
         </ul>
         <p class="more-link"><a href={urls.at(dim, group.id, null)}>{group.label}: every {I}, ranked</a></p>
       </div>
       <div>
         <h3>{cap(item.label)}, every other {G}</h3>
         <ul class="around-list">
-          {otherGroups.map((o) => <li><a href={o.href}>{o.label}</a><span class={`av ${o.f ? verdictOf(o.f).cls : "miss"}`}>{o.f && o.f.status === "measured" ? signed(o.f.excess.value) : "—"}</span></li>)}
+          {otherGroups.map((o) => <li><a href={o.href}>{o.label}</a><span class={`av ${o.f ? verdictOf(o.f).cls : "miss"}`}>{o.f && o.f.status === "measured" ? size(o.f.excess.value) : "—"}</span></li>)}
         </ul>
         <p class="more-link"><a href={urls.at(dim, null, item.id)}>{cap(item.label)}: every {G}, ranked</a></p>
       </div>

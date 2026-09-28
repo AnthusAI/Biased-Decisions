@@ -18,7 +18,7 @@ import ModelsLine from "../../../components/ModelsLine.astro";
 import { kindName, kindNames } from "../../../scripts/util.js";
 import { shortlistBlock } from "../../../lib/compliance.js";
 import { engines, urls, levelPages, levelPayload, levelTitle, levelPath, describeLevel, cellsUnder, rowKind, rowLabel,
-  forestRows, groupOf, itemOf, multiGroup, cellSentence, unit, fmt, signed, cap, isNonHiring } from "../../../lib/site.js";
+  forestRows, groupOf, itemOf, multiGroup, cellSentence, unit, fmt, signed, size, cap, isNonHiring } from "../../../lib/site.js";
 
 export function getStaticPaths() {
   return levelPages().filter(({ level }) => level.kind !== "cell")
@@ -109,7 +109,7 @@ const shortlistFiles = dim.id === "gender" && item && shortlistBlock(item.id) ? 
                 {measuredEngines.map((e) => {
                   const f = c.engines[e.id];
                   return f.status === "measured"
-                    ? <td class="num" id={level.kind === "group" ? undefined : undefined}><strong>{signed(f.excess.value)}</strong><span class="ci-t"> [{fmt(f.excess.lo)}, {fmt(f.excess.hi)}]</span> <Chip facet={f} /></td>
+                    ? <td class="num" id={level.kind === "group" ? undefined : undefined}><strong>{size(f.excess.value)}</strong><span class="ci-t"> [{fmt(f.excess.lo)}, {fmt(f.excess.hi)}]</span> <Chip facet={f} /></td>
                     : <td class="muted">not tested</td>;
                 })}
               </tr>
