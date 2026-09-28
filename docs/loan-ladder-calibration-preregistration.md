@@ -95,6 +95,47 @@ Verbatim predictions to be scored against the outcome:
 
 > **Kev**: approval rate rises with credit score for both collateral levels.
 
-## Outcome
+## Outcome (scored 2026-09-28)
 
-*To be filled after Laya (and optionally Kev and Jev) run and are scored.*
+Laya was run on all 520 versions, producing 520 answers in 52 seconds (model: `laya-upstream:0.3.21`). Kev and Jev have no rows.
+
+### Laya results
+
+| Rung | Secured Mean p | Secured Approval | None Mean p | None Approval | Secured CI | None CI |
+|---|---|---|---|---|---|---|
+| 560 | 0.7131 | 100% | 0.5198 | 55% | [100%, 100%] | [35%, 75%] |
+| 580 | 0.7015 | 95% | 0.4884 | 40% | [85%, 100%] | [20%, 65%] |
+| 600 | 0.6995 | 100% | 0.4869 | 40% | [100%, 100%] | [20%, 65%] |
+| 620 | 0.7042 | 95% | 0.5153 | 50% | [85%, 100%] | [30%, 75%] |
+| 640 | 0.7272 | 95% | 0.5658 | 65% | [85%, 100%] | [45%, 85%] |
+| 660 | 0.7112 | 100% | 0.5271 | 50% | [100%, 100%] | [30%, 75%] |
+| 680 | 0.7064 | 100% | 0.5306 | 50% | [100%, 100%] | [30%, 75%] |
+| 700 | 0.6824 | 95% | 0.5037 | 50% | [85%, 100%] | [30%, 75%] |
+| 720 | 0.7329 | 100% | 0.5691 | 60% | [100%, 100%] | [40%, 80%] |
+| 740 | 0.6834 | 95% | 0.5050 | 40% | [85%, 100%] | [20%, 65%] |
+| 760 | 0.6901 | 100% | 0.4976 | 45% | [100%, 100%] | [25%, 70%] |
+| 780 | 0.7103 | 100% | 0.5255 | 50% | [100%, 100%] | [30%, 75%] |
+| 800 | 0.7028 | 100% | 0.4973 | 50% | [100%, 100%] | [30%, 75%] |
+
+### Chosen rungs (for the follow-up nationality study)
+
+- **Secured loans**:
+  - Strong (≥85% approval): 560 (100% approval)
+  - Borderline (~50% approval): 580 (95% approval)
+  - Weak (≤15% approval): not reached (minimum is 40% at rungs 580–740 for collateral="none")
+  
+- **Unsecured loans (no collateral)**:
+  - Strong (≥85% approval): not reached (maximum is 65% at 640)
+  - Borderline (~50% approval): 620 (50% approval)
+  - Weak (≤15% approval): not reached
+
+### Pre-registered predictions: scored
+
+1. **Laya: approval rate is at least 50% at every rung for secured loans, and 'weak' (<= 15%) is not reached for either collateral level. Laya's mean p rises by less than 10 points from 560 to 800.**
+   - ✓ **As predicted**: All secured rungs 560–800 are at 95–100% approval (>50%); no rung ≤15% for either collateral; mean p at 560 (secured): 0.7131, at 800 (secured): 0.7028, rise: -1.03 points.
+
+2. **Jev: approval rate is below 50% at 560 for both collateral levels and rises with credit score; the borderline rung for secured loans is higher than 640.**
+   - Not yet run
+
+3. **Kev: approval rate rises with credit score for both collateral levels.**
+   - Not yet run

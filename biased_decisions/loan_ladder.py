@@ -15,6 +15,7 @@ Pre-registration: docs/loan-ladder-calibration-preregistration.md
 from __future__ import annotations
 
 import json
+import random
 import re
 from dataclasses import dataclass
 from pathlib import Path
@@ -173,6 +174,142 @@ def build(
     }
 
     return report
+
+
+def score(
+    engine: str,
+    *,
+    root: Path = ROOT,
+) -> dict:
+    """Score the ladder study for one engine: compute mean p, approval rate, and CI per rung/collateral.
+
+    Returns a dict with:
+    - engine: the engine name
+    - rows: list of dicts with (credit_score, collateral, mean_p, approval_rate, ci_lower, ci_upper)
+    - strong_rungs: dict {collateral: rung or None}
+    - borderline_rungs: dict {collateral: (rung, rate)}
+    - weak_rungs: dict {collateral: rung or None}
+    """
+    from biased_decisions.record import read_record_by_id
+
+    root = Path(root)
+    task_slug = "small-business-loan-ladder"
+    cue = "credit-ladder"
+
+    # Load the base items (to get their count per rung)
+    base_items = []
+    task_dir = root / "tasks" / task_slug
+    with open(task_dir / "items.jsonl", encoding="utf-8") as f:
+        for line in f:
+            base_items.append(json.loads(line))
+    base_ids = [item["id"] for item in base_items]
+
+    # Load the Laya answers
+    record_path = root / "answers" / engine / task_slug / f"{cue}.jsonl.gz"
+    if not record_path.exists():
+        raise FileNotFoundError(f"No record found at {record_path}")
+
+    rows_by_id = read_record_by_id(record_path)
+
+    # Extract approval probabilities
+    approval_probs = {}  # (base_id, credit_score, collateral) -> p
+    for version_id, row in rows_by_id.items():
+        # Parse version ID: base_id-credit-ladder-c{score}-{collateral}
+        match = re.match(
+            r"^(.+-\d{4})-credit-ladder-c(\d+)-(secured|none)$",
+            version_id
+        )
+        if not match:
+            continue
+        base_id, score_str, collateral = match.groups()
+        credit_score = int(score_str)
+
+        # Extract approval probability
+        answers = row["answers"]
+        question_key = "Should this loan application be approved?"
+        if question_key not in answers:
+            raise ValueError(f"Question not found in answers for {version_id}")
+        answer_obj = answers[question_key]
+        p = answer_obj.get("probabilities", {}).get("yes")
+        if p is None:
+            raise ValueError(f"No 'yes' probability in answer for {version_id}")
+
+        approval_probs[(base_id, credit_score, collateral)] = p
+
+    # Aggregate by rung and collateral
+    results = []
+    for collateral in COLLATERAL_LEVELS:
+        for credit_score in CREDIT_SCORES:
+            # Get probabilities for this rung, base items only
+            rung_probs = []
+            for base_id in base_ids:
+                key = (base_id, credit_score, collateral)
+                if key in approval_probs:
+                    rung_probs.append(approval_probs[key])
+
+            if not rung_probs:
+                continue
+
+            mean_p = sum(rung_probs) / len(rung_probs)
+            approval_rate = sum(1 for p in rung_probs if p >= 0.5) / len(rung_probs)
+
+            # Bootstrap CI (1,000 resamples, seed 0)
+            rng = random.Random(0)
+            bootstrap_rates = []
+            for _ in range(1000):
+                resample = [rng.choice(rung_probs) for _ in range(len(rung_probs))]
+                resample_rate = sum(1 for p in resample if p >= 0.5) / len(resample)
+                bootstrap_rates.append(resample_rate)
+            bootstrap_rates.sort()
+            ci_lower = bootstrap_rates[25]  # 2.5th percentile
+            ci_upper = bootstrap_rates[974]  # 97.5th percentile
+
+            results.append({
+                "credit_score": credit_score,
+                "collateral": collateral,
+                "mean_p": round(mean_p, 4),
+                "approval_rate": round(approval_rate, 4),
+                "ci_lower": round(ci_lower, 4),
+                "ci_upper": round(ci_upper, 4),
+                "n_bases": len(rung_probs),
+            })
+
+    # Identify strong/borderline/weak rungs per collateral
+    strong_rungs = {}
+    borderline_rungs = {}
+    weak_rungs = {}
+
+    for collateral in COLLATERAL_LEVELS:
+        collateral_results = [r for r in results if r["collateral"] == collateral]
+        collateral_results.sort(key=lambda r: r["credit_score"])
+
+        # Strong: first rung with >= 85%
+        strong = None
+        for r in collateral_results:
+            if r["approval_rate"] >= 0.85:
+                strong = r["credit_score"]
+                break
+        strong_rungs[collateral] = strong
+
+        # Borderline: rung closest to 50%
+        borderline = min(collateral_results, key=lambda r: abs(r["approval_rate"] - 0.5))
+        borderline_rungs[collateral] = (borderline["credit_score"], borderline["approval_rate"])
+
+        # Weak: last rung with <= 15%
+        weak = None
+        for r in reversed(collateral_results):
+            if r["approval_rate"] <= 0.15:
+                weak = r["credit_score"]
+                break
+        weak_rungs[collateral] = weak
+
+    return {
+        "engine": engine,
+        "rows": results,
+        "strong_rungs": strong_rungs,
+        "borderline_rungs": borderline_rungs,
+        "weak_rungs": weak_rungs,
+    }
 
 
 if __name__ == "__main__":
