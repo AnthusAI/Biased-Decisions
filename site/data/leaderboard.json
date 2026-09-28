@@ -1,8 +1,8 @@
 {
  "schema": "biased-decisions/leaderboard@4",
  "provenance": {
-  "record_commit": "9638d3dcf60e5f3e0c0dc61d9a7c4aaa41d6f471",
-  "record_commit_short": "9638d3d",
+  "record_commit": "260af2763330c137522026a51e5d0d2b0b25b31b",
+  "record_commit_short": "260af27",
   "generated": null,
   "release": {
    "version": "1.45.0",
@@ -27184,9 +27184,9 @@
       },
       {
        "section": "Batch 2 (pre-registered, completed 2026-09-28)",
-       "measurement": "general \"any label\" effect on honesty (mean of all groups vs floor)",
+       "measurement": "general \"any label\" effect on honesty (mean of all groups vs floor), religion axis",
        "prediction": "negative, −0.5 to −2 pts",
-       "observed": "+8.44 [+8.14, +8.76] (religion), −1.20 [−1.44, −0.96] (nationality)",
+       "observed": "+8.44 [+8.14, +8.76]",
        "verdict": "not as predicted",
        "facets": [
         "honesty"
@@ -58602,7 +58602,7 @@
      {
       "section": "Batch 2 (pre-registered, completed 2026-09-28)",
       "engine": "jev",
-      "measurement": "general \"any label\" effect on honesty (mean of all groups vs floor)",
+      "measurement": "general \"any label\" effect on honesty (mean of all groups vs floor), religion axis",
       "prediction": "within ±0.5",
       "observed": null,
       "verdict": "not yet measured",
@@ -61253,25 +61253,38 @@
       },
       {
        "section": "Batch 2 (pre-registered, completed 2026-09-28)",
-       "measurement": "diligence, German and Chinese trope scores",
+       "measurement": "diligence, German trope score",
        "prediction": "positive, under 1 pt",
-       "observed": "German −0.37 [−0.51, −0.20]; Chinese −1.94 [−2.14, −1.73]",
+       "observed": "−0.37 [−0.51, −0.20]",
        "verdict": "not as predicted",
        "facets": [
         "diligence"
        ],
        "source": "studies/PREREGISTERED.md",
        "groups": [
-        "german",
+        "german"
+       ]
+      },
+      {
+       "section": "Batch 2 (pre-registered, completed 2026-09-28)",
+       "measurement": "diligence, Chinese trope score",
+       "prediction": "positive, under 1 pt",
+       "observed": "−1.94 [−2.14, −1.73]",
+       "verdict": "not as predicted",
+       "facets": [
+        "diligence"
+       ],
+       "source": "studies/PREREGISTERED.md",
+       "groups": [
         "chinese"
        ]
       },
       {
        "section": "Batch 2 (pre-registered, completed 2026-09-28)",
-       "measurement": "general \"any label\" effect on honesty (mean of all groups vs floor)",
+       "measurement": "general \"any label\" effect on honesty (mean of all groups vs floor), nationality axis",
        "prediction": "negative, −0.5 to −2 pts",
-       "observed": "+8.44 [+8.14, +8.76] (religion), −1.20 [−1.44, −0.96] (nationality)",
-       "verdict": "not as predicted",
+       "observed": "−1.20 [−1.44, −0.96]",
+       "verdict": "as predicted",
        "facets": [
         "honesty"
        ],
@@ -79345,7 +79358,7 @@
      {
       "section": "Batch 2 (pre-registered, completed 2026-09-28)",
       "engine": "jev",
-      "measurement": "diligence, German and Chinese trope scores",
+      "measurement": "diligence, German trope score",
       "prediction": "within ±0.5",
       "observed": null,
       "verdict": "not yet measured",
@@ -79353,7 +79366,21 @@
        "diligence"
       ],
       "groups": [
-       "german",
+       "german"
+      ],
+      "source": "studies/PREREGISTERED.md"
+     },
+     {
+      "section": "Batch 2 (pre-registered, completed 2026-09-28)",
+      "engine": "jev",
+      "measurement": "diligence, Chinese trope score",
+      "prediction": "within ±0.5",
+      "observed": null,
+      "verdict": "not yet measured",
+      "facets": [
+       "diligence"
+      ],
+      "groups": [
        "chinese"
       ],
       "source": "studies/PREREGISTERED.md"
@@ -79361,7 +79388,7 @@
      {
       "section": "Batch 2 (pre-registered, completed 2026-09-28)",
       "engine": "jev",
-      "measurement": "general \"any label\" effect on honesty (mean of all groups vs floor)",
+      "measurement": "general \"any label\" effect on honesty (mean of all groups vs floor), nationality axis",
       "prediction": "within ±0.5",
       "observed": null,
       "verdict": "not yet measured",

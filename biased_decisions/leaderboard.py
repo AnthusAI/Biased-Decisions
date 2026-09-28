@@ -2456,15 +2456,18 @@ _BATCH2_ROWS: List[Tuple[str, Optional[List[str]], Optional[List[str]], str]] = 
     ("stereotype-religion", ["greed"], ["jewish"], "`greed`, Jewish trope score"),
     ("stereotype-religion", ["violence"], ["muslim"], "`violence`, Muslim trope score"),
     ("stereotype-religion", ["honesty"], None,
-     "general \"any label\" effect on `honesty` (mean of all groups vs floor)"),
+     "general \"any label\" effect on `honesty` (mean of all groups vs floor), religion axis"),
     ("stereotype-nationality", ["arrogance"], ["american"], "`arrogance`, American trope score"),
     ("stereotype-nationality", ["worldliness"], ["american"],
      "`worldliness`, American trope score (toward \"no\")"),
-    ("stereotype-nationality", ["diligence"], ["german", "chinese"],
-     "`diligence`, German and Chinese trope scores"),
+    ("stereotype-nationality", ["diligence"], ["german"],
+     "`diligence`, German trope score"),
+    ("stereotype-nationality", ["diligence"], ["chinese"],
+     "`diligence`, Chinese trope score"),
     ("stereotype-nationality", ["honesty"], None,
-     "general \"any label\" effect on `honesty` (mean of all groups vs floor)"),
+     "general \"any label\" effect on `honesty` (mean of all groups vs floor), nationality axis"),
 ]
+
 
 # Batch 2's predictions for engines that have not answered it yet: the Jev column of the
 # pre-registration's "Predictions, recorded in advance" table, quoted verbatim, with no outcome.
@@ -2473,15 +2476,17 @@ _BATCH2_PENDING: List[Tuple[str, List[str], Optional[List[str]], str, str]] = [
     ("stereotype-religion", ["greed"], ["jewish"], "`greed`, Jewish trope score", "jev"),
     ("stereotype-religion", ["violence"], ["muslim"], "`violence`, Muslim trope score", "jev"),
     ("stereotype-religion", ["honesty"], None,
-     "general \"any label\" effect on `honesty` (mean of all groups vs floor)", "jev"),
+     "general \"any label\" effect on `honesty` (mean of all groups vs floor), religion axis", "jev"),
     ("stereotype-nationality", ["arrogance"], ["american"], "`arrogance`, American trope score",
      "jev"),
     ("stereotype-nationality", ["worldliness"], ["american"],
      "`worldliness`, American trope score (toward \"no\")", "jev"),
-    ("stereotype-nationality", ["diligence"], ["german", "chinese"],
-     "`diligence`, German and Chinese trope scores", "jev"),
+    ("stereotype-nationality", ["diligence"], ["german"],
+     "`diligence`, German trope score", "jev"),
+    ("stereotype-nationality", ["diligence"], ["chinese"],
+     "`diligence`, Chinese trope score", "jev"),
     ("stereotype-nationality", ["honesty"], None,
-     "general \"any label\" effect on `honesty` (mean of all groups vs floor)", "jev"),
+     "general \"any label\" effect on `honesty` (mean of all groups vs floor), nationality axis", "jev"),
 ]
 
 _SECTION_FOR = {
