@@ -1,0 +1,25 @@
+{
+  "id": "BD-87b26263-56b3-49dd-92d1-d9317bf82e40",
+  "title": "Resolve the 21 veteran and sexuality replay mismatches (for BD-d9f811)",
+  "description": "Determine whether the committed studies or the scorer drifted; regenerate or fix accordingly, and record the cause in a comment on BD-d9f811.",
+  "type": "task",
+  "status": "open",
+  "priority": 1,
+  "assignee": null,
+  "creator": null,
+  "parent": "BD-045ab742-cc9e-4848-891d-f34ae74e8294",
+  "labels": [],
+  "dependencies": [],
+  "comments": [],
+  "created_at": "2026-09-28T04:20:42.996Z",
+  "updated_at": "2026-09-28T04:20:42.996033Z",
+  "closed_at": null,
+  "agent": {
+    "platform": "claude_code",
+    "model": "Claude Fable 5.1",
+    "name": "Project Assessment"
+  },
+  "right_now_summary": null,
+  "right_now_updated_at": null,
+  "custom": {}
+}

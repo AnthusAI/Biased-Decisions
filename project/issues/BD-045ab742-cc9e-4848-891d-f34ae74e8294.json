@@ -10,9 +10,22 @@
   "parent": "BD-8781ddac-8725-4e87-80fd-7e9ddaa4bc09",
   "labels": [],
   "dependencies": [],
-  "comments": [],
+  "comments": [
+    {
+      "id": "0fd1b304-a701-488d-b576-cf8c9e57ffec",
+      "author": "home",
+      "text": "Planning log, 2026-09-28. Epic filed from a whole-project review. Order of work agreed with the maintainer:\n\n1. BD-40df33 (P0) redaction first; it is small and independent.\n2. Disclosure: BD-f29665 About page, BD-705fc0 engine identity.\n3. Statement arms: BD-5f522b, starting with its decide sub-task BD-2688d8; nothing else in that task moves until the decision is recorded.\n4. Scoring rules in this order, because each re-score depends on the last: BD-db3835 detection rule, BD-3ff8e7 headline correction, BD-4d0d22 trivial-edit floor (needs new answers), BD-f0df5f intervals, BD-c11949 ranking.\n5. Cue and copy changes: BD-93a001 Israeli cue to nationality, BD-d31877 Saudi control, BD-12978f religion v1 off the ranked board, BD-a0d173 model-as-subject headings.\n6. Record: BD-4e66a8 batch 2 port, BD-ec38a8 unpublished answers, BD-2c2a53 RESULTS.md, BD-7244a3 Outcome sections, BD-d9f811 fresh-clone tests with its three follow-on chores, BD-ea7431 and BD-3dbfc0 task READMEs.\n\nRules for this epic: every re-score is a replay from the committed record; any new answers are pre-registered first and, for the hosted engine, priced and approved first; each task closes with a comment naming which facets changed status.",
+      "created_at": "2026-09-28T04:20:43.040201Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude_code",
+        "model": "Claude Fable 5.1",
+        "name": "Project Assessment"
+      }
+    }
+  ],
   "created_at": "2026-09-28T04:17:03.151394Z",
-  "updated_at": "2026-09-28T04:17:03.151457Z",
+  "updated_at": "2026-09-28T04:20:43.040227Z",
   "closed_at": null,
   "agent": {
     "platform": "claude_code",

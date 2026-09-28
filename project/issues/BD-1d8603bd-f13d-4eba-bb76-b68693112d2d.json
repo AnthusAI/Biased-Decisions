@@ -1,0 +1,25 @@
+{
+  "id": "BD-1d8603bd-f13d-4eba-bb76-b68693112d2d",
+  "title": "Append the batch 2 Outcome section to the pre-registration",
+  "description": "Score each recorded prediction against the replayed result in the pre-registration's own words, with a Deviations block for the Christian honesty result and any other departure.",
+  "type": "sub-task",
+  "status": "open",
+  "priority": 2,
+  "assignee": null,
+  "creator": null,
+  "parent": "BD-4e66a8d7-8182-4a29-a054-7cd7186b168e",
+  "labels": [],
+  "dependencies": [],
+  "comments": [],
+  "created_at": "2026-09-28T04:20:22.333088Z",
+  "updated_at": "2026-09-28T04:20:22.333124Z",
+  "closed_at": null,
+  "agent": {
+    "platform": "claude_code",
+    "model": "Claude Fable 5.1",
+    "name": "Project Assessment"
+  },
+  "right_now_summary": null,
+  "right_now_updated_at": null,
+  "custom": {}
+}

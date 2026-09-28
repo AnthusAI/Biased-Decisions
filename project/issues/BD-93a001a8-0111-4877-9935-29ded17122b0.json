@@ -1,0 +1,25 @@
+{
+  "id": "BD-93a001a8-0111-4877-9935-29ded17122b0",
+  "title": "Report the Israeli cue under nationality, not as a Jewish-identity wording",
+  "description": "The antisemitic-stereotype boards treat 'An Israeli' as one of five ways of saying a person is Jewish. Nationality and religious or ethnic identity are different signals and the two should not be pooled. Move the Israeli cue form out of the Jewish-identity set: score and display it on the nationality board (alongside the other nationality clauses and their floor), keep the four remaining wordings as the Jewish-identity set, re-score the headline for each stereotype from those four, and update the page copy and the pre-registration's Deviations block to record the change.",
+  "type": "task",
+  "status": "open",
+  "priority": 1,
+  "assignee": null,
+  "creator": null,
+  "parent": "BD-045ab742-cc9e-4848-891d-f34ae74e8294",
+  "labels": [],
+  "dependencies": [],
+  "comments": [],
+  "created_at": "2026-09-28T04:19:39.405408Z",
+  "updated_at": "2026-09-28T04:19:39.405446Z",
+  "closed_at": null,
+  "agent": {
+    "platform": "claude_code",
+    "model": "Claude Fable 5.1",
+    "name": "Project Assessment"
+  },
+  "right_now_summary": null,
+  "right_now_updated_at": null,
+  "custom": {}
+}

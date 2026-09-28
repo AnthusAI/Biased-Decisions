@@ -1,0 +1,25 @@
+{
+  "id": "BD-2ec4f8bd-817b-456e-902a-846ff3f20a85",
+  "title": "Pre-register the controlled version of the direct-statement arms",
+  "description": "Write the plan before collecting any new answer: for every claim a reversed or negated statement and an option-order reversal; the acquiescence index (agreement with a claim and with its negation); the stance measure as the paired difference; the threshold below which no selected response is shown; predictions per model. Commit and tag the plan.",
+  "type": "sub-task",
+  "status": "open",
+  "priority": 1,
+  "assignee": null,
+  "creator": null,
+  "parent": "BD-5f522b97-a78e-4c3b-b0ed-9454c4f9d92e",
+  "labels": [],
+  "dependencies": [],
+  "comments": [],
+  "created_at": "2026-09-28T04:19:39.701086Z",
+  "updated_at": "2026-09-28T04:19:39.701122Z",
+  "closed_at": null,
+  "agent": {
+    "platform": "claude_code",
+    "model": "Claude Fable 5.1",
+    "name": "Project Assessment"
+  },
+  "right_now_summary": null,
+  "right_now_updated_at": null,
+  "custom": {}
+}

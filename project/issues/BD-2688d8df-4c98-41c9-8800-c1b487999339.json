@@ -1,0 +1,25 @@
+{
+  "id": "BD-2688d8df-4c98-41c9-8800-c1b487999339",
+  "title": "Decide: keep the direct-statement arms with controls, or unpublish them until controls exist",
+  "description": "Record the decision and its reasoning as a comment on the parent task before any code changes. If unpublished, remove the adl_gaza and opinion_claims sections from the data file and the site, leave the saved answers in the record, and note on the methods page that the arms exist and why they are not shown.",
+  "type": "sub-task",
+  "status": "open",
+  "priority": 1,
+  "assignee": null,
+  "creator": null,
+  "parent": "BD-5f522b97-a78e-4c3b-b0ed-9454c4f9d92e",
+  "labels": [],
+  "dependencies": [],
+  "comments": [],
+  "created_at": "2026-09-28T04:19:39.643776Z",
+  "updated_at": "2026-09-28T04:19:39.643812Z",
+  "closed_at": null,
+  "agent": {
+    "platform": "claude_code",
+    "model": "Claude Fable 5.1",
+    "name": "Project Assessment"
+  },
+  "right_now_summary": null,
+  "right_now_updated_at": null,
+  "custom": {}
+}

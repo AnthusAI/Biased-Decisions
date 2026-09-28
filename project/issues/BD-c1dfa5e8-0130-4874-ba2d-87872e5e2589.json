@@ -1,0 +1,25 @@
+{
+  "id": "BD-c1dfa5e8-0130-4874-ba2d-87872e5e2589",
+  "title": "Remove the batch2-staging source from the report and the site",
+  "description": "bd report reads the replayed rows only; delete the second data source and the notes that describe it.",
+  "type": "sub-task",
+  "status": "open",
+  "priority": 1,
+  "assignee": null,
+  "creator": null,
+  "parent": "BD-4e66a8d7-8182-4a29-a054-7cd7186b168e",
+  "labels": [],
+  "dependencies": [],
+  "comments": [],
+  "created_at": "2026-09-28T04:20:22.283395Z",
+  "updated_at": "2026-09-28T04:20:22.283428Z",
+  "closed_at": null,
+  "agent": {
+    "platform": "claude_code",
+    "model": "Claude Fable 5.1",
+    "name": "Project Assessment"
+  },
+  "right_now_summary": null,
+  "right_now_updated_at": null,
+  "custom": {}
+}

@@ -1,0 +1,25 @@
+{
+  "id": "BD-9ab53393-4a4f-454e-9ec9-a4a5413cf412",
+  "title": "Answer the trivial-edit cue on every engine",
+  "description": "Local engines first; price the hosted engine's requests and get approval before running them. One GPU job at a time.",
+  "type": "sub-task",
+  "status": "open",
+  "priority": 1,
+  "assignee": null,
+  "creator": null,
+  "parent": "BD-4d0d224c-2229-4b23-a94d-a8e6540c9d65",
+  "labels": [],
+  "dependencies": [],
+  "comments": [],
+  "created_at": "2026-09-28T04:20:22.082465Z",
+  "updated_at": "2026-09-28T04:20:22.082504Z",
+  "closed_at": null,
+  "agent": {
+    "platform": "claude_code",
+    "model": "Claude Fable 5.1",
+    "name": "Project Assessment"
+  },
+  "right_now_summary": null,
+  "right_now_updated_at": null,
+  "custom": {}
+}

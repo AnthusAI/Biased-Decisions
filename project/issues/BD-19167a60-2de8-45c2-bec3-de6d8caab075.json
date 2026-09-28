@@ -1,0 +1,25 @@
+{
+  "id": "BD-19167a60-2de8-45c2-bec3-de6d8caab075",
+  "title": "Link About from the site header and footer, and add an og card",
+  "description": "Every page reaches About in one click. Add the page to the og gallery.",
+  "type": "sub-task",
+  "status": "open",
+  "priority": 2,
+  "assignee": null,
+  "creator": null,
+  "parent": "BD-f29665c2-fedb-4b5b-91b6-da711ada0594",
+  "labels": [],
+  "dependencies": [],
+  "comments": [],
+  "created_at": "2026-09-28T04:20:21.668091Z",
+  "updated_at": "2026-09-28T04:20:21.668120Z",
+  "closed_at": null,
+  "agent": {
+    "platform": "claude_code",
+    "model": "Claude Fable 5.1",
+    "name": "Project Assessment"
+  },
+  "right_now_summary": null,
+  "right_now_updated_at": null,
+  "custom": {}
+}

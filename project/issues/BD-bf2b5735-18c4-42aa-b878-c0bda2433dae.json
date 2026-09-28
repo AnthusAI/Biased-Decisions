@@ -1,0 +1,25 @@
+{
+  "id": "BD-bf2b5735-18c4-42aa-b878-c0bda2433dae",
+  "title": "Collect the reversed statements and reversed option orders for every model",
+  "description": "One GPU job at a time; price the hosted engine's requests and get approval before running them. Record every answer under answers/ with sidecars.",
+  "type": "sub-task",
+  "status": "open",
+  "priority": 1,
+  "assignee": null,
+  "creator": null,
+  "parent": "BD-5f522b97-a78e-4c3b-b0ed-9454c4f9d92e",
+  "labels": [],
+  "dependencies": [],
+  "comments": [],
+  "created_at": "2026-09-28T04:19:39.765224Z",
+  "updated_at": "2026-09-28T04:19:39.765271Z",
+  "closed_at": null,
+  "agent": {
+    "platform": "claude_code",
+    "model": "Claude Fable 5.1",
+    "name": "Project Assessment"
+  },
+  "right_now_summary": null,
+  "right_now_updated_at": null,
+  "custom": {}
+}

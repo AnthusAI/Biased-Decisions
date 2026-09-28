@@ -1,0 +1,25 @@
+{
+  "id": "BD-8dace09e-92a9-4775-9481-7e864657f035",
+  "title": "Score and display the controlled arms",
+  "description": "Report the full distribution, the paired stance difference with a bootstrap interval, and the acquiescence index next to every rate. Do not average statements that point in opposite directions. Use a neutral colour scale. Reconcile the page copy that currently calls the study both 'not a reproduction' and a 'completed replication'.",
+  "type": "sub-task",
+  "status": "open",
+  "priority": 1,
+  "assignee": null,
+  "creator": null,
+  "parent": "BD-5f522b97-a78e-4c3b-b0ed-9454c4f9d92e",
+  "labels": [],
+  "dependencies": [],
+  "comments": [],
+  "created_at": "2026-09-28T04:19:39.822815Z",
+  "updated_at": "2026-09-28T04:19:39.822850Z",
+  "closed_at": null,
+  "agent": {
+    "platform": "claude_code",
+    "model": "Claude Fable 5.1",
+    "name": "Project Assessment"
+  },
+  "right_now_summary": null,
+  "right_now_updated_at": null,
+  "custom": {}
+}

@@ -1,0 +1,25 @@
+{
+  "id": "BD-12978fed-3d3a-436b-9d3e-b70dae904ec7",
+  "title": "Remove the confounded religion v1 cells from the ranked board",
+  "description": "The religion v1 insertion clause shares a word with the occupation vocabulary of several tasks, and the floor does not, so its per-religion shifts measure the word, not the religion. The site already says so, but the cells still feed the ranked religion dimension. Exclude v1 from the ranked dimension and from every headline, keep the rows on the religion page under a method note that explains the confound and the v2 fix, and record the exclusion in the leaderboard architecture doc.",
+  "type": "task",
+  "status": "open",
+  "priority": 1,
+  "assignee": null,
+  "creator": null,
+  "parent": "BD-045ab742-cc9e-4848-891d-f34ae74e8294",
+  "labels": [],
+  "dependencies": [],
+  "comments": [],
+  "created_at": "2026-09-28T04:19:39.549001Z",
+  "updated_at": "2026-09-28T04:19:39.549039Z",
+  "closed_at": null,
+  "agent": {
+    "platform": "claude_code",
+    "model": "Claude Fable 5.1",
+    "name": "Project Assessment"
+  },
+  "right_now_summary": null,
+  "right_now_updated_at": null,
+  "custom": {}
+}

@@ -1,0 +1,25 @@
+{
+  "id": "BD-9fab1a0f-d25e-4834-b0dd-f594b6b1c50e",
+  "title": "Declare spacy and tokenizers, or skip cleanly when absent (for BD-d9f811)",
+  "description": "Add tokenizers to the extras it belongs in; make the tests that need spacy or a local model cache skip with a clear reason when the dependency is missing; make install's comment must match what it installs.",
+  "type": "chore",
+  "status": "open",
+  "priority": 1,
+  "assignee": null,
+  "creator": null,
+  "parent": "BD-045ab742-cc9e-4848-891d-f34ae74e8294",
+  "labels": [],
+  "dependencies": [],
+  "comments": [],
+  "created_at": "2026-09-28T04:20:42.913012Z",
+  "updated_at": "2026-09-28T04:20:42.913053Z",
+  "closed_at": null,
+  "agent": {
+    "platform": "claude_code",
+    "model": "Claude Fable 5.1",
+    "name": "Project Assessment"
+  },
+  "right_now_summary": null,
+  "right_now_updated_at": null,
+  "custom": {}
+}
