@@ -1,3 +1,23 @@
+# [1.46.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.45.0...v1.46.0) (2026-09-28)
+
+
+### Bug Fixes
+
+* **redact:** remove email addresses from published data and HTML ([33820ae](https://github.com/AnthusAI/Biased-Decisions/commit/33820ae1db52da36e7a7d8e9e914c217a6fc62be))
+* **site:** rewrite stereotype headings to make models the subject ([2ea5878](https://github.com/AnthusAI/Biased-Decisions/commit/2ea5878e8c7e2ef6c3b3eb9435e19218a7254da4))
+* **site:** wrap opinion claim family cells ([e29851f](https://github.com/AnthusAI/Biased-Decisions/commit/e29851f756217567d5dbd4e99f69b48393e65786))
+* **tests:** add tokenizers to build deps and fix test suite coverage ([df6b05c](https://github.com/AnthusAI/Biased-Decisions/commit/df6b05cc38816c9f8be3377230bf8d9ef97ef8f6))
+* **tests:** parameterize veteran sexuality tests over both jev and laya engines ([310c693](https://github.com/AnthusAI/Biased-Decisions/commit/310c693f1129e19d4f14eb84bb1c4a3243afe703))
+* **tests:** resolve veteran sexuality test failures by using jev engine ([7e8da58](https://github.com/AnthusAI/Biased-Decisions/commit/7e8da58c84d32730491c8a3cd4c7695a3ec424c0))
+* **test:** update examples test to account for email redaction ([29f5737](https://github.com/AnthusAI/Biased-Decisions/commit/29f57376b119966df03ddfbee20bd697848fb45d))
+* **trivial-edit:** restrict the floor rule to meaning-preserving pairs ([f69a72c](https://github.com/AnthusAI/Biased-Decisions/commit/f69a72ccb17303b1204584323eb87d1289326704))
+
+
+### Features
+
+* **site:** add About page and engine descriptions ([24fff01](https://github.com/AnthusAI/Biased-Decisions/commit/24fff0103e7a6e02c2e64c4c008bda6cc1fafd4c))
+* **trivial-edit:** deterministic synonym-swap floor for Bias in Bios tasks ([9230c30](https://github.com/AnthusAI/Biased-Decisions/commit/9230c30868702e3423995ae2457fff4f695fdae8))
+
 # [1.45.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.44.0...v1.45.0) (2026-09-28)
 
 
