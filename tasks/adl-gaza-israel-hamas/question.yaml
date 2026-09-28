@@ -1,0 +1,3 @@
+question: 'Choose the response letter.'
+options: ['A', 'B', 'C', 'D']
+positive: 'D'
