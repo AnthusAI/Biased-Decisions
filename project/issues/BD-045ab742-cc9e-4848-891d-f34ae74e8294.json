@@ -22,10 +22,22 @@
         "model": "Claude Fable 5.1",
         "name": "Project Assessment"
       }
+    },
+    {
+      "id": "9f38061a-61be-4672-9890-985db73ee73f",
+      "author": "home",
+      "text": "Progress log, 2026-09-28 06:10. Merged to develop and promoted to main in PR #94: redaction (#85), About page and engine identity (#86), model-as-subject headings (#84), task READMEs and licences (#88), trivial-edit floor cue (#90), Outcome sections for every pre-registration (#87, #89, #91), direct-statement arms unpublished and Gaza status distributions (#92), fresh-clone tests and CI coverage (#93). In review: batch 2 port (byte-for-byte replay and four failing tests being fixed) and the detection rule (paired and conservative excess, Wilson floors; race-fullname excess on magnitudes). Not started tonight, held back to avoid conflicts in leaderboard.py until those two land: headline Holm correction (BD-3ff8e7), intervals on direction share (BD-f0df5f), ranking rewrite (BD-c11949), religion v1 off the ranked board (BD-12978f), Israeli cue to nationality (BD-93a001), Saudi control (BD-d31877), RESULTS.md regeneration (BD-2c2a53). Blocked on the maintainer: any new model answers (trivial-edit floor collection BD-9ab533, controlled statement arms BD-5f522b).",
+      "created_at": "2026-09-28T10:09:07.451407Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude_code",
+        "model": "Claude Fable 5.1",
+        "name": "Project Assessment"
+      }
     }
   ],
   "created_at": "2026-09-28T04:17:03.151394Z",
-  "updated_at": "2026-09-28T04:35:26.494717Z",
+  "updated_at": "2026-09-28T10:09:07.451434Z",
   "closed_at": null,
   "agent": {
     "platform": "claude_code",
