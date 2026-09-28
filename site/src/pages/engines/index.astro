@@ -2,7 +2,7 @@
 import { pageIntroductions } from "../../lib/introductions.js";
 import Base from "../../layouts/Base.astro";
 import EngineName from "../../components/EngineName.astro";
-import { data, engineById, urls, fmt, signed, largestBias } from "../../lib/site.js";
+import { data, engineById, urls, fmt, signed, size, largestBias } from "../../lib/site.js";
 import { aboutModel } from "./_about.js";
 
 const rows = data.overall.rows;
@@ -38,7 +38,7 @@ const description = `${testedCount} tested AI models on the Biased-Decisions lea
             <div class="ov-name">
               <EngineName engine={en} href={urls.engine(en.id)} />
               {r.mean_rank !== null && <div class="ov-mean">average place <strong>{fmt(r.mean_rank)}</strong> over the {r.ranked_on} characteristics where it was compared · tested on {r.measured_on} of {data.overall.n_dimensions}</div>}
-              <div class="ov-mean">{r.measured_on === 0 ? "Not yet tested" : largest > 0 ? <Fragment>largest effect: <strong>{signed(largest)} percentage points</strong> beyond the control edit</Fragment> : "no clear effect on any characteristic tested"}</div>
+              <div class="ov-mean">{r.measured_on === 0 ? "Not yet tested" : largest > 0 ? <Fragment>largest effect: <strong>{size(largest)} percentage points</strong> beyond the control edit</Fragment> : "no clear effect on any characteristic tested"}</div>
               {r.mean_rank === null && r.measured_on > 0 && <div class="ov-mean">Tested, but not yet ranked against another model</div>}
             </div>
             <p class="ov-about">{aboutModel(en)}</p>

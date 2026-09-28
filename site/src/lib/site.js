@@ -2,7 +2,7 @@
 // `bd report --json`): lookups, the URL scheme, per-page chart payloads, titles, descriptions and
 // the plain-language sentences. Pages hold markup only; every rule lives here, once.
 import data from "../../data/leaderboard.json";
-import { fmt, signed } from "../scripts/util.js";
+import { fmt, signed, size } from "../scripts/util.js";
 
 export { data };
 export const engines = data.engines;
@@ -435,7 +435,7 @@ export function describeLevel(dim, level) {
   return `${dim.long}, ${t}: ${lead}. Results for ${rows}, with the range we are 95% sure of.`;
 }
 
-export { fmt, signed };
+export { fmt, signed, size };
 
 // The facet's own detail lines under its table row: every number the record carries beyond the
 // headline measurement.

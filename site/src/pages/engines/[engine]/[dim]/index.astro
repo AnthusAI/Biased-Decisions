@@ -10,7 +10,7 @@ import EngineName from "../../../../components/EngineName.astro";
 import FacetTable from "../../../../components/FacetTable.astro";
 import Matrix from "../../../../components/Matrix.astro";
 import { engines, dimensions, allDimensions, urls, facetHref, multiGroup, multiItem, forestRows, groupLabel, itemLabel, place,
-  fmt, signed, int, plural } from "../../../../lib/site.js";
+  fmt, signed, size, int, plural } from "../../../../lib/site.js";
 import { introModel } from "../../_about.js";
 
 export function getStaticPaths() {
@@ -39,7 +39,7 @@ const status = !measured ? "not tested"
 const title = `${en.label} · ${dim.label}`;
 const facetWord = kindWord(dim.facet_kind);
 const description = measured
-  ? `${en.label} on ${dim.label.toLowerCase()}: ${status}${c.detected ? `. Its largest effect is ${signed(c.headline.value)} percentage points beyond a harmless control edit, on ${c.headline.facet_label}` : ""}. Every ${twoAxes ? `${kindWord(bd.group_kind)} and ${kindWord(bd.item_kind)}` : facetWord} we tested, with its range.`
+  ? `${en.label} on ${dim.label.toLowerCase()}: ${status}${c.detected ? `. Its largest effect is ${size(c.headline.value)} percentage points beyond a harmless control edit, on ${c.headline.facet_label}` : ""}. Every ${twoAxes ? `${kindWord(bd.group_kind)} and ${kindWord(bd.item_kind)}` : facetWord} we tested, with its range.`
   : `${en.label} has not been tested on ${dim.label.toLowerCase()}. It is shown as missing, never as zero.`;
 ---
 <Base title={title} description={description} path={urls.engineDim(en.id, dim.id)} current={{ page: "engine-dim", engine: en.id, dim: dim.id }} charts={charts}
@@ -53,7 +53,7 @@ const description = measured
     {measured && (
       <div class="eng-stats">
         <div><span class="stat-k">Place</span><span class="stat-v">{c.detected && dim.board.contested ? place(dim.board, en.id) : c.detected ? "only" : "—"}</span><span class="stat-s">{status}</span></div>
-        <div><span class="stat-k">Largest effect</span><span class="stat-v">{signed(c.headline.value)}</span><span class="stat-s">percentage points beyond the control edit, range {fmt(c.headline.lo)} to {fmt(c.headline.hi)}, on {c.headline.facet_label}</span></div>
+        <div><span class="stat-k">Largest effect</span><span class="stat-v">{size(c.headline.value)}</span><span class="stat-s">percentage points beyond the control edit, range {fmt(c.headline.lo)} to {fmt(c.headline.hi)}, on {c.headline.facet_label}</span></div>
         <div><span class="stat-k">Clear effects</span><span class="stat-v">{c.n_facets_detected} / {c.n_facets}</span><span class="stat-s">{kindPlural(dim.facet_kind)} where the effect is clear of the control edit; {int(c.n)} texts tested</span></div>
       </div>
     )}
