@@ -123,6 +123,13 @@ Made before the run, each with what would refute it.
   That needs a training run we have not designed.
 - Jev. It would need the spend priced and approved first.
 
+## Implementation, after this document is committed
+
+A cue module (`biased_decisions/cues/neutral.py`, with its spec beside it) implementing the two
+neutral rewrites and the leftover-token check; `bd build` writes `versions/neutral-blank.jsonl`
+and `versions/neutral-they.jsonl` per task; `scripts/answer_task.py` answers them on Laya
+(about 28,000 calls, under an hour); the position and shortlist measures are scored and replayed
+into `studies/`. The leaderboard adopts them only after the replay is byte-for-byte.
 ## Outcome (scored 2026-09-28)
 
 | prediction (line) | measurement | result | scored |
@@ -137,10 +144,3 @@ Laya answered neutral-pronoun versions (blank and they arms) on seven occupation
 
 Jev not run per design. They-arm job failures on journalist-professor (1.3%) and architect-interior-designer (1.1%) reported; blank arm clean on all tasks.
 
-## Implementation, after this document is committed
-
-A cue module (`biased_decisions/cues/neutral.py`, with its spec beside it) implementing the two
-neutral rewrites and the leftover-token check; `bd build` writes `versions/neutral-blank.jsonl`
-and `versions/neutral-they.jsonl` per task; `scripts/answer_task.py` answers them on Laya
-(about 28,000 calls, under an hour); the position and shortlist measures are scored and replayed
-into `studies/`. The leaderboard adopts them only after the replay is byte-for-byte.
