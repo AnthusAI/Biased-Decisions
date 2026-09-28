@@ -88,14 +88,11 @@ touched):
 | Kev | 1–3% |
 | Jev | 0.5–2% |
 
-Rationale: A deterministic engine should show ~0% (no variation). Non-deterministic engines 
-show variation driven by:
-- Sampling in the model's inference (Laya uses sampling; Kev may also)
-- Small differences in tokenization or prompt structure triggered by the textual change
-
-Jev is expected to be most stable (smallest range) if it uses greedy decoding; Laya's range is 
-widest because it uses sampling and also because version-to-version baseline flip rates run 
-0–5% on the pronoun cue. Kev's range sits between.
+Rationale: A deterministic engine has an ask-twice floor of zero by construction, yet a trivial 
+edit still moves its answers on near-tied texts—which is exactly why this floor exists. The 
+non-deterministic engines add their ask-twice noise on top of any trivial-edit sensitivity. 
+The predicted ranges are set from the batch-1 finding that a second same-pool name flipped one 
+engine about 2%.
 
 ## What would change what I believe
 
