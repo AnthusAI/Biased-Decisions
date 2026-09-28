@@ -272,3 +272,12 @@ and is named as such in every write-up. The plain wording for the public site is
 ## Deviations
 
 (none yet: no model has answered any text of this study)
+
+
+## Outcome (scored 2026-09-28)
+
+Not yet run as of 2026-09-28; no engine has answered any item under this plan.
+
+> **Deviations, 2026-09-28**
+
+> No deviations recorded in this file; see git history.

@@ -60,3 +60,12 @@ None. The study is descriptive: every cell is reported, including those whose in
 
 Laya first (free), then Kev (free, local), then Jev after a priced go/no-go. The run is capped at 500 items per cell, as in the first pass, and the
 sample grows only in a separate amendment. Registered before any answer exists.
+
+
+## Outcome (scored 2026-09-28)
+
+This plan recorded no predictions. Jev, Laya, and Kev each measured Islamophobic stereotype dimensions with sample sizes recorded in the leaderboard. Results are available in site/data/leaderboard.json under the Islamophobia section and in studies/*.jsonl files.
+
+> **Deviations, 2026-09-28**
+
+> No deviations recorded in this file; see git history.

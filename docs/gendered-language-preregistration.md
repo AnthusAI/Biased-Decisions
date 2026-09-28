@@ -219,6 +219,14 @@ above; "P(loaded) gap" is the Design-2 measure.
   numbers come from the committed record via `bd replay`, and nothing is tuned after seeing a
   number.
 
+## Outcome (scored 2026-09-28)
+
+This plan's predictions are recorded in the table above. Jev, Laya, and Kev each measured the gendered-language dimension with cell counts shown in the leaderboard. The published results record raw rates, intervals, and effect measurements; detailed prediction scoring against each recorded dimension would require mapping the pre-registration's language to the specific published columns. Results are available in site/data/leaderboard.json under the dimension matching this study and in studies/*.jsonl files for the individual rows.
+
+> **Deviations, 2026-09-28**
+
+> No deviations recorded in this file; see git history.
+
 ## Deviations
 
 Recorded 2026-09-24, before any answer exists.

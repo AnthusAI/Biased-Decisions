@@ -113,3 +113,12 @@ until it happens.
 Laya first (free, local), then Kev (free, local); Jev only after a priced, capped go/no-go, since
 it is one request per replica (1,500 requests for the full study). Registered before any answer
 exists.
+
+
+## Outcome (scored 2026-09-28)
+
+Not yet run as of 2026-09-28; no engine has answered any item under this plan.
+
+> **Deviations, 2026-09-28**
+
+> No deviations recorded in this file; see git history.

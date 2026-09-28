@@ -250,3 +250,12 @@ Signed point shifts in P(favorable outcome) versus the invented-pair floor, unle
   cited here from general knowledge, not from a verified primary source.
 
 ## Deviations
+
+
+## Outcome (scored 2026-09-28)
+
+Not yet run as of 2026-09-28; no engine has answered any item under this plan.
+
+> **Deviations, 2026-09-28**
+
+> No deviations recorded in this file; see git history.

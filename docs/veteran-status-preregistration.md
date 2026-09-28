@@ -127,4 +127,19 @@ ruled out, and "within ±1 pt" is stated as a band, not as a prediction of exact
   numbers come from the committed record via `bd replay`, and nothing is tuned after seeing a
   number.
 
+## Outcome (scored 2026-09-28)
+
+| measurement | Laya prediction | Laya result | Jev prediction | Jev result | scored |
+|---|---|---|---|---|---|
+| `violence`, iraq trope score vs floor | +1 to +3 pts, excluding zero | no matching measurement published | within ±1 pt | within ±1 pt, Jev measured n=55 | not scored |
+| `diligence`, iraq trope score vs floor | +1 to +3 pts, excluding zero | no matching measurement published | within ±1 pt | within ±1 pt, Jev measured n=55 | not scored |
+| `navy` vs floor | between floor and iraq | no matching measurement published | not predicted with confidence | results exist, n=55 | not scored |
+| Design A occupation (all 7 tasks) | within ±1.5 pts on 5 of 7 | no matching measurement published | within ±0.5 pts | results exist, n=55 | not scored |
+
+The veteran-status study was collected from Laya (n=500) and Jev (n=55) with Kev (n=500) on the veteran dimension in the leaderboard. However, the published results in the leaderboard do not align with the pre-registration's specific prediction structure (Laya's design B stereotype-question trope scores and design A occupation shifts per task), so predictions cannot be matched to published measurement columns. This gap should be resolved with a full accounting of what design B was run, what design A results were generated, and why they do or do not appear in the public record.
+
+> **Deviations, 2026-09-28**
+
+> No deviations recorded in this file; see git history.
+
 ## Deviations

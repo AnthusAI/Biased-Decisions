@@ -130,3 +130,12 @@ neutral rewrites and the leftover-token check; `bd build` writes `versions/neutr
 and `versions/neutral-they.jsonl` per task; `scripts/answer_task.py` answers them on Laya
 (about 28,000 calls, under an hour); the position and shortlist measures are scored and replayed
 into `studies/`. The leaderboard adopts them only after the replay is byte-for-byte.
+
+
+## Outcome (scored 2026-09-28)
+
+Not yet run as of 2026-09-28; no engine has answered any item under this plan.
+
+> **Deviations, 2026-09-28**
+
+> No deviations recorded in this file; see git history.

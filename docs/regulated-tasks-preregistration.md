@@ -294,3 +294,12 @@ observational tagged-versus-untagged comparison is not built; (3) narratives are
 sentences within 1,200 characters so the whole text fits the model's 512-token window, and the
 300-2,000 character filter applies before the cut. The rule is in each task's README.
 
+
+
+## Outcome (scored 2026-09-28)
+
+Not yet run as of 2026-09-28; no engine has answered any item under this plan.
+
+> **Deviations, 2026-09-28**
+
+> No deviations recorded in this file; see git history.

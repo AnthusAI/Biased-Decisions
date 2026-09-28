@@ -47,3 +47,12 @@ Predictions: none; every cell is reported, including those whose interval includ
 ## Rules
 
 Laya first, then Kev, then Jev after a go/no-go; capped at 500 per cell; the sample grows only by a later amendment. Registered before any answer exists.
+
+
+## Outcome (scored 2026-09-28)
+
+This plan recorded no predictions. Jev, Laya, and Kev each measured China-related stereotype dimensions with sample sizes recorded in the leaderboard. Results are available in site/data/leaderboard.json under the China dimensions and in studies/*.jsonl files.
+
+> **Deviations, 2026-09-28**
+
+> No deviations recorded in this file; see git history.

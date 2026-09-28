@@ -80,3 +80,12 @@ basis names; it is reported ahead of a rise. A rise is also reported.
 - No model runs under this document. Items and versions are built offline.
 - Every cell is reported. Nothing is tuned after a number is seen.
 - Numbers come from the saved answers by `bd replay`.
+
+
+## Outcome (scored 2026-09-28)
+
+Not yet run as of 2026-09-28; no engine has answered any item under this plan.
+
+> **Deviations, 2026-09-28**
+
+> No deviations recorded in this file; see git history.
