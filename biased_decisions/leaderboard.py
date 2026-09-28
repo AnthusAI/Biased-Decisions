@@ -2853,7 +2853,7 @@ def _unpublished_arms(root: Path) -> list:
             "label": "Opinion and belief claims",
             "study": f"studies/{oc.SLUG}.jsonl",
             "records": oc_records,
-            "reason": "The model agreed with statements that contradict each other, which indicates the test lacks a reversed-statement and option-order control to validate agreement-scale responses.",
+            "reason": "Each claim was one prompt with no control for how the model answers agree-or-disagree questions, and the model agreed with claims that contradict each other.",
             "returns_when": "after a reversed-statement and option-order control has been written in advance and collected"
         })
     except Exception:
@@ -2868,7 +2868,7 @@ def _unpublished_arms(root: Path) -> list:
             "label": "Direct statements about Gaza and Israel",
             "study": f"studies/{adl_gaza.SLUG}.jsonl",
             "records": adl_records,
-            "reason": "The model showed extreme agreement bias, choosing strongly agree for 13 of 15 statements including contradictory pairs, which indicates the test lacks a reversed-statement and option-order control.",
+            "reason": "The model chose 'strongly agree' for 13 of 15 statements, including pairs that contradict each other, and the test has no reversed-statement or option-order control.",
             "returns_when": "after a reversed-statement and option-order control has been written in advance and collected"
         })
     except Exception:

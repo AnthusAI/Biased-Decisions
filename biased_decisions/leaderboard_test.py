@@ -819,5 +819,6 @@ def test_opinion_claims_are_unpublished_until_controlled(doc):
     assert opinion_arm["label"] == "Opinion and belief claims"
     assert opinion_arm["study"] == "studies/opinion-claims-antisemitism.jsonl"
     assert len(opinion_arm["records"]) == 3
-    assert "agreement-scale responses" in opinion_arm["reason"]
+    assert "no control for how the model answers" in opinion_arm["reason"]
+    assert "claims that contradict each other" in opinion_arm["reason"]
     assert "written in advance" in opinion_arm["returns_when"]

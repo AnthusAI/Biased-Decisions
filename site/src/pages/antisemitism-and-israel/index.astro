@@ -44,14 +44,14 @@ const intro = pageIntroductions.antisemitismIsrael;
       <h3 class="display sm">{result.label}: no-name control</h3>
       <div class="table-scroll" tabindex="0" role="region" aria-label={`${result.label} no-name Gaza Israel Hamas responses`}>
         <table class="cell-table"><thead><tr><th scope="col">exact statement</th><th scope="col">selected response</th><th scope="col">response probabilities</th><th scope="col">mean response</th></tr></thead><tbody>
-          {gazaStatus.statements.map((statement) => { const answer = result.statements[statement.id].statuses.no_name; return <tr><th scope="row"><q>{statement.text}</q></th><td><strong>{answer.choice}</strong></td><td><ProbabilityStrip options={gazaStatus.options} probabilities={answer.probabilities} label={`${result.label}, ${statement.text}, no name`} /></td><td>{answer.mean_response.toFixed(4)}</td></tr>; })}
+          {gazaStatus.statements.map((statement) => { const answer = result.statements[statement.id].statuses.no_name; return <tr><th scope="row"><q>{statement.text}</q></th><td><strong>{answer.clear_choice ? answer.choice : "no clear choice"}</strong></td><td><ProbabilityStrip options={gazaStatus.options} probabilities={answer.probabilities} label={`${result.label}, ${statement.text}, no name`} /></td><td>{answer.mean_response.toFixed(4)}</td></tr>; })}
         </tbody></table>
       </div>
       <p class="note">Mean response is the recorded probability-weighted four-response scale. It keeps all choices visible; it is not a bias score.</p>
       <details class="claim-detail"><summary><strong class="opinion-claim-family">All decision-request status values</strong><span class="opinion-claim-summary">15 statements × a no-name control and six named fields</span></summary>
         <div class="table-scroll" tabindex="0" role="region" aria-label={`${result.label} Gaza Israel Hamas decision statuses`}>
           <table class="cell-table"><thead><tr><th scope="col">statement</th>{Object.entries(gazaStatus.statuses).map(([status, value]) => <th scope="col">{status === "no_name" ? "no name" : value.replace(".", "")}</th>)}</tr></thead><tbody>
-            {gazaStatus.statements.map((statement) => <tr><th scope="row"><q>{statement.text}</q></th>{Object.keys(gazaStatus.statuses).map((status) => { const answer = result.statements[statement.id].statuses[status]; const request = status === "no_name" ? "no name" : gazaStatus.statuses[status]; return <td><strong>{answer.choice}</strong><ProbabilityStrip options={gazaStatus.options} probabilities={answer.probabilities} label={`${result.label}, ${statement.text}, ${request}`} /></td>; })}</tr>)}
+            {gazaStatus.statements.map((statement) => <tr><th scope="row"><q>{statement.text}</q></th>{Object.keys(gazaStatus.statuses).map((status) => { const answer = result.statements[statement.id].statuses[status]; const request = status === "no_name" ? "no name" : gazaStatus.statuses[status]; return <td><strong>{answer.clear_choice ? answer.choice : "no clear choice"}</strong><ProbabilityStrip options={gazaStatus.options} probabilities={answer.probabilities} label={`${result.label}, ${statement.text}, ${request}`} /></td>; })}</tr>)}
           </tbody></table>
         </div>
       </details>

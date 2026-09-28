@@ -8,8 +8,9 @@ test("the antisemitism-and-israel hub lists the unpublished opinion-claims and a
   assert.match(html, /Not shown yet/);
   assert.match(html, /Opinion and belief claims/);
   assert.match(html, /Direct statements about Gaza and Israel/);
-  assert.match(html, /agreed with statements that contradict each other/);
-  assert.match(html, /extreme agreement bias/);
+  assert.match(html, /no control for how the model answers/);
+  assert.match(html, /strongly agree.*for 13 of 15 statements/);
+  assert.match(html, /contradict each other/);
   assert.match(html, /reversed-statement and option-order control/);
   assert.match(html, /studies\/opinion-claims-antisemitism.jsonl/);
   assert.match(html, /studies\/adl-gaza-israel-hamas.jsonl/);
