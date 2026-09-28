@@ -95,6 +95,7 @@ const optOut = String.raw`(function(){try{var k='anthus-no-analytics',q=location
         <a href={urls.methods()} class={current.page === "methods" ? "on" : null} aria-current={current.page === "methods" ? "page" : undefined}>How we measure</a>
         <a href={curls.howToFail()} class={current.page === "how-to-fail" ? "on" : null} aria-current={current.page === "how-to-fail" ? "page" : undefined}>How to fail</a>
         <a href={curls.guidance()} class={current.page === "guidance" ? "on" : null} aria-current={current.page === "guidance" ? "page" : undefined}>Guidance</a>
+        <a href={`${urls.home()}about/`} class={current.page === "about" ? "on" : null} aria-current={current.page === "about" ? "page" : undefined}>About</a>
       </nav>
     </div>
     <div class="wrap">
@@ -134,7 +135,7 @@ const optOut = String.raw`(function(){try{var k='anthus-no-analytics',q=location
     <p class="release" data-release={rel.label}>{rel.released
       ? <Fragment>Release <a href={rel.url}><strong>v{rel.version}</strong></a>, published <time datetime={rel.date}>{rel.date}</time>.</Fragment>
       : <Fragment>Version <strong>v{rel.version}</strong>, <strong>unreleased</strong>.</Fragment>}</p>
-    <p>Every number on this site is worked out from the models' saved answers{p.generated ? <Fragment>, on <strong>{p.generated}</strong></Fragment> : ""}, at version {p.record_commit ? <a href={`${REPO}/commit/${p.record_commit}`}><code>{p.record_commit_short}</code></a> : <code>unknown</code>} of the public repository, with <code>{p.command}</code>. You can download <a href={urls.data()}>every number in one data file</a>.</p>
+    <p>Every number on this site is worked out from the models' saved answers{p.generated ? <Fragment>, on <strong>{p.generated}</strong></Fragment> : ""}, at version {p.record_commit ? <a href={`${REPO}/commit/${p.record_commit}`}><code>{p.record_commit_short}</code></a> : <code>unknown</code>} of the public repository, with <code>{p.command}</code>. You can download <a href={urls.data()}>every number in one data file</a>. <a href={`${urls.home()}about/`}>About this site</a>.</p>
     <p>Where the answers come from: {p.sources.map((src, i) => <Fragment>{i ? "; " : ""}<code>{src.path}</code> ({src.regenerated_by ? <Fragment>re-run from the saved answers with <code>{src.regenerated_by}</code></Fragment> : "from a separate run whose saved answers are not public yet"})</Fragment>)}.</p>
     <p class="fine">Biased-Decisions is MIT-licensed (<a href={REPO}>source</a>). Bias in Bios (De-Arteaga et al., 2019) is MIT-licensed on the Hugging Face Hub. Typefaces: Jersey 25 and Montserrat, SIL Open Font License.</p>
   </div>

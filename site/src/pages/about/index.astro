@@ -1,0 +1,42 @@
+---
+import Base from "../../layouts/Base.astro";
+import { urls } from "../../lib/site.js";
+
+const REPO = "https://github.com/AnthusAI/Biased-Decisions";
+---
+<Base title="About" description="Who makes this site, how it is funded, and how to reach the models tested."
+  path={`${urls.home()}about/`} current={{ page: "about" }}
+  crumbs={[{ label: "Leaderboard", href: urls.home() }, { label: "About" }]}>
+  <section class="wrap hero">
+    <p class="kicker">About</p>
+    <h1 class="display xl">Who makes this and how we tested each model</h1>
+  </section>
+
+  <section class="wrap section">
+    <h2 class="display">Who makes this</h2>
+    <p>Biased-Decisions is made by <a href="https://anth.us">Anthus AI Solutions</a>, an independent AI engineering consultancy. The work is self-funded. The repository is <a href={REPO}>public on GitHub</a>.</p>
+  </section>
+
+  <section class="wrap section">
+    <h2 class="display">The models and how we reached them</h2>
+
+    <h3>Jev</h3>
+    <p>Jev is a hosted fast decision model. We reach it through its maker's software kit, typesafe-sdk, on paid API access. We pay for that access and have no other relationship with its maker. The version tested is jev-1.13.0.</p>
+
+    <h3>Laya</h3>
+    <p>Laya is open source at <a href="https://github.com/NandhaKishorM/laya">github.com/NandhaKishorM/laya</a> under the Apache-2.0 license. We ran two builds on our own Apple-silicon hardware. The independent Apple MLX port (laya-mlx 0.1.0) was used wherever we have it; the original PyTorch build (laya 0.3.7) was used where the MLX build has not run yet. The headline results matched, though probabilities can differ by up to about 0.02 on a single text.</p>
+
+    <h3>Kev</h3>
+    <p>Kev is open source at <a href="https://github.com/jaredpalmer/kev">github.com/jaredpalmer/kev</a>. We ran it on our own Apple-silicon hardware with the checkpoint jaredpalmer/kev-0.8b@54f4f8777356cd5bbbb6c6919c657f26e6f2f6d8, base model Qwen/Qwen3.5-0.8B-Base@dc7cdfe2ee4154fa7e30f5b51ca41bfa40174e68, MLX backend, bfloat16 precision, and temperature calibration of 2.406050072164233.</p>
+  </section>
+
+  <section class="wrap section">
+    <h2 class="display">Reporting an error in a result</h2>
+    <p><a href={`${REPO}/issues`}>Open an issue at the GitHub repository</a>. For general contact, visit the contact page on <a href="https://anth.us">anth.us</a>.</p>
+  </section>
+
+  <section class="wrap section">
+    <h2 class="display">Analytics and privacy</h2>
+    <p>The site uses Google Analytics. To turn off tracking for your browser, visit any page with <code>?notrack=1</code> added to the address. Add <code>?notrack=0</code> to turn it back on.</p>
+  </section>
+</Base>

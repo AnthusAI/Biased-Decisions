@@ -107,7 +107,7 @@ def test_real_http_round_trip_keeps_questions_order_and_isolates_auth(local_kev_
 def test_real_http_errors_are_sanitized(local_kev_server, mode, error):
     state, base = local_kev_server
     state["mode"] = mode
-    engine = KevEngine(base_url=base, api_key="kev-secret-test")
+    engine = KevEngine(base_url=base, api_key="kev-secret-test", model="kev-latest")
     with pytest.raises(error) as caught:
         asyncio.run(engine.answer("text", {"Q": {"type": "noul", "instructions": "Q?"}}))
     assert "kev-secret-test" not in str(caught.value)

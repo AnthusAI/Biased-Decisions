@@ -7,10 +7,9 @@ the project does not install or load model code. An optional bearer credential c
 cache, so repeated inputs are separate model calls.
 
 Start a Kev server using the official [Kev serving instructions](https://github.com/jaredpalmer/kev).
-Set `KEV_BASE_URL` to that server's base URL (for example, a local loopback URL) and, when the
-server requires authentication, set `KEV_API_KEY` in the process environment. The `KEV_MODEL`
-setting selects the server model name and defaults to `kev-latest`. A deployment alias is not an
-immutable checkpoint identity.
+Set `KEV_BASE_URL` to that server's base URL (for example, a local loopback URL), set `KEV_MODEL` to
+the server model name (required), and when the server requires authentication, set `KEV_API_KEY` in
+the process environment. A deployment alias is not an immutable checkpoint identity.
 
 Preview a cell without contacting the server:
 
