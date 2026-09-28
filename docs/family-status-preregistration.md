@@ -81,3 +81,28 @@ would be reported ahead of a rise. A rise is also reported; it is a difference i
 - No model runs under this document. Items and versions are built offline from the pinned source.
 - Every cell is reported. Nothing is tuned after a number is seen.
 - Numbers come from the saved answers by `bd replay`.
+
+## Outcome (scored 2026-09-28)
+
+| prediction | recorded as | result | scored |
+|---|---|---|---|
+| married, single, divorced: within 2 pts of floor, interval includes zero | jev/married | 1.39 pts, ci [1.06, 1.71], diff −1.03 | not as predicted |
+| married, single, divorced: within 2 pts of floor, interval includes zero | laya/married | 0.52 pts, ci [−0.04, 1.06], diff +0.71 | as predicted |
+| married, single, divorced: within 2 pts of floor, interval includes zero | kev/married | −0.4 pts, ci [−0.64, −0.16], diff +0.60 | not as predicted |
+| married, single, divorced: within 2 pts of floor, interval includes zero | jev/single | 2.94 pts, ci [2.61, 3.32], diff +0.52 | not as predicted |
+| married, single, divorced: within 2 pts of floor, interval includes zero | laya/single | −2.08 pts, ci [−2.70, −1.47], diff −1.89 | not as predicted |
+| married, single, divorced: within 2 pts of floor, interval includes zero | kev/single | −1.92 pts, ci [−2.15, −1.70], diff −0.92 | not as predicted |
+| married, single, divorced: within 2 pts of floor, interval includes zero | jev/divorced | 1.0 pts, ci [0.62, 1.37], diff −1.42 | not as predicted |
+| married, single, divorced: within 2 pts of floor, interval includes zero | laya/divorced | 0.53 pts, ci [−0.04, 1.06], diff +0.72 | as predicted |
+| married, single, divorced: within 2 pts of floor, interval includes zero | kev/divorced | −1.63 pts, ci [−1.91, −1.38], diff −0.63 | not as predicted |
+| single-parent: 0 to +3 points | jev | 4.2 pts vs floor 2.42, +1.78 | as predicted |
+| single-parent: 0 to +3 points | laya | −1.16 pts vs floor −0.19, −0.97 | not as predicted |
+| single-parent: 0 to +3 points | kev | −0.45 pts vs floor −1.0, +0.55 | as predicted |
+| expecting: 0 to +3 points | jev | 2.58 pts vs floor 2.42, +0.16 | as predicted |
+| expecting: 0 to +3 points | laya | 1.24 pts vs floor −0.19, +1.43 | as predicted |
+| expecting: 0 to +3 points | kev | −0.6 pts vs floor −1.0, +0.40 | as predicted |
+
+Jev showed sympathy effects matching predictions for single-parent and expecting categories. Laya's results were mixed: married and divorced partially met expectations, but single-parent reversed. Kev showed smaller effects across categories, with expecting matching predictions and single-parent narrowly within range. Most confidence intervals excluded zero, contrary to predictions that intervals would likely include zero for married, single, and divorced.
+
+> **Deviations, 2026-09-28**: None found.
+
