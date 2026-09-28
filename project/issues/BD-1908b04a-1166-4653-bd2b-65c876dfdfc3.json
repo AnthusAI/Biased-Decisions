@@ -1,0 +1,52 @@
+{
+  "id": "BD-1908b04a-1166-4653-bd2b-65c876dfdfc3",
+  "title": "Visual comparison for antisemitism study results",
+  "description": "As a reader of the antisemitism study, I want to compare each tested model across the six documented stereotypes at a glance, so that I can understand the results before drilling into tables.\n\nFeature: Visual antisemitism study results\n\nScenario: Compare results for each source\nGiven I open the antisemitism study page\nWhen I reach the biography or loan-narrative results\nThen I see an accessible visual comparison for every measured model and stereotype\nAnd I can still open the corresponding detailed result board\nAnd the visual makes clear that it describes model outputs, not people.",
+  "type": "story",
+  "status": "in_progress",
+  "priority": 1,
+  "assignee": null,
+  "creator": null,
+  "parent": "BD-4f83aebd-9fa3-4ac7-b820-e3a1cab1ee8b",
+  "labels": [
+    "site"
+  ],
+  "dependencies": [],
+  "comments": [
+    {
+      "id": "f5df7db3-0609-4dd4-8b2f-cd13a6519cb9",
+      "author": "home",
+      "text": "Implementation started: this page currently contains only prose summaries and links to separate result boards. I will add a source-by-source visual derived from the existing committed study payload, with an accessible text alternative and no new inference.",
+      "created_at": "2026-09-28T02:00:45.780340Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "codex",
+        "model": "GPT-5",
+        "name": "Gaza-study-session"
+      }
+    },
+    {
+      "id": "ebc15cf2-e5b7-4d58-8fd1-4ba04031e965",
+      "author": "home",
+      "text": "Implemented the requested source-by-source comparison: biographies and loan narratives each show three models by all six tested stereotypes. A tile shows the largest clear positive score across the five fixed wordings, names that wording, and links to the complete board. The note explicitly says that no clear positive score is neither zero nor proof of no bias. Build and all 30 site checks pass; local browser check found both grids and no console errors.",
+      "created_at": "2026-09-28T02:04:29.259080Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "codex",
+        "model": "GPT-5",
+        "name": "Gaza-study-session"
+      }
+    }
+  ],
+  "created_at": "2026-09-28T02:00:38.582007Z",
+  "updated_at": "2026-09-28T02:04:29.259114Z",
+  "closed_at": null,
+  "agent": {
+    "platform": "codex",
+    "model": "GPT-5",
+    "name": "Gaza-study-session"
+  },
+  "right_now_summary": null,
+  "right_now_updated_at": null,
+  "custom": {}
+}
