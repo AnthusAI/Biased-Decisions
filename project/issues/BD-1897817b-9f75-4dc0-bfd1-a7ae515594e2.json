@@ -34,10 +34,22 @@
         "model": "GPT-5",
         "name": "root"
       }
+    },
+    {
+      "id": "7064b694-5925-4308-9278-5ab4a41b84f2",
+      "author": "home",
+      "text": "Log 2026-09-28: Pushed implementation to `origin/codex/project-assessment` at `0cef9a1` (`ci(site): deploy tested artifacts from GitHub Actions`). The Kanbus record is committed separately. AWS app creation, OIDC role/environment configuration, and custom-domain cutover remain operator actions documented in `docs/deploy.md`; the chore stays in progress pending that deployment verification.",
+      "created_at": "2026-09-28T22:54:37.639178Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "codex",
+        "model": "GPT-5",
+        "name": "root"
+      }
     }
   ],
   "created_at": "2026-09-23T16:31:47.256735Z",
-  "updated_at": "2026-09-28T22:54:00.239314Z",
+  "updated_at": "2026-09-28T22:54:37.639202Z",
   "closed_at": null,
   "agent": {
     "platform": "claude_code",
