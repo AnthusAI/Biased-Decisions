@@ -14,6 +14,7 @@ import Example from "../../components/Example.astro";
 import Chip from "../../components/Chip.astro";
 import HowMeasured from "../../components/HowMeasured.astro";
 import ModelsLine from "../../components/ModelsLine.astro";
+import LoanPairs from "../../components/LoanPairs.astro";
 import { kindName, kindNames, measureOf } from "../../scripts/util.js";
 import { data, allDimensions, engines, urls, boardPayload, describeDim, facetHref, multiGroup, multiItem, niceMax, unit,
   fmt, signed, size, int, cap, forestRows, groupLabel, itemLabel, FAMILY_LABEL, FAMILY_EXPLAIN } from "../../lib/site.js";
@@ -123,6 +124,7 @@ const allFacets = engines.flatMap((en) => dim.cells[en.id].facets || []);
         <p class="lede">Every nationality below was tested on the same 1,000 small-business-loan applications by Jev, Laya and Kev. Each result compares the written nationality sentence with the same-shape cyclist sentence.</p>
         <Matrix dim={nationalityLending} caption="Nationality lending decisions: all thirteen nationalities" />
       </section>
+      <LoanPairs loanPairsData={data.loan_pairs} engines={engines} />
       <section class="wrap section" id="nationality-stereotypes">
         <h2 class="display">Stereotype questions: all thirteen nationalities</h2>
         <p class="lede">This complete thirteen-nationality study uses its own fixed set of stereotype questions and controls. It is shown here with the lending results so nationality evidence is in one place.</p>
