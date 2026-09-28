@@ -624,3 +624,16 @@ details.cell { scroll-margin-top: 140px; }
 .trope-none { align-self: center; color: var(--muted); font-size: 12px; line-height: 1.25; }
 .trope-visual > .note { margin: 0; padding: 10px 16px 12px; border-top: 1px solid var(--rule); }
 @media (max-width: 620px) { .trope-visual { margin-left: -4px; margin-right: -4px; } .trope-visual-table caption { font-size: 20px; } }
+
+/* Gaza/Israel--Hamas direct-response comparison. */
+.gaza-visual { margin: 22px 0 20px; border: 1px solid var(--rule); border-radius: 12px; background: var(--surface); box-shadow: var(--shadow); overflow: hidden; }
+.gaza-visual-scroll { overflow-x: auto; }
+.gaza-visual-table { width: 100%; min-width: 780px; border-collapse: separate; border-spacing: 0; font-size: 13px; }
+.gaza-visual-table caption { caption-side: top; padding: 14px 16px 10px; font-family: var(--display); font-size: 22px; text-align: left; color: var(--ink); }
+.gaza-visual-table th, .gaza-visual-table td { padding: 7px; border-top: 1px solid var(--rule); vertical-align: middle; }
+.gaza-visual-table thead th { border-top: 0; background: var(--surface-2); color: var(--ink-2); font-size: 11px; letter-spacing: .05em; line-height: 1.3; text-transform: uppercase; text-align: left; }
+.gaza-visual-table tbody th { width: 108px; white-space: nowrap; font-weight: 700; }
+.gaza-engine-dot { display: inline-block; width: 9px; height: 9px; margin-right: 6px; border-radius: 50%; background: var(--engine); }
+.gaza-heat { min-width: 76px; padding: 10px 7px; border: 1px solid color-mix(in srgb, var(--engine) 38%, var(--rule)); border-radius: 7px; background: linear-gradient(90deg, color-mix(in srgb, var(--engine) 54%, transparent) var(--agreement), var(--surface-2) var(--agreement)); color: var(--ink); text-align: center; }
+.gaza-heat strong { font-variant-numeric: tabular-nums; }
+.gaza-visual > .note { margin: 0; padding: 10px 16px 12px; border-top: 1px solid var(--rule); }

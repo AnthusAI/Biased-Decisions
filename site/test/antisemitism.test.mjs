@@ -21,4 +21,6 @@ test("the Gaza study identifies all three measured models and records", () => {
   assert.match(html, /Laya, Jev and Kev each directly assessed all 15 statements/);
   assert.match(html, /answers\/jev\/gaza-israel-hamas-decision-status/);
   assert.match(html, /answers\/kev\/gaza-israel-hamas-decision-status/);
+  assert.match(html, /Visual comparison: agreement across the 15 fixed statements/);
+  assert.match(html, /Darker tiles mean more agreement, not more bias/);
 });

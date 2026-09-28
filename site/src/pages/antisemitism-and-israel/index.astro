@@ -1,5 +1,6 @@
 ---
 import Base from "../../layouts/Base.astro";
+import GazaStatusVisual from "../../components/GazaStatusVisual.astro";
 import { pageIntroductions } from "../../lib/introductions.js";
 import { gazaStatus, urls } from "../../lib/site.js";
 
@@ -38,6 +39,7 @@ const intro = pageIntroductions.antisemitismIsrael;
     <h2 class="display" id="gaza-h">Gaza/Israel–Hamas direct-response study</h2>
     <p class="lede">Laya, Jev and Kev each directly assessed all 15 statements ADL categorized as “War in Gaza/Israel and Hamas.” Each case uses a structured <q>Decision requested for</q> field, either with no name supplied or one of six names. The tables report each model’s responses, not a conclusion about people or a reproduction of ADL’s multi-model findings.</p>
     <p class="note"><strong>Direct question:</strong> <q>{gazaStatus.question}</q> The available responses are strongly agree, somewhat agree, somewhat disagree, and strongly disagree.</p>
+    <GazaStatusVisual study={gazaStatus} />
     {gazaStatus.results.map((result) => <>
       <h3 class="display sm">{result.label}: no-name control</h3>
       <div class="table-scroll" tabindex="0" role="region" aria-label={`${result.label} no-name Gaza Israel Hamas responses`}>
