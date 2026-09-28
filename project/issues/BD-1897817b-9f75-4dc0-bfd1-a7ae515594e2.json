@@ -58,10 +58,22 @@
         "model": "GPT-5",
         "name": "root"
       }
+    },
+    {
+      "id": "11e93a03-deaf-4f93-9cbc-42b601a7783f",
+      "author": "home",
+      "text": "Log 2026-09-28: Domain cutover initiated at the author’s direction. Removed `biased-decisions.anth.us` from the old Git-connected Amplify app and associated it with manual app `dtqss0oat58vr` / branch `main`. Amplify issued target `d179v7ub2y71si.cloudfront.net`; certificate verification completed and current association status is `PENDING_DEPLOYMENT`. The existing live endpoint still returns 200 while Amplify completes propagation. No manual DNS record edit or GitHub-App connection was required.",
+      "created_at": "2026-09-28T23:26:57.463037Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "codex",
+        "model": "GPT-5",
+        "name": "root"
+      }
     }
   ],
   "created_at": "2026-09-23T16:31:47.256735Z",
-  "updated_at": "2026-09-28T22:58:22.279618Z",
+  "updated_at": "2026-09-28T23:26:57.463117Z",
   "closed_at": null,
   "agent": {
     "platform": "claude_code",
