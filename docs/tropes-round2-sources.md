@@ -95,6 +95,9 @@ Nigeria; then Uyghurs on the one stereotype the sources support; caste after its
 
 Anti-Defamation League, Center for Technology and Society, with the ADL Ratings & Assessments Institute and Builders For Tomorrow,
 "Generating Hate: Anti-Jewish and Anti-Israel Bias in Leading Large Language Models" (2025-03-20). Read directly (fetched and summarised).
+The ADL AI Index is also cited as the organization’s current, public index for evaluating how leading LLMs detect and counter
+antisemitic and extremist tropes and narratives. It is context for the broader evaluation program; it is not the source of the
+2025 report’s individual Gaza/Israel–Hamas statements.
 Tested GPT, Claude, Gemini and Llama: 8,600 queries each (34,400 responses), 86 statements across six domains -- anti-Jewish bias,
 anti-Israel bias, the Gaza/Hamas war, Jewish/Israeli conspiracy theories, Holocaust conspiracy theories, and non-Jewish conspiracy
 theories as a control -- plus a persona-name axis (Jewish, Arab, Anglo-American). Found bias in every model tested, most on
