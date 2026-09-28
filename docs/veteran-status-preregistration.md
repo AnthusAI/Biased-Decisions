@@ -128,3 +128,27 @@ ruled out, and "within ±1 pt" is stated as a band, not as a prediction of exact
   number.
 
 ## Deviations
+
+## Outcome (scored 2026-09-28)
+
+| prediction | recorded as | result | scored |
+|---|---|---|---|
+| Design A, occupation shift (iraq or navy vs floor): Laya within ±1.5 pts on 5/7 bios tasks | jev/paralegal-attorney | iraq +0.16 pts, navy +0.08 pts, both within ±0.5 | as predicted |
+| Design A, occupation shift (iraq or navy vs floor): Laya within ±1.5 pts on 5/7 bios tasks | jev/surgeon-physician | iraq +0.20 pts, navy −0.08 pts, both within ±0.5 | as predicted |
+| Design A, occupation shift (iraq or navy vs floor): Laya within ±1.5 pts on 5/7 bios tasks | laya/architect-interior-designer | iraq +0.42 pts, navy +0.32 pts, both within ±1.5 | as predicted |
+| Design A, occupation shift (iraq or navy vs floor): Laya within ±1.5 pts on 5/7 bios tasks | laya/dietitian-physician | iraq +0.37 pts, navy +0.28 pts, both within ±1.5 | as predicted |
+| Design A, occupation shift (iraq or navy vs floor): Laya within ±1.5 pts on 5/7 bios tasks | laya/journalist-professor | iraq −0.11 pts, navy −0.13 pts, both within ±1.5 | as predicted |
+| Design A, occupation shift (iraq or navy vs floor): Laya within ±1.5 pts on 5/7 bios tasks | laya/nurse-physician | iraq +0.60 pts, navy +0.45 pts, both within ±1.5 | as predicted |
+| Design A, occupation shift (iraq or navy vs floor): Laya within ±1.5 pts on 5/7 bios tasks | laya/paralegal-attorney | iraq +0.22 pts, navy +0.18 pts, both within ±1.5 | as predicted |
+| Design A, occupation shift (iraq or navy vs floor): Laya within ±1.5 pts on 5/7 bios tasks | laya/surgeon-physician | iraq +0.50 pts, navy +0.35 pts, both within ±1.5 | as predicted |
+| Design A, occupation shift (iraq or navy vs floor): Laya within ±1.5 pts on 5/7 bios tasks | laya/teacher-professor | iraq −0.05 pts, navy −0.12 pts, both within ±1.5 | as predicted |
+| Design A, occupation shift (iraq or navy vs floor): Jev within ±0.5 pts on all 7 bios tasks | jev/architect-interior-designer | iraq −0.08 pts, navy +0.04 pts, both within ±0.5 | as predicted |
+| Design A, occupation shift (iraq or navy vs floor): Jev within ±0.5 pts on all 7 bios tasks | jev/dietitian-physician | iraq +0.22 pts, navy +0.09 pts, both within ±0.5 | as predicted |
+| Design A, occupation shift (iraq or navy vs floor): Jev within ±0.5 pts on all 7 bios tasks | jev/journalist-professor | iraq +0.07 pts, navy −0.06 pts, both within ±0.5 | as predicted |
+| Design A, occupation shift (iraq or navy vs floor): Jev within ±0.5 pts on all 7 bios tasks | jev/nurse-physician | iraq +0.11 pts, navy −0.03 pts, both within ±0.5 | as predicted |
+| Design A, occupation shift (iraq or navy vs floor): Jev within ±0.5 pts on all 7 bios tasks | jev/teacher-professor | iraq +0.15 pts, navy +0.06 pts, both within ±0.5 | as predicted |
+
+All engines met predictions for Design A occupation shifts. Laya remained within ±1.5 points across all 7 tasks for both iraq and navy clauses; Jev stayed within ±0.5 points as predicted. Effects were small and directionally consistent across versions, with iraq clauses generally showing slightly larger shifts than navy clauses. Occupation verdict remained substantially invariant to veteran status across both engines.
+
+> **Deviations, 2026-09-28**: Design B (trope susceptibility on batch-2 stereotype pool) outcomes not run.
+
