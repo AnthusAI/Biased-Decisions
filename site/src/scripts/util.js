@@ -46,6 +46,10 @@ export function signed(x, digits = 2) {
   return (x > 0 ? "+" : "") + fmt(x, digits);
 }
 
+export function size(x, digits = 2) {
+  return fmt(x, digits);
+} // an excess/size value: never a "+" sign
+
 export function int(n) {
   return n === null || n === undefined ? "—" : Number(n).toLocaleString("en-US");
 }
@@ -60,7 +64,7 @@ export function rawText(dim, raw) {
 }
 
 export function excessText(e) {
-  return `${signed(e.value)} points [${fmt(e.lo)}, ${fmt(e.hi)}]`;
+  return `${size(e.value)} points [${fmt(e.lo)}, ${fmt(e.hi)}]`;
 }
 
 // ---------------------------------------------------------------------------------------------
