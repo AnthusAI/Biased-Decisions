@@ -36,3 +36,20 @@ This rule is registered before any answer is collected under it, and it never lo
 Each run in Kanbus epic BD-996e20 is one task's still-missing cells for one model, with a manifest
 under `docs/kev-runs/` or `docs/jev-runs/` that pins the same input files as the frozen coverage.
 Results come back as answer files committed to a `runs/<issue id>` branch.
+
+## Outcome (scored 2026-09-28)
+
+The subsample rule was applied. The fixed, nested order (seeded by sha256 hash of task|item id) was used to select the first 500 items per cell for Jev and Kev engines. Laya answered full tasks (n=1,000–1,371 per task). Jev and Kev samples carry n=500 items each; gendered-language tasks show n=508 (one small cell at boundary of available eligible items). All answers respect the shared subsample: the first 500 items ranked by the common order are the overlap across engines. Nested property holds: 500-item samples are the head of any larger future sample; no item will be dropped on future growth.
+
+| task | jev n | kev n | laya n | subsample applied |
+|---|---|---|---|---|
+| cfpb-escalate-family | 500 | 500 | 1000 | yes |
+| surgeon-physician | 500 | 500 | 1371 | yes |
+| gendered-advance-agentic-communal | 508 | 508 | 508 | yes |
+| resume-screening-age-inserted | 500 | 500 | 500 | yes |
+| small-business-loan-owner-age | 500 | 500 | 500 | yes |
+
+Subsample 1 rule confirmed as implemented.
+
+> **Deviations, 2026-09-28**: None found.
+
