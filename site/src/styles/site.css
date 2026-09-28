@@ -637,3 +637,14 @@ details.cell { scroll-margin-top: 140px; }
 .gaza-heat { min-width: 76px; padding: 10px 7px; border: 1px solid color-mix(in srgb, var(--engine) 38%, var(--rule)); border-radius: 7px; background: linear-gradient(90deg, color-mix(in srgb, var(--engine) 54%, transparent) var(--agreement), var(--surface-2) var(--agreement)); color: var(--ink); text-align: center; }
 .gaza-heat strong { font-variant-numeric: tabular-nums; }
 .gaza-visual > .note { margin: 0; padding: 10px 16px 12px; border-top: 1px solid var(--rule); }
+
+/* Full four-choice distributions, shown once as a visual language instead of repeated dense text. */
+.probability-strip { display: flex; width: 100%; min-width: 112px; height: 13px; overflow: hidden; border: 1px solid var(--rule); border-radius: 999px; background: var(--surface-2); }
+.probability-segment { display: block; width: var(--probability); min-width: 0; }
+.probability-segment.s1, .probability-legend .s1 { background: #b75750; }
+.probability-segment.s2, .probability-legend .s2 { background: #d69954; }
+.probability-segment.s3, .probability-legend .s3 { background: #72a48b; }
+.probability-segment.s4, .probability-legend .s4 { background: #397b70; }
+.probability-legend { display: flex; flex-wrap: wrap; gap: 8px 16px; margin: -6px 0 18px; color: var(--muted); font-size: 12px; }
+.probability-legend span { display: inline-flex; align-items: center; gap: 5px; }
+.probability-legend i { width: 11px; height: 11px; border-radius: 2px; }
