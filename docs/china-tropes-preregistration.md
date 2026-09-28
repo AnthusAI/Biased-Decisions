@@ -47,3 +47,11 @@ Predictions: none; every cell is reported, including those whose interval includ
 ## Rules
 
 Laya first, then Kev, then Jev after a go/no-go; capped at 500 per cell; the sample grows only by a later amendment. Registered before any answer exists.
+
+## Outcome (scored 2026-09-28)
+
+No predictions registered. The study is descriptive: every cell is reported in English and Chinese. Largest single-axis effects: Laya on ethnicity (extremism: +5.69 pts [5.41, 6.01]), Jev on education (less_capable: +14.08 [13.85, 14.34]), Kev on education (+12.97 [12.65, 13.29]). All three engines recorded positive effects on the Uyghur extremism stereotype; education effects were large and positive on both engines but negative for Laya on the second-tier university stereotype. Religion axis showed positive shifts on security_threat for all engines. Kev showed negative intervals on the region axis's snobbery stereotype. The five axes were tested across 500 real biographies per axis for Laya and Kev; all axes were tested for Jev within the pre-registered scope.
+
+> **Deviations, 2026-09-28**
+
+None found.

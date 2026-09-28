@@ -60,3 +60,11 @@ None. The study is descriptive: every cell is reported, including those whose in
 
 Laya first (free), then Kev (free, local), then Jev after a priced go/no-go. The run is capped at 500 items per cell, as in the first pass, and the
 sample grows only in a separate amendment. Registered before any answer exists.
+
+## Outcome (scored 2026-09-28)
+
+No predictions registered. The study is descriptive: every cell is reported. Laya recorded largest effects on the `secular` cue (violence: +4.39 pts [4.22, 4.55], disloyalty: +5.21 [4.63, 5.79]); Jev's largest effects were on the `nationality` cue (women: +6.06 [5.69, 6.43], disloyalty: +3.47 [3.32, 3.63], democracy: +3.47 [3.35, 3.60]). Kev showed small and inconsistent effects, with negative intervals on three stereotypes (women, democracy, backward). All engines recorded positive shifts on violence and disloyalty. The pre-registered stereotypes were tested across four cue forms on 500 biographies and 200 synthetic narratives for Laya and Kev (free engines); Jev's scope was capped at the four named cue forms.
+
+> **Deviations, 2026-09-28**
+
+None found.
