@@ -129,7 +129,7 @@ def test_known_cells(doc):
                  if f["id"] == "nurse-physician")
     assert nurse["attributable"] is False and nurse["detected"] is False
     # Lending is another nationality decision context, not a separate characteristic.
-    assert dims["nationality"]["source"] == "mixed"
+    assert dims["nationality"]["source"] == "harness"
     assert "israeli-nationality-decisions" not in dims
 
 
