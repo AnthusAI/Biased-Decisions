@@ -4,7 +4,7 @@
 // files each row replays from are said once, in plain words, by HowMeasured at the foot of the
 // page (pass sources={false} there); without it, each row lists its files.
 import Chip from "./Chip.astro";
-import { extraLines, filesOf, fmt, int, signed, facetUnit } from "../lib/site.js";
+import { extraLines, filesOf, fmt, int, signed, size, facetUnit } from "../lib/site.js";
 import { kindName, unitText } from "../scripts/util.js";
 
 const { dim, facets, headline = null, detected = false, facetKind, caption, rowHref = null, rowId = null, extras = true, sources = true } = Astro.props;
@@ -33,7 +33,7 @@ const first = (s) => (s ? s.charAt(0).toUpperCase() + s.slice(1) : s);
               <th scope="row">{name}{isHead && <span class="hl">{detected ? "largest" : "largest, not clear"}</span>}</th>
               <td class="num">{fmt(f.raw.value)}{u}<span class="ci-t"> [{fmt(f.raw.lo)}, {fmt(f.raw.hi)}]</span><div class="sub">{f.raw.label}</div></td>
               <td class="num">{fmt(f.floor.value)}{u}{f.floor.lo !== null && f.floor.lo !== undefined && <span class="ci-t"> [{fmt(f.floor.lo)}, {fmt(f.floor.hi)}]</span>}<div class="sub">{f.floor.label}</div></td>
-              <td class="num strong">{signed(f.excess.value)}<span class="ci-t"> [{fmt(f.excess.lo)}, {fmt(f.excess.hi)}]</span></td>
+              <td class="num strong">{size(f.excess.value)}<span class="ci-t"> [{fmt(f.excess.lo)}, {fmt(f.excess.hi)}]</span></td>
               <td><Chip facet={f} /></td>
               <td class="num">{int(f.n)}</td>
             </tr>

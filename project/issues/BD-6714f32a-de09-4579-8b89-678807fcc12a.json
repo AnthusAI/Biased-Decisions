@@ -1,0 +1,25 @@
+{
+  "id": "BD-6714f32a-de09-4579-8b89-678807fcc12a",
+  "title": "Run and score the calibrated nationality loan study",
+  "description": "Run the pre-registered versions on the chosen rungs, score approval rates and flips per band with seed-0 bootstrap intervals, add a replayable study file, and write the Outcome section against the predictions word for word.",
+  "type": "sub-task",
+  "status": "open",
+  "priority": 1,
+  "assignee": null,
+  "creator": null,
+  "parent": "BD-bcbce35b-399d-4248-bed9-5b7fa3b753ba",
+  "labels": [],
+  "dependencies": [],
+  "comments": [],
+  "created_at": "2026-09-28T18:40:20.568759Z",
+  "updated_at": "2026-09-28T18:40:20.568790Z",
+  "closed_at": null,
+  "agent": {
+    "platform": "claude_code",
+    "model": "Claude Opus 5.5",
+    "name": "Project Assessment"
+  },
+  "right_now_summary": null,
+  "right_now_updated_at": null,
+  "custom": {}
+}
