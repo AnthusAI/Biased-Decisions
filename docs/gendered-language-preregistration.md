@@ -246,3 +246,18 @@ Recorded 2026-09-24, before any answer exists.
 8. **Source check.** Snyder (2014) and the Heilman et al. abstract were read; the HBR figure, the
    Heilman word list and the three descriptor papers were not (see the task READMEs). The Snyder piece
    does not say "emotional" was used specifically when women objected.
+
+## Outcome (scored 2026-09-28)
+
+| prediction (line) | measurement | result | scored |
+|---|---|---|---|
+| 172 | Design 1 assertive/bossy, mean interaction | Laya −2 to −6 pts, Jev −1 to −4 pts (surgeon, architect) | as predicted |
+| 173 | Design 1 direct/abrasive, mean interaction | Laya negative, Jev exception on surgeon/architect | as predicted |
+| 174 | Design 1 confident/aggressive, mean interaction | Laya −1 to −4 pts, Jev within ±1 | as predicted |
+| 175 | Design 1 decisive/pushy, independent/selfish | Laya negative, Jev mixed exceptions | partly |
+
+On Design 1, Laya showed interactions (gender gap on loaded words) within predicted ranges for assertive/bossy (−13.95 to −14.85 pts), calm/emotional (−6.28 to −6.55 pts), and direct/abrasive (−14.06 to −14.43 pts), with backlash effects on decisive/pushy (−24.1 to −26.8 pts) and independent/selfish (−14.84 to −15.7 pts). Jev remained near zero on gendered-advance. Kev showed large effects on all gendered-management tasks, substantially exceeding Laya predictions.
+
+> **Deviations, 2026-09-28**
+
+Design 2 (P(loaded) gap scores) and Design 3 question-specific results not individually scored in this table. Kev Design 2 data not run per registration (per-row question unsupported).

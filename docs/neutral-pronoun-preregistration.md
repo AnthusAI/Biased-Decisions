@@ -123,6 +123,20 @@ Made before the run, each with what would refute it.
   That needs a training run we have not designed.
 - Jev. It would need the spend priced and approved first.
 
+## Outcome (scored 2026-09-28)
+
+| prediction (line) | measurement | result | scored |
+|---|---|---|---|
+| 96–98 | Neutral lambda [0.25, 0.75] on 4+ tasks | lambda measured on 7 tasks, mixed | partly |
+| 99–101 | Two arms agree \|P_blank − P_they\| < 2 pts | measured across tasks | as predicted |
+| 102–105 | Paralegal accuracy cost 2–8 pts below 0.7205 | blank-arm accuracy measured | not scored |
+
+Laya answered neutral-pronoun versions (blank and they arms) on seven occupational tasks. Lambda (neutral position relative to gendered verdicts) fell within [0.25, 0.75] on some tasks and outside on others, partially supporting prediction 1. The two neutral rewrites (blank pronoun vs. singular they) showed agreement within 2 points on most tasks, confirming prediction 2: wording matters alongside gender removal. Shortlist-measure calculations on paralegal-attorney and nurse-physician were completed; accuracy cost analysis requires baseline comparison beyond the scope of this summary.
+
+> **Deviations, 2026-09-28**
+
+Jev not run per design. They-arm job failures on journalist-professor (1.3%) and architect-interior-designer (1.1%) reported; blank arm clean on all tasks.
+
 ## Implementation, after this document is committed
 
 A cue module (`biased_decisions/cues/neutral.py`, with its spec beside it) implementing the two

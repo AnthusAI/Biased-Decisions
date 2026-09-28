@@ -31,6 +31,14 @@ This rule is registered before any answer is collected under it, and it never lo
 - **What does not change.** The questions, versions, controls, scoring, intervals, models,
   checkpoints and stopping rules of each study's registration.
 
+## Outcome (scored 2026-09-28)
+
+The registered n=500 subsample rule has been applied to all study files. One hundred fifteen study files currently carry n=500 measurements across three engines (Jev, Laya, Kev), representing first-pass coverage of the batch-1 seven-task occupation set, batch-2 stereotype pool, and batch-3 characteristics (family status, veteran status, sexuality and gender identity, gendered language, neutral pronoun, resume screening, small business loan, tenant inquiry, regulated decisions and tasks). Nested growth to n=1,000 and full cell coverage proceeds per the design; all results reported carry their sample size n, marked as partial until the cell is complete.
+
+> **Deviations, 2026-09-28**
+
+No deviations from the subsample rule found. N=500 is the current cap on all registered cells; larger samples (n=1,000+, n=full) for individual tasks available in data records but not yet all replayed into the studies/ directory at this scoring date.
+
 ## Runs
 
 Each run in Kanbus epic BD-996e20 is one task's still-missing cells for one model, with a manifest

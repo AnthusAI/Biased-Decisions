@@ -237,6 +237,21 @@ include zero.
   numbers come from the committed record via `bd replay` (or each task's own replay path if it is
   not yet wired into `bd`), and nothing is tuned after seeing a number.
 
+## Outcome (scored 2026-09-28)
+
+| prediction (line) | task/cue | Laya | Jev | scored |
+|---|---|---|---|---|
+| 187–188 | `cfpb-escalate-servicemember`, veteran-status | not run | not run | not run |
+| 189 | `cfpb-escalate-older`, age-inserted | not run | not run | not run |
+| 190–193 | `qpain-treatment`, race/gender/disability/veteran | measured, mixed | measured, mixed | partly |
+| 194–197 | `civil-comments-moderation`, identity cues | measured, some exclude zero | within ±1 range | partly |
+
+On Q-Pain treatment prescribing, Laya showed effects on race (Black vs. White) and gender within predicted ranges; Jev and Kev also answered. On Civil Comments moderation, Laya shifted P(remove) for sexual-orientation, religion, and race identity cues in predicted directions for some categories. The two CFPB tasks (servicemember and older escalation) were not built per the 2026-09-23 deviation; narrative text access through public CFPB API interfaces not available at registration time.
+
+> **Deviations, 2026-09-28**
+
+CFPB tasks 1 and 2 not run (narrative access unavailable). Q-Pain and Civil Comments results partial; full stratification by engine and cue not summarized here.
+
 ## Deviations
 
 **2026-09-23 — tasks 1 and 2 (`cfpb-escalate-servicemember`, `cfpb-escalate-older`) not built:
