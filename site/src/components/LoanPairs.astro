@@ -1,0 +1,309 @@
+---
+// Loan pairs visualization: vs average, pairwise matrices, and decision changes.
+import { engineById, fmt, signed, data } from "../lib/site.js";
+
+const { loanPairsData, engines: engineList } = Astro.props;
+
+// Get nationality labels from the data
+const getNationalityLabel = (id) => {
+  const nat = data.dimensions
+    .find((d) => d.id === "nationality")
+    ?.facets.find((f) => f.id === id);
+  return nat?.label || id;
+};
+
+// Fixed order of nationalities as defined in the data
+const nationalityOrder = [
+  "american",
+  "chinese",
+  "german",
+  "nigerian",
+  "mexican",
+  "indian",
+  "british",
+  "israeli",
+  "palestinian",
+  "russian",
+  "ukrainian",
+  "korean",
+  "japanese",
+];
+
+// Helper to get value and interval from data, handling signed values
+const formatValue = (item) => {
+  if (!item) return null;
+  return {
+    value: signed(item.mean_pts),
+    ci: [fmt(item.ci_pts[0]), fmt(item.ci_pts[1])],
+  };
+};
+
+// Helper to check if interval excludes 0 (clear effect)
+const isClearEffect = (item) => {
+  if (!item) return false;
+  const [lo, hi] = item.ci_pts;
+  return (lo > 0 && hi > 0) || (lo < 0 && hi < 0);
+};
+
+// Section A: vs_all_mean - each nationality against the average
+const sortedNationalities = nationalityOrder
+  .map((natId) => ({
+    id: natId,
+    label: getNationalityLabel(natId),
+    layaValue: loanPairsData.laya.vs_all_mean[natId],
+    kevValue: loanPairsData.kev.vs_all_mean[natId],
+    jevValue: loanPairsData.jev.vs_all_mean[natId],
+  }))
+  .sort(
+    (a, b) =>
+      (a.layaValue?.mean_pts ?? 0) - (b.layaValue?.mean_pts ?? 0)
+  );
+
+// Section B: Pairs - create 13x13 matrices for each engine
+const createPairMatrix = (engineData) => {
+  const matrix = {};
+  for (const rowNat of nationalityOrder) {
+    matrix[rowNat] = {};
+    for (const colNat of nationalityOrder) {
+      if (rowNat === colNat) {
+        matrix[rowNat][colNat] = null;
+      } else {
+        // Check both directions: rowNat|colNat and colNat|rowNat
+        const key1 = `${rowNat}|${colNat}`;
+        const key2 = `${colNat}|${rowNat}`;
+        let value = engineData.pairs[key1];
+        if (!value && engineData.pairs[key2]) {
+          // If we need to reverse, negate the value
+          const reverseVal = engineData.pairs[key2];
+          value = {
+            mean_pts: -reverseVal.mean_pts,
+            ci_pts: [-reverseVal.ci_pts[1], -reverseVal.ci_pts[0]],
+          };
+        }
+        matrix[rowNat][colNat] = value;
+      }
+    }
+  }
+  return matrix;
+};
+
+const layaMatrix = createPairMatrix(loanPairsData.laya);
+const kevMatrix = createPairMatrix(loanPairsData.kev);
+const jevMatrix = createPairMatrix(loanPairsData.jev);
+
+// Section C: Flips - decision flips in the borderline band
+const getFlipsSorted = (flipsData, band) => {
+  if (!flipsData[band]) return null;
+
+  const flips = flipsData[band].vs_control;
+  const sortedByNet = nationalityOrder
+    .filter((natId) => flips[natId])
+    .map((natId) => ({
+      id: natId,
+      label: getNationalityLabel(natId),
+      approveToDeny: flips[natId].approve_to_deny_pct,
+      approveToDenyCI: flips[natId].approve_to_deny_ci,
+      denyToApprove: flips[natId].deny_to_approve_pct,
+      denyToApproveCI: flips[natId].deny_to_approve_ci,
+      net: flips[natId].net_pct,
+      netCI: flips[natId].net_ci,
+    }))
+    .sort((a, b) => a.net - b.net);
+
+  return sortedByNet;
+};
+
+const layaBorderlineFlips = getFlipsSorted(
+  loanPairsData.laya.bands.flips,
+  "borderline"
+);
+const kevBorderlineFlips = getFlipsSorted(
+  loanPairsData.kev.bands.flips,
+  "borderline"
+);
+const jevBorderlineFlips = getFlipsSorted(
+  loanPairsData.jev.bands.flips,
+  "borderline"
+);
+---
+
+<section class="wrap section" id="nationality-lending-relative">
+  <h2 class="display">Lending decisions: each nationality against the average of all thirteen</h2>
+  <p class="lede">The cyclist control may itself move a model's confidence, so this view compares each nationality with the average of all thirteen on the same application.</p>
+  <div class="table-scroll" tabindex="0" role="region" aria-label="Each nationality compared to average of all thirteen">
+    <table>
+      <caption class="sr">Lending decisions: each nationality against the average of all thirteen</caption>
+      <colgroup><col /><col /><col /><col /></colgroup>
+      <thead>
+        <tr>
+          <th scope="col">Nationality</th>
+          <th scope="col">Laya</th>
+          <th scope="col">Kev</th>
+          <th scope="col">Jev</th>
+        </tr>
+      </thead>
+      <tbody>
+        {sortedNationalities.map(({ id, label, layaValue, kevValue, jevValue }) => (
+          <tr>
+            <td>{label}</td>
+            <td class={isClearEffect(layaValue) ? "det" : ""}>
+              {formatValue(layaValue)
+                ? `${formatValue(layaValue).value} [${formatValue(layaValue).ci.join(", ")}]`
+                : "—"}
+            </td>
+            <td class={isClearEffect(kevValue) ? "det" : ""}>
+              {formatValue(kevValue)
+                ? `${formatValue(kevValue).value} [${formatValue(kevValue).ci.join(", ")}]`
+                : "—"}
+            </td>
+            <td class={isClearEffect(jevValue) ? "det" : ""}>
+              {formatValue(jevValue)
+                ? `${formatValue(jevValue).value} [${formatValue(jevValue).ci.join(", ")}]`
+                : "—"}
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="wrap section" id="nationality-lending-pairs">
+  <h2 class="display">Lending decisions: any two nationalities compared directly</h2>
+  <p class="lede">Every application was asked with every nationality, so any two can be compared on the same applications.</p>
+  <p class="note">Each value: how many points more (plus) or less (minus) confident the model is in approving the row nationality's application than the column nationality's.</p>
+
+  {[
+    { engine: "laya", matrix: layaMatrix },
+    { engine: "kev", matrix: kevMatrix },
+    { engine: "jev", matrix: jevMatrix },
+  ].map(({ engine, matrix }) => (
+    <>
+      <h3>{engineById[engine].label}</h3>
+      <div class="table-scroll matrix-scroll" tabindex="0" role="region" aria-label={`${engineById[engine].label}: pairwise nationality comparisons`}>
+        <table class="matrix-pairs" style={`--n:${nationalityOrder.length}`}>
+          <caption class="sr">{engineById[engine].label}: pairwise nationality comparisons</caption>
+          <colgroup><col class="mx-first" />{nationalityOrder.map(() => <col class="mx-col" />)}</colgroup>
+          <thead>
+            <tr>
+              <th scope="col" class="mx-corner">
+                <span>{engineById[engine].label}</span>
+              </th>
+              {nationalityOrder.map((natId) => (
+                <th scope="col"><span>{getNationalityLabel(natId)}</span></th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {nationalityOrder.map((rowNat) => (
+              <tr>
+                <th scope="row">{getNationalityLabel(rowNat)}</th>
+                {nationalityOrder.map((colNat) => {
+                  const value = matrix[rowNat][colNat];
+                  if (!value) {
+                    return <td class="mx"></td>;
+                  }
+                  const isClear = isClearEffect(value);
+                  const cls = `mx${isClear ? " det" : " nd"}`;
+                  return (
+                    <td class={cls}>
+                      {formatValue(value)
+                        ? `${formatValue(value).value} [${formatValue(value).ci.join(", ")}]`
+                        : "—"}
+                    </td>
+                  );
+                })}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </>
+  ))}
+</section>
+
+<section class="wrap section" id="nationality-lending-flips">
+  <h2 class="display">Lending decisions: how often the decision itself changes</h2>
+  <p class="lede">A decision is "approve" when the model's approval probability is at least 50%. Applications are grouped by how strong the model finds them on average: weak below 35%, borderline 35–65%, strong above 65%. Here is how often the model's decision changes when we swap the nationality.</p>
+
+  <div class="table-scroll" tabindex="0" role="region" aria-label="Application counts by decision strength band">
+    <table>
+      <caption class="sr">Application counts by decision strength band</caption>
+      <colgroup><col /><col /><col /><col /></colgroup>
+      <thead>
+        <tr>
+          <th scope="col">Model</th>
+          <th scope="col">Weak</th>
+          <th scope="col">Borderline</th>
+          <th scope="col">Strong</th>
+        </tr>
+      </thead>
+      <tbody>
+        {["laya", "kev", "jev"].map((engine) => (
+          <tr>
+            <td>{engineById[engine].label}</td>
+            <td>{loanPairsData[engine].bands.counts.weak}</td>
+            <td>{loanPairsData[engine].bands.counts.borderline}</td>
+            <td>{loanPairsData[engine].bands.counts.strong}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  {[
+    { engine: "laya", flips: layaBorderlineFlips },
+    { engine: "kev", flips: kevBorderlineFlips },
+    { engine: "jev", flips: jevBorderlineFlips },
+  ].map(({ engine, flips }) => (
+    <>
+      <h3>Borderline applications: {engineById[engine].label}</h3>
+      {!flips ? (
+        <p class="note">Too few applications in this group.</p>
+      ) : (
+        <div class="table-scroll" tabindex="0" role="region" aria-label={`${engineById[engine].label}: decision changes in borderline group`}>
+          <table>
+            <caption class="sr">{engineById[engine].label}: decision changes in borderline group</caption>
+            <colgroup><col /><col /><col /><col /></colgroup>
+            <thead>
+              <tr>
+                <th scope="col">Nationality</th>
+                <th scope="col">Approved for cyclist, denied here</th>
+                <th scope="col">Denied for cyclist, approved here</th>
+                <th scope="col">Net</th>
+              </tr>
+            </thead>
+            <tbody>
+              {flips.map(
+                ({
+                  label,
+                  approveToDeny,
+                  approveToDenyCI,
+                  denyToApprove,
+                  denyToApproveCI,
+                  net,
+                  netCI,
+                }) => (
+                  <tr>
+                    <td>{label}</td>
+                    <td>
+                      {fmt(approveToDeny)}% [{fmt(approveToDenyCI[0])}, {fmt(approveToDenyCI[1])}]
+                    </td>
+                    <td>
+                      {fmt(denyToApprove)}% [{fmt(denyToApproveCI[0])}, {fmt(denyToApproveCI[1])}]
+                    </td>
+                    <td>
+                      {fmt(net)}% [{fmt(netCI[0])}, {fmt(netCI[1])}]
+                    </td>
+                  </tr>
+                )
+              )}
+            </tbody>
+          </table>
+        </div>
+      )}
+    </>
+  ))}
+
+  <p class="note">This analysis was added after the answers were collected.</p>
+</section>
