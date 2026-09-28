@@ -24,7 +24,9 @@ class KevEngine:
         if not self.base_url:
             raise ValueError("KEV_BASE_URL is required to use Kev")
         self.api_key = api_key if api_key is not None else os.getenv("KEV_API_KEY")
-        self.model_name = model if model is not None else os.getenv("KEV_MODEL", "kev-latest")
+        self.model_name = model if model is not None else os.getenv("KEV_MODEL")
+        if not self.model_name:
+            raise ValueError("KEV_MODEL is required to use Kev (provide via parameter or environment variable)")
         self.timeout = timeout
         self._transport = transport
         self.model: Optional[str] = None
