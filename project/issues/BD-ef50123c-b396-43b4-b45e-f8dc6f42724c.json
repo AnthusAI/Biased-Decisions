@@ -3,17 +3,25 @@
   "title": "A reader can find who made the site and how to report an error from any page",
   "description": "Feature: About page\n  Scenario: Reach About from any page\n    Given any page on the built site\n    When I follow the About link in the header or footer\n    Then I reach a page that names the maker, the funding, each engine's maker and how it was accessed, and a way to report an error\n  Scenario: Engine access is disclosed\n    Given the About page\n    When I read the section on a hosted engine\n    Then it states that access was paid API access and that no other relationship exists",
   "type": "story",
-  "status": "open",
+  "status": "closed",
   "priority": 1,
   "assignee": null,
   "creator": null,
   "parent": "BD-f29665c2-fedb-4b5b-91b6-da711ada0594",
   "labels": [],
   "dependencies": [],
-  "comments": [],
+  "comments": [
+    {
+      "id": "c946e054-e8c5-4a97-8a97-88171334fd99",
+      "author": "home",
+      "text": "Merged to develop in PR #86: /about/ page linked from header and footer; engine descriptions carry maker, access terms, versions and the Kev checkpoint; KEV_MODEL is now required.",
+      "created_at": "2026-09-28T04:49:47.003530Z",
+      "comment_type": "default"
+    }
+  ],
   "created_at": "2026-09-28T04:20:21.722731Z",
-  "updated_at": "2026-09-28T04:20:21.722761Z",
-  "closed_at": null,
+  "updated_at": "2026-09-28T04:49:47.042999Z",
+  "closed_at": "2026-09-28T04:49:47.042969Z",
   "agent": {
     "platform": "claude_code",
     "model": "Claude Fable 5.1",
