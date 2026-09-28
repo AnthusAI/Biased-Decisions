@@ -8,7 +8,7 @@
 // never zero.
 import { createHash } from "node:crypto";
 import { data, engines, engineById, dimensions, urls, levelPath, groupOf, itemOf, cellOf, multiGroup,
-  multiItem, unit, fmt, signed, int, plural } from "./site.js";
+  multiItem, unit, fmt, signed, int, plural, getSignedValue } from "./site.js";
 
 const rel = data.provenance.release;
 export const STAMP = rel.released ? `v${rel.version} · ${rel.date}` : `v${rel.version} · unreleased`;
@@ -68,9 +68,12 @@ export function dimPositionOf(dim, engineId) {
 const floorText = (dim, floorValue) => `over a floor of ${fmt(floorValue)}${unit(dim) === "%" ? "%" : " pts"}`;
 
 // Runners-up from a board: every engine but the leader, ranked, then not detected, then missing.
-function runners(board, skip, withN = true) {
+function runners(board, skip, withN = true, getSignedValueFor = null) {
   const rows = [];
-  for (const r of board.ranked) if (r.engine !== skip) rows.push({ engine: r.engine, text: `${E(r.engine)} ${signed(r.value)} pts` });
+  for (const r of board.ranked) if (r.engine !== skip) {
+    const displayValue = getSignedValueFor ? getSignedValueFor(r.engine, r.facet) : r.value;
+    rows.push({ engine: r.engine, text: `${E(r.engine)} ${signed(displayValue || r.value)} pts` });
+  }
   for (const r of board.not_detected) if (r.engine !== skip) rows.push({ engine: r.engine, text: `${E(r.engine)}: no bias detected at this floor${withN ? ` (n = ${int(r.n)})` : ""}` });
   for (const id of board.unmeasured) if (id !== skip) rows.push({ engine: id, text: `${E(id)}: not measured` });
   return rows;
@@ -92,19 +95,20 @@ function preregLine(rows, engineId) {
 }
 
 // A board's card: the leader, its number over the floor, and the others.
-function boardCard(template, dim, board, lead, floorValue, headlineFor, extra = {}) {
+function boardCard(template, dim, board, lead, floorValue, headlineFor, extra = {}, getSignedValueFor = null) {
   const top = board.ranked[0];
   if (top) {
-    return { template, headline: headlineFor(top.engine), number: `${signed(top.value)} pts`,
-      numberNote: floorText(dim, floorValue(top.engine)), rows: runners(board, top.engine), ...extra };
+    const displayValue = getSignedValueFor ? getSignedValueFor(top.engine, top.facet) : top.value;
+    return { template, headline: headlineFor(top.engine), number: `${signed(displayValue)} pts`,
+      numberNote: floorText(dim, floorValue(top.engine)), rows: runners(board, top.engine, true, getSignedValueFor), ...extra };
   }
   const nd = board.not_detected;
   if (nd.length) {
     return { template, headline: `No engine clears the floor on ${lead}`, number: `n = ${int(nd[0].n)}`,
       numberNote: nd.length > 1 ? "bios each; every interval includes the floor" : "bios; the interval includes the floor",
-      rows: runners(board, null, false), ...extra };
+      rows: runners(board, null, false, getSignedValueFor), ...extra };
   }
-  return { template, headline: `No engine measured on ${lead} yet`, rows: runners(board, null), ...extra };
+  return { template, headline: `No engine measured on ${lead} yet`, rows: runners(board, null, true, getSignedValueFor), ...extra };
 }
 
 // At most two rows of runners-up (one beside a pre-registered outcome), so element 3 fits.
@@ -126,11 +130,18 @@ function homeCard() {
 
 function dimCard(dim) {
   const lead = lower(dim.long);
+  const getSignedValueFor = (engine, facetId) => {
+    const c = dim.cells[engine];
+    if (!c || !c.headline || c.headline.facet !== facetId) return null;
+    const f = c.facets.find((fac) => fac.id === facetId);
+    if (!f) return null;
+    return getSignedValue(f);
+  };
   return boardCard("dimension", dim, dim.board, lead, (e) => dim.cells[e].headline.floor_value, (e) => {
     const tie = dim.board.ranked.filter((r) => r.value === dim.board.ranked[0].value).length > 1;
     if (!dim.board.contested) return `${E(e)}, the only engine measured, is biased on ${lead}`;
     return `${E(e)} is ${tie ? "joint " : ""}most biased on ${lead}`;
-  });
+  }, {}, getSignedValueFor);
 }
 
 function levelCard(dim, level) {
@@ -138,9 +149,30 @@ function levelCard(dim, level) {
   const place = level.kind === "cell"
     ? `${groupOf(dim, level.group).label} × ${itemOf(dim, level.item).label}`
     : level.kind === "group" ? groupOf(dim, level.group).label : itemOf(dim, level.item).label;
+  const getSignedValueFor = (engine, facetId) => {
+    const head = level.heads[engine];
+    if (!head || !head.headline || head.headline.facet !== facetId) return null;
+    try {
+      let cell;
+      if (level.kind === "cell") {
+        cell = cellOf(dim, level.group, level.item);
+      } else if (level.kind === "group") {
+        cell = dim.breakdown.cells.find((c) => c.group === level.group && c.item === head.headline.facet);
+      } else {
+        cell = dim.breakdown.cells.find((c) => c.item === level.item && c.group === head.headline.facet);
+      }
+      const facets = cell?.engines[engine]?.facets || [];
+      const f = facets.find((fac) => fac.id === facetId);
+      if (!f) return null;
+      return getSignedValue(f);
+    } catch {
+      return null;
+    }
+  };
   const card = boardCard(template, dim, level.board, `${lower(dim.label)}: ${place}`,
     (e) => level.heads[e].headline.floor_value,
-    (e) => { const [g, i] = positionOf(dim, level, level.heads[e]); return doesAt(dim, g, i, e); });
+    (e) => { const [g, i] = positionOf(dim, level, level.heads[e]); return doesAt(dim, g, i, e); },
+    {}, getSignedValueFor);
   if (level.kind === "cell") {
     const cell = cellOf(dim, level.group, level.item);
     if (cell.prereg) {
