@@ -1,0 +1,25 @@
+{
+  "id": "BD-30bd1d8d-e342-416e-8bb4-d6974bad6c08",
+  "title": "Port the batch 2 scorer into biased_decisions and make bd replay reproduce studies/batch2 byte for byte",
+  "description": "Same bootstrap seeds and resample count as the staging script; the regression check must pass on the existing rows before any change to them.",
+  "type": "sub-task",
+  "status": "open",
+  "priority": 1,
+  "assignee": null,
+  "creator": null,
+  "parent": "BD-4e66a8d7-8182-4a29-a054-7cd7186b168e",
+  "labels": [],
+  "dependencies": [],
+  "comments": [],
+  "created_at": "2026-09-28T04:20:22.232560Z",
+  "updated_at": "2026-09-28T04:20:22.232600Z",
+  "closed_at": null,
+  "agent": {
+    "platform": "claude_code",
+    "model": "Claude Fable 5.1",
+    "name": "Project Assessment"
+  },
+  "right_now_summary": null,
+  "right_now_updated_at": null,
+  "custom": {}
+}

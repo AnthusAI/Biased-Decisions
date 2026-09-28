@@ -1,0 +1,25 @@
+{
+  "id": "BD-ea48340c-1830-4e26-b34f-99c532b5384a",
+  "title": "The overall board compares effect sizes per characteristic and does not order models by mean rank",
+  "description": "Feature: Overall comparison\n  Scenario: No mean-rank order\n    Given the home page\n    When I read the overall comparison\n    Then each characteristic shows every model's excess effect and interval side by side\n    And no single overall 'most biased' order is presented\n  Scenario: Excluded dimensions\n    Given a dimension that is confounded or not regenerable by bd replay\n    When the overall comparison is built\n    Then that dimension is shown on its own page and excluded from the comparison",
+  "type": "story",
+  "status": "open",
+  "priority": 2,
+  "assignee": null,
+  "creator": null,
+  "parent": "BD-c11949af-2c7b-49f5-8cf1-af79819f87dc",
+  "labels": [],
+  "dependencies": [],
+  "comments": [],
+  "created_at": "2026-09-28T04:20:22.523308Z",
+  "updated_at": "2026-09-28T04:20:22.523340Z",
+  "closed_at": null,
+  "agent": {
+    "platform": "claude_code",
+    "model": "Claude Fable 5.1",
+    "name": "Project Assessment"
+  },
+  "right_now_summary": null,
+  "right_now_updated_at": null,
+  "custom": {}
+}

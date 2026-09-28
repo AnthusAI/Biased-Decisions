@@ -342,6 +342,19 @@ def test_build_gender_pronouns_matches_committed_twins_in_items_jsonl(slug):
         assert row == committed[row["id"]], row["id"]
 
 
+@pytest.mark.parametrize("slug", ["surgeon-physician", "nurse-physician", "teacher-professor",
+                                  "paralegal-attorney", "journalist-professor",
+                                  "architect-interior-designer", "dietitian-physician"])
+def test_build_trivial_edit_matches_committed_versions_file(slug):
+    """trivial-edit floor cue: deterministic synonym swaps, checked against the committed
+    versions file. Rebuilding byte-for-byte reproduces the committed versions."""
+    task = load_task(slug)
+    result = build_cue("trivial-edit", task)
+    committed = _read_jsonl(task.versions_path("trivial-edit"))
+    assert result.rows == committed
+    assert result.excluded == 0
+
+
 # ---------------------------------------------------------------------------------------------
 # Batch 1 / milestone 1b: disability, religion, religion-v2, ask-twice, option-order and
 # port-vs-original, checked against studies/batch1/targets.jsonl (a verbatim copy of the

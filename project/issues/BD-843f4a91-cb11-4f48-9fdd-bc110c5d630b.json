@@ -1,0 +1,25 @@
+{
+  "id": "BD-843f4a91-cb11-4f48-9fdd-bc110c5d630b",
+  "title": "Move the batch 2 answer record into answers/ with sidecars",
+  "description": "Bring the staged Laya answers for the stereotype task under answers/laya/stereotypes/ with metadata sidecars recording package version, hardware and precision.",
+  "type": "sub-task",
+  "status": "open",
+  "priority": 1,
+  "assignee": null,
+  "creator": null,
+  "parent": "BD-4e66a8d7-8182-4a29-a054-7cd7186b168e",
+  "labels": [],
+  "dependencies": [],
+  "comments": [],
+  "created_at": "2026-09-28T04:20:22.182635Z",
+  "updated_at": "2026-09-28T04:20:22.182669Z",
+  "closed_at": null,
+  "agent": {
+    "platform": "claude_code",
+    "model": "Claude Fable 5.1",
+    "name": "Project Assessment"
+  },
+  "right_now_summary": null,
+  "right_now_updated_at": null,
+  "custom": {}
+}

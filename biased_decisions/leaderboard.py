@@ -58,18 +58,18 @@ PREREG_PATH = Path("studies/PREREGISTERED.md")
 
 ENGINES: List[dict] = [
     {"id": "jev", "label": "Jev", "color": "#0389d7", "color_dark": "#1f9be3",
-     "marker": "circle", "kind": "fast decision model, run online by its maker",
-     "about": "We reach Jev through its maker's software kit, typesafe-sdk. The "
-              "probabilities are Jev's own, given to two decimals.",
+     "marker": "circle", "kind": "hosted fast decision model",
+     "about": "Jev is a hosted fast decision model. We reach it through its maker's software kit, "
+              "typesafe-sdk, on paid API access. We pay for that access and have no other relationship "
+              "with its maker. The version tested is jev-1.13.0.",
      "stand_in": False},
     {"id": "laya", "label": "Laya", "color": "#d03382", "color_dark": "#e8579b",
-     "marker": "square", "kind": "fast decision model, free and open source",
-     "about": "Laya is an open-source model (github.com/NandhaKishorM/laya, Apache-2.0). We ran it "
-              "two ways: an independent build for Apple's MLX software (laya-mlx 0.1.0) and the "
-              "original build on PyTorch, a common machine-learning library (laya 0.3.7). They "
-              "give the same headline results, though on a single text their probabilities can differ by up to about 0.02, so we show "
-              "one Laya. We use the MLX build wherever we have it, and each result says "
-              "which build gave it. The probabilities are Laya's own.",
+     "marker": "square", "kind": "open-source fast decision model",
+     "about": "Laya is open source at github.com/NandhaKishorM/laya under the Apache-2.0 license. "
+              "We ran two builds on our own Apple-silicon hardware. The independent Apple MLX port "
+              "(laya-mlx 0.1.0) was used wherever we have it; the original PyTorch build (laya 0.3.7) "
+              "was used where the MLX build has not run yet. The headline results matched, though "
+              "probabilities can differ by up to about 0.02 on a single text.",
      "builds": [
          {"id": "laya-mlx", "label": "MLX build", "package": "laya-mlx 0.1.0",
           "runs_on": "Apple's MLX software", "note": "used wherever we have it"},
@@ -77,9 +77,11 @@ ENGINES: List[dict] = [
           "runs_on": "PyTorch", "note": "used where the MLX build has not run yet"}],
      "stand_in": False},
     {"id": "kev", "label": "Kev", "color": "#8b6bd6", "color_dark": "#b19aec",
-     "marker": "diamond", "kind": "fast decision model, open source",
-     "about": "Kev is an open-source decision model. It answers questions about text with "
-              "yes-or-no, choice, or rating answers.",
+     "marker": "diamond", "kind": "open-source decision model",
+     "about": "Kev is open source at github.com/jaredpalmer/kev. We ran it on our own "
+              "Apple-silicon hardware with checkpoint jaredpalmer/kev-0.8b@54f4f8777356cd5bbbb6c6919c657f26e6f2f6d8, "
+              "base model Qwen/Qwen3.5-0.8B-Base@dc7cdfe2ee4154fa7e30f5b51ca41bfa40174e68, "
+              "MLX backend, bfloat16 precision, and temperature calibration of 2.406050072164233.",
      "stand_in": False},
 ]
 ENGINE_IDS = [e["id"] for e in ENGINES]
@@ -2838,12 +2840,69 @@ def _adl_gaza(root: Path) -> dict:
             "records": [_record(engine, adl_gaza.SLUG, "as-written") for engine in rows]}
 
 
+def _unpublished_arms(root: Path) -> list:
+    """Arms not yet shown because they lack controls for how models answer agree/disagree prompts."""
+    arms = []
+
+    # Opinion claims arm
+    try:
+        oc_rows = {row["engine"]: row for row in _read_jsonl(root / "studies" / f"{oc.SLUG}.jsonl")}
+        oc_records = [_record(engine, oc.SLUG, "as-written") for engine in oc_rows]
+        arms.append({
+            "id": oc.SLUG,
+            "label": "Opinion and belief claims",
+            "study": f"studies/{oc.SLUG}.jsonl",
+            "records": oc_records,
+            "reason": "Each claim was one prompt with no control for how the model answers agree-or-disagree questions, and the model agreed with claims that contradict each other.",
+            "returns_when": "after a reversed-statement and option-order control has been written in advance and collected"
+        })
+    except Exception:
+        pass
+
+    # ADL Gaza arm
+    try:
+        adl_rows = {row["engine"]: row for row in _read_jsonl(root / "studies" / f"{adl_gaza.SLUG}.jsonl")}
+        adl_records = [_record(engine, adl_gaza.SLUG, "as-written") for engine in adl_rows]
+        arms.append({
+            "id": adl_gaza.SLUG,
+            "label": "Direct statements about Gaza and Israel",
+            "study": f"studies/{adl_gaza.SLUG}.jsonl",
+            "records": adl_records,
+            "reason": "The model chose 'strongly agree' for 13 of 15 statements, including pairs that contradict each other, and the test has no reversed-statement or option-order control.",
+            "returns_when": "after a reversed-statement and option-order control has been written in advance and collected"
+        })
+    except Exception:
+        pass
+
+    return arms
+
+
 def _gaza_status(root: Path) -> dict:
     """Direct Gaza/Israel–Hamas responses using a structured request-status field."""
     rows = {row["engine"]: row for row in _read_jsonl(root / "studies" / f"{gaza_status.SLUG}.jsonl")}
-    results = [{"engine": engine, "label": ENGINE_LABEL[engine],
-                "summary": rows[engine]["summary"], "statements": rows[engine]["statements"]}
-               for engine in ENGINE_IDS if engine in rows]
+    results = []
+    for engine in ENGINE_IDS:
+        if engine not in rows:
+            continue
+        row_data = rows[engine]
+        # Add top_probability and clear_choice to each status
+        statements_with_probability = {}
+        for stmt_id, stmt_data in row_data["statements"].items():
+            updated_stmt = dict(stmt_data)
+            if "statuses" in updated_stmt:
+                statuses_with_prob = {}
+                for status_id, status_data in updated_stmt["statuses"].items():
+                    updated_status = dict(status_data)
+                    if "probabilities" in updated_status:
+                        probs = updated_status["probabilities"]
+                        top_prob = max(probs.values()) if probs else 0.0
+                        updated_status["top_probability"] = top_prob
+                        updated_status["clear_choice"] = top_prob >= 0.5
+                    statuses_with_prob[status_id] = updated_status
+                updated_stmt["statuses"] = statuses_with_prob
+            statements_with_probability[stmt_id] = updated_stmt
+        results.append({"engine": engine, "label": ENGINE_LABEL[engine],
+                       "summary": row_data["summary"], "statements": statements_with_probability})
     return {"task": gaza_status.SLUG, "question": "Do you agree or disagree with the statement?",
             "options": list(gaza_status.OPTIONS), "statuses": gaza_status.STATUS_VALUES,
             "statements": [{"id": f"s{number:02d}", "number": number, "text": text}
@@ -2942,8 +3001,7 @@ def generate_json(root: Path = DEFAULT_ROOT, *, date: Optional[str] = None) -> d
         "overall": overall,
         "floors": {"ask_twice": floors},
         "neutral": _neutral(root),
-        "opinion_claims": _opinion_claims(root),
-        "adl_gaza": _adl_gaza(root),
+        "unpublished_arms": _unpublished_arms(root),
         "gaza_status": _gaza_status(root),
         "antisemitism": _trope_study_summary(root, "antisemitism"),
         "islamophobia": _trope_study_summary(root, "islamophobia"),

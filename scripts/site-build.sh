@@ -16,7 +16,7 @@ PY="${PYTHON:-$ROOT/.venv/bin/python}"
 step() { printf '\n==> %s\n' "$*"; }
 
 step "unit specs"
-"$PY" -m pytest -q biased_decisions
+"$PY" -m pytest -q biased_decisions scripts tests
 
 if [ "${SITE_SKIP_REPLAY:-0}" != 1 ]; then
   step "replay every cell from the committed record"

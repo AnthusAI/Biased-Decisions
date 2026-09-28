@@ -1,0 +1,33 @@
+{
+  "id": "BD-a0d173e1-a81e-45b3-bd40-327124d59042",
+  "title": "Stereotype pages: make the model the subject of every heading and tile",
+  "description": "Some headings and tile labels on the China, stereotypes-source and trope pages phrase the stereotype with the group as the subject (for example a heading that reads as a statement about people from a region). The writing rule for this site is that the model is the subject of every finding. Rewrite every heading, tile label and introduction on the stereotype pages so it reads as what the model did when the phrase was inserted, keep the source citation for each stereotype, and add a copy check that flags a heading whose grammatical subject is a group name.",
+  "type": "task",
+  "status": "closed",
+  "priority": 2,
+  "assignee": null,
+  "creator": null,
+  "parent": "BD-045ab742-cc9e-4848-891d-f34ae74e8294",
+  "labels": [],
+  "dependencies": [],
+  "comments": [
+    {
+      "id": "d7ef262d-31f4-4f62-b442-efc576eb7f10",
+      "author": "home",
+      "text": "Merged to develop. China page headings and the antisemitism/islamophobia stereotype lists now name the model as subject; site/test/headings.test.mjs fails the build on a group-as-subject heading. Data-file labels were not changed; the page copy wraps them.",
+      "created_at": "2026-09-28T04:40:33.427123Z",
+      "comment_type": "default"
+    }
+  ],
+  "created_at": "2026-09-28T04:19:39.453802Z",
+  "updated_at": "2026-09-28T04:40:33.508075Z",
+  "closed_at": "2026-09-28T04:40:33.508028Z",
+  "agent": {
+    "platform": "claude_code",
+    "model": "Claude Fable 5.1",
+    "name": "Project Assessment"
+  },
+  "right_now_summary": null,
+  "right_now_updated_at": null,
+  "custom": {}
+}

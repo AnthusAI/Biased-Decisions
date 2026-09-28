@@ -9,7 +9,7 @@ PIP := $(VENV)/bin/pip
 install:
 	python3 -m venv $(VENV)
 	$(PIP) install --upgrade pip
-	$(PIP) install -e '.[dev]'
+	$(PIP) install -e '.[dev,build]'
 
 test:
 	$(PY) -m pytest

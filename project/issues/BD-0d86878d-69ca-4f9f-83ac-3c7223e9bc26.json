@@ -1,0 +1,25 @@
+{
+  "id": "BD-0d86878d-69ca-4f9f-83ac-3c7223e9bc26",
+  "title": "Identify every site note that says answers are not yet published and the records behind it",
+  "description": "List the cells, their runs branches or machines, and the sizes.",
+  "type": "sub-task",
+  "status": "open",
+  "priority": 1,
+  "assignee": null,
+  "creator": null,
+  "parent": "BD-ec38a8e2-09e5-4a38-8766-51d1f5f6ecd2",
+  "labels": [],
+  "dependencies": [],
+  "comments": [],
+  "created_at": "2026-09-28T04:20:22.413358Z",
+  "updated_at": "2026-09-28T04:20:22.413393Z",
+  "closed_at": null,
+  "agent": {
+    "platform": "claude_code",
+    "model": "Claude Fable 5.1",
+    "name": "Project Assessment"
+  },
+  "right_now_summary": null,
+  "right_now_updated_at": null,
+  "custom": {}
+}

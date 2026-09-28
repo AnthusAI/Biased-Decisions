@@ -1,0 +1,25 @@
+{
+  "id": "BD-36181256-2e51-4298-a983-992d365a9f07",
+  "title": "Bootstrap the cue-minus-floor difference on shared resamples",
+  "description": "In the scoring layer, resample texts once per replicate and compute the cue effect and the floor effect on the same replicate, so the difference has its own percentile interval. Keep the raw and floor intervals in the row.",
+  "type": "sub-task",
+  "status": "open",
+  "priority": 1,
+  "assignee": null,
+  "creator": null,
+  "parent": "BD-db38352e-5a3d-4fb0-b1de-2b557c06eea9",
+  "labels": [],
+  "dependencies": [],
+  "comments": [],
+  "created_at": "2026-09-28T04:20:21.772771Z",
+  "updated_at": "2026-09-28T04:20:21.772799Z",
+  "closed_at": null,
+  "agent": {
+    "platform": "claude_code",
+    "model": "Claude Fable 5.1",
+    "name": "Project Assessment"
+  },
+  "right_now_summary": null,
+  "right_now_updated_at": null,
+  "custom": {}
+}

@@ -1,0 +1,25 @@
+{
+  "id": "BD-195f32e2-8f72-4d8a-8c26-6624c244c176",
+  "title": "A facet is clear only when the effect beyond the floor excludes zero",
+  "description": "Feature: Detection against the floor\n  Scenario: Floor uncertainty is counted\n    Given a cue interval of [3.0, 5.0] and a floor interval of [2.5, 4.5] on the same texts\n    When the facet is scored\n    Then the excess interval is the paired difference's interval\n    And the facet is not marked clear when that interval includes zero\n  Scenario: Excess is reported with its own interval\n    Given any measured facet\n    When the data file is written\n    Then the excess carries lo and hi from the paired bootstrap, not the raw interval shifted by the floor's point estimate",
+  "type": "story",
+  "status": "open",
+  "priority": 1,
+  "assignee": null,
+  "creator": null,
+  "parent": "BD-db38352e-5a3d-4fb0-b1de-2b557c06eea9",
+  "labels": [],
+  "dependencies": [],
+  "comments": [],
+  "created_at": "2026-09-28T04:20:21.926151Z",
+  "updated_at": "2026-09-28T04:20:21.926183Z",
+  "closed_at": null,
+  "agent": {
+    "platform": "claude_code",
+    "model": "Claude Fable 5.1",
+    "name": "Project Assessment"
+  },
+  "right_now_summary": null,
+  "right_now_updated_at": null,
+  "custom": {}
+}

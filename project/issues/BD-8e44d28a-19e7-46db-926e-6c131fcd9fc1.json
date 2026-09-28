@@ -1,0 +1,25 @@
+{
+  "id": "BD-8e44d28a-19e7-46db-926e-6c131fcd9fc1",
+  "title": "Use the trivial-edit floor in excess and detection and remove the borrowed-floor fallback",
+  "description": "Replace ask-twice as the gender floor with the trivial-edit floor for every engine, and delete the fallback that copies an engine's largest ask-twice value from another task.",
+  "type": "sub-task",
+  "status": "open",
+  "priority": 1,
+  "assignee": null,
+  "creator": null,
+  "parent": "BD-4d0d224c-2229-4b23-a94d-a8e6540c9d65",
+  "labels": [],
+  "dependencies": [],
+  "comments": [],
+  "created_at": "2026-09-28T04:20:22.132047Z",
+  "updated_at": "2026-09-28T04:20:22.132089Z",
+  "closed_at": null,
+  "agent": {
+    "platform": "claude_code",
+    "model": "Claude Fable 5.1",
+    "name": "Project Assessment"
+  },
+  "right_now_summary": null,
+  "right_now_updated_at": null,
+  "custom": {}
+}

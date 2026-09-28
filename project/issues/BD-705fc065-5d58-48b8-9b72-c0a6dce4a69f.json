@@ -1,0 +1,33 @@
+{
+  "id": "BD-705fc065-5d58-48b8-9b72-c0a6dce4a69f",
+  "title": "Engine descriptions: full identity and pinned version for every engine, everywhere a number is shown",
+  "description": "The data file describes one engine in a single sentence and another without naming its maker. Fill in engines[].about for every engine (origin, base model, checkpoint, package version, hardware and precision), record the version on every row including the rows that currently carry only an engine name, and stop defaulting the Kev adapter's model to a deployment alias: require a pinned checkpoint identity.",
+  "type": "task",
+  "status": "closed",
+  "priority": 2,
+  "assignee": null,
+  "creator": null,
+  "parent": "BD-045ab742-cc9e-4848-891d-f34ae74e8294",
+  "labels": [],
+  "dependencies": [],
+  "comments": [
+    {
+      "id": "2ef9212e-534e-4927-a7da-de004e2df91d",
+      "author": "home",
+      "text": "Merged to develop in PR #86: /about/ page linked from header and footer; engine descriptions carry maker, access terms, versions and the Kev checkpoint; KEV_MODEL is now required.",
+      "created_at": "2026-09-28T04:49:47.091666Z",
+      "comment_type": "default"
+    }
+  ],
+  "created_at": "2026-09-28T04:17:56.285276Z",
+  "updated_at": "2026-09-28T04:49:47.122936Z",
+  "closed_at": "2026-09-28T04:49:47.122903Z",
+  "agent": {
+    "platform": "claude_code",
+    "model": "Claude Fable 5.1",
+    "name": "Project Assessment"
+  },
+  "right_now_summary": null,
+  "right_now_updated_at": null,
+  "custom": {}
+}

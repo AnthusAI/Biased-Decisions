@@ -1,0 +1,25 @@
+{
+  "id": "BD-174e6017-475c-4d28-91ae-5c56293b4d8d",
+  "title": "A headline states how many cells it was chosen from and survives correction",
+  "description": "Feature: Headline selection\n  Scenario: Correction applied\n    Given a stereotype with five wordings scored on one model\n    When the headline is chosen\n    Then only a wording whose Holm-adjusted p-value is under 0.05 may headline\n    And the other wordings are shown beside it\n  Scenario: Headline copy\n    Given any headline on the site\n    When I read it\n    Then it says the largest of N cells it was chosen from",
+  "type": "story",
+  "status": "open",
+  "priority": 1,
+  "assignee": null,
+  "creator": null,
+  "parent": "BD-3ff8e750-68b5-4fea-b6a4-fe0fa7d1d0dc",
+  "labels": [],
+  "dependencies": [],
+  "comments": [],
+  "created_at": "2026-09-28T04:20:21.979379Z",
+  "updated_at": "2026-09-28T04:20:21.979419Z",
+  "closed_at": null,
+  "agent": {
+    "platform": "claude_code",
+    "model": "Claude Fable 5.1",
+    "name": "Project Assessment"
+  },
+  "right_now_summary": null,
+  "right_now_updated_at": null,
+  "custom": {}
+}

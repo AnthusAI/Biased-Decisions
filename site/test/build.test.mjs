@@ -42,9 +42,9 @@ const localPath = (url) => decodeURIComponent(new URL(url, SITE).pathname);
 
 test("the build produced the pages the data file implies", () => {
   const levels = DATA.dimensions.reduce((n, d) => n + d.breakdown.levels.length, 0);
-  // home, engines, methods, how-to-fail, guidance, stereotypes, antisemitism, Islamophobia, China,
-  // opinion claims, and the antisemitism-and-Israel related-studies guide
-  const expected = 1 + 1 + 1 + 8 + DATA.dimensions.length + levels + DATA.engines.length * (1 + DATA.dimensions.length);
+  // home, engines, methods, about, how-to-fail, guidance, stereotypes, antisemitism, Islamophobia, China,
+  // and the antisemitism-and-Israel related-studies guide (opinion claims is not shown yet)
+  const expected = 1 + 1 + 1 + 1 + 7 + DATA.dimensions.length + levels + DATA.engines.length * (1 + DATA.dimensions.length);
   assert.equal(content.length, expected);
 });
 

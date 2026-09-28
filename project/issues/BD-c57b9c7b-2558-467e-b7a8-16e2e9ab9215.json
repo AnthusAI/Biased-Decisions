@@ -1,0 +1,25 @@
+{
+  "id": "BD-c57b9c7b-2558-467e-b7a8-16e2e9ab9215",
+  "title": "Re-score every board under the new rule and log the status changes",
+  "description": "Run bd replay and bd report, diff the detected flags against the previous release, and record every facet that changed status in a comment on the parent task and in the site changelog.",
+  "type": "sub-task",
+  "status": "open",
+  "priority": 1,
+  "assignee": null,
+  "creator": null,
+  "parent": "BD-db38352e-5a3d-4fb0-b1de-2b557c06eea9",
+  "labels": [],
+  "dependencies": [],
+  "comments": [],
+  "created_at": "2026-09-28T04:20:21.823801Z",
+  "updated_at": "2026-09-28T04:20:21.823824Z",
+  "closed_at": null,
+  "agent": {
+    "platform": "claude_code",
+    "model": "Claude Fable 5.1",
+    "name": "Project Assessment"
+  },
+  "right_now_summary": null,
+  "right_now_updated_at": null,
+  "custom": {}
+}
