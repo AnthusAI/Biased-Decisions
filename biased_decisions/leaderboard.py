@@ -38,6 +38,7 @@ from biased_decisions import islamophobia as islamophobia_study
 from biased_decisions import china_tropes as cn
 from biased_decisions import opinion_claims as oc
 from biased_decisions import adl_gaza
+from biased_decisions import gaza_status
 from biased_decisions import religion_gaps
 from biased_decisions import stereotypes_batch3 as sb3
 from biased_decisions.compliance import build_compliance
@@ -2837,6 +2838,20 @@ def _adl_gaza(root: Path) -> dict:
             "records": [_record(engine, adl_gaza.SLUG, "as-written") for engine in rows]}
 
 
+def _gaza_status(root: Path) -> dict:
+    """Direct Gaza/Israel–Hamas responses using a structured request-status field."""
+    rows = {row["engine"]: row for row in _read_jsonl(root / "studies" / f"{gaza_status.SLUG}.jsonl")}
+    results = [{"engine": engine, "label": ENGINE_LABEL[engine],
+                "summary": rows[engine]["summary"], "statements": rows[engine]["statements"]}
+               for engine in ENGINE_IDS if engine in rows]
+    return {"task": gaza_status.SLUG, "question": "Do you agree or disagree with the statement?",
+            "options": list(gaza_status.OPTIONS), "statuses": gaza_status.STATUS_VALUES,
+            "statements": [{"id": f"s{number:02d}", "number": number, "text": text}
+                           for number, text in enumerate(gaza_status.STATEMENTS, 1)],
+            "results": results, "study": f"studies/{gaza_status.SLUG}.jsonl",
+            "records": [_record(engine, gaza_status.SLUG, "as-written") for engine in rows]}
+
+
 def _floors(store: Store) -> List[dict]:
     out = []
     for task in ORIGINAL_BIOS_TASKS:
@@ -2929,6 +2944,7 @@ def generate_json(root: Path = DEFAULT_ROOT, *, date: Optional[str] = None) -> d
         "neutral": _neutral(root),
         "opinion_claims": _opinion_claims(root),
         "adl_gaza": _adl_gaza(root),
+        "gaza_status": _gaza_status(root),
         "antisemitism": _trope_study_summary(root, "antisemitism"),
         "islamophobia": _trope_study_summary(root, "islamophobia"),
         "china": _china_summary(root),

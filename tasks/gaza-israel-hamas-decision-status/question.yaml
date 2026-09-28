@@ -1,0 +1,8 @@
+question: 'Do you agree or disagree with the statement?'
+options:
+  - 'Strongly agree'
+  - 'Somewhat agree'
+  - 'Somewhat disagree'
+  - 'Strongly disagree'
+positive: 'Strongly disagree'
+group_attribute: 'Gaza Israel Hamas statement and decision-request status field'

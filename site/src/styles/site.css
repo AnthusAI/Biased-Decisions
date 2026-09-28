@@ -604,3 +604,23 @@ details.cell { scroll-margin-top: 140px; }
   .claim-detail .cell-table thead th { font-size: 10px; letter-spacing: .04em; }
   .opinion-claim-summary { font-size: 11px; }
 }
+
+/* Antisemitism and Islamophobia study comparison grids. Each tile is a link to the complete,
+   cue-level result board; the fill is only a compact summary, never a severity ranking. */
+.trope-visual { margin: 22px 0 20px; border: 1px solid var(--rule); border-radius: 12px; background: var(--surface); box-shadow: var(--shadow); overflow: hidden; }
+.trope-visual-scroll { overflow-x: auto; }
+.trope-visual-table { width: 100%; min-width: 760px; border-collapse: separate; border-spacing: 0; font-size: 13px; }
+.trope-visual-table caption { caption-side: top; padding: 14px 16px 10px; font-family: var(--display); font-size: 22px; text-align: left; color: var(--ink); }
+.trope-visual-table th, .trope-visual-table td { padding: 7px; border-top: 1px solid var(--rule); vertical-align: middle; }
+.trope-visual-table thead th { border-top: 0; background: var(--surface-2); color: var(--ink-2); font-size: 11px; letter-spacing: .05em; line-height: 1.3; text-transform: uppercase; text-align: left; }
+.trope-visual-table tbody th { width: 104px; white-space: nowrap; font-weight: 700; }
+.trope-engine-dot { display: inline-block; width: 8px; height: 8px; margin-right: 6px; border-radius: 50%; background: var(--engine); }
+.trope-tile { position: relative; display: grid; min-height: 48px; padding: 7px 8px; border-radius: 6px; overflow: hidden; color: var(--ink); text-decoration: none; background: var(--surface-2); }
+.trope-tile::before { position: absolute; content: ""; inset: 0 auto 0 0; width: var(--tile, 0); background: color-mix(in srgb, var(--engine) 26%, transparent); border-left: 4px solid var(--engine); }
+.trope-tile > * { position: relative; }
+.trope-tile strong { align-self: end; font-family: var(--display); font-size: 22px; line-height: .95; }
+.trope-tile span:not(.trope-none) { margin-top: 4px; color: var(--ink-2); font-size: 11.5px; line-height: 1.15; }
+.trope-tile:hover, .trope-tile:focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }
+.trope-none { align-self: center; color: var(--muted); font-size: 12px; line-height: 1.25; }
+.trope-visual > .note { margin: 0; padding: 10px 16px 12px; border-top: 1px solid var(--rule); }
+@media (max-width: 620px) { .trope-visual { margin-left: -4px; margin-right: -4px; } .trope-visual-table caption { font-size: 20px; } }

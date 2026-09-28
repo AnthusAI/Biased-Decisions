@@ -1,7 +1,7 @@
 ---
 import Base from "../../layouts/Base.astro";
 import { pageIntroductions } from "../../lib/introductions.js";
-import { adlGaza, urls } from "../../lib/site.js";
+import { gazaStatus, urls } from "../../lib/site.js";
 
 const intro = pageIntroductions.antisemitismIsrael;
 ---
@@ -34,30 +34,27 @@ const intro = pageIntroductions.antisemitismIsrael;
     </div>
   </section>
 
-  {adlGaza.results.length > 0 && <section class="wrap section" id="gaza-israel-hamas" aria-labelledby="gaza-h">
-    <h2 class="display" id="gaza-h">ADL Gaza/Israel–Hamas prompt replication</h2>
-    <p class="lede">This is the completed Laya replication arm: all 15 fixed statements ADL categorized as “War in Gaza/Israel and Hamas,” asked once with the generic wording and once with each of ADL’s six named-prompt variants. It reports Laya’s answers—not a finding about people, and not a claim to reproduce ADL’s multi-model conclusions.</p>
-    <p class="note"><strong>Exact instruction:</strong> <q>{adlGaza.question}</q> {adlGaza.instruction} The response scale is A = strongly agree, B = somewhat agree, C = somewhat disagree, D = strongly disagree.</p>
-    {adlGaza.results.map((result) => <>
-      <h3 class="display sm">{result.label}: generic-prompt results</h3>
-      <div class="table-scroll" tabindex="0" role="region" aria-label={`${result.label} generic ADL Gaza Israel Hamas responses`}>
-        <table class="cell-table"><thead><tr><th scope="col">exact statement</th><th scope="col">selected letter</th><th scope="col">A–D probabilities</th><th scope="col">mean response</th></tr></thead><tbody>
-          {adlGaza.statements.map((statement) => {
-            const answer = result.statements[statement.id].variants.generic;
-            return <tr><th scope="row"><q>{statement.text}</q></th><td><strong>{answer.choice}</strong> — {adlGaza.scale[answer.choice]}</td><td>A {answer.probabilities.A.toFixed(4)} · B {answer.probabilities.B.toFixed(4)} · C {answer.probabilities.C.toFixed(4)} · D {answer.probabilities.D.toFixed(4)}</td><td>{answer.mean_response.toFixed(4)}</td></tr>;
-          })}
+  {gazaStatus.results.length > 0 && <section class="wrap section" id="gaza-israel-hamas" aria-labelledby="gaza-h">
+    <h2 class="display" id="gaza-h">Gaza/Israel–Hamas direct-response study</h2>
+    <p class="lede">Laya directly assessed all 15 statements ADL categorized as “War in Gaza/Israel and Hamas.” Each case uses a structured <q>Decision requested for</q> field, either with no name supplied or one of six names. It reports Laya’s responses, not a conclusion about people or a reproduction of ADL’s multi-model findings.</p>
+    <p class="note"><strong>Direct question:</strong> <q>{gazaStatus.question}</q> The available responses are strongly agree, somewhat agree, somewhat disagree, and strongly disagree.</p>
+    {gazaStatus.results.map((result) => <>
+      <h3 class="display sm">{result.label}: no-name control</h3>
+      <div class="table-scroll" tabindex="0" role="region" aria-label={`${result.label} no-name Gaza Israel Hamas responses`}>
+        <table class="cell-table"><thead><tr><th scope="col">exact statement</th><th scope="col">selected response</th><th scope="col">response probabilities</th><th scope="col">mean response</th></tr></thead><tbody>
+          {gazaStatus.statements.map((statement) => { const answer = result.statements[statement.id].statuses.no_name; return <tr><th scope="row"><q>{statement.text}</q></th><td><strong>{answer.choice}</strong></td><td>{gazaStatus.options.map((option) => `${option}: ${answer.probabilities[option].toFixed(4)}`).join(" · ")}</td><td>{answer.mean_response.toFixed(4)}</td></tr>; })}
         </tbody></table>
       </div>
-      <p class="note">Mean response is the recorded probability-weighted A=1 through D=4 scale. It is included so every response is inspectable; it is not a bias score.</p>
-      <details class="claim-detail"><summary><strong class="opinion-claim-family">All named-prompt variants</strong><span class="opinion-claim-summary">15 statements × 7 prompt variants · open the complete record</span></summary>
-        <div class="table-scroll" tabindex="0" role="region" aria-label={`${result.label} ADL Gaza Israel Hamas prompt variants`}>
-          <table class="cell-table"><thead><tr><th scope="col">statement</th>{adlGaza.personas.map((persona) => <th scope="col">{persona}</th>)}</tr></thead><tbody>
-            {adlGaza.statements.map((statement) => <tr><th scope="row"><q>{statement.text}</q></th>{adlGaza.personas.map((persona) => { const answer = result.statements[statement.id].variants[persona]; return <td><strong>{answer.choice}</strong> — {adlGaza.scale[answer.choice]}<br /><small>A {answer.probabilities.A.toFixed(4)} · B {answer.probabilities.B.toFixed(4)} · C {answer.probabilities.C.toFixed(4)} · D {answer.probabilities.D.toFixed(4)}</small></td>; })}</tr>)}
+      <p class="note">Mean response is the recorded probability-weighted four-response scale. It keeps all choices visible; it is not a bias score.</p>
+      <details class="claim-detail"><summary><strong class="opinion-claim-family">All decision-request status values</strong><span class="opinion-claim-summary">15 statements × a no-name control and six named fields</span></summary>
+        <div class="table-scroll" tabindex="0" role="region" aria-label={`${result.label} Gaza Israel Hamas decision statuses`}>
+          <table class="cell-table"><thead><tr><th scope="col">statement</th>{Object.entries(gazaStatus.statuses).map(([status, value]) => <th scope="col">{status === "no_name" ? "no name" : value.replace(".", "")}</th>)}</tr></thead><tbody>
+            {gazaStatus.statements.map((statement) => <tr><th scope="row"><q>{statement.text}</q></th>{Object.keys(gazaStatus.statuses).map((status) => { const answer = result.statements[statement.id].statuses[status]; return <td><strong>{answer.choice}</strong><br /><small>{gazaStatus.options.map((option) => `${option}: ${answer.probabilities[option].toFixed(4)}`).join(" · ")}</small></td>; })}</tr>)}
           </tbody></table>
         </div>
       </details>
     </>)}
-    <p class="note">Read the <a href="https://github.com/AnthusAI/Biased-Decisions/blob/main/docs/adl-gaza-israel-hamas-preregistration.md">study plan written before the prompts were run</a>, the <a href="https://github.com/AnthusAI/Biased-Decisions/blob/main/studies/adl-gaza-israel-hamas.jsonl">scored study row</a>, and the <a href="https://github.com/AnthusAI/Biased-Decisions/blob/main/answers/laya/adl-gaza-israel-hamas/as-written.jsonl.gz">saved raw answers</a>. The source framework is ADL’s <a href="https://www.adl.org/resources/report/generating-hate-anti-jewish-and-anti-israel-bias-leading-large-language-models">Generating Hate</a> and <a href="https://www.adl.org/adl-ai-index">AI Index</a>.</p>
+    <p class="note">Read the <a href="https://github.com/AnthusAI/Biased-Decisions/blob/main/docs/gaza-israel-hamas-decision-status-preregistration.md">study plan written before the prompts were run</a>, the <a href="https://github.com/AnthusAI/Biased-Decisions/blob/main/studies/gaza-israel-hamas-decision-status.jsonl">scored study row</a>, and the <a href="https://github.com/AnthusAI/Biased-Decisions/blob/main/answers/laya/gaza-israel-hamas-decision-status/as-written.jsonl.gz">saved raw answers</a>. The source framework is ADL’s <a href="https://www.adl.org/resources/report/generating-hate-anti-jewish-and-anti-israel-bias-leading-large-language-models">Generating Hate</a> and <a href="https://www.adl.org/adl-ai-index">AI Index</a>.</p>
   </section>}
 
   <section class="wrap section" aria-labelledby="sources-h">
