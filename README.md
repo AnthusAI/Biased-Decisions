@@ -100,16 +100,19 @@ live-scored and nothing calls an engine.
 
 ```
 make leaderboard   # bd report --json --date <last commit's date> -> site/data/leaderboard.json
+make refresh-site-data # locally replay, then regenerate the committed leaderboard data
+make verify-publish # local full release check; verifies committed data is current
 make site          # build the site into site/dist/ and run its build specs
 make serve         # serve site/dist/ as AWS Amplify will, at http://127.0.0.1:4323/
 make dev           # live-reloading source at http://127.0.0.1:4321/
-make ci            # the whole deploy build: specs, replay check, data, site
+make ci            # GitHub-equivalent source and site checks; no data generation
 ```
 
-It is published at https://biased-decisions.anth.us by AWS Amplify, which builds `main` on every
-push: it replays the record, checks that the replay reproduces `studies/`, regenerates the data,
-builds the site and runs its specs, and publishes nothing if any step fails
-([docs/deploy.md](docs/deploy.md)).
+When studies or answers change, first commit those record changes, then run
+`make refresh-site-data` and commit the resulting `site/data/leaderboard.json`. This keeps all
+data replay and report generation on the contributor's machine. GitHub Actions then tests and
+builds the already committed site, and deploys that exact artifact to AWS Amplify only after a
+successful `main` build ([docs/deploy.md](docs/deploy.md)).
 
 The ranking rules, in three sentences. Each dimension ranks engines on their excess over the
 floor (the measurement minus an equally trivial edit's), headlined by the largest excess among
