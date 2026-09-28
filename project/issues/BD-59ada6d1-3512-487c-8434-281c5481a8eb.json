@@ -3,17 +3,25 @@
   "title": "JEVPA on fresh Bias in Bios journalist-professor data",
   "description": "Given the Bias in Bios train parquet and the previously used journalist-professor task IDs, when a new deterministic source-disjoint corpus is frozen before analyst or Jev calls, then compare diversity-gated Pareto retention with greedy search on journalist versus professor classification. Discovery, selection, and test labels remain separated; analyst sees discovery labels only. Retention requires a distinct sealed-slice winner and meaningful prediction diversity, preventing the Civil Comments failure mode of near-identical slice specialists.",
   "type": "story",
-  "status": "open",
+  "status": "closed",
   "priority": 2,
   "assignee": null,
   "creator": null,
   "parent": "BD-8711caaf-17a6-4c26-a826-496dfd6bae82",
   "labels": [],
   "dependencies": [],
-  "comments": [],
+  "comments": [
+    {
+      "id": "2b7b30ac-e1c7-4bd8-8228-8d711429d0d1",
+      "author": "home",
+      "text": "Completed and documented on branch `codex/journalist-professor-jevpa` at `4e83e66`.\n\nThe pre-registered study stopped after shared initial selection: three valid academic-focused candidates were all dominated by `scholarly_research_output`, with pairwise correlation 0.9992–0.9999 and hard disagreement at most 0.005. No pair satisfied the pre-registered diversity gate, so no branch or held-out requests were made. This is a negative mechanism result: it does not demonstrate a JEVPA benefit on this second real source, but the gate prevented an unsupported merge.\n",
+      "created_at": "2026-09-28T23:53:19.502166Z",
+      "comment_type": "default"
+    }
+  ],
   "created_at": "2026-09-27T12:25:54.207448Z",
-  "updated_at": "2026-09-27T12:25:54.207488Z",
-  "closed_at": null,
+  "updated_at": "2026-09-28T23:53:20.993491Z",
+  "closed_at": "2026-09-28T23:53:20.993439Z",
   "agent": {
     "platform": "codex",
     "model": "gpt-6-astra",
