@@ -1,3 +1,20 @@
+# [1.48.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.47.2...v1.48.0) (2026-09-28)
+
+
+### Bug Fixes
+
+* **data:** restore the leaderboard data file's standard layout ([cda540a](https://github.com/AnthusAI/Biased-Decisions/commit/cda540a2ea3c8e8dd7d7403c8dc62fec2447ea05))
+* **nationality:** regression in flip_stats point estimates ([4b1b32c](https://github.com/AnthusAI/Biased-Decisions/commit/4b1b32cb721354730fdc0f6b88bdd989f70ee628))
+* **site:** one decimal for decision-change rates; clearer note on the new comparison ([28794ab](https://github.com/AnthusAI/Biased-Decisions/commit/28794abd18526de3b890d834c13e70d0a47c715e))
+* **study:** order loan-pairs rows as replay writes them ([d8b4f21](https://github.com/AnthusAI/Biased-Decisions/commit/d8b4f218b822d76ebf4e8a42deea3c8f5b805f7b))
+* **test:** adjust tolerance for floating-point rounding in pairs comparison ([c7e2cba](https://github.com/AnthusAI/Biased-Decisions/commit/c7e2cba11dbe3ee3b0646d9981f4b3ea7a095bf1))
+
+
+### Features
+
+* **nationality:** pairwise loan comparisons and decision flips ([20e9c1f](https://github.com/AnthusAI/Biased-Decisions/commit/20e9c1f62345ade12876db5bd7c416342314e175))
+* **site:** nationality lending pairs and decision flips ([520e159](https://github.com/AnthusAI/Biased-Decisions/commit/520e1591236a37dc366115c9d3d289d8f1f0cac3))
+
 ## [1.47.2](https://github.com/AnthusAI/Biased-Decisions/compare/v1.47.1...v1.47.2) (2026-09-28)
 
 
