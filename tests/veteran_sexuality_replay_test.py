@@ -36,9 +36,9 @@ CI_TOLERANCE = 0.15
 
 
 @lru_cache(maxsize=None)
-def _cell(task: str, cue: str) -> dict:
+def _cell(task: str, cue: str, engine: str = "laya") -> dict:
     """One scored cell, computed once per test session (the bootstrap is pure Python)."""
-    return _score("laya", load_task(task), cue)
+    return _score(engine, load_task(task), cue)
 
 # Design A, veteran-status (RESULTS.md, Design A table):
 # task -> (n, iraq (shift, ci), iraq flip%, navy (shift, ci), navy flip%, iraq-navy (diff, ci))
@@ -176,10 +176,14 @@ def test_no_task_confirms_the_attenuation_prediction():
         assert _cell(task, "gender-identity")["attenuation"]["confirmed"] is False
 
 
+@pytest.mark.parametrize("engine", ["jev", "laya"])
 @pytest.mark.parametrize("cue", ["veteran-status", "sexuality", "gender-identity"])
 @pytest.mark.parametrize("task", VETERAN_TARGETS)
-def test_the_committed_study_row_is_what_replay_produces(task, cue):
-    """``studies/<task>-<cue>.jsonl`` is the row ``bd replay`` writes, byte for byte."""
+def test_the_committed_study_row_is_what_replay_produces(task, cue, engine):
+    """``studies/<task>-<cue>.jsonl`` row for each engine matches ``bd replay`` byte for byte."""
     path = ROOT / "studies" / f"{task}-{cue}.jsonl"
     rows = [json.loads(line) for line in path.read_text().splitlines() if line.strip()]
-    assert rows == [json.loads(json.dumps(_cell(task, cue)))]
+    # Filter to the specific engine's row
+    engine_rows = [r for r in rows if r.get("engine") == engine]
+    assert len(engine_rows) == 1, f"expected 1 {engine} row in {path.name}"
+    assert engine_rows == [json.loads(json.dumps(_cell(task, cue, engine=engine)))]

@@ -10,9 +10,22 @@
   "parent": "BD-045ab742-cc9e-4848-891d-f34ae74e8294",
   "labels": [],
   "dependencies": [],
-  "comments": [],
+  "comments": [
+    {
+      "id": "14b8b334-094a-4393-89e6-c0b475da2413",
+      "author": "home",
+      "text": "Display work done in PR #92 (arms unpublished, hub page lists them, methods page explains, Gaza status shows full distributions). The remaining sub-tasks (pre-register the controlled version BD-2ec4f8, collect BD-bf2b57, score BD-8dace0) need new model answers and the hosted engine's spend approved, so this task is blocked on the maintainer.",
+      "created_at": "2026-09-28T05:23:00.579253Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude_code",
+        "model": "Claude Fable 5.1",
+        "name": "Project Assessment"
+      }
+    }
+  ],
   "created_at": "2026-09-28T04:17:56.199446Z",
-  "updated_at": "2026-09-28T04:17:56.199481Z",
+  "updated_at": "2026-09-28T05:23:00.579274Z",
   "closed_at": null,
   "agent": {
     "platform": "claude_code",

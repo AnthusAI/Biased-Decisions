@@ -3,17 +3,25 @@
   "title": "Resolve the 21 veteran and sexuality replay mismatches (for BD-d9f811)",
   "description": "Determine whether the committed studies or the scorer drifted; regenerate or fix accordingly, and record the cause in a comment on BD-d9f811.",
   "type": "task",
-  "status": "open",
+  "status": "closed",
   "priority": 1,
   "assignee": null,
   "creator": null,
   "parent": "BD-045ab742-cc9e-4848-891d-f34ae74e8294",
   "labels": [],
   "dependencies": [],
-  "comments": [],
+  "comments": [
+    {
+      "id": "a42becc3-96ac-4bf2-a7a3-ac85041dfabf",
+      "author": "home",
+      "text": "Merged to develop in PR #93. Root cause of the 21 mismatches: the byte-for-byte test compared one engine's row against a study file holding three engines' rows; it is now parametrised per engine. tokenizers declared, make install installs dev and build, CI and pytest cover tests/.",
+      "created_at": "2026-09-28T06:03:30.264724Z",
+      "comment_type": "default"
+    }
+  ],
   "created_at": "2026-09-28T04:20:42.996Z",
-  "updated_at": "2026-09-28T04:20:42.996033Z",
-  "closed_at": null,
+  "updated_at": "2026-09-28T06:03:30.293645Z",
+  "closed_at": "2026-09-28T06:03:30.293622Z",
   "agent": {
     "platform": "claude_code",
     "model": "Claude Fable 5.1",
