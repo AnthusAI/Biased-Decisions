@@ -103,9 +103,8 @@ const optOut = String.raw`(function(){try{var k='anthus-no-analytics',q=location
           <a href={urls.dim(d.id)} class={current.dim === d.id ? "on" : null} aria-current={current.dim === d.id && current.page === "dimension" ? "page" : undefined}>{d.label}</a>
         ))}
         <span class="rail-sep" aria-hidden="true"></span>
-        <a href={`${urls.home()}stereotypes/`} class={current.page === "stereotypes" ? "on" : null} aria-current={current.page === "stereotypes" ? "page" : undefined}>Stereotypes</a>
         <a href={`${urls.home()}antisemitism-and-israel/`} class={current.page === "antisemitism-israel" ? "on" : null} aria-current={current.page === "antisemitism-israel" ? "page" : undefined}>Jewish &amp; Israel</a>
-        <a href={`${urls.home()}opinion-claims/`} class={current.page === "opinion-claims" ? "on" : null} aria-current={current.page === "opinion-claims" ? "page" : undefined}>Opinions</a>
+        <a href={`${urls.home()}stereotypes/`} class={current.page === "stereotypes" ? "on" : null} aria-current={current.page === "stereotypes" ? "page" : undefined}>Stereotypes</a>
       </nav>
     </div>
   </div>

@@ -201,6 +201,24 @@ def cmd_replay(args: argparse.Namespace) -> int:
         n_rows += len(oc_rows)
         print(f"{oc.SLUG}: {len(oc_rows)} row(s) -> {out}")
 
+    from biased_decisions import adl_gaza
+    adl_rows = []
+    for engine in ENGINES:
+        if not has_record(engine, adl_gaza.SLUG, "as-written", root=root):
+            continue
+        try:
+            answers = read_record_by_id(record_path(engine, adl_gaza.SLUG, "as-written", root=root))
+            adl_rows.append(adl_gaza.score_adl_gaza(engine, answers))
+        except KeyError as error:
+            print(f"bd replay: skipping ({engine}, {adl_gaza.SLUG}): {error}", file=sys.stderr)
+            continue
+        n_cells += 1
+    if adl_rows:
+        out = root / "studies" / f"{adl_gaza.SLUG}.jsonl"
+        write_rows(out, adl_rows, ("engine",))
+        n_rows += len(adl_rows)
+        print(f"{adl_gaza.SLUG}: {len(adl_rows)} row(s) -> {out}")
+
     from biased_decisions import antisemitism
     for slug in antisemitism.SLUGS:
         task = load_task(slug, root=root)

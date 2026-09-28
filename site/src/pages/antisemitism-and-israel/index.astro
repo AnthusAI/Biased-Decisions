@@ -1,7 +1,7 @@
 ---
 import Base from "../../layouts/Base.astro";
 import { pageIntroductions } from "../../lib/introductions.js";
-import { urls } from "../../lib/site.js";
+import { adlGaza, urls } from "../../lib/site.js";
 
 const intro = pageIntroductions.antisemitismIsrael;
 ---
@@ -34,14 +34,34 @@ const intro = pageIntroductions.antisemitismIsrael;
     </div>
   </section>
 
-  <section class="wrap section" aria-labelledby="gaza-h">
-    <h2 class="display" id="gaza-h">Israel–Gaza: not a completed study here</h2>
-    <p class="lede">We do not currently publish an Israel–Gaza or Gaza/Hamas evaluation. The ADL’s <em>Generating Hate</em> report includes that domain; our source review records it as a gap, not as a result we recreated. The existing anti-Israel opinion arm is narrower: it asks three fixed statements about Israel’s legitimacy, double standards and Nazi comparisons.</p>
-    <p class="note">That distinction matters. A future Israel–Gaza study would need a public plan, fixed questions and controls before any model is asked a new item.</p>
-  </section>
+  {adlGaza.results.length > 0 && <section class="wrap section" id="gaza-israel-hamas" aria-labelledby="gaza-h">
+    <h2 class="display" id="gaza-h">ADL Gaza/Israel–Hamas prompt replication</h2>
+    <p class="lede">This is the completed Laya replication arm: all 15 fixed statements ADL categorized as “War in Gaza/Israel and Hamas,” asked once with the generic wording and once with each of ADL’s six named-prompt variants. It reports Laya’s answers—not a finding about people, and not a claim to reproduce ADL’s multi-model conclusions.</p>
+    <p class="note"><strong>Exact instruction:</strong> <q>{adlGaza.question}</q> {adlGaza.instruction} The response scale is A = strongly agree, B = somewhat agree, C = somewhat disagree, D = strongly disagree.</p>
+    {adlGaza.results.map((result) => <>
+      <h3 class="display sm">{result.label}: generic-prompt results</h3>
+      <div class="table-scroll" tabindex="0" role="region" aria-label={`${result.label} generic ADL Gaza Israel Hamas responses`}>
+        <table class="cell-table"><thead><tr><th scope="col">exact statement</th><th scope="col">selected letter</th><th scope="col">A–D probabilities</th><th scope="col">mean response</th></tr></thead><tbody>
+          {adlGaza.statements.map((statement) => {
+            const answer = result.statements[statement.id].variants.generic;
+            return <tr><th scope="row"><q>{statement.text}</q></th><td><strong>{answer.choice}</strong> — {adlGaza.scale[answer.choice]}</td><td>A {answer.probabilities.A.toFixed(4)} · B {answer.probabilities.B.toFixed(4)} · C {answer.probabilities.C.toFixed(4)} · D {answer.probabilities.D.toFixed(4)}</td><td>{answer.mean_response.toFixed(4)}</td></tr>;
+          })}
+        </tbody></table>
+      </div>
+      <p class="note">Mean response is the recorded probability-weighted A=1 through D=4 scale. It is included so every response is inspectable; it is not a bias score.</p>
+      <details class="claim-detail"><summary><strong class="opinion-claim-family">All named-prompt variants</strong><span class="opinion-claim-summary">15 statements × 7 prompt variants · open the complete record</span></summary>
+        <div class="table-scroll" tabindex="0" role="region" aria-label={`${result.label} ADL Gaza Israel Hamas prompt variants`}>
+          <table class="cell-table"><thead><tr><th scope="col">statement</th>{adlGaza.personas.map((persona) => <th scope="col">{persona}</th>)}</tr></thead><tbody>
+            {adlGaza.statements.map((statement) => <tr><th scope="row"><q>{statement.text}</q></th>{adlGaza.personas.map((persona) => { const answer = result.statements[statement.id].variants[persona]; return <td><strong>{answer.choice}</strong> — {adlGaza.scale[answer.choice]}<br /><small>A {answer.probabilities.A.toFixed(4)} · B {answer.probabilities.B.toFixed(4)} · C {answer.probabilities.C.toFixed(4)} · D {answer.probabilities.D.toFixed(4)}</small></td>; })}</tr>)}
+          </tbody></table>
+        </div>
+      </details>
+    </>)}
+    <p class="note">Read the <a href="https://github.com/AnthusAI/Biased-Decisions/blob/main/docs/adl-gaza-israel-hamas-preregistration.md">study plan written before the prompts were run</a>, the <a href="https://github.com/AnthusAI/Biased-Decisions/blob/main/studies/adl-gaza-israel-hamas.jsonl">scored study row</a>, and the <a href="https://github.com/AnthusAI/Biased-Decisions/blob/main/answers/laya/adl-gaza-israel-hamas/as-written.jsonl.gz">saved raw answers</a>. The source framework is ADL’s <a href="https://www.adl.org/resources/report/generating-hate-anti-jewish-and-anti-israel-bias-leading-large-language-models">Generating Hate</a> and <a href="https://www.adl.org/adl-ai-index">AI Index</a>.</p>
+  </section>}
 
   <section class="wrap section" aria-labelledby="sources-h">
     <h2 class="display" id="sources-h">Source and study records</h2>
-    <p class="lede">The opinion-claim arm is adapted from the direct-claim style used in ADL’s <em>Generating Hate</em>; it is not a claim that this project reproduced ADL’s full evaluation. See the <a href="https://github.com/AnthusAI/Biased-Decisions/blob/main/docs/opinion-claims-preregistration.md">opinion study plan</a>, the <a href="https://github.com/AnthusAI/Biased-Decisions/blob/main/docs/antisemitic-tropes-preregistration.md">stereotype study plan</a>, and the <a href="https://github.com/AnthusAI/Biased-Decisions/blob/main/docs/tropes-round2-sources.md">ADL source review and gap note</a>.</p>
+    <p class="lede">The opinion-claim arm is separate from the completed Gaza/Israel–Hamas prompt replication above. See the <a href="https://www.adl.org/adl-ai-index">ADL AI Index</a>, the <a href="https://github.com/AnthusAI/Biased-Decisions/blob/main/docs/opinion-claims-preregistration.md">opinion study plan</a>, the <a href="https://github.com/AnthusAI/Biased-Decisions/blob/main/docs/antisemitic-tropes-preregistration.md">stereotype study plan</a>, and the <a href="https://github.com/AnthusAI/Biased-Decisions/blob/main/docs/tropes-round2-sources.md">ADL source review</a>.</p>
   </section>
 </Base>

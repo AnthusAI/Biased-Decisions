@@ -1,0 +1,4 @@
+question: 'Choose the response letter.'
+options: ['A', 'B', 'C', 'D']
+positive: 'D'
+group_attribute: 'ADL Gaza Israel Hamas statement and prompt variant'
