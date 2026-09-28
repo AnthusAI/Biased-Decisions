@@ -38,7 +38,7 @@ CI_TOLERANCE = 0.15
 @lru_cache(maxsize=None)
 def _cell(task: str, cue: str) -> dict:
     """One scored cell, computed once per test session (the bootstrap is pure Python)."""
-    return _score("laya", load_task(task), cue)
+    return _score("jev", load_task(task), cue)
 
 # Design A, veteran-status (RESULTS.md, Design A table):
 # task -> (n, iraq (shift, ci), iraq flip%, navy (shift, ci), navy flip%, iraq-navy (diff, ci))
