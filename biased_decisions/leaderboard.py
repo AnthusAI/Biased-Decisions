@@ -2451,42 +2451,50 @@ _PREREG_ROWS: List[Tuple[str, str, Optional[List[str]], str, str]] = [
 
 # Batch 2's predictions are in PREREGISTERED.md; their scored outcomes are in the staged
 # RESULTS.md's "Predictions scored" table. (dimension, facets, first cell in that table)
-_BATCH2_ROWS: List[Tuple[str, Optional[List[str]], Optional[List[str]], str]] = [
-    # (dimension, questions, groups or None for an axis-wide row, first cell)
-    ("stereotype-religion", ["greed"], ["jewish"], "`greed`, Jewish trope score"),
-    ("stereotype-religion", ["violence"], ["muslim"], "`violence`, Muslim trope score"),
+_BATCH2_ROWS: List[Tuple[str, Optional[List[str]], Optional[List[str]], str, Optional[str]]] = [
+    # (dimension, questions, groups or None for an axis-wide row, outcome measurement, prediction measurement)
+    ("stereotype-religion", ["greed"], ["jewish"], "`greed`, Jewish trope score", None),
+    ("stereotype-religion", ["violence"], ["muslim"], "`violence`, Muslim trope score", None),
     ("stereotype-religion", ["honesty"], None,
-     "general \"any label\" effect on `honesty` (mean of all groups vs floor), religion axis"),
-    ("stereotype-nationality", ["arrogance"], ["american"], "`arrogance`, American trope score"),
+     "general \"any label\" effect on `honesty` (mean of all groups vs floor), religion axis", 
+     "general \"any label\" effect on `honesty` (mean of all groups vs floor)"),
+    ("stereotype-nationality", ["arrogance"], ["american"], "`arrogance`, American trope score", None),
     ("stereotype-nationality", ["worldliness"], ["american"],
-     "`worldliness`, American trope score (toward \"no\")"),
+     "`worldliness`, American trope score (toward \"no\")", None),
     ("stereotype-nationality", ["diligence"], ["german"],
-     "`diligence`, German trope score"),
+     "`diligence`, German trope score",
+     "`diligence`, German and Chinese trope scores"),
     ("stereotype-nationality", ["diligence"], ["chinese"],
-     "`diligence`, Chinese trope score"),
+     "`diligence`, Chinese trope score",
+     "`diligence`, German and Chinese trope scores"),
     ("stereotype-nationality", ["honesty"], None,
-     "general \"any label\" effect on `honesty` (mean of all groups vs floor), nationality axis"),
+     "general \"any label\" effect on `honesty` (mean of all groups vs floor), nationality axis",
+     "general \"any label\" effect on `honesty` (mean of all groups vs floor)"),
 ]
 
 
 # Batch 2's predictions for engines that have not answered it yet: the Jev column of the
 # pre-registration's "Predictions, recorded in advance" table, quoted verbatim, with no outcome.
-_BATCH2_PENDING: List[Tuple[str, List[str], Optional[List[str]], str, str]] = [
-    # (dimension, questions, groups, first cell, engine)
-    ("stereotype-religion", ["greed"], ["jewish"], "`greed`, Jewish trope score", "jev"),
-    ("stereotype-religion", ["violence"], ["muslim"], "`violence`, Muslim trope score", "jev"),
+_BATCH2_PENDING: List[Tuple[str, List[str], Optional[List[str]], str, str, Optional[str]]] = [
+    # (dimension, questions, groups, outcome measurement, engine, prediction measurement)
+    ("stereotype-religion", ["greed"], ["jewish"], "`greed`, Jewish trope score", "jev", None),
+    ("stereotype-religion", ["violence"], ["muslim"], "`violence`, Muslim trope score", "jev", None),
     ("stereotype-religion", ["honesty"], None,
-     "general \"any label\" effect on `honesty` (mean of all groups vs floor), religion axis", "jev"),
+     "general \"any label\" effect on `honesty` (mean of all groups vs floor), religion axis", "jev",
+     "general \"any label\" effect on `honesty` (mean of all groups vs floor)"),
     ("stereotype-nationality", ["arrogance"], ["american"], "`arrogance`, American trope score",
-     "jev"),
+     "jev", None),
     ("stereotype-nationality", ["worldliness"], ["american"],
-     "`worldliness`, American trope score (toward \"no\")", "jev"),
+     "`worldliness`, American trope score (toward \"no\")", "jev", None),
     ("stereotype-nationality", ["diligence"], ["german"],
-     "`diligence`, German trope score", "jev"),
+     "`diligence`, German trope score", "jev",
+     "`diligence`, German and Chinese trope scores"),
     ("stereotype-nationality", ["diligence"], ["chinese"],
-     "`diligence`, Chinese trope score", "jev"),
+     "`diligence`, Chinese trope score", "jev",
+     "`diligence`, German and Chinese trope scores"),
     ("stereotype-nationality", ["honesty"], None,
-     "general \"any label\" effect on `honesty` (mean of all groups vs floor), nationality axis", "jev"),
+     "general \"any label\" effect on `honesty` (mean of all groups vs floor), nationality axis", "jev",
+     "general \"any label\" effect on `honesty` (mean of all groups vs floor)"),
 ]
 
 _SECTION_FOR = {
@@ -2550,14 +2558,14 @@ class Prereg:
                                "run through Apple's MLX software. The row was written before we "
                                "tested the two separately.")
             self._by_cell.setdefault((dim, engine), []).append(row)
-        for dim, facets, groups, first in _BATCH2_ROWS:
-            row = self._batch2_row(first, facets)
+        for dim, facets, groups, first, pred_first in _BATCH2_ROWS:
+            row = self._batch2_row(first, facets, pred_first)
             row["groups"] = groups
             self._by_cell.setdefault((dim, BATCH2_ENGINE), []).append(row)
         self._pending: Dict[str, List[dict]] = {}
-        for dim, facets, groups, first, engine in _BATCH2_PENDING:
+        for dim, facets, groups, first, engine, pred_first in _BATCH2_PENDING:
             self._pending.setdefault(dim, []).append(
-                self._pending_row(first, facets, groups, engine))
+                self._pending_row(first, facets, groups, engine, pred_first))
 
     def _section(self, heading: str) -> Tuple[str, str]:
         for title, block in self.sections:
@@ -2586,10 +2594,27 @@ class Prereg:
                         "facets": facets, "source": str(PREREG_PATH)}
         raise KeyError(f"no outcome row {first!r} under {title!r}")
 
-    def _batch2_row(self, first: str, facets: Optional[List[str]]) -> dict:
-        """Parse a batch 2 prediction row from the Outcome table in PREREGISTERED.md."""
+    def _batch2_row(self, first: str, facets: Optional[List[str]], pred_first: Optional[str] = None) -> dict:
+        """Parse a batch 2 prediction row from the Outcome table in PREREGISTERED.md.
+        
+        pred_first: optional prediction measurement name if different from outcome measurement.
+        """
         title, block = self._section("Batch 2 (pre-registered")
         first_clean = _clean(first)
+        pred_first_clean = _clean(pred_first) if pred_first else first_clean
+        
+        # Get prediction from predictions table using pred_first
+        prediction_text = ""
+        for header, body in _tables(block):
+            cols = [_clean(h).lower() for h in header]
+            if cols[:2] != ["measurement", "laya"]:
+                continue
+            for row in body:
+                if _clean(row[0]) == pred_first_clean:
+                    prediction_text = row[1].strip() if len(row) > 1 else ""
+                    break
+        
+        # Get outcome from outcome table using first
         for header, body in _tables(block):
             cols = [_clean(h).lower() for h in header]
             if "prediction" not in cols or "observed" not in cols or "verdict" not in cols:
@@ -2599,7 +2624,7 @@ class Prereg:
                     continue
                 cell = dict(zip(cols, (_clean(c) for c in row)))
                 return {"section": title, "measurement": first_clean,
-                        "prediction": cell.get("prediction", ""),
+                        "prediction": prediction_text,
                         "observed": cell["observed"], "verdict": cell["verdict"],
                         "facets": facets, "source": str(PREREG_PATH)}
         raise KeyError(f"no batch-2 scored prediction {first!r}")
@@ -2615,20 +2640,21 @@ class Prereg:
         return self._section("Batch 2 (pre-registered")[1]
 
     def _pending_row(self, first: str, facets: List[str], groups: Optional[List[str]],
-                     engine: str) -> dict:
+                     engine: str, pred_first: Optional[str] = None) -> dict:
         title, block = self._section("Batch 2 (pre-registered")
+        pred_first = pred_first or first
         for header, body in _tables(block):
             cols = [_clean(h).lower() for h in header]
             if cols[:1] != ["measurement"] or engine not in cols:
                 continue
             for row in body:
-                if _clean(row[0]) == _clean(first):
+                if _clean(row[0]) == _clean(pred_first):
                     cell = dict(zip(cols, (_clean(c) for c in row)))
                     return {"section": title, "engine": engine, "measurement": _clean(first),
                             "prediction": cell[engine], "observed": None,
                             "verdict": "not yet measured", "facets": facets, "groups": groups,
                             "source": str(PREREG_PATH)}
-        raise KeyError(f"no batch-2 prediction {first!r} for {engine}")
+        raise KeyError(f"no batch-2 prediction {pred_first!r} for {engine}")
 
     def batch2_decisions(self) -> Dict[str, dict]:
         """The batch-2 design's decisions table: each question's wording, the trope it tests

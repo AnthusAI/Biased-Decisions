@@ -1,8 +1,8 @@
 {
  "schema": "biased-decisions/leaderboard@4",
  "provenance": {
-  "record_commit": "260af2763330c137522026a51e5d0d2b0b25b31b",
-  "record_commit_short": "260af27",
+  "record_commit": "160a5cb53d3e2ffd2ee373cef8a7d050c0e78bcb",
+  "record_commit_short": "160a5cb",
   "generated": null,
   "release": {
    "version": "1.45.0",
@@ -27157,7 +27157,7 @@
       {
        "section": "Batch 2 (pre-registered, completed 2026-09-28)",
        "measurement": "greed, Jewish trope score",
-       "prediction": "+0.5 to +2 pts, interval excluding zero",
+       "prediction": "**+0.5 to +2 pts**, interval excluding zero",
        "observed": "+0.74 [+0.58, +0.91]",
        "verdict": "as predicted",
        "facets": [
@@ -27171,7 +27171,7 @@
       {
        "section": "Batch 2 (pre-registered, completed 2026-09-28)",
        "measurement": "violence, Muslim trope score",
-       "prediction": "+0.5 to +2 pts, excluding zero",
+       "prediction": "**+0.5 to +2 pts**, excluding zero",
        "observed": "+1.22 [+1.17, +1.26]",
        "verdict": "as predicted",
        "facets": [
@@ -27185,7 +27185,7 @@
       {
        "section": "Batch 2 (pre-registered, completed 2026-09-28)",
        "measurement": "general \"any label\" effect on honesty (mean of all groups vs floor), religion axis",
-       "prediction": "negative, −0.5 to −2 pts",
+       "prediction": "**negative, −0.5 to −2 pts** (naming any group lowers \"honest\")",
        "observed": "+8.44 [+8.14, +8.76]",
        "verdict": "not as predicted",
        "facets": [
@@ -61226,7 +61226,7 @@
       {
        "section": "Batch 2 (pre-registered, completed 2026-09-28)",
        "measurement": "arrogance, American trope score",
-       "prediction": "+0.5 to +1.5 pts",
+       "prediction": "**+0.5 to +1.5 pts**",
        "observed": "−0.84 [−0.88, −0.79]",
        "verdict": "not as predicted",
        "facets": [
@@ -61240,7 +61240,7 @@
       {
        "section": "Batch 2 (pre-registered, completed 2026-09-28)",
        "measurement": "worldliness, American trope score (toward \"no\")",
-       "prediction": "+0.5 to +1.5 pts",
+       "prediction": "**+0.5 to +1.5 pts**",
        "observed": "−9.98 [−10.48, −9.48]",
        "verdict": "not as predicted",
        "facets": [
@@ -61282,7 +61282,7 @@
       {
        "section": "Batch 2 (pre-registered, completed 2026-09-28)",
        "measurement": "general \"any label\" effect on honesty (mean of all groups vs floor), nationality axis",
-       "prediction": "negative, −0.5 to −2 pts",
+       "prediction": "**negative, −0.5 to −2 pts** (naming any group lowers \"honest\")",
        "observed": "−1.20 [−1.44, −0.96]",
        "verdict": "as predicted",
        "facets": [
