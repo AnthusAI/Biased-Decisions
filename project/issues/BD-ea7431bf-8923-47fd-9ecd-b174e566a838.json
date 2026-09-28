@@ -3,17 +3,25 @@
   "title": "Provenance files for every task directory",
   "description": "The Bias in Bios tasks, the stereotype tasks, the loan-narrative tasks, the opinion-claims task and both Gaza tasks have no README or LICENSE in their directory, and the data manifest points at a path on a private machine. Give every task directory a README (source, licence, how the items were selected, what was redacted) and a LICENSE, and replace the private path in the manifest with the public source. Remove the stray build summary at the top of tasks/ that carries local paths.",
   "type": "chore",
-  "status": "open",
+  "status": "closed",
   "priority": 2,
   "assignee": null,
   "creator": null,
   "parent": "BD-045ab742-cc9e-4848-891d-f34ae74e8294",
   "labels": [],
   "dependencies": [],
-  "comments": [],
+  "comments": [
+    {
+      "id": "36db40a8-ab53-4964-b2b3-8eea4aaf166d",
+      "author": "home",
+      "text": "Merged to develop in PR #88: README and LICENSE in all 36 task directories, private paths scrubbed, stray build summary removed.",
+      "created_at": "2026-09-28T04:53:58.313144Z",
+      "comment_type": "default"
+    }
+  ],
   "created_at": "2026-09-28T04:17:56.744743Z",
-  "updated_at": "2026-09-28T04:17:56.744781Z",
-  "closed_at": null,
+  "updated_at": "2026-09-28T04:53:58.348442Z",
+  "closed_at": "2026-09-28T04:53:58.348408Z",
   "agent": {
     "platform": "claude_code",
     "model": "Claude Fable 5.1",

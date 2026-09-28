@@ -31,6 +31,7 @@ from biased_decisions.cues.antisemitism import surname_versions
 from biased_decisions.cues.antisemitism import versions_for as antisemitism_versions_for
 from biased_decisions.cues.fullname import analyze_full_name, render_full_name
 from biased_decisions.cues.gender import ORIGINAL_RULE, swap_gender
+from biased_decisions.cues.trivial_edit import swap_trivial
 from biased_decisions.cues.insertion import eligible as insertion_eligible
 from biased_decisions.cues.insertion import GENDERED_CUES, insert_clause, versions_for
 from biased_decisions.cues.names import name_versions
@@ -50,7 +51,7 @@ ASK_TWICE_SEED = 0
 DEFAULT_POOLS_PATH = Path(__file__).resolve().parents[1] / "pools" / "name_pools.json"
 
 CUES: Tuple[str, ...] = (
-    "gender-pronouns", "race-name", "race-fullname", "age-inserted",
+    "gender-pronouns", "trivial-edit", "race-name", "race-fullname", "age-inserted",
     "disability", "religion", "religion-v2", "veteran-status", "sexuality", "gender-identity",
     "ask-twice", "neutral",
 ) + ANTISEMITISM_INSERTION_CUES + ("antisemitism-surname",)
@@ -104,6 +105,21 @@ def build_gender_pronouns(task: Task) -> BuildResult:
                      "swapped": swap.swapped, "her_resolved": swap.her_resolved,
                      "gender": flip_gender.get(gender, gender)})
         rows.append({"id": f"{item.id}-swapped", "text": swap.text, "metadata": meta})
+    return BuildResult(rows=rows, excluded=0)
+
+
+def build_trivial_edit(task: Task) -> BuildResult:
+    """Every held-out bio's trivial-edit twin: neutral synonym swaps (40 pairs) with up to 3
+    replacements per bio. Like gender-pronouns, this never refuses a bio -- a bio with no
+    matching synonyms just comes back unchanged, and is still included in the result.
+    """
+    rows: List[dict] = []
+    for item in _test_items_sorted(task):
+        edit = swap_trivial(item.text)
+        meta = dict(item.metadata)
+        meta.update({"split": "counterfactual", "counterfactual_of": item.id,
+                     "swapped": edit.swapped})
+        rows.append({"id": f"{item.id}-trivial-edit", "text": edit.text, "metadata": meta})
     return BuildResult(rows=rows, excluded=0)
 
 
@@ -415,6 +431,7 @@ def build_neutral(task: Task) -> BuildResult:
 
 BUILDERS = {
     "gender-pronouns": build_gender_pronouns,
+    "trivial-edit": build_trivial_edit,
     "race-name": build_race_name,
     "race-fullname": build_race_fullname,
     "age-inserted": build_age_inserted,

@@ -53,7 +53,7 @@ NEW_INSERTION_CUES: tuple = ("veteran-status", "sexuality", "gender-identity")
 # occupation-invariance pattern, on all seven tasks: does the occupation verdict itself move when a bio says who the person is.
 ANTISEMITISM_INSERTION_CUES: tuple = ("antisemitism-secular", "antisemitism-religious", "antisemitism-nationality",
                                       "antisemitism-role", "antisemitism-surname")
-NOISE_FLOOR_CUES: tuple = ("ask-twice", "option-order")
+NOISE_FLOOR_CUES: tuple = ("ask-twice", "option-order", "trivial-edit")
 NEUTRAL_CUES: tuple = ("neutral",)
 _ALL_INSERTION_CUES = INSERTION_CUES + NEW_INSERTION_CUES + ANTISEMITISM_INSERTION_CUES
 TASK_CUES: Dict[str, tuple] = {
@@ -65,9 +65,9 @@ TASK_CUES: Dict[str, tuple] = {
                           + NEUTRAL_CUES),
     "paralegal-attorney": (("gender-pronouns",) + _ALL_INSERTION_CUES + NOISE_FLOOR_CUES
                            + NEUTRAL_CUES),
-    "journalist-professor": ("gender-pronouns",) + _ALL_INSERTION_CUES + NEUTRAL_CUES,
-    "architect-interior-designer": ("gender-pronouns",) + _ALL_INSERTION_CUES + NEUTRAL_CUES,
-    "dietitian-physician": ("gender-pronouns",) + _ALL_INSERTION_CUES + NEUTRAL_CUES,
+    "journalist-professor": ("gender-pronouns",) + _ALL_INSERTION_CUES + NOISE_FLOOR_CUES + NEUTRAL_CUES,
+    "architect-interior-designer": ("gender-pronouns",) + _ALL_INSERTION_CUES + NOISE_FLOOR_CUES + NEUTRAL_CUES,
+    "dietitian-physician": ("gender-pronouns",) + _ALL_INSERTION_CUES + NOISE_FLOOR_CUES + NEUTRAL_CUES,
 }
 
 # The religion gaps (biased_decisions/religion_gaps.py): a devout Buddhist on the decisions the four other religions

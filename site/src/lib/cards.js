@@ -259,6 +259,8 @@ export function allCards() {
   out.push(finish(urls.engines(), titledCard("home", "Every model"), pageIntroductions.models));
   out.push(finish(urls.methods(), { template: "home", headline: "How every number on the leaderboard is made",
     rows: [{ text: "Change a personal detail. Compare the AI’s answers." }] }, pageIntroductions.methods));
+  out.push(finish(`${urls.home()}about/`, { template: "home", headline: "Who makes this and how we tested each model",
+    rows: [{ text: "Anthus AI Solutions made this. It’s self-funded. The three models are Jev (hosted, paid API), Laya (open source), and Kev (open source)." }] }, { title: "Who makes this and how we tested each model", intro: "Who makes this site, how it is funded, and how each model was tested." }));
   for (const en of engines) {
     out.push(finish(urls.engine(en.id), engineCard(en), { title: en.label, intro: `${introModel(en)} ${data.overall.rows.find((r) => r.engine === en.id).measured_on ? 'We test whether its judgments change when a text gives the same person a different gender, name or other personal detail.' : `We have not yet tested ${en.label}. No results are available yet.`}` }));
     for (const d of allDimensions) out.push(finish(urls.engineDim(en.id, d.id), flagged(d.id, engineDimCard(en, d)), { title: `${en.label} on ${d.label.toLowerCase()}`, intro: `${introModel(en)} ${d.cells[en.id].status === 'measured' ? categoryIntro(d).intro : `We have not tested ${en.label} on ${d.label.toLowerCase()} yet.`}` }));

@@ -361,6 +361,7 @@ def test_mark_rebuilds_both_texts_and_flags_only_the_edit():
 
 def test_examples_come_from_the_committed_files(doc):
     import gzip
+    from biased_decisions.redact import redact_contact
     n = 0
     for dim in doc["dimensions"]:
         for cell in dim["breakdown"]["cells"]:
@@ -376,7 +377,7 @@ def test_examples_come_from_the_committed_files(doc):
                 with (DEFAULT_ROOT / path).open(encoding="utf-8") as handle:
                     for line in handle:
                         row = json.loads(line)
-                        texts[row["id"]] = row["text"]
+                        texts[row["id"]] = redact_contact(row["text"])
             for v in ex["versions"]:
                 assert "".join(t for t, _ in v["segments"]) == texts[v["id"]]
             assert ex["engine"] in ex["answers"]
