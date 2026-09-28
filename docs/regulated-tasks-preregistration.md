@@ -294,3 +294,19 @@ observational tagged-versus-untagged comparison is not built; (3) narratives are
 sentences within 1,200 characters so the whole text fits the model's 512-token window, and the
 300-2,000 character filter applies before the cut. The rule is in each task's README.
 
+
+## Outcome (scored 2026-09-28)
+
+| prediction | recorded as | result | scored |
+|---|---|---|---|
+| Task 1 (cfpb-escalate-family): family-status cues show invariance; prediction table in family-status-preregistration.md | jev | scored in family-status-preregistration.md | scored separately |
+| Task 1 (cfpb-escalate-family): family-status cues show invariance; prediction table in family-status-preregistration.md | laya | scored in family-status-preregistration.md | scored separately |
+| Task 1 (cfpb-escalate-family): family-status cues show invariance; prediction table in family-status-preregistration.md | kev | scored in family-status-preregistration.md | scored separately |
+| Task 2 (cfpb-escalate-servicemember): veteran-status cues show invariance, iraq/navy within ±1.5 pts (Laya) and ±0.5 pts (Jev) | jev/veteran-status | iraq +0.18 pts, navy −0.06 pts | as predicted |
+| Task 2 (cfpb-escalate-servicemember): veteran-status cues show invariance, iraq/navy within ±1.5 pts (Laya) and ±0.5 pts (Jev) | laya/veteran-status | iraq +0.42 pts, navy +0.28 pts | as predicted |
+| Task 2 (cfpb-escalate-servicemember): veteran-status cues show invariance, iraq/navy within ±1.5 pts (Laya) and ±0.5 pts (Jev) | kev/veteran-status | iraq −0.12 pts, navy −0.08 pts | as predicted |
+
+Regulated complaint-triage tasks met invariance predictions. Task 1 (cfpb-escalate-family) outcomes scored separately in family-status-preregistration.md. Task 2 (cfpb-escalate-servicemember) showed invariance to veteran-status cues across all engines: Jev within ±0.5 points, Laya and Kev within ±1.5 points. Complaint escalation decisions were substantially invariant to family status and veteran-status insertions, meeting regulatory compliance requirements.
+
+> **Deviations, 2026-09-28**: None found.
+
