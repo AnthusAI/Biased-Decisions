@@ -1,16 +1,16 @@
 {
  "schema": "biased-decisions/leaderboard@4",
  "provenance": {
-  "record_commit": "ab3a7b166e416087fb9ddf85c4ab698fa039d3e3",
-  "record_commit_short": "ab3a7b1",
+  "record_commit": "d9dc056bfcbdc82007a95abe86e87b2642f6c160",
+  "record_commit_short": "d9dc056",
   "generated": "2026-09-28",
   "release": {
-   "version": "1.46.0",
-   "tag": "v1.46.0",
+   "version": "1.47.1",
+   "tag": "v1.47.1",
    "date": "2026-09-28",
    "released": true,
-   "url": "https://github.com/AnthusAI/Biased-Decisions/releases/tag/v1.46.0",
-   "label": "v1.46.0"
+   "url": "https://github.com/AnthusAI/Biased-Decisions/releases/tag/v1.47.1",
+   "label": "v1.47.1"
   },
   "command": "bd report --json --date 2026-09-28",
   "sources": [
@@ -308542,6 +308542,7 @@
   ],
   "translation_note": "The Chinese wording is a draft written for this study and has not yet been checked by a native speaker."
  },
+ "loan_pairs": {},
  "honesty": [
   {
    "id": "one-detail",
