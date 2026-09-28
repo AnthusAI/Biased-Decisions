@@ -1,3 +1,17 @@
+# [1.45.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.44.0...v1.45.0) (2026-09-28)
+
+
+### Bug Fixes
+
+* **site:** name all Gaza study models ([44a333d](https://github.com/AnthusAI/Biased-Decisions/commit/44a333d7af51f8529db980495c77c6609684c303))
+
+
+### Features
+
+* **site:** visualize Gaza response probabilities ([030a63c](https://github.com/AnthusAI/Biased-Decisions/commit/030a63c8db14b7044f5cbfc0d1ad85461c4030cd))
+* **site:** visualize Gaza study comparisons ([d00f1f6](https://github.com/AnthusAI/Biased-Decisions/commit/d00f1f63d64e06dc6a4f1b4e86b900e42bfd7376))
+* **site:** visualize Gaza study results ([6e0e65f](https://github.com/AnthusAI/Biased-Decisions/commit/6e0e65f7e98144acdc2ce9128f9edadb7edb6dd5))
+
 # [1.44.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.43.0...v1.44.0) (2026-09-28)
 
 
