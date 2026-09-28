@@ -427,10 +427,10 @@ def facets_race_fullname(store: Store, engine: str) -> List[dict]:
         if excess_ci_raw:
             if s < 0:
                 excess_value = -(s - fs)
-                excess_ci = (-excess_ci_raw[1], -excess_ci_raw[0])
+                excess_ci = (-excess_ci_raw[1] * 100, -excess_ci_raw[0] * 100)
             else:
                 excess_value = s - fs
-                excess_ci = tuple(excess_ci_raw)
+                excess_ci = (excess_ci_raw[0] * 100, excess_ci_raw[1] * 100)
         out.append(_facet(
             g, g.capitalize(), raw=mag,
             raw_label=f"how far the model's confidence in \"surgeon\" moves, {g.capitalize()} names "

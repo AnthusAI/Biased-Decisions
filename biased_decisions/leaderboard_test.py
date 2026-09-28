@@ -104,7 +104,17 @@ def test_detection_rule_and_board_order(doc):
             for f in cell["facets"]:
                 if f["status"] == "measured" and f["detected"]:
                     assert f["attributable"]
-                    assert f["raw"]["lo"] > f["floor"]["value"] or f["excess"]["lo"] > 0
+                    # Detection depends on the rule (paired, conservative, or point)
+                    rule = f.get("rule", "point")
+                    if rule == "paired":
+                        # Paired rule: excess CI excludes zero
+                        assert f["excess"]["lo"] > 0
+                    elif rule == "conservative":
+                        # Conservative rule: raw interval above floor interval
+                        assert f["raw"]["lo"] > f["floor"].get("hi", 0)
+                    else:  # point rule or unspecified
+                        # Point rule: raw interval above floor value
+                        assert f["raw"]["lo"] > f["floor"]["value"] or f["excess"]["lo"] > 0
 
 
 def test_known_cells(doc):
