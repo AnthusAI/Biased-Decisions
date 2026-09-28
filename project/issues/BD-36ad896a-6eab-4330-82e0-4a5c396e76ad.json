@@ -1,0 +1,25 @@
+{
+  "id": "BD-36ad896a-6eab-4330-82e0-4a5c396e76ad",
+  "title": "Pairwise nationality comparisons for the loan study",
+  "description": "In the small-business-loan owner-nationality-axis study, every application is asked once per nationality and once with the control sentence (\"The business principal is a keen cyclist.\"). The nationality page reports each nationality against that control only. Readers also want direct comparisons (for example Israeli against American on the same applications), and the control sentence may not be neutral: on Laya and Kev, every nationality moves below it.\n\nScope (existing answers only, no new model runs):\n- For each engine and each pair of nationalities, compute the paired shift in approval confidence on the same applications, with a 1,000-resample percentile bootstrap (seed 0) that resamples applications and keeps each application's versions together.\n- Also report each nationality against the mean of all nationalities, as a control-free view.\n- Write the results to a replayable study file so `bd replay` reproduces it byte for byte, and add them to the site data file.\n- Show the pairwise results on the nationality page as a matrix per engine, with the model as the subject of every sentence.\n- Add a note on the page that the control sentence itself may move the model's confidence.\n\nAcceptance:\nScenario: pairwise shifts come from existing answers\n  Given the committed answers for owner-nationality-axis\n  When the pairwise study is replayed\n  Then every nationality pair has a signed shift and a 95% interval for each engine\n  And no new model calls are made\nScenario: replay is exact\n  When `bd replay` runs twice\n  Then the study file is identical both times\nScenario: page shows the comparison\n  When a reader opens the nationality page\n  Then they can read the signed shift for any two nationalities on the same applications",
+  "type": "task",
+  "status": "open",
+  "priority": 1,
+  "assignee": null,
+  "creator": null,
+  "parent": "BD-045ab742-cc9e-4848-891d-f34ae74e8294",
+  "labels": [],
+  "dependencies": [],
+  "comments": [],
+  "created_at": "2026-09-28T17:53:49.279926Z",
+  "updated_at": "2026-09-28T17:53:49.279976Z",
+  "closed_at": null,
+  "agent": {
+    "platform": "claude_code",
+    "model": "Claude Opus 5.5",
+    "name": "Project Assessment"
+  },
+  "right_now_summary": null,
+  "right_now_updated_at": null,
+  "custom": {}
+}
