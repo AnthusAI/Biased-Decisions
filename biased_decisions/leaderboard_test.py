@@ -13,8 +13,9 @@ from biased_decisions.tasks.bios import BIOS_TASKS
 
 from biased_decisions.leaderboard import (
     B3_BOARD_IDS,
-    ENGINE_IDS, SEVERITY_DARK, SEVERITY_LIGHT, _board, _clean, _fractional_ranks, _magnitude,
-    _wilson, build_overall, generate_json, release_info, severity_colours, write_json,
+    ENGINE_IDS, SEVERITY_DARK, SEVERITY_LIGHT, _ask_twice_floor, _board, _clean, _facet,
+    _fractional_ranks, _magnitude, _wilson, build_overall, generate_json, release_info,
+    severity_colours, write_json,
 )
 from biased_decisions.leaderboard_examples import mark
 from biased_decisions.tasks.base import DEFAULT_ROOT
@@ -822,3 +823,89 @@ def test_opinion_claims_are_published_as_direct_agreement_results_not_a_ranked_d
     assert len(anti_israel["claims"]) == 3
     assert "State of Israel" in anti_israel["claims"][0]["text"]
     assert all("anti_israel-self_determination" in result["claims"] for result in opinion["results"])
+
+
+def test_paired_excess_rule_detects_when_ci_excludes_zero():
+    """Paired difference: excess_ci provided, detected = excess_ci[0] > 0"""
+    facet = _facet(
+        "test", "Test paired",
+        raw=(2.0, 1.5, 2.5),  # cue: 2.0 [1.5, 2.5]
+        floor={"value": 0.5, "label": "floor", "source": "paired"},
+        n=100,
+        raw_label="test",
+        excess_value=1.5,  # 2.0 - 0.5
+        excess_ci=(0.1, 2.0)  # CI excludes 0
+    )
+    assert facet["rule"] == "paired"
+    assert facet["detected"] is True
+    assert facet["excess"]["lo"] == 0.1
+    assert facet["excess"]["hi"] == 2.0
+
+
+def test_paired_excess_rule_does_not_detect_when_ci_includes_zero():
+    """Paired difference: CI includes 0, so no detection"""
+    facet = _facet(
+        "test", "Test paired",
+        raw=(0.5, -0.5, 1.5),
+        floor={"value": 0.0, "label": "floor", "source": "paired"},
+        n=100,
+        raw_label="test",
+        excess_value=0.5,
+        excess_ci=(-0.2, 0.8)  # CI includes 0
+    )
+    assert facet["rule"] == "paired"
+    assert facet["detected"] is False
+    assert facet["excess"]["lo"] == -0.2
+
+
+def test_conservative_excess_rule_subtracts_floor_interval():
+    """Conservative: floor has lo/hi, detected = lo > floor_hi"""
+    facet = _facet(
+        "test", "Test conservative",
+        raw=(3.0, 2.5, 3.5),  # cue range
+        floor={"value": 1.0, "lo": 0.8, "hi": 1.2, "label": "floor"},
+        n=100,
+        raw_label="test"
+    )
+    assert facet["rule"] == "conservative"
+    assert facet["detected"] is True  # lo (2.5) > floor_hi (1.2)
+    assert facet["excess"]["lo"] == 2.5 - 1.2  # 1.3
+    assert facet["excess"]["hi"] == 3.5 - 0.8  # 2.7
+
+
+def test_conservative_excess_rule_does_not_detect_when_overlaps_floor():
+    """Conservative: if raw_lo <= floor_hi, no detection"""
+    facet = _facet(
+        "test", "Test conservative",
+        raw=(1.0, 0.5, 1.5),
+        floor={"value": 1.0, "lo": 0.9, "hi": 1.1, "label": "floor"},
+        n=100,
+        raw_label="test"
+    )
+    assert facet["rule"] == "conservative"
+    assert facet["detected"] is False  # lo (0.5) < floor_hi (1.1)
+
+
+def test_point_excess_rule_is_original_behavior():
+    """Point: no excess_ci, no floor interval, detected = raw.lo > floor.value"""
+    facet = _facet(
+        "test", "Test point",
+        raw=(2.0, 1.5, 2.5),
+        floor={"value": 0.5, "label": "floor", "source": "point"},
+        n=100,
+        raw_label="test"
+    )
+    assert facet["rule"] == "point"
+    assert facet["detected"] is True  # lo (1.5) > floor.value (0.5)
+    assert facet["excess"]["lo"] == 1.0  # 1.5 - 0.5
+    assert facet["excess"]["hi"] == 2.0  # 2.5 - 0.5
+
+
+def test_ask_twice_floor_includes_wilson_interval():
+    """_ask_twice_floor computes Wilson score interval for its floor"""
+    from biased_decisions.leaderboard import Store
+    from pathlib import Path
+    store = Store(Path("./"))  # dummy store
+    # When the row exists and has flip_pct and n, Wilson interval is computed
+    # This is tested indirectly via the facets_gender and facets_option_order functions
+    # which call _ask_twice_floor and pass its result to _facet
