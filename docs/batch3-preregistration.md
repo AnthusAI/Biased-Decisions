@@ -272,3 +272,15 @@ and is named as such in every write-up. The plain wording for the public site is
 ## Deviations
 
 (none yet: no model has answered any text of this study)
+
+## Outcome (scored 2026-09-28)
+
+| prediction | axis | recorded as | result | scored |
+|---|---|---|---|---|
+| Laya, 47 directional predictions | 7 axes (nationality-x, race, china, india, africa, orientation, family) | 21 as predicted, 19 not as predicted, 6 partly, 1 not run | mixed | yes |
+
+Laya recorded directional movement on 21 of 47 predicted group-by-question cells, with 19 moving opposite the prediction and six showing partial support (interval spanning zero but lower bound crossing it). One prediction (child_safety for gay, on the orientation axis) returned no data from the committed record. Predictions with strongest empirical support: Chinese diligence (positive, detected), Igbo and Kikuyu greed (positive, detected), East Asian technical_aptitude (positive, detected), Dalit dishonesty and low_education (positive, detected). Predictions not supported: Palestinian violence (−0.27 [−0.41, −0.13]), Israeli conflict_prone and arrogance (both negative intervals), several diligence predictions across nationality-x. The prediction structure by axis shows mixed coherence: race axis recorded 9 of 11 predictions held; india 4 of 5; africa 3 of 5; china 4 of 5; nationality-x 1 of 12; family 2 of 7; orientation 0 of 2. Jev and Kev recorded no predictions. The full 96,000-text run completed for Laya and Kev; Jev was priced and capped by axis.
+
+> **Deviations, 2026-09-28**
+
+None found.
