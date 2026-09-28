@@ -1,3 +1,19 @@
+# [1.43.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.42.0...v1.43.0) (2026-09-28)
+
+
+### Bug Fixes
+
+* **site:** prioritize Jewish and Israel studies ([5ff713e](https://github.com/AnthusAI/Biased-Decisions/commit/5ff713e639c1c61a41be97b6c6ef0201dd8c2d4b))
+* **site:** remove uncompleted-study notice ([b440176](https://github.com/AnthusAI/Biased-Decisions/commit/b4401767e06d31db9c07b5432726855341da4345))
+* **site:** use plain language for study plan ([a2b8726](https://github.com/AnthusAI/Biased-Decisions/commit/a2b87263a86ada68cf3a3d6e909caa71952db575))
+* **study:** complete ADL task schema ([f86d9cb](https://github.com/AnthusAI/Biased-Decisions/commit/f86d9cbdd79e521d123c1f882cb67e2d0418ab1e))
+
+
+### Features
+
+* **study:** add ADL Gaza Hamas task ([6cca635](https://github.com/AnthusAI/Biased-Decisions/commit/6cca63593dcef4f3acad0a09f9479c3df2d604f7))
+* **study:** publish ADL Gaza Hamas replication ([18d3648](https://github.com/AnthusAI/Biased-Decisions/commit/18d36486f3fb0ee736d3a74e52d1c7aea066834e))
+
 # [1.42.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.41.0...v1.42.0) (2026-09-27)
 
 
