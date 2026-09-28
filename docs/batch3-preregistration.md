@@ -275,11 +275,57 @@ and is named as such in every write-up. The plain wording for the public site is
 
 ## Outcome (scored 2026-09-28)
 
-| prediction | axis | recorded as | result | scored |
-|---|---|---|---|---|
-| Laya, 47 directional predictions | 7 axes (nationality-x, race, china, india, africa, orientation, family) | 21 as predicted, 19 not as predicted, 6 partly, 1 not run | mixed | yes |
+| prediction | recorded as | verdict |
+|---|---|---|
+| Palestinian, violence (positive) | -0.27 [-0.41, -0.13] | not as predicted |
+| Israeli, conflict_prone (positive) | -0.15 [-0.20, -0.10] | not as predicted |
+| Israeli, arrogance (positive) | -0.36 [-0.42, -0.30] | not as predicted |
+| Russian, conflict_prone (positive) | 0.06 [0.01, 0.11] | as predicted |
+| Ukrainian, alcohol (positive) | -0.66 [-0.76, -0.56] | not as predicted |
+| Nigerian, dishonesty (positive) | 1.07 [0.93, 1.22] | as predicted |
+| Japanese, diligence (positive) | -2.27 [-2.62, -1.93] | not as predicted |
+| German, diligence (positive) | 0.09 [-0.17, 0.37] | partly |
+| Chinese, diligence (positive) | -1.89 [-2.28, -1.53] | not as predicted |
+| South Korean, diligence (positive) | no data | not run |
+| Chinese, technical_aptitude (positive) | -0.33 [-0.53, -0.15] | not as predicted |
+| Japanese, technical_aptitude (positive) | -0.13 [-0.32, 0.04] | partly |
+| East Asian, technical_aptitude (positive) | 0.93 [0.82, 1.03] | as predicted |
+| South Asian, technical_aptitude (positive) | 0.67 [0.57, 0.77] | as predicted |
+| East Asian, poor_leadership (positive) | -0.53 [-0.63, -0.42] | not as predicted |
+| South Asian, poor_leadership (positive) | -0.53 [-0.63, -0.42] | not as predicted |
+| East Asian, outsider (positive) | -0.19 [-0.24, -0.15] | not as predicted |
+| South Asian, outsider (positive) | 0.43 [0.38, 0.47] | as predicted |
+| Latino, outsider (positive) | 0.86 [0.79, 0.93] | as predicted |
+| Black, violence (positive) | -0.38 [-0.43, -0.33] | not as predicted |
+| Black, arrogance (positive) | 3.27 [3.17, 3.36] | as predicted |
+| Native American, low_education (positive) | -0.37 [-0.57, -0.18] | not as predicted |
+| Latino, low_education (positive) | 1.70 [1.49, 1.93] | as predicted |
+| Henan, dishonesty (positive) | 0.00 [-0.06, 0.05] | partly |
+| Northeast, conflict_prone (positive) | 0.06 [-0.01, 0.12] | partly |
+| Shanghai, arrogance (positive) | 0.12 [0.04, 0.19] | as predicted |
+| rural hukou, poor_leadership (positive) | 0.19 [-0.32, 0.80] | partly |
+| rural hukou, low_education (positive) | 2.56 [1.76, 3.34] | as predicted |
+| Dalit, dishonesty (positive) | 0.53 [0.41, 0.64] | as predicted |
+| Dalit, poor_leadership (positive) | 0.13 [-0.15, 0.39] | partly |
+| Dalit, low_education (positive) | 1.35 [0.81, 1.89] | as predicted |
+| Brahmin, poor_leadership (negative) | -0.60 [-0.97, -0.19] | as predicted |
+| Bihari, arrogance (positive) | -1.75 [-1.89, -1.62] | not as predicted |
+| Igbo, greed (positive) | 0.40 [0.26, 0.52] | as predicted |
+| Kikuyu, greed (positive) | -0.50 [-0.75, -0.30] | not as predicted |
+| Yoruba, arrogance (positive) | -0.11 [-0.20, -0.03] | not as predicted |
+| Hausa, low_education (positive) | -2.23 [-2.62, -1.83] | not as predicted |
+| Maasai, violence (positive) | 0.37 [0.08, 0.73] | as predicted |
+| gay, child_safety (positive) | 0.92 [0.79, 1.05] | as predicted |
+| asexual, dishonesty (positive) | 3.27 [3.03, 3.48] | as predicted |
+| single parent, distracted_by_family (positive) | -0.80 [-1.18, -0.42] | not as predicted |
+| pregnant, distracted_by_family (positive) | 1.93 [1.29, 2.55] | as predicted |
+| parent of five, distracted_by_family (positive) | -5.11 [-5.47, -4.71] | not as predicted |
+| pregnant, often_absent (positive) | 1.43 [1.20, 1.68] | as predicted |
+| pregnant, careless_errors (positive) | 0.15 [0.06, 0.26] | as predicted |
+| single parent, financial_irresponsibility (positive) | 0.12 [0.04, 0.20] | as predicted |
+| parent of five, financial_irresponsibility (positive) | -0.62 [-0.71, -0.53] | not as predicted |
 
-Laya recorded directional movement on 21 of 47 predicted group-by-question cells, with 19 moving opposite the prediction and six showing partial support (interval spanning zero but lower bound crossing it). One prediction (child_safety for gay, on the orientation axis) returned no data from the committed record. Predictions with strongest empirical support: Chinese diligence (positive, detected), Igbo and Kikuyu greed (positive, detected), East Asian technical_aptitude (positive, detected), Dalit dishonesty and low_education (positive, detected). Predictions not supported: Palestinian violence (−0.27 [−0.41, −0.13]), Israeli conflict_prone and arrogance (both negative intervals), several diligence predictions across nationality-x. The prediction structure by axis shows mixed coherence: race axis recorded 9 of 11 predictions held; india 4 of 5; africa 3 of 5; china 4 of 5; nationality-x 1 of 12; family 2 of 7; orientation 0 of 2. Jev and Kev recorded no predictions. The full 96,000-text run completed for Laya and Kev; Jev was priced and capped by axis.
+Laya's 47 directional predictions held as predicted or partly on 27 cells (21 held, 6 partly), and contradicted on 19. Predictions with strongest support: Black arrogance (+3.27 pts), asexual dishonesty (+3.27 pts), pregnant distracted_by_family (+1.93 pts); predictions most contradicted: parent-of-five distracted_by_family (−5.11 pts), Japanese diligence (−2.27 pts), Hausa low_education (−2.23 pts). By axis, race recorded highest success (9 of 11 predictions), india 4 of 5, china 4 of 5, africa 3 of 5, orientation 2 of 2, family 2 of 7, nationality-x 1 of 12. Jev and Kev recorded no predictions.
 
 > **Deviations, 2026-09-28**
 
