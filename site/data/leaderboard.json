@@ -1,8 +1,8 @@
 {
  "schema": "biased-decisions/leaderboard@4",
  "provenance": {
-  "record_commit": "373dc48caa4dab8dcf9edefa69c186e2e43152ad",
-  "record_commit_short": "373dc48",
+  "record_commit": "c7981d0de4dfa7f4957ec9ca9cf4e4a52e4bf49e",
+  "record_commit_short": "c7981d0",
   "generated": null,
   "release": {
    "version": "1.45.0",
@@ -27155,10 +27155,10 @@
        "source": "studies/PREREGISTERED.md"
       },
       {
-       "section": "Batch 2 (pre-registered, recorded 2026-09-28)",
+       "section": "Batch 2 (pre-registered, completed 2026-09-28)",
        "measurement": "greed, Jewish trope score",
-       "prediction": "within range",
-       "observed": "+0.74",
+       "prediction": "+0.5 to +2 pts, interval excluding zero",
+       "observed": "+0.74 [+0.58, +0.91]",
        "verdict": "as predicted",
        "facets": [
         "greed"
@@ -27169,10 +27169,10 @@
        ]
       },
       {
-       "section": "Batch 2 (pre-registered, recorded 2026-09-28)",
+       "section": "Batch 2 (pre-registered, completed 2026-09-28)",
        "measurement": "violence, Muslim trope score",
-       "prediction": "within range",
-       "observed": "+1.22",
+       "prediction": "+0.5 to +2 pts, excluding zero",
+       "observed": "+1.22 [+1.17, +1.26]",
        "verdict": "as predicted",
        "facets": [
         "violence"
@@ -27183,10 +27183,10 @@
        ]
       },
       {
-       "section": "Batch 2 (pre-registered, recorded 2026-09-28)",
-       "measurement": "general \"any label\" effect on honesty -- religion axis",
-       "prediction": "outside range",
-       "observed": "+8.44",
+       "section": "Batch 2 (pre-registered, completed 2026-09-28)",
+       "measurement": "general \"any label\" effect on honesty (mean of all groups vs floor)",
+       "prediction": "negative, −0.5 to −2 pts",
+       "observed": "+8.44 [+8.14, +8.76] (religion), −1.20 [−1.44, −0.96] (nationality)",
        "verdict": "not as predicted",
        "facets": [
         "honesty"
@@ -61224,10 +61224,10 @@
      ],
      "prereg": [
       {
-       "section": "Batch 2 (pre-registered, recorded 2026-09-28)",
+       "section": "Batch 2 (pre-registered, completed 2026-09-28)",
        "measurement": "arrogance, American trope score",
-       "prediction": "outside range",
-       "observed": "−0.84",
+       "prediction": "+0.5 to +1.5 pts",
+       "observed": "−0.84 [−0.88, −0.79]",
        "verdict": "not as predicted",
        "facets": [
         "arrogance"
@@ -61238,10 +61238,10 @@
        ]
       },
       {
-       "section": "Batch 2 (pre-registered, recorded 2026-09-28)",
+       "section": "Batch 2 (pre-registered, completed 2026-09-28)",
        "measurement": "worldliness, American trope score (toward \"no\")",
-       "prediction": "outside range",
-       "observed": "−9.98",
+       "prediction": "+0.5 to +1.5 pts",
+       "observed": "−9.98 [−10.48, −9.48]",
        "verdict": "not as predicted",
        "facets": [
         "worldliness"
@@ -61252,39 +61252,26 @@
        ]
       },
       {
-       "section": "Batch 2 (pre-registered, recorded 2026-09-28)",
-       "measurement": "diligence, German trope score",
-       "prediction": "outside range",
-       "observed": "−0.37",
+       "section": "Batch 2 (pre-registered, completed 2026-09-28)",
+       "measurement": "diligence, German and Chinese trope scores",
+       "prediction": "positive, under 1 pt",
+       "observed": "German −0.37 [−0.51, −0.20]; Chinese −1.94 [−2.14, −1.73]",
        "verdict": "not as predicted",
        "facets": [
         "diligence"
        ],
        "source": "studies/PREREGISTERED.md",
        "groups": [
-        "german"
-       ]
-      },
-      {
-       "section": "Batch 2 (pre-registered, recorded 2026-09-28)",
-       "measurement": "diligence, Chinese trope score",
-       "prediction": "outside range",
-       "observed": "−1.94",
-       "verdict": "not as predicted",
-       "facets": [
-        "diligence"
-       ],
-       "source": "studies/PREREGISTERED.md",
-       "groups": [
+        "german",
         "chinese"
        ]
       },
       {
-       "section": "Batch 2 (pre-registered, recorded 2026-09-28)",
-       "measurement": "general \"any label\" effect on honesty -- nationality axis",
-       "prediction": "within range",
-       "observed": "−1.20",
-       "verdict": "—",
+       "section": "Batch 2 (pre-registered, completed 2026-09-28)",
+       "measurement": "general \"any label\" effect on honesty (mean of all groups vs floor)",
+       "prediction": "negative, −0.5 to −2 pts",
+       "observed": "+8.44 [+8.14, +8.76] (religion), −1.20 [−1.44, −0.96] (nationality)",
+       "verdict": "not as predicted",
        "facets": [
         "honesty"
        ],

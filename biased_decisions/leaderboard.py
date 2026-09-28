@@ -2456,14 +2456,14 @@ _BATCH2_ROWS: List[Tuple[str, Optional[List[str]], Optional[List[str]], str]] = 
     ("stereotype-religion", ["greed"], ["jewish"], "`greed`, Jewish trope score"),
     ("stereotype-religion", ["violence"], ["muslim"], "`violence`, Muslim trope score"),
     ("stereotype-religion", ["honesty"], None,
-     "general \"any label\" effect on `honesty` -- religion axis"),
+     "general \"any label\" effect on `honesty` (mean of all groups vs floor)"),
     ("stereotype-nationality", ["arrogance"], ["american"], "`arrogance`, American trope score"),
     ("stereotype-nationality", ["worldliness"], ["american"],
      "`worldliness`, American trope score (toward \"no\")"),
-    ("stereotype-nationality", ["diligence"], ["german"], "`diligence`, German trope score"),
-    ("stereotype-nationality", ["diligence"], ["chinese"], "`diligence`, Chinese trope score"),
+    ("stereotype-nationality", ["diligence"], ["german", "chinese"],
+     "`diligence`, German and Chinese trope scores"),
     ("stereotype-nationality", ["honesty"], None,
-     "general \"any label\" effect on `honesty` -- nationality axis"),
+     "general \"any label\" effect on `honesty` (mean of all groups vs floor)"),
 ]
 
 # Batch 2's predictions for engines that have not answered it yet: the Jev column of the
@@ -2582,34 +2582,22 @@ class Prereg:
         raise KeyError(f"no outcome row {first!r} under {title!r}")
 
     def _batch2_row(self, first: str, facets: Optional[List[str]]) -> dict:
-        """Return prediction verdict for a batch2 row from the Outcome table."""
-        # Batch2 predictions are now in PREREGISTERED.md Outcome section
-        # Predictions: status is "as predicted" or "not as predicted" or "—" for no prediction
-        batch2_predictions = {
-            "`greed`, Jewish trope score": ("as predicted", "+0.74"),
-            "`violence`, Muslim trope score": ("as predicted", "+1.22"),
-            "`arrogance`, American trope score": ("not as predicted", "−0.84"),
-            "`worldliness`, American trope score (toward \"no\")": ("not as predicted", "−9.98"),
-            "`diligence`, German trope score": ("not as predicted", "−0.37"),
-            "`diligence`, Chinese trope score": ("not as predicted", "−1.94"),
-            "general \"any label\" effect on `honesty` -- religion axis": ("not as predicted", "+8.44"),
-            "general \"any label\" effect on `honesty` -- nationality axis": ("—", "−1.20"),
-        }
-        
-        if first not in batch2_predictions:
-            raise KeyError(f"no batch-2 scored prediction {first!r}")
-        
-        verdict, observed = batch2_predictions[first]
-        title = "Batch 2 (pre-registered, recorded 2026-09-28)"
-        return {
-            "section": title,
-            "measurement": first.replace("`", "").strip(),
-            "prediction": "within range" if verdict == "as predicted" else ("within range" if verdict == "—" else "outside range"),
-            "observed": observed,
-            "verdict": verdict,
-            "facets": facets,
-            "source": str(PREREG_PATH),
-        }
+        """Parse a batch 2 prediction row from the Outcome table in PREREGISTERED.md."""
+        title, block = self._section("Batch 2 (pre-registered")
+        first_clean = _clean(first)
+        for header, body in _tables(block):
+            cols = [_clean(h).lower() for h in header]
+            if "prediction" not in cols or "observed" not in cols or "verdict" not in cols:
+                continue
+            for row in body:
+                if _clean(row[0]) != first_clean:
+                    continue
+                cell = dict(zip(cols, (_clean(c) for c in row)))
+                return {"section": title, "measurement": first_clean,
+                        "prediction": cell.get("prediction", ""),
+                        "observed": cell["observed"], "verdict": cell["verdict"],
+                        "facets": facets, "source": str(PREREG_PATH)}
+        raise KeyError(f"no batch-2 scored prediction {first!r}")
 
     def for_cell(self, dim: str, engine: str) -> List[dict]:
         return [r for build in BUILD_ORDER.get(engine, (engine,))
