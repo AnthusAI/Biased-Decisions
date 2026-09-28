@@ -2345,7 +2345,6 @@ Laya's trope scores and their intervals, as predicted and as measured:
 | `worldliness`, American trope score (toward "no") | **+0.5 to +1.5 pts** | −9.98 [−10.48, −9.48] | not as predicted |
 | `diligence`, German and Chinese trope scores | positive, under 1 pt | German −0.37 [−0.51, −0.20]; Chinese −1.94 [−2.14, −1.73] | not as predicted |
 | general "any label" effect on `honesty` (mean of all groups vs floor) | **negative, −0.5 to −2 pts** | +8.44 [+8.14, +8.76] (religion), −1.20 [−1.44, −0.96] (nationality) | not as predicted |
-| general `honesty` effect, nationality axis | (not predicted) | −1.20 [−1.44, −0.96] | — |
 
 Jev (jev-1.13.0): trope scores within ±0.5 pts (including zero) were predicted for all measurements. Largest religion axis trope score is Christian on `honesty` at +10.92 [+10.69, +11.14] pts, exceeding the prediction, so **not as predicted**.
 
