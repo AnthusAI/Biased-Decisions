@@ -1,0 +1,25 @@
+{
+  "id": "BD-c11949af-2c7b-49f5-8cf1-af79819f87dc",
+  "title": "Ranking: show effect sizes side by side instead of a mean rank",
+  "description": "With three engines, a mean of per-dimension ranks turns any detected effect into a rank above any non-detected one regardless of size, and weights nine unequal dimensions equally, one of which is confounded and two of which come from a staged run. Replace the overall order with a side-by-side effect-size comparison per dimension, or keep the order but label it a descriptive tally and exclude confounded and non-regenerable dimensions from it.",
+  "type": "task",
+  "status": "open",
+  "priority": 2,
+  "assignee": null,
+  "creator": null,
+  "parent": "BD-045ab742-cc9e-4848-891d-f34ae74e8294",
+  "labels": [],
+  "dependencies": [],
+  "comments": [],
+  "created_at": "2026-09-28T04:17:56.489649Z",
+  "updated_at": "2026-09-28T04:17:56.489686Z",
+  "closed_at": null,
+  "agent": {
+    "platform": "claude_code",
+    "model": "Claude Fable 5.1",
+    "name": "Project Assessment"
+  },
+  "right_now_summary": null,
+  "right_now_updated_at": null,
+  "custom": {}
+}

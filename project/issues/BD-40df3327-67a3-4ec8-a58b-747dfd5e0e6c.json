@@ -1,0 +1,25 @@
+{
+  "id": "BD-40df3327-67a3-4ec8-a58b-747dfd5e0e6c",
+  "title": "Remove third-party contact details from task texts and the published data file",
+  "description": "A small number of scraped biographies in the architect-interior-designer, gendered-advance and gendered-management tasks carry a personal email address in the text, and those texts are copied into site/data/leaderboard.json. Redact the addresses in the task items (and any versions files built from them), rebuild the affected records only if a redaction changes an answered text, and confirm the data file and site carry none. Add a build check that refuses to publish an item text containing an email address. Do not quote the addresses in this issue or its comments.",
+  "type": "bug",
+  "status": "open",
+  "priority": 0,
+  "assignee": null,
+  "creator": null,
+  "parent": "BD-045ab742-cc9e-4848-891d-f34ae74e8294",
+  "labels": [],
+  "dependencies": [],
+  "comments": [],
+  "created_at": "2026-09-28T04:17:56.154721Z",
+  "updated_at": "2026-09-28T04:17:56.154759Z",
+  "closed_at": null,
+  "agent": {
+    "platform": "claude_code",
+    "model": "Claude Fable 5.1",
+    "name": "Project Assessment"
+  },
+  "right_now_summary": null,
+  "right_now_updated_at": null,
+  "custom": {}
+}

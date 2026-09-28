@@ -1,0 +1,25 @@
+{
+  "id": "BD-4d0d224c-2229-4b23-a94d-a8e6540c9d65",
+  "title": "Floor for a deterministic engine: read flip rates against a non-zero trivial edit",
+  "description": "A deterministic engine has an ask-twice floor of zero, but a trivial edit that changes no protected signal (a second name from the same pool) still flips a few per cent of its answers. Reading gender flip rates against zero therefore overstates the excess. Give every engine a trivial-edit floor for the pronoun-swap tasks (a same-signal edit of similar size), record it, and use it in the excess and detection rule. Remove the borrowed-floor fallback that copies a floor from another task.",
+  "type": "task",
+  "status": "open",
+  "priority": 1,
+  "assignee": null,
+  "creator": null,
+  "parent": "BD-045ab742-cc9e-4848-891d-f34ae74e8294",
+  "labels": [],
+  "dependencies": [],
+  "comments": [],
+  "created_at": "2026-09-28T04:17:56.408978Z",
+  "updated_at": "2026-09-28T04:17:56.409015Z",
+  "closed_at": null,
+  "agent": {
+    "platform": "claude_code",
+    "model": "Claude Fable 5.1",
+    "name": "Project Assessment"
+  },
+  "right_now_summary": null,
+  "right_now_updated_at": null,
+  "custom": {}
+}

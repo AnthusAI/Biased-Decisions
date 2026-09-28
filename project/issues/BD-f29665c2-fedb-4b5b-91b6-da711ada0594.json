@@ -1,0 +1,25 @@
+{
+  "id": "BD-f29665c2-fedb-4b5b-91b6-da711ada0594",
+  "title": "About page: who runs the site, how it is funded, how each engine was accessed, how to reach us",
+  "description": "The site names only the repository. Add an About page, linked from every page, that says:\n- who makes the site (an independent AI engineering consultancy) and that it is self-funded;\n- for each engine, what it is, who makes it, which version or checkpoint was tested, and how it was accessed. For the hosted engine: paid API access only, no other relationship with its maker. For the open-source engines: package or repository, checkpoint hash, hardware and precision;\n- how to contact the authors and report an error in a result;\n- that the site uses analytics, with the opt-out.\nKeep it factual and short; it is a disclosure, not a pitch.",
+  "type": "task",
+  "status": "open",
+  "priority": 1,
+  "assignee": null,
+  "creator": null,
+  "parent": "BD-045ab742-cc9e-4848-891d-f34ae74e8294",
+  "labels": [],
+  "dependencies": [],
+  "comments": [],
+  "created_at": "2026-09-28T04:17:56.243764Z",
+  "updated_at": "2026-09-28T04:17:56.243798Z",
+  "closed_at": null,
+  "agent": {
+    "platform": "claude_code",
+    "model": "Claude Fable 5.1",
+    "name": "Project Assessment"
+  },
+  "right_now_summary": null,
+  "right_now_updated_at": null,
+  "custom": {}
+}

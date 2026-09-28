@@ -1,0 +1,25 @@
+{
+  "id": "BD-7244a363-b1d3-49ae-b44e-ca6d2d750e1a",
+  "title": "Outcome sections for every pre-registered study that has run",
+  "description": "Only three of the pre-registration documents under docs/ have an Outcome section, and several have no predictions table. For every study that has answers, append an Outcome section that scores each prediction against the result in the pre-registration's own words, with a Deviations block where the plan changed. For future studies, commit and tag the plan, and consider an external timestamp, before any answer is collected.",
+  "type": "task",
+  "status": "open",
+  "priority": 2,
+  "assignee": null,
+  "creator": null,
+  "parent": "BD-045ab742-cc9e-4848-891d-f34ae74e8294",
+  "labels": [],
+  "dependencies": [],
+  "comments": [],
+  "created_at": "2026-09-28T04:17:56.661281Z",
+  "updated_at": "2026-09-28T04:17:56.661321Z",
+  "closed_at": null,
+  "agent": {
+    "platform": "claude_code",
+    "model": "Claude Fable 5.1",
+    "name": "Project Assessment"
+  },
+  "right_now_summary": null,
+  "right_now_updated_at": null,
+  "custom": {}
+}

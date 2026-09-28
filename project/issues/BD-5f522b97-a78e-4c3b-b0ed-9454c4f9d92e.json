@@ -1,0 +1,25 @@
+{
+  "id": "BD-5f522b97-a78e-4c3b-b0ed-9454c4f9d92e",
+  "title": "Direct-statement arms: add stance controls or take them off the site",
+  "description": "The ADL statement arm (`adl_gaza`) and the opinion-claims arm put a claim to a model and record agree/disagree with no control. On the ADL arm one model selects the strongest agreement for most statements, including pairs that contradict each other, which is position or acquiescence bias rather than a stance. Many answer distributions are close to uniform and are still shown as a \"selected response\". The opinion-claims arm has one prompt per claim and prints two-decimal percentages with no interval.\n\nDecide first: keep with controls, or remove from the site until controls exist. If kept:\n- Add a reversed or negated statement for every claim and an option-order reversal, and report the stance as the paired difference.\n- Report an acquiescence index per model (agreement with a claim and its negation) next to every rate.\n- Show the full distribution; do not label a \"selected response\" when the top probability is under an agreed threshold.\n- Do not average statements that point in opposite directions into one figure.\n- Use a neutral colour scale that does not code one answer as wrong.\n- Reconcile the page copy: it currently calls the study both \"not a reproduction\" and a \"completed replication\".\n- Record a pre-registration with predictions before any new answers are collected.",
+  "type": "task",
+  "status": "open",
+  "priority": 1,
+  "assignee": null,
+  "creator": null,
+  "parent": "BD-045ab742-cc9e-4848-891d-f34ae74e8294",
+  "labels": [],
+  "dependencies": [],
+  "comments": [],
+  "created_at": "2026-09-28T04:17:56.199446Z",
+  "updated_at": "2026-09-28T04:17:56.199481Z",
+  "closed_at": null,
+  "agent": {
+    "platform": "claude_code",
+    "model": "Claude Fable 5.1",
+    "name": "Project Assessment"
+  },
+  "right_now_summary": null,
+  "right_now_updated_at": null,
+  "custom": {}
+}
