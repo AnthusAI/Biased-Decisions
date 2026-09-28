@@ -13,6 +13,7 @@ export const dimensions = allDimensions.filter((d) => !d.supplemental);
 export const supplementalDimensions = allDimensions.filter((d) => d.supplemental);
 export const opinionClaims = data.opinion_claims;
 export const adlGaza = data.adl_gaza;
+export const gazaStatus = data.gaza_status;
 export const engineById = Object.fromEntries(engines.map((e) => [e.id, e]));
 export const dimById = Object.fromEntries(allDimensions.map((d) => [d.id, d]));
 
