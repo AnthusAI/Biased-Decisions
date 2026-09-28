@@ -10,9 +10,22 @@
   "parent": "BD-045ab742-cc9e-4848-891d-f34ae74e8294",
   "labels": [],
   "dependencies": [],
-  "comments": [],
+  "comments": [
+    {
+      "id": "da3ae582-3878-4e37-9bb6-326cf71dfe2e",
+      "author": "home",
+      "text": "Scope note: a scan finds email addresses in the text of about two hundred scraped biographies across the Bias in Bios task files, not only the two that reached the data file. Tonight's change redacts at the report layer so nothing published by the site carries an address, and adds a build check. Whether to redact the corpus files themselves is a separate decision: changing an answered text after the fact would break the answer-record fingerprints (the Kev sidecars hash every input file) and the byte-for-byte replay guarantee, so it needs a plan of its own.",
+      "created_at": "2026-09-28T04:31:31.741762Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude_code",
+        "model": "Claude Fable 5.1",
+        "name": "Project Assessment"
+      }
+    }
+  ],
   "created_at": "2026-09-28T04:17:56.154721Z",
-  "updated_at": "2026-09-28T04:17:56.154759Z",
+  "updated_at": "2026-09-28T04:31:31.741798Z",
   "closed_at": null,
   "agent": {
     "platform": "claude_code",
