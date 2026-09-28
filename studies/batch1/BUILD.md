@@ -2,10 +2,10 @@
 
 Built during the Jev-Flywheel session that produced this repo's imported batch-1 material, per
 the pre-registration (now `studies/PREREGISTERED.md`'s "Batch 1" section, sections A-D) and the
-design doc (`docs/design.md`). `/Users/home/Projects/Jev-Flywheel` was read-only
+design doc (`docs/design.md`). The Jev-Flywheel repository (https://github.com/AnthusAI/Jev-Flywheel) was read-only
 throughout: every script below only reads its fixtures, its `var/bias_in_bios.parquet` cache, and
 imports `jev_flywheel` (installed editable in its venv); nothing was written there. All commands
-were run with `/Users/home/Projects/Jev-Flywheel/.venv/bin/python`, which has `jev_flywheel`,
+were run from the Jev-Flywheel venv, which has `jev_flywheel`,
 `pandas`, `spacy` (`en_core_web_sm`), `python-dotenv` and `typesafe-sdk` installed.
 
 ## Option order: a task-definition fact, not a formatting choice
@@ -114,13 +114,15 @@ option-order-reversed cue (section D).
 
 ## Exact commands
 
+Run from the Jev-Flywheel repository with its venv:
+
 ```
-/Users/home/Projects/Jev-Flywheel/.venv/bin/python import/batch1/scripts/01_build_new_pairs.py
-/Users/home/Projects/Jev-Flywheel/.venv/bin/python import/batch1/scripts/02_write_original_question_yaml.py
-/Users/home/Projects/Jev-Flywheel/.venv/bin/python import/batch1/scripts/03_build_insertion_cues.py
-/Users/home/Projects/Jev-Flywheel/.venv/bin/python import/batch1/scripts/04_build_ask_twice.py
-/Users/home/Projects/Jev-Flywheel/.venv/bin/python import/batch1/scripts/05_jev_answers.py --price-only   # priced first
-/Users/home/Projects/Jev-Flywheel/.venv/bin/python import/batch1/scripts/05_jev_answers.py                # sent
+python import/batch1/scripts/01_build_new_pairs.py
+python import/batch1/scripts/02_write_original_question_yaml.py
+python import/batch1/scripts/03_build_insertion_cues.py
+python import/batch1/scripts/04_build_ask_twice.py
+python import/batch1/scripts/05_jev_answers.py --price-only   # priced first
+python import/batch1/scripts/05_jev_answers.py                # sent
 ```
 
 (plus one manual smoke-test call, before any of the above's `05_jev_answers.py` run -- see
