@@ -1,0 +1,53 @@
+{
+  "id": "BD-c2426746-d283-46f5-b41b-e020bfeff182",
+  "title": "Unify nationality studies on one complete page",
+  "description": "Scenario: a complete nationality view\nGiven a reader opens the Nationality page\nWhen the page presents legacy, expanded-stereotype, and lending studies\nThen it keeps those results together as clearly scoped sections and does not render an empty matrix that implies missing results are elsewhere.",
+  "type": "task",
+  "status": "closed",
+  "priority": 0,
+  "assignee": null,
+  "creator": null,
+  "parent": "BD-46601366-1119-4d0f-ad88-1de3e6b63349",
+  "labels": [],
+  "dependencies": [],
+  "comments": [
+    {
+      "id": "7c2fe0fb-c6ef-4480-947b-a29bdfb97571",
+      "author": "home",
+      "text": "Confirmed the apparent blanks came from mixing a seven-nationality legacy study with a thirteen-nationality lending study while a complete 13-nationality stereotype study was stranded under a separate category. Implemented a single Nationality page with three scoped sections and no misleading empty boxes; fresh build and 39 site checks passed. Stacked PR #97 follows the data-completion PR #96.",
+      "created_at": "2026-09-28T17:19:10.982222Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "codex",
+        "model": "gpt-5",
+        "name": "root"
+      }
+    },
+    {
+      "id": "fbdda41a-ab07-403c-9509-fb8cead8e371",
+      "author": "home",
+      "text": "PR #98 merged to main as 27eeb970316825def478d66b70c215e30fce710a. The Nationality page now presents all three scoped studies together without a misleading empty matrix.",
+      "created_at": "2026-09-28T17:28:42.317747Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "codex",
+        "model": "gpt-5",
+        "name": "root"
+      }
+    }
+  ],
+  "created_at": "2026-09-28T17:15:47.006989Z",
+  "updated_at": "2026-09-28T17:28:45.067225Z",
+  "closed_at": "2026-09-28T17:28:45.067173Z",
+  "agent": {
+    "platform": "codex",
+    "model": "gpt-5",
+    "name": "root"
+  },
+  "right_now_summary": null,
+  "right_now_updated_at": null,
+  "custom": {
+    "project_label": "BD",
+    "source": "shared"
+  }
+}

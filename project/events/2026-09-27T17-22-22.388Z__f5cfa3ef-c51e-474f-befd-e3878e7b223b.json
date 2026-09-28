@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "event_id": "f5cfa3ef-c51e-474f-befd-e3878e7b223b",
+  "issue_id": "BD-50cf47",
+  "event_type": "issue_created",
+  "occurred_at": "2026-09-27T17:22:22.388Z",
+  "actor_id": "home",
+  "payload": {
+    "title": "Opinion-claims study: review and publish the real results page",
+    "description": "Review the completed opinion-claims study results and site presentation; publish only evidence-backed results for the engines actually measured. Definition of done: the rendered Opinion & belief page identifies the measured models dynamically, presents the recorded outcomes without false precision, and the focused site and replay checks pass.\n\nFeature: published opinion-claim results\nScenario: visitor opens the opinion-claims page\nGiven replayable answers and scored records for the measured engines\nWhen the site is built\nThen the page presents the real measured engines and results without hardcoded model claims.",
+    "issue_type": "task",
+    "status": "open",
+    "priority": 2,
+    "assignee": null,
+    "parent": "BD-8711caaf-17a6-4c26-a826-496dfd6bae82",
+    "labels": [],
+    "agent": {
+      "platform": "codex",
+      "model": "gpt-5",
+      "name": "root"
+    }
+  }
+}

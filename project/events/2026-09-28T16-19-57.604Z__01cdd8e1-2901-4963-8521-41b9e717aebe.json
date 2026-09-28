@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "event_id": "01cdd8e1-2901-4963-8521-41b9e717aebe",
+  "issue_id": "BD-e1d9ccbd-7bdf-4f22-b9b2-c7469078fc18",
+  "event_type": "issue_created",
+  "occurred_at": "2026-09-28T16:19:57.604Z",
+  "actor_id": "home",
+  "payload": {
+    "title": "Complete Jev and Kev coverage for the full nationality loan axis",
+    "description": "Complete the previously pre-registered 13-nationality small-business-loan axis for Jev and Kev.\n\nScenario: complete engine coverage\nGiven the frozen 14-version loan axis\nWhen Jev and Kev answer every application\nThen the public nationality loan page shows replayable measured results for Laya, Jev, and Kev without an unsupported missing-data note.",
+    "issue_type": "task",
+    "status": "open",
+    "priority": 0,
+    "assignee": null,
+    "parent": "BD-46601366-1119-4d0f-ad88-1de3e6b63349",
+    "labels": [],
+    "agent": {
+      "platform": "codex",
+      "model": "gpt-5",
+      "name": "root"
+    }
+  }
+}

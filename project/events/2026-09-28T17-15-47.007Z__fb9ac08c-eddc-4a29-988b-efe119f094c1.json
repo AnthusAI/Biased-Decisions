@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "event_id": "fb9ac08c-eddc-4a29-988b-efe119f094c1",
+  "issue_id": "BD-c2426746-d283-46f5-b41b-e020bfeff182",
+  "event_type": "issue_created",
+  "occurred_at": "2026-09-28T17:15:47.007Z",
+  "actor_id": "home",
+  "payload": {
+    "title": "Unify nationality studies on one complete page",
+    "description": "Scenario: a complete nationality view\nGiven a reader opens the Nationality page\nWhen the page presents legacy, expanded-stereotype, and lending studies\nThen it keeps those results together as clearly scoped sections and does not render an empty matrix that implies missing results are elsewhere.",
+    "issue_type": "task",
+    "status": "open",
+    "priority": 0,
+    "assignee": null,
+    "parent": "BD-46601366-1119-4d0f-ad88-1de3e6b63349",
+    "labels": [],
+    "agent": {
+      "platform": "codex",
+      "model": "gpt-5",
+      "name": "root"
+    }
+  }
+}

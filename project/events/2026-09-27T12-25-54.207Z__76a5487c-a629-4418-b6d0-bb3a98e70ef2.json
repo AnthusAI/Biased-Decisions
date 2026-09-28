@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "event_id": "76a5487c-a629-4418-b6d0-bb3a98e70ef2",
+  "issue_id": "BD-59ada6d1-3512-487c-8434-281c5481a8eb",
+  "event_type": "issue_created",
+  "occurred_at": "2026-09-27T12:25:54.207Z",
+  "actor_id": "home",
+  "payload": {
+    "title": "JEVPA on fresh Bias in Bios journalist-professor data",
+    "description": "Given the Bias in Bios train parquet and the previously used journalist-professor task IDs, when a new deterministic source-disjoint corpus is frozen before analyst or Jev calls, then compare diversity-gated Pareto retention with greedy search on journalist versus professor classification. Discovery, selection, and test labels remain separated; analyst sees discovery labels only. Retention requires a distinct sealed-slice winner and meaningful prediction diversity, preventing the Civil Comments failure mode of near-identical slice specialists.",
+    "issue_type": "story",
+    "status": "open",
+    "priority": 2,
+    "assignee": null,
+    "parent": "BD-8711caaf-17a6-4c26-a826-496dfd6bae82",
+    "labels": [],
+    "agent": {
+      "platform": "codex",
+      "model": "gpt-6-astra",
+      "name": "root",
+      "settings": {
+        "study": "JEVPA journalist-professor"
+      }
+    }
+  }
+}

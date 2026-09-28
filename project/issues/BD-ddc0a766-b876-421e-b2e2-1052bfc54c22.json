@@ -1,0 +1,45 @@
+{
+  "id": "BD-ddc0a766-b876-421e-b2e2-1052bfc54c22",
+  "title": "Keep top filter buttons wrapped at every viewport width",
+  "description": "",
+  "type": "bug",
+  "status": "closed",
+  "priority": 1,
+  "assignee": null,
+  "creator": null,
+  "parent": "BD-4f83aebd-9fa3-4ac7-b820-e3a1cab1ee8b",
+  "labels": [],
+  "dependencies": [],
+  "comments": [
+    {
+      "id": "a0d991d7-5b93-4f64-a9a5-66b3dddff8db",
+      "author": "home",
+      "text": "Declared behavior: the top filter rail must wrap its buttons into visible rows at every viewport width and must not horizontally scroll or clip controls.",
+      "created_at": "2026-09-27T20:32:30.404250Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "codex",
+        "model": "GPT-5",
+        "name": "root"
+      }
+    },
+    {
+      "id": "e9770b29-d1d6-4781-ad1c-95519bca5d00",
+      "author": "home",
+      "text": "Merged in PR #78 as ca6811c. Browser verification at 390px and 1440px confirmed no filter-rail overflow; the focused regression test passes.",
+      "created_at": "2026-09-27T20:35:32.136379Z",
+      "comment_type": "default"
+    }
+  ],
+  "created_at": "2026-09-27T20:32:15.644532Z",
+  "updated_at": "2026-09-27T20:35:34.677769Z",
+  "closed_at": "2026-09-27T20:35:34.677740Z",
+  "agent": {
+    "platform": "codex",
+    "model": "GPT-5",
+    "name": "root"
+  },
+  "right_now_summary": null,
+  "right_now_updated_at": null,
+  "custom": {}
+}

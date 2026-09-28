@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "event_id": "daee6e2c-aa6c-4aea-a931-7cc1acacf7b4",
+  "issue_id": "BD-3da5fe30-0d1d-4b4a-9053-648329c61599",
+  "event_type": "comment_added",
+  "occurred_at": "2026-09-27T17:24:15.037Z",
+  "actor_id": "home",
+  "payload": {
+    "comment_id": "a018aa7c-e26f-4d89-bd7a-57bf125741d5",
+    "comment_author": "home",
+    "agent": {
+      "platform": "codex",
+      "model": "gpt-5",
+      "name": "root"
+    }
+  }
+}

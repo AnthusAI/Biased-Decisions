@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "event_id": "b975276f-a2a1-4cce-b9be-1f7269747cf1",
+  "issue_id": "BD-4f83aebd-9fa3-4ac7-b820-e3a1cab1ee8b",
+  "event_type": "comment_added",
+  "occurred_at": "2026-09-24T00:01:09.182Z",
+  "actor_id": "home",
+  "payload": {
+    "comment_id": "b8418767-5bde-4a24-aaa1-7047a7d9b776",
+    "comment_author": "home",
+    "agent": {
+      "platform": "codex",
+      "model": "GPT-6",
+      "name": "Pixel Scales"
+    }
+  }
+}

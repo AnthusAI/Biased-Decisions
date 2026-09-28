@@ -313,7 +313,11 @@ export function matrixCell(dim, cell, engineId = null) {
   if (engineId) {
     const f = cell.engines[engineId];
     if (f.status !== "measured") return { status: "missing", href };
-    return { status: "measured", engine: engineId, value: f.excess.value, lo: f.excess.lo, hi: f.excess.hi,
+    const signedValue = getSignedValue(f);
+    const displayValue = signedValue !== null ? signedValue : f.excess.value;
+    const direction = signedValue !== null && signedValue < 0 ? { toward: "down" } : null;
+    const ci = signedCI(f.excess.value, f.excess.lo, f.excess.hi, direction);
+    return { status: "measured", engine: engineId, value: displayValue, lo: ci.lo, hi: ci.hi,
       detected: f.detected, attributable: f.attributable, reverse: !!(f.extra && f.extra.direction === "reverse"),
       href: `${href}#${engineId}`, prereg: cell.prereg };
   }
@@ -324,9 +328,19 @@ export function matrixCell(dim, cell, engineId = null) {
   if (!measured.length) return { status: "missing", href, prereg: cell.prereg };
   const top = board && board.ranked[0];
   if (top) return { status: "measured", engine: top.engine, value: top.value, lo: top.lo, hi: top.hi, detected: true, href, prereg: cell.prereg, n_measured: measured.length };
-  const best = measured.map((e) => ({ e, f: cell.engines[e.id] })).sort((a, b) => b.f.excess.value - a.f.excess.value)[0];
+  const best = measured.map((e) => ({ e, f: cell.engines[e.id] })).sort((a, b) => {
+    const aSign = getSignedValue(b.f);
+    const bSign = getSignedValue(a.f);
+    const aVal = aSign !== null ? aSign : b.f.excess.value;
+    const bVal = bSign !== null ? bSign : a.f.excess.value;
+    return bVal - aVal;
+  })[0];
   const allReverse = measured.every((e) => cell.engines[e.id].extra && cell.engines[e.id].extra.direction === "reverse");
-  return { status: "measured", engine: best.e.id, value: best.f.excess.value, lo: best.f.excess.lo, hi: best.f.excess.hi,
+  const bestSignedValue = getSignedValue(best.f);
+  const bestDisplayValue = bestSignedValue !== null ? bestSignedValue : best.f.excess.value;
+  const bestDirection = bestSignedValue !== null && bestSignedValue < 0 ? { toward: "down" } : null;
+  const bestCI = signedCI(best.f.excess.value, best.f.excess.lo, best.f.excess.hi, bestDirection);
+  return { status: "measured", engine: best.e.id, value: bestDisplayValue, lo: bestCI.lo, hi: bestCI.hi,
     detected: false, attributable: best.f.attributable, reverse: allReverse, href, prereg: cell.prereg, n_measured: measured.length };
 }
 
@@ -354,3 +368,30 @@ export function forestRows(dim, cells, labelOf, hrefOf) {
 export const siblingsOf = (list, id) => list.filter((x) => x.id !== id);
 
 export const plural = (k) => ({ nationality: "nationalities", religion: "religions", "name group": "name groups", engine: "engines" }[k] || `${k}s`);
+
+/**
+ * Extract the signed value from a facet or a direction object.
+ * Prefers facet.extra.signed_shift_pts, falls back to direction.signed_pts, returns null if neither.
+ */
+export function getSignedValue(facet, direction = null) {
+  if (facet && facet.extra && facet.extra.signed_shift_pts !== null && facet.extra.signed_shift_pts !== undefined) {
+    return facet.extra.signed_shift_pts;
+  }
+  if (direction && direction.signed_pts !== null && direction.signed_pts !== undefined) {
+    return direction.signed_pts;
+  }
+  return null;
+}
+
+/**
+ * Compute confidence interval for signed shifts.
+ * For downward shifts (direction.toward === "down"), negate and reorder the interval.
+ */
+export function signedCI(value, lo, hi, direction = null) {
+  if (direction && direction.toward === "down") {
+    // For downward shifts, negate both endpoints and swap them
+    return { lo: -hi, hi: -lo };
+  }
+  // For upward or unsigned shifts, return as-is
+  return { lo, hi };
+}

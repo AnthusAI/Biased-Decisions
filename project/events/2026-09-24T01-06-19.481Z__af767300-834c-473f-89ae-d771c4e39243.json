@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "event_id": "af767300-834c-473f-89ae-d771c4e39243",
+  "issue_id": "BD-dc51ca9b-6149-495e-979f-22268681e251",
+  "event_type": "field_updated",
+  "occurred_at": "2026-09-24T01:06:19.481Z",
+  "actor_id": "home",
+  "payload": {
+    "changes": {
+      "assignee": {
+        "from": null,
+        "to": "Codex GPT-6 (Kev Lead)"
+      }
+    }
+  }
+}

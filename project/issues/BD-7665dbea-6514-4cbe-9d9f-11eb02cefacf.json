@@ -1,0 +1,81 @@
+{
+  "id": "BD-7665dbea-6514-4cbe-9d9f-11eb02cefacf",
+  "title": "Wrap claim family values in opinions results table",
+  "description": "",
+  "type": "bug",
+  "status": "closed",
+  "priority": 1,
+  "assignee": null,
+  "creator": null,
+  "parent": "BD-4f83aebd-9fa3-4ac7-b820-e3a1cab1ee8b",
+  "labels": [],
+  "dependencies": [],
+  "comments": [
+    {
+      "id": "26bff1ca-d74a-4300-b567-6d1caad079b4",
+      "author": "home",
+      "text": "Declared fix: the Claim family cell must wrap so every results-table column remains visible rather than forcing horizontal cropping.",
+      "created_at": "2026-09-27T19:23:42.801204Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "codex",
+        "model": "GPT-5",
+        "name": "root"
+      }
+    },
+    {
+      "id": "275944de-8aba-469c-a3b6-1de56dbcbb24",
+      "author": "home",
+      "text": "Added reported issue: every claim-family heading and its source sentence need explicit whitespace/separation; e.g. ‘Anti-Jewish claims The Anti-Defamation League…’, not concatenated text.",
+      "created_at": "2026-09-27T19:24:18.432149Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "codex",
+        "model": "GPT-5",
+        "name": "root"
+      }
+    },
+    {
+      "id": "b5477a82-9416-4678-87f0-e31d76c6f09f",
+      "author": "home",
+      "text": "Implementation and verification: added a fixed-layout, full-width opinion-results table with a 40% wrapping claim-family column. Family labels and source text now render on separate block lines; score, range, and control comparison lines do too. Built the site, all 28 site tests passed, and a 390px browser check confirmed table scrollWidth equals clientWidth (359px), with no console errors.",
+      "created_at": "2026-09-27T19:28:15.641741Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "codex",
+        "model": "GPT-5",
+        "name": "root"
+      }
+    },
+    {
+      "id": "70557a6c-419e-4be8-9121-bcf75925ad4c",
+      "author": "home",
+      "text": "Committed and pushed as e29851f on codex/fix-opinion-claims-table. The Kanbus task remains in progress until this fix is merged.",
+      "created_at": "2026-09-27T19:28:56.274880Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "codex",
+        "model": "GPT-5",
+        "name": "root"
+      }
+    },
+    {
+      "id": "9ed3d459-6f70-4bd1-9737-62b0180206ad",
+      "author": "home",
+      "text": "Merged in PR #72 as 884716d after the replay and site-audit check passed.",
+      "created_at": "2026-09-27T19:52:11.127794Z",
+      "comment_type": "default"
+    }
+  ],
+  "created_at": "2026-09-27T19:23:14.467937Z",
+  "updated_at": "2026-09-27T19:52:13.685249Z",
+  "closed_at": "2026-09-27T19:52:13.685218Z",
+  "agent": {
+    "platform": "codex",
+    "model": "GPT-5",
+    "name": "root"
+  },
+  "right_now_summary": null,
+  "right_now_updated_at": null,
+  "custom": {}
+}

@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "event_id": "0b0edf5c-9d4b-439c-b0cf-75fe984c7ebd",
+  "issue_id": "BD-2ce619ef-24b8-4fc9-93b5-b3428688160c",
+  "event_type": "issue_created",
+  "occurred_at": "2026-09-25T19:23:09.430Z",
+  "actor_id": "home",
+  "payload": {
+    "title": "Pre-register and scaffold the Civil Comments JEVPA comparison",
+    "description": "Implements the BD-80da43 feasibility story: freeze Civil Comments splits and subtype-slice isolation, add a no-spend runner scaffold, and record the required analyst/Jev budget before any engine call.",
+    "issue_type": "task",
+    "status": "open",
+    "priority": 2,
+    "assignee": null,
+    "parent": "BD-8711caaf-17a6-4c26-a826-496dfd6bae82",
+    "labels": [],
+    "agent": {
+      "platform": "codex",
+      "model": "GPT-5",
+      "name": "root"
+    }
+  }
+}

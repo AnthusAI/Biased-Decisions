@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "event_id": "2413f9b3-79e1-43ba-925c-eb8f8da9fa2a",
+  "issue_id": "BD-7665dbea-6514-4cbe-9d9f-11eb02cefacf",
+  "event_type": "issue_created",
+  "occurred_at": "2026-09-27T19:23:14.467Z",
+  "actor_id": "home",
+  "payload": {
+    "title": "Wrap claim family values in opinions results table",
+    "description": "",
+    "issue_type": "bug",
+    "status": "open",
+    "priority": 1,
+    "assignee": null,
+    "parent": "BD-4f83aebd-9fa3-4ac7-b820-e3a1cab1ee8b",
+    "labels": [],
+    "agent": {
+      "platform": "codex",
+      "model": "GPT-5",
+      "name": "root"
+    }
+  }
+}

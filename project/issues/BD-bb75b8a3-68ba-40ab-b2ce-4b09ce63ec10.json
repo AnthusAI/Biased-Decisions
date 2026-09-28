@@ -22,10 +22,22 @@
         "model": "Claude Opus 5.5",
         "name": "Biased-Decisions coordinator"
       }
+    },
+    {
+      "id": "75b7249a-90d8-47a4-b36f-c933eeb2d940",
+      "author": "home",
+      "text": "Found the published full-axis loan study has 14,000 versioned inputs and a complete Laya record only; Jev and Kev were never collected. Beginning the missing runs under BD-<new task>.",
+      "created_at": "2026-09-28T16:19:59.532241Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "codex",
+        "model": "gpt-5",
+        "name": "root"
+      }
     }
   ],
   "created_at": "2026-09-23T16:25:59.392654Z",
-  "updated_at": "2026-09-23T16:26:06.205111Z",
+  "updated_at": "2026-09-28T16:19:59.532275Z",
   "closed_at": null,
   "agent": {
     "platform": "claude_code",

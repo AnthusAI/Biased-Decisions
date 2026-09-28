@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "event_id": "9b9f3424-b5fa-4171-8b10-f1d2235c2e1e",
+  "issue_id": "BD-ddc0a766-b876-421e-b2e2-1052bfc54c22",
+  "event_type": "issue_created",
+  "occurred_at": "2026-09-27T20:32:15.644Z",
+  "actor_id": "home",
+  "payload": {
+    "title": "Keep top filter buttons wrapped at every viewport width",
+    "description": "",
+    "issue_type": "bug",
+    "status": "open",
+    "priority": 1,
+    "assignee": null,
+    "parent": "BD-4f83aebd-9fa3-4ac7-b820-e3a1cab1ee8b",
+    "labels": [],
+    "agent": {
+      "platform": "codex",
+      "model": "GPT-5",
+      "name": "root"
+    }
+  }
+}

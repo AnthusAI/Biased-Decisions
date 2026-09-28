@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "event_id": "2be0e432-253d-4ab9-8f51-6ba42e064573",
+  "issue_id": "BD-4d86cffe-b0df-44a9-b4ce-2074c5d30289",
+  "event_type": "comment_added",
+  "occurred_at": "2026-09-23T23:40:14.321Z",
+  "actor_id": "home",
+  "payload": {
+    "comment_id": "82c234e2-0cee-427f-8c4a-1892a88373e0",
+    "comment_author": "home",
+    "agent": {
+      "platform": "codex",
+      "model": "GPT-6",
+      "name": "Project Assessment"
+    }
+  }
+}

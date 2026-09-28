@@ -1,0 +1,53 @@
+{
+  "id": "BD-e1d9ccbd-7bdf-4f22-b9b2-c7469078fc18",
+  "title": "Complete Jev and Kev coverage for the full nationality loan axis",
+  "description": "Complete the previously pre-registered 13-nationality small-business-loan axis for Jev and Kev.\n\nScenario: complete engine coverage\nGiven the frozen 14-version loan axis\nWhen Jev and Kev answer every application\nThen the public nationality loan page shows replayable measured results for Laya, Jev, and Kev without an unsupported missing-data note.",
+  "type": "task",
+  "status": "closed",
+  "priority": 0,
+  "assignee": null,
+  "creator": null,
+  "parent": "BD-46601366-1119-4d0f-ad88-1de3e6b63349",
+  "labels": [],
+  "dependencies": [],
+  "comments": [
+    {
+      "id": "ecb8860d-d816-4691-ac95-031b3e40e4d3",
+      "author": "home",
+      "text": "Completed the frozen full-axis collection: Jev 14,000/14,000 and Kev 14,000/14,000. Scored all three engine rows, regenerated the leaderboard, and verified full replay (545 cells), 55 Python checks, fresh production build, and 31 site checks. PR #95 is awaiting CI.",
+      "created_at": "2026-09-28T17:01:38.136685Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "codex",
+        "model": "gpt-5",
+        "name": "root"
+      }
+    },
+    {
+      "id": "44334587-a50a-4691-af1a-0541a16d7a11",
+      "author": "home",
+      "text": "PR #96 merged to main as  b68fb5039fab2133826d5e86894edd08f3d5f2f4. The published record now contains complete Jev and Kev 14,000-input nationality-loan runs.",
+      "created_at": "2026-09-28T17:28:37.328483Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "codex",
+        "model": "gpt-5",
+        "name": "root"
+      }
+    }
+  ],
+  "created_at": "2026-09-28T16:19:57.603856Z",
+  "updated_at": "2026-09-28T17:28:39.862005Z",
+  "closed_at": "2026-09-28T17:28:39.861973Z",
+  "agent": {
+    "platform": "codex",
+    "model": "gpt-5",
+    "name": "root"
+  },
+  "right_now_summary": null,
+  "right_now_updated_at": null,
+  "custom": {
+    "project_label": "BD",
+    "source": "shared"
+  }
+}

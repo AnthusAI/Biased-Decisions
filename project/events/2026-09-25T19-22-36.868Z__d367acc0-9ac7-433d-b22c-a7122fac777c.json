@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "event_id": "d367acc0-9ac7-433d-b22c-a7122fac777c",
+  "issue_id": "BD-80da4331-bbcc-4387-a406-44ebf4cdbf5b",
+  "event_type": "issue_created",
+  "occurred_at": "2026-09-25T19:22:36.868Z",
+  "actor_id": "home",
+  "payload": {
+    "title": "Civil Comments JEVPA feasibility study",
+    "description": "As a researcher, I want to test whether Pareto retention finds complementary moderation features in real Civil Comments text, so that JEVPA is evaluated where error mechanisms can genuinely differ.\n\nFeature: Civil Comments JEVPA feasibility\n\nScenario: Sealed subtype slices reveal complementary residual mechanisms\nGiven a fixed public Civil Comments split with toxicity labels\nWhen a baseline is fit on discovery data and scored on selection data\nThen threat and identity-attack subtype annotations remain hidden from the analyst and are reported only as selection slices\nAnd the study advances only when each slice has sufficient support and different candidate questions are retained.",
+    "issue_type": "story",
+    "status": "open",
+    "priority": 2,
+    "assignee": null,
+    "parent": "BD-8711caaf-17a6-4c26-a826-496dfd6bae82",
+    "labels": [],
+    "agent": {
+      "platform": "codex",
+      "model": "GPT-5",
+      "name": "root"
+    }
+  }
+}

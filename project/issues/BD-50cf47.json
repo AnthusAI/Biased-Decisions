@@ -1,0 +1,79 @@
+{
+  "id": "BD-50cf47",
+  "title": "Opinion-claims study: review and publish the real results page",
+  "description": "Review the completed opinion-claims study results and site presentation; publish only evidence-backed results for the engines actually measured. Definition of done: the rendered Opinion & belief page identifies the measured models dynamically, presents the recorded outcomes without false precision, and the focused site and replay checks pass.\n\nFeature: published opinion-claim results\nScenario: visitor opens the opinion-claims page\nGiven replayable answers and scored records for the measured engines\nWhen the site is built\nThen the page presents the real measured engines and results without hardcoded model claims.",
+  "type": "task",
+  "status": "closed",
+  "priority": 2,
+  "assignee": null,
+  "creator": null,
+  "parent": "BD-8711caaf-17a6-4c26-a826-496dfd6bae82",
+  "labels": [],
+  "dependencies": [],
+  "comments": [
+    {
+      "id": "710f56f4-df0e-4b52-8683-60148630ea31",
+      "author": "home",
+      "text": "Started review. The originally referenced ID was absent from the local Kanbus board, so I recreated it with the supplied ID and attached it to the task-coverage epic. Inspecting the existing opinion-claims branch and its render/replay checks before changing product code.",
+      "created_at": "2026-09-27T17:22:36.001617Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "codex",
+        "model": "gpt-5",
+        "name": "root"
+      }
+    },
+    {
+      "id": "5c37e157-0834-4e93-a528-94a09c5eebee",
+      "author": "home",
+      "text": "Superseded: the user confirmed another session is handling this work. No product files were changed, staged, committed, or published by this session.",
+      "created_at": "2026-09-27T17:22:50.042198Z",
+      "comment_type": "default"
+    },
+    {
+      "id": "a824b575-924f-4bf3-872d-75f18c528dda",
+      "author": "home",
+      "text": "Resumed at the user’s direction. I will review the completed opinion-claims results page, verify replay and site build, then publish the evidence-backed page.",
+      "created_at": "2026-09-27T17:24:06.189239Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "codex",
+        "model": "gpt-5",
+        "name": "root"
+      }
+    },
+    {
+      "id": "56c7fcc9-5f90-4503-930d-42879bae5cd2",
+      "author": "home",
+      "text": "Published in PR #69 (merged into develop). The missing projection was fixed: the Opinion & belief hub now shows Jev, Laya and Kev’s recorded direct-agreement rates, each three-claim range, and the conspiracy-control difference. Verification passed: offline replay, 59 focused Python specs, static build, and 28 site tests.",
+      "created_at": "2026-09-27T17:42:15.996447Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "codex",
+        "model": "gpt-5",
+        "name": "root"
+      }
+    },
+    {
+      "id": "4ac19700-a5dd-4af8-a9ab-7158204ea908",
+      "author": "home",
+      "text": "Complete: PR #69 merged into develop. No unrelated board changes were staged.",
+      "created_at": "2026-09-27T17:42:18.624992Z",
+      "comment_type": "default"
+    }
+  ],
+  "created_at": "2026-09-27T17:22:22.388306Z",
+  "updated_at": "2026-09-27T17:42:21.115095Z",
+  "closed_at": "2026-09-27T17:42:21.115060Z",
+  "agent": {
+    "platform": "codex",
+    "model": "gpt-5",
+    "name": "root"
+  },
+  "right_now_summary": null,
+  "right_now_updated_at": null,
+  "custom": {
+    "project_label": "BD",
+    "source": "shared"
+  }
+}

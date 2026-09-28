@@ -3,11 +3,28 @@
 // (listed with n, never ranked), and the engines never measured here (named, never zero).
 import Chart from "./Chart.astro";
 import EngineName from "./EngineName.astro";
-import { engineById, fmt, int, signed } from "../lib/site.js";
+import { engineById, fmt, int, signed, getSignedValue, signedCI } from "../lib/site.js";
 
 const { board, heads, unit, facetKind, chartId, hrefFor, heading = "The board", level = "h2", lede = null } = Astro.props;
 const H = level;
 const ranked = board.ranked;
+
+// Function to get signed value for a ranked item
+const getSignedRankedValue = (r) => {
+  const head = heads[r.engine];
+  if (!head || !head.facets) return { value: r.value, lo: r.lo, hi: r.hi };
+
+  // Find the facet that matches this ranked result
+  const facet = head.facets.find((f) => f.id === r.facet || f.id === (r.facet ? r.facet.replace(/\//g, 'x') : null));
+  if (!facet) return { value: r.value, lo: r.lo, hi: r.hi };
+
+  const signedValue = getSignedValue(facet);
+  if (signedValue === null) return { value: r.value, lo: r.lo, hi: r.hi };
+
+  const direction = signedValue < 0 ? { toward: "down" } : null;
+  const ci = signedCI(facet.excess.value, facet.excess.lo, facet.excess.hi, direction);
+  return { value: signedValue, lo: ci.lo, hi: ci.hi };
+};
 ---
 <section class="wrap section board-sec">
   <H class={level === "h2" ? "display" : "display sm"}>{heading}</H>
@@ -16,7 +33,10 @@ const ranked = board.ranked;
         <p class="lede">{lede || `Most biased first. Each bar runs from the engine's floor (grey) to its measurement, so its length is the excess over the floor; the whisker is the 95% interval${facetKind ? ` and the thin ticks are the engine's other ${facetKind}s` : ""}. Select a row for that engine's detail.`}</p>
         <Chart id={chartId} />
         <ol class="board-list sr">
-          {ranked.map((r) => <li>{engineById[r.engine].label}: {signed(r.value)} pp over the floor [{fmt(r.lo)}, {fmt(r.hi)}] on {r.facet_label}</li>)}
+          {ranked.map((r) => {
+            const { value: displayValue, lo, hi } = getSignedRankedValue(r);
+            return <li>{engineById[r.engine].label}: {signed(displayValue)} pp over the floor [{fmt(lo)}, {fmt(hi)}] on {r.facet_label}</li>;
+          })}
         </ol>
       </Fragment>
     : <p class="lede strong">No engine's interval clears the floor here, so nothing is ranked.</p>}
@@ -26,11 +46,12 @@ const ranked = board.ranked;
       <ul>
         {board.not_detected.map((r) => {
           const hd = heads[r.engine].headline;
+          const { value: displayValue, lo, hi } = getSignedRankedValue(r);
           return (
             <li>
               <EngineName engine={engineById[r.engine]} href={hrefFor(r.engine)} />
               <span class="nd-n">n = {int(r.n)} bios{r.n_facets > 1 ? ` (largest of ${r.n_facets} ${facetKind}s)` : ""}</span>
-              <span class="nd-v">measured {fmt(hd.raw.value)}{unit} [{fmt(hd.raw.lo)}, {fmt(hd.raw.hi)}] against a floor of {fmt(hd.floor_value)}{unit}; excess {signed(r.value)} pp [{fmt(r.lo)}, {fmt(r.hi)}]</span>
+              <span class="nd-v">measured {fmt(hd.raw.value)}{unit} [{fmt(hd.raw.lo)}, {fmt(hd.raw.hi)}] against a floor of {fmt(hd.floor_value)}{unit}; excess {signed(displayValue)} pp [{fmt(lo)}, {fmt(hi)}]</span>
             </li>
           );
         })}
