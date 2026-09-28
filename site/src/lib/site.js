@@ -493,12 +493,21 @@ export const DIR_WORD = { up: "raised its confidence", down: "lowered its confid
 // One matrix cell: the most biased engine at that cell (or, with nothing detected, how the
 // measured engines read), for the dimension page's group x item grid. With `engineId`, that
 // engine's own value instead.
+// Extract the signed value from a facet's extra.signed_shift_pts if available
+const getSignedValue = (f) => {
+  if (f && f.extra && typeof f.extra.signed_shift_pts === "number") {
+    return f.extra.signed_shift_pts;
+  }
+  return null;
+};
+
 export function matrixCell(dim, cell, engineId = null) {
   const href = urls.at(dim, cell.group, cell.item);
   if (engineId) {
     const f = cell.engines[engineId];
     if (f.status !== "measured") return { status: "missing", href };
-    return { status: "measured", engine: engineId, value: f.excess.value, lo: f.excess.lo, hi: f.excess.hi,
+    const signedValue = getSignedValue(f);
+    return { status: "measured", engine: engineId, value: f.excess.value, signedValue, lo: f.excess.lo, hi: f.excess.hi,
       detected: f.detected, attributable: f.attributable, reverse: !!(f.extra && f.extra.direction === "reverse"), dir: dirOf(f),
       href: `${href}#${engineId}`, prereg: cell.prereg };
   }
@@ -508,10 +517,15 @@ export function matrixCell(dim, cell, engineId = null) {
   const measured = engines.filter((e) => cell.engines[e.id].status === "measured");
   if (!measured.length) return { status: "missing", href, prereg: cell.prereg };
   const top = board && board.ranked[0];
-  if (top) return { status: "measured", engine: top.engine, value: top.value, lo: top.lo, hi: top.hi, detected: true, dir: dirOf(cell.engines[top.engine]), href, prereg: cell.prereg, n_measured: measured.length };
+  if (top) {
+    const topEngine = cell.engines[top.engine];
+    const signedValue = getSignedValue(topEngine);
+    return { status: "measured", engine: top.engine, value: top.value, signedValue, lo: top.lo, hi: top.hi, detected: true, dir: dirOf(topEngine), href, prereg: cell.prereg, n_measured: measured.length };
+  }
   const best = measured.map((e) => ({ e, f: cell.engines[e.id] })).sort((a, b) => b.f.excess.value - a.f.excess.value)[0];
   const allReverse = measured.every((e) => cell.engines[e.id].extra && cell.engines[e.id].extra.direction === "reverse");
-  return { status: "measured", engine: best.e.id, value: best.f.excess.value, lo: best.f.excess.lo, hi: best.f.excess.hi,
+  const signedValue = getSignedValue(best.f);
+  return { status: "measured", engine: best.e.id, value: best.f.excess.value, signedValue, lo: best.f.excess.lo, hi: best.f.excess.hi,
     detected: false, attributable: best.f.attributable, reverse: allReverse, dir: dirOf(best.f), href, prereg: cell.prereg, n_measured: measured.length };
 }
 

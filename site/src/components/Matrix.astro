@@ -38,10 +38,11 @@ for (const r of grid) for (const c of r.cells) if (c.status === "measured" && (c
             const cls = `mx${c.detected ? " det" : c.reverse ? " rev" : c.attributable === false ? " unat" : " nd"}`;
             const style = sig ? `--v:${v.toFixed(3)};--c:var(--alarm)` : null;
             const word = c.detected ? VERDICT_WORDS.det : c.reverse ? VERDICT_WORDS.rev : c.attributable === false ? VERDICT_WORDS.un : VERDICT_WORDS.nd;
+            const displayValue = c.signedValue !== null ? c.signedValue : c.value;
             return (
               <td class={cls} style={style}>
-                <a href={c.href} aria-label={`${label}: ${engineById[c.engine].label}, ${signed(c.value)} percentage points beyond the control edit${c.dir ? `, ${DIR_WORD[c.dir]} in the answer` : ""}, ${word}`}>
-                  <span class="mx-v">{signed(c.value)}{c.dir && <span class="mx-d" aria-hidden="true"> {DIR_ARROW[c.dir]}</span>}</span>
+                <a href={c.href} aria-label={`${label}: ${engineById[c.engine].label}, ${signed(displayValue)} percentage points beyond the control edit${c.dir ? `, ${DIR_WORD[c.dir]} in the answer` : ""}, ${word}`}>
+                  <span class="mx-v">{signed(displayValue)}{c.dir && <span class="mx-d" aria-hidden="true"> {DIR_ARROW[c.dir]}</span>}</span>
                   {!engineId && sig && <span class="mx-e"><Marker engine={engineById[c.engine]} size={9} />{engineById[c.engine].label}</span>}
                   {!sig && <span class="mx-e">{word}</span>}
                 </a>
