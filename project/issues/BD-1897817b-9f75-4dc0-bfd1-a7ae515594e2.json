@@ -46,10 +46,22 @@
         "model": "GPT-5",
         "name": "root"
       }
+    },
+    {
+      "id": "0dbf5e79-5c1a-4edc-b292-5dd75a026826",
+      "author": "home",
+      "text": "Log 2026-09-28: Provisioned manual Amplify app `dtqss0oat58vr` in us-east-1 with a Git-null repository, production `main` branch, current redirect rules, and configured headers. Created the GitHub OIDC deployment role restricted to the `production` environment and configured the GitHub environment variables and main-only branch policy. First artifact deployment succeeded (job 1) at the new default domain; representative pages and immutable asset/security headers passed. Do not move `biased-decisions.anth.us` yet: the unknown-route smoke check redirects to `404.html` and ends as HTTP 200 rather than returning a true 404, so cutover remains blocked pending correction.",
+      "created_at": "2026-09-28T22:58:22.279585Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "codex",
+        "model": "GPT-5",
+        "name": "root"
+      }
     }
   ],
   "created_at": "2026-09-23T16:31:47.256735Z",
-  "updated_at": "2026-09-28T22:54:37.639202Z",
+  "updated_at": "2026-09-28T22:58:22.279618Z",
   "closed_at": null,
   "agent": {
     "platform": "claude_code",
