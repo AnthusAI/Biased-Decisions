@@ -250,3 +250,14 @@ Signed point shifts in P(favorable outcome) versus the invented-pair floor, unle
   cited here from general knowledge, not from a verified primary source.
 
 ## Deviations
+
+## Outcome (scored 2026-09-28)
+
+| prediction | recorded as | result | scored |
+|---|---|---|---|
+| Brand-bias study design and predictions | — | not run | not run |
+
+Brand-bias has been pre-registered but not yet run.
+
+> **Deviations, 2026-09-28**: Study not executed. No outcome data available.
+
