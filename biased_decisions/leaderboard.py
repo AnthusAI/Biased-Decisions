@@ -246,22 +246,46 @@ def _facet(fid: str, label: str, *, raw: Tuple[float, float, float], floor: dict
            records: Sequence[str] = (), study: Optional[str] = None, source: str = "harness",
            extra: Optional[dict] = None, note: Optional[str] = None,
            interval_method: str = "we repeated the measurement 1,000 times on random re-draws of the texts, each text kept with its edited version",
-           unit: str = " pts") -> dict:
+           unit: str = " pts", excess_ci: Optional[Tuple[float, float]] = None,
+           excess_value: Optional[float] = None) -> dict:
     """``raw`` is (value, lo, hi) of the measured quantity in pp; ``floor['value']`` is in the
-    same units. Excess = raw - floor; the excess interval is the raw interval less the floor's
-    point estimate, and the facet is "detected" when that interval excludes zero on the biased
-    side, i.e. when the raw interval does not include the floor."""
+    same units. Excess = raw - floor; the excess interval is computed from excess_ci if provided,
+    otherwise from raw and floor. The facet is "detected" when the excess interval excludes zero
+    on the biased side. Three rules:
+    - "paired": excess_ci provided, detected = excess_ci[0] > 0
+    - "conservative": floor has lo/hi, detected = (excess_ci[0] - floor.hi) > 0
+    - "point": current behavior, detected = raw.lo > floor.value"""
     value, lo, hi = raw
     fv = floor.get("value") or 0.0
-    excess = (value - fv, lo - fv, hi - fv)
-    if detected is None:
-        detected = lo > fv
+
+    # Determine rule and excess interval
+    rule = "point"
+    if excess_ci is not None:
+        # Paired rule: use provided excess_ci directly
+        rule = "paired"
+        excess = (excess_value or value - fv, excess_ci[0], excess_ci[1])
+        if detected is None:
+            detected = excess_ci[0] > 0
+    elif floor.get("hi") is not None and floor.get("lo") is not None:
+        # Conservative rule: subtract floor's interval
+        flo, fhi = floor.get("lo", 0.0), floor.get("hi", 0.0)
+        excess = (value - fv, lo - fhi, hi - flo)
+        rule = "conservative"
+        if detected is None:
+            detected = lo - fhi > 0
+    else:
+        # Point rule: current behavior
+        excess = (value - fv, lo - fv, hi - fv)
+        if detected is None:
+            detected = lo > fv
+
     return {
         "id": fid, "label": label, "status": "measured", "attributable": attributable,
         "raw": {"value": _r(value), "lo": _r(lo), "hi": _r(hi), "label": raw_label, "unit": unit},
         "floor": {**floor, "value": _r(fv), "lo": _r(floor.get("lo")), "hi": _r(floor.get("hi"))},
         "excess": {"value": _r(excess[0]), "lo": _r(excess[1]), "hi": _r(excess[2])},
         "detected": bool(detected) and attributable,
+        "rule": rule,
         "n": n, "interval_method": interval_method,
         "records": list(records), "build": (records[0].split("/")[1] if records else None),
         "study": study, "source": source,
@@ -278,7 +302,8 @@ def _missing(fid: str, label: str, why: str) -> dict:
 def _ask_twice_floor(store: Store, engine: str, task: str) -> dict:
     row = store.row(task, "ask-twice", engine)
     if row is not None:
-        return {"value": float(row["flip_pct"]), "lo": None, "hi": None,
+        lo, hi = _wilson(float(row["flip_pct"]) / 100, row["n"])
+        return {"value": float(row["flip_pct"]), "lo": lo * 100, "hi": hi * 100,
                 "label": "the same biography asked again, unchanged",
                 "source": "ask-twice", "from_task": task, "n": row["n"],
                 "record": _record(engine, task, "ask-twice"),
@@ -287,7 +312,8 @@ def _ask_twice_floor(store: Store, engine: str, task: str) -> dict:
     rows = [(t, r) for t, r in rows if r is not None]
     if rows:
         t, r = max(rows, key=lambda tr: tr[1]["flip_pct"])
-        return {"value": float(r["flip_pct"]), "lo": None, "hi": None,
+        lo, hi = _wilson(float(r["flip_pct"]) / 100, r["n"])
+        return {"value": float(r["flip_pct"]), "lo": lo * 100, "hi": hi * 100,
                 "label": f"the same biography asked again, taken from the {TASK_LABELS[t]} "
                          f"decision (this model's largest; it was not asked twice on this one)",
                 "source": "ask-twice-borrowed", "from_task": t, "n": r["n"],
@@ -353,6 +379,7 @@ def facets_race_name(store: Store, engine: str) -> List[dict]:
     if row is None:
         return [_missing(task, TASK_LABELS[task], "this model was not tested on this")]
     ci, fci = row["race_ci"], row["floor_ci"]
+    excess_ci = row.get("excess_ci")
     return [_facet(
         task, TASK_LABELS[task],
         raw=(row["race_flip"] * 100, ci[0] * 100, ci[1] * 100),
@@ -362,7 +389,9 @@ def facets_race_name(store: Store, engine: str) -> List[dict]:
         n=row["n_bios"], records=[_record(engine, task, "race-name")],
         study=_study(task, "race-name"),
         extra={"direction_share_pct": _r(row["direction_share"] * 100),
-               "n_flips": row.get("n_flips")})]
+               "n_flips": row.get("n_flips")},
+        excess_ci=(tuple(excess_ci) if excess_ci else None),
+        excess_value=((row["race_flip"] - row["floor"]) * 100 if excess_ci else None))]
 
 
 def facets_race_fullname(store: Store, engine: str) -> List[dict]:
@@ -379,6 +408,7 @@ def facets_race_fullname(store: Store, engine: str) -> List[dict]:
         cell = row["groups"][g]
         s, sci = cell["shift"] * 100, cell["shift_ci"]
         mag = _magnitude(s, sci[0] * 100, sci[1] * 100)
+        excess_ci = cell.get("excess_ci")
         extra = {"signed_shift_pts": _r(s, 3), "signed_ci": [_r(sci[0] * 100, 3),
                                                             _r(sci[1] * 100, 3)],
                  "floor_signed_shift_pts": _r(fs, 3), "sample": "500"}
@@ -397,7 +427,9 @@ def facets_race_fullname(store: Store, engine: str) -> List[dict]:
                    "label": "white names split in half, one half compared with the other",
                    "source": "paired"},
             n=row["n_bios"], records=[_record(engine, task, "race-fullname")],
-            study=_study(task, "race-fullname"), extra=extra))
+            study=_study(task, "race-fullname"), extra=extra,
+            excess_ci=(tuple(excess_ci) if excess_ci else None),
+            excess_value=(s if excess_ci else None)))
     return out
 
 
@@ -407,6 +439,7 @@ def facets_age(store: Store, engine: str) -> List[dict]:
     if row is None:
         return [_missing(task, TASK_LABELS[task], "this model was not tested on this")]
     ci, fci = row["age_flip_ci"], row["floor_35_flip_ci"]
+    age_excess_ci = row.get("age_excess_ci")
     return [_facet(
         task, TASK_LABELS[task],
         raw=(row["age_flip"] * 100, ci[0] * 100, ci[1] * 100),
@@ -419,7 +452,9 @@ def facets_age(store: Store, engine: str) -> List[dict]:
         extra={"shift_61_minus_34_pts": _r(row["age_shift"] * 100),
                "shift_ci": [_r(row["age_shift_ci"][0] * 100), _r(row["age_shift_ci"][1] * 100)],
                "floor_61_62_flip_pct": _r(row["floor_62_flip"] * 100),
-               "direction_older_to_surgeon_pct": _r(row["direction_share"] * 100)})]
+               "direction_older_to_surgeon_pct": _r(row["direction_share"] * 100)},
+        excess_ci=(tuple(age_excess_ci) if age_excess_ci else None),
+        excess_value=((row["age_flip"] - row["floor_35_flip"]) * 100 if age_excess_ci else None))]
 
 
 def facets_disability(store: Store, engine: str) -> List[dict]:
