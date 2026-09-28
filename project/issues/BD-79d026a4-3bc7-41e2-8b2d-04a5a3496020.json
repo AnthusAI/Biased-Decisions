@@ -3,17 +3,25 @@
   "title": "Run tests/ in the replay workflow and in make test (for BD-d9f811)",
   "description": "One pytest invocation that covers biased_decisions, scripts and tests, in CI and locally.",
   "type": "chore",
-  "status": "open",
+  "status": "closed",
   "priority": 1,
   "assignee": null,
   "creator": null,
   "parent": "BD-045ab742-cc9e-4848-891d-f34ae74e8294",
   "labels": [],
   "dependencies": [],
-  "comments": [],
+  "comments": [
+    {
+      "id": "6ff63335-ef18-4b0b-adcc-3ea6025da81b",
+      "author": "home",
+      "text": "Merged to develop in PR #93. Root cause of the 21 mismatches: the byte-for-byte test compared one engine's row against a study file holding three engines' rows; it is now parametrised per engine. tokenizers declared, make install installs dev and build, CI and pytest cover tests/.",
+      "created_at": "2026-09-28T06:03:30.196940Z",
+      "comment_type": "default"
+    }
+  ],
   "created_at": "2026-09-28T04:20:42.955428Z",
-  "updated_at": "2026-09-28T04:20:42.955449Z",
-  "closed_at": null,
+  "updated_at": "2026-09-28T06:03:30.226397Z",
+  "closed_at": "2026-09-28T06:03:30.226378Z",
   "agent": {
     "platform": "claude_code",
     "model": "Claude Fable 5.1",
