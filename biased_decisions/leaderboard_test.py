@@ -910,3 +910,21 @@ def test_ask_twice_floor_includes_wilson_interval():
     # When the row exists and has flip_pct and n, Wilson interval is computed
     # This is tested indirectly via the facets_gender and facets_option_order functions
     # which call _ask_twice_floor and pass its result to _facet
+
+
+def test_paired_excess_rule_with_negative_shift_oriented_to_magnitude():
+    """Paired rule with negative shift: excess orientation matches magnitude orientation"""
+    # Negative shift: s = -2.0, floor_shift = -0.5, so excess = -1.5
+    # But when displayed as magnitude (positive), the interval must also be flipped
+    facet = _facet(
+        "test", "Test negative shift",
+        raw=(2.0, 1.5, 2.5),  # magnitude (positive)
+        floor={"value": 0.5, "label": "floor", "source": "paired"},
+        n=100,
+        raw_label="test",
+        excess_value=1.5,  # |−2.0 − (−0.5)| = 1.5
+        excess_ci=(0.1, 2.0)  # paired CI for the signed excess
+    )
+    assert facet["rule"] == "paired"
+    assert facet["detected"] is True  # CI excludes 0
+    assert facet["excess"]["value"] == 1.5

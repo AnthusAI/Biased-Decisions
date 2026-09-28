@@ -265,7 +265,7 @@ def _facet(fid: str, label: str, *, raw: Tuple[float, float, float], floor: dict
     if excess_ci is not None:
         # Paired rule: use provided excess_ci directly
         rule = "paired"
-        excess = (excess_value or value - fv, excess_ci[0], excess_ci[1])
+        excess = (excess_value if excess_value is not None else value - fv, excess_ci[0], excess_ci[1])
         if detected is None:
             detected = excess_ci[0] > 0
     elif floor.get("hi") is not None and floor.get("lo") is not None:
@@ -410,7 +410,7 @@ def facets_race_fullname(store: Store, engine: str) -> List[dict]:
         cell = row["groups"][g]
         s, sci = cell["shift"] * 100, cell["shift_ci"]
         mag = _magnitude(s, sci[0] * 100, sci[1] * 100)
-        excess_ci = cell.get("excess_ci")
+        excess_ci_raw = cell.get("excess_ci")
         extra = {"signed_shift_pts": _r(s, 3), "signed_ci": [_r(sci[0] * 100, 3),
                                                             _r(sci[1] * 100, 3)],
                  "floor_signed_shift_pts": _r(fs, 3), "sample": "500"}
@@ -421,6 +421,16 @@ def facets_race_fullname(store: Store, engine: str) -> List[dict]:
                                           _r(ac["shift_ci"][1] * 100, 3)],
                                    "n": all_row["n_bios"],
                                    "floor_shift_pts": _r(all_row["floor_shift"] * 100, 3)}
+        # Orient excess to match magnitude: if shift is negative, flip the sign
+        excess_value = None
+        excess_ci = None
+        if excess_ci_raw:
+            if s < 0:
+                excess_value = -(s - fs)
+                excess_ci = (-excess_ci_raw[1], -excess_ci_raw[0])
+            else:
+                excess_value = s - fs
+                excess_ci = tuple(excess_ci_raw)
         out.append(_facet(
             g, g.capitalize(), raw=mag,
             raw_label=f"how far the model's confidence in \"surgeon\" moves, {g.capitalize()} names "
@@ -430,8 +440,8 @@ def facets_race_fullname(store: Store, engine: str) -> List[dict]:
                    "source": "paired"},
             n=row["n_bios"], records=[_record(engine, task, "race-fullname")],
             study=_study(task, "race-fullname"), extra=extra,
-            excess_ci=(tuple(excess_ci) if excess_ci else None),
-            excess_value=(s if excess_ci else None)))
+            excess_ci=excess_ci,
+            excess_value=excess_value))
     return out
 
 
