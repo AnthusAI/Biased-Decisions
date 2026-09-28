@@ -14,6 +14,7 @@ fi
 
 ARCHIVE="$(mktemp "${TMPDIR:-/tmp}/biased-decisions-site.XXXXXX")"
 trap 'rm -f "$ARCHIVE"' EXIT
+rm -f "$ARCHIVE"
 (cd "$ARTIFACT_DIR" && zip -q -r "$ARCHIVE" .)
 
 DEPLOYMENT="$(aws amplify create-deployment \
