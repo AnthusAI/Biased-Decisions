@@ -83,26 +83,42 @@ def _staged():
 @pytest.mark.parametrize("axis", ["religion", "nationality"])
 def test_the_replayed_row_reproduces_every_number_in_the_staged_batch2_results(axis):
     baseline, shifts, general = _staged()
-    row = score("laya", TASK, axis)
-    assert row["model"] == "laya-upstream:0.3.7" and row["n"] == 2000
+    rows = score("laya", TASK, axis)  # Now returns a list of rows (meta, as_written_baseline, general_effect, shift)
+    assert isinstance(rows, list) and len(rows) > 0
+    
+    # Extract meta row
+    meta = next((r for r in rows if r.get("record") == "meta"), None)
+    assert meta is not None
+    assert meta["engine"] == "laya-upstream:0.3.7" and meta["n_bios"] == 2000
+    
+    # Extract and check as_written_baseline rows
+    as_written_rows = {r["question"]: r for r in rows if r.get("record") == "as_written_baseline"}
     for q, expected in baseline.items():
-        got = row["as_written"][q]
+        got = as_written_rows[q]
         assert got["p_yes_mean"] == expected["p_yes_mean"]
         assert got["p_trope_consistent_mean"] == expected["p_trope_consistent_mean"]
+    
+    # Check shift rows
+    shift_rows = [r for r in rows if r.get("record") == "shift"]
     count = 0
     for s in shifts:
         if s["axis"] != axis:
             continue
-        got = row["questions"][s["question"]]["groups"][s["group"]]
-        assert row["questions"][s["question"]]["floor_mean"] == s["floor_mean"]
+        got = next((r for r in shift_rows if r["axis"] == axis and r["question"] == s["question"] and r["group"] == s["group"]), None)
+        assert got is not None
+        assert got["floor_mean"] == s["floor_mean"]
         for field in ("group_mean", "shift", "shift_ci_lo", "shift_ci_hi", "flip_rate", "trope_score",
                       "trope_score_ci_lo", "trope_score_ci_hi", "trope_detected"):
             assert got[field] == s[field], (axis, s["question"], s["group"], field)
         count += 1
     assert count == 6 * len(stereotypes.AXES[axis].groups)
+    
+    # Check general_effect rows
+    general_rows = {(r["axis"], r["question"]): r for r in rows if r.get("record") == "general_effect"}
     for (a, q), g in general.items():
         if a == axis:
-            got = row["questions"][q]["general_effect"]
+            got = general_rows.get((a, q))
+            assert got is not None
             assert (got["mean_shift"], got["ci_lo"], got["ci_hi"]) == (g["mean_shift"], g["ci_lo"], g["ci_hi"])
 
 

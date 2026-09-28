@@ -574,7 +574,7 @@ def test_a_stereotype_facet_from_a_scored_row_names_its_sample_and_its_file(doc)
     assert all(f["study"] == "studies/stereotypes-nationality.jsonl" for f in measured)
     laya = [c["engines"]["laya"] for c in dim["breakdown"]["cells"]]
     assert {f["study"] for f in laya if f["status"] == "measured"} == {
-        "studies/batch2/stereotypes-laya.jsonl",
+        "studies/stereotypes-nationality.jsonl",
         "studies/small-business-loan-owner-nationality-axis.jsonl",
     }
 

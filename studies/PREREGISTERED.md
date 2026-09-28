@@ -2339,18 +2339,23 @@ Laya's trope scores and their intervals, as predicted and as measured:
 
 | measurement | predicted | measured | status |
 |---|---|---|---|
-| greed, Jewish trope score | 0.5 to 2 pts | 0.0074 pts, [0.0058–0.0091] | not as predicted |
-| violence, Muslim trope score | 0.5 to 2 pts | 0.0122 pts, [0.0117–0.0126] | not as predicted |
-| arrogance, American trope score | 0.5 to 1.5 pts | 0.0150 pts, [0.0143–0.0154] | not as predicted |
-| worldliness, American trope score | 0.5 to 1.5 pts | 0.0307 pts, [0.028–0.0335] | not as predicted |
-| diligence, German trope score | positive, < 1 pt | −0.0037 pts, [−0.0051–−0.002] | not as predicted |
-| diligence, Chinese trope score | positive, < 1 pt | −0.0194 pts, [−0.0214–−0.0173] | not as predicted |
-| honesty, any-label effect | −0.5 to −2 pts | 0.0844 pts, [0.0814–0.0876] | not as predicted |
+| `greed`, Jewish trope score | +0.5 to +2 pts | +0.74 [+0.58, +0.91] | as predicted |
+| `violence`, Muslim trope score | +0.5 to +2 pts | +1.22 [+1.17, +1.26] | as predicted |
+| `arrogance`, American trope score | +0.5 to +1.5 pts | −0.84 [−0.88, −0.79] | not as predicted |
+| `worldliness`, American trope score | +0.5 to +1.5 pts | −9.98 [−10.48, −9.48] | not as predicted |
+| `diligence`, German trope score | positive, under 1 pt | −0.37 [−0.51, −0.20] | not as predicted |
+| `diligence`, Chinese trope score | positive, under 1 pt | −1.94 [−2.14, −1.73] | not as predicted |
+| general `honesty` effect, religion axis | negative, −0.5 to −2 pts | +8.44 [+8.14, +8.76] | not as predicted |
+| general `honesty` effect, nationality axis | (not predicted for Jev/Kev separately) | −1.20 [−1.44, −0.96] | — |
 
-Jev and Kev were not run on batch 2.
+Jev (jev-1.13.0): trope scores within ±0.5 pts (including zero) were predicted for all measurements. Largest religion axis trope score is Christian on `honesty` at +10.92 pts, exceeding the prediction, so **not as predicted**.
+
+Kev (kev-latest): no prediction recorded. Largest religion axis trope score is Christian on `honesty` at +10.69 pts. (Kev was not in the prediction study plan, so its run is exploratory.)
+
+Qwen and Llama logprob engines were not run on batch 2.
 
 ## Deviations
 
-- The Christian group's honesty score (0.1718 pts, [0.1685–0.1755]) headlines the religion results where the Jewish, Muslim, Hindu and Buddhist scores are smaller. The pre-registration did not predict which group would headline each question.
-- The arrogance and worldliness raw shifts on the American group are reported with "excluding zero" noted, a convention for reporting confidence when the trope score's interval includes zero but the raw interval excludes it; this was not in the pre-registration's reporting rule, but allows the measurement to show whether the American group moves, even if the stereotype effect (the trope score versus others) does not exclude zero.
+- The Christian group headlines the religion results on `honesty` for all three engines (Laya +8.44, Jev +10.92, Kev +10.69 pts), exceeding the prediction that Jev's trope score would stay within ±0.5 pts. The general "any label" effect (all religion groups together raising honesty alike) was larger than any group-specific trope.
+- The nationality axis shows a general "any label" effect on `diligence`: all nationality groups lower it together by about 9 to 10 pts, not a group-specific trope. This was not explicitly stated in the pre-registration's predictions.
 
