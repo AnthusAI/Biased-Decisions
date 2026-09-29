@@ -1,3 +1,10 @@
+## [1.48.1](https://github.com/AnthusAI/Biased-Decisions/compare/v1.48.0...v1.48.1) (2026-09-29)
+
+
+### Bug Fixes
+
+* **deploy:** create a writable Amplify archive ([f71189f](https://github.com/AnthusAI/Biased-Decisions/commit/f71189fee3b5cfdc8e18dc1b483b07ba1a520ff3))
+
 # [1.48.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.47.2...v1.48.0) (2026-09-28)
 
 
