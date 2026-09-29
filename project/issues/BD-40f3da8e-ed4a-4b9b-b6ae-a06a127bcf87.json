@@ -22,10 +22,22 @@
         "model": "GPT-5",
         "name": "Codex Zonta probe"
       }
+    },
+    {
+      "id": "cd54c8d3-933e-4bc4-a2b5-14b35560da33",
+      "author": "home",
+      "text": "Completed 120/120 pinned Jev calls without retries or extra diagnostics. Usage: 52,980 input tokens; estimated USD 0.00222516 (invoice not verified), below approved USD 0.10 cap. Intact Zonta P(woman)=0.322 versus generalized-affiliation 0.010, but all implicit-gender labels unknown. Every employment call shortlisted; P(shortlist) 0.990 versus 0.991. H1/H4/H5 missed, H2/H3 met; all preserved. Offline replay matches summary byte for byte and 29 relevant specs pass. Record and report in experiments/zonta-proxy; excluded from leaderboard/studies/site. No discrimination, mediation, cross-institution error or real harm established. Branch ready for review; leave open until landing.",
+      "created_at": "2026-09-29T02:38:32.945350Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "codex",
+        "model": "GPT-5",
+        "name": "Codex Zonta probe"
+      }
     }
   ],
   "created_at": "2026-09-29T02:27:42.724954Z",
-  "updated_at": "2026-09-29T02:28:14.445484Z",
+  "updated_at": "2026-09-29T02:38:32.945380Z",
   "closed_at": null,
   "agent": {
     "platform": "codex",
