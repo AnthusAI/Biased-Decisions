@@ -1,3 +1,10 @@
+## [1.48.2](https://github.com/AnthusAI/Biased-Decisions/compare/v1.48.1...v1.48.2) (2026-09-29)
+
+
+### Bug Fixes
+
+* **ci:** install source test dependencies ([2eadcdf](https://github.com/AnthusAI/Biased-Decisions/commit/2eadcdfea7eae5b64f0d6293d144172f1dcad634))
+
 ## [1.48.1](https://github.com/AnthusAI/Biased-Decisions/compare/v1.48.0...v1.48.1) (2026-09-29)
 
 
