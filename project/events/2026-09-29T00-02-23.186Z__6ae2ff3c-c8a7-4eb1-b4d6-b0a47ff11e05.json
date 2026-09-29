@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "event_id": "6ae2ff3c-c8a7-4eb1-b4d6-b0a47ff11e05",
+  "issue_id": "BD-1897817b-9f75-4dc0-bfd1-a7ae515594e2",
+  "event_type": "field_updated",
+  "occurred_at": "2026-09-29T00:02:23.186Z",
+  "actor_id": "home",
+  "payload": {
+    "changes": {
+      "description": {
+        "from": "The Amplify build runs bd replay (about 4 minutes of re-scoring the committed answers; no model inference) and fails the deploy when any studies/ file differs. Author's direction: CI in Amplify is not for evaluations. Amplify builds only: fast specs, bd report --json from the committed studies/, and the Astro build. The replay audit moves to a GitHub Actions workflow (replay.yml) on push and pull request, on Linux, so reproducibility is still checked and visible without blocking the site.",
+        "to": "Replace AWS Amplify Git-connected builds with GitHub Actions CI/CD and manual artifact deployment. Data replay and report generation happen only in a contributor-local preparation workflow; GitHub validates source and site behavior, builds the static artifact, and deploys that exact artifact only after main CI succeeds. Amplify hosts prebuilt artifacts only, with no repository build spec."
+      }
+    }
+  }
+}
