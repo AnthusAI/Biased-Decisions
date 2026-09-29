@@ -1,0 +1,38 @@
+{
+  "id": "BD-40f3da8e-ed4a-4b9b-b6ae-a06a127bcf87",
+  "title": "Bounded Zonta affiliation proxy probe on Jev",
+  "description": "User-approved 120-call single-profile probe, hard cap USD 0.10. Pre-register exact masked biography variants and separate gender-association and employment questions; preserve nulls, raw responses, usage, model version, and offline replay. No actual recruitment decision or real-world harm claim; no site publication.",
+  "type": "task",
+  "status": "in_progress",
+  "priority": 2,
+  "assignee": null,
+  "creator": null,
+  "parent": "BD-bc5c8b83-d2e8-4d06-b516-833ffc21b81e",
+  "labels": [],
+  "dependencies": [],
+  "comments": [
+    {
+      "id": "e1617726-b672-4c0b-b648-6a708c44b23e",
+      "author": "home",
+      "text": "Intent recorded before code. Feature: bounded public-profile proxy probe. Scenario: offline dry run produces exactly 120 randomized requests with fixed qualifications, six variants and two isolated questions. Scenario: recording refuses a payload exceeding the conservative input allowance or a budget below the reserved maximum, disables retries, pins jev-1.13.0 and preserves each response before analysis. Scenario: replay derives the same summary without a network call. User approved USD 0.10 in chat on 2026-09-28. No downstream real-world consequence or population claim.",
+      "created_at": "2026-09-29T02:28:12.488623Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "codex",
+        "model": "GPT-5",
+        "name": "Codex Zonta probe"
+      }
+    }
+  ],
+  "created_at": "2026-09-29T02:27:42.724954Z",
+  "updated_at": "2026-09-29T02:28:14.445484Z",
+  "closed_at": null,
+  "agent": {
+    "platform": "codex",
+    "model": "GPT-5",
+    "name": "Codex Zonta probe"
+  },
+  "right_now_summary": null,
+  "right_now_updated_at": null,
+  "custom": {}
+}
