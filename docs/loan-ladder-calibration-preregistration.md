@@ -117,17 +117,14 @@ Laya was run on all 520 versions, producing 520 answers in 52 seconds (model: `l
 | 780 | 0.7103 | 100% | 0.5255 | 50% | [100%, 100%] | [30%, 75%] |
 | 800 | 0.7028 | 100% | 0.4973 | 50% | [100%, 100%] | [30%, 75%] |
 
-### Chosen rungs (for the follow-up nationality study)
+### Rung classification (rules above, applied mechanically)
 
-- **Secured loans**:
-  - Strong (≥85% approval): 560 (100% approval)
-  - Borderline (~50% approval): 580 (95% approval)
-  - Weak (≤15% approval): not reached (minimum is 40% at rungs 580–740 for collateral="none")
-  
-- **Unsecured loans (no collateral)**:
-  - Strong (≥85% approval): not reached (maximum is 65% at 640)
-  - Borderline (~50% approval): 620 (50% approval)
-  - Weak (≤15% approval): not reached
+- **Secured loans**: strong = 560 (the lowest rung, at 100%). Every rung is at 95-100%, so no rung is near 50%; the rule's "closest to 50%" pick is 580 at 95%, which is not a borderline profile. Weak: not reached.
+- **No collateral**: strong: not reached (highest rate 65%, at 640). Borderline = 620 (50%; 660, 680, 700, 780 and 800 are also at 50%, and the rule takes the first). Weak: not reached.
+
+### What this means for the nationality study
+
+Laya's approval does not move with credit score between 560 and 800: mean p stays within about 0.68-0.73 with collateral and 0.49-0.57 without, with no upward trend. Collateral is what moves it, by about 20 points. A credit score ladder therefore cannot produce strong, borderline and weak profiles for Laya; for Laya, "secured" gives a strong profile and "no collateral" a borderline one, and no weak profile was found. Laya here is version 0.3.21, not the 0.3.7 used for the published loan answers, so it counts as a different engine for comparison.
 
 ### Pre-registered predictions: scored
 
