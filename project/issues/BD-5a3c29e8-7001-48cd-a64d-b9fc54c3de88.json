@@ -3,17 +3,25 @@
   "title": "Lending tables show downward shifts with a plus sign",
   "description": "The \"Lending decisions: all thirteen nationalities\" table on the nationality page prints each shift as a positive number with a plus sign (for example \"+4.57\" for Laya on American), but the underlying data records the direction as down (direction.signed_pts is -4.57: the model is less confident in approving the loan than for the control version). A reader naturally takes \"+\" to mean the model is more confident. The same \"beyond the control edit\" pattern appears in other matrix and board components (site/src/components/Matrix.astro, Board.astro, site/src/scripts/charts.js), so any cell with a downward shift may carry the same misleading sign.\n\nFix:\n- Where a finding has a direction, display the signed value (or the magnitude with the direction in words, e.g. \"4.6 lower\"), never a \"+\" on a downward shift.\n- Keep magnitude-only displays (stereotype scores with no direction) unchanged, but without a leading \"+\".\n- Keep the aria-label text consistent with the visible value.\n\nAcceptance:\nScenario: downward shift is shown as downward\n  Given Laya's small-business-loan shift for American has signed_pts -4.57\n  When a reader views the nationality lending table\n  Then the cell reads as a decrease, not \"+4.57\"\nScenario: no stray plus signs\n  When the site is built\n  Then a test fails if any cell whose direction is \"down\" renders with a leading \"+\"",
   "type": "bug",
-  "status": "in_progress",
+  "status": "closed",
   "priority": 0,
   "assignee": null,
   "creator": null,
   "parent": "BD-045ab742-cc9e-4848-891d-f34ae74e8294",
   "labels": [],
   "dependencies": [],
-  "comments": [],
+  "comments": [
+    {
+      "id": "70c9e6db-3da4-4f1b-a14d-cc0f40419696",
+      "author": "home",
+      "text": "Effect sizes no longer carry a plus sign; direction is shown by the arrow and words. Merged in PR #99, released to main in PR #100.",
+      "created_at": "2026-09-28T19:42:46.208037Z",
+      "comment_type": "default"
+    }
+  ],
   "created_at": "2026-09-28T17:58:39.925462Z",
-  "updated_at": "2026-09-28T18:02:49.157555Z",
-  "closed_at": null,
+  "updated_at": "2026-09-28T19:42:46.260370Z",
+  "closed_at": "2026-09-28T19:42:46.260115Z",
   "agent": {
     "platform": "claude_code",
     "model": "Claude Opus 5.5",

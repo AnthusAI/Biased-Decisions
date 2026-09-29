@@ -3,7 +3,7 @@
   "title": "Calibration ladder run (price Jev first)",
   "description": "Write the ladder versions under tasks/, run Laya locally (one GPU job at a time), run Kev on the Kev host, and price Jev's calls (count x tokens x rate) and get explicit approval before any Jev call. Commit answers with their metadata sidecars.",
   "type": "sub-task",
-  "status": "open",
+  "status": "in_progress",
   "priority": 1,
   "assignee": null,
   "creator": null,
@@ -12,7 +12,7 @@
   "dependencies": [],
   "comments": [],
   "created_at": "2026-09-28T18:40:20.466130Z",
-  "updated_at": "2026-09-28T18:40:20.466162Z",
+  "updated_at": "2026-09-28T18:41:19.028698Z",
   "closed_at": null,
   "agent": {
     "platform": "claude_code",
@@ -21,5 +21,8 @@
   },
   "right_now_summary": null,
   "right_now_updated_at": null,
-  "custom": {}
+  "custom": {
+    "project_label": "BD",
+    "source": "shared"
+  }
 }

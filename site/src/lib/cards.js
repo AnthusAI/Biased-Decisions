@@ -10,7 +10,7 @@ import { categoryIntro, resultTitle, resultIntro, pageIntroductions } from "./in
 import { introModel } from "../pages/engines/_about.js";
 import { createHash } from "node:crypto";
 import { data, engines, engineById, dimensions, allDimensions, urls, levelPath, groupOf, itemOf, cellOf, multiGroup,
-  multiItem, unit, fmt, signed, int, plural, largestBias, isNonHiring, cellOf as cellAt, facetUnit, isRate, taskWord, taskLabel,
+  multiItem, unit, fmt, signed, size, int, plural, largestBias, isNonHiring, cellOf as cellAt, facetUnit, isRate, taskWord, taskLabel,
   changeWhen, textsOf, kindWord } from "./site.js";
 
 const rel = data.provenance.release;
@@ -76,7 +76,7 @@ const floorText = (dim, floorValue) => `percentage points beyond a harmless edit
 // Runners-up from a board: every engine but the leader, ranked, then not detected, then missing.
 function runners(board, skip, withN = true) {
   const rows = [];
-  for (const r of board.ranked) if (r.engine !== skip) rows.push({ engine: r.engine, text: `${E(r.engine)} ${signed(r.value)} points` });
+  for (const r of board.ranked) if (r.engine !== skip) rows.push({ engine: r.engine, text: `${E(r.engine)} ${size(r.value)} points` });
   for (const r of board.not_detected) if (r.engine !== skip) rows.push({ engine: r.engine, text: `${E(r.engine)}: no clear effect${withN ? `, in ${int(r.n)} texts` : ""}` });
   for (const id of board.unmeasured) if (id !== skip) rows.push({ engine: id, text: `${E(id)}: not tested` });
   return rows;
@@ -84,7 +84,7 @@ function runners(board, skip, withN = true) {
 
 function barsOf(board, limit = 4) {
   const rows = [];
-  for (const r of board.ranked) rows.push({ engine: r.engine, value: r.value, text: `${signed(r.value)}`, alt: `${signed(r.value)} percentage points` });
+  for (const r of board.ranked) rows.push({ engine: r.engine, value: r.value, text: `${size(r.value)}`, alt: `${size(r.value)} percentage points` });
   for (const r of board.not_detected) rows.push({ engine: r.engine, value: 0, text: "no clear effect" });
   for (const id of board.unmeasured) rows.push({ engine: id, value: null, text: "not tested" });
   return rows.slice(0, limit);
@@ -119,7 +119,7 @@ function homeCard() {
   const top = rows[0];
   const bars = rows.map((r) => {
     const v = largestBias(r.engine);
-    return { engine: r.engine, value: v, text: v > 0 ? `${signed(v)}` : "no clear effect", alt: v > 0 ? `${signed(v)} percentage points` : "no clear effect" };
+    return { engine: r.engine, value: v, text: v > 0 ? `${size(v)}` : "no clear effect", alt: v > 0 ? `${size(v)} percentage points` : "no clear effect" };
   });
   return { template: "home", headline: `Of the fast AI models we tested, ${E(top.engine)} shows the most bias`,
     bars, rows: [], numberNote: "each model's largest bias, in percentage points" };
@@ -160,7 +160,7 @@ function engineCard(en) {
   const top = detected.map((d) => ({ d, c: d.cells[en.id] })).sort((a, b) => b.c.headline.value - a.c.headline.value)[0];
   const axes = measured.map((d) => ({ label: d.label, value: d.cells[en.id].detected ? d.cells[en.id].headline.value : 0 }));
   return { template: "engine", headline: placeText, spider: { engine: en.id, axes },
-    numberNote: `largest bias: ${signed(top.c.headline.value)} percentage points, on ${lower(top.d.label)}`,
+    numberNote: `largest bias: ${size(top.c.headline.value)} percentage points, on ${lower(top.d.label)}`,
     rows: [{ engine: en.id, text: `${en.label}, average place ${fmt(r.mean_rank)}` },
       { text: `A clear effect on ${detected.length} of ${measured.length} characteristics tested` }] };
 }
@@ -186,7 +186,7 @@ function engineDimCard(en, dim) {
   const headline = !dim.board.contested ? `${en.label} is the only model tested on ${lead}`
     : above === 0 ? `${en.label} ${tie ? "is tied for" : "shows"} the most bias on ${lead}`
     : `${en.label} ranks ${ordinal(above + 1)}${tie ? " (tied)" : ""} of ${ranked.length + dim.board.not_detected.length} models for bias on ${lead}`;
-  return { template: "engine-dim", headline, number: `${signed(c.headline.value)}`,
+  return { template: "engine-dim", headline, number: `${size(c.headline.value)}`,
     numberNote: `${floorText(dim, c.headline.floor_value)}, on ${g ? `${groupOf(dim, g).label}, ` : ""}${it ? taskLabel(itemOf(dim, it).label) : taskLabel(c.headline.facet_label)}`,
     rows: [count], biasNumber: true };
 }
@@ -245,7 +245,7 @@ export function altOf(c) {
   if (c.note) parts.push(`${c.note}.`);
   if (c.detail) parts.push(`${c.detail}.`);
   if (c.bars) { if (c.numberNote) parts.push(`${cap(c.numberNote)}.`); for (const b of c.bars) parts.push(`${E(b.engine)}: ${b.alt || b.text}.`); }
-  if (c.spider) { parts.push(`${cap(c.numberNote)}.`); parts.push(`Bias by characteristic: ${c.spider.axes.map((a) => `${a.label} ${a.value > 0 ? signed(a.value) + " percentage points" : "no clear effect"}`).join("; ")}.`); }
+  if (c.spider) { parts.push(`${cap(c.numberNote)}.`); parts.push(`Bias by characteristic: ${c.spider.axes.map((a) => `${a.label} ${a.value > 0 ? size(a.value) + " percentage points" : "no clear effect"}`).join("; ")}.`); }
   for (const r of c.rows) parts.push(`${r.text}.`);
   parts.push(`Biased-Decisions leaderboard, ${c.stamp.replace(" · ", ", ")}.`);
   return parts.join(" ");

@@ -2,7 +2,7 @@
 // (src/lib/site.js builds it at build time): the hero matrix (every dimension on one scale), the
 // board, the spider, the forest (one row per question, group or task) and the measurement-vs-
 // floor chart. Every mark is a link to its drill-down; the payload carries every href.
-import { s, h, fmt, signed, esc, ticks, niceMax, marker, bindTip, reducedMotion, rawUnit, boardPlace, measureOf, kindNames, unitText } from "./util.js";
+import { s, h, fmt, signed, size, esc, ticks, niceMax, marker, bindTip, reducedMotion, rawUnit, boardPlace, measureOf, kindNames, unitText } from "./util.js";
 
 // Re-render a chart whenever its container changes width.
 // Grow a chart's viewBox to cover everything drawn (axis labels sit outside the plot radius and
@@ -56,7 +56,7 @@ function tipHtml(dim, engine, cell, extra = "") {
     ? `<b>a clear effect</b>: largest on ${esc(hd.facet_label)}`
     : `<b>no clear effect</b> (the largest is shown: ${esc(hd.facet_label)})`;
   return `<div class="tip-h"><span class="sw" style="background:var(--eng-${engine.id})"></span>${esc(engine.label)} · ${esc(dim.label)}</div>
-    <div class="tip-v">${signed(hd.value)} points <span>[${fmt(hd.lo)}, ${fmt(hd.hi)}]</span> beyond the control edit</div>
+    <div class="tip-v">${size(hd.value)} points <span>[${fmt(hd.lo)}, ${fmt(hd.hi)}]</span> beyond the control edit</div>
     <div>${status}${hd.direction ? `; it became ${esc(hd.direction.phrase)}` : ""}</div>
     <div class="tip-s">after the edit ${fmt(hd.raw.value)}${unitText(rawUnit(dim))}, control edit ${fmt(hd.floor_value)}${unitText(rawUnit(dim))}; ${hd && cell.n ? cell.n.toLocaleString("en-US") : "—"} texts tested</div>${extra}`;
 }
@@ -205,7 +205,7 @@ export function boardChart(data, dim, onPick) {
       grp.append(s("line", { x1: X(head.raw.lo), x2: X(head.raw.lo), y1: y - 5, y2: y + 5, class: "ci" }));
       grp.append(s("line", { x1: X(head.raw.hi), x2: X(head.raw.hi), y1: y - 5, y2: y + 5, class: "ci" }));
       grp.append(marker(e.marker, X(head.raw.value), y, 5, { fill: "var(--surface)", stroke: `var(--eng-${e.id})`, "stroke-width": 2 }));
-      const valText = narrow ? `${signed(r.value)} points` : `${signed(r.value)} points beyond the control edit · ${r.facet_label}`;
+      const valText = narrow ? `${size(r.value)} points` : `${size(r.value)} points beyond the control edit · ${r.facet_label}`;
       const tx = Math.min(X(head.raw.hi) + 10, x1);
       const anchorEnd = narrow || X(head.raw.hi) + 10 + valText.length * 6.4 > x1;
       grp.append(s("text", { x: anchorEnd ? x1 : tx, y: narrow ? yTop + 16 : y - 14, "text-anchor": anchorEnd ? "end" : "start", class: "val" }, valText));
@@ -305,7 +305,7 @@ export function spider({ axes, series, max, label, hrefFor, compact = false }) {
           ? { fill: col, stroke: "var(--surface)", "stroke-width": 1.5 }
           : { fill: "var(--surface)", stroke: col, "stroke-width": 2 }));
         bindTip(link, `<div class="tip-h"><span class="sw" style="background:${col}"></span>${esc(sr.engine.label)} · ${esc(a.label)}</div>
-          <div class="tip-v">${signed(v.value)} points <span>[${fmt(v.lo)}, ${fmt(v.hi)}]</span> beyond the control edit</div>
+          <div class="tip-v">${size(v.value)} points <span>[${fmt(v.lo)}, ${fmt(v.hi)}]</span> beyond the control edit</div>
           <div>${v.detected ? "a clear effect" : v.attributable === false ? "every group moved alike, so we cannot blame one group: shown, not ranked" : "no clear effect"}</div>
           ${v.value < 0 ? '<div class="tip-s">Below the control edit; drawn at the centre.</div>' : ""}`);
         svg.append(link);
@@ -449,7 +449,7 @@ export function forest({ rows, engines, label, axisLabel = "beyond the control e
         a.append(s("line", { x1: X(v.lo), x2: X(v.hi), y1: y, y2: y, class: "whisker", stroke: col, "stroke-dasharray": v.detected || v.reverse ? null : "3 3" }));
         a.append(marker(e.marker, X(v.value), y, 5, v.detected ? { fill: col, class: "mk-fill" } : { fill: "var(--surface)", stroke: col, "stroke-width": 2 }));
         bindTip(a, `<div class="tip-h"><span class="sw" style="background:${col}"></span>${esc(e.label)} · ${esc(r.label)}</div>
-          <div class="tip-v">${signed(v.value)} points <span>[${fmt(v.lo)}, ${fmt(v.hi)}]</span> beyond the control edit</div>
+          <div class="tip-v">${size(v.value)} points <span>[${fmt(v.lo)}, ${fmt(v.hi)}]</span> beyond the control edit</div>
           <div>${v.detected ? "<b>a clear effect</b>: the range stays above the control edit" : v.reverse ? "a clear effect in the opposite direction: the range stays below the control edit" : v.attributable === false ? "every group moved alike, so we cannot blame one group: shown, not ranked" : "no clear effect: the range includes the control edit"}</div>`);
         row.append(a);
       });
