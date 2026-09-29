@@ -15,6 +15,7 @@ Pre-registration: docs/loan-ladder-calibration-preregistration.md
 from __future__ import annotations
 
 import json
+import math
 import random
 import re
 from dataclasses import dataclass
@@ -250,7 +251,7 @@ def score(
             if not rung_probs:
                 continue
 
-            mean_p = sum(rung_probs) / len(rung_probs)
+            mean_p = math.fsum(rung_probs) / len(rung_probs)
             approval_rate = sum(1 for p in rung_probs if p >= 0.5) / len(rung_probs)
 
             # Bootstrap CI (1,000 resamples, seed 0)
