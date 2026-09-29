@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "event_id": "4a16804d-dd71-42eb-a9f5-5fc35fc9c851",
+  "issue_id": "BD-40f3da8e-ed4a-4b9b-b6ae-a06a127bcf87",
+  "event_type": "comment_added",
+  "occurred_at": "2026-09-29T02:28:12.488Z",
+  "actor_id": "home",
+  "payload": {
+    "comment_id": "e1617726-b672-4c0b-b648-6a708c44b23e",
+    "comment_author": "home",
+    "agent": {
+      "platform": "codex",
+      "model": "GPT-5",
+      "name": "Codex Zonta probe"
+    }
+  }
+}
