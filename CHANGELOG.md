@@ -1,3 +1,10 @@
+# [1.56.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.55.0...v1.56.0) (2026-09-30)
+
+
+### Features
+
+* Laya and Kev on the trivial-edit floor and the controlled direct statements ([8b908ef](https://github.com/AnthusAI/Biased-Decisions/commit/8b908ef6039d908ad669325691ec5029c99569ec))
+
 # [1.55.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.54.1...v1.55.0) (2026-09-30)
 
 
