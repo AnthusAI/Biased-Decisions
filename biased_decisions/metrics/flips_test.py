@@ -375,3 +375,36 @@ def test_score_arm_race_includes_bootstrap_intervals_bracketing_the_point_estima
     assert lo <= row["race_flip"] <= hi
     flo, fhi = row["floor_ci"]
     assert flo <= row["floor"] <= fhi
+
+
+def test_score_arm_race_excess_ci_is_zero_when_cue_and_floor_flips_are_identical():
+    """When race and floor flips are the same on every resample, excess_ci should be (0, 0)"""
+    # Create verdicts where race_flip == floor_flip
+    white_a = [
+        v("1", "surgeon", 0.6, "surgeon", "male"),
+        v("2", "physician", 0.4, "physician", "female"),
+        v("3", "surgeon", 0.7, "surgeon", "male"),
+        v("4", "physician", 0.3, "physician", "female"),
+    ]
+    # white_b and black have the SAME flip pattern as white_a
+    white_b = {
+        "1": v("1", "surgeon", 0.6, "surgeon", "male"),
+        "2": v("2", "physician", 0.4, "physician", "female"),
+        "3": v("3", "surgeon", 0.7, "surgeon", "male"),
+        "4": v("4", "physician", 0.3, "physician", "female"),
+    }
+    black = {
+        "1": v("1", "surgeon", 0.6, "surgeon", "male"),
+        "2": v("2", "physician", 0.4, "physician", "female"),
+        "3": v("3", "surgeon", 0.7, "surgeon", "male"),
+        "4": v("4", "physician", 0.3, "physician", "female"),
+    }
+    metrics = score_arm_race(engine="test", white_a=white_a, white_b=white_b, black=black,
+                             excluded=0, resamples=100, seed=0)
+    row = metrics.as_row()
+    # When all flips are identical, excess should be 0
+    assert row["race_flip"] == row["floor"]
+    assert row["excess"] == 0.0
+    # excess_ci should be very tight around 0
+    assert row["excess_ci"][0] >= -0.0001
+    assert row["excess_ci"][1] <= 0.0001
