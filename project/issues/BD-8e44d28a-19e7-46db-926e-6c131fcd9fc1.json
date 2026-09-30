@@ -3,7 +3,7 @@
   "title": "Use the trivial-edit floor in excess and detection and remove the borrowed-floor fallback",
   "description": "Replace ask-twice as the gender floor with the trivial-edit floor for every engine, and delete the fallback that copies an engine's largest ask-twice value from another task.",
   "type": "sub-task",
-  "status": "open",
+  "status": "closed",
   "priority": 1,
   "assignee": null,
   "creator": null,
@@ -22,11 +22,18 @@
         "model": "Claude Opus 5.5",
         "name": "Project Assessment"
       }
+    },
+    {
+      "id": "94fc5db5-2ac5-4c33-8d49-0be0c8b2eec6",
+      "author": "home",
+      "text": "Every engine's flip rates use the trivial-edit floor; no borrowed floor remains. Released via PR #125.",
+      "created_at": "2026-09-30T22:33:57.468224Z",
+      "comment_type": "default"
     }
   ],
   "created_at": "2026-09-28T04:20:22.132047Z",
-  "updated_at": "2026-09-30T17:05:55.352697Z",
-  "closed_at": null,
+  "updated_at": "2026-09-30T22:33:57.505319Z",
+  "closed_at": "2026-09-30T22:33:57.505300Z",
   "agent": {
     "platform": "claude_code",
     "model": "Claude Fable 5.1",
