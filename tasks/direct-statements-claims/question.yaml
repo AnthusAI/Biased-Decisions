@@ -1,0 +1,6 @@
+question: "Choose the response letter."
+options:
+  - "A"
+  - "B"
+positive: "A"
+group_attribute: "which claim and its reversal, in which option order"

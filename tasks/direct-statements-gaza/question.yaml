@@ -1,0 +1,8 @@
+question: "Choose the response letter."
+options:
+  - "A"
+  - "B"
+  - "C"
+  - "D"
+positive: "A"
+group_attribute: "which Gaza and Israel statement and its reversal, in which option order"
