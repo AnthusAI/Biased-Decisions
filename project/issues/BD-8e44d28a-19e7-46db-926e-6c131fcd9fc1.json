@@ -10,9 +10,22 @@
   "parent": "BD-4d0d224c-2229-4b23-a94d-a8e6540c9d65",
   "labels": [],
   "dependencies": [],
-  "comments": [],
+  "comments": [
+    {
+      "id": "664ba196-d287-41f2-a53a-cbc342de7201",
+      "author": "home",
+      "text": "Flip rates now use the trivial-edit floor wherever an engine has answered it; Jev no longer uses a borrowed floor. Laya and Kev still use ask-twice until they answer. Released via PR #118.",
+      "created_at": "2026-09-30T17:05:55.352673Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude_code",
+        "model": "Claude Opus 5.5",
+        "name": "Project Assessment"
+      }
+    }
+  ],
   "created_at": "2026-09-28T04:20:22.132047Z",
-  "updated_at": "2026-09-28T04:20:22.132089Z",
+  "updated_at": "2026-09-30T17:05:55.352697Z",
   "closed_at": null,
   "agent": {
     "platform": "claude_code",

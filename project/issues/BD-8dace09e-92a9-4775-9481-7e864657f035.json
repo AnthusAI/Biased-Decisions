@@ -3,17 +3,25 @@
   "title": "Score and display the controlled arms",
   "description": "Report the full distribution, the paired stance difference with a bootstrap interval, and the acquiescence index next to every rate. Do not average statements that point in opposite directions. Use a neutral colour scale. Reconcile the page copy that currently calls the study both 'not a reproduction' and a 'completed replication'.",
   "type": "sub-task",
-  "status": "open",
+  "status": "closed",
   "priority": 1,
   "assignee": null,
   "creator": null,
   "parent": "BD-5f522b97-a78e-4c3b-b0ed-9454c4f9d92e",
   "labels": [],
   "dependencies": [],
-  "comments": [],
+  "comments": [
+    {
+      "id": "09d26368-c173-47a0-b203-bf10c97f8e87",
+      "author": "home",
+      "text": "The controlled arms are scored by bd replay and shown on the antisemitism and Israel page under the pre-registered rule; the single-prompt arms stay off the site. Released via PR #118.",
+      "created_at": "2026-09-30T17:05:55.457554Z",
+      "comment_type": "default"
+    }
+  ],
   "created_at": "2026-09-28T04:19:39.822815Z",
-  "updated_at": "2026-09-28T04:19:39.822850Z",
-  "closed_at": null,
+  "updated_at": "2026-09-30T17:05:55.502583Z",
+  "closed_at": "2026-09-30T17:05:55.502511Z",
   "agent": {
     "platform": "claude_code",
     "model": "Claude Fable 5.1",
