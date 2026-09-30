@@ -52,27 +52,27 @@ export const introductions = {
   },
   'antisemitic-stereotypes': {
     title: 'Do AI models treat a Jewish identity as a reason to distrust someone?',
-    intro: 'We added a short phrase to professional biographies, saying the person is Jewish, is a devout Jew, is Israeli, sits on a synagogue’s board, or has a Jewish-associated surname. Then we asked yes-or-no questions built on six antisemitic stereotypes, such as whether the person would put money ahead of others’ interests or favour their own community. Each stereotype gets three differently worded questions.',
+    intro: 'We added a short phrase to professional biographies, saying the person is Jewish, is a devout Jew, sits on a synagogue’s board, or has a Jewish-associated surname. For comparison, we also added that the person is Israeli, a nationality; it is shown but never used for a headline. Then we asked yes-or-no questions built on six antisemitic stereotypes, such as whether the person would put money ahead of others’ interests or favour their own community. Each stereotype gets three differently worded questions.',
     detail: 'These are tests of the models’ answers, not claims about Jewish people. Each phrase is compared with a harmless phrase of the same size and with the same phrase for Christian and Muslim people, so the effect of naming any group cancels out. The surname test has no matched surnames for other groups, so it is compared with an ordinary surname only. Six control questions, about being late to meetings and similar, show whether the phrase alone moved the model.',
   },
   'antisemitic-stereotypes-loan-narratives': {
     title: 'Do AI models distrust a Jewish loan applicant?',
-    intro: 'We ran the same test on 200 made-up small-business loan narratives instead of biographies. We added a short phrase saying the applicant is Jewish, is a devout Jew, is Israeli, sits on a synagogue’s board, or has a Jewish-associated surname, then asked yes-or-no questions built on six antisemitic stereotypes, three worded differently for each.',
+    intro: 'We ran the same test on 200 made-up small-business loan narratives instead of biographies. We added a short phrase saying the applicant is Jewish, is a devout Jew, sits on a synagogue’s board, or has a Jewish-associated surname, then asked yes-or-no questions built on six antisemitic stereotypes, three worded differently for each. For comparison, we also added that the applicant is Israeli, a nationality; it is shown but never used for a headline.',
     detail: 'These are tests of the models’ answers, not claims about Jewish people, and the narratives are invented for this test. Each phrase is compared with a harmless phrase of the same size and with the same phrase for Christian and Muslim people. The surname test has no matched surnames for other groups, so it is compared with an ordinary surname only. Six control questions show whether the phrase alone moved the model.',
   },
   'antisemitism-decisions': {
     title: 'Does a phrase about Jewish identity change which job an AI model picks?',
-    intro: 'We added a short phrase to real biographies, saying the person is Jewish, is a devout Jew, is Israeli, sits on a synagogue’s board, or has a Jewish-associated surname. Then we asked the same question as before: which of two occupations the biography describes, such as paralegal or attorney.',
+    intro: 'We added a short phrase to real biographies, saying the person is Jewish, is a devout Jew, sits on a synagogue’s board, or has a Jewish-associated surname. For comparison, we also added that the person is Israeli, a nationality; it is shown but never used for a headline. Then we asked the same question as before: which of two occupations the biography describes, such as paralegal or attorney.',
     detail: 'These are tests of the models’ answers, not claims about Jewish people. Each phrase is compared with a harmless phrase of the same size and with the same phrase for Christian and Muslim people. The surname test has no matched surnames for other groups. If every version moved the model by about the same amount, we show the result but do not rank it.',
   },
   'islamophobic-stereotypes': {
     title: 'Do AI models treat a Muslim identity as a reason to distrust someone?',
-    intro: 'We added a short phrase to professional biographies, saying the person is Muslim, is a devout Muslim, is Saudi, or sits on a mosque’s board. Then we asked yes-or-no questions built on six stereotypes about Muslims, such as whether the person is likely to react with aggression or to be disloyal. Each stereotype gets three differently worded questions.',
+    intro: 'We added a short phrase to professional biographies, saying the person is Muslim, is a devout Muslim, or sits on a mosque’s board. For comparison, we also added that the person is Saudi, a nationality; it is shown but never used for a headline. Then we asked yes-or-no questions built on six stereotypes about Muslims, such as whether the person is likely to react with aggression or to be disloyal. Each stereotype gets three differently worded questions.',
     detail: 'These are tests of the models’ answers, not claims about Muslims. Each phrase is compared with a harmless phrase of the same size and with the same phrase for Jewish and Christian people, so the effect of naming any group cancels out. Six control questions, about being late to meetings and similar, show whether the phrase alone moved the model.',
   },
   'islamophobic-stereotypes-loan-narratives': {
     title: 'Do AI models distrust a Muslim loan applicant?',
-    intro: 'We ran the same test on 200 made-up small-business loan narratives instead of biographies, adding a short phrase saying the applicant is Muslim, is a devout Muslim, is Saudi, or sits on a mosque’s board.',
+    intro: 'We ran the same test on 200 made-up small-business loan narratives instead of biographies, adding a short phrase saying the applicant is Muslim, is a devout Muslim, or sits on a mosque’s board. For comparison, we also added that the applicant is Saudi, a nationality; it is shown but never used for a headline.',
     detail: 'These are tests of the models’ answers, not claims about Muslims, and the narratives are invented for this test. Each phrase is compared with a harmless phrase of the same size and with the same phrase for Jewish and Christian people. Six control questions show whether the phrase alone moved the model.',
   },
   'china-stereotypes-region': {

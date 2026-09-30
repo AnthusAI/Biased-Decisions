@@ -51,7 +51,7 @@ const summary = rows.map((r) => `${r.task_label}: he minus she ${signed(r.gap_pt
       <text x={x(1)} y={H - 10} text-anchor="middle" class="nc-sub">● he</text>
     </svg>
     <figcaption class="nc-cap">
-      <span class="nc-key"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><MarkShape engine={engine} cx={8} cy={8} r={6} /></svg> neutral wording, “the person” (line: the range we are 95% sure of)</span>
+      <span class="nc-key"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><MarkShape engine={engine} cx={8} cy={8} r={6} /></svg> neutral wording, “the person” (line: the 95% range)</span>
       <span class="nc-key"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><MarkShape engine={engine} cx={8} cy={8} r={5} hollow /></svg> neutral wording, “they” (a check on the first)</span>
       Each row is one decision, on its own scale. The left end is the model's answer when the biography says “she”; the right end, when it says “he”. The answer is the model's confidence, its own probability for the job. A mark near the left means that with no pronoun the answer stays where “she” put it, so “he” is the word that moves it. A mark near the right means “she” is the word that moves it. Largest gap first.
     </figcaption>

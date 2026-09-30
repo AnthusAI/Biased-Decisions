@@ -364,7 +364,7 @@ export function versusFloor(data, dim) {
     const X = (v) => x0 + (Math.max(0, v) / xmax) * (x1 - x0);
     const unit = rawUnit(dim);
     const svg = s("svg", { width: w, height: H, viewBox: `0 0 ${w} ${H}`, class: "chart vs-chart", role: "img",
-      "aria-label": `${dim.long}: what each model did after the edit, and its control edit, with the ranges we are 95% sure of.` });
+      "aria-label": `${dim.long}: what each model did after the edit, and its control edit, with their 95% ranges.` });
     const g = s("g", { class: "grid" });
     for (const t of ticks(xmax, narrow ? 4 : 6)) {
       g.append(s("line", { x1: X(t), x2: X(t), y1: top, y2: H - bottom + 4 }));

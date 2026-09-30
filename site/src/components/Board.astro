@@ -16,7 +16,7 @@ const u = unitText(unit);
   <H class={level === "h2" ? "display" : "display sm"}>{heading}</H>
   {ranked.length > 0
     ? <Fragment>
-        <p class="lede">{lede || `Most biased first. Each grey band is the control edit: how much the model moved for a harmless change. The coloured bar runs on from there to what the model did after the real edit, so its length is the effect beyond the control edit. The whisker is the range we are 95% sure of${facetKind ? `, and the thin ticks are the model's other ${kindNames(facetKind)}` : ""}. Select a row for that model's details.`}</p>
+        <p class="lede">{lede || `Most biased first. Each grey band is the control edit: how much the model moved for a harmless change. The coloured bar runs on from there to what the model did after the real edit, so its length is the effect beyond the control edit. The whisker is the 95% range${facetKind ? `, and the thin ticks are the model's other ${kindNames(facetKind)}` : ""}. Select a row for that model's details.`}</p>
         <Chart id={chartId} />
         {shows && <p class="note board-shows">{shows}</p>}
         {facetKind && ranked.some((r) => r.n_facets > 1) && <p class="note">Each model's bar is the largest of its {kindNames(facetKind)}. It is shown only if it stays clear after allowing for having picked the largest of several (Holm's correction).</p>}

@@ -14,7 +14,7 @@ from biased_decisions.tasks.bios import BIOS_TASKS
 from biased_decisions.leaderboard import (
     B3_BOARD_IDS,
     ENGINE_IDS, SEVERITY_DARK, SEVERITY_LIGHT, _ask_twice_floor, _board, _clean, _facet,
-    _fractional_ranks, _headline, _holm, _magnitude, _p_value, _wilson, build_overall, generate_json, release_info,
+    NATIONALITY_FORMS, _fractional_ranks, _headline, _holm, _magnitude, _p_value, _wilson, build_overall, generate_json, release_info,
     severity_colours, write_json,
 )
 from biased_decisions.leaderboard_examples import mark
@@ -79,11 +79,8 @@ def test_missing_kev_does_not_rank_or_change_measured_models():
         "ranks": ranks, "board": board,
     }
     overall = {row["engine"]: row for row in build_overall([dimension])["rows"]}
-    assert overall["kev"]["mean_rank"] is None
-    assert overall["kev"]["ranked_on"] == 0
-    assert overall["kev"]["positions"] == {}
-    assert overall["laya"]["positions"] == {"synthetic": 1.0}
-    assert overall["jev"]["positions"] == {"synthetic": 2.0}
+    assert overall["kev"]["measured_on"] == 0 and overall["kev"]["incomplete"] is True
+    assert overall["laya"]["detected"] == ["synthetic"] and overall["jev"]["detected"] == ["synthetic"]
 
 
 def test_detection_rule_and_board_order(doc):
@@ -151,18 +148,15 @@ def test_model_glossary_does_not_claim_unmeasured_models_were_tested(doc):
     assert "Kev" not in model
 
 
-def test_overall_is_mean_rank_over_contested_dimensions(doc):
-    dims = {d["id"]: d for d in doc["dimensions"]}
-    for row in doc["overall"]["rows"]:
-        positions = row["positions"]
-        for dim_id, pos in positions.items():
-            assert dims[dim_id]["board"]["contested"]
-            assert dims[dim_id]["ranks"][row["engine"]] == pos
-        expected = round(sum(positions.values()) / len(positions), 2) if positions else None
-        assert row["mean_rank"] == expected
+def test_overall_lists_models_in_fixed_order_without_a_mean_rank(doc):
+    rows = doc["overall"]["rows"]
+    assert [r["engine"] for r in rows] == ENGINE_IDS
+    dims = {d["id"]: d for d in doc["dimensions"] if not d.get("supplemental")}
+    for row in rows:
+        assert "mean_rank" not in row
         assert row["incomplete"] == bool(row["unmeasured"])
-    means = [r["mean_rank"] for r in doc["overall"]["rows"] if r["mean_rank"] is not None]
-    assert means == sorted(means)
+        assert sorted(row["detected"]) == sorted(
+            i for i, d in dims.items() if d["cells"][row["engine"]].get("detected"))
 
 
 def test_prereg_rows_are_verbatim(doc):
@@ -296,9 +290,11 @@ def test_the_dimension_headline_is_the_largest_detected_cell(doc):
         for engine, cell in dim["cells"].items():
             if cell["status"] != "measured" or not cell["detected"]:
                 continue
+            # a nationality phrase on a religious-identity board is shown but never headlines
             best = max(c["engines"][engine]["excess"]["value"] for c in dim["breakdown"]["cells"]
                        if c["engines"][engine]["status"] == "measured"
-                       and c["engines"][engine]["detected"])
+                       and c["engines"][engine]["detected"]
+                       and c.get("group") not in NATIONALITY_FORMS)
             assert cell["headline"]["value"] == best, dim["id"]
 
 
@@ -958,3 +954,14 @@ def test_a_barely_clear_facet_cannot_headline_once_it_is_one_of_many():
     assert detected is False
     head_alone, detected_alone = _headline([barely])
     assert detected_alone is True and head_alone["id"] == "barely"
+
+
+def test_a_nationality_phrase_never_headlines_a_religious_identity_board(doc):
+    for board in ("antisemitic-stereotypes", "antisemitic-stereotypes-loan-narratives",
+                  "islamophobic-stereotypes", "islamophobic-stereotypes-loan-narratives", "antisemitism-decisions"):
+        dim = next(d for d in doc["dimensions"] if d["id"] == board)
+        for cell in dim["cells"].values():
+            for f in cell.get("facets") or []:
+                if f.get("status") == "measured":
+                    assert f["extra"].get("largest_group") not in ("antisemitism-nationality",
+                                                                   "islamophobia-nationality"), (board, f["id"])

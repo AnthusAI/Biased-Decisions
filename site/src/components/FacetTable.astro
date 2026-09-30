@@ -12,7 +12,7 @@ const first = (s) => (s ? s.charAt(0).toUpperCase() + s.slice(1) : s);
 ---
 <div class="table-scroll" tabindex="0" role="region" aria-label={caption}>
   <table class="cell-table">
-    <caption class="sr">{caption}. Numbers in brackets are the range we are 95% sure of.</caption>
+    <caption class="sr">{caption}. Numbers in brackets are the 95% range.</caption>
     <thead><tr>
       <th scope="col">{first(kindName(facetKind))}</th><th scope="col">What the model did</th><th scope="col">Control edit</th>
       <th scope="col">Beyond the control edit (percentage points)</th><th scope="col">Clear effect?</th><th scope="col">Texts tested</th>
