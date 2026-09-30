@@ -2019,12 +2019,12 @@ def _board(summaries: Dict[str, dict]) -> Tuple[Dict[str, float], dict]:
     ranked = sorted([e for e in measured_engines if summaries[e]["detected"]],
                     key=lambda e: (-summaries[e]["headline"]["value"], ENGINE_IDS.index(e)))
     board = {
-        "ranked": [{"engine": e, "rank": ranks[e], "n_facets": summaries[e]["n_facets"],
+        "ranked": [{"engine": e, "rank": ranks[e], "n_facets": summaries[e].get("n_facets", 1),
                     **{k: summaries[e]["headline"][k] for k in
                     ("value", "lo", "hi", "facet", "facet_label")},
                     "direction": summaries[e]["headline"].get("direction")} for e in ranked],
         "not_detected": [{"engine": e, "n": summaries[e]["n"],
-                          "n_facets": summaries[e]["n_facets"],
+                          "n_facets": summaries[e].get("n_facets", 1),
                           "value": summaries[e]["headline"]["value"],
                           "lo": summaries[e]["headline"]["lo"],
                           "hi": summaries[e]["headline"]["hi"],
