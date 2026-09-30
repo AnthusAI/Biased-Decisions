@@ -1,3 +1,11 @@
+# [1.54.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.53.0...v1.54.0) (2026-09-30)
+
+
+### Features
+
+* Jev's trivial-edit floor and controlled direct statements, scored and shown ([e77d593](https://github.com/AnthusAI/Biased-Decisions/commit/e77d59366b69acb3e8dcb4020b935cfad0dd087a))
+* **runs:** pinned Jev manifests for the trivial-edit floor and the controlled statement arms ([b1e7c50](https://github.com/AnthusAI/Biased-Decisions/commit/b1e7c501d0c8aed3a7f6965ca14c4e4f8d935bf9))
+
 # [1.53.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.52.0...v1.53.0) (2026-09-30)
 
 
