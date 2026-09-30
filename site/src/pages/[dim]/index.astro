@@ -14,15 +14,36 @@ import Example from "../../components/Example.astro";
 import Chip from "../../components/Chip.astro";
 import HowMeasured from "../../components/HowMeasured.astro";
 import ModelsLine from "../../components/ModelsLine.astro";
+import LoanPairs from "../../components/LoanPairs.astro";
 import { kindName, kindNames, measureOf } from "../../scripts/util.js";
 import { data, allDimensions, engines, urls, boardPayload, describeDim, facetHref, multiGroup, multiItem, niceMax, unit,
-  fmt, signed, int, cap, forestRows, groupLabel, itemLabel, FAMILY_LABEL, FAMILY_EXPLAIN } from "../../lib/site.js";
+  fmt, signed, size, int, cap, forestRows, groupLabel, itemLabel, FAMILY_LABEL, FAMILY_EXPLAIN } from "../../lib/site.js";
 
 export function getStaticPaths() {
   return allDimensions.map((dim) => ({ params: { dim: dim.id }, props: { dim } }));
 }
 const { dim } = Astro.props;
 const bd = dim.breakdown;
+const isNationality = dim.id === "nationality";
+const expandedNationality = allDimensions.find((candidate) => candidate.id === "nationality-stereotypes");
+const scopedNationality = (groups, items) => ({
+  ...dim,
+  breakdown: {
+    ...bd,
+    groups: bd.groups.filter((group) => groups.includes(group.id)),
+    items: bd.items.filter((item) => items.includes(item.id)),
+    cells: bd.cells.filter((cell) => groups.includes(cell.group) && items.includes(cell.item)),
+  },
+});
+const nationalityGroups = bd.groups.map((group) => group.id);
+const legacyNationalityGroups = bd.groups.slice(0, 7).map((group) => group.id);
+const legacyNationalityItems = bd.items.filter((item) => item.id !== "small-business-loan").map((item) => item.id);
+const nationalityLending = isNationality
+  ? scopedNationality(nationalityGroups, ["small-business-loan"])
+  : null;
+const nationalityLegacy = isNationality
+  ? scopedNationality(legacyNationalityGroups, legacyNationalityItems)
+  : null;
 const twoAxes = multiGroup(dim) && multiItem(dim);
 const oneAxis = !twoAxes && (multiGroup(dim) || multiItem(dim));
 const single = !multiGroup(dim) && !multiItem(dim);
@@ -96,7 +117,28 @@ const allFacets = engines.flatMap((en) => dim.cells[en.id].facets || []);
     </Fragment>
   )}
 
-  {twoAxes && (
+  {isNationality && nationalityLending && expandedNationality && nationalityLegacy && (
+    <Fragment>
+      <section class="wrap section" id="nationality-lending">
+        <h2 class="display">Lending decisions: all thirteen nationalities</h2>
+        <p class="lede">Every nationality below was tested on the same 1,000 small-business-loan applications by Jev, Laya and Kev. Each result compares the written nationality sentence with the same-shape cyclist sentence.</p>
+        <Matrix dim={nationalityLending} caption="Nationality lending decisions: all thirteen nationalities" />
+      </section>
+      <LoanPairs loanPairsData={data.loan_pairs} engines={engines} />
+      <section class="wrap section" id="nationality-stereotypes">
+        <h2 class="display">Stereotype questions: all thirteen nationalities</h2>
+        <p class="lede">This complete thirteen-nationality study uses its own fixed set of stereotype questions and controls. It is shown here with the lending results so nationality evidence is in one place.</p>
+        <Matrix dim={expandedNationality} caption="Nationality stereotype questions: all thirteen nationalities" />
+      </section>
+      <section class="wrap section" id="nationality-legacy">
+        <h2 class="display">Earlier stereotype questions: seven nationalities</h2>
+        <p class="lede">This earlier study used six questions and seven nationalities. It did not include the six nationalities added later, so they are not shown as empty boxes.</p>
+        <Matrix dim={nationalityLegacy} caption="Earlier nationality stereotype questions: seven nationalities" />
+      </section>
+    </Fragment>
+  )}
+
+  {twoAxes && !isNationality && (
     <section class="wrap section" id="breakdown">
       <h2 class="display">Explore the results by {G} and {I}</h2>
       <p class="lede">The ranking above uses the largest result in this grid. Each square is one {G} on one {I}, measured on its own. Select a {G} to see all its {plural(bd.item_kind)}, a {I} to see every {G}, or a square for the full result.</p>
@@ -138,7 +180,7 @@ const allFacets = engines.flatMap((en) => dim.cells[en.id].facets || []);
     </section>
   )}
 
-  <section class="wrap section" id="engines">
+  {!isNationality && <section class="wrap section" id="engines">
     <h2 class="display">Each model's results, {F} by {F}</h2>
     <p class="lede">One table per model. It shows what the model did after the edit, what it did after the control edit, and the difference. Numbers in brackets are the range we are 95% sure of. Each model also has its own page for this characteristic.</p>
     {engines.map((en) => {
@@ -149,7 +191,7 @@ const allFacets = engines.flatMap((en) => dim.cells[en.id].facets || []);
           <summary>
             <EngineName engine={en} />
             {measured
-              ? <span class="sum-v">{c.detected ? `${signed(c.headline.value)} percentage points beyond the control edit, on ${c.headline.facet_label}` : "no clear effect"}<span class="sum-n"> · {c.n_facets} {c.n_facets === 1 ? F : plural(dim.facet_kind)} tested</span></span>
+              ? <span class="sum-v">{c.detected ? `${size(c.headline.value)} percentage points beyond the control edit, on ${c.headline.facet_label}` : "no clear effect"}<span class="sum-n"> · {c.n_facets} {c.n_facets === 1 ? F : plural(dim.facet_kind)} tested</span></span>
               : <span class="sum-v muted">not tested on this characteristic</span>}
           </summary>
           {measured
@@ -162,7 +204,7 @@ const allFacets = engines.flatMap((en) => dim.cells[en.id].facets || []);
         </details>
       );
     })}
-  </section>
+  </section>}
 
   <HowMeasured dim={dim} facets={allFacets} />
 </Base>

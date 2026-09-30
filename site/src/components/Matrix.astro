@@ -3,7 +3,7 @@
 // engine's excess there (or, with `engineId`, that engine's own), shaded by size, and links to
 // the cell's page.
 import Marker from "./Marker.astro";
-import { engineById, fmt, signed, urls, matrixCell, cap, DIR_ARROW, DIR_WORD } from "../lib/site.js";
+import { engineById, fmt, signed, size, urls, matrixCell, cap, DIR_ARROW, DIR_WORD } from "../lib/site.js";
 import { kindName, VERDICT_WORDS } from "../scripts/util.js";
 
 const { dim, engineId = null, caption } = Astro.props;
@@ -40,8 +40,8 @@ for (const r of grid) for (const c of r.cells) if (c.status === "measured" && (c
             const word = c.detected ? VERDICT_WORDS.det : c.reverse ? VERDICT_WORDS.rev : c.attributable === false ? VERDICT_WORDS.un : VERDICT_WORDS.nd;
             return (
               <td class={cls} style={style}>
-                <a href={c.href} aria-label={`${label}: ${engineById[c.engine].label}, ${signed(c.value)} percentage points beyond the control edit${c.dir ? `, ${DIR_WORD[c.dir]} in the answer` : ""}, ${word}`}>
-                  <span class="mx-v">{signed(c.value)}{c.dir && <span class="mx-d" aria-hidden="true"> {DIR_ARROW[c.dir]}</span>}</span>
+                <a href={c.href} aria-label={`${label}: ${engineById[c.engine].label}, ${size(c.value)} percentage points beyond the control edit${c.dir ? `, ${DIR_WORD[c.dir]} in the answer` : ""}, ${word}`}>
+                  <span class="mx-v">{size(c.value)}{c.dir && <span class="mx-d" aria-hidden="true"> {DIR_ARROW[c.dir]}</span>}</span>
                   {!engineId && sig && <span class="mx-e"><Marker engine={engineById[c.engine]} size={9} />{engineById[c.engine].label}</span>}
                   {!sig && <span class="mx-e">{word}</span>}
                 </a>

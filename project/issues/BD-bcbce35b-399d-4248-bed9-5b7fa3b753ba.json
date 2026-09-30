@@ -1,0 +1,28 @@
+{
+  "id": "BD-bcbce35b-399d-4248-bed9-5b7fa3b753ba",
+  "title": "Calibrated loan profiles: strong, borderline and weak per engine",
+  "description": "The existing small-business-loan applications do not give each engine a real borderline: Laya approves about 95% of them and Jev about 17%. Build profiles whose strength is controlled.\n\nDesign: about 20 base applications (varied industry, size, loan purpose). For each, vary credit score in steps (e.g. 560 to 760 by 20) and, as a second axis, collateral (secured / none). No nationality sentence, and a no-mention opening in place of the control clause.\n\nCalibration: run each engine on the ladder; per engine, fit approval probability against credit score and pick the rungs where mean approval is near 85% (strong), 50% (borderline) and 15% (weak). Report where each engine's 50% point sits and how steeply it responds. If an engine never reaches 15% or 85%, record that as a result.\n\nScenario: each engine has a measured borderline\n  Given the calibration answers for an engine\n  When approval is fitted against credit score\n  Then the study file records the rungs chosen for strong, borderline and weak and their observed approval rates",
+  "type": "task",
+  "status": "in_progress",
+  "priority": 1,
+  "assignee": null,
+  "creator": null,
+  "parent": "BD-8ef5239c-1e18-48b7-bc7f-df44efc5fad6",
+  "labels": [],
+  "dependencies": [],
+  "comments": [],
+  "created_at": "2026-09-28T18:40:20.422440Z",
+  "updated_at": "2026-09-28T18:41:18.962806Z",
+  "closed_at": null,
+  "agent": {
+    "platform": "claude_code",
+    "model": "Claude Opus 5.5",
+    "name": "Project Assessment"
+  },
+  "right_now_summary": null,
+  "right_now_updated_at": null,
+  "custom": {
+    "project_label": "BD",
+    "source": "shared"
+  }
+}
