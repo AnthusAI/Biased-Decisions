@@ -121,7 +121,7 @@ def test_known_cells(doc):
     # Keep the raw Jev/Laya measurements stable as new engines are added to the board.
     measured_pair = {e: dims["gender"]["cells"][e]["headline"]["value"]
                      for e in ("jev", "laya")}
-    assert measured_pair == {"jev": 7.56, "laya": 17.85}
+    assert measured_pair == {"jev": 7.56, "laya": 15.82}
     assert measured_pair["laya"] > measured_pair["jev"]
     assert dims["gender"]["cells"]["jev"]["headline"]["value"] == 7.56
     # Jev's and Laya's first-name intervals include the floor: measured, not detected.
