@@ -1,3 +1,31 @@
+# [1.50.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.49.1...v1.50.0) (2026-09-30)
+
+
+### Bug Fixes
+
+* **batch2:** correct outcome table format to match pre-registration columns ([9638d3d](https://github.com/AnthusAI/Biased-Decisions/commit/9638d3dcf60e5f3e0c0dc61d9a7c4aaa41d6f471))
+* **batch2:** correct outcome values to points, fix leaderboard sources, regenerate data ([c7981d0](https://github.com/AnthusAI/Biased-Decisions/commit/c7981d0de4dfa7f4957ec9ca9cf4e4a52e4bf49e))
+* **batch2:** remove duplicate outcome table row ([260af27](https://github.com/AnthusAI/Biased-Decisions/commit/260af2763330c137522026a51e5d0d2b0b25b31b))
+* **batch2:** restore immutable pre-registration predictions table ([dc4adf3](https://github.com/AnthusAI/Biased-Decisions/commit/dc4adf35c5b4b6736b39a269e2e41009000ec83e))
+* **batch2:** split combined outcome rows by measurement ([160a5cb](https://github.com/AnthusAI/Biased-Decisions/commit/160a5cb53d3e2ffd2ee373cef8a7d050c0e78bcb))
+* compute race-fullname excess on magnitudes, not signed shifts ([d408935](https://github.com/AnthusAI/Biased-Decisions/commit/d4089354a65fd8b276a0784ad5d1b235094cdfaa))
+* correct excess sign orientation for negative shifts and zero-value bug ([34bfabd](https://github.com/AnthusAI/Biased-Decisions/commit/34bfabd2fd18f9cb9c7ae38300c3911b472d1cd5))
+* correct excess_ci unit conversion and detection test logic ([927e4fe](https://github.com/AnthusAI/Biased-Decisions/commit/927e4feb93ffac7c476ef2d3034e48e7f44371de))
+* **pre-registration:** restore provenance formatting to 4-line split ([135f8aa](https://github.com/AnthusAI/Biased-Decisions/commit/135f8aab1cdb32c442f0a8ef200fe6a7113f7b5f))
+* **score:** excess intervals match the reported excess ([ffc6829](https://github.com/AnthusAI/Biased-Decisions/commit/ffc6829efc96d42173019606c1893aedead928ba))
+* **score:** re-score race-fullname with magnitude-based excess ([5ef807d](https://github.com/AnthusAI/Biased-Decisions/commit/5ef807d19c6ce8ce3d59a80c1792d2e8170d50b1))
+* **stereotypes:** read batch 2 only from the replayed rows ([dac9d3b](https://github.com/AnthusAI/Biased-Decisions/commit/dac9d3bde8722f5421e0c3641b6f2e8c59d6b923))
+* **stereotypes:** replay Laya's batch 2 rows with the standard stereotype scorer ([6c08452](https://github.com/AnthusAI/Biased-Decisions/commit/6c0845277b89ff36b9f905f11fa9012bf09c0e06))
+* **test:** update test_known_cells to expect harness source for nationality ([77eee2f](https://github.com/AnthusAI/Biased-Decisions/commit/77eee2f8db5af578da90188ae963fb083b717adc))
+
+
+### Features
+
+* add excess_ci scores and implement three detection rules ([3f74b58](https://github.com/AnthusAI/Biased-Decisions/commit/3f74b588e8d5dcb8fdea85c647ae2de94cf05d85))
+* implement paired excess intervals for detection rules ([51aa7a7](https://github.com/AnthusAI/Biased-Decisions/commit/51aa7a7b9e4c3dd1804a9b35ce2854f45c79af85))
+* integrate batch 2 stereotype study into leaderboard and site ([081ce9f](https://github.com/AnthusAI/Biased-Decisions/commit/081ce9f97542d1eb510695d35ada526bb34ea80b))
+* port batch 2 stereotype study into reproducible harness ([871eabf](https://github.com/AnthusAI/Biased-Decisions/commit/871eabf1cf594402d4f85474bb4f9bd6e9a93b36))
+
 ## [1.49.1](https://github.com/AnthusAI/Biased-Decisions/compare/v1.49.0...v1.49.1) (2026-09-30)
 
 
