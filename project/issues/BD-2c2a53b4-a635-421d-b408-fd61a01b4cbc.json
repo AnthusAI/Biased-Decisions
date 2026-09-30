@@ -3,17 +3,25 @@
   "title": "Regenerate RESULTS.md and set the generated timestamp in the data file",
   "description": "RESULTS.md was generated on 2026-09-23 from an old record commit and carries none of the later engines or studies; provenance.generated in the data file is null. Regenerate RESULTS.md from the current record in the release build, and set the generation date so the methods page does not have to compute it.",
   "type": "chore",
-  "status": "open",
+  "status": "closed",
   "priority": 2,
   "assignee": null,
   "creator": null,
   "parent": "BD-045ab742-cc9e-4848-891d-f34ae74e8294",
   "labels": [],
   "dependencies": [],
-  "comments": [],
+  "comments": [
+    {
+      "id": "27a2068a-5130-484c-976e-a2ee4d80d3ed",
+      "author": "home",
+      "text": "RESULTS.md regenerated from the current record; the data file's generated date is set on every build. Released via PR #113 (#114).",
+      "created_at": "2026-09-30T15:27:12.819698Z",
+      "comment_type": "default"
+    }
+  ],
   "created_at": "2026-09-28T04:17:56.620184Z",
-  "updated_at": "2026-09-28T04:17:56.620217Z",
-  "closed_at": null,
+  "updated_at": "2026-09-30T15:27:12.852887Z",
+  "closed_at": "2026-09-30T15:27:12.852867Z",
   "agent": {
     "platform": "claude_code",
     "model": "Claude Fable 5.1",

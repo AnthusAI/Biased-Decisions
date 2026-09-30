@@ -3,17 +3,25 @@
   "title": "Ranking: show effect sizes side by side instead of a mean rank",
   "description": "With three engines, a mean of per-dimension ranks turns any detected effect into a rank above any non-detected one regardless of size, and weights nine unequal dimensions equally, one of which is confounded and two of which come from a staged run. Replace the overall order with a side-by-side effect-size comparison per dimension, or keep the order but label it a descriptive tally and exclude confounded and non-regenerable dimensions from it.",
   "type": "task",
-  "status": "open",
+  "status": "closed",
   "priority": 2,
   "assignee": null,
   "creator": null,
   "parent": "BD-045ab742-cc9e-4848-891d-f34ae74e8294",
   "labels": [],
   "dependencies": [],
-  "comments": [],
+  "comments": [
+    {
+      "id": "c02c6cc1-e511-499c-9919-7dca33bad841",
+      "author": "home",
+      "text": "The main board compares every model's result per characteristic side by side; no overall place or mean rank is shown anywhere. Released via PR #113 (#112).",
+      "created_at": "2026-09-30T15:27:12.594372Z",
+      "comment_type": "default"
+    }
+  ],
   "created_at": "2026-09-28T04:17:56.489649Z",
-  "updated_at": "2026-09-28T04:17:56.489686Z",
-  "closed_at": null,
+  "updated_at": "2026-09-30T15:27:12.628828Z",
+  "closed_at": "2026-09-30T15:27:12.628799Z",
   "agent": {
     "platform": "claude_code",
     "model": "Claude Fable 5.1",

@@ -3,17 +3,25 @@
   "title": "Outcome sections for every pre-registered study that has run",
   "description": "Only three of the pre-registration documents under docs/ have an Outcome section, and several have no predictions table. For every study that has answers, append an Outcome section that scores each prediction against the result in the pre-registration's own words, with a Deviations block where the plan changed. For future studies, commit and tag the plan, and consider an external timestamp, before any answer is collected.",
   "type": "task",
-  "status": "in_progress",
+  "status": "closed",
   "priority": 2,
   "assignee": null,
   "creator": null,
   "parent": "BD-045ab742-cc9e-4848-891d-f34ae74e8294",
   "labels": [],
   "dependencies": [],
-  "comments": [],
+  "comments": [
+    {
+      "id": "832db872-3970-4fb3-98b6-a18ff208cd9d",
+      "author": "home",
+      "text": "Every pre-registration with answers now has an Outcome section; the trivial-edit floor and controlled statement plans have no answers yet.",
+      "created_at": "2026-09-30T15:27:13.044861Z",
+      "comment_type": "default"
+    }
+  ],
   "created_at": "2026-09-28T04:17:56.661281Z",
-  "updated_at": "2026-09-28T04:35:26.894397Z",
-  "closed_at": null,
+  "updated_at": "2026-09-30T15:27:13.090363Z",
+  "closed_at": "2026-09-30T15:27:13.090332Z",
   "agent": {
     "platform": "claude_code",
     "model": "Claude Fable 5.1",

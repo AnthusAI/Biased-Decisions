@@ -3,17 +3,25 @@
   "title": "Report the Israeli cue under nationality, not as a Jewish-identity wording",
   "description": "The antisemitic-stereotype boards treat 'An Israeli' as one of five ways of saying a person is Jewish. Nationality and religious or ethnic identity are different signals and the two should not be pooled. Move the Israeli cue form out of the Jewish-identity set: score and display it on the nationality board (alongside the other nationality clauses and their floor), keep the four remaining wordings as the Jewish-identity set, re-score the headline for each stereotype from those four, and update the page copy and the pre-registration's Deviations block to record the change.",
   "type": "task",
-  "status": "open",
+  "status": "closed",
   "priority": 1,
   "assignee": null,
   "creator": null,
   "parent": "BD-045ab742-cc9e-4848-891d-f34ae74e8294",
   "labels": [],
   "dependencies": [],
-  "comments": [],
+  "comments": [
+    {
+      "id": "a62bbe57-434b-41ae-b72d-5c352d20d045",
+      "author": "home",
+      "text": "'An Israeli' stays on the antisemitism boards for comparison with a note, but never supplies a headline; headlines come from the four Jewish-identity wordings, and the pre-registration records the change under Deviations. Israeli nationality in lending is on the nationality page. Released via PR #113 (#114).",
+      "created_at": "2026-09-30T15:27:12.670200Z",
+      "comment_type": "default"
+    }
+  ],
   "created_at": "2026-09-28T04:19:39.405408Z",
-  "updated_at": "2026-09-28T04:19:39.405446Z",
-  "closed_at": null,
+  "updated_at": "2026-09-30T15:27:12.703611Z",
+  "closed_at": "2026-09-30T15:27:12.703587Z",
   "agent": {
     "platform": "claude_code",
     "model": "Claude Fable 5.1",
