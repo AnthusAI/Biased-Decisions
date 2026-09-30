@@ -1,3 +1,10 @@
+# [1.55.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.54.1...v1.55.0) (2026-09-30)
+
+
+### Features
+
+* **site:** lead the Jewish and Israel page with what the tests found ([e4b713f](https://github.com/AnthusAI/Biased-Decisions/commit/e4b713fe8ccdac3f17e20c6f3b22541433087cfe))
+
 ## [1.54.1](https://github.com/AnthusAI/Biased-Decisions/compare/v1.54.0...v1.54.1) (2026-09-30)
 
 
