@@ -1,3 +1,10 @@
+# [1.53.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.52.0...v1.53.0) (2026-09-30)
+
+
+### Features
+
+* ready the controlled statement arms and the trivial-edit floor for answers ([97ad231](https://github.com/AnthusAI/Biased-Decisions/commit/97ad2312801d9ec36f65d1d1e5aae0e546da018c))
+
 # [1.52.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.51.0...v1.52.0) (2026-09-30)
 
 
