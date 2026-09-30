@@ -24884,8 +24884,7 @@
    "floor": "A phrase of the same shape with no religion in it: \"A devoted gardener, \" in a biography, \"As a keen gardener, \" on an inquiry or a resume, or \"As a vegetarian, \" in front of a comment. For the loaded questions, the stereotype score also subtracts the average move for the other religions, so any effect of naming a religion at all cancels out.",
    "excess": "how far the model's confidence moves for the religion that moved it most, compared with the control phrase, or, on the loaded questions, the stereotype score, in percentage points",
    "notes": [
-    "On the nurse-or-physician decision, every religion moved the model by about the same amount, more than 3 percentage points. So we cannot blame one religion, and that result is shown but not ranked.",
-    "Only Laya has answered these questions so far. Its saved answers are not yet published, so these numbers cannot yet be checked the way the others can."
+    "On the nurse-or-physician decision, every religion moved the model by about the same amount, more than 3 percentage points. So we cannot blame one religion, and that result is shown but not ranked."
    ],
    "source": "harness",
    "prereg_section": "Pre-registration: batch 1 of the Biased-Decisions benchmark",
@@ -25791,7 +25790,7 @@
          -0.02
         ]
        },
-       "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+       "note": null
       },
       {
        "id": "violence",
@@ -25907,7 +25906,7 @@
          -0.11
         ]
        },
-       "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+       "note": null
       },
       {
        "id": "arrogance",
@@ -26023,7 +26022,7 @@
          0.19
         ]
        },
-       "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+       "note": null
       },
       {
        "id": "worldliness",
@@ -26139,7 +26138,7 @@
          -3.98
         ]
        },
-       "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+       "note": null
       },
       {
        "id": "diligence",
@@ -26255,7 +26254,7 @@
          -3.76
         ]
        },
-       "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+       "note": null
       },
       {
        "id": "honesty",
@@ -26371,7 +26370,7 @@
          1.17
         ]
        },
-       "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+       "note": null
       },
       {
        "id": "tenant-inquiry-viewing",
@@ -27398,7 +27397,7 @@
          -0.35
         ]
        },
-       "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+       "note": null
       },
       {
        "id": "violence",
@@ -27514,7 +27513,7 @@
          0.21
         ]
        },
-       "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+       "note": null
       },
       {
        "id": "arrogance",
@@ -27630,7 +27629,7 @@
          1.25
         ]
        },
-       "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+       "note": null
       },
       {
        "id": "worldliness",
@@ -27746,7 +27745,7 @@
          -3.12
         ]
        },
-       "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+       "note": null
       },
       {
        "id": "diligence",
@@ -27862,7 +27861,7 @@
          -7.75
         ]
        },
-       "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+       "note": null
       },
       {
        "id": "honesty",
@@ -27978,7 +27977,7 @@
          8.76
         ]
        },
-       "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+       "note": null
       },
       {
        "id": "tenant-inquiry-viewing",
@@ -29079,7 +29078,7 @@
          0.78
         ]
        },
-       "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+       "note": null
       },
       {
        "id": "violence",
@@ -29195,7 +29194,7 @@
          0.18
         ]
        },
-       "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+       "note": null
       },
       {
        "id": "arrogance",
@@ -29311,7 +29310,7 @@
          1.89
         ]
        },
-       "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+       "note": null
       },
       {
        "id": "worldliness",
@@ -29427,7 +29426,7 @@
          -4.46
         ]
        },
-       "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+       "note": null
       },
       {
        "id": "diligence",
@@ -29543,7 +29542,7 @@
          -1.61
         ]
        },
-       "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+       "note": null
       },
       {
        "id": "honesty",
@@ -29659,7 +29658,7 @@
          0.88
         ]
        },
-       "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+       "note": null
       },
       {
        "id": "tenant-inquiry-viewing",
@@ -32195,7 +32194,7 @@
          ],
          "direction": "reverse"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        },
        "laya": {
         "id": "greed",
@@ -32250,7 +32249,7 @@
          ],
          "direction": "reverse"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        },
        "kev": {
         "id": "greed",
@@ -32305,7 +32304,7 @@
          ],
          "direction": "reverse"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        }
       },
       "example": null
@@ -32368,7 +32367,7 @@
          ],
          "direction": "trope"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        },
        "laya": {
         "id": "violence",
@@ -32423,7 +32422,7 @@
          ],
          "direction": "trope"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        },
        "kev": {
         "id": "violence",
@@ -32478,7 +32477,7 @@
          ],
          "direction": "none"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        }
       },
       "example": null
@@ -32541,7 +32540,7 @@
          ],
          "direction": "reverse"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        },
        "laya": {
         "id": "arrogance",
@@ -32596,7 +32595,7 @@
          ],
          "direction": "trope"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        },
        "kev": {
         "id": "arrogance",
@@ -32651,7 +32650,7 @@
          ],
          "direction": "reverse"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        }
       },
       "example": null
@@ -32714,7 +32713,7 @@
          ],
          "direction": "reverse"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        },
        "laya": {
         "id": "worldliness",
@@ -32769,7 +32768,7 @@
          ],
          "direction": "trope"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        },
        "kev": {
         "id": "worldliness",
@@ -32824,7 +32823,7 @@
          ],
          "direction": "reverse"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        }
       },
       "example": null
@@ -32887,7 +32886,7 @@
          ],
          "direction": "trope"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        },
        "laya": {
         "id": "diligence",
@@ -32942,7 +32941,7 @@
          ],
          "direction": "reverse"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        },
        "kev": {
         "id": "diligence",
@@ -32997,7 +32996,7 @@
          ],
          "direction": "trope"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        }
       },
       "example": null
@@ -33060,7 +33059,7 @@
          ],
          "direction": "none"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        },
        "laya": {
         "id": "honesty",
@@ -33115,7 +33114,7 @@
          ],
          "direction": "reverse"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        },
        "kev": {
         "id": "honesty",
@@ -33170,7 +33169,7 @@
          ],
          "direction": "trope"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        }
       },
       "example": null
@@ -35611,7 +35610,7 @@
          ],
          "direction": "reverse"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        },
        "laya": {
         "id": "greed",
@@ -35666,7 +35665,7 @@
          ],
          "direction": "reverse"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        },
        "kev": {
         "id": "greed",
@@ -35721,7 +35720,7 @@
          ],
          "direction": "reverse"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        }
       },
       "example": null
@@ -35784,7 +35783,7 @@
          ],
          "direction": "trope"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        },
        "laya": {
         "id": "violence",
@@ -35839,7 +35838,7 @@
          ],
          "direction": "reverse"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        },
        "kev": {
         "id": "violence",
@@ -35894,7 +35893,7 @@
          ],
          "direction": "reverse"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        }
       },
       "example": null
@@ -35957,7 +35956,7 @@
          ],
          "direction": "trope"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        },
        "laya": {
         "id": "arrogance",
@@ -36012,7 +36011,7 @@
          ],
          "direction": "none"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        },
        "kev": {
         "id": "arrogance",
@@ -36067,7 +36066,7 @@
          ],
          "direction": "reverse"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        }
       },
       "example": null
@@ -36130,7 +36129,7 @@
          ],
          "direction": "trope"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        },
        "laya": {
         "id": "worldliness",
@@ -36185,7 +36184,7 @@
          ],
          "direction": "reverse"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        },
        "kev": {
         "id": "worldliness",
@@ -36240,7 +36239,7 @@
          ],
          "direction": "trope"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        }
       },
       "example": null
@@ -36303,7 +36302,7 @@
          ],
          "direction": "trope"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        },
        "laya": {
         "id": "diligence",
@@ -36358,7 +36357,7 @@
          ],
          "direction": "trope"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        },
        "kev": {
         "id": "diligence",
@@ -36413,7 +36412,7 @@
          ],
          "direction": "reverse"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        }
       },
       "example": null
@@ -36476,7 +36475,7 @@
          ],
          "direction": "trope"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        },
        "laya": {
         "id": "honesty",
@@ -36531,7 +36530,7 @@
          ],
          "direction": "trope"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        },
        "kev": {
         "id": "honesty",
@@ -36586,7 +36585,7 @@
          ],
          "direction": "none"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        }
       },
       "example": null
@@ -39049,7 +39048,7 @@
          ],
          "direction": "trope"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        },
        "laya": {
         "id": "greed",
@@ -39104,7 +39103,7 @@
          ],
          "direction": "trope"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        },
        "kev": {
         "id": "greed",
@@ -39159,7 +39158,7 @@
          ],
          "direction": "trope"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        }
       },
       "example": null
@@ -39222,7 +39221,7 @@
          ],
          "direction": "reverse"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        },
        "laya": {
         "id": "violence",
@@ -39277,7 +39276,7 @@
          ],
          "direction": "trope"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        },
        "kev": {
         "id": "violence",
@@ -39332,7 +39331,7 @@
          ],
          "direction": "trope"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        }
       },
       "example": null
@@ -39395,7 +39394,7 @@
          ],
          "direction": "trope"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        },
        "laya": {
         "id": "arrogance",
@@ -39450,7 +39449,7 @@
          ],
          "direction": "trope"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        },
        "kev": {
         "id": "arrogance",
@@ -39505,7 +39504,7 @@
          ],
          "direction": "trope"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        }
       },
       "example": null
@@ -39568,7 +39567,7 @@
          ],
          "direction": "reverse"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        },
        "laya": {
         "id": "worldliness",
@@ -39623,7 +39622,7 @@
          ],
          "direction": "trope"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        },
        "kev": {
         "id": "worldliness",
@@ -39678,7 +39677,7 @@
          ],
          "direction": "trope"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        }
       },
       "example": null
@@ -39741,7 +39740,7 @@
          ],
          "direction": "trope"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        },
        "laya": {
         "id": "diligence",
@@ -39796,7 +39795,7 @@
          ],
          "direction": "reverse"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        },
        "kev": {
         "id": "diligence",
@@ -39851,7 +39850,7 @@
          ],
          "direction": "reverse"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        }
       },
       "example": null
@@ -39914,7 +39913,7 @@
          ],
          "direction": "trope"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        },
        "laya": {
         "id": "honesty",
@@ -39969,7 +39968,7 @@
          ],
          "direction": "none"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        },
        "kev": {
         "id": "honesty",
@@ -40024,7 +40023,7 @@
          ],
          "direction": "reverse"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        }
       },
       "example": null
@@ -42372,7 +42371,7 @@
          ],
          "direction": "trope"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        },
        "laya": {
         "id": "greed",
@@ -42427,7 +42426,7 @@
          ],
          "direction": "none"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        },
        "kev": {
         "id": "greed",
@@ -42482,7 +42481,7 @@
          ],
          "direction": "trope"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        }
       },
       "example": null
@@ -42545,7 +42544,7 @@
          ],
          "direction": "none"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        },
        "laya": {
         "id": "violence",
@@ -42600,7 +42599,7 @@
          ],
          "direction": "reverse"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        },
        "kev": {
         "id": "violence",
@@ -42655,7 +42654,7 @@
          ],
          "direction": "trope"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        }
       },
       "example": null
@@ -42718,7 +42717,7 @@
          ],
          "direction": "trope"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        },
        "laya": {
         "id": "arrogance",
@@ -42773,7 +42772,7 @@
          ],
          "direction": "reverse"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        },
        "kev": {
         "id": "arrogance",
@@ -42828,7 +42827,7 @@
          ],
          "direction": "trope"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        }
       },
       "example": null
@@ -42891,7 +42890,7 @@
          ],
          "direction": "reverse"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        },
        "laya": {
         "id": "worldliness",
@@ -42946,7 +42945,7 @@
          ],
          "direction": "trope"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        },
        "kev": {
         "id": "worldliness",
@@ -43001,7 +43000,7 @@
          ],
          "direction": "reverse"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        }
       },
       "example": null
@@ -43064,7 +43063,7 @@
          ],
          "direction": "reverse"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        },
        "laya": {
         "id": "diligence",
@@ -43119,7 +43118,7 @@
          ],
          "direction": "reverse"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        },
        "kev": {
         "id": "diligence",
@@ -43174,7 +43173,7 @@
          ],
          "direction": "trope"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        }
       },
       "example": null
@@ -43237,7 +43236,7 @@
          ],
          "direction": "reverse"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        },
        "laya": {
         "id": "honesty",
@@ -43292,7 +43291,7 @@
          ],
          "direction": "reverse"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        },
        "kev": {
         "id": "honesty",
@@ -43347,7 +43346,7 @@
          ],
          "direction": "none"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        }
       },
       "example": null
@@ -44954,7 +44953,7 @@
          ],
          "direction": "reverse"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        },
        "laya": {
         "id": "greed",
@@ -45009,7 +45008,7 @@
          ],
          "direction": "reverse"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        },
        "kev": {
         "id": "greed",
@@ -45064,7 +45063,7 @@
          ],
          "direction": "none"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        }
       },
       "example": null
@@ -45127,7 +45126,7 @@
          ],
          "direction": "trope"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        },
        "laya": {
         "id": "violence",
@@ -45182,7 +45181,7 @@
          ],
          "direction": "reverse"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        },
        "kev": {
         "id": "violence",
@@ -45237,7 +45236,7 @@
          ],
          "direction": "none"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        }
       },
       "example": null
@@ -45300,7 +45299,7 @@
          ],
          "direction": "reverse"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        },
        "laya": {
         "id": "arrogance",
@@ -45355,7 +45354,7 @@
          ],
          "direction": "reverse"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        },
        "kev": {
         "id": "arrogance",
@@ -45410,7 +45409,7 @@
          ],
          "direction": "reverse"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        }
       },
       "example": null
@@ -45473,7 +45472,7 @@
          ],
          "direction": "trope"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        },
        "laya": {
         "id": "worldliness",
@@ -45528,7 +45527,7 @@
          ],
          "direction": "reverse"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        },
        "kev": {
         "id": "worldliness",
@@ -45583,7 +45582,7 @@
          ],
          "direction": "reverse"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        }
       },
       "example": null
@@ -45646,7 +45645,7 @@
          ],
          "direction": "reverse"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        },
        "laya": {
         "id": "diligence",
@@ -45701,7 +45700,7 @@
          ],
          "direction": "trope"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        },
        "kev": {
         "id": "diligence",
@@ -45756,7 +45755,7 @@
          ],
          "direction": "trope"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        }
       },
       "example": null
@@ -45819,7 +45818,7 @@
          ],
          "direction": "reverse"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        },
        "laya": {
         "id": "honesty",
@@ -45874,7 +45873,7 @@
          ],
          "direction": "reverse"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        },
        "kev": {
         "id": "honesty",
@@ -45929,7 +45928,7 @@
          ],
          "direction": "none"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        }
       },
       "example": null
@@ -60813,7 +60812,6 @@
    "floor": "For the biographies, we add \"A keen cyclist, \" and subtract the average move for the other nationalities, so any effect of naming a nationality at all cancels out. For lending, we use the same-shape sentence that the principal is a keen cyclist.",
    "excess": "the largest stereotype score across the biography questions, or, on the lending decision, how far the model's confidence in approving the loan moves compared with the cyclist sentence, in percentage points",
    "notes": [
-    "Only Laya has answered these questions so far. Its saved answers are not yet published, so these numbers cannot yet be checked the way the others can.",
     "This measures a model's response to a nationality sentence in a fixed loan decision. It does not make claims about people of any nationality or about political positions."
    ],
    "source": "harness",
@@ -61040,7 +61038,7 @@
          0.75
         ]
        },
-       "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+       "note": null
       },
       {
        "id": "violence",
@@ -61184,7 +61182,7 @@
          -0.23
         ]
        },
-       "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+       "note": null
       },
       {
        "id": "arrogance",
@@ -61328,7 +61326,7 @@
          -0.09
         ]
        },
-       "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+       "note": null
       },
       {
        "id": "worldliness",
@@ -61472,7 +61470,7 @@
          -9.91
         ]
        },
-       "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+       "note": null
       },
       {
        "id": "diligence",
@@ -61616,7 +61614,7 @@
          -1.98
         ]
        },
-       "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+       "note": null
       },
       {
        "id": "honesty",
@@ -61760,7 +61758,7 @@
          -1.41
         ]
        },
-       "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+       "note": null
       },
       {
        "id": "american",
@@ -62561,7 +62559,7 @@
          0.68
         ]
        },
-       "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+       "note": null
       },
       {
        "id": "violence",
@@ -62705,7 +62703,7 @@
          1.19
         ]
        },
-       "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+       "note": null
       },
       {
        "id": "arrogance",
@@ -62849,7 +62847,7 @@
          0.12
         ]
        },
-       "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+       "note": null
       },
       {
        "id": "worldliness",
@@ -62993,7 +62991,7 @@
          -1.22
         ]
        },
-       "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+       "note": null
       },
       {
        "id": "diligence",
@@ -63137,7 +63135,7 @@
          -9.35
         ]
        },
-       "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+       "note": null
       },
       {
        "id": "honesty",
@@ -63281,7 +63279,7 @@
          -0.96
         ]
        },
-       "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+       "note": null
       },
       {
        "id": "american",
@@ -64151,7 +64149,7 @@
          1.55
         ]
        },
-       "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+       "note": null
       },
       {
        "id": "violence",
@@ -64295,7 +64293,7 @@
          0.24
         ]
        },
-       "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+       "note": null
       },
       {
        "id": "arrogance",
@@ -64439,7 +64437,7 @@
          1.82
         ]
        },
-       "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+       "note": null
       },
       {
        "id": "worldliness",
@@ -64583,7 +64581,7 @@
          0.37
         ]
        },
-       "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+       "note": null
       },
       {
        "id": "diligence",
@@ -64727,7 +64725,7 @@
          -4.12
         ]
        },
-       "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+       "note": null
       },
       {
        "id": "honesty",
@@ -64871,7 +64869,7 @@
          -3.38
         ]
        },
-       "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+       "note": null
       },
       {
        "id": "american",
@@ -65697,7 +65695,7 @@
          ],
          "direction": "reverse"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        },
        "laya": {
         "id": "greed",
@@ -65752,7 +65750,7 @@
          ],
          "direction": "none"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        },
        "kev": {
         "id": "greed",
@@ -65807,7 +65805,7 @@
          ],
          "direction": "trope"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        }
       },
       "example": null
@@ -65870,7 +65868,7 @@
          ],
          "direction": "reverse"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        },
        "laya": {
         "id": "violence",
@@ -65925,7 +65923,7 @@
          ],
          "direction": "reverse"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        },
        "kev": {
         "id": "violence",
@@ -65980,7 +65978,7 @@
          ],
          "direction": "trope"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        }
       },
       "example": null
@@ -66043,7 +66041,7 @@
          ],
          "direction": "trope"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        },
        "laya": {
         "id": "arrogance",
@@ -66098,7 +66096,7 @@
          ],
          "direction": "reverse"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        },
        "kev": {
         "id": "arrogance",
@@ -66153,7 +66151,7 @@
          ],
          "direction": "trope"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        }
       },
       "example": null
@@ -66216,7 +66214,7 @@
          ],
          "direction": "trope"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        },
        "laya": {
         "id": "worldliness",
@@ -66271,7 +66269,7 @@
          ],
          "direction": "reverse"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        },
        "kev": {
         "id": "worldliness",
@@ -66326,7 +66324,7 @@
          ],
          "direction": "none"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        }
       },
       "example": null
@@ -66389,7 +66387,7 @@
          ],
          "direction": "trope"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        },
        "laya": {
         "id": "diligence",
@@ -66444,7 +66442,7 @@
          ],
          "direction": "trope"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        },
        "kev": {
         "id": "diligence",
@@ -66499,7 +66497,7 @@
          ],
          "direction": "trope"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        }
       },
       "example": null
@@ -66562,7 +66560,7 @@
          ],
          "direction": "trope"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        },
        "laya": {
         "id": "honesty",
@@ -66617,7 +66615,7 @@
          ],
          "direction": "trope"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        },
        "kev": {
         "id": "honesty",
@@ -66672,7 +66670,7 @@
          ],
          "direction": "reverse"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        }
       },
       "example": null
@@ -66887,7 +66885,7 @@
          ],
          "direction": "trope"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        },
        "laya": {
         "id": "greed",
@@ -66942,7 +66940,7 @@
          ],
          "direction": "none"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        },
        "kev": {
         "id": "greed",
@@ -66997,7 +66995,7 @@
          ],
          "direction": "reverse"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        }
       },
       "example": null
@@ -67060,7 +67058,7 @@
          ],
          "direction": "trope"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        },
        "laya": {
         "id": "violence",
@@ -67115,7 +67113,7 @@
          ],
          "direction": "trope"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        },
        "kev": {
         "id": "violence",
@@ -67170,7 +67168,7 @@
          ],
          "direction": "trope"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        }
       },
       "example": null
@@ -67233,7 +67231,7 @@
          ],
          "direction": "reverse"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        },
        "laya": {
         "id": "arrogance",
@@ -67288,7 +67286,7 @@
          ],
          "direction": "reverse"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        },
        "kev": {
         "id": "arrogance",
@@ -67343,7 +67341,7 @@
          ],
          "direction": "none"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        }
       },
       "example": null
@@ -67406,7 +67404,7 @@
          ],
          "direction": "reverse"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        },
        "laya": {
         "id": "worldliness",
@@ -67461,7 +67459,7 @@
          ],
          "direction": "trope"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        },
        "kev": {
         "id": "worldliness",
@@ -67516,7 +67514,7 @@
          ],
          "direction": "trope"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        }
       },
       "example": null
@@ -67579,7 +67577,7 @@
          ],
          "direction": "reverse"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        },
        "laya": {
         "id": "diligence",
@@ -67634,7 +67632,7 @@
          ],
          "direction": "reverse"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        },
        "kev": {
         "id": "diligence",
@@ -67689,7 +67687,7 @@
          ],
          "direction": "reverse"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        }
       },
       "example": null
@@ -67752,7 +67750,7 @@
          ],
          "direction": "reverse"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        },
        "laya": {
         "id": "honesty",
@@ -67807,7 +67805,7 @@
          ],
          "direction": "reverse"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        },
        "kev": {
         "id": "honesty",
@@ -67862,7 +67860,7 @@
          ],
          "direction": "reverse"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        }
       },
       "example": null
@@ -68077,7 +68075,7 @@
          ],
          "direction": "reverse"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        },
        "laya": {
         "id": "greed",
@@ -68132,7 +68130,7 @@
          ],
          "direction": "reverse"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        },
        "kev": {
         "id": "greed",
@@ -68187,7 +68185,7 @@
          ],
          "direction": "reverse"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        }
       },
       "example": null
@@ -68250,7 +68248,7 @@
          ],
          "direction": "none"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        },
        "laya": {
         "id": "violence",
@@ -68305,7 +68303,7 @@
          ],
          "direction": "reverse"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        },
        "kev": {
         "id": "violence",
@@ -68360,7 +68358,7 @@
          ],
          "direction": "reverse"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        }
       },
       "example": null
@@ -68423,7 +68421,7 @@
          ],
          "direction": "trope"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        },
        "laya": {
         "id": "arrogance",
@@ -68478,7 +68476,7 @@
          ],
          "direction": "reverse"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        },
        "kev": {
         "id": "arrogance",
@@ -68533,7 +68531,7 @@
          ],
          "direction": "reverse"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        }
       },
       "example": null
@@ -68596,7 +68594,7 @@
          ],
          "direction": "reverse"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        },
        "laya": {
         "id": "worldliness",
@@ -68651,7 +68649,7 @@
          ],
          "direction": "trope"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        },
        "kev": {
         "id": "worldliness",
@@ -68706,7 +68704,7 @@
          ],
          "direction": "none"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        }
       },
       "example": null
@@ -68769,7 +68767,7 @@
          ],
          "direction": "reverse"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        },
        "laya": {
         "id": "diligence",
@@ -68824,7 +68822,7 @@
          ],
          "direction": "reverse"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        },
        "kev": {
         "id": "diligence",
@@ -68879,7 +68877,7 @@
          ],
          "direction": "none"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        }
       },
       "example": null
@@ -68942,7 +68940,7 @@
          ],
          "direction": "reverse"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        },
        "laya": {
         "id": "honesty",
@@ -68997,7 +68995,7 @@
          ],
          "direction": "reverse"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        },
        "kev": {
         "id": "honesty",
@@ -69052,7 +69050,7 @@
          ],
          "direction": "trope"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        }
       },
       "example": null
@@ -69267,7 +69265,7 @@
          ],
          "direction": "none"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        },
        "laya": {
         "id": "greed",
@@ -69322,7 +69320,7 @@
          ],
          "direction": "trope"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        },
        "kev": {
         "id": "greed",
@@ -69377,7 +69375,7 @@
          ],
          "direction": "trope"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        }
       },
       "example": null
@@ -69440,7 +69438,7 @@
          ],
          "direction": "none"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        },
        "laya": {
         "id": "violence",
@@ -69495,7 +69493,7 @@
          ],
          "direction": "trope"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        },
        "kev": {
         "id": "violence",
@@ -69550,7 +69548,7 @@
          ],
          "direction": "trope"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        }
       },
       "example": null
@@ -69613,7 +69611,7 @@
          ],
          "direction": "trope"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        },
        "laya": {
         "id": "arrogance",
@@ -69668,7 +69666,7 @@
          ],
          "direction": "none"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        },
        "kev": {
         "id": "arrogance",
@@ -69723,7 +69721,7 @@
          ],
          "direction": "trope"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        }
       },
       "example": null
@@ -69786,7 +69784,7 @@
          ],
          "direction": "reverse"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        },
        "laya": {
         "id": "worldliness",
@@ -69841,7 +69839,7 @@
          ],
          "direction": "none"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        },
        "kev": {
         "id": "worldliness",
@@ -69896,7 +69894,7 @@
          ],
          "direction": "none"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        }
       },
       "example": null
@@ -69959,7 +69957,7 @@
          ],
          "direction": "trope"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        },
        "laya": {
         "id": "diligence",
@@ -70014,7 +70012,7 @@
          ],
          "direction": "reverse"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        },
        "kev": {
         "id": "diligence",
@@ -70069,7 +70067,7 @@
          ],
          "direction": "trope"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        }
       },
       "example": null
@@ -70132,7 +70130,7 @@
          ],
          "direction": "reverse"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        },
        "laya": {
         "id": "honesty",
@@ -70187,7 +70185,7 @@
          ],
          "direction": "trope"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        },
        "kev": {
         "id": "honesty",
@@ -70242,7 +70240,7 @@
          ],
          "direction": "trope"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        }
       },
       "example": null
@@ -70457,7 +70455,7 @@
          ],
          "direction": "trope"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        },
        "laya": {
         "id": "greed",
@@ -70512,7 +70510,7 @@
          ],
          "direction": "trope"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        },
        "kev": {
         "id": "greed",
@@ -70567,7 +70565,7 @@
          ],
          "direction": "trope"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        }
       },
       "example": null
@@ -70630,7 +70628,7 @@
          ],
          "direction": "trope"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        },
        "laya": {
         "id": "violence",
@@ -70685,7 +70683,7 @@
          ],
          "direction": "trope"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        },
        "kev": {
         "id": "violence",
@@ -70740,7 +70738,7 @@
          ],
          "direction": "reverse"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        }
       },
       "example": null
@@ -70803,7 +70801,7 @@
          ],
          "direction": "trope"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        },
        "laya": {
         "id": "arrogance",
@@ -70858,7 +70856,7 @@
          ],
          "direction": "trope"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        },
        "kev": {
         "id": "arrogance",
@@ -70913,7 +70911,7 @@
          ],
          "direction": "none"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        }
       },
       "example": null
@@ -70976,7 +70974,7 @@
          ],
          "direction": "trope"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        },
        "laya": {
         "id": "worldliness",
@@ -71031,7 +71029,7 @@
          ],
          "direction": "trope"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        },
        "kev": {
         "id": "worldliness",
@@ -71086,7 +71084,7 @@
          ],
          "direction": "none"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        }
       },
       "example": null
@@ -71149,7 +71147,7 @@
          ],
          "direction": "trope"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        },
        "laya": {
         "id": "diligence",
@@ -71204,7 +71202,7 @@
          ],
          "direction": "reverse"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        },
        "kev": {
         "id": "diligence",
@@ -71259,7 +71257,7 @@
          ],
          "direction": "reverse"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        }
       },
       "example": null
@@ -71322,7 +71320,7 @@
          ],
          "direction": "reverse"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        },
        "laya": {
         "id": "honesty",
@@ -71377,7 +71375,7 @@
          ],
          "direction": "trope"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        },
        "kev": {
         "id": "honesty",
@@ -71432,7 +71430,7 @@
          ],
          "direction": "trope"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        }
       },
       "example": null
@@ -71647,7 +71645,7 @@
          ],
          "direction": "reverse"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        },
        "laya": {
         "id": "greed",
@@ -71702,7 +71700,7 @@
          ],
          "direction": "none"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        },
        "kev": {
         "id": "greed",
@@ -71757,7 +71755,7 @@
          ],
          "direction": "reverse"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        }
       },
       "example": null
@@ -71820,7 +71818,7 @@
          ],
          "direction": "reverse"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        },
        "laya": {
         "id": "violence",
@@ -71875,7 +71873,7 @@
          ],
          "direction": "reverse"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        },
        "kev": {
         "id": "violence",
@@ -71930,7 +71928,7 @@
          ],
          "direction": "trope"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        }
       },
       "example": null
@@ -71993,7 +71991,7 @@
          ],
          "direction": "reverse"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        },
        "laya": {
         "id": "arrogance",
@@ -72048,7 +72046,7 @@
          ],
          "direction": "trope"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        },
        "kev": {
         "id": "arrogance",
@@ -72103,7 +72101,7 @@
          ],
          "direction": "reverse"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        }
       },
       "example": null
@@ -72166,7 +72164,7 @@
          ],
          "direction": "trope"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        },
        "laya": {
         "id": "worldliness",
@@ -72221,7 +72219,7 @@
          ],
          "direction": "reverse"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        },
        "kev": {
         "id": "worldliness",
@@ -72276,7 +72274,7 @@
          ],
          "direction": "reverse"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        }
       },
       "example": null
@@ -72339,7 +72337,7 @@
          ],
          "direction": "trope"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        },
        "laya": {
         "id": "diligence",
@@ -72394,7 +72392,7 @@
          ],
          "direction": "trope"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        },
        "kev": {
         "id": "diligence",
@@ -72449,7 +72447,7 @@
          ],
          "direction": "trope"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        }
       },
       "example": null
@@ -72512,7 +72510,7 @@
          ],
          "direction": "trope"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        },
        "laya": {
         "id": "honesty",
@@ -72567,7 +72565,7 @@
          ],
          "direction": "trope"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        },
        "kev": {
         "id": "honesty",
@@ -72622,7 +72620,7 @@
          ],
          "direction": "trope"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        }
       },
       "example": null
@@ -72837,7 +72835,7 @@
          ],
          "direction": "reverse"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        },
        "laya": {
         "id": "greed",
@@ -72892,7 +72890,7 @@
          ],
          "direction": "reverse"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        },
        "kev": {
         "id": "greed",
@@ -72947,7 +72945,7 @@
          ],
          "direction": "none"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        }
       },
       "example": null
@@ -73010,7 +73008,7 @@
          ],
          "direction": "reverse"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        },
        "laya": {
         "id": "violence",
@@ -73065,7 +73063,7 @@
          ],
          "direction": "reverse"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        },
        "kev": {
         "id": "violence",
@@ -73120,7 +73118,7 @@
          ],
          "direction": "reverse"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        }
       },
       "example": null
@@ -73183,7 +73181,7 @@
          ],
          "direction": "trope"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        },
        "laya": {
         "id": "arrogance",
@@ -73238,7 +73236,7 @@
          ],
          "direction": "reverse"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        },
        "kev": {
         "id": "arrogance",
@@ -73293,7 +73291,7 @@
          ],
          "direction": "reverse"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        }
       },
       "example": null
@@ -73356,7 +73354,7 @@
          ],
          "direction": "reverse"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        },
        "laya": {
         "id": "worldliness",
@@ -73411,7 +73409,7 @@
          ],
          "direction": "trope"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        },
        "kev": {
         "id": "worldliness",
@@ -73466,7 +73464,7 @@
          ],
          "direction": "none"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        }
       },
       "example": null
@@ -73529,7 +73527,7 @@
          ],
          "direction": "reverse"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        },
        "laya": {
         "id": "diligence",
@@ -73584,7 +73582,7 @@
          ],
          "direction": "trope"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        },
        "kev": {
         "id": "diligence",
@@ -73639,7 +73637,7 @@
          ],
          "direction": "reverse"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        }
       },
       "example": null
@@ -73702,7 +73700,7 @@
          ],
          "direction": "trope"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        },
        "laya": {
         "id": "honesty",
@@ -73757,7 +73755,7 @@
          ],
          "direction": "reverse"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        },
        "kev": {
         "id": "honesty",
@@ -73812,7 +73810,7 @@
          ],
          "direction": "none"
         },
-        "note": "Only Laya has answered these questions so far, and its saved answers are not yet published, so this result cannot yet be checked the way the others can."
+        "note": null
        }
       },
       "example": null

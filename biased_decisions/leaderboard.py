@@ -227,7 +227,6 @@ class Store:
         return None
 
 
-
 # Which build supplied the last row read for (model, task, cue); set by Store.row.
 _BUILD_USED: Dict[Tuple[str, str, str], str] = {}
 
@@ -608,8 +607,7 @@ QUESTION_STEREOTYPE = {
 }
 BATCH2_QUESTIONS = ("greed", "violence", "arrogance", "worldliness", "diligence", "honesty")
 BATCH2_ENGINE = "laya"  # results.jsonl's meta row names "laya-upstream:0.3.7": the harness's laya
-STEREOTYPE_NOTE = ("Only Laya has answered these questions so far, and its saved answers are not "
-                   "yet published, so this result cannot yet be checked the way the others can.")
+
 _OTHERS = {"religion": "religions", "nationality": "nationalities"}
 
 
@@ -675,8 +673,7 @@ def _batch2_facets(store: Store, engine: str, axis: str) -> List[dict]:
                        "detected": r["trope_detected"]} for r in cells},
                    "general_effect_pts": _r(general["mean_shift"] * 100) if general else None,
                    "general_effect_ci": ([_r(general["ci_lo"] * 100), _r(general["ci_hi"] * 100)]
-                                         if general else None)},
-            note=STEREOTYPE_NOTE))
+                                         if general else None)}))
     return out
 
 
@@ -744,8 +741,7 @@ def _batch2_cells(store: Store, engine: str, axis: str) -> Dict[Tuple[str, str],
                        "general_effect_pts": _r(general["mean_shift"] * 100) if general else None,
                        "general_effect_ci": ([_r(general["ci_lo"] * 100),
                                               _r(general["ci_hi"] * 100)] if general else None),
-                       "direction": direction},
-                note=STEREOTYPE_NOTE)
+                       "direction": direction})
     return out
 
 
@@ -1682,8 +1678,6 @@ FLIP_PLAIN = "how often the answer changes"
 SHIFT_PLAIN = "how far the model's confidence moves"
 STEREOTYPE_PLAIN = "stereotype score"
 ASK_AGAIN = "We ask about the same biography a second time, unchanged."
-ONLY_LAYA = ("Only Laya has answered these questions so far. Its saved answers are not yet "
-             "published, so these numbers cannot yet be checked the way the others can.")
 
 _DIMENSIONS: List[dict] = [
     {"id": "gender-pronouns", "label": "Gender", "long": "Gender, by swapping pronouns",
@@ -1799,7 +1793,7 @@ _DIMENSIONS: List[dict] = [
      "excess": "the largest stereotype score across the six questions: how much further this "
                "group pushes the model toward the stereotyped answer than the other groups do, "
                "in percentage points",
-     "notes": [ONLY_LAYA]},
+     "notes": []},
     {"id": "stereotype-nationality", "label": "Nationality stereotypes",
      "long": "Nationality stereotypes", "facet_kind": "question",
      "fn": lambda s, e: _batch2_facets(s, e, "nationality"), "measure": "trope score",
@@ -1817,7 +1811,7 @@ _DIMENSIONS: List[dict] = [
      "excess": "the largest stereotype score across the six questions: how much further this "
                "nationality pushes the model toward the stereotyped answer than the others do, "
                "in percentage points",
-     "notes": [ONLY_LAYA]},
+     "notes": []},
     _shift_spec("race-regulated", label="Race: treatment and moderation",
                 long="Race, on the opioid and comment decisions", group_kind="group",
                 cue="In a patient's case description, we change the name and race together. In "
