@@ -566,43 +566,25 @@ def _no_stereotype(axis: str) -> str:
 
 
 def _batch2_source(store: Store, engine: str, axis: str):
-    """The stereotype results for one engine on one axis, as (meta, rows, study path).
-
-    All engines' data come from the scored study rows in ``studies/stereotypes-<axis>.jsonl``.
-    For Laya, the rows include detailed records (meta, as_written_baseline, general_effect, shift)
-    from the batch2 scorer. For other engines (Jev, Kev), rows are reshaped from the compact format
-    into the same detailed records, so all models are measured consistently.
-    Returns ``(None, [], None)`` when the engine has no results on this axis."""
-    # Read all rows for this axis from the study file
-    study_path = store.root / f"studies/stereotypes-{axis}.jsonl"
-    if not study_path.exists():
+    """The stereotype results for one engine on one axis, as (meta, rows, study path): the
+    engine's scored row in ``studies/stereotypes-<axis>.jsonl``, reshaped into per-question
+    ``general_effect`` and per-group ``shift`` records. ``(None, [], None)`` when the engine has
+    no results on this axis."""
+    scored = store.row("stereotypes", axis, engine)
+    if scored is None:
         return None, [], None
-
-    all_rows = _read_jsonl(study_path)
-
-    # Find meta record for this engine
-    meta = next((r for r in all_rows if r.get("record") == "meta" and r.get("engine") == engine and axis in r.get("axes_scored", [])), None)
-    if meta is None:
-        # For engines with compact format (jev, kev), read from the compact row and reshape
-        scored = store.row("stereotypes", axis, engine)
-        if scored is None:
-            return None, [], None
-        out_meta = {"record": "meta", "axes_scored": [axis], "engine": engine, "n_bios": scored["n"],
-                    "questions": {q: {"question": d["question"],
-                                      "trope_consistent_answer": bool(d["trope_consistent_answer"])}
-                                  for q, d in scored["questions"].items()}}
-        out = []
-        for q, d in scored["questions"].items():
-            if d.get("general_effect"):
-                out.append({"record": "general_effect", "axis": axis, "question": q, **d["general_effect"]})
-            for g, cell in d["groups"].items():
-                out.append({"record": "shift", "axis": axis, "question": q, "group": g,
-                            "floor_mean": d["floor_mean"], "n_bios": scored["n"], **cell})
-        return out_meta, out, str(study_path)
-
-    # For laya with detailed format, extract relevant rows
-    rows = [meta] + [r for r in all_rows if r.get("engine") == engine and r.get("axis") == axis and r.get("record") != "meta"]
-    return meta, rows, str(study_path)
+    meta = {"record": "meta", "axes_scored": [axis], "engine": engine, "n_bios": scored["n"],
+            "questions": {q: {"question": d["question"],
+                              "trope_consistent_answer": bool(d["trope_consistent_answer"])}
+                          for q, d in scored["questions"].items()}}
+    rows = []
+    for q, d in scored["questions"].items():
+        if d.get("general_effect"):
+            rows.append({"record": "general_effect", "axis": axis, "question": q, **d["general_effect"]})
+        for g, cell in d["groups"].items():
+            rows.append({"record": "shift", "axis": axis, "question": q, "group": g,
+                         "floor_mean": d["floor_mean"], "n_bios": scored["n"], **cell})
+    return meta, rows, f"studies/stereotypes-{axis}.jsonl"
 
 
 def _batch2_facets(store: Store, engine: str, axis: str) -> List[dict]:
@@ -2611,7 +2593,7 @@ class Prereg:
                 continue
             for row in body:
                 if _clean(row[0]) == pred_first_clean:
-                    prediction_text = row[1].strip() if len(row) > 1 else ""
+                    prediction_text = _clean(row[1]) if len(row) > 1 else ""
                     break
         
         # Get outcome from outcome table using first
