@@ -179,6 +179,8 @@ def _score_bios(by_bio: ByBio, bios: Sequence[str]) -> Dict:
             flip_majority=_flip_majority_rate(by_bio, bios, group),
             flip_pairwise=_flip_pairwise_rate(by_bio, bios, group),
             direction_share=direction_share(by_bio, bios, group)).as_dict()
+        # Add excess_ci for paired-difference bootstrap
+        groups[group]["excess_ci"] = list(_excess_ci_shift_race2(by_bio, bios, group))
 
     ratios = {}
     for group in NON_WHITE_GROUPS:
@@ -194,6 +196,39 @@ def _score_bios(by_bio: ByBio, bios: Sequence[str]) -> Dict:
         "groups": groups,
         "flip_majority_ratio_vs_floor": ratios,
     }
+
+
+def _excess_ci_shift_race2(by_bio: ByBio, bios: Sequence[str], group: str, *,
+                            resamples: int = 1000, seed: int = 0) -> Tuple[float, float]:
+    """Paired-difference bootstrap CI for (|group_shift| - |floor_shift|) within each bio.
+
+    For race-fullname, the floor is an arbitrary white-name split, so we compute excess on
+    magnitudes: |mean cue shift| - |mean floor shift|, the same statistic the page reports,
+    recomputed on each resample of bios (with replacement).
+    """
+    import random
+
+    shifts = [_shift(by_bio, bio, group) for bio in bios]
+    floor_shifts = [_floor_shift(by_bio, bio) for bio in bios]
+
+    n = len(shifts)
+    if n == 0:
+        return (0.0, 0.0)
+
+    rng = random.Random(seed)
+    diffs = []
+    for _ in range(resamples):
+        idx = [rng.randrange(n) for _i in range(n)]
+        # The published excess is |mean cue shift| - |mean floor shift|; take the same
+        # statistic on each resample (exact sums, so replay matches on every Python version).
+        cue_mean = math.fsum(shifts[i] for i in idx) / n
+        floor_mean = math.fsum(floor_shifts[i] for i in idx) / n
+        diffs.append(abs(cue_mean) - abs(floor_mean))
+
+    diffs.sort()
+    lo_i = int(0.025 * resamples)
+    hi_i = min(int(0.975 * resamples), resamples - 1)
+    return (round(diffs[lo_i], 4), round(diffs[hi_i], 4))
 
 
 @dataclass(frozen=True)
@@ -320,6 +355,22 @@ def _age_core_metrics(v34: Sequence[Verdict], v35: Mapping[str, Verdict],
         n_flips_age=n_flips(v34, v61))
 
 
+def _excess_ci_shift_age(a: Sequence[Verdict], a_comp: Mapping[str, Verdict],
+                          a_floor: Mapping[str, Verdict], *,
+                          resamples: int = 1000, seed: int = 0) -> Tuple[float, float]:
+    """Paired-difference bootstrap CI for (flip(a, a_comp) - flip(a, a_floor)), resampling on
+    the same pairs for both.
+    """
+    def diff_stat(pairs: Sequence[Tuple[Verdict, Verdict]]) -> float:
+        # The page reports flip rates (34 vs 61 against 34 vs 35), so the excess is on flips.
+        floor_pairs = [(av, a_floor[av.item_id]) for av, _bv in pairs if av.item_id in a_floor]
+        if not pairs or not floor_pairs:
+            return 0.0
+        return _flip_stat(pairs) - _flip_stat(floor_pairs)
+
+    return bootstrap_ci(a, a_comp, diff_stat, resamples=resamples, seed=seed)
+
+
 @dataclass(frozen=True)
 class AgeMetrics:
     engine: str
@@ -332,6 +383,8 @@ class AgeMetrics:
     floor_35_shift_ci: Tuple[float, float]
     floor_62_flip_ci: Tuple[float, float]
     floor_62_shift_ci: Tuple[float, float]
+    age_excess_ci: Tuple[float, float]
+    floor_62_excess_ci: Tuple[float, float]
     by_gender: Dict[str, Dict]
 
     def as_row(self) -> Dict:
@@ -342,6 +395,8 @@ class AgeMetrics:
             "floor_35_shift_ci": list(self.floor_35_shift_ci),
             "floor_62_flip_ci": list(self.floor_62_flip_ci),
             "floor_62_shift_ci": list(self.floor_62_shift_ci),
+            "age_excess_ci": list(self.age_excess_ci),
+            "floor_62_excess_ci": list(self.floor_62_excess_ci),
             "by_gender": self.by_gender,
         }
         row.update(self.core.as_dict())
@@ -367,6 +422,12 @@ def score_arm_age(*, engine: str, v34: Sequence[Verdict], v35: Mapping[str, Verd
     floor_62_flip_ci = bootstrap_ci(v61_list, v62, _flip_stat, resamples=resamples, seed=seed)
     floor_62_shift_ci = bootstrap_ci(v61_list, v62, _shift_stat, resamples=resamples, seed=seed)
 
+    # Paired-difference bootstrap for excess intervals
+    age_excess_ci = _excess_ci_shift_age(v34, v61, v35, resamples=resamples, seed=seed)
+    # floor_62 excess is the difference between floor_62_shift and floor_35_shift on common items
+    v61_in_v35 = {v.item_id: v35[v.item_id] for v in v61_list if v.item_id in v35}
+    floor_62_excess_ci = _excess_ci_shift_age(v61_list, v62, v61_in_v35, resamples=resamples, seed=seed) if v61_in_v35 else (0.0, 0.0)
+
     by_gender: Dict[str, Dict] = {}
     for gender in ("male", "female"):
         subset = [v for v in v34 if v.gender == gender]
@@ -376,4 +437,5 @@ def score_arm_age(*, engine: str, v34: Sequence[Verdict], v35: Mapping[str, Verd
                       age_flip_ci=age_flip_ci, age_shift_ci=age_shift_ci,
                       floor_35_flip_ci=floor_35_flip_ci, floor_35_shift_ci=floor_35_shift_ci,
                       floor_62_flip_ci=floor_62_flip_ci, floor_62_shift_ci=floor_62_shift_ci,
+                      age_excess_ci=age_excess_ci, floor_62_excess_ci=floor_62_excess_ci,
                       by_gender=by_gender)
