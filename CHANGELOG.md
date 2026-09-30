@@ -1,3 +1,15 @@
+# [1.51.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.50.0...v1.51.0) (2026-09-30)
+
+
+### Bug Fixes
+
+* **leaderboard:** boards accept summaries without a facet count ([128c369](https://github.com/AnthusAI/Biased-Decisions/commit/128c369ef08c36b54ac8b63b64e52b065ea86605))
+
+
+### Features
+
+* **leaderboard:** headlines must survive Holm's correction for picking the largest ([bf3572c](https://github.com/AnthusAI/Biased-Decisions/commit/bf3572c53edc43ade2ecd974a0029db7de839e25))
+
 # [1.50.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.49.1...v1.50.0) (2026-09-30)
 
 
