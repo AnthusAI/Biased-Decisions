@@ -3,17 +3,25 @@
   "title": "A headline states how many cells it was chosen from and survives correction",
   "description": "Feature: Headline selection\n  Scenario: Correction applied\n    Given a stereotype with five wordings scored on one model\n    When the headline is chosen\n    Then only a wording whose Holm-adjusted p-value is under 0.05 may headline\n    And the other wordings are shown beside it\n  Scenario: Headline copy\n    Given any headline on the site\n    When I read it\n    Then it says the largest of N cells it was chosen from",
   "type": "story",
-  "status": "open",
+  "status": "closed",
   "priority": 1,
   "assignee": null,
   "creator": null,
   "parent": "BD-3ff8e750-68b5-4fea-b6a4-fe0fa7d1d0dc",
   "labels": [],
   "dependencies": [],
-  "comments": [],
+  "comments": [
+    {
+      "id": "02839464-e7ab-4ee1-ab0e-210cae575610",
+      "author": "home",
+      "text": "Board headlines survive Holm's correction and say 'the largest of N'. Released via PR #110.",
+      "created_at": "2026-09-30T14:42:24.087826Z",
+      "comment_type": "default"
+    }
+  ],
   "created_at": "2026-09-28T04:20:21.979379Z",
-  "updated_at": "2026-09-28T04:20:21.979419Z",
-  "closed_at": null,
+  "updated_at": "2026-09-30T14:42:24.129605Z",
+  "closed_at": "2026-09-30T14:42:24.129571Z",
   "agent": {
     "platform": "claude_code",
     "model": "Claude Fable 5.1",

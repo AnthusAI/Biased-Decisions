@@ -3,17 +3,25 @@
   "title": "Remove the confounded religion v1 cells from the ranked board",
   "description": "The religion v1 insertion clause shares a word with the occupation vocabulary of several tasks, and the floor does not, so its per-religion shifts measure the word, not the religion. The site already says so, but the cells still feed the ranked religion dimension. Exclude v1 from the ranked dimension and from every headline, keep the rows on the religion page under a method note that explains the confound and the v2 fix, and record the exclusion in the leaderboard architecture doc.",
   "type": "task",
-  "status": "open",
+  "status": "closed",
   "priority": 1,
   "assignee": null,
   "creator": null,
   "parent": "BD-045ab742-cc9e-4848-891d-f34ae74e8294",
   "labels": [],
   "dependencies": [],
-  "comments": [],
+  "comments": [
+    {
+      "id": "f05fea60-a34a-4e87-89b9-5e9ac775be08",
+      "author": "home",
+      "text": "Already done: religion v1 is retired from every board, headline and the overall comparison (RETIRED in the leaderboard), and docs/leaderboard-architecture.md records the exclusion. Its rows stay in the record and on the methods page.",
+      "created_at": "2026-09-30T14:42:24.008260Z",
+      "comment_type": "default"
+    }
+  ],
   "created_at": "2026-09-28T04:19:39.549001Z",
-  "updated_at": "2026-09-28T04:19:39.549039Z",
-  "closed_at": null,
+  "updated_at": "2026-09-30T14:42:24.042992Z",
+  "closed_at": "2026-09-30T14:42:24.042966Z",
   "agent": {
     "platform": "claude_code",
     "model": "Claude Fable 5.1",
