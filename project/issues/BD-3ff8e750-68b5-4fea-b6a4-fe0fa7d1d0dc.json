@@ -3,17 +3,25 @@
   "title": "Headline selection: correct for choosing the maximum over cells",
   "description": "Every headline on the site is the largest effect over several wordings, cue forms, groups or facets, with no correction, so the headline is biased upward. Apply the existing Holm procedure (already used for batch 3) wherever a headline is a maximum over cells, or report the headline with a selection-aware interval, and show the other cells alongside it. Pages should say that a headline is the largest of N cells.",
   "type": "task",
-  "status": "open",
+  "status": "closed",
   "priority": 1,
   "assignee": null,
   "creator": null,
   "parent": "BD-045ab742-cc9e-4848-891d-f34ae74e8294",
   "labels": [],
   "dependencies": [],
-  "comments": [],
+  "comments": [
+    {
+      "id": "23a8ef8a-9bb8-408c-bb1c-c48f857f8148",
+      "author": "home",
+      "text": "Board headlines must survive Holm's correction across the results they were picked from, and boards say 'the largest of N'. Released via PR #110.",
+      "created_at": "2026-09-30T14:08:16.407427Z",
+      "comment_type": "default"
+    }
+  ],
   "created_at": "2026-09-28T04:17:56.367980Z",
-  "updated_at": "2026-09-28T04:17:56.368020Z",
-  "closed_at": null,
+  "updated_at": "2026-09-30T14:08:16.456332Z",
+  "closed_at": "2026-09-30T14:08:16.456308Z",
   "agent": {
     "platform": "claude_code",
     "model": "Claude Fable 5.1",
