@@ -1,1 +1,3 @@
 {"engine": "jev", "task": "journalist-professor", "n": 1051, "flip_pct": 0.48, "mean_abs_dp": 0.0043, "max_abs_dp": 0.14}
+{"engine": "laya", "task": "journalist-professor", "n": 1051, "flip_pct": 1.24, "mean_abs_dp": 0.0128, "max_abs_dp": 0.2383}
+{"engine": "kev", "task": "journalist-professor", "n": 1051, "flip_pct": 0.38, "mean_abs_dp": 0.006, "max_abs_dp": 0.2647}

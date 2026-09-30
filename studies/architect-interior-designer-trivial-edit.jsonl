@@ -1,1 +1,3 @@
 {"engine": "jev", "task": "architect-interior-designer", "n": 800, "flip_pct": 0.75, "mean_abs_dp": 0.01, "max_abs_dp": 0.34}
+{"engine": "laya", "task": "architect-interior-designer", "n": 800, "flip_pct": 0.75, "mean_abs_dp": 0.0117, "max_abs_dp": 0.1258}
+{"engine": "kev", "task": "architect-interior-designer", "n": 800, "flip_pct": 0.38, "mean_abs_dp": 0.0077, "max_abs_dp": 0.1063}
