@@ -18,18 +18,11 @@ function modelRow(html, id) {
   return html.slice(start, end + 5);
 }
 
-function placeText(row) {
-  const match = /<div class="ov-place"[^>]*>([\s\S]*?)<\/div>/.exec(row);
-  assert.ok(match, "model row has no place");
-  return readable(match[1]).trim();
-}
 
-test("models without a rank are shown without a numeric place", () => {
-  const home = page("index.html");
-  const models = page("engines/index.html");
-  for (const row of DATA.overall.rows.filter((r) => r.mean_rank === null)) {
-    assert.equal(placeText(modelRow(home, row.engine)), "—", `${row.engine} on home`);
-    assert.equal(placeText(modelRow(models, row.engine)), "—", `${row.engine} on models`);
+test("no model is given an overall place", () => {
+  for (const html of [page("index.html"), page("engines/index.html")]) {
+    assert.ok(!html.includes('class="ov-place"'), "a model row still shows a place");
+    assert.ok(!/average place/i.test(readable(html)), "a page still mentions an average place");
   }
 });
 

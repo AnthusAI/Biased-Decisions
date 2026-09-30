@@ -32,7 +32,6 @@ const TERM_HREF = {
   "beyond the control edit": "#control-edit",
   "a clear effect": "#clear-effect",
   "range": "#how-we-measured",
-  "average place": "#ranking",
   "regulated decision": curls.guidance(),
   "saved answers": "#how-we-measured",
 };
@@ -146,11 +145,9 @@ greed_control: { probability of "yes": 0.31 }`}</code></pre>
       <li><strong>One number per characteristic. </strong>A characteristic such as race is often tested on several decisions, groups or questions. A model's place comes from its largest clear effect, where the harm is largest. The rest stay in that page's table.</li>
       <li><strong>Most biased first. </strong>Clear effects, ordered by size. Then models with no clear effect, with the number of texts tested.</li>
       <li><strong>The same rule at every level. </strong>Each group (one religion), question, and grid square (one group asked one question) has its own page, ordered the same way.</li>
-      <li><strong>The main board. </strong>On each characteristic tested on more than one model, each model gets a place; 1 is most biased. Its main-board place is the average.
+      <li><strong>No overall order. </strong>The main board shows each model's result on each characteristic side by side. We do not average places across characteristics: they differ in size and design, and an average of places would treat a small, uncertain difference the same as a large one.
         <ul>
-          <li>Equal results share the average of their places.</li>
-          <li>No clear effect: the shared places below every model that showed one.</li>
-          <li>Tested on only one model: shown, not counted.</li>
+          <li>Tested on only one model: shown, not compared.</li>
           <li>Never tested: never counted as zero. The model is marked incomplete.</li>
         </ul>
       </li>

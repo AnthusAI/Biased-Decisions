@@ -19,13 +19,6 @@ for (const d of dimensions) for (const en of engines) {
   if (c.status === "measured" && c.detected && (!best || c.headline.value > best.c.headline.value)) best = { d, en, c };
 }
 const shortlistLine = evidence("shortlist-laya-attorney-500");
-let placeN = 0, lastMean = null;
-const places = rows.map((r, i) => {
-  if (r.mean_rank === null) return null;
-  if (r.mean_rank !== lastMean) placeN = i + 1;
-  lastMean = r.mean_rank;
-  return placeN;
-});
 const max = globalSpiderMax();
 const axes = dimensions.map((d) => ({ id: d.id, label: d.label, short: shortLabel(d), href: urls.dim(d.id) }));
 const charts = {
@@ -47,7 +40,7 @@ function coverage(row) {
         const val = c.headline.value, all = Math.max(...Object.values(topValue));
         v = Math.max(0.12, val / all);
         cls = `det${v > 0.55 ? " hi" : ""}`; txt = size(val);
-        desc = `${en}: ${size(val)} percentage points beyond the control edit; the only model tested here, so not ranked`;
+        desc = `${en}: ${size(val)} percentage points beyond the control edit (range ${fmt(c.headline.lo)} to ${fmt(c.headline.hi)}); the only model tested here`;
       } else { cls = "nd"; txt = "not clear"; desc = `${en}: no clear effect; the only model tested here`; }
     }
     else if (c.detected) {
@@ -56,12 +49,11 @@ function coverage(row) {
       worst = val === topValue[d.id];
       cls = `det${v > 0.55 ? " hi" : ""}`;
       txt = size(val);
-      desc = `${en}: ${size(val)} percentage points beyond the control edit${worst ? ", the most biased model here" : ""}`;
+      desc = `${en}: ${size(val)} percentage points beyond the control edit (range ${fmt(c.headline.lo)} to ${fmt(c.headline.hi)})${worst ? ", the largest effect here" : ""}`;
     } else { cls = "nd"; txt = "not clear"; desc = `${en}: no clear effect`; }
     return { d, cls, txt, desc, worst, sole, v };
   });
 }
-const worstCount = (row) => coverage(row).filter((x) => x.worst).length;
 // How much one result moved the answer, in words: a share of texts ("in 100") or a move in the
 // model's confidence ("percentage points"), by the result's own unit.
 const uOf = (d, h) => (h && h.raw && h.raw.unit) || d.raw_unit || " pts";
@@ -112,23 +104,22 @@ const kindWord = (k) => (k === "task" ? "decision" : k);
   </section>
 
   <section class="wrap section">
-    <h2 class="display">Which model is most biased</h2>
-    <p class="lede">Models are ordered by how often, and by how much, each came out the most biased when compared with another model on the same characteristic. Each box is one characteristic. Its number is the model's largest effect there, in percentage points beyond the control edit: <strong>darker red is worse</strong>. "Worst" marks the most biased model on that characteristic. The full rule is at the foot of this page.</p>
+    <h2 class="display">How the models compare, characteristic by characteristic</h2>
+    <p class="lede">Each box is one characteristic. Its number is the model's largest effect there, in percentage points beyond the control edit: <strong>darker red is larger</strong>. "Worst" marks the model with the largest effect on that characteristic. We do not add the characteristics up into one overall order: they differ in size and design, and not every model was tested on each. Hover or select a box for its range.</p>
     <ol class="overall">
       {rows.map((r, i) => {
         const en = engineById[r.engine];
         return (
           <li class="ov-row">
-            <div class="ov-place" aria-label={places[i] === null ? "Not yet ranked" : `Place ${places[i]}`}>{places[i] === null ? "—" : places[i]}</div>
             <div class="ov-name">
               <EngineName engine={en} href={urls.engine(en.id)} />
-              {r.mean_rank !== null && <div class="ov-mean" title={`Average place ${fmt(r.mean_rank)}, over the ${r.ranked_on} characteristics where it was compared with another model`}>{worstCount(r) > 0 ? <Fragment>most biased on <strong>{worstCount(r)} of the {r.ranked_on}</strong> characteristics where it was compared</Fragment> : `not the most biased on any of the ${r.ranked_on} characteristics where it was compared`}</div>}
+              {r.measured_on > 0 && <div class="ov-mean">a clear effect on <strong>{r.detected.length} of the {r.measured_on}</strong> characteristics it was tested on</div>}
               <div class="ov-mean">{r.measured_on === 0 ? "Not yet tested" : largestBias(r.engine) > 0 ? <Fragment>largest effect: <strong>{size(largestBias(r.engine))} percentage points</strong> beyond the control edit</Fragment> : "no clear effect on any characteristic tested"}</div>
               {r.incomplete && <div class="flag">{r.measured_on === 0 ? `Not yet tested on any of ${data.overall.n_dimensions} characteristics` : `Incomplete: not tested on ${r.unmeasured.length} of ${data.overall.n_dimensions} characteristics`}</div>}
             </div>
             <div class="cov">
               {coverage(r).map(({ d, cls, txt, desc, worst, sole, v }) => (
-                <a href={urls.engineDim(r.engine, d.id)} class={`cv ${cls}`} style={v > 0 ? `--v:${v.toFixed(3)}` : null} aria-label={`${d.label}: ${desc}`}><span class="cv-d">{shortLabel(d)}{worst && <span class="cv-w">worst</span>}{sole && <span class="cv-w">only model</span>}</span><span class="cv-v">{txt}</span></a>
+                <a href={urls.engineDim(r.engine, d.id)} class={`cv ${cls}`} style={v > 0 ? `--v:${v.toFixed(3)}` : null} aria-label={`${d.label}: ${desc}`} title={`${d.label}: ${desc}`}><span class="cv-d">{shortLabel(d)}{worst && <span class="cv-w">worst</span>}{sole && <span class="cv-w">only model</span>}</span><span class="cv-v">{txt}</span></a>
               ))}
             </div>
           </li>
@@ -201,8 +192,8 @@ const kindWord = (k) => (k === "task" ? "decision" : k);
   </section>
 
   <section class="wrap section" id="ordering" aria-labelledby="ordering-h">
-    <h2 class="display sm" id="ordering-h">How this ordering works</h2>
-    <p>For each characteristic, we put the models tested on it in order, most biased first: the model with the largest clear effect comes first. Two models with the same result share a place, the average of the places they would take. Models with no clear effect share the places below every model that showed one.</p>
-    <p>A model's place on this board is its average place over the characteristics where at least one other model was also tested. A characteristic tested on only one model cannot compare it with anyone, so it is shown but not counted. A characteristic a model was never tested on is never counted as zero. The model is marked incomplete instead.</p>
+    <h2 class="display sm" id="ordering-h">How to read this comparison</h2>
+    <p>For each characteristic, each model's box shows its largest clear effect there, beyond the control edit, and "worst" marks the model with the largest effect on that characteristic. The range for each result is shown when you hover or select its box, and on the characteristic's page.</p>
+    <p>We do not combine the characteristics into one overall place: they differ in size and design, and a single order would treat a small, uncertain difference the same as a large one. A characteristic a model was never tested on is never counted as zero. The model is marked incomplete instead.</p>
   </section>
 </Base>

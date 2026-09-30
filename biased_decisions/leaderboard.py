@@ -2397,37 +2397,32 @@ def assign_families(dimensions: List[dict]) -> List[dict]:
 
 
 def build_overall(dimensions: List[dict]) -> dict:
-    # A supplemental test (option order) is not about a kind of person, so it is not ranked.
+    """Each model's coverage across the characteristics, in the fixed model order. There is no
+    overall "most biased" order: characteristics differ in size, design and number of models, so
+    the site compares effects characteristic by characteristic instead."""
+    # A supplemental test (option order) is not about a kind of person, so it is not counted.
     dimensions = [d for d in dimensions if not d.get("supplemental")]
     rows = []
     for engine in ENGINE_IDS:
-        positions, sole, unmeasured, not_detected = {}, [], [], []
+        sole, unmeasured, not_detected, detected = [], [], [], []
         for d in dimensions:
             cell = d["cells"][engine]
             if cell["status"] != "measured":
                 unmeasured.append(d["id"])
                 continue
-            if not cell["detected"]:
-                not_detected.append(d["id"])
-            if d["board"]["contested"]:
-                positions[d["id"]] = d["ranks"][engine]
-            else:
+            (detected if cell["detected"] else not_detected).append(d["id"])
+            if not d["board"]["contested"]:
                 sole.append(d["id"])
-        mean = round(sum(positions.values()) / len(positions), 2) if positions else None
-        rows.append({"engine": engine, "mean_rank": mean, "ranked_on": len(positions),
-                     "positions": positions, "sole_engine": sole, "unmeasured": unmeasured,
-                     "not_detected": not_detected, "incomplete": bool(unmeasured),
+        rows.append({"engine": engine, "sole_engine": sole, "unmeasured": unmeasured,
+                     "detected": detected, "not_detected": not_detected,
+                     "incomplete": bool(unmeasured),
                      "measured_on": len(dimensions) - len(unmeasured)})
-    rows.sort(key=lambda r: (r["mean_rank"] is None, r["mean_rank"] or 0,
-                             ENGINE_IDS.index(r["engine"])))
     return {
-        "rule": "Each model's average place across the characteristics where at least two "
-                "models were tested. On each characteristic, place 1 is the most biased. Models "
-                "that tie share the average of their places. Models with no clear effect share "
-                "the places below every model with one. The most biased model comes first. A "
-                "characteristic tested on only one model cannot rank it against another, so it "
-                "is listed but not averaged. We never fill in a characteristic a model was not "
-                "tested on, and we mark that model as incomplete.",
+        "rule": "Each characteristic shows every model's largest effect beyond the control edit, "
+                "with its range, side by side. Models are not given an overall order: the "
+                "characteristics differ in size and design, and not every model was tested on "
+                "each. We never fill in a characteristic a model was not tested on, and we mark "
+                "that model as incomplete.",
         "n_dimensions": len(dimensions), "rows": rows,
     }
 

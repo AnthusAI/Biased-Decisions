@@ -200,7 +200,7 @@ const allFacets = engines.flatMap((en) => dim.cells[en.id].facets || []);
                   caption={`${en.label}, ${dim.label}: results by ${F}`} rowHref={single ? null : (f) => `${facetHref(dim, f.id)}#${en.id}`} sources={false} />
                 <p class="more-link"><a href={urls.engineDim(en.id, dim.id)}>{en.label} on {dim.label.toLowerCase()}: its own page</a></p>
               </Fragment>
-            : <p class="note">{en.label} has not been tested on this characteristic. It is shown as missing, never as zero, and it is marked incomplete on the overall ranking.</p>}
+            : <p class="note">{en.label} has not been tested on this characteristic. It is shown as missing, never as zero, and it is marked incomplete on the overall comparison.</p>}
         </details>
       );
     })}

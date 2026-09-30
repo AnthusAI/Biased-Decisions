@@ -26,8 +26,8 @@ const charts = {
 const nDetected = measuredDims.filter((d) => d.cells[en.id].detected).length;
 const worst = measuredDims.filter((d) => d.cells[en.id].detected).sort((a, b) => b.cells[en.id].headline.value - a.cells[en.id].headline.value)[0];
 const description = measuredDims.length === 0
-  ? `${en.label} has not yet been tested on any of the ${dimensions.length} characteristics. No average place is available.`
-  : `${en.label} on the Biased-Decisions leaderboard: a clear effect on ${nDetected} of the ${row.measured_on} characteristics we tested it on${worst ? `; its largest is ${size(worst.cells[en.id].headline.value)} percentage points beyond a harmless control edit, on ${worst.label.toLowerCase()}` : ""}. Average place ${fmt(row.mean_rank)}, where 1 is most biased.`;
+  ? `${en.label} has not yet been tested on any of the ${dimensions.length} characteristics.`
+  : `${en.label} on the Biased-Decisions leaderboard: a clear effect on ${nDetected} of the ${row.measured_on} characteristics we tested it on${worst ? `; its largest is ${size(worst.cells[en.id].headline.value)} percentage points beyond a harmless control edit, on ${worst.label.toLowerCase()}` : ""}.`;
 const uOf = (d, h) => (h && h.raw && h.raw.unit) || unit(d);
 ---
 <Base title={en.label} description={description} path={urls.engine(en.id)} current={{ page: "engine", engine: en.id }} charts={charts}
@@ -38,7 +38,6 @@ const uOf = (d, h) => (h && h.raw && h.raw.unit) || unit(d);
     <p class="deck">{introModel(en)} {measuredDims.length === 0 ? `We have not yet tested ${en.label} on any characteristics. Results will appear here when measurements are available.` : "We test whether its judgments change when a text gives the same person a different gender, name or other personal detail. This page brings together its results and shows where it has not been tested."}</p>
     <p class="note">We compare each change with a control edit: an unrelated change, or asking the same question again. That helps separate the effect of a personal detail from other changes in the model’s answers.</p>
     <div class="eng-stats">
-      <div><span class="stat-k">Average place</span><span class="stat-v">{row.mean_rank === null ? "—" : fmt(row.mean_rank)}</span><span class="stat-s">{measuredDims.length === 0 ? "Not yet ranked" : `over the ${row.ranked_on} characteristics where it was compared with another model; 1 = most biased`}</span></div>
       <div><span class="stat-k">Tested on</span><span class="stat-v">{row.measured_on} / {dimensions.length}</span><span class="stat-s">{row.incomplete ? "incomplete: see below" : "every characteristic"}</span></div>
       <div><span class="stat-k">Clear effect on</span><span class="stat-v">{measuredDims.length === 0 ? "—" : nDetected}</span><span class="stat-s">{measuredDims.length === 0 ? "Not yet tested" : "of the characteristics it was tested on"}</span></div>
     </div>
@@ -56,10 +55,9 @@ const uOf = (d, h) => (h && h.raw && h.raw.unit) || unit(d);
     <ol class="eng-cells">
       {measuredDims.map((d) => {
         const c = d.cells[en.id];
-        const pos = row.positions[d.id];
         const n = Object.values(d.cells).filter((x) => x.status === "measured").length;
         const status = !d.board.contested ? (c.detected ? "the only model tested" : "the only model tested; no clear effect")
-          : c.detected ? `place ${place(d.board, en.id)} of ${n} (counts as ${rankText(pos)} toward its average place)` : `no clear effect (counts as ${rankText(pos)} toward its average place)`;
+          : c.detected ? `place ${place(d.board, en.id)} of ${n} on this characteristic` : "no clear effect";
         const u = uOf(d, c.headline);
         return (
           <li>
@@ -81,7 +79,7 @@ const uOf = (d, h) => (h && h.raw && h.raw.unit) || unit(d);
     <h2 class="display">Where it was not tested</h2>
     {missingDims.length
       ? <Fragment>
-          <p class="lede">We have not tested {en.label} on {missingDims.length} of the {dimensions.length} characteristics. None of them counts toward its average place, and none is counted as zero.</p>
+          <p class="lede">We have not tested {en.label} on {missingDims.length} of the {dimensions.length} characteristics. None of them is counted as zero.</p>
           <ul class="miss-list">{missingDims.map((d) => <li><span class="hatch"></span><a href={urls.dim(d.id)}>{d.long}</a></li>)}</ul>
         </Fragment>
       : <p class="lede">Tested on every characteristic.</p>}
