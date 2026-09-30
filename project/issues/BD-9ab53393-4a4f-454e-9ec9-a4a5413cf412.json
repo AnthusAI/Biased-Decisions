@@ -22,10 +22,22 @@
         "model": "Claude Fable 5.1",
         "name": "Project Assessment"
       }
+    },
+    {
+      "id": "65fad064-0cc3-4487-8421-b9bb1cd36f84",
+      "author": "home",
+      "text": "Blocked. The published Laya results were answered by laya-upstream 0.3.7, which is no longer available from PyPI; a floor from a different Laya version cannot be compared with them. Kev needs the Kev host. Jev needs its requests priced and the spend approved. The trivial-edit versions for seven tasks are committed and ready.",
+      "created_at": "2026-09-30T14:42:23.879680Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude_code",
+        "model": "Claude Opus 5.5",
+        "name": "Project Assessment"
+      }
     }
   ],
   "created_at": "2026-09-28T04:20:22.082465Z",
-  "updated_at": "2026-09-28T04:58:17.116123Z",
+  "updated_at": "2026-09-30T14:42:23.879712Z",
   "closed_at": null,
   "agent": {
     "platform": "claude_code",

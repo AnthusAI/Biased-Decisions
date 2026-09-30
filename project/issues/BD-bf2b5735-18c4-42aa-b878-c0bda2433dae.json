@@ -10,9 +10,22 @@
   "parent": "BD-5f522b97-a78e-4c3b-b0ed-9454c4f9d92e",
   "labels": [],
   "dependencies": [],
-  "comments": [],
+  "comments": [
+    {
+      "id": "16f9032c-31cf-46ee-8f10-57a35b3d724e",
+      "author": "home",
+      "text": "Plan written in docs/direct-statements-controlled-preregistration.md (PR #115): 60 prompts for the opinion claims and 364 for the Gaza statements per model. Collection is blocked on the same engine availability as the trivial-edit floor: Laya 0.3.7 is not available from PyPI, Kev needs its host, and Jev needs approved spend.",
+      "created_at": "2026-09-30T14:42:23.956621Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude_code",
+        "model": "Claude Opus 5.5",
+        "name": "Project Assessment"
+      }
+    }
+  ],
   "created_at": "2026-09-28T04:19:39.765224Z",
-  "updated_at": "2026-09-28T04:19:39.765271Z",
+  "updated_at": "2026-09-30T14:42:23.956644Z",
   "closed_at": null,
   "agent": {
     "platform": "claude_code",
