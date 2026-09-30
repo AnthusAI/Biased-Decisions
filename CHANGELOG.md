@@ -1,3 +1,10 @@
+## [1.54.1](https://github.com/AnthusAI/Biased-Decisions/compare/v1.54.0...v1.54.1) (2026-09-30)
+
+
+### Bug Fixes
+
+* **site:** model rows use the full width now that there is no place number ([c5f8d4f](https://github.com/AnthusAI/Biased-Decisions/commit/c5f8d4fc5395d22777d4d8ccfc5d258318caaeea))
+
 # [1.54.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.53.0...v1.54.0) (2026-09-30)
 
 
