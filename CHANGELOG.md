@@ -1,3 +1,16 @@
+# [1.49.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.48.2...v1.49.0) (2026-09-30)
+
+
+### Bug Fixes
+
+* **ladder:** exact float sum so replay matches across Python versions ([74b7cf5](https://github.com/AnthusAI/Biased-Decisions/commit/74b7cf53b2eef4e8a80eefe51cba29f7ad5a91f1))
+
+
+### Features
+
+* **ladder:** pre-register the loan credit-ladder calibration ([dc92f96](https://github.com/AnthusAI/Biased-Decisions/commit/dc92f966d32601aafc22ef7033a271c82363aaf9))
+* **ladder:** replay the credit-ladder calibration and correct its outcome notes ([f01bbc7](https://github.com/AnthusAI/Biased-Decisions/commit/f01bbc72a0721564525fd404f6b437cd8c93cc8a))
+
 ## [1.48.2](https://github.com/AnthusAI/Biased-Decisions/compare/v1.48.1...v1.48.2) (2026-09-29)
 
 
