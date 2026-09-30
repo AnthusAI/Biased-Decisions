@@ -648,3 +648,7 @@ details.cell { scroll-margin-top: 140px; }
 .probability-legend { display: flex; flex-wrap: wrap; gap: 8px 16px; margin: -6px 0 18px; color: var(--muted); font-size: 12px; }
 .probability-legend span { display: inline-flex; align-items: center; gap: 5px; }
 .probability-legend i { width: 11px; height: 11px; border-radius: 2px; }
+.findings { margin: 18px 0 0; padding-left: 1.4em; }
+.findings > li { margin: 0 0 26px; }
+.findings h3 { margin: 0 0 6px; }
+.findings ul { margin: 8px 0; }
