@@ -72,7 +72,7 @@ const description = measured
   {measured && oneAxis && (
     <section class="wrap section">
       <h2 class="display">Every {multiGroup(dim) ? kindWord(bd.group_kind) : kindWord(bd.item_kind)}, most biased first</h2>
-      <p class="lede">{en.label}'s effect beyond the control edit for each {multiGroup(dim) ? kindWord(bd.group_kind) : kindWord(bd.item_kind)}. Each is shown with the range we are 95% sure the true value lies in.</p>
+      <p class="lede">{en.label}'s effect beyond the control edit for each {multiGroup(dim) ? kindWord(bd.group_kind) : kindWord(bd.item_kind)}. Each is shown with its 95% range.</p>
       <Chart id="forest" />
     </section>
   )}

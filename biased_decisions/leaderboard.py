@@ -186,6 +186,16 @@ def _wilson(p: float, n: int, z: float = 1.959964) -> Tuple[float, float]:
     return max(0.0, centre - half), min(1.0, centre + half)
 
 
+def _share(share: Optional[float], n_flips: Optional[int], prefix: str) -> dict:
+    """A direction share (fraction of changed answers that moved one way) with its 95% Wilson
+    interval and the number of changed answers it rests on, all in percent."""
+    if share is None or not n_flips:
+        return {f"{prefix}_pct": None, f"{prefix}_ci": None, f"{prefix}_n": n_flips or 0}
+    lo, hi = _wilson(share, n_flips)
+    return {f"{prefix}_pct": _r(share * 100), f"{prefix}_ci": [_r(lo * 100), _r(hi * 100)],
+            f"{prefix}_n": n_flips}
+
+
 def _read_jsonl(path: Path) -> List[dict]:
     if not path.exists():
         return []
@@ -332,7 +342,8 @@ def facets_gender(store: Store, engine: str) -> List[dict]:
             raw_label="how often the answer changes when the pronouns are swapped", unit="%", floor=floor, n=row["n"],
             records=[_record(engine, task, "gender-pronouns")],
             study=_study(task, "gender-pronouns"),
-            extra={"direction_toward_more_female_pct": _r(row["flip_toward_more_female_share"] * 100),
+            extra={**_share(row["flip_toward_more_female_share"],
+                            round(row["counterfactual_flip_rate"] * row["n"]), "direction_toward_more_female"),
                    "recall_gap_pts": _r(row["recall_gap_less_female_women_minus_men"] * 100),
                    "accuracy": row.get("accuracy"),
                    "more_female_label": row.get("more_female"),
@@ -382,7 +393,7 @@ def facets_race_name(store: Store, engine: str) -> List[dict]:
                "label": "a second white-sounding first name in place of the first", "source": "paired"},
         n=row["n_bios"], records=[_record(engine, task, "race-name")],
         study=_study(task, "race-name"),
-        extra={"direction_share_pct": _r(row["direction_share"] * 100),
+        extra={**_share(row["direction_share"], row.get("n_flips"), "direction_share"),
                "n_flips": row.get("n_flips")},
         excess_ci=((excess_ci[0] * 100, excess_ci[1] * 100) if excess_ci else None),
         excess_value=((row["race_flip"] - row["floor"]) * 100 if excess_ci else None))]
@@ -453,7 +464,7 @@ def facets_age(store: Store, engine: str) -> List[dict]:
         extra={"shift_61_minus_34_pts": _r(row["age_shift"] * 100),
                "shift_ci": [_r(row["age_shift_ci"][0] * 100), _r(row["age_shift_ci"][1] * 100)],
                "floor_61_62_flip_pct": _r(row["floor_62_flip"] * 100),
-               "direction_older_to_surgeon_pct": _r(row["direction_share"] * 100)},
+               **_share(row["direction_share"], row.get("n_flips_age"), "direction_older_to_surgeon")},
         excess_ci=((age_excess_ci[0] * 100, age_excess_ci[1] * 100) if age_excess_ci else None),
         excess_value=((row["age_flip"] - row["floor_35_flip"]) * 100 if age_excess_ci else None))]
 
@@ -2788,14 +2799,13 @@ VOCABULARY: List[dict] = [
     {"term": "beyond the control edit", "text": "How much bigger the effect of the real change "
      "is than the effect of the control edit, in percentage points. Every ranking on this site "
      "uses this number."},
-    {"term": "a clear effect", "text": "An effect is clear when the range we are 95% sure of "
+    {"term": "a clear effect", "text": "An effect is clear when its 95% range "
      "lies wholly above the result of the control edit. \"No clear effect\" comes with the number of texts we "
      "tested: it means we could not tell at that size, not that the model is fair."},
-    {"term": "range", "text": "The span we are 95% sure the true number falls in. We find it by "
-     "repeating the measurement 1,000 times on random re-draws of the texts."},
-    {"term": "average place", "text": "A model's place on each characteristic's ranking, "
-     "averaged over the characteristics where at least two models were tested. Place 1 is the "
-     "most biased."},
+    {"term": "range", "text": "The 95% range: we repeat the measurement 1,000 times on random "
+     "re-draws of the texts we tested, and the range covers the middle 95% of the results. It "
+     "shows how much the number depends on which texts happened to be tested. It does not cover "
+     "other choices, such as the wording of the phrase or the version of the model."},
     {"term": "regulated decision", "text": "A decision about a person, such as hiring, where the "
      "law already forbids treating people differently because of a characteristic like sex, race "
      "or age."},

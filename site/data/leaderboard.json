@@ -264,6 +264,11 @@
        "source": "harness",
        "extra": {
         "direction_toward_more_female_pct": 6.25,
+        "direction_toward_more_female_ci": [
+         1.34,
+         24.69
+        ],
+        "direction_toward_more_female_n": 21,
         "recall_gap_pts": 5.5,
         "accuracy": 0.785,
         "more_female_label": "surgeon",
@@ -312,6 +317,11 @@
        "source": "harness",
        "extra": {
         "direction_toward_more_female_pct": 100.0,
+        "direction_toward_more_female_ci": [
+         94.5,
+         100.0
+        ],
+        "direction_toward_more_female_n": 66,
         "recall_gap_pts": -2.19,
         "accuracy": 0.943,
         "more_female_label": "nurse",
@@ -360,6 +370,11 @@
        "source": "harness",
        "extra": {
         "direction_toward_more_female_pct": 75.0,
+        "direction_toward_more_female_ci": [
+         55.52,
+         87.82
+        ],
+        "direction_toward_more_female_n": 25,
         "recall_gap_pts": -5.15,
         "accuracy": 0.8875,
         "more_female_label": "teacher",
@@ -408,6 +423,11 @@
        "source": "harness",
        "extra": {
         "direction_toward_more_female_pct": 93.75,
+        "direction_toward_more_female_ci": [
+         86.06,
+         97.33
+        ],
+        "direction_toward_more_female_n": 78,
         "recall_gap_pts": -5.53,
         "accuracy": 0.854,
         "more_female_label": "paralegal",
@@ -456,6 +476,11 @@
        "source": "harness",
        "extra": {
         "direction_toward_more_female_pct": 80.0,
+        "direction_toward_more_female_ci": [
+         55.66,
+         92.73
+        ],
+        "direction_toward_more_female_n": 16,
         "recall_gap_pts": 0.12,
         "accuracy": 0.962,
         "more_female_label": "journalist",
@@ -504,6 +529,11 @@
        "source": "harness",
        "extra": {
         "direction_toward_more_female_pct": 100.0,
+        "direction_toward_more_female_ci": [
+         95.58,
+         100.0
+        ],
+        "direction_toward_more_female_n": 83,
         "recall_gap_pts": -6.45,
         "accuracy": 0.9257,
         "more_female_label": "interior_designer",
@@ -552,6 +582,11 @@
        "source": "harness",
        "extra": {
         "direction_toward_more_female_pct": 100.0,
+        "direction_toward_more_female_ci": [
+         91.43,
+         100.0
+        ],
+        "direction_toward_more_female_n": 41,
         "recall_gap_pts": -0.42,
         "accuracy": 0.964,
         "more_female_label": "dietitian",
@@ -1136,6 +1171,11 @@
        "source": "harness",
        "extra": {
         "direction_toward_more_female_pct": 0.72,
+        "direction_toward_more_female_ci": [
+         0.14,
+         3.63
+        ],
+        "direction_toward_more_female_n": 159,
         "recall_gap_pts": 3.29,
         "accuracy": 0.673,
         "more_female_label": "surgeon",
@@ -1184,6 +1224,11 @@
        "source": "harness",
        "extra": {
         "direction_toward_more_female_pct": 100.0,
+        "direction_toward_more_female_ci": [
+         98.6,
+         100.0
+        ],
+        "direction_toward_more_female_n": 270,
         "recall_gap_pts": -1.6,
         "accuracy": 0.837,
         "more_female_label": "nurse",
@@ -1232,6 +1277,11 @@
        "source": "harness",
        "extra": {
         "direction_toward_more_female_pct": 100.0,
+        "direction_toward_more_female_ci": [
+         97.55,
+         100.0
+        ],
+        "direction_toward_more_female_n": 153,
         "recall_gap_pts": -9.1,
         "accuracy": 0.8145,
         "more_female_label": "teacher",
@@ -1280,6 +1330,11 @@
        "source": "harness",
        "extra": {
         "direction_toward_more_female_pct": 100.0,
+        "direction_toward_more_female_ci": [
+         98.94,
+         100.0
+        ],
+        "direction_toward_more_female_n": 357,
         "recall_gap_pts": -8.84,
         "accuracy": 0.721,
         "more_female_label": "paralegal",
@@ -1328,6 +1383,11 @@
        "source": "harness",
        "extra": {
         "direction_toward_more_female_pct": 35.0,
+        "direction_toward_more_female_ci": [
+         21.57,
+         51.33
+        ],
+        "direction_toward_more_female_n": 36,
         "recall_gap_pts": 1.83,
         "accuracy": 0.9315,
         "more_female_label": "journalist",
@@ -1376,6 +1436,11 @@
        "source": "harness",
        "extra": {
         "direction_toward_more_female_pct": 92.68,
+        "direction_toward_more_female_ci": [
+         85.72,
+         96.39
+        ],
+        "direction_toward_more_female_n": 97,
         "recall_gap_pts": -8.0,
         "accuracy": 0.8683,
         "more_female_label": "interior_designer",
@@ -1424,6 +1489,11 @@
        "source": "harness",
        "extra": {
         "direction_toward_more_female_pct": 93.33,
+        "direction_toward_more_female_ci": [
+         87.68,
+         96.49
+        ],
+        "direction_toward_more_female_n": 130,
         "recall_gap_pts": -0.62,
         "accuracy": 0.914,
         "more_female_label": "dietitian",
@@ -2051,6 +2121,11 @@
        "source": "harness",
        "extra": {
         "direction_toward_more_female_pct": 51.28,
+        "direction_toward_more_female_ci": [
+         38.08,
+         64.3
+        ],
+        "direction_toward_more_female_n": 52,
         "recall_gap_pts": 0.46,
         "accuracy": 0.625,
         "more_female_label": "surgeon",
@@ -2099,6 +2174,11 @@
        "source": "harness",
        "extra": {
         "direction_toward_more_female_pct": 100.0,
+        "direction_toward_more_female_ci": [
+         98.83,
+         100.0
+        ],
+        "direction_toward_more_female_n": 324,
         "recall_gap_pts": -7.57,
         "accuracy": 0.9035,
         "more_female_label": "nurse",
@@ -2147,6 +2227,11 @@
        "source": "harness",
        "extra": {
         "direction_toward_more_female_pct": 98.15,
+        "direction_toward_more_female_ci": [
+         93.96,
+         99.45
+        ],
+        "direction_toward_more_female_n": 124,
         "recall_gap_pts": -5.85,
         "accuracy": 0.82,
         "more_female_label": "teacher",
@@ -2195,6 +2280,11 @@
        "source": "harness",
        "extra": {
         "direction_toward_more_female_pct": 100.0,
+        "direction_toward_more_female_ci": [
+         97.63,
+         100.0
+        ],
+        "direction_toward_more_female_n": 158,
         "recall_gap_pts": -6.54,
         "accuracy": 0.7265,
         "more_female_label": "paralegal",
@@ -2243,6 +2333,11 @@
        "source": "harness",
        "extra": {
         "direction_toward_more_female_pct": 92.86,
+        "direction_toward_more_female_ci": [
+         78.05,
+         97.94
+        ],
+        "direction_toward_more_female_n": 30,
         "recall_gap_pts": 1.28,
         "accuracy": 0.9215,
         "more_female_label": "journalist",
@@ -2291,6 +2386,11 @@
        "source": "harness",
        "extra": {
         "direction_toward_more_female_pct": 100.0,
+        "direction_toward_more_female_ci": [
+         97.68,
+         100.0
+        ],
+        "direction_toward_more_female_n": 162,
         "recall_gap_pts": -7.12,
         "accuracy": 0.8799,
         "more_female_label": "interior_designer",
@@ -2339,6 +2439,11 @@
        "source": "harness",
        "extra": {
         "direction_toward_more_female_pct": 100.0,
+        "direction_toward_more_female_ci": [
+         93.58,
+         100.0
+        ],
+        "direction_toward_more_female_n": 56,
         "recall_gap_pts": -0.82,
         "accuracy": 0.936,
         "more_female_label": "dietitian",
@@ -3020,6 +3125,11 @@
         "source": "harness",
         "extra": {
          "direction_toward_more_female_pct": 6.25,
+         "direction_toward_more_female_ci": [
+          1.34,
+          24.69
+         ],
+         "direction_toward_more_female_n": 21,
          "recall_gap_pts": 5.5,
          "accuracy": 0.785,
          "more_female_label": "surgeon",
@@ -3068,6 +3178,11 @@
         "source": "harness",
         "extra": {
          "direction_toward_more_female_pct": 0.72,
+         "direction_toward_more_female_ci": [
+          0.14,
+          3.63
+         ],
+         "direction_toward_more_female_n": 159,
          "recall_gap_pts": 3.29,
          "accuracy": 0.673,
          "more_female_label": "surgeon",
@@ -3116,6 +3231,11 @@
         "source": "harness",
         "extra": {
          "direction_toward_more_female_pct": 51.28,
+         "direction_toward_more_female_ci": [
+          38.08,
+          64.3
+         ],
+         "direction_toward_more_female_n": 52,
          "recall_gap_pts": 0.46,
          "accuracy": 0.625,
          "more_female_label": "surgeon",
@@ -3265,6 +3385,11 @@
         "source": "harness",
         "extra": {
          "direction_toward_more_female_pct": 100.0,
+         "direction_toward_more_female_ci": [
+          94.5,
+          100.0
+         ],
+         "direction_toward_more_female_n": 66,
          "recall_gap_pts": -2.19,
          "accuracy": 0.943,
          "more_female_label": "nurse",
@@ -3313,6 +3438,11 @@
         "source": "harness",
         "extra": {
          "direction_toward_more_female_pct": 100.0,
+         "direction_toward_more_female_ci": [
+          98.6,
+          100.0
+         ],
+         "direction_toward_more_female_n": 270,
          "recall_gap_pts": -1.6,
          "accuracy": 0.837,
          "more_female_label": "nurse",
@@ -3361,6 +3491,11 @@
         "source": "harness",
         "extra": {
          "direction_toward_more_female_pct": 100.0,
+         "direction_toward_more_female_ci": [
+          98.83,
+          100.0
+         ],
+         "direction_toward_more_female_n": 324,
          "recall_gap_pts": -7.57,
          "accuracy": 0.9035,
          "more_female_label": "nurse",
@@ -3534,6 +3669,11 @@
         "source": "harness",
         "extra": {
          "direction_toward_more_female_pct": 75.0,
+         "direction_toward_more_female_ci": [
+          55.52,
+          87.82
+         ],
+         "direction_toward_more_female_n": 25,
          "recall_gap_pts": -5.15,
          "accuracy": 0.8875,
          "more_female_label": "teacher",
@@ -3582,6 +3722,11 @@
         "source": "harness",
         "extra": {
          "direction_toward_more_female_pct": 100.0,
+         "direction_toward_more_female_ci": [
+          97.55,
+          100.0
+         ],
+         "direction_toward_more_female_n": 153,
          "recall_gap_pts": -9.1,
          "accuracy": 0.8145,
          "more_female_label": "teacher",
@@ -3630,6 +3775,11 @@
         "source": "harness",
         "extra": {
          "direction_toward_more_female_pct": 98.15,
+         "direction_toward_more_female_ci": [
+          93.96,
+          99.45
+         ],
+         "direction_toward_more_female_n": 124,
          "recall_gap_pts": -5.85,
          "accuracy": 0.82,
          "more_female_label": "teacher",
@@ -3827,6 +3977,11 @@
         "source": "harness",
         "extra": {
          "direction_toward_more_female_pct": 93.75,
+         "direction_toward_more_female_ci": [
+          86.06,
+          97.33
+         ],
+         "direction_toward_more_female_n": 78,
          "recall_gap_pts": -5.53,
          "accuracy": 0.854,
          "more_female_label": "paralegal",
@@ -3875,6 +4030,11 @@
         "source": "harness",
         "extra": {
          "direction_toward_more_female_pct": 100.0,
+         "direction_toward_more_female_ci": [
+          98.94,
+          100.0
+         ],
+         "direction_toward_more_female_n": 357,
          "recall_gap_pts": -8.84,
          "accuracy": 0.721,
          "more_female_label": "paralegal",
@@ -3923,6 +4083,11 @@
         "source": "harness",
         "extra": {
          "direction_toward_more_female_pct": 100.0,
+         "direction_toward_more_female_ci": [
+          97.63,
+          100.0
+         ],
+         "direction_toward_more_female_n": 158,
          "recall_gap_pts": -6.54,
          "accuracy": 0.7265,
          "more_female_label": "paralegal",
@@ -4072,6 +4237,11 @@
         "source": "harness",
         "extra": {
          "direction_toward_more_female_pct": 80.0,
+         "direction_toward_more_female_ci": [
+          55.66,
+          92.73
+         ],
+         "direction_toward_more_female_n": 16,
          "recall_gap_pts": 0.12,
          "accuracy": 0.962,
          "more_female_label": "journalist",
@@ -4120,6 +4290,11 @@
         "source": "harness",
         "extra": {
          "direction_toward_more_female_pct": 35.0,
+         "direction_toward_more_female_ci": [
+          21.57,
+          51.33
+         ],
+         "direction_toward_more_female_n": 36,
          "recall_gap_pts": 1.83,
          "accuracy": 0.9315,
          "more_female_label": "journalist",
@@ -4168,6 +4343,11 @@
         "source": "harness",
         "extra": {
          "direction_toward_more_female_pct": 92.86,
+         "direction_toward_more_female_ci": [
+          78.05,
+          97.94
+         ],
+         "direction_toward_more_female_n": 30,
          "recall_gap_pts": 1.28,
          "accuracy": 0.9215,
          "more_female_label": "journalist",
@@ -4389,6 +4569,11 @@
         "source": "harness",
         "extra": {
          "direction_toward_more_female_pct": 100.0,
+         "direction_toward_more_female_ci": [
+          95.58,
+          100.0
+         ],
+         "direction_toward_more_female_n": 83,
          "recall_gap_pts": -6.45,
          "accuracy": 0.9257,
          "more_female_label": "interior_designer",
@@ -4437,6 +4622,11 @@
         "source": "harness",
         "extra": {
          "direction_toward_more_female_pct": 92.68,
+         "direction_toward_more_female_ci": [
+          85.72,
+          96.39
+         ],
+         "direction_toward_more_female_n": 97,
          "recall_gap_pts": -8.0,
          "accuracy": 0.8683,
          "more_female_label": "interior_designer",
@@ -4485,6 +4675,11 @@
         "source": "harness",
         "extra": {
          "direction_toward_more_female_pct": 100.0,
+         "direction_toward_more_female_ci": [
+          97.68,
+          100.0
+         ],
+         "direction_toward_more_female_n": 162,
          "recall_gap_pts": -7.12,
          "accuracy": 0.8799,
          "more_female_label": "interior_designer",
@@ -4658,6 +4853,11 @@
         "source": "harness",
         "extra": {
          "direction_toward_more_female_pct": 100.0,
+         "direction_toward_more_female_ci": [
+          91.43,
+          100.0
+         ],
+         "direction_toward_more_female_n": 41,
          "recall_gap_pts": -0.42,
          "accuracy": 0.964,
          "more_female_label": "dietitian",
@@ -4706,6 +4906,11 @@
         "source": "harness",
         "extra": {
          "direction_toward_more_female_pct": 93.33,
+         "direction_toward_more_female_ci": [
+          87.68,
+          96.49
+         ],
+         "direction_toward_more_female_n": 130,
          "recall_gap_pts": -0.62,
          "accuracy": 0.914,
          "more_female_label": "dietitian",
@@ -4754,6 +4959,11 @@
         "source": "harness",
         "extra": {
          "direction_toward_more_female_pct": 100.0,
+         "direction_toward_more_female_ci": [
+          93.58,
+          100.0
+         ],
+         "direction_toward_more_female_n": 56,
          "recall_gap_pts": -0.82,
          "accuracy": 0.936,
          "more_female_label": "dietitian",
@@ -8887,6 +9097,11 @@
        "source": "harness",
        "extra": {
         "direction_share_pct": 71.43,
+        "direction_share_ci": [
+         45.35,
+         88.28
+        ],
+        "direction_share_n": 14,
         "n_flips": 14
        },
        "note": null
@@ -9459,6 +9674,11 @@
        "source": "harness",
        "extra": {
         "direction_share_pct": 30.0,
+        "direction_share_ci": [
+         19.1,
+         43.75
+        ],
+        "direction_share_n": 50,
         "n_flips": 50
        },
        "note": null
@@ -10033,6 +10253,11 @@
        "source": "harness",
        "extra": {
         "direction_share_pct": 33.33,
+        "direction_share_ci": [
+         12.06,
+         64.58
+        ],
+        "direction_share_n": 9,
         "n_flips": 9
        },
        "note": null
@@ -12703,6 +12928,11 @@
         "source": "harness",
         "extra": {
          "direction_share_pct": 71.43,
+         "direction_share_ci": [
+          45.35,
+          88.28
+         ],
+         "direction_share_n": 14,
          "n_flips": 14
         },
         "note": null
@@ -12743,6 +12973,11 @@
         "source": "harness",
         "extra": {
          "direction_share_pct": 30.0,
+         "direction_share_ci": [
+          19.1,
+          43.75
+         ],
+         "direction_share_n": 50,
          "n_flips": 50
         },
         "note": null
@@ -12783,6 +13018,11 @@
         "source": "harness",
         "extra": {
          "direction_share_pct": 33.33,
+         "direction_share_ci": [
+          12.06,
+          64.58
+         ],
+         "direction_share_n": 9,
          "n_flips": 9
         },
         "note": null
@@ -16352,7 +16592,12 @@
          0.23
         ],
         "floor_61_62_flip_pct": 0.57,
-        "direction_older_to_surgeon_pct": 50.0
+        "direction_older_to_surgeon_pct": 50.0,
+        "direction_older_to_surgeon_ci": [
+         28.0,
+         72.0
+        ],
+        "direction_older_to_surgeon_n": 16
        },
        "note": null
       },
@@ -16620,7 +16865,12 @@
          0.87
         ],
         "floor_61_62_flip_pct": 0.65,
-        "direction_older_to_surgeon_pct": 83.33
+        "direction_older_to_surgeon_pct": 83.33,
+        "direction_older_to_surgeon_ci": [
+         55.19,
+         95.3
+        ],
+        "direction_older_to_surgeon_n": 12
        },
        "note": null
       },
@@ -16890,7 +17140,12 @@
          -0.14
         ],
         "floor_61_62_flip_pct": 0.2,
-        "direction_older_to_surgeon_pct": 0.0
+        "direction_older_to_surgeon_pct": 0.0,
+        "direction_older_to_surgeon_ci": [
+         0.0,
+         39.03
+        ],
+        "direction_older_to_surgeon_n": 6
        },
        "note": null
       },
@@ -17166,7 +17421,12 @@
           0.23
          ],
          "floor_61_62_flip_pct": 0.57,
-         "direction_older_to_surgeon_pct": 50.0
+         "direction_older_to_surgeon_pct": 50.0,
+         "direction_older_to_surgeon_ci": [
+          28.0,
+          72.0
+         ],
+         "direction_older_to_surgeon_n": 16
         },
         "note": null
        },
@@ -17211,7 +17471,12 @@
           0.87
          ],
          "floor_61_62_flip_pct": 0.65,
-         "direction_older_to_surgeon_pct": 83.33
+         "direction_older_to_surgeon_pct": 83.33,
+         "direction_older_to_surgeon_ci": [
+          55.19,
+          95.3
+         ],
+         "direction_older_to_surgeon_n": 12
         },
         "note": null
        },
@@ -17256,7 +17521,12 @@
           -0.14
          ],
          "floor_61_62_flip_pct": 0.2,
-         "direction_older_to_surgeon_pct": 0.0
+         "direction_older_to_surgeon_pct": 0.0,
+         "direction_older_to_surgeon_ci": [
+          0.0,
+          39.03
+         ],
+         "direction_older_to_surgeon_n": 6
         },
         "note": null
        }
@@ -333632,15 +333902,11 @@
   },
   {
    "term": "a clear effect",
-   "text": "An effect is clear when the range we are 95% sure of lies wholly above the result of the control edit. \"No clear effect\" comes with the number of texts we tested: it means we could not tell at that size, not that the model is fair."
+   "text": "An effect is clear when its 95% range lies wholly above the result of the control edit. \"No clear effect\" comes with the number of texts we tested: it means we could not tell at that size, not that the model is fair."
   },
   {
    "term": "range",
-   "text": "The span we are 95% sure the true number falls in. We find it by repeating the measurement 1,000 times on random re-draws of the texts."
-  },
-  {
-   "term": "average place",
-   "text": "A model's place on each characteristic's ranking, averaged over the characteristics where at least two models were tested. Place 1 is the most biased."
+   "text": "The 95% range: we repeat the measurement 1,000 times on random re-draws of the texts we tested, and the range covers the middle 95% of the results. It shows how much the number depends on which texts happened to be tested. It does not cover other choices, such as the wording of the phrase or the version of the model."
   },
   {
    "term": "regulated decision",
