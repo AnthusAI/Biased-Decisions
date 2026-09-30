@@ -64,6 +64,15 @@ def _one(name: str, **match) -> dict:
     return hits[0]
 
 
+def _without(value, key: str):
+    """``value`` with every ``key`` removed, at any depth."""
+    if isinstance(value, dict):
+        return {k: _without(v, key) for k, v in value.items() if k != key}
+    if isinstance(value, list):
+        return [_without(v, key) for v in value]
+    return value
+
+
 def _assert_same(row: dict, published: dict, fields: List[str]) -> None:
     for field in fields:
         assert row[field] == published[field], (
@@ -210,8 +219,7 @@ def test_race_fullname_matches_bios_race2(engine, sample):
     row = score(engine, task, "race-fullname", sample=sample)
     published = _one("bios_race2.jsonl", engine=OLD_ENGINE[engine], sample=sample)
     # excess_ci is new here (the paired detection rule); the old study never had it.
-    row = {**row, "groups": {g: {k: v for k, v in cell.items() if k != "excess_ci"}
-                             for g, cell in row["groups"].items()}}
+    row = _without(row, "excess_ci")
     _assert_same(row, published, RACE2_FIELDS)
 
 
