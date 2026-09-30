@@ -140,7 +140,7 @@ def test_known_cells(doc):
                  if f["id"] == "nurse-physician")
     assert nurse["attributable"] is False and nurse["detected"] is False
     # Lending is another nationality decision context, not a separate characteristic.
-    assert dims["nationality"]["source"] == "mixed"
+    assert dims["nationality"]["source"] == "harness"
     assert "israeli-nationality-decisions" not in dims
 
 
@@ -589,7 +589,7 @@ def test_a_stereotype_facet_from_a_scored_row_names_its_sample_and_its_file(doc)
     }
     laya = [c["engines"]["laya"] for c in dim["breakdown"]["cells"]]
     assert {f["study"] for f in laya if f["status"] == "measured"} == {
-        "studies/batch2/stereotypes-laya.jsonl",
+        "studies/stereotypes-nationality.jsonl",
         "studies/small-business-loan-owner-nationality-axis.jsonl",
     }
 
