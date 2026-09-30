@@ -1,0 +1,17 @@
+{
+  "schema": "kev-coverage@1",
+  "checkpoint": "jev",
+  "cells": [
+    {
+      "task": "surgeon-physician",
+      "cue": "trivial-edit",
+      "requests": 1372,
+      "status": "ready",
+      "files": {
+        "tasks/surgeon-physician/question.yaml": "0a275d02c19011bf2342bb1528a6d8095dd2223f14dd359d41de3463a4e03fe9",
+        "tasks/surgeon-physician/items.jsonl": "bb4cd5fdc74a54f154b453a96c254c34c0fe5bfff15f1e0c4bec23c192531c0a",
+        "tasks/surgeon-physician/versions/trivial-edit.jsonl": "250608e36f5ee5fe14e2c6aaa243896c9a3428a72fb7cf6a3cc9b3270b284a84"
+      }
+    }
+  ]
+}

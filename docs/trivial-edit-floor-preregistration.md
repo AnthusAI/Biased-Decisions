@@ -132,3 +132,30 @@ ask-twice pattern but report only over touched bios: load answers for the base c
 (gender-pronouns) and for trivial-edit on the 8,183 bios the rule touched, compute flip rate 
 (how many reversed), and report with 95% bootstrap interval and coverage. See `/scoring.py` 
 for a TODO comment marking the pending work.
+
+## Deviations
+
+- 2026-09-30, before any answer: a bio the edit rule does not touch is the same text again, so it is not sent to the model. The versions file still lists every held-out bio (M in "X% (N=M)"), and the floor is computed over the touched bios, as planned above. Jev: 8,183 requests across the seven tasks.
+
+## Outcome (scored 2026-09-30)
+
+Jev (`jev-1.13.0`) answered the touched bios on all seven tasks: 8,183 of 13,898 held-out bios. Laya and Kev have not answered.
+
+| task | Jev trivial-edit flip rate | N (touched) of M | Jev ask-twice floor |
+|---|---|---|---|
+| surgeon-physician | 0.87% | 1,372 of 2,000 | 0.6% |
+| nurse-physician | 0.35% | 1,433 of 2,000 | 0.4% |
+| teacher-professor | 1.50% | 1,067 of 2,000 | 0.6% |
+| paralegal-attorney | 1.86% | 1,181 of 2,000 | 0.4% |
+| journalist-professor | 0.48% | 1,051 of 2,000 | not asked |
+| architect-interior-designer | 0.75% | 800 of 1,898 | not asked |
+| dietitian-physician | 0.16% | 1,279 of 2,000 | not asked |
+| **all touched bios** | **0.83%** | **8,183 of 13,898** | |
+
+| engine | prediction | observed | verdict |
+|---|---|---|---|
+| Jev | 0.5–2% | 0.83% over all touched bios (0.16% to 1.86% by task) | as predicted |
+| Laya | 1–4% | not run | not scored |
+| Kev | 1–3% | not run | not scored |
+
+Where Jev has both floors, the trivial-edit floor is higher on three of four tasks. Jev's flip rates are now read against the trivial-edit floor on every task, which removes the borrowed ask-twice floor for Jev.

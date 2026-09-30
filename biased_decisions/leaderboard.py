@@ -2958,6 +2958,36 @@ def _adl_gaza(root: Path) -> dict:
             "records": [_record(engine, adl_gaza.SLUG, "as-written") for engine in rows]}
 
 
+def _controlled_statements(root: Path) -> dict:
+    """The pre-registered controlled direct-statement arms, per engine that has answered them
+    (docs/direct-statements-controlled-preregistration.md): each pair's statement, reversal,
+    stance, acquiescence and whether the rule lets its position be shown."""
+    from biased_decisions import adl_gaza as gz, direct_statements as dst, opinion_claims as ocl
+    claim_text = {cid: text for _d, cid, text in ocl.all_claims()}
+    out = {"plan": "docs/direct-statements-controlled-preregistration.md",
+           "rule": {"min_stance": dst.SHOW_STANCE, "max_acquiescence": dst.SHOW_ACQ}, "arms": []}
+    for slug, label in ((dst.CLAIMS_SLUG, "Claims about Jewish people, Israel and the Holocaust"),
+                        (dst.GAZA_SLUG, "Statements about Gaza, Israel and Hamas")):
+        for row in _read_jsonl(root / "studies" / f"{slug}.jsonl"):
+            pairs = []
+            for key, p in row["pairs"].items():
+                if slug == dst.CLAIMS_SLUG:
+                    s_text, r_text, group = claim_text[key], dst.CLAIM_REVERSALS[key], ocl.DOMAINS[p["domain"]][0]
+                else:
+                    n, rev = int(key), dst.GAZA_REVERSALS[int(key)]
+                    s_text = gz.STATEMENTS[n - 1]
+                    r_text = gz.STATEMENTS[rev - 1] if isinstance(rev, int) else rev
+                    group = "Documented facts about October 7th" if p["factual"] else "Statements about Israel and Hamas"
+                pairs.append({"id": key, "group": group, "statement": s_text, "reversal": r_text,
+                              **{k: p[k] for k in ("agree_s", "agree_r", "stance", "acquiescence",
+                                                   "order_effect", "shown")},
+                              "factual": bool(p.get("factual", False))})
+            out["arms"].append({"id": slug, "label": label, "engine": row["engine"], "model": row["model"],
+                                "study": f"studies/{slug}.jsonl",
+                                "record": _record(row["engine"], slug, "as-written"), "pairs": pairs})
+    return out
+
+
 def _unpublished_arms(root: Path) -> list:
     """Arms not yet shown because they lack controls for how models answer agree/disagree prompts."""
     arms = []
@@ -2972,7 +3002,7 @@ def _unpublished_arms(root: Path) -> list:
             "study": f"studies/{oc.SLUG}.jsonl",
             "records": oc_records,
             "reason": "Each claim was one prompt with no control for how the model answers agree-or-disagree questions, and the model agreed with claims that contradict each other.",
-            "returns_when": "after a reversed-statement and option-order control has been written in advance and collected"
+            "returns_when": "replaced by the controlled version above, for the models that have answered it"
         })
     except Exception:
         pass
@@ -2987,7 +3017,7 @@ def _unpublished_arms(root: Path) -> list:
             "study": f"studies/{adl_gaza.SLUG}.jsonl",
             "records": adl_records,
             "reason": "The model chose 'strongly agree' for 13 of 15 statements, including pairs that contradict each other, and the test has no reversed-statement or option-order control.",
-            "returns_when": "after a reversed-statement and option-order control has been written in advance and collected"
+            "returns_when": "replaced by the controlled version above, for the models that have answered it"
         })
     except Exception:
         pass
@@ -3122,6 +3152,7 @@ def generate_json(root: Path = DEFAULT_ROOT, *, date: Optional[str] = None) -> d
         "floors": {"ask_twice": floors},
         "neutral": _neutral(root),
         "unpublished_arms": _unpublished_arms(root),
+        "controlled_statements": _controlled_statements(root),
         "gaza_status": _gaza_status(root),
         "antisemitism": _trope_study_summary(root, "antisemitism"),
         "islamophobia": _trope_study_summary(root, "islamophobia"),
