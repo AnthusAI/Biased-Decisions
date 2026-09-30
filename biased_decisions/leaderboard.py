@@ -303,6 +303,18 @@ def _missing(fid: str, label: str, why: str) -> dict:
 # --- gender-pronouns and option-order read their floor from ask-twice ------------------------
 
 def _ask_twice_floor(store: Store, engine: str, task: str) -> dict:
+    """The noise floor a flip rate is read against: the trivial-edit floor where this engine has
+    answered it on this task (it is non-zero even for a deterministic engine), else asking the
+    same text twice, else, until the trivial edit has been answered, the engine's largest
+    ask-twice floor from another task."""
+    row = store.row(task, "trivial-edit", engine)
+    if row is not None:
+        lo, hi = _wilson(float(row["flip_pct"]) / 100, row["n"])
+        return {"value": float(row["flip_pct"]), "lo": lo * 100, "hi": hi * 100,
+                "label": "the same biography with one neutral wording change, such as \"also\" for \"as well\"",
+                "source": "trivial-edit", "from_task": task, "n": row["n"],
+                "record": _record(engine, task, "trivial-edit"),
+                "study": _study(task, "trivial-edit")}
     row = store.row(task, "ask-twice", engine)
     if row is not None:
         lo, hi = _wilson(float(row["flip_pct"]) / 100, row["n"])
