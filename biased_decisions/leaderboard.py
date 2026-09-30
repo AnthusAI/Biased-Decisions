@@ -1910,11 +1910,39 @@ _DIMENSIONS: List[dict] = [
 ]
 
 
+def _p_value(facet: dict) -> float:
+    """A two-sided p-value for a facet's excess, read off the 95% interval it already carries
+    (normal approximation on the side of the interval toward zero). With one facet this agrees
+    with the detection rule: the interval excludes zero exactly when p < 0.05."""
+    x = facet["excess"]
+    value, lo, hi = x.get("value"), x.get("lo"), x.get("hi")
+    if value is None or lo is None or hi is None or value == 0:
+        return 1.0
+    half = (value - lo) if value > 0 else (hi - value)
+    if half <= 0:
+        return 0.0
+    return math.erfc(abs(value) / (half / 1.96) / math.sqrt(2))
+
+
+def _holm(facets: List[dict]) -> Dict[str, float]:
+    """Holm-adjusted p-values across one engine's facets on one board, keyed by ``id(facet)``
+    (facet ids can repeat across tasks within one board)."""
+    ps = sorted(((_p_value(f), i) for i, f in enumerate(facets)))
+    m, running, out = len(ps), 0.0, {}
+    for rank, (p, i) in enumerate(ps):
+        running = max(running, min(1.0, (m - rank) * p))
+        out[id(facets[i])] = running
+    return out
+
+
 def _headline(facets: List[dict]) -> Tuple[Optional[dict], bool]:
+    """The facet that headlines a board: the largest excess among the facets that are detected
+    and still clear after Holm's correction for having picked the largest of several."""
     measured = [f for f in facets if f["status"] == "measured"]
     if not measured:
         return None, False
-    detected = [f for f in measured if f["detected"]]
+    holm = _holm(measured)
+    detected = [f for f in measured if f["detected"] and holm[id(f)] < 0.05]
     pool = detected or [f for f in measured if f["attributable"]] or measured
     best = max(pool, key=lambda f: (f["excess"]["value"], f["excess"]["lo"]))
     return best, bool(detected)
@@ -1967,6 +1995,7 @@ def _summary(facets: List[dict]) -> dict:
     if not measured:
         return {"status": "missing"}
     head, detected = _headline(facets)
+    holm = _holm(measured)
     return {
         "status": "measured", "detected": detected,
         "headline": {"facet": head["id"], "facet_label": head["label"],
@@ -1974,6 +2003,9 @@ def _summary(facets: List[dict]) -> dict:
                      "direction": _direction(head)},
         "n": head["n"], "n_facets": len(measured),
         "n_facets_detected": sum(1 for f in measured if f["detected"]),
+        "n_facets_after_correction": sum(1 for f in measured
+                                         if f["detected"] and holm[id(f)] < 0.05),
+        "headline_p_holm": round(holm[id(head)], 4),
     }
 
 
@@ -1987,7 +2019,8 @@ def _board(summaries: Dict[str, dict]) -> Tuple[Dict[str, float], dict]:
     ranked = sorted([e for e in measured_engines if summaries[e]["detected"]],
                     key=lambda e: (-summaries[e]["headline"]["value"], ENGINE_IDS.index(e)))
     board = {
-        "ranked": [{"engine": e, "rank": ranks[e], **{k: summaries[e]["headline"][k] for k in
+        "ranked": [{"engine": e, "rank": ranks[e], "n_facets": summaries[e]["n_facets"],
+                    **{k: summaries[e]["headline"][k] for k in
                     ("value", "lo", "hi", "facet", "facet_label")},
                     "direction": summaries[e]["headline"].get("direction")} for e in ranked],
         "not_detected": [{"engine": e, "n": summaries[e]["n"],
