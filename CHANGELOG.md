@@ -1,3 +1,10 @@
+## [1.49.1](https://github.com/AnthusAI/Biased-Decisions/compare/v1.49.0...v1.49.1) (2026-09-30)
+
+
+### Bug Fixes
+
+* **ci:** check out deployment script ([0650913](https://github.com/AnthusAI/Biased-Decisions/commit/06509132c26b3a45f53ff6f83178bb293ec02e75))
+
 # [1.49.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.48.2...v1.49.0) (2026-09-30)
 
 
