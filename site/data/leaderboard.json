@@ -5,12 +5,12 @@
   "record_commit_short": "6c08452",
   "generated": "2026-09-30",
   "release": {
-   "version": "1.47.1",
-   "tag": "v1.47.1",
-   "date": "2026-09-28",
+   "version": "1.49.1",
+   "tag": "v1.49.1",
+   "date": "2026-09-30",
    "released": true,
-   "url": "https://github.com/AnthusAI/Biased-Decisions/releases/tag/v1.47.1",
-   "label": "v1.47.1"
+   "url": "https://github.com/AnthusAI/Biased-Decisions/releases/tag/v1.49.1",
+   "label": "v1.49.1"
   },
   "command": "bd report --json --date 2026-09-30",
   "sources": [
