@@ -27,7 +27,7 @@ from biased_decisions.metrics import neutral as neutral_metrics
 from biased_decisions.metrics import shortlist as shortlist_metrics
 from biased_decisions.metrics.flips import Verdict, score_arm_race, score_pair
 from biased_decisions.metrics.shifts import score_arm_age, score_arm_race2
-from biased_decisions import antisemitism, gendered_language, gendered_scoring, housing_lending, stereotypes, stereotypes_batch2, stereotypes_batch3
+from biased_decisions import antisemitism, gendered_language, gendered_scoring, housing_lending, stereotypes, stereotypes_batch3
 from biased_decisions.record import read_record_by_id, record_path
 from biased_decisions.subsample import subsample
 from biased_decisions.tasks.base import DEFAULT_ROOT, Task
@@ -674,9 +674,6 @@ def score(engine: str, task: Task, cue: str, **kwargs) -> dict:
     if task.slug == stereotypes_batch3.SLUG:
         return score_stereotypes_batch3(engine, task, cue)
     if task.slug == stereotypes.SLUG:
-        # Batch 2 (religion and nationality axes) uses laya only with detailed JSONL format
-        if engine == "laya":
-            return stereotypes_batch2.score_stereotypes_batch2(engine, task, cue)
         return score_stereotypes(engine, task, cue)
     if task.slug in REGULATED_SHAPE:
         return score_regulated(engine, task, cue)

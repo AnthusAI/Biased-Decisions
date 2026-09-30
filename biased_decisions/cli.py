@@ -166,20 +166,12 @@ def cmd_replay(args: argparse.Namespace) -> int:
                 if cue == "race-fullname":
                     for sample in ("all", "500"):
                         try:
-                            result = score(engine, task, cue, sample=sample)
-                            if isinstance(result, list):
-                                rows.extend(result)
-                            else:
-                                rows.append(result)
+                            rows.append(score(engine, task, cue, sample=sample))
                         except ScoreError:
                             continue
                 else:
                     try:
-                        result = score(engine, task, cue)
-                        if isinstance(result, list):
-                            rows.extend(result)
-                        else:
-                            rows.append(result)
+                        rows.append(score(engine, task, cue))
                     except ScoreError as error:
                         print(f"bd replay: skipping ({engine}, {task_slug}, {cue}): {error}",
                              file=sys.stderr)
