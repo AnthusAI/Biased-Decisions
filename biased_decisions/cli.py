@@ -288,6 +288,23 @@ def cmd_replay(args: argparse.Namespace) -> int:
         n_rows += len(pairs_rows)
         print(f"small-business-loan-owner-nationality-axis-pairs: {len(pairs_rows)} row(s) -> {out}")
 
+    from biased_decisions import loan_ladder
+    ladder_rows = []
+    for engine in ENGINES:
+        if not has_record(engine, "small-business-loan-ladder", "credit-ladder", root=root):
+            continue
+        try:
+            ladder_rows.append(loan_ladder.score(engine, root=root))
+        except (KeyError, ScoreError) as error:
+            print(f"bd replay: skipping ({engine}, small-business-loan-ladder, credit-ladder): {error}", file=sys.stderr)
+            continue
+        n_cells += 1
+    if ladder_rows:
+        out = root / "studies" / "small-business-loan-ladder-credit-ladder.jsonl"
+        write_rows(out, ladder_rows, ("engine",))
+        n_rows += len(ladder_rows)
+        print(f"small-business-loan-ladder-credit-ladder: {len(ladder_rows)} row(s) -> {out}")
+
     for pair_slug in SHORTLIST_PAIRS:
         task = load_task(pair_slug, root=root)
         out = root / "studies" / f"{pair_slug}-shortlist.jsonl"
