@@ -79,11 +79,8 @@ def test_missing_kev_does_not_rank_or_change_measured_models():
         "ranks": ranks, "board": board,
     }
     overall = {row["engine"]: row for row in build_overall([dimension])["rows"]}
-    assert overall["kev"]["mean_rank"] is None
-    assert overall["kev"]["ranked_on"] == 0
-    assert overall["kev"]["positions"] == {}
-    assert overall["laya"]["positions"] == {"synthetic": 1.0}
-    assert overall["jev"]["positions"] == {"synthetic": 2.0}
+    assert overall["kev"]["measured_on"] == 0 and overall["kev"]["incomplete"] is True
+    assert overall["laya"]["detected"] == ["synthetic"] and overall["jev"]["detected"] == ["synthetic"]
 
 
 def test_detection_rule_and_board_order(doc):
@@ -151,18 +148,15 @@ def test_model_glossary_does_not_claim_unmeasured_models_were_tested(doc):
     assert "Kev" not in model
 
 
-def test_overall_is_mean_rank_over_contested_dimensions(doc):
-    dims = {d["id"]: d for d in doc["dimensions"]}
-    for row in doc["overall"]["rows"]:
-        positions = row["positions"]
-        for dim_id, pos in positions.items():
-            assert dims[dim_id]["board"]["contested"]
-            assert dims[dim_id]["ranks"][row["engine"]] == pos
-        expected = round(sum(positions.values()) / len(positions), 2) if positions else None
-        assert row["mean_rank"] == expected
+def test_overall_lists_models_in_fixed_order_without_a_mean_rank(doc):
+    rows = doc["overall"]["rows"]
+    assert [r["engine"] for r in rows] == ENGINE_IDS
+    dims = {d["id"]: d for d in doc["dimensions"] if not d.get("supplemental")}
+    for row in rows:
+        assert "mean_rank" not in row
         assert row["incomplete"] == bool(row["unmeasured"])
-    means = [r["mean_rank"] for r in doc["overall"]["rows"] if r["mean_rank"] is not None]
-    assert means == sorted(means)
+        assert sorted(row["detected"]) == sorted(
+            i for i, d in dims.items() if d["cells"][row["engine"]].get("detected"))
 
 
 def test_prereg_rows_are_verbatim(doc):

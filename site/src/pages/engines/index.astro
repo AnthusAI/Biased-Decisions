@@ -8,14 +8,6 @@ import { aboutModel } from "./_about.js";
 const rows = data.overall.rows;
 const testedCount = rows.filter((r) => r.measured_on > 0).length;
 const pendingCount = rows.length - testedCount;
-let placeN = 0;
-let lastMean = null;
-const places = rows.map((r, i) => {
-  if (r.mean_rank === null) return null;
-  if (r.mean_rank !== lastMean) placeN = i + 1;
-  lastMean = r.mean_rank;
-  return placeN;
-});
 const description = `${testedCount} tested AI models on the Biased-Decisions leaderboard, with ${pendingCount} not yet tested. Each model answers a question about a person from a short text.`;
 ---
 <Base title="Models" description={description} path={urls.engines()} current={{ page: "engines" }}
@@ -25,7 +17,7 @@ const description = `${testedCount} tested AI models on the Biased-Decisions lea
     <h1 class="display xl">{pageIntroductions.models.title}</h1>
     <p class="deck">We test AI models that read a short text and make a quick judgment about a person. Does the model’s answer change when we change a name, a pronoun or another personal detail? Here you can compare the {testedCount} models tested so far and open each one’s results.</p>
     {pendingCount > 0 && <p class="note">{pendingCount} {pendingCount === 1 ? "model is" : "models are"} not yet tested.</p>}
-    <p class="note">Models with the strongest bias across comparable tests appear first. A high place is a warning, not an endorsement. <a href={urls.methods()}>How the comparison works</a>.</p>
+    <p class="note">Models are listed in a fixed order, not ranked: compare them characteristic by characteristic on each model's page and on the leaderboard. <a href={urls.methods()}>How the comparison works</a>.</p>
   </section>
   <section class="wrap section tight">
     <ol class="overall">
@@ -34,12 +26,10 @@ const description = `${testedCount} tested AI models on the Biased-Decisions lea
         const largest = largestBias(r.engine);
         return (
           <li class="ov-row ov-simple">
-            <div class="ov-place" aria-label={places[i] === null ? "Not yet ranked" : `Place ${places[i]}`}>{places[i] === null ? "—" : places[i]}</div>
             <div class="ov-name">
               <EngineName engine={en} href={urls.engine(en.id)} />
-              {r.mean_rank !== null && <div class="ov-mean">average place <strong>{fmt(r.mean_rank)}</strong> over the {r.ranked_on} characteristics where it was compared · tested on {r.measured_on} of {data.overall.n_dimensions}</div>}
+              {r.measured_on > 0 && <div class="ov-mean">a clear effect on <strong>{r.detected.length} of the {r.measured_on}</strong> characteristics it was tested on · tested on {r.measured_on} of {data.overall.n_dimensions}</div>}
               <div class="ov-mean">{r.measured_on === 0 ? "Not yet tested" : largest > 0 ? <Fragment>largest effect: <strong>{size(largest)} percentage points</strong> beyond the control edit</Fragment> : "no clear effect on any characteristic tested"}</div>
-              {r.mean_rank === null && r.measured_on > 0 && <div class="ov-mean">Tested, but not yet ranked against another model</div>}
             </div>
             <p class="ov-about">{aboutModel(en)}</p>
           </li>

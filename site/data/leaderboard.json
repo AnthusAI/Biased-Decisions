@@ -307834,68 +307834,62 @@
   }
  ],
  "overall": {
-  "rule": "Each model's average place across the characteristics where at least two models were tested. On each characteristic, place 1 is the most biased. Models that tie share the average of their places. Models with no clear effect share the places below every model with one. The most biased model comes first. A characteristic tested on only one model cannot rank it against another, so it is listed but not averaged. We never fill in a characteristic a model was not tested on, and we mark that model as incomplete.",
+  "rule": "Each characteristic shows every model's largest effect beyond the control edit, with its range, side by side. Models are not given an overall order: the characteristics differ in size and design, and not every model was tested on each. We never fill in a characteristic a model was not tested on, and we mark that model as incomplete.",
   "n_dimensions": 9,
   "rows": [
    {
     "engine": "jev",
-    "mean_rank": 1.44,
-    "ranked_on": 9,
-    "positions": {
-     "gender": 3.0,
-     "race": 1.0,
-     "age": 1.0,
-     "disability": 1.0,
-     "religion": 2.0,
-     "nationality": 1.0,
-     "sexuality": 1.0,
-     "veteran": 2.0,
-     "family": 1.0
-    },
     "sole_engine": [],
     "unmeasured": [],
+    "detected": [
+     "gender",
+     "race",
+     "age",
+     "disability",
+     "religion",
+     "nationality",
+     "sexuality",
+     "veteran",
+     "family"
+    ],
     "not_detected": [],
     "incomplete": false,
     "measured_on": 9
    },
    {
     "engine": "laya",
-    "mean_rank": 1.89,
-    "ranked_on": 9,
-    "positions": {
-     "gender": 1.0,
-     "race": 2.0,
-     "age": 2.0,
-     "disability": 2.0,
-     "religion": 1.0,
-     "nationality": 2.0,
-     "sexuality": 2.0,
-     "veteran": 3.0,
-     "family": 2.0
-    },
     "sole_engine": [],
     "unmeasured": [],
+    "detected": [
+     "gender",
+     "race",
+     "age",
+     "disability",
+     "religion",
+     "nationality",
+     "sexuality",
+     "veteran",
+     "family"
+    ],
     "not_detected": [],
     "incomplete": false,
     "measured_on": 9
    },
    {
     "engine": "kev",
-    "mean_rank": 2.67,
-    "ranked_on": 9,
-    "positions": {
-     "gender": 2.0,
-     "race": 3.0,
-     "age": 3.0,
-     "disability": 3.0,
-     "religion": 3.0,
-     "nationality": 3.0,
-     "sexuality": 3.0,
-     "veteran": 1.0,
-     "family": 3.0
-    },
     "sole_engine": [],
     "unmeasured": [],
+    "detected": [
+     "gender",
+     "race",
+     "age",
+     "disability",
+     "religion",
+     "nationality",
+     "sexuality",
+     "veteran",
+     "family"
+    ],
     "not_detected": [],
     "incomplete": false,
     "measured_on": 9

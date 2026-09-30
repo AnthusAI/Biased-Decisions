@@ -116,12 +116,11 @@ function withRows(card, max = 2) {
 // ---------------------------------------------------------------------------------------------
 function homeCard() {
   const rows = data.overall.rows;
-  const top = rows[0];
   const bars = rows.map((r) => {
     const v = largestBias(r.engine);
     return { engine: r.engine, value: v, text: v > 0 ? `${size(v)}` : "no clear effect", alt: v > 0 ? `${size(v)} percentage points` : "no clear effect" };
   });
-  return { template: "home", headline: `Of the fast AI models we tested, ${E(top.engine)} shows the most bias`,
+  return { template: "home", headline: "How fast AI models change their decisions when a text changes who a person is",
     bars, rows: [], numberNote: "each model's largest bias, in percentage points" };
 }
 
@@ -149,20 +148,18 @@ function engineCard(en) {
   const rows = data.overall.rows;
   const i = rows.findIndex((r) => r.engine === en.id);
   const r = rows[i];
-  const placeText = i === 0 ? `Of the ${rows.length} models we tested, ${en.label} shows the most bias`
-    : `${en.label} ranks ${ordinal(i + 1)} of ${rows.length} models for bias, most biased first`;
+  const placeText = `${en.label}: how its decisions change when a text changes who a person is`;
   const detected = dimensions.filter((d) => d.cells[en.id].status === "measured" && d.cells[en.id].detected);
   const measured = dimensions.filter((d) => d.cells[en.id].status === "measured");
   if (!detected.length) {
-    return { template: "engine", headline: placeText, number: fmt(r.mean_rank), numberNote: `average place, most biased first, over ${r.ranked_on} characteristics`,
+    return { template: "engine", headline: placeText, number: "0", numberNote: `characteristics with a clear effect, of ${measured.length} tested`,
       rows: [{ engine: en.id, text: `No clear effect on any of ${measured.length} characteristics` }] };
   }
   const top = detected.map((d) => ({ d, c: d.cells[en.id] })).sort((a, b) => b.c.headline.value - a.c.headline.value)[0];
   const axes = measured.map((d) => ({ label: d.label, value: d.cells[en.id].detected ? d.cells[en.id].headline.value : 0 }));
   return { template: "engine", headline: placeText, spider: { engine: en.id, axes },
     numberNote: `largest bias: ${size(top.c.headline.value)} percentage points, on ${lower(top.d.label)}`,
-    rows: [{ engine: en.id, text: `${en.label}, average place ${fmt(r.mean_rank)}` },
-      { text: `A clear effect on ${detected.length} of ${measured.length} characteristics tested` }] };
+    rows: [{ engine: en.id, text: `A clear effect on ${detected.length} of ${measured.length} characteristics tested` }] };
 }
 
 function engineDimCard(en, dim) {
