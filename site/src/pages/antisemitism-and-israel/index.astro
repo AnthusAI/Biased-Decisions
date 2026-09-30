@@ -3,9 +3,13 @@ import Base from "../../layouts/Base.astro";
 import GazaStatusVisual from "../../components/GazaStatusVisual.astro";
 import ProbabilityStrip from "../../components/ProbabilityStrip.astro";
 import { pageIntroductions } from "../../lib/introductions.js";
-import { gazaStatus, unpublishedArms, controlledStatements, engineById, urls } from "../../lib/site.js";
+import { gazaStatus, unpublishedArms, controlledStatements, engineById, urls, jewishIsraelFindings } from "../../lib/site.js";
+import { fmt, signed, size } from "../../scripts/util.js";
 
 const intro = pageIntroductions.antisemitismIsrael;
+const F = jewishIsraelFindings();
+const name = (e) => engineById[e].label;
+const range = (lo, hi) => `95% range ${fmt(lo)} to ${fmt(hi)}`;
 ---
 <Base title={intro.title} description={intro.intro} path={`${urls.home()}antisemitism-and-israel/`} current={{ page: "antisemitism-israel" }}
   crumbs={[{ label: "Leaderboard", href: urls.home() }, { label: "Antisemitism, Israeli identity and anti-Israel claims" }]}>
@@ -13,6 +17,47 @@ const intro = pageIntroductions.antisemitismIsrael;
     <p class="kicker">Related studies</p>
     <h1 class="display xl">{intro.title}</h1>
     <p class="deck">{intro.intro}</p>
+  </section>
+
+  <section class="wrap section" id="findings" aria-labelledby="findings-h">
+    <h2 class="display" id="findings-h">What we found</h2>
+    <p class="lede">Four kinds of test. When a text says a person is Jewish, all three models lean slightly toward antisemitic stereotypes. When a loan application says its principal is Israeli, the models differ by a point or two from their average for all thirteen nationalities, in both directions, and each treats some other nationality least favourably.</p>
+    <ol class="findings">
+      <li>
+        <h3>Antisemitic stereotypes: a small, consistent lean in every model</h3>
+        <p>We add a phrase saying a person is Jewish and ask yes-or-no questions built on six documented stereotypes. The score is how much further that phrase pushes the model toward the stereotyped answer than the same phrase for Christian or Muslim people does.</p>
+        <ul>
+          {F.bios.map((b) => {
+            const l = F.loans.find((x) => x.engine === b.engine);
+            return <li><strong>{name(b.engine)}</strong> leans toward the stereotype on {b.clear} of {b.of} stereotypes in biographies, most on {b.label} (+{size(b.value)} points, {range(b.lo, b.hi)}){l ? <>; in loan narratives, most on {l.label} (+{size(l.value)} points)</> : null}.</li>;
+          })}
+        </ul>
+        <p class="note">These are shifts of a few percentage points in the model's answers. <a href={`${urls.home()}antisemitism/`}>Every stereotype, wording and model</a>.</p>
+      </li>
+      <li>
+        <h3>Occupation decisions: the answer moves, with no clear direction of harm</h3>
+        <p>Saying a biography's subject is Jewish moves which of two occupations the model picks.</p>
+        <ul>
+          {F.decisions.map((b) => <li><strong>{name(b.engine)}</strong> moves by up to {size(b.value)} points, most on {b.label} ({range(b.lo, b.hi)}), with a clear effect on {b.clear} of {b.of} decisions.</li>)}
+        </ul>
+        <p class="note">The choice is between two occupations such as surgeon and physician, so the move shows the model reacts to the phrase, not that it treats the person worse. <a href={urls.dim("antisemitism-decisions")}>Each decision</a>.</p>
+      </li>
+      <li>
+        <h3>Israeli nationality in lending: small differences, in both directions</h3>
+        <p>The same loan applications name the principal's nationality, one of thirteen. Compared with the average of all thirteen on the same applications:</p>
+        <ul>
+          {F.israeli.map((r) => <li><strong>{name(r.engine)}</strong> is {r.vsMean.mean_pts >= 0 ? "more" : "less"} confident in approving an Israeli principal by {size(Math.abs(r.vsMean.mean_pts))} points ({range(r.vsMean.ci_pts[0], r.vsMean.ci_pts[1])}).</li>)}
+        </ul>
+        <p class="note">Against the "keen cyclist" control, every nationality, Israeli included, lowers approval confidence, so that comparison mostly shows the effect of naming any nationality. The least favoured nationality is {F.palestinianLowest.map((r, i) => <>{i ? "; " : ""}{r.nationality.charAt(0).toUpperCase() + r.nationality.slice(1)} for {name(r.engine)} ({signed(r.value)})</>)}. <a href={`${urls.dim("nationality")}#nationality-lending-relative`}>All thirteen nationalities</a>.</p>
+      </li>
+      <li>
+        <h3>Direct statements: {F.claims.length ? "tested with controls" : "not yet tested with controls"}</h3>
+        {F.claims.length
+          ? <ul>{F.claims.map((c) => <li><strong>{name(c.engine)}</strong> rejects {c.rejects} of {c.n} claims (antisemitic, anti-Israel, Holocaust-distortion, and matched conspiracy claims about no group) and agrees with each one's reversal.</li>)}</ul>
+          : null}
+        <p class="note">Each statement is paired with a written reversal and asked in both option orders, so a model that agrees with everything is not mistaken for one that agrees with the claim. {["jev", "laya", "kev"].filter((e) => !F.claims.some((c) => c.engine === e)).map(name).join(" and ")} {F.claims.length < 3 ? "have not answered this version yet." : ""} <a href="#direct-statements">The statements and answers</a>.</p>
+      </li>
+    </ol>
   </section>
 
   <section class="wrap section" aria-labelledby="start-h">
