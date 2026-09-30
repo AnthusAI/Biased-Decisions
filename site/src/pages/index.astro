@@ -86,7 +86,7 @@ const kindWord = (k) => (k === "task" ? "decision" : k);
     <figure class="hero-fig">
       <figcaption>
         <span class="fig-t">Every effect we measured, on one scale</span>
-        <span class="fig-d">Each mark is one model's largest effect on one characteristic, beyond what the control edit did, shown with the range we are 95% sure the true value lies in. Select a characteristic's name for its results, or a mark for that model's details.</span>
+        <span class="fig-d">Each mark is one model's largest effect on one characteristic, beyond what the control edit did, shown with its 95% range. Select a characteristic's name for its results, or a mark for that model's details.</span>
       </figcaption>
       <div data-legend={engines.map((e) => e.id).join(",")}></div>
       <Chart id="hero" cls="chart-box hero-box" />

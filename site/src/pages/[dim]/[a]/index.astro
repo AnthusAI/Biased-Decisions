@@ -94,7 +94,7 @@ const shortlistFiles = dim.id === "gender" && item && shortlistBlock(item.id) ? 
   {!leaf && (
     <section class="wrap section" id="rows">
       <h2 class="display">Every {kind}, ranked</h2>
-      <p class="lede">Most biased first. Each row is one {kind}. Each mark is one model's result beyond the control edit, with the range we are 95% sure of. Filled: a clear effect. Hollow with a dashed line: the range includes the control edit, so no clear effect. Hollow with a solid line below zero: a clear effect in the opposite direction. Select a row for its full result.</p>
+      <p class="lede">Most biased first. Each row is one {kind}. Each mark is one model's result beyond the control edit, with the 95% range. Filled: a clear effect. Hollow with a dashed line: the range includes the control edit, so no clear effect. Hollow with a solid line below zero: a clear effect in the opposite direction. Select a row for its full result.</p>
       <div data-legend={measuredEngines.map((e) => e.id).join(",")}></div>
       <Chart id="forest" />
       <div class="table-scroll" tabindex="0" role="region" aria-label={`${title}: every ${kind}`}>
@@ -138,7 +138,7 @@ const shortlistFiles = dim.id === "gender" && item && shortlistBlock(item.id) ? 
     <section class="wrap section" id="measurements">
       <h2 class="display">Every model's result</h2>
       {measuredEngines.map((e) => <p class="lede plain">{cellSentence(dim, cell, e.id)}</p>)}
-      <p class="note">Numbers in brackets are the range we are 95% sure of.</p>
+      <p class="note">Numbers in brackets are the 95% range.</p>
       <FacetTable dim={dim} facets={leafFacets} facetKind="engine" caption={`${dim.label}, ${title}: every model`}
         rowId={(f) => f._engine} rowHref={(f) => urls.engineDim(f._engine, dim.id)} sources={false} />
       <h3>The real edit against the control edit</h3>

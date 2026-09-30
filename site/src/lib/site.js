@@ -330,9 +330,9 @@ function controlOf(f, u) {
 }
 export { controlOf };
 
-// The range we are 95% sure of, in words.
-export const sureBetween = (lo, hi) => `we are 95% sure the true figure is between ${fmt(lo)} and ${fmt(hi)}`;
-const range = (lo, hi, d = 2) => `95% sure: ${fmt(lo, d)} to ${fmt(hi, d)}`;
+// The 95% range, in words.
+export const sureBetween = (lo, hi) => `its 95% range is ${fmt(lo)} to ${fmt(hi)}`;
+const range = (lo, hi, d = 2) => `95% range: ${fmt(lo, d)} to ${fmt(hi, d)}`;
 
 export function verdictOf(f) {
   if (!f || f.status !== "measured") return { cls: "miss", text: "not measured" };
@@ -358,13 +358,13 @@ export function cellSentence(dim, cell, engineId) {
     const lead = `When a bio opened with ${q(x.clause.trim().replace(/,$/, ""))}, ${en} was`;
     const asked = `to answer ${ans} to ${q(item.question)}`;
     if (f.detected) return `${lead} ${fmt(f.raw.value)} percentage points more likely ${asked} than when the bio named ${others}. That is the answer the stereotype predicts, and ${sureBetween(f.raw.lo, f.raw.hi)}.`;
-    if (x.direction === "reverse") return `${lead} ${fmt(Math.abs(f.raw.value))} percentage points less likely ${asked} than when the bio named ${others}. That is the opposite of the stereotype. We are 95% sure the true difference is between ${fmt(f.raw.lo)} and ${fmt(f.raw.hi)} percentage points.`;
+    if (x.direction === "reverse") return `${lead} ${fmt(Math.abs(f.raw.value))} percentage points less likely ${asked} than when the bio named ${others}. That is the opposite of the stereotype. Its 95% range is ${fmt(f.raw.lo)} to ${fmt(f.raw.hi)} percentage points.`;
     return `${lead} about as likely ${asked} as when the bio named ${others}. The difference is between ${fmt(f.raw.lo)} and ${fmt(f.raw.hi)} percentage points, a range that includes zero, so there is no clear sign of the stereotype. We tested ${n}.`;
   }
   // An inserted clause ("A devout Muslim, ") is quoted; a whole-text version swap is described instead.
   if (x.signed_shift_pts !== undefined && x.floor_clause !== undefined && x.clause && /,\s*$/.test(x.clause)) {
     const lead = `With ${q(x.clause.trim().replace(/,$/, ""))} in place of ${q(x.floor_clause.trim().replace(/,$/, ""))}, ${en}'s confidence (its own probability) that the answer is ${q(x.positive)} ${x.signed_shift_pts < 0 ? "fell" : "rose"} by ${fmt(Math.abs(x.signed_shift_pts))} percentage points.`;
-    const range2 = `We are 95% sure the true move is between ${fmt(x.signed_ci[0])} and ${fmt(x.signed_ci[1])}`;
+    const range2 = `Its 95% range is ${fmt(x.signed_ci[0])} to ${fmt(x.signed_ci[1])}`;
     if (f.detected) return `${lead} ${range2}, so this is a clear effect. We tested ${n}.`;
     if (f.attributable) return `${lead} ${range2}, a range that includes zero, so this is not a clear effect. We tested ${n}.`;
     return `${lead} But every ${dim.breakdown.group_kind || "group"} moved about the same amount on this decision, so we cannot blame one ${dim.breakdown.group_kind || "group"}.`;
@@ -420,7 +420,7 @@ export function boardLead(board, dim) {
 export function describeDim(dim) {
   const bd = dim.breakdown;
   const rows = `${bd.groups.length > 1 ? `${bd.group_kind} and ` : ""}${kindWord(bd.item_kind)}`;
-  return `${dim.long}: how much each fast AI model changes its answers when we change only this detail, most biased first. ${boardLead(dim.board, dim)}. Results for every ${rows}, each with the range we are 95% sure of.`;
+  return `${dim.long}: how much each fast AI model changes its answers when we change only this detail, most biased first. ${boardLead(dim.board, dim)}. Results for every ${rows}, each with the 95% range.`;
 }
 
 export function describeLevel(dim, level) {
@@ -432,23 +432,33 @@ export function describeLevel(dim, level) {
     return first ? cellSentence(dim, cell, first.engine) : `${dim.long}, ${t}: not tested yet.`;
   }
   const rows = level.kind === "group" ? `every ${kindWord(dim.breakdown.item_kind)}` : multiGroup(dim) ? `every ${dim.breakdown.group_kind}` : "every model";
-  return `${dim.long}, ${t}: ${lead}. Results for ${rows}, with the range we are 95% sure of.`;
+  return `${dim.long}, ${t}: ${lead}. Results for ${rows}, with the 95% range.`;
 }
 
 export { fmt, signed, size };
 
 // The facet's own detail lines under its table row: every number the record carries beyond the
 // headline measurement.
+// A direction share: which way the changed answers leaned, with its 95% range, or a note that
+// too few answers changed to say.
+const MIN_FLIPS = 20;
+const lean = (pct, ci, n, what) => pct === null || pct === undefined ? null
+  : n < MIN_FLIPS ? `Only ${n} answers changed, too few to say which way they lean`
+  : `${what} ${fmt(pct, 1)} times in 100 (95% range ${fmt(ci[0], 1)} to ${fmt(ci[1], 1)}, from ${n} changed answers)`;
+
 export function extraLines(dim, f) {
   const x = f.extra || {};
   const out = [];
   const pp = (v, d = 2) => `${signed(v, d)} percentage points`;
-  if (x.direction_toward_more_female_pct !== undefined) out.push(`When the answer changed, it moved toward ${q((x.more_female_label || "").replace(/_/g, " "))} for the version that read as a woman ${fmt(x.direction_toward_more_female_pct, 1)} times in 100. Difference in how often it got the right answer for the two versions: ${pp(x.recall_gap_pts)}`);
-  if (x.direction_share_pct !== undefined) out.push(`Of the ${x.n_flips} changed answers, ${fmt(x.direction_share_pct, 1)} in 100 moved toward physician for the Black name`);
+  const g = lean(x.direction_toward_more_female_pct, x.direction_toward_more_female_ci, x.direction_toward_more_female_n,
+    `When the answer changed, it moved toward ${q((x.more_female_label || "").replace(/_/g, " "))} for the version that read as a woman`);
+  if (g) out.push(g);
+  const r = lean(x.direction_share_pct, x.direction_share_ci, x.direction_share_n, "When the answer changed, it moved toward physician for the Black name");
+  if (r) out.push(r);
   if (x.signed_shift_pts !== undefined && x.signed_ci) out.push(`Direction of the move${x.positive ? ` in its confidence in ${q(x.positive)}` : ""}: ${pp(x.signed_shift_pts)} (${range(x.signed_ci[0], x.signed_ci[1])})${x.flip_vs_floor_pct !== undefined ? `. Compared with the control edit, the answer itself changed on ${fmt(x.flip_vs_floor_pct)} of every 100 texts` : ""}`);
   if (x.floor_signed_shift_pts !== undefined) out.push(`The control edit alone moved it ${pp(x.floor_signed_shift_pts, 3)}`);
   if (x.all_sample) out.push(`Across all ${x.all_sample.n.toLocaleString("en-US")} bios: ${pp(x.all_sample.shift_pts, 3)} (${range(x.all_sample.ci[0], x.all_sample.ci[1], 3)}); the control edit ${pp(x.all_sample.floor_shift_pts, 3)}`);
-  if (x.shift_61_minus_34_pts !== undefined) out.push(`Its confidence in “surgeon” at 61 minus at 34: ${pp(x.shift_61_minus_34_pts)} (${range(x.shift_ci[0], x.shift_ci[1])}). Changing 61 to 62, a control edit, changed the answer on ${fmt(x.floor_61_62_flip_pct)} of every 100 bios. When the answer changed, it called the older version “surgeon” ${fmt(x.direction_older_to_surgeon_pct, 1)} times in 100`);
+  if (x.shift_61_minus_34_pts !== undefined) out.push(`Its confidence in “surgeon” at 61 minus at 34: ${pp(x.shift_61_minus_34_pts)} (${range(x.shift_ci[0], x.shift_ci[1])}). Changing 61 to 62, a control edit, changed the answer on ${fmt(x.floor_61_62_flip_pct)} of every 100 bios.${x.direction_older_to_surgeon_n >= MIN_FLIPS ? ` When the answer changed, it called the older version “surgeon” ${fmt(x.direction_older_to_surgeon_pct, 1)} times in 100 (95% range ${fmt(x.direction_older_to_surgeon_ci[0], 1)} to ${fmt(x.direction_older_to_surgeon_ci[1], 1)}, from ${x.direction_older_to_surgeon_n} changed answers)` : ` Only ${x.direction_older_to_surgeon_n} answers changed, too few to say which way they lean`}`);
   if (x.versions) out.push(Object.entries(x.versions).map(([r, v]) => `${cap(r)}: ${pp(v.shift_pts)} (${range(v.ci[0], v.ci[1])})`).join(" · "));
   if (x.shared_clause_pts !== undefined && x.shared_clause_pts !== null && x.shared_clause_ci) out.push(`Naming any ${dim.breakdown.group_kind || "group"} at all moved it ${pp(x.shared_clause_pts)} (${range(x.shared_clause_ci[0], x.shared_clause_ci[1])}). The ${plural(dim.breakdown.group_kind || "group")} differ from each other by up to ${fmt(x.spread_pts)}`);
   if (x.gender_flip_committed_pct !== undefined) out.push(`How often the answer changes when the pronouns swap: ${fmt(x.gender_flip_committed_pct)} of every 100 with the options in the usual order, ${fmt(x.gender_flip_reversed_pct)} with them reversed`);

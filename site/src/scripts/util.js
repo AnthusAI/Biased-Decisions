@@ -93,8 +93,8 @@ export const VERDICT_WORDS = {
   rev: "opposite of the stereotype",
 };
 export const VERDICT_WHY = {
-  det: "The range we are 95% sure of stays above the control edit, so this is not chance.",
-  nd: "The range we are 95% sure of includes the control edit, so we cannot tell this from chance.",
+  det: "The 95% range stays above the control edit, so this is unlikely to be chance.",
+  nd: "The 95% range includes the control edit, so we cannot tell this from chance.",
   miss: "This model was not tested here. It is shown as missing, never as zero.",
   un: "Every group moved the answer about the same amount, so we cannot blame this one group.",
   rev: "The model moved away from the stereotype, and the range stays below zero.",

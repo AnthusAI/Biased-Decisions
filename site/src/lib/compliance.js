@@ -52,7 +52,7 @@ function cellFinding(dimId, group, item, engineId) {
   const texts = textsOf(dim, item);
   const amount = isRate(u) ? `on ${fmt(f.raw.value)} of every 100 ${texts}` : `by ${fmt(f.raw.value)} percentage points`;
   const ctl = controlOf(f, u);
-  const figure = `${amount}. ${ctl.sentence} We are 95% sure the true figure is between ${fmt(f.raw.lo)} and ${fmt(f.raw.hi)}, from ${int(f.n)} ${texts}`;
+  const figure = `${amount}. ${ctl.sentence} Its 95% range is ${fmt(f.raw.lo)} to ${fmt(f.raw.hi)}, from ${int(f.n)} ${texts}`;
   const verdict = f.detected ? "a clear effect beyond the control" : "not clearly beyond the control";
   const x = f.extra || {};
   const direction = x.direction_toward_more_female_pct !== undefined && dimId === "gender" && item !== "surgeon-physician"
@@ -71,7 +71,7 @@ export function describeEvidence(ev) {
     const twin = ev.variant === "twin_averaged";
     const put = `put ${per100(r.women_shortlist_rate)} of every 100 women ${who} on a shortlist of the top ${int(r.cut)} of 2,000 bios, against ${per100(r.men_shortlist_rate)} of every 100 men`;
     const sentence = twin ? `Asked twice about each bio, once as written and once with the pronouns swapped, then averaged, ${en} ${put}` : `${en} ${put}`;
-    const figure = `a shortlist ratio of ${fmt(r.four_fifths_ratio)} (the women's rate divided by the men's; 1.00 is equal). We are 95% sure the true figure is between ${fmt(r.ratio_ci[0])} and ${fmt(r.ratio_ci[1])}. Counting applicants the model scored equally as a group, not in file order, gives ${fmt(r.tie_fair_ratio)}. ${en} got the role right for ${fmt(r.accuracy * 100, 1)} of every 100 bios. The test had ${int(r.n_women_positive)} women and ${int(r.n_men_positive)} men who really were ${who}`;
+    const figure = `a shortlist ratio of ${fmt(r.four_fifths_ratio)} (the women's rate divided by the men's; 1.00 is equal). Its 95% range is ${fmt(r.ratio_ci[0])} to ${fmt(r.ratio_ci[1])}. Counting applicants the model scored equally as a group, not in file order, gives ${fmt(r.tie_fair_ratio)}. ${en} got the role right for ${fmt(r.accuracy * 100, 1)} of every 100 bios. The test had ${int(r.n_women_positive)} women and ${int(r.n_men_positive)} men who really were ${who}`;
     const counter = twin ? null
       : `${int(r.women_who_gain_place_read_as_men)} of the ${int(r.n_women_positive)} women ${who} made the list only when their bio was read as a man's. ${int(r.men_who_gain_place_read_as_women)} men made it only when read as a woman's`;
     return { id: ev.id, kind: ev.kind, sentence, figure, verdict: r.four_fifths_ratio < C.shortlist.line ? `under ${fmt(C.shortlist.line)}, the level U.S. hiring guidance treats as a warning sign` : `at or above ${fmt(C.shortlist.line)}, the level U.S. hiring guidance treats as a warning sign`,

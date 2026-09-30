@@ -51,7 +51,7 @@ const uOf = (d, h) => (h && h.raw && h.raw.unit) || unit(d);
     <h2 class="display">Every result</h2>
     <p class="lede">{measuredDims.length === 0
       ? `No results are available because we have not yet tested ${en.label}. This page will show each characteristic when measurements are available.`
-      : <Fragment>{en.label}'s largest effect on each characteristic, beyond the control edit, on one scale from 0 to {stripMax} percentage points. The vertical line is the control edit. Each result is shown with the range we are 95% sure the true value lies in. Select a characteristic for {en.label}'s full results on it.</Fragment>}</p>
+      : <Fragment>{en.label}'s largest effect on each characteristic, beyond the control edit, on one scale from 0 to {stripMax} percentage points. The vertical line is the control edit. Each result is shown with its 95% range. Select a characteristic for {en.label}'s full results on it.</Fragment>}</p>
     <ol class="eng-cells">
       {measuredDims.map((d) => {
         const c = d.cells[en.id];

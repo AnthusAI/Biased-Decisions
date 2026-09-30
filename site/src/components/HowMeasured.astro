@@ -17,7 +17,7 @@ const files = [...new Set([...measured.flatMap((f) => filesOf(f)), ...extra])].s
 ---
 <section class="wrap section how-measured" id="how-measured">
   <h2 class="display sm">How we measured this</h2>
-  {resampled && <p>Each number in brackets is a range. We repeated the measurement 1,000 times on random re-draws of the texts, and the range covers the middle 95 of every 100 results: the range we are 95% sure of. The re-draws start from the same fixed point (seed 0), so running them again gives the same range.</p>}
+  {resampled && <p>Each number in brackets is a range. We repeated the measurement 1,000 times on random re-draws of the texts, and the range covers the middle 95 of every 100 results: the 95% range. The re-draws start from the same fixed point (seed 0), so running them again gives the same range.</p>}
   {wilson && <p>For a few results the saved answers hold only a count, not each answer. There the range comes from a standard formula for a share, the Wilson interval.</p>}
   {other.length > 0 && <p>Other ranges on this page: {other.map((m, i) => <Fragment>{i ? "; " : ""}<code>{m}</code></Fragment>)}.</p>}
   {builds.length > 0 && <p>Which build of the model gave the results on this page: {builds.join("; ")}. Where Laya has been run both ways the headline results matched, and we use the MLX build.</p>}

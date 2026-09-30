@@ -97,7 +97,7 @@ probabilities: { paralegal: 0.69, attorney: 0.31 }`}</code></pre>
 
   <section class="wrap section" id="clear-effect" aria-labelledby="step3-h">
     <h2 class="display" id="step3-h">A clear effect, or no clear effect</h2>
-    <p class="lede">No result is exact, so each comes with a range: the values we are 95% sure the true one lies in.</p>
+    <p class="lede">No result is exact, so each comes with a 95% range: the middle 95 of every 100 results when we re-draw the texts we tested. It shows how much a number depends on which texts were tested; it does not cover the wording of the phrase or the version of the model.</p>
     <dl class="defs">
       <div><dt>A clear effect</dt><dd>We compare the edit's effect with the control edit's effect on the same texts and call it clear only when the difference's 95% range excludes zero; where the control was measured on a different set of texts, we require the edit's whole range to lie above the control's whole range.</dd></div>
       <div id="no-clear-effect"><dt>No clear effect</dt><dd>The range touches the control edit's result. At this size, the test cannot tell the effect from chance. We give the number of texts tested.</dd></div>

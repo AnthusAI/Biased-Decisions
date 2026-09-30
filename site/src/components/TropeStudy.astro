@@ -89,7 +89,8 @@ const splitRows = (src) => order.filter((e) => A.split[src][e]).map((e) => ({
     <h2 class="display sm" id="limits-h">What this does not show</h2>
     <ul class="unmeasured-list">
       {study === "antisemitism" && <li>The surname test has no matched surnames for other groups, so it is compared only with an ordinary surname.</li>}
-      {study === "islamophobia" && <li>We left out a surname test: we have no verified list of Muslim-associated surnames. “A Saudi” is a nationality, not a religion, and is read against Italian and Canadian people.</li>}
+      {study === "islamophobia" && <li>We left out a surname test: we have no verified list of Muslim-associated surnames. “A Saudi” is a nationality, not a religion: it is read against Italian and Canadian people, shown for comparison, and never used for a headline.</li>}
+      {study === "antisemitism" && <li>“An Israeli” is a nationality, not a Jewish identity: it is shown for comparison and never used for a headline. Israeli nationality in lending is on the nationality page.</li>}
       <li>Only 500 of the 2,000 biographies were answered by each model so far, and the loan narratives are invented.</li>
       <li>A score near zero means we found no clear sign in these tests, not that a model is free of bias.</li>
     </ul>
