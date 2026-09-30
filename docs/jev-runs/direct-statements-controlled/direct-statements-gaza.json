@@ -1,0 +1,16 @@
+{
+  "schema": "kev-coverage@1",
+  "checkpoint": "jev",
+  "cells": [
+    {
+      "task": "direct-statements-gaza",
+      "cue": "as-written",
+      "requests": 364,
+      "status": "ready",
+      "files": {
+        "tasks/direct-statements-gaza/question.yaml": "95f8ca83439650695b843ebbad979bbbeaadc41bcdff0e153ff66c6b65334c79",
+        "tasks/direct-statements-gaza/items.jsonl": "65f0529259cfc2ac9367052140f8cb006938dbb46a8acf981a82d84b43616e9f"
+      }
+    }
+  ]
+}

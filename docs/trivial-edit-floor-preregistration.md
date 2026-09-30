@@ -132,3 +132,7 @@ ask-twice pattern but report only over touched bios: load answers for the base c
 (gender-pronouns) and for trivial-edit on the 8,183 bios the rule touched, compute flip rate 
 (how many reversed), and report with 95% bootstrap interval and coverage. See `/scoring.py` 
 for a TODO comment marking the pending work.
+
+## Deviations
+
+- 2026-09-30, before any answer: a bio the edit rule does not touch is the same text again, so it is not sent to the model. The versions file still lists every held-out bio (M in "X% (N=M)"), and the floor is computed over the touched bios, as planned above. Jev: 8,183 requests across the seven tasks.
