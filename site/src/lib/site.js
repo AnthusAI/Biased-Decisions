@@ -563,3 +563,25 @@ export function largestBias(engineId) {
 export const NON_HIRING_ITEMS = ["qpain-treatment", "civil-comments-moderation", "tenant-inquiry-viewing",
   "small-business-loan", "cfpb-escalate-servicemember", "cfpb-escalate-older", "cfpb-escalate-family"];
 export const isNonHiring = (level) => !!(level && level.item && NON_HIRING_ITEMS.includes(level.item));
+
+// The Jewish & Israel page's summary: what each related study found, per model, read straight
+// from the boards so its numbers always match the detail pages.
+export function jewishIsraelFindings() {
+  const dim = (id) => allDimensions.find((d) => d.id === id);
+  const order = ["jev", "laya", "kev"];
+  const board = (id) => order.map((e) => ({ engine: e, cell: dim(id).cells[e] }))
+    .filter(({ cell }) => cell.status === "measured")
+    .map(({ engine, cell }) => ({ engine, detected: cell.detected, value: cell.headline.value, lo: cell.headline.lo, hi: cell.headline.hi,
+      label: cell.headline.facet_label, clear: cell.n_facets_detected, of: cell.n_facets }));
+  const lp = data.loan_pairs || {};
+  const israeli = order.filter((e) => lp[e]).map((e) => ({ engine: e, vsMean: lp[e].vs_all_mean.israeli, vsControl: lp[e].vs_control.israeli }));
+  const palestinianLowest = order.filter((e) => lp[e]).map((e) => {
+    const [nat, v] = Object.entries(lp[e].vs_all_mean).sort((a, b) => a[1].mean_pts - b[1].mean_pts)[0];
+    return { engine: e, nationality: nat, value: v.mean_pts };
+  });
+  const claims = (data.controlled_statements?.arms || []).filter((a) => a.id === "direct-statements-claims")
+    .map((a) => ({ engine: a.engine, shown: a.pairs.filter((p) => p.shown).length, n: a.pairs.length,
+      rejects: a.pairs.filter((p) => p.shown && p.stance < 0).length }));
+  return { bios: board("antisemitic-stereotypes"), loans: board("antisemitic-stereotypes-loan-narratives"),
+    decisions: board("antisemitism-decisions"), israeli, palestinianLowest, claims };
+}
