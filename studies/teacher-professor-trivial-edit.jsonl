@@ -1,1 +1,3 @@
 {"engine": "jev", "task": "teacher-professor", "n": 1067, "flip_pct": 1.5, "mean_abs_dp": 0.0258, "max_abs_dp": 0.42}
+{"engine": "laya", "task": "teacher-professor", "n": 1067, "flip_pct": 2.06, "mean_abs_dp": 0.0166, "max_abs_dp": 0.2999}
+{"engine": "kev", "task": "teacher-professor", "n": 1067, "flip_pct": 1.03, "mean_abs_dp": 0.0129, "max_abs_dp": 0.1239}

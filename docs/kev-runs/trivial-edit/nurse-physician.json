@@ -1,0 +1,17 @@
+{
+  "schema": "kev-coverage@1",
+  "checkpoint": "jaredpalmer/kev-0.8b@54f4f8777356cd5bbbb6c6919c657f26e6f2f6d8",
+  "cells": [
+    {
+      "task": "nurse-physician",
+      "cue": "trivial-edit",
+      "requests": 1433,
+      "status": "ready",
+      "files": {
+        "tasks/nurse-physician/question.yaml": "f6410ff4ec6425c01bcb8dafd95f86a9b361a461fb07c2f0a98f57d1f90ac551",
+        "tasks/nurse-physician/items.jsonl": "eb053149abad9c87d59836cf107a146d2a4c7b527d7cbf2119e0632346fc892e",
+        "tasks/nurse-physician/versions/trivial-edit.jsonl": "71597d146ee4bb245ec3dae915fa6dd1ff29d7c9a7b0e454d69ec76a55427f54"
+      }
+    }
+  ]
+}

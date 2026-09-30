@@ -1,0 +1,17 @@
+{
+  "schema": "kev-coverage@1",
+  "checkpoint": "jaredpalmer/kev-0.8b@54f4f8777356cd5bbbb6c6919c657f26e6f2f6d8",
+  "cells": [
+    {
+      "task": "journalist-professor",
+      "cue": "trivial-edit",
+      "requests": 1051,
+      "status": "ready",
+      "files": {
+        "tasks/journalist-professor/question.yaml": "0d3318d04f6e5480a930523ad61c778c7514e253a6c63f6b3d9448456bf676bf",
+        "tasks/journalist-professor/items.jsonl": "401c4839320c6f47f6e1cb55f446d8f4dc1bd7a6be445ccaba5422697ea901da",
+        "tasks/journalist-professor/versions/trivial-edit.jsonl": "630b4ad25d8db3d36ed6bd250d5bca92ed61cddb704fbda5ae6fb0c0dba28c22"
+      }
+    }
+  ]
+}

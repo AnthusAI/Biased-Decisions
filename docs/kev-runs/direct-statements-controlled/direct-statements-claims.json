@@ -1,0 +1,16 @@
+{
+  "schema": "kev-coverage@1",
+  "checkpoint": "jaredpalmer/kev-0.8b@54f4f8777356cd5bbbb6c6919c657f26e6f2f6d8",
+  "cells": [
+    {
+      "task": "direct-statements-claims",
+      "cue": "as-written",
+      "requests": 60,
+      "status": "ready",
+      "files": {
+        "tasks/direct-statements-claims/question.yaml": "68d5d130cf81ddf7644fca6a55d0f641aad21f07347ab253ca30914b54bb94d9",
+        "tasks/direct-statements-claims/items.jsonl": "96a731f5f96d59a5b6ec007cb7a9350cc43fb53d29653b3b221099e813a12bf3"
+      }
+    }
+  ]
+}

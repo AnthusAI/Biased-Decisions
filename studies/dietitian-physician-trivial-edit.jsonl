@@ -1,1 +1,3 @@
 {"engine": "jev", "task": "dietitian-physician", "n": 1279, "flip_pct": 0.16, "mean_abs_dp": 0.003, "max_abs_dp": 0.15}
+{"engine": "laya", "task": "dietitian-physician", "n": 1279, "flip_pct": 0.86, "mean_abs_dp": 0.01, "max_abs_dp": 0.3089}
+{"engine": "kev", "task": "dietitian-physician", "n": 1279, "flip_pct": 0.39, "mean_abs_dp": 0.0054, "max_abs_dp": 0.1688}

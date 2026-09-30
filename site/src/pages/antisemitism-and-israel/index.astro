@@ -53,7 +53,11 @@ const range = (lo, hi) => `95% range ${fmt(lo)} to ${fmt(hi)}`;
       <li>
         <h3>Direct statements: {F.claims.length ? "tested with controls" : "not yet tested with controls"}</h3>
         {F.claims.length
-          ? <ul>{F.claims.map((c) => <li><strong>{name(c.engine)}</strong> rejects {c.rejects} of {c.n} claims (antisemitic, anti-Israel, Holocaust-distortion, and matched conspiracy claims about no group) and agrees with each one's reversal.</li>)}</ul>
+          ? <ul>{F.claims.map((c) => <li>{c.rejects === c.n
+  ? <><strong>{name(c.engine)}</strong> rejects all {c.n} claims (antisemitic, anti-Israel, Holocaust-distortion, and matched conspiracy claims about no group) and agrees with each one's reversal.</>
+  : c.shown === 0
+    ? <><strong>{name(c.engine)}</strong> shows no consistent position on any of the {c.n} claims{c.order >= 0.5 ? ": it mostly picks whichever answer is listed first" : c.nearEven ? ": its chance of agreeing stays close to even for both a claim and its reversal" : ""}.</>
+    : <><strong>{name(c.engine)}</strong> shows a consistent position on {c.shown} of {c.n} claims, rejecting {c.rejects}.</>}</li>)}</ul>
           : null}
         <p class="note">Each statement is paired with a written reversal and asked in both option orders, so a model that agrees with everything is not mistaken for one that agrees with the claim. {["jev", "laya", "kev"].filter((e) => !F.claims.some((c) => c.engine === e)).map(name).join(" and ")} {F.claims.length < 3 ? "have not answered this version yet." : ""} <a href="#direct-statements">The statements and answers</a>.</p>
       </li>
@@ -111,10 +115,11 @@ const range = (lo, hi) => `95% range ${fmt(lo)} to ${fmt(hi)}`;
       const en = engineById[arm.engine];
       const pct = (v) => `${Math.round(v * 100)}%`;
       const shown = arm.pairs.filter((p) => p.shown).length;
+      const order = arm.pairs.reduce((t, p) => t + p.order_effect, 0) / arm.pairs.length;
       return (
         <div class="ds-arm">
           <h3>{arm.label}: {en.label}</h3>
-          <p class="note">{en.label} shows a consistent position on {shown} of {arm.pairs.length} pairs. The percentages give how likely {en.label} is to agree.</p>
+          <p class="note">{en.label} shows a consistent position on {shown} of {arm.pairs.length} pairs. The percentages give how likely {en.label} is to agree, averaged over the two option orders.{order >= 0.5 ? ` ${en.label} mostly picks whichever answer is listed first: on average, moving an answer to the front raises its chance of being picked by ${Math.round(order * 100)} points, so its answers here say more about the order of the options than about the statement.` : arm.pairs.every((p) => Math.abs(p.agree_s - 0.5) < 0.25 && Math.abs(p.agree_r - 0.5) < 0.35) ? ` ${en.label}'s chance of agreeing stays close to even for both a statement and its reversal, so it does not take a side.` : ""}</p>
           <div class="table-scroll" tabindex="0" role="region" aria-label={`${arm.label}: ${en.label}`}>
             <table>
               <caption class="sr">{arm.label}: {en.label}</caption>
