@@ -1,0 +1,25 @@
+{
+  "id": "BD-2226b2dc-849d-4be8-8dd7-a88a3edf30cc",
+  "title": "Pre-register the calibrated nationality loan study",
+  "description": "After calibration and before any nationality version is run: commit docs/nationality-calibrated-loan-preregistration.md with the chosen rungs per engine, the versions (13 nationalities plus a no-mention version), the decision rule (approve when p >= 0.5), the flip measures and their bootstrap, and a written prediction per engine and band.",
+  "type": "sub-task",
+  "status": "open",
+  "priority": 1,
+  "assignee": null,
+  "creator": null,
+  "parent": "BD-bcbce35b-399d-4248-bed9-5b7fa3b753ba",
+  "labels": [],
+  "dependencies": [],
+  "comments": [],
+  "created_at": "2026-09-28T18:40:20.518030Z",
+  "updated_at": "2026-09-28T18:40:20.518064Z",
+  "closed_at": null,
+  "agent": {
+    "platform": "claude_code",
+    "model": "Claude Opus 5.5",
+    "name": "Project Assessment"
+  },
+  "right_now_summary": null,
+  "right_now_updated_at": null,
+  "custom": {}
+}

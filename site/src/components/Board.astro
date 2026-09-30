@@ -3,7 +3,7 @@
 // (listed with n, never ranked), and the engines never measured here (named, never zero).
 import Chart from "./Chart.astro";
 import EngineName from "./EngineName.astro";
-import { engineById, fmt, int, signed } from "../lib/site.js";
+import { engineById, fmt, int, signed, size } from "../lib/site.js";
 import { kindNames, unitText } from "../scripts/util.js";
 
 const { board, heads, unit, facetKind, chartId, hrefFor, heading = "The ranking: most biased model first", level = "h2", lede = null,
@@ -37,7 +37,7 @@ const u = unitText(unit);
             <li>
               <EngineName engine={engineById[r.engine]} href={hrefFor(r.engine)} />
               <span class="nd-n">{int(r.n)} texts tested{r.n_facets > 1 ? ` (the largest of ${r.n_facets} ${kindNames(facetKind)})` : ""}.</span>
-              <span class="nd-v">After the edit {fmt(hd.raw.value)}{u} [{fmt(hd.raw.lo)}, {fmt(hd.raw.hi)}], control edit {fmt(hd.floor_value)}{u}; beyond the control edit {signed(r.value)} percentage points [{fmt(r.lo)}, {fmt(r.hi)}]{r.direction ? `; it became ${r.direction.phrase}` : ""}.</span>
+              <span class="nd-v">After the edit {fmt(hd.raw.value)}{u} [{fmt(hd.raw.lo)}, {fmt(hd.raw.hi)}], control edit {fmt(hd.floor_value)}{u}; beyond the control edit {size(r.value)} percentage points [{fmt(r.lo)}, {fmt(r.hi)}]{r.direction ? `; it became ${r.direction.phrase}` : ""}.</span>
             </li>
           );
         })}

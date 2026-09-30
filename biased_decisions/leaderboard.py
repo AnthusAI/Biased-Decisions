@@ -2996,6 +2996,15 @@ def release_info(root: Path = DEFAULT_ROOT) -> dict:
             "url": None, "label": "unreleased"}
 
 
+def _loan_pairs(root: Path) -> dict:
+    """Load the loan pairs study (vs_control, vs_all_mean, pairs, bands) keyed by engine."""
+    path = root / "studies" / "small-business-loan-owner-nationality-axis-pairs.jsonl"
+    if not path.exists():
+        return {}
+    rows = {row["engine"]: row for row in _read_jsonl(path)}
+    return rows
+
+
 def generate_json(root: Path = DEFAULT_ROOT, *, date: Optional[str] = None) -> dict:
     store = Store(root)
     prereg = Prereg(root)
@@ -3035,6 +3044,7 @@ def generate_json(root: Path = DEFAULT_ROOT, *, date: Optional[str] = None) -> d
         "antisemitism": _trope_study_summary(root, "antisemitism"),
         "islamophobia": _trope_study_summary(root, "islamophobia"),
         "china": _china_summary(root),
+        "loan_pairs": _loan_pairs(root),
         "honesty": HONESTY,
         "vocabulary": VOCABULARY,
         "compliance": build_compliance(root, dimensions, floors, prereg),

@@ -27,3 +27,12 @@ test("the Gaza study identifies all three measured models and records", () => {
   assert.match(html, /class="probability-strip"/);
   assert.doesNotMatch(html, /Strongly agree: 0\.\d{4} · Somewhat agree/);
 });
+
+test("the nationality page keeps complete and legacy studies distinct", () => {
+  const html = readFileSync(new URL("../dist/nationality/index.html", import.meta.url), "utf8");
+
+  assert.match(html, /Lending decisions: all thirteen nationalities/);
+  assert.match(html, /Stereotype questions: all thirteen nationalities/);
+  assert.match(html, /Earlier stereotype questions: seven nationalities/);
+  assert.doesNotMatch(html, /Israeli, greed: not tested/);
+});
