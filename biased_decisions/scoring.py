@@ -438,6 +438,10 @@ def score_trivial_edit(engine: str, task: Task) -> dict:
     touched = {row["id"] for row in (json.loads(line) for line in versions.read_text(encoding="utf-8").split("\n")
                                      if line.strip()) if row["metadata"].get("swapped", 0) > 0}
     second = {i[:-len(suffix)]: cell(a) for i, a in edited.items() if i.endswith(suffix) and i in touched}
+    # Where the same run also asked each original bio (so both texts went through one prompt
+    # format), compare against those; otherwise against the gender-pronouns record's originals.
+    if any(i in edited for i in second):
+        first = {i: edited[i] for i in second if i in edited}
     ids = [i for i in sorted(second) if i in first]
     metrics = insertion_metrics.score_ask_twice(
         engine=engine, task=task.slug, ids=ids, first={i: cell(first[i]) for i in ids}, second=second)

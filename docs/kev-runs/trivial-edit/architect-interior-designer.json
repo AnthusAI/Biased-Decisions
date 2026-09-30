@@ -1,0 +1,17 @@
+{
+  "schema": "kev-coverage@1",
+  "checkpoint": "jaredpalmer/kev-0.8b@54f4f8777356cd5bbbb6c6919c657f26e6f2f6d8",
+  "cells": [
+    {
+      "task": "architect-interior-designer",
+      "cue": "trivial-edit",
+      "requests": 800,
+      "status": "ready",
+      "files": {
+        "tasks/architect-interior-designer/question.yaml": "d570c1180f8dd517b19fe1851e63172e16269fd4606c660eca159241bfde7289",
+        "tasks/architect-interior-designer/items.jsonl": "123412aaca458bea4a1d1e12f6a5c403ace8d3aa60c443ec483f673515d4f3c7",
+        "tasks/architect-interior-designer/versions/trivial-edit.jsonl": "6b8cab6a5c80e4280b8fa40ebfe2c65be2777e21101acf47d92af6620e761233"
+      }
+    }
+  ]
+}
