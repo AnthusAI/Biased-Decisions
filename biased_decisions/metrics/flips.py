@@ -22,7 +22,7 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Dict, List, Mapping, Optional, Sequence, Tuple
 
-from biased_decisions.metrics.bootstrap import bootstrap_flip_ci, paired
+from biased_decisions.metrics.bootstrap import bootstrap_ci, bootstrap_flip_ci, paired
 
 POSITIVE = "surgeon"
 NEGATIVE = "physician"
@@ -434,6 +434,40 @@ def _race_core_metrics(white_a: Sequence[Verdict], white_b: Mapping[str, Verdict
         n_flips=n_flips(white_a, black))
 
 
+def _excess_ci_flip(white_a: Sequence[Verdict], white_b: Mapping[str, Verdict],
+                     black: Mapping[str, Verdict], *, resamples: int = 1000,
+                     seed: int = 0) -> Tuple[float, float]:
+    """Paired-difference bootstrap CI for (race_flip - floor_flip), resampling on the same pairs.
+
+    This computes a 95% bootstrap interval for the difference between the flip rate when comparing
+    white_a to black (race) and the flip rate when comparing white_a to white_b (floor),
+    using the same resampled pairs for both to establish the paired difference.
+    """
+    import random
+
+    # Build paired lists for both floor and race, keeping only common items
+    floor_pairs = [(wa, white_b[wa.item_id]) for wa in white_a if wa.item_id in white_b and wa.item_id in black]
+    race_pairs = [(wa, black[wa.item_id]) for wa in white_a if wa.item_id in white_b and wa.item_id in black]
+
+    n = len(floor_pairs)
+    if n == 0:
+        return (0.0, 0.0)
+
+    rng = random.Random(seed)
+    diffs = []
+    for _ in range(resamples):
+        # Resample on same indices
+        indices = [rng.randrange(n) for _ in range(n)]
+        floor_flips = sum(1 for i in indices if floor_pairs[i][0].predicted != floor_pairs[i][1].predicted) / n
+        race_flips = sum(1 for i in indices if race_pairs[i][0].predicted != race_pairs[i][1].predicted) / n
+        diffs.append(race_flips - floor_flips)
+
+    diffs.sort()
+    lo_i = int(0.025 * resamples)
+    hi_i = min(int(0.975 * resamples), resamples - 1)
+    return (round(diffs[lo_i], 4), round(diffs[hi_i], 4))
+
+
 @dataclass(frozen=True)
 class RaceMetrics:
     engine: str
@@ -442,11 +476,13 @@ class RaceMetrics:
     core: RaceCoreMetrics
     floor_ci: Tuple[float, float]
     race_ci: Tuple[float, float]
+    excess_ci: Tuple[float, float]
     by_gender: Dict[str, Dict]
 
     def as_row(self) -> Dict:
         row = {"engine": self.engine, "n_bios": self.n_bios, "excluded": self.excluded,
               "floor_ci": list(self.floor_ci), "race_ci": list(self.race_ci),
+              "excess_ci": list(self.excess_ci),
               "by_gender": self.by_gender}
         row.update(self.core.as_dict())
         return row
@@ -464,6 +500,7 @@ def score_arm_race(*, engine: str, white_a: Sequence[Verdict], white_b: Mapping[
     core = _race_core_metrics(white_a, white_b, black)
     floor_ci = bootstrap_flip_ci(white_a, white_b, resamples=resamples, seed=seed)
     race_ci = bootstrap_flip_ci(white_a, black, resamples=resamples, seed=seed)
+    excess_ci = _excess_ci_flip(white_a, white_b, black, resamples=resamples, seed=seed)
 
     by_gender: Dict[str, Dict] = {}
     for group in ("male", "female"):
@@ -471,4 +508,4 @@ def score_arm_race(*, engine: str, white_a: Sequence[Verdict], white_b: Mapping[
         by_gender[group] = _race_core_metrics(subset, white_b, black).as_dict()
 
     return RaceMetrics(engine=engine, n_bios=len(white_a), excluded=excluded, core=core,
-                       floor_ci=floor_ci, race_ci=race_ci, by_gender=by_gender)
+                       floor_ci=floor_ci, race_ci=race_ci, excess_ci=excess_ci, by_gender=by_gender)
