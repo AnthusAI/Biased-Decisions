@@ -209,6 +209,9 @@ def test_race_fullname_matches_bios_race2(engine, sample):
     task = load_task("surgeon-physician")
     row = score(engine, task, "race-fullname", sample=sample)
     published = _one("bios_race2.jsonl", engine=OLD_ENGINE[engine], sample=sample)
+    # excess_ci is new here (the paired detection rule); the old study never had it.
+    row = {**row, "groups": {g: {k: v for k, v in cell.items() if k != "excess_ci"}
+                             for g, cell in row["groups"].items()}}
     _assert_same(row, published, RACE2_FIELDS)
 
 
