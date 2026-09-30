@@ -1,1 +1,3 @@
 {"engine": "jev", "task": "paralegal-attorney", "n": 1181, "flip_pct": 1.86, "mean_abs_dp": 0.0152, "max_abs_dp": 0.39}
+{"engine": "laya", "task": "paralegal-attorney", "n": 1181, "flip_pct": 2.03, "mean_abs_dp": 0.0178, "max_abs_dp": 0.252}
+{"engine": "kev", "task": "paralegal-attorney", "n": 1181, "flip_pct": 1.1, "mean_abs_dp": 0.011, "max_abs_dp": 0.3092}

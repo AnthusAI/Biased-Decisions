@@ -135,11 +135,12 @@ for a TODO comment marking the pending work.
 
 ## Deviations
 
+- 2026-09-30, before Laya answered: Laya's gender-pronouns record came from an earlier harness whose prompt differs from the current one (a check showed the same model giving different probabilities for the same bio), so in Laya's run each touched bio is asked both as written and edited, and Laya's floor compares those two answers. Jev and Kev compare against their gender-pronouns records, which used the current prompt.
 - 2026-09-30, before any answer: a bio the edit rule does not touch is the same text again, so it is not sent to the model. The versions file still lists every held-out bio (M in "X% (N=M)"), and the floor is computed over the touched bios, as planned above. Jev: 8,183 requests across the seven tasks.
 
 ## Outcome (scored 2026-09-30)
 
-Jev (`jev-1.13.0`) answered the touched bios on all seven tasks: 8,183 of 13,898 held-out bios. Laya and Kev have not answered.
+Jev (`jev-1.13.0`), Laya (`laya-upstream:0.3.7`) and Kev (`kev-0.8b@54f4f877`, server `c9c1f855`) answered the touched bios on all seven tasks: 8,183 of 13,898 held-out bios. Before collecting, Laya and Kev were each checked to reproduce answers already in the record, to four decimal places.
 
 | task | Jev trivial-edit flip rate | N (touched) of M | Jev ask-twice floor |
 |---|---|---|---|
@@ -155,7 +156,17 @@ Jev (`jev-1.13.0`) answered the touched bios on all seven tasks: 8,183 of 13,898
 | engine | prediction | observed | verdict |
 |---|---|---|---|
 | Jev | 0.5–2% | 0.83% over all touched bios (0.16% to 1.86% by task) | as predicted |
-| Laya | 1–4% | not run | not scored |
-| Kev | 1–3% | not run | not scored |
+| Laya | 1–4% | 1.46% over all touched bios (0.75% to 2.06% by task) | as predicted |
+| Kev | 1–3% | 0.86% over all touched bios (0.38% to 1.38% by task) | not as predicted (below the range) |
 
-Where Jev has both floors, the trivial-edit floor is higher on three of four tasks. Jev's flip rates are now read against the trivial-edit floor on every task, which removes the borrowed ask-twice floor for Jev.
+| task | Laya | Kev |
+|---|---|---|
+| surgeon-physician | 1.46% | 1.38% |
+| nurse-physician | 1.61% | 1.05% |
+| teacher-professor | 2.06% | 1.03% |
+| paralegal-attorney | 2.03% | 1.10% |
+| journalist-professor | 1.24% | 0.38% |
+| architect-interior-designer | 0.75% | 0.38% |
+| dietitian-physician | 0.86% | 0.39% |
+
+Where Jev has both floors, the trivial-edit floor is higher on three of four tasks. Laya's ask-twice floor is zero by construction, so its trivial-edit floor is the first non-zero noise floor for Laya. Every engine's flip rates are now read against the trivial-edit floor on every task, which removes the borrowed ask-twice floor.

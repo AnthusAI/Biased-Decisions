@@ -581,7 +581,9 @@ export function jewishIsraelFindings() {
   });
   const claims = (data.controlled_statements?.arms || []).filter((a) => a.id === "direct-statements-claims")
     .map((a) => ({ engine: a.engine, shown: a.pairs.filter((p) => p.shown).length, n: a.pairs.length,
-      rejects: a.pairs.filter((p) => p.shown && p.stance < 0).length }));
+      rejects: a.pairs.filter((p) => p.shown && p.stance < 0).length,
+      order: a.pairs.reduce((t, p) => t + p.order_effect, 0) / a.pairs.length,
+      nearEven: a.pairs.every((p) => Math.abs(p.agree_s - 0.5) < 0.25 && Math.abs(p.agree_r - 0.5) < 0.35) }));
   return { bios: board("antisemitic-stereotypes"), loans: board("antisemitic-stereotypes-loan-narratives"),
     decisions: board("antisemitism-decisions"), israeli, palestinianLowest, claims };
 }
