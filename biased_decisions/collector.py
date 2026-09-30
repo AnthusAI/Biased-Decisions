@@ -117,6 +117,10 @@ def _items(task: Task, cue: str) -> list[Item]:
         if missing:
             raise CollectionError(f"ask-twice selection references missing ids: {missing[:3]}")
         return [by_id[item_id] for item_id in selected]
+    if cue == "trivial-edit":
+        # Only the bios the edit rule touched are asked: an untouched bio is the same text again,
+        # and the pre-registered floor is computed over the touched bios only.
+        return [i for i in task.load_versions(cue) if i.metadata.get("swapped", 0) > 0]
     # Any task's registered version files are authoritative inputs, including newly added
     # decision tasks and regulated-study arms. This avoids maintaining a second cue inventory.
     version_path = task.versions_path(cue)

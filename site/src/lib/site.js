@@ -12,6 +12,7 @@ export const allDimensions = data.dimensions;
 export const dimensions = allDimensions.filter((d) => !d.supplemental);
 export const supplementalDimensions = allDimensions.filter((d) => d.supplemental);
 export const unpublishedArms = data.unpublished_arms;
+export const controlledStatements = data.controlled_statements;
 export const gazaStatus = data.gaza_status;
 export const engineById = Object.fromEntries(engines.map((e) => [e.id, e]));
 export const dimById = Object.fromEntries(allDimensions.map((d) => [d.id, d]));

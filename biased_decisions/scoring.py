@@ -435,7 +435,9 @@ def score_trivial_edit(engine: str, task: Task) -> dict:
     def cell(answer: dict) -> tuple:
         return answer["choice"], float(answer["probabilities"][task.positive])
 
-    second = {i[:-len(suffix)]: cell(a) for i, a in edited.items() if i.endswith(suffix)}
+    touched = {row["id"] for row in (json.loads(line) for line in versions.read_text(encoding="utf-8").split("\n")
+                                     if line.strip()) if row["metadata"].get("swapped", 0) > 0}
+    second = {i[:-len(suffix)]: cell(a) for i, a in edited.items() if i.endswith(suffix) and i in touched}
     ids = [i for i in sorted(second) if i in first]
     metrics = insertion_metrics.score_ask_twice(
         engine=engine, task=task.slug, ids=ids, first={i: cell(first[i]) for i in ids}, second=second)
