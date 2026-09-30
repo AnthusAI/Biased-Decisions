@@ -34,10 +34,17 @@
         "model": "GPT-5",
         "name": "root"
       }
+    },
+    {
+      "id": "2fcfcfcd-c315-4e89-8bcf-5c3c872c0c26",
+      "author": "home",
+      "text": "codex: Validation run: CI build and GitHub OIDC now succeed. Deployment failed because the deploy job did not check out scripts/deploy-amplify.sh (exit 127); adding the checkout before rerun.",
+      "created_at": "2026-09-30T10:54:51.643927Z",
+      "comment_type": "default"
     }
   ],
   "created_at": "2026-09-23T16:31:47.256735Z",
-  "updated_at": "2026-09-29T00:02:23.331238Z",
+  "updated_at": "2026-09-30T10:54:51.643959Z",
   "closed_at": null,
   "agent": {
     "platform": "claude_code",
