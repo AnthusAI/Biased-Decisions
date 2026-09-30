@@ -392,7 +392,7 @@ def facets_race_name(store: Store, engine: str) -> List[dict]:
         study=_study(task, "race-name"),
         extra={"direction_share_pct": _r(row["direction_share"] * 100),
                "n_flips": row.get("n_flips")},
-        excess_ci=(tuple(excess_ci) if excess_ci else None),
+        excess_ci=((excess_ci[0] * 100, excess_ci[1] * 100) if excess_ci else None),
         excess_value=((row["race_flip"] - row["floor"]) * 100 if excess_ci else None))]
 
 
@@ -462,7 +462,7 @@ def facets_age(store: Store, engine: str) -> List[dict]:
                "shift_ci": [_r(row["age_shift_ci"][0] * 100), _r(row["age_shift_ci"][1] * 100)],
                "floor_61_62_flip_pct": _r(row["floor_62_flip"] * 100),
                "direction_older_to_surgeon_pct": _r(row["direction_share"] * 100)},
-        excess_ci=(tuple(age_excess_ci) if age_excess_ci else None),
+        excess_ci=((age_excess_ci[0] * 100, age_excess_ci[1] * 100) if age_excess_ci else None),
         excess_value=((row["age_flip"] - row["floor_35_flip"]) * 100 if age_excess_ci else None))]
 
 

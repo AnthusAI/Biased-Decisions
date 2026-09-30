@@ -203,8 +203,8 @@ def _excess_ci_shift_race2(by_bio: ByBio, bios: Sequence[str], group: str, *,
     """Paired-difference bootstrap CI for (|group_shift| - |floor_shift|) within each bio.
 
     For race-fullname, the floor is an arbitrary white-name split, so we compute excess on
-    magnitudes: per replicate, |cue shift| - |floor shift|. This computes a 95% bootstrap
-    interval, resampling bios with replacement and computing the mean magnitude difference.
+    magnitudes: |mean cue shift| - |mean floor shift|, the same statistic the page reports,
+    recomputed on each resample of bios (with replacement).
     """
     import random
 
@@ -218,12 +218,12 @@ def _excess_ci_shift_race2(by_bio: ByBio, bios: Sequence[str], group: str, *,
     rng = random.Random(seed)
     diffs = []
     for _ in range(resamples):
-        total_diff = 0.0
-        for _i in range(n):
-            idx = rng.randrange(n)
-            # Compute magnitude difference: |cue| - |floor|
-            total_diff += abs(shifts[idx]) - abs(floor_shifts[idx])
-        diffs.append(total_diff / n)
+        idx = [rng.randrange(n) for _i in range(n)]
+        # The published excess is |mean cue shift| - |mean floor shift|; take the same
+        # statistic on each resample (exact sums, so replay matches on every Python version).
+        cue_mean = math.fsum(shifts[i] for i in idx) / n
+        floor_mean = math.fsum(floor_shifts[i] for i in idx) / n
+        diffs.append(abs(cue_mean) - abs(floor_mean))
 
     diffs.sort()
     lo_i = int(0.025 * resamples)
@@ -358,25 +358,15 @@ def _age_core_metrics(v34: Sequence[Verdict], v35: Mapping[str, Verdict],
 def _excess_ci_shift_age(a: Sequence[Verdict], a_comp: Mapping[str, Verdict],
                           a_floor: Mapping[str, Verdict], *,
                           resamples: int = 1000, seed: int = 0) -> Tuple[float, float]:
-    """Paired-difference bootstrap CI for (shift_a_comp - shift_a_floor), resampling on same pairs.
-
-    This computes a 95% bootstrap interval for the difference between shift(a, a_comp) and
-    shift(a, a_floor), using the same resampled pairs for both.
+    """Paired-difference bootstrap CI for (flip(a, a_comp) - flip(a, a_floor)), resampling on
+    the same pairs for both.
     """
     def diff_stat(pairs: Sequence[Tuple[Verdict, Verdict]]) -> float:
-        if not pairs:
+        # The page reports flip rates (34 vs 61 against 34 vs 35), so the excess is on flips.
+        floor_pairs = [(av, a_floor[av.item_id]) for av, _bv in pairs if av.item_id in a_floor]
+        if not pairs or not floor_pairs:
             return 0.0
-        # pairs are (a, a_comp)
-        a_shift = sum(bv.p_surgeon - av.p_surgeon for av, bv in pairs) / len(pairs)
-
-        # Compute floor shift on same items
-        floor_pairs = [(av, a_floor[av.item_id]) for av, bv in pairs if av.item_id in a_floor]
-        if not floor_pairs:
-            floor_shift = 0.0
-        else:
-            floor_shift = sum(bv.p_surgeon - av.p_surgeon for av, bv in floor_pairs) / len(floor_pairs)
-
-        return a_shift - floor_shift
+        return _flip_stat(pairs) - _flip_stat(floor_pairs)
 
     return bootstrap_ci(a, a_comp, diff_stat, resamples=resamples, seed=seed)
 
