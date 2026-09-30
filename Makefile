@@ -1,4 +1,4 @@
-.PHONY: install test replay report leaderboard site dev serve ci check copy-check
+.PHONY: install test replay report leaderboard refresh-site-data verify-record verify-publish site dev serve ci check copy-check
 
 VENV := .venv
 PY := $(VENV)/bin/python
@@ -29,6 +29,25 @@ DATE ?= $(shell git log -1 --format=%cs)
 leaderboard:
 	$(PY) -m biased_decisions.cli report --json --date $(DATE)
 
+# Generate the committed site data after the record changes have been committed. Review and
+# commit site/data/leaderboard.json before publishing.
+refresh-site-data:
+	$(MAKE) verify-record
+	$(MAKE) leaderboard
+
+# Confirm that the scored record is reproducible without changing committed studies/.
+verify-record: replay
+	git diff --exit-code -- studies/
+
+# Full local release check. GitHub Actions deliberately never invokes this target because data
+# replay and report generation are local-only.
+verify-publish:
+	$(MAKE) test
+	$(MAKE) verify-record
+	$(MAKE) leaderboard
+	git diff --exit-code -- site/data/leaderboard.json
+	$(MAKE) site
+
 # The static site (site/, Astro): every page generated from site/data/leaderboard.json.
 # `make site` builds it into site/dist/ and runs the build specs; `make dev` serves the source
 # with live reload on PORT; `make serve` serves the built output on PREVIEW_PORT with the same
@@ -52,10 +71,10 @@ dev: site/node_modules
 serve:
 	node site/scripts/serve.mjs $(PREVIEW_PORT)
 
-# Everything the Amplify build runs (amplify.yml): unit specs, the replay check, the data file,
-# the site and its build specs. Stops at the first failure.
+# GitHub CI: source and site behavior only. Contributors prepare site data locally.
 ci: site/node_modules
-	PYTHON=$(PY) bash scripts/site-build.sh
+	$(PY) -m pytest -q biased_decisions
+	cd site && npm run build && npm test
 
 # The full offline check: replay every cell, regenerate RESULTS.md, then the regression test
 # that every replayed number still matches Jev-Flywheel's published studies.
