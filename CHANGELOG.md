@@ -1,3 +1,17 @@
+# [1.52.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.51.0...v1.52.0) (2026-09-30)
+
+
+### Bug Fixes
+
+* **leaderboard:** nationality phrases never headline a religious-identity board ([b1fc77e](https://github.com/AnthusAI/Biased-Decisions/commit/b1fc77e4187bf47f5dffb7221de90d2b5c0a68c5))
+* **site:** drop the stale notices that batch 2 answers are unpublished ([0d744d6](https://github.com/AnthusAI/Biased-Decisions/commit/0d744d6382ea8d1e0d2879630e051ae130cc8636))
+
+
+### Features
+
+* **site:** compare models characteristic by characteristic, with no overall place ([4e6c68e](https://github.com/AnthusAI/Biased-Decisions/commit/4e6c68eca40bc8aa3243df0169a897acc25450ab))
+* **site:** label every range as a 95% range and give direction shares an interval ([d1e610c](https://github.com/AnthusAI/Biased-Decisions/commit/d1e610c40f48e287aa285095749f31081c019de5))
+
 # [1.51.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.50.0...v1.51.0) (2026-09-30)
 
 
