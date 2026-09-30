@@ -14,7 +14,7 @@ from biased_decisions.tasks.bios import BIOS_TASKS
 from biased_decisions.leaderboard import (
     B3_BOARD_IDS,
     ENGINE_IDS, SEVERITY_DARK, SEVERITY_LIGHT, _ask_twice_floor, _board, _clean, _facet,
-    _fractional_ranks, _headline, _holm, _magnitude, _p_value, _wilson, build_overall, generate_json, release_info,
+    NATIONALITY_FORMS, _fractional_ranks, _headline, _holm, _magnitude, _p_value, _wilson, build_overall, generate_json, release_info,
     severity_colours, write_json,
 )
 from biased_decisions.leaderboard_examples import mark
@@ -290,9 +290,11 @@ def test_the_dimension_headline_is_the_largest_detected_cell(doc):
         for engine, cell in dim["cells"].items():
             if cell["status"] != "measured" or not cell["detected"]:
                 continue
+            # a nationality phrase on a religious-identity board is shown but never headlines
             best = max(c["engines"][engine]["excess"]["value"] for c in dim["breakdown"]["cells"]
                        if c["engines"][engine]["status"] == "measured"
-                       and c["engines"][engine]["detected"])
+                       and c["engines"][engine]["detected"]
+                       and c.get("group") not in NATIONALITY_FORMS)
             assert cell["headline"]["value"] == best, dim["id"]
 
 
