@@ -1,3 +1,62 @@
+## [1.49.1](https://github.com/AnthusAI/Biased-Decisions/compare/v1.49.0...v1.49.1) (2026-09-30)
+
+
+### Bug Fixes
+
+* **ci:** check out deployment script ([0650913](https://github.com/AnthusAI/Biased-Decisions/commit/06509132c26b3a45f53ff6f83178bb293ec02e75))
+
+# [1.49.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.48.2...v1.49.0) (2026-09-30)
+
+
+### Bug Fixes
+
+* **ladder:** exact float sum so replay matches across Python versions ([74b7cf5](https://github.com/AnthusAI/Biased-Decisions/commit/74b7cf53b2eef4e8a80eefe51cba29f7ad5a91f1))
+
+
+### Features
+
+* **ladder:** pre-register the loan credit-ladder calibration ([dc92f96](https://github.com/AnthusAI/Biased-Decisions/commit/dc92f966d32601aafc22ef7033a271c82363aaf9))
+* **ladder:** replay the credit-ladder calibration and correct its outcome notes ([f01bbc7](https://github.com/AnthusAI/Biased-Decisions/commit/f01bbc72a0721564525fd404f6b437cd8c93cc8a))
+
+## [1.48.2](https://github.com/AnthusAI/Biased-Decisions/compare/v1.48.1...v1.48.2) (2026-09-29)
+
+
+### Bug Fixes
+
+* **ci:** install source test dependencies ([2eadcdf](https://github.com/AnthusAI/Biased-Decisions/commit/2eadcdfea7eae5b64f0d6293d144172f1dcad634))
+
+## [1.48.1](https://github.com/AnthusAI/Biased-Decisions/compare/v1.48.0...v1.48.1) (2026-09-29)
+
+
+### Bug Fixes
+
+* **deploy:** create a writable Amplify archive ([f71189f](https://github.com/AnthusAI/Biased-Decisions/commit/f71189fee3b5cfdc8e18dc1b483b07ba1a520ff3))
+
+# [1.48.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.47.2...v1.48.0) (2026-09-28)
+
+
+### Bug Fixes
+
+* **data:** restore the leaderboard data file's standard layout ([cda540a](https://github.com/AnthusAI/Biased-Decisions/commit/cda540a2ea3c8e8dd7d7403c8dc62fec2447ea05))
+* **nationality:** regression in flip_stats point estimates ([4b1b32c](https://github.com/AnthusAI/Biased-Decisions/commit/4b1b32cb721354730fdc0f6b88bdd989f70ee628))
+* **site:** one decimal for decision-change rates; clearer note on the new comparison ([28794ab](https://github.com/AnthusAI/Biased-Decisions/commit/28794abd18526de3b890d834c13e70d0a47c715e))
+* **study:** order loan-pairs rows as replay writes them ([d8b4f21](https://github.com/AnthusAI/Biased-Decisions/commit/d8b4f218b822d76ebf4e8a42deea3c8f5b805f7b))
+* **test:** adjust tolerance for floating-point rounding in pairs comparison ([c7e2cba](https://github.com/AnthusAI/Biased-Decisions/commit/c7e2cba11dbe3ee3b0646d9981f4b3ea7a095bf1))
+
+
+### Features
+
+* **nationality:** pairwise loan comparisons and decision flips ([20e9c1f](https://github.com/AnthusAI/Biased-Decisions/commit/20e9c1f62345ade12876db5bd7c416342314e175))
+* **site:** nationality lending pairs and decision flips ([520e159](https://github.com/AnthusAI/Biased-Decisions/commit/520e1591236a37dc366115c9d3d289d8f1f0cac3))
+
+## [1.47.2](https://github.com/AnthusAI/Biased-Decisions/compare/v1.47.1...v1.47.2) (2026-09-28)
+
+
+### Bug Fixes
+
+* **site:** drop the plus sign from effect sizes on engine and overview pages ([2465d9e](https://github.com/AnthusAI/Biased-Decisions/commit/2465d9e91fb38738c1e9d03bf304c7ce0f60e75a))
+* **site:** stop showing a plus sign on effect sizes ([7e63169](https://github.com/AnthusAI/Biased-Decisions/commit/7e63169cc9da9b4a9a0923a9650b0413302fb025))
+
 ## [1.47.1](https://github.com/AnthusAI/Biased-Decisions/compare/v1.47.0...v1.47.1) (2026-09-28)
 
 

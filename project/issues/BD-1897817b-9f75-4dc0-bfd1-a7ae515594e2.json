@@ -1,9 +1,9 @@
 {
   "id": "BD-1897817b-9f75-4dc0-bfd1-a7ae515594e2",
   "title": "Move the replay audit out of the Amplify deploy",
-  "description": "The Amplify build runs bd replay (about 4 minutes of re-scoring the committed answers; no model inference) and fails the deploy when any studies/ file differs. Author's direction: CI in Amplify is not for evaluations. Amplify builds only: fast specs, bd report --json from the committed studies/, and the Astro build. The replay audit moves to a GitHub Actions workflow (replay.yml) on push and pull request, on Linux, so reproducibility is still checked and visible without blocking the site.",
+  "description": "Replace AWS Amplify Git-connected builds with GitHub Actions CI/CD and manual artifact deployment. Data replay and report generation happen only in a contributor-local preparation workflow; GitHub validates source and site behavior, builds the static artifact, and deploys that exact artifact only after main CI succeeds. Amplify hosts prebuilt artifacts only, with no repository build spec.",
   "type": "chore",
-  "status": "open",
+  "status": "in_progress",
   "priority": 2,
   "assignee": null,
   "creator": null,
@@ -22,10 +22,34 @@
         "model": "Claude Opus 5.5",
         "name": "Biased-Decisions coordinator"
       }
+    },
+    {
+      "id": "8e435468-3f68-4240-b874-f2100ec075a7",
+      "author": "home",
+      "text": "Log 2026-09-28: Full local release exercise is underway on current mainline. Local source tests completed; `bd replay` generated three new option-order study records and refreshed `site/data/leaderboard.json`. Those artifacts will be committed, then the local verification will rerun against the committed data before GitHub CI/CD is triggered.",
+      "created_at": "2026-09-29T00:02:23.331195Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "codex",
+        "model": "GPT-5",
+        "name": "root"
+      }
+    },
+    {
+      "id": "2fcfcfcd-c315-4e89-8bcf-5c3c872c0c26",
+      "author": "home",
+      "text": "codex: Validation run: CI build and GitHub OIDC now succeed. Deployment failed because the deploy job did not check out scripts/deploy-amplify.sh (exit 127); adding the checkout before rerun.",
+      "created_at": "2026-09-30T10:54:51.643927Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "codex",
+        "model": "GPT-5",
+        "name": "Codex"
+      }
     }
   ],
   "created_at": "2026-09-23T16:31:47.256735Z",
-  "updated_at": "2026-09-23T16:31:53.982897Z",
+  "updated_at": "2026-09-30T10:54:56.524901Z",
   "closed_at": null,
   "agent": {
     "platform": "claude_code",
