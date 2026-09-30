@@ -14,7 +14,7 @@ from biased_decisions.tasks.bios import BIOS_TASKS
 from biased_decisions.leaderboard import (
     B3_BOARD_IDS,
     ENGINE_IDS, SEVERITY_DARK, SEVERITY_LIGHT, _ask_twice_floor, _board, _clean, _facet,
-    _fractional_ranks, _magnitude, _wilson, build_overall, generate_json, release_info,
+    _fractional_ranks, _headline, _holm, _magnitude, _p_value, _wilson, build_overall, generate_json, release_info,
     severity_colours, write_json,
 )
 from biased_decisions.leaderboard_examples import mark
@@ -929,3 +929,32 @@ def test_paired_excess_rule_with_negative_shift_oriented_to_magnitude():
     assert facet["rule"] == "paired"
     assert facet["detected"] is True  # CI excludes 0
     assert facet["excess"]["value"] == 1.5
+
+
+# --- headline selection: Holm's correction for picking the largest of several facets ----------
+
+def _hf(fid, value, lo, hi, detected=True):
+    return {"id": fid, "label": fid, "status": "measured", "detected": detected, "attributable": True,
+            "excess": {"value": value, "lo": lo, "hi": hi}}
+
+
+def test_one_facet_p_value_agrees_with_the_interval_rule():
+    assert _p_value(_hf("a", 1.0, 0.01, 2.0)) < 0.05
+    assert _p_value(_hf("b", 1.0, -0.01, 2.0)) > 0.05
+    assert _p_value(_hf("c", -1.0, -2.0, -0.01)) < 0.05
+
+
+def test_holm_adjusts_the_smallest_p_by_the_number_of_facets():
+    facets = [_hf(str(i), 1.0, 0.0, 2.0) for i in range(4)] + [_hf("x", 1.0, 0.05, 1.95)]
+    adjusted = _holm(facets)
+    raw = _p_value(facets[-1])
+    assert adjusted[id(facets[-1])] == min(1.0, 5 * raw)
+
+
+def test_a_barely_clear_facet_cannot_headline_once_it_is_one_of_many():
+    barely = _hf("barely", 3.0, 0.05, 6.0)
+    others = [_hf(f"o{i}", 0.2, -1.0, 1.4, detected=False) for i in range(9)]
+    head, detected = _headline([barely] + others)
+    assert detected is False
+    head_alone, detected_alone = _headline([barely])
+    assert detected_alone is True and head_alone["id"] == "barely"
