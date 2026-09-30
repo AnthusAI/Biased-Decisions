@@ -338,7 +338,7 @@ capped probe. The full design's Jev cost, if ever fully approved, is the ~838,00
 
 ## Deviations
 
-(none yet -- this is a pre-registration, not a run; no engine has answered any version of it)
+- 2026-09-30, reporting only (no answer or score changed): "An Israeli" names a nationality, not a Jewish identity, so it is no longer pooled with the four Jewish-identity wordings. Each stereotype's headline on the site is now the largest score among "Named as Jewish", "Devout Jew", "Synagogue board member" and "Jewish-associated surname". The Israeli rows are still scored and shown on the same boards for comparison, with a note, and never supply a headline. The Outcome below was scored before this change and is left as written.
 
 ## Outcome (scored 2026-09-28)
 
