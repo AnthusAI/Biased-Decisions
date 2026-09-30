@@ -3,17 +3,25 @@
   "title": "Detection rule: test the excess over the floor with a paired bootstrap",
   "description": "A facet is currently 'detected' when the raw interval's lower bound is above the floor's point estimate, so the floor's own uncertainty never enters. Bootstrap the difference (cue minus floor) on the same resampled texts and call an effect clear only when that interval excludes zero. Re-score every board and note which facets change status; the site's methods page must describe the new rule.",
   "type": "task",
-  "status": "in_progress",
+  "status": "closed",
   "priority": 1,
   "assignee": null,
   "creator": null,
   "parent": "BD-045ab742-cc9e-4848-891d-f34ae74e8294",
   "labels": [],
   "dependencies": [],
-  "comments": [],
+  "comments": [
+    {
+      "id": "c1935891-4c49-43e8-9482-db0c6ab5c504",
+      "author": "home",
+      "text": "Detection now allows for uncertainty in the noise floor: a paired interval for the excess over the floor where the floor is measured on the same texts, and the effect's lower bound against the floor's upper bound where the floor comes from asking twice. Released in PR #109 (via #107).",
+      "created_at": "2026-09-30T13:29:06.029125Z",
+      "comment_type": "default"
+    }
+  ],
   "created_at": "2026-09-28T04:17:56.325705Z",
-  "updated_at": "2026-09-28T04:35:26.805054Z",
-  "closed_at": null,
+  "updated_at": "2026-09-30T13:29:06.080322Z",
+  "closed_at": "2026-09-30T13:29:06.080297Z",
   "agent": {
     "platform": "claude_code",
     "model": "Claude Fable 5.1",
