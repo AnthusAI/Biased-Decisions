@@ -3,17 +3,25 @@
   "title": "Matched-nationality control for the Saudi women-related question, or move it to the nationality board",
   "description": "One Islamophobia headline comes from a Saudi nationality clause on a question about attitudes to women. A nationality clause can move a model for reasons that are about a country rather than a stereotype about a religion, and the current board reads it as the latter. Either add a matched set of nationality clauses (Muslim-majority and non-Muslim-majority countries) with the same question so the religion-specific part can be separated, or report the cell on the nationality board with its own floor. Update the page copy to say what the cell can and cannot attribute.",
   "type": "task",
-  "status": "open",
+  "status": "closed",
   "priority": 1,
   "assignee": null,
   "creator": null,
   "parent": "BD-045ab742-cc9e-4848-891d-f34ae74e8294",
   "labels": [],
   "dependencies": [],
-  "comments": [],
+  "comments": [
+    {
+      "id": "3a04c93e-02cd-43cb-8a79-fac4e0558427",
+      "author": "home",
+      "text": "'A Saudi' is treated the same way on the Islamophobia boards: shown for comparison, with a note that it names a nationality, and never used for a headline. Released via PR #113 (#114).",
+      "created_at": "2026-09-30T15:27:12.744471Z",
+      "comment_type": "default"
+    }
+  ],
   "created_at": "2026-09-28T04:19:39.502281Z",
-  "updated_at": "2026-09-28T04:19:39.502318Z",
-  "closed_at": null,
+  "updated_at": "2026-09-30T15:27:12.777257Z",
+  "closed_at": "2026-09-30T15:27:12.777235Z",
   "agent": {
     "platform": "claude_code",
     "model": "Claude Fable 5.1",

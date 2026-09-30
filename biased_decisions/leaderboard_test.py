@@ -965,3 +965,20 @@ def test_a_nationality_phrase_never_headlines_a_religious_identity_board(doc):
                 if f.get("status") == "measured":
                     assert f["extra"].get("largest_group") not in ("antisemitism-nationality",
                                                                    "islamophobia-nationality"), (board, f["id"])
+
+
+class _FloorStore:
+    def __init__(self, rows):
+        self.rows = rows
+
+    def row(self, task, cue, engine, **_kw):
+        return self.rows.get((task, cue, engine))
+
+
+def test_the_trivial_edit_floor_is_preferred_where_it_has_been_answered():
+    both = _FloorStore({("surgeon-physician", "trivial-edit", "laya"): {"flip_pct": 2.0, "n": 900},
+                        ("surgeon-physician", "ask-twice", "laya"): {"flip_pct": 0, "n": 500}})
+    floor = _ask_twice_floor(both, "laya", "surgeon-physician")
+    assert floor["source"] == "trivial-edit" and floor["value"] == 2.0 and floor["lo"] > 0
+    only_twice = _FloorStore({("surgeon-physician", "ask-twice", "laya"): {"flip_pct": 0, "n": 500}})
+    assert _ask_twice_floor(only_twice, "laya", "surgeon-physician")["source"] == "ask-twice"

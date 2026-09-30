@@ -3,17 +3,25 @@
   "title": "Intervals on every published number, and every range labelled",
   "description": "Direction share and recall gap are published without an interval, some resting on a handful of flips. Add a bootstrap interval to both and suppress a direction share when the flip count is below an agreed minimum. Label every 'range' on the site as a 95% bootstrap interval over resampled texts, and say what it does not cover (wording choice, cue form, engine version). Fix the copy that describes an interval as the range we are 95% sure the true value lies in.",
   "type": "task",
-  "status": "open",
+  "status": "closed",
   "priority": 2,
   "assignee": null,
   "creator": null,
   "parent": "BD-045ab742-cc9e-4848-891d-f34ae74e8294",
   "labels": [],
   "dependencies": [],
-  "comments": [],
+  "comments": [
+    {
+      "id": "117419a5-f139-4e18-9026-4808c8b64029",
+      "author": "home",
+      "text": "Every range is labelled as a 95% range with what it does and does not cover; direction shares carry a Wilson interval and are withheld below 20 changed answers; the recall gap, which has no interval, is no longer shown. Released via PR #113 (#114).",
+      "created_at": "2026-09-30T15:27:12.894001Z",
+      "comment_type": "default"
+    }
+  ],
   "created_at": "2026-09-28T04:17:56.449497Z",
-  "updated_at": "2026-09-28T04:17:56.449530Z",
-  "closed_at": null,
+  "updated_at": "2026-09-30T15:27:12.928576Z",
+  "closed_at": "2026-09-30T15:27:12.928547Z",
   "agent": {
     "platform": "claude_code",
     "model": "Claude Fable 5.1",

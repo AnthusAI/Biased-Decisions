@@ -3,17 +3,25 @@
   "title": "Publish every saved answer the site currently marks as not yet published",
   "description": "Two site pages say the saved answers behind their numbers are not yet published, which contradicts the promise that every number can be checked. Commit the records under answers/ (or the runs branch they live on), make bd replay reproduce their study rows, and remove the notices.",
   "type": "task",
-  "status": "open",
+  "status": "closed",
   "priority": 1,
   "assignee": null,
   "creator": null,
   "parent": "BD-045ab742-cc9e-4848-891d-f34ae74e8294",
   "labels": [],
   "dependencies": [],
-  "comments": [],
+  "comments": [
+    {
+      "id": "c516d476-9b83-4631-ac33-942ce7ed2421",
+      "author": "home",
+      "text": "The notices were stale: every model's batch 2 answers are committed and replayed. Notices removed. Released via PR #113 (#114).",
+      "created_at": "2026-09-30T15:27:12.970539Z",
+      "comment_type": "default"
+    }
+  ],
   "created_at": "2026-09-28T04:17:56.580950Z",
-  "updated_at": "2026-09-28T04:17:56.580989Z",
-  "closed_at": null,
+  "updated_at": "2026-09-30T15:27:13.002945Z",
+  "closed_at": "2026-09-30T15:27:13.002914Z",
   "agent": {
     "platform": "claude_code",
     "model": "Claude Fable 5.1",

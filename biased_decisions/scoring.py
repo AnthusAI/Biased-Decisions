@@ -419,6 +419,32 @@ def score_ask_twice(engine: str, task: Task) -> dict:
 
 
 # ---------------------------------------------------------------------------------------------
+# trivial-edit: the noise floor for a deterministic engine -- the same bio with one neutral
+# wording change (docs/trivial-edit-floor-preregistration.md), against the bio as written.
+# ---------------------------------------------------------------------------------------------
+
+def score_trivial_edit(engine: str, task: Task) -> dict:
+    versions = task.versions_dir() / "trivial-edit.jsonl"
+    if not versions.exists():
+        raise ScoreError(f"no trivial-edit versions for {task.slug!r}; run 'bd build {task.slug} "
+                         f"--cue trivial-edit' first")
+    first = load_answers(engine, task.slug, "gender-pronouns", root=task.root)
+    edited = load_answers(engine, task.slug, "trivial-edit", root=task.root)
+    suffix = "-trivial-edit"
+
+    def cell(answer: dict) -> tuple:
+        return answer["choice"], float(answer["probabilities"][task.positive])
+
+    second = {i[:-len(suffix)]: cell(a) for i, a in edited.items() if i.endswith(suffix)}
+    ids = [i for i in sorted(second) if i in first]
+    metrics = insertion_metrics.score_ask_twice(
+        engine=engine, task=task.slug, ids=ids, first={i: cell(first[i]) for i in ids}, second=second)
+    if metrics.n == 0:
+        raise ScoreError(f"no trivial-edit record for ({engine!r}, {task.slug!r})")
+    return metrics.as_row()
+
+
+# ---------------------------------------------------------------------------------------------
 # option-order: does the answer change when the two options are listed the other way round?
 # Reuses the gender-pronouns record for the committed order; needs the two
 # option-order-reversed[-twins] records for the reversed one.
@@ -620,6 +646,7 @@ SCORERS = {
     **{cue: (lambda engine, task, cue=cue: score_insertion(engine, task, cue)) for cue in ANTISEMITISM_INSERTION_CUES},
     "religion-buddhist": lambda engine, task: score_insertion(engine, task, "religion-buddhist"),
     "ask-twice": score_ask_twice,
+    "trivial-edit": score_trivial_edit,
     "option-order": score_option_order,
 }
 

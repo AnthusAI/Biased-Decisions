@@ -201,6 +201,24 @@ def cmd_replay(args: argparse.Namespace) -> int:
         n_rows += len(oc_rows)
         print(f"{oc.SLUG}: {len(oc_rows)} row(s) -> {out}")
 
+    from biased_decisions import direct_statements as dst
+    for slug, scorer in ((dst.CLAIMS_SLUG, dst.score_claims), (dst.GAZA_SLUG, dst.score_gaza)):
+        ds_rows = []
+        for engine in ENGINES:
+            if not has_record(engine, slug, "as-written", root=root):
+                continue
+            try:
+                ds_rows.append(scorer(engine, read_record_by_id(record_path(engine, slug, "as-written", root=root))))
+            except (KeyError, ValueError) as error:
+                print(f"bd replay: skipping ({engine}, {slug}): {error}", file=sys.stderr)
+                continue
+            n_cells += 1
+        if ds_rows:
+            out = root / "studies" / f"{slug}.jsonl"
+            write_rows(out, ds_rows, ("engine",))
+            n_rows += len(ds_rows)
+            print(f"{slug}: {len(ds_rows)} row(s) -> {out}")
+
     from biased_decisions import adl_gaza
     adl_rows = []
     for engine in ENGINES:

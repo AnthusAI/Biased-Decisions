@@ -3,17 +3,25 @@
   "title": "The overall board compares effect sizes per characteristic and does not order models by mean rank",
   "description": "Feature: Overall comparison\n  Scenario: No mean-rank order\n    Given the home page\n    When I read the overall comparison\n    Then each characteristic shows every model's excess effect and interval side by side\n    And no single overall 'most biased' order is presented\n  Scenario: Excluded dimensions\n    Given a dimension that is confounded or not regenerable by bd replay\n    When the overall comparison is built\n    Then that dimension is shown on its own page and excluded from the comparison",
   "type": "story",
-  "status": "open",
+  "status": "closed",
   "priority": 2,
   "assignee": null,
   "creator": null,
   "parent": "BD-c11949af-2c7b-49f5-8cf1-af79819f87dc",
   "labels": [],
   "dependencies": [],
-  "comments": [],
+  "comments": [
+    {
+      "id": "93e1ba34-2a22-4112-b3ee-e6bab10c1222",
+      "author": "home",
+      "text": "Released via PR #113 (#112).",
+      "created_at": "2026-09-30T15:27:12.474056Z",
+      "comment_type": "default"
+    }
+  ],
   "created_at": "2026-09-28T04:20:22.523308Z",
-  "updated_at": "2026-09-28T04:20:22.523340Z",
-  "closed_at": null,
+  "updated_at": "2026-09-30T15:27:12.543359Z",
+  "closed_at": "2026-09-30T15:27:12.543317Z",
   "agent": {
     "platform": "claude_code",
     "model": "Claude Fable 5.1",
