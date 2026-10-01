@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "event_id": "cb63ecb8-6136-4744-b7a2-60d3b91c16fd",
+  "issue_id": "BD-c21dc368-e01c-4174-ba7c-6ba096e06679",
+  "event_type": "comment_added",
+  "occurred_at": "2026-10-01T23:26:21.794Z",
+  "actor_id": "home",
+  "payload": {
+    "comment_id": "6b5ce642-c243-493c-b968-d90b4ef58c02",
+    "comment_author": "home",
+    "agent": {
+      "platform": "claude_code",
+      "model": "Opus 5.5",
+      "name": "Hard-Decisions session"
+    }
+  }
+}
