@@ -1,3 +1,10 @@
+## [1.56.1](https://github.com/AnthusAI/Biased-Decisions/compare/v1.56.0...v1.56.1) (2026-10-01)
+
+
+### Bug Fixes
+
+* **site:** use wide screens and keep tooltips on their points under page zoom ([9b60ffe](https://github.com/AnthusAI/Biased-Decisions/commit/9b60ffe12167c9e85ea2f3664bf045705302fa8e))
+
 # [1.56.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.55.0...v1.56.0) (2026-09-30)
 
 
