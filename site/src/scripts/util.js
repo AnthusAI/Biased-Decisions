@@ -173,10 +173,13 @@ export function bindTip(node, html) {
       const r = node.getBoundingClientRect();
       x = r.left + r.width / 2; y = r.top;
     }
-    const w = t.offsetWidth, hgt = t.offsetHeight;
+    // Pointer and layout boxes are in screen pixels; the tooltip's own CSS lengths are scaled by the page
+    // zoom that wide screens get (site.css), so measure in screen pixels and divide back before placing it.
+    const z = parseFloat(getComputedStyle(document.documentElement).zoom) || 1;
+    const w = t.offsetWidth * z, hgt = t.offsetHeight * z;
     const left = Math.min(Math.max(8, x - w / 2), window.innerWidth - w - 8);
     const top = y - hgt - 14 < 8 ? y + 18 : y - hgt - 14;
-    t.style.transform = `translate(${Math.round(left)}px, ${Math.round(top)}px)`;
+    t.style.transform = `translate(${Math.round(left / z)}px, ${Math.round(top / z)}px)`;
   };
   const hide = () => tooltip().classList.remove("on");
   node.addEventListener("mouseenter", show);
