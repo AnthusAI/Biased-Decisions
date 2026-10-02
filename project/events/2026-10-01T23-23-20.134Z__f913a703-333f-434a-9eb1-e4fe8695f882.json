@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "event_id": "f913a703-333f-434a-9eb1-e4fe8695f882",
+  "issue_id": "BD-c21dc368-e01c-4174-ba7c-6ba096e06679",
+  "event_type": "issue_created",
+  "occurred_at": "2026-10-01T23:23:20.134Z",
+  "actor_id": "home",
+  "payload": {
+    "title": "Use wide screens on the site: wider column from 1500px, whole-page zoom from 2000px",
+    "description": "",
+    "issue_type": "task",
+    "status": "open",
+    "priority": 2,
+    "assignee": null,
+    "parent": null,
+    "labels": [],
+    "agent": {
+      "platform": "claude_code",
+      "model": "Opus 5.5",
+      "name": "Hard-Decisions session"
+    }
+  }
+}

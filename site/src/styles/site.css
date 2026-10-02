@@ -652,3 +652,11 @@ details.cell { scroll-margin-top: 140px; }
 .findings > li { margin: 0 0 26px; }
 .findings h3 { margin: 0 0 6px; }
 .findings ul { margin: 8px 0; }
+
+/* Wide screens. Past 1,500 px the column widens so grids and charts have room; past 2,000 px the whole page
+   scales up (CSS zoom), so type, charts and spacing grow together instead of lines of text stretching past a
+   readable length. Media queries read the real viewport, so these steps don't feed back into each other. */
+@media (min-width: 1500px) { :root { --max: 1320px; } }
+@media (min-width: 2000px) { html { zoom: 1.25; } }
+@media (min-width: 2600px) { html { zoom: 1.5; } }
+@media (min-width: 3200px) { html { zoom: 1.75; } }
