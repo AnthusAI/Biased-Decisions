@@ -48,7 +48,7 @@ const description = `What our results say about measuring and avoiding bias when
     <ul class="cite-list">{C.citations.map((c) => <Citation c={c} />)}</ul>
     <h3>Rules we name, for decisions we have not tested yet</h3>
     <ul class="unmeasured-list">
-      {C.unmeasured.map((u) => <li><strong>{u.decision}</strong> ({u.short}): {u.status}. <a href={`${REPO_BLOB}${u.repo_ref.path}`}>Our notes</a>.</li>)}
+      {C.unmeasured.map((u) => <li><strong>{u.decision}</strong> ({u.short}): not yet measured.</li>)}
     </ul>
   </section>
 
