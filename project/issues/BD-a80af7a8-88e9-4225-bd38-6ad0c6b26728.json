@@ -1,0 +1,38 @@
+{
+  "id": "BD-a80af7a8-88e9-4225-bd38-6ad0c6b26728",
+  "title": "Port the wide-screen layout from hard-decisions.anth.us: 88% column from 2000px, two-column sections and one-row hero from 2400px",
+  "description": "",
+  "type": "task",
+  "status": "open",
+  "priority": 2,
+  "assignee": null,
+  "creator": null,
+  "parent": null,
+  "labels": [],
+  "dependencies": [],
+  "comments": [
+    {
+      "id": "7b17b959-2f26-48cc-abbb-a267410270f8",
+      "author": "home",
+      "text": "Wide layout ported on branch feat/wide-layout (commit 2bcea90, not pushed or merged).\n\nWhat changed: site.css wide block replaced (1500px: --max 1320px and a 36em text measure; 2000px: zoom 1.25 and --max 88%; 2800/4000px: zoom 1.4/1.6; 2400px: sec-split/sec-prose two-column sections with a sticky head, sec-panel split inside the regulated banner and risk panel, one-row home hero, caveat cards 6 across). Sections marked by scripts/split-sections.py plus hand edits (Board, RiskPanel, home banner, one-line sections). New test/layout.test.mjs.\n\nMeasured (dev server, same-origin iframes; home, /engines/laya/, /gender/, /nationality/, /methods/):\n- 375-1440px: element-by-element layout identical before and after on 10 pages (home and methods compared with chart internals excluded, as the original itself varies between loads there).\n- 1920px: column 0.688 of the window, one column. 2560/3440/3840/5120px: column 0.88, sections two columns, home hero one row, dim grid 4/5/6/7 columns, caveats 6.\n- Longest prose line at 1920px and up: 80 characters or fewer, apart from dense hash or checkpoint ids. No horizontal overflow at any width, apart from an existing one at 375-1280px on model pages (.ci-t), which is unchanged.\n- Tooltips under zoom 1.25/1.4/1.6: centred within 0.8px of their mark, gap within 1.5px (hero marks, board/forest marks, spider vertices).\n- Dark mode: tokens apply.\n- npm run build: 1114 pages, legacy redirects written. npm test: 45/45 pass.\n\nFound: spider charts throw 'size is not a function' (charts.js spider() local const size shadows the util import), so every spider chart is blank. This was already on main and is not fixed here.",
+      "created_at": "2026-10-02T01:34:57.855628Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude_code",
+        "model": "Opus 5.5",
+        "name": "BD wide-layout port"
+      }
+    }
+  ],
+  "created_at": "2026-10-02T01:03:22.993122Z",
+  "updated_at": "2026-10-02T01:34:57.855648Z",
+  "closed_at": null,
+  "agent": {
+    "platform": "claude_code",
+    "model": "Opus 5.5",
+    "name": "Hard-Decisions session"
+  },
+  "right_now_summary": "The wide layout is ported on a local branch and tested; spider charts still fail due to an existing bug.",
+  "right_now_updated_at": "2026-10-02T01:34:59.714Z",
+  "custom": {}
+}
