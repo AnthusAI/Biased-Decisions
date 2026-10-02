@@ -3,17 +3,30 @@
   "title": "Legacy redirect stubs honor BASE_PATH",
   "description": "As the Anth.us site, I want to serve the leaderboard at https://anth.us/biased-decisions/ by building it with BASE_PATH=/biased-decisions/ and SITE_URL=https://anth.us, so the leaderboard lives on the main domain. Every page already honors BASE_PATH except the legacy redirect stubs from site/scripts/legacy-redirects.mjs, which point their refresh, link and canonical at the root (\"/religion/\" instead of \"/biased-decisions/religion/\"), sending 415 old addresses to 404s under a sub-path.\n\nFeature: Legacy redirects under a sub-path\n  Scenario: A redirect stub built with a base path points inside that base path\n    Given the site is built with BASE_PATH \"/biased-decisions/\" and SITE_URL \"https://anth.us\"\n    When a legacy redirect stub is written for \"/religion/\"\n    Then its refresh target and link are \"/biased-decisions/religion/\"\n    And its canonical is \"https://anth.us/biased-decisions/religion/\"\n  Scenario: A root build is unchanged\n    Given the site is built with no BASE_PATH\n    When a legacy redirect stub is written for \"/religion/\"\n    Then its refresh target is \"/religion/\"",
   "type": "story",
-  "status": "in_progress",
+  "status": "closed",
   "priority": 2,
   "assignee": null,
   "creator": null,
   "parent": null,
   "labels": [],
   "dependencies": [],
-  "comments": [],
+  "comments": [
+    {
+      "id": "4672140f-516f-478e-a2a2-fe42ef7b4542",
+      "author": "unknown",
+      "text": "Merged as PR #130 (f678f54 on develop). Test written first (3/3 failing), then fix; root build + full site suite 48/48; sub-path build has 0 of 62,096 root-relative references outside /biased-decisions/. Reviewer sub-agent: APPROVE. Anth.us pins this commit to serve the leaderboard at https://anth.us/biased-decisions/. Note: deploy/amplify-rules.json 301s apply only to biased-decisions.anth.us; under anth.us the stubs do the redirecting. Provenance: claude-code / claude-opus-5-5.",
+      "created_at": "2026-10-02T19:58:56.301567380Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude-code",
+        "model": "claude-opus-5-5",
+        "name": "anth-content-strategy-clients"
+      }
+    }
+  ],
   "created_at": "2026-10-02T19:41:22.698668949Z",
-  "updated_at": "2026-10-02T19:41:27.343327241Z",
-  "closed_at": null,
+  "updated_at": "2026-10-02T19:58:56.333906042Z",
+  "closed_at": "2026-10-02T19:58:56.333859604Z",
   "agent": {
     "platform": "claude-code",
     "model": "claude-opus-5-5",
