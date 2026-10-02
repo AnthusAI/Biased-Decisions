@@ -8,6 +8,7 @@ import { fileURLToPath } from "node:url";
 const DIST = join(fileURLToPath(new URL("..", import.meta.url)), "dist");
 export const MOVED = [["religion-v2", "religion"], ["stereotype-religion", "religion"], ["stereotype-nationality", "nationality"], ["race-fullname", "race"], ["race-name", "race"], ["gender-pronouns", "gender"], ["age-inserted", "age"], ["orientation", "sexuality"], ["gender-treatment", "gender", "root"], ["antisemitic-stereotypes-loan-narratives", "antisemitic-stereotypes-loan-narratives"], ["antisemitic-stereotypes", "antisemitic-stereotypes"], ["nationality-stereotypes", "nationality-stereotypes"], ["racial-and-ethnic-stereotypes", "racial-and-ethnic-stereotypes"], ["china-regional-stereotypes", "china-regional-stereotypes"], ["india-caste-and-regional-stereotypes", "india-caste-and-regional-stereotypes"], ["african-ethnic-stereotypes", "african-ethnic-stereotypes"], ["sexual-orientation-stereotypes", "sexual-orientation-stereotypes"], ["family-status-stereotypes", "family-status-stereotypes"]];
 const SITE = process.env.SITE_URL || "https://biased-decisions.anth.us";
+const BASE_PATH_WITHOUT_TRAILING_SLASH = `/${(process.env.BASE_PATH || "/").replace(/^\/+|\/+$/g, "")}`.replace(/\/$/, "");
 
 function dirsUnder(root) {
   const out = [];
@@ -19,10 +20,13 @@ function dirsUnder(root) {
   return out;
 }
 
-const page = (to) => `<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Moved</title>
+export const legacyRedirectStub = (targetPathFromSiteRoot) => {
+  const to = `${BASE_PATH_WITHOUT_TRAILING_SLASH}${targetPathFromSiteRoot}`;
+  return `<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Moved</title>
 <link rel="canonical" href="${SITE}${to}"><meta name="robots" content="noindex">
 <meta http-equiv="refresh" content="0; url=${to}"></head><body><p>This page moved to <a href="${to}">${to}</a>.</p></body></html>
 `;
+};
 
 export function writeLegacyRedirects() {
   let n = 0;
@@ -36,7 +40,7 @@ export function writeLegacyRedirects() {
         const file = join(DIST, target, "index.html");
         if (existsSync(file)) continue;
         mkdirSync(join(DIST, target), { recursive: true });
-        writeFileSync(file, page(`/${dir}/`));
+        writeFileSync(file, legacyRedirectStub(`/${dir}/`));
         n++;
       }
     }
@@ -47,7 +51,7 @@ export function writeLegacyRedirects() {
     const file = join(DIST, target, "index.html");
     if (existsSync(file)) continue;
     mkdirSync(join(DIST, target), { recursive: true });
-    writeFileSync(file, page(`/${dir}/`));
+    writeFileSync(file, legacyRedirectStub(`/${dir}/`));
     n++;
   }
   return n;
