@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "event_id": "12c2af15-b988-4ea2-b051-b495cb14bafb",
+  "issue_id": "BD-a80af7a8-88e9-4225-bd38-6ad0c6b26728",
+  "event_type": "issue_created",
+  "occurred_at": "2026-10-02T01:03:22.993Z",
+  "actor_id": "home",
+  "payload": {
+    "title": "Port the wide-screen layout from hard-decisions.anth.us: 88% column from 2000px, two-column sections and one-row hero from 2400px",
+    "description": "",
+    "issue_type": "task",
+    "status": "open",
+    "priority": 2,
+    "assignee": null,
+    "parent": null,
+    "labels": [],
+    "agent": {
+      "platform": "claude_code",
+      "model": "Opus 5.5",
+      "name": "Hard-Decisions session"
+    }
+  }
+}
