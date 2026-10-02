@@ -92,9 +92,12 @@ const shortlistFiles = dim.id === "gender" && item && shortlistBlock(item.id) ? 
   {!isNonHiring(level) && <RiskPanel dim={dim} level={level} place={title} />}
 
   {!leaf && (
-    <section class="wrap section" id="rows">
+    <section class="wrap section sec-split" id="rows">
+      <div class="sec-head">
       <h2 class="display">Every {kind}, ranked</h2>
       <p class="lede">Most biased first. Each row is one {kind}. Each mark is one model's result beyond the control edit, with the 95% range. Filled: a clear effect. Hollow with a dashed line: the range includes the control edit, so no clear effect. Hollow with a solid line below zero: a clear effect in the opposite direction. Select a row for its full result.</p>
+      </div>
+      <div class="sec-body">
       <div data-legend={measuredEngines.map((e) => e.id).join(",")}></div>
       <Chart id="forest" />
       <div class="table-scroll" tabindex="0" role="region" aria-label={`${title}: every ${kind}`}>
@@ -116,11 +119,12 @@ const shortlistFiles = dim.id === "gender" && item && shortlistBlock(item.id) ? 
           </tbody>
         </table>
       </div>
+      </div>
     </section>
   )}
 
   {!leaf && (
-    <section class="wrap section" id="engines">
+    <section class="wrap section sec-prose" id="engines">
       <h2 class="display sm">Each model</h2>
       {engines.map((e) => {
         const h = level.heads[e.id];
@@ -135,8 +139,11 @@ const shortlistFiles = dim.id === "gender" && item && shortlistBlock(item.id) ? 
   )}
 
   {leaf && (
-    <section class="wrap section" id="measurements">
+    <section class="wrap section sec-split" id="measurements">
+      <div class="sec-head">
       <h2 class="display">Every model's result</h2>
+      </div>
+      <div class="sec-body">
       {measuredEngines.map((e) => <p class="lede plain">{cellSentence(dim, cell, e.id)}</p>)}
       <p class="note">Numbers in brackets are the 95% range.</p>
       <FacetTable dim={dim} facets={leafFacets} facetKind="engine" caption={`${dim.label}, ${title}: every model`}
@@ -144,16 +151,17 @@ const shortlistFiles = dim.id === "gender" && item && shortlistBlock(item.id) ? 
       <h3>The real edit against the control edit</h3>
       <p class="note">Each coloured mark is what the model did after the real edit, with its range. The grey band below it is the control edit, with its own range.</p>
       <Chart id="versus" />
+      </div>
     </section>
   )}
 
   {leaf && cell.example && (
-    <section class="wrap section"><Example example={cell.example} note={bd.example_note} /></section>
+    <section class="wrap section sec-prose"><Example example={cell.example} note={bd.example_note} /></section>
   )}
 
   {dim.id === "gender" && item && <Shortlist task={item.id} positive={item.positive} />}
 
-  <section class="wrap section">
+  <section class="wrap section sec-prose">
     <nav class="chips" aria-label={`Other ${plural(siblingKind)}`}>
       <span class="chips-h">Other {plural(siblingKind)}</span>
       {siblings.map((s) => <a href={s.href}>{s.label}</a>)}

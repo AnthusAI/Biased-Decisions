@@ -24,7 +24,7 @@ const description = `What our results say about measuring and avoiding bias when
     <div class="footnote risk-notice" role="note"><p>{C.notice}</p></div>
   </section>
 
-  <section class="wrap section tight" id="checklist" aria-labelledby="checklist-h">
+  <section class="wrap section sec-prose tight" id="checklist" aria-labelledby="checklist-h">
     <h2 class="display" id="checklist-h">Before deploying: a checklist</h2>
     <ol class="checklist">
       {C.checklist.map((c) => <li>{c.text} <a href={`#${c.insight}`}>Why</a></li>)}
@@ -32,7 +32,7 @@ const description = `What our results say about measuring and avoiding bias when
   </section>
 
   {C.insights.map((i) => (
-    <section class="wrap section insight" id={i.id} aria-labelledby={`${i.id}-h`}>
+    <section class="wrap section sec-prose insight" id={i.id} aria-labelledby={`${i.id}-h`}>
       <h2 class="display" id={`${i.id}-h`}>{i.title} <a class="anchor" href={`#${i.id}`} aria-label={`Link to ${i.title}`}>#</a></h2>
       <p class="lede">{i.text}</p>
       {i.evidence.length > 0 && <Fragment><h3>The evidence</h3><ul class="ev-list">{i.evidence.map((id) => <EvidenceItem id={id} />)}</ul></Fragment>}
@@ -42,7 +42,7 @@ const description = `What our results say about measuring and avoiding bias when
     </section>
   ))}
 
-  <section class="wrap section" id="rules" aria-labelledby="rules-h">
+  <section class="wrap section sec-prose" id="rules" aria-labelledby="rules-h">
     <h2 class="display" id="rules-h">The rules cited on this site</h2>
     <p class="lede">Each rule below is cited for a kind of decision we measured. Each links to its official text.</p>
     <ul class="cite-list">{C.citations.map((c) => <Citation c={c} />)}</ul>
@@ -52,7 +52,7 @@ const description = `What our results say about measuring and avoiding bias when
     </ul>
   </section>
 
-  <section class="wrap section" id="articles" aria-labelledby="articles-h">
+  <section class="wrap section sec-prose" id="articles" aria-labelledby="articles-h">
     <h2 class="display sm" id="articles-h">Articles about these results</h2>
     <ul class="art-list">{C.articles.map((a) => <li><a href={a.url}>{a.title}</a></li>)}</ul>
   </section>

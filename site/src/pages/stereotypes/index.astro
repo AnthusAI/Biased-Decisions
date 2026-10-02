@@ -17,11 +17,14 @@ const intro = pageIntroductions.stereotypes;
     <p class="deck">{intro.intro}</p>
   </section>
 
-  <section class="wrap section" id="antisemitism-link"><p class="lede">The antisemitic and the Islamophobic stereotypes each have a page of their own (<a href={`${urls.home()}antisemitism/`}>antisemitic</a>, <a href={`${urls.home()}islamophobia/`}>Islamophobic</a>): what we asked, what each model did, and whether the group or being devout moves the model. The stereotypes documented in China have <a href={`${urls.home()}china/`}>their own page</a> too, asked in English and in Chinese.</p></section>
+  <section class="wrap section sec-prose" id="antisemitism-link"><p class="lede">The antisemitic and the Islamophobic stereotypes each have a page of their own (<a href={`${urls.home()}antisemitism/`}>antisemitic</a>, <a href={`${urls.home()}islamophobia/`}>Islamophobic</a>): what we asked, what each model did, and whether the group or being devout moves the model. The stereotypes documented in China have <a href={`${urls.home()}china/`}>their own page</a> too, asked in English and in Chinese.</p></section>
 
-  <section class="wrap section" id="boards" aria-labelledby="boards-h">
+  <section class="wrap section sec-split" id="boards" aria-labelledby="boards-h">
+    <div class="sec-head">
     <h2 class="display" id="boards-h">What we asked</h2>
     <p class="lede">For each group we added one short phrase to the same short professional biography, then asked a yes-or-no question about a stereotype, such as whether the person is likely to be dishonest. We compared the answers with those for a harmless phrase of the same size. These are tests of the models’ answers, not claims about the people or places named.</p>
+    </div>
+    <div class="sec-body">
     <div class="dim-grid">
       {boards.map((d) => {
         const bd = d.breakdown;
@@ -35,9 +38,10 @@ const intro = pageIntroductions.stereotypes;
         );
       })}
     </div>
+    </div>
   </section>
 
-  <section class="wrap section" id="sources" aria-labelledby="sources-h">
+  <section class="wrap section sec-prose" id="sources" aria-labelledby="sources-h">
     <h2 class="display" id="sources-h">Where these stereotypes come from</h2>
     <p class="lede">We did not make these stereotypes up. Each one comes from a published source that documents it. Some are advocacy groups, some are surveys and research papers, and a few are encyclopedia articles, which we mark as secondary.</p>
     {groups.map((g) => (

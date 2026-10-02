@@ -3,7 +3,7 @@
   "title": "Move the replay audit out of the Amplify deploy",
   "description": "Replace AWS Amplify Git-connected builds with GitHub Actions CI/CD and manual artifact deployment. Data replay and report generation happen only in a contributor-local preparation workflow; GitHub validates source and site behavior, builds the static artifact, and deploys that exact artifact only after main CI succeeds. Amplify hosts prebuilt artifacts only, with no repository build spec.",
   "type": "chore",
-  "status": "in_progress",
+  "status": "closed",
   "priority": 2,
   "assignee": null,
   "creator": null,
@@ -46,11 +46,35 @@
         "model": "GPT-5",
         "name": "Codex"
       }
+    },
+    {
+      "id": "ccf5fe61-3a1b-4d1b-b9ca-14c49ef0bce3",
+      "author": "home",
+      "text": "codex: End-to-end validation passed: GitHub Actions run 36712569766 built and tested the static artifact, assumed the production OIDC role, and created Amplify manual deployment job 2, which succeeded. The production domain now serves that artifact; Amplify performs artifact hosting only.",
+      "created_at": "2026-09-30T13:21:22.012063Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "codex",
+        "model": "GPT-5",
+        "name": "Codex"
+      }
+    },
+    {
+      "id": "89fd2ac1-18fe-44f6-99e1-84065e1c4cf6",
+      "author": "home",
+      "text": "codex: Cleanup complete: disabled automatic builds on the retained Git-connected rollback app d3ep9ps55qdbc5. The app and default domain remain available for rollback; only its automatic build-minute consumption is disabled.",
+      "created_at": "2026-09-30T13:21:57.649975Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "codex",
+        "model": "GPT-5",
+        "name": "Codex"
+      }
     }
   ],
   "created_at": "2026-09-23T16:31:47.256735Z",
-  "updated_at": "2026-09-30T10:54:56.524901Z",
-  "closed_at": null,
+  "updated_at": "2026-09-30T13:22:09.128799Z",
+  "closed_at": "2026-09-30T13:21:27.951293Z",
   "agent": {
     "platform": "claude_code",
     "model": "Claude Opus 5.5",

@@ -12,22 +12,22 @@ const H = level;
 const ranked = board.ranked;
 const u = unitText(unit);
 ---
-<section class="wrap section board-sec">
+<section class="wrap section sec-split board-sec">
+  <div class="sec-head">
   <H class={level === "h2" ? "display" : "display sm"}>{heading}</H>
   {ranked.length > 0
-    ? <Fragment>
-        <p class="lede">{lede || `Most biased first. Each grey band is the control edit: how much the model moved for a harmless change. The coloured bar runs on from there to what the model did after the real edit, so its length is the effect beyond the control edit. The whisker is the 95% range${facetKind ? `, and the thin ticks are the model's other ${kindNames(facetKind)}` : ""}. Select a row for that model's details.`}</p>
-        <Chart id={chartId} />
-        {shows && <p class="note board-shows">{shows}</p>}
-        {facetKind && ranked.some((r) => r.n_facets > 1) && <p class="note">Each model's bar is the largest of its {kindNames(facetKind)}. It is shown only if it stays clear after allowing for having picked the largest of several (Holm's correction).</p>}
-        <ol class="board-list sr">
-          {ranked.map((r) => <li>{engineById[r.engine].label}: {fmt(r.value)} percentage points beyond the control edit, range {fmt(r.lo)} to {fmt(r.hi)}, on {r.facet_label}{r.n_facets > 1 ? ` (the largest of ${r.n_facets} ${kindNames(facetKind)})` : ""}{r.direction ? `; it became ${r.direction.phrase}` : ""}</li>)}
-        </ol>
-      </Fragment>
-    : <Fragment>
-        <p class="lede strong">No model moved clearly more than it does for the control edit here, so nothing is ranked.</p>
-        {shows && <p class="note board-shows">{shows}</p>}
-      </Fragment>}
+    ? <p class="lede">{lede || `Most biased first. Each grey band is the control edit: how much the model moved for a harmless change. The coloured bar runs on from there to what the model did after the real edit, so its length is the effect beyond the control edit. The whisker is the 95% range${facetKind ? `, and the thin ticks are the model's other ${kindNames(facetKind)}` : ""}. Select a row for that model's details.`}</p>
+    : <p class="lede strong">No model moved clearly more than it does for the control edit here, so nothing is ranked.</p>}
+  </div>
+  <div class="sec-body">
+  {ranked.length > 0 && <Chart id={chartId} />}
+  {shows && <p class="note board-shows">{shows}</p>}
+  {ranked.length > 0 && facetKind && ranked.some((r) => r.n_facets > 1) && <p class="note">Each model's bar is the largest of its {kindNames(facetKind)}. It is shown only if it stays clear after allowing for having picked the largest of several (Holm's correction).</p>}
+  {ranked.length > 0 && (
+    <ol class="board-list sr">
+      {ranked.map((r) => <li>{engineById[r.engine].label}: {fmt(r.value)} percentage points beyond the control edit, range {fmt(r.lo)} to {fmt(r.hi)}, on {r.facet_label}{r.n_facets > 1 ? ` (the largest of ${r.n_facets} ${kindNames(facetKind)})` : ""}{r.direction ? `; it became ${r.direction.phrase}` : ""}</li>)}
+    </ol>
+  )}
   {board.not_detected.length > 0 && (
     <div class="nd-list">
       <h3>No clear effect, so not ranked</h3>
@@ -49,4 +49,5 @@ const u = unitText(unit);
   {board.unmeasured.length > 0 && (
     <p class="unmeasured"><span class="hatch"></span><span>Not tested here: {board.unmeasured.map((id, i) => <Fragment>{i ? ", " : ""}<a href={hrefFor(id)}>{engineById[id].label}</a></Fragment>)}. Shown as missing, never as zero.</span></p>
   )}
+  </div>
 </section>
