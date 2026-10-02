@@ -127,9 +127,12 @@ const jevBorderlineFlips = getFlipsSorted(
 );
 ---
 
-<section class="wrap section" id="nationality-lending-relative">
+<section class="wrap section sec-split" id="nationality-lending-relative">
+  <div class="sec-head">
   <h2 class="display">Lending decisions: each nationality against the average of all thirteen</h2>
   <p class="lede">The cyclist control may itself move a model's confidence, so this view compares each nationality with the average of all thirteen on the same application.</p>
+  </div>
+  <div class="sec-body">
   <div class="table-scroll" tabindex="0" role="region" aria-label="Each nationality compared to average of all thirteen">
     <table>
       <caption class="sr">Lending decisions: each nationality against the average of all thirteen</caption>
@@ -166,13 +169,17 @@ const jevBorderlineFlips = getFlipsSorted(
       </tbody>
     </table>
   </div>
+  </div>
 </section>
 
-<section class="wrap section" id="nationality-lending-pairs">
+<section class="wrap section sec-split" id="nationality-lending-pairs">
+  <div class="sec-head">
   <h2 class="display">Lending decisions: any two nationalities compared directly</h2>
   <p class="lede">Every application was asked with every nationality, so any two can be compared on the same applications.</p>
   <p class="note">Each value: how many points more (plus) or less (minus) confident the model is in approving the row nationality's application than the column nationality's.</p>
 
+  </div>
+  <div class="sec-body">
   {[
     { engine: "laya", matrix: layaMatrix },
     { engine: "kev", matrix: kevMatrix },
@@ -220,12 +227,16 @@ const jevBorderlineFlips = getFlipsSorted(
       </div>
     </>
   ))}
+  </div>
 </section>
 
-<section class="wrap section" id="nationality-lending-flips">
+<section class="wrap section sec-split" id="nationality-lending-flips">
+  <div class="sec-head">
   <h2 class="display">Lending decisions: how often the decision itself changes</h2>
   <p class="lede">A decision is "approve" when the model's approval probability is at least 50%. Applications are grouped by how strong the model finds them on average: weak below 35%, borderline 35–65%, strong above 65%. Here is how often the model's decision changes when we swap the nationality.</p>
 
+  </div>
+  <div class="sec-body">
   <div class="table-scroll" tabindex="0" role="region" aria-label="Application counts by decision strength band">
     <table>
       <caption class="sr">Application counts by decision strength band</caption>
@@ -306,4 +317,5 @@ const jevBorderlineFlips = getFlipsSorted(
   ))}
 
   <p class="note">This comparison was added after the answers were collected; unlike the studies above, its predictions were not written down first.</p>
+  </div>
 </section>

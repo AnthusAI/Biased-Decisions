@@ -93,19 +93,26 @@ const kindWord = (k) => (k === "task" ? "decision" : k);
     </figure>
   </section>
 
-  <section class="wrap section" aria-labelledby="reg-h">
+  <section class="wrap section sec-panel" aria-labelledby="reg-h">
     <div class="reg-banner">
+      <div class="sec-head">
       <p class="risk-kicker"><svg class="reg-icon" viewBox="0 0 20 20" width="16" height="16" aria-hidden="true" focusable="false"><path d="M10 1.6 19.2 18H.8Z" fill="currentColor"/><path d="M9 7h2v5.4H9zM9 13.8h2V16H9z" class="reg-glyph"/></svg>Regulated decisions</p>
       <h2 class="display sm" id="reg-h">{regulatedDims.length} of the {dimensions.length} characteristics we tested are protected by hiring rules</h2>
+      </div>
+      <div class="sec-body">
       <p>{shortlistLine.sentence}. Divide the first rate by the second and you get the shortlist ratio: <strong>{shortlistLine.ratio}</strong>. A ratio of 1.0 means women and men make the list at the same rate, and U.S. hiring guidance treats a ratio under {C.shortlist.line.toFixed(2)} as a warning sign. <a href={shortlistLine.href}>The shortlist</a> shows how a model that changes its answers can change who gets picked. Every page about a protected characteristic carries a red warning and a panel on the legal risk.</p>
       <p class="reg-links"><a href={curls.howToFail()}>How to cause a compliance failure with a fast decision model</a><a href={curls.guidance()}>Guidance: measuring and avoiding the risk</a></p>
       <p class="note">{C.notice}</p>
+      </div>
     </div>
   </section>
 
-  <section class="wrap section">
+  <section class="wrap section sec-split">
+    <div class="sec-head">
     <h2 class="display">How the models compare, characteristic by characteristic</h2>
     <p class="lede">Each box is one characteristic. Its number is the model's largest effect there, in percentage points beyond the control edit: <strong>darker red is larger</strong>. "Worst" marks the model with the largest effect on that characteristic. We do not add the characteristics up into one overall order: they differ in size and design, and not every model was tested on each. Hover or select a box for its range.</p>
+    </div>
+    <div class="sec-body">
     <ol class="overall">
       {rows.map((r, i) => {
         const en = engineById[r.engine];
@@ -133,11 +140,15 @@ const kindWord = (k) => (k === "task" ? "decision" : k);
       <span><i class="cv det">+11</i>tagged "only model": no other model was tested there, so it is not ranked</span>
       <span><i class="cv miss"></i>not tested</span>
     </div>
+    </div>
   </section>
 
-  <section class="wrap section">
+  <section class="wrap section sec-split">
+    <div class="sec-head">
     <h2 class="display">The shape of each model's bias</h2>
     <p class="lede">Each spoke is one characteristic. The farther a shape reaches along a spoke, the larger the model's effect there, beyond the control edit. Every model is drawn on the same scale. <strong>A bigger shape is a more biased model.</strong> A dashed spoke was never tested, and the shape breaks there instead of dropping to zero.</p>
+    </div>
+    <div class="sec-body">
     <div class="spider-row">
       {engines.map((en) => (
         <a class="spider-card" href={urls.engine(en.id)}>
@@ -147,10 +158,14 @@ const kindWord = (k) => (k === "task" ? "decision" : k);
         </a>
       ))}
     </div>
+    </div>
   </section>
 
-  <section class="wrap section">
+  <section class="wrap section sec-split">
+    <div class="sec-head">
     <h2 class="display">Every characteristic we tested</h2>
+    </div>
+    <div class="sec-body">
     <div class="dim-grid">
       {dimensions.map((d) => {
         const top = d.board.ranked[0];
@@ -171,11 +186,15 @@ const kindWord = (k) => (k === "task" ? "decision" : k);
     {supplementalDimensions.filter((d) => d.id === "option-order").map((d) => (
       <p class="note">One more test, and it is not about a kind of person: <a href={urls.dim(d.id)}>does listing the answer options in a different order change the answer?</a></p>
     ))}
+    </div>
   </section>
 
-  <section class="wrap section" id="stereotypes" aria-labelledby="stereotypes-h">
+  <section class="wrap section sec-split" id="stereotypes" aria-labelledby="stereotypes-h">
+    <div class="sec-head">
     <h2 class="display" id="stereotypes-h">Stereotype tests</h2>
     <p class="lede">We also asked models yes-or-no questions that test for stereotypes, such as whether a person is likely to be dishonest or arrogant. Each time, we added one short phrase to the same short professional biography and compared it with a harmless phrase of the same size. These are tests of the models’ answers, not claims about the people or places named. <a href={`${urls.home()}stereotypes/`}>Where each stereotype comes from</a>.</p>
+    </div>
+    <div class="sec-body">
     <div class="dim-grid">
       {stereotypeBoards.map((d) => {
         const bd = d.breakdown;
@@ -189,9 +208,10 @@ const kindWord = (k) => (k === "task" ? "decision" : k);
         );
       })}
     </div>
+    </div>
   </section>
 
-  <section class="wrap section" id="ordering" aria-labelledby="ordering-h">
+  <section class="wrap section sec-prose" id="ordering" aria-labelledby="ordering-h">
     <h2 class="display sm" id="ordering-h">How to read this comparison</h2>
     <p>For each characteristic, each model's box shows its largest clear effect there, beyond the control edit, and "worst" marks the model with the largest effect on that characteristic. The range for each result is shown when you hover or select its box, and on the characteristic's page.</p>
     <p>We do not combine the characteristics into one overall place: they differ in size and design, and a single order would treat a small, uncertain difference the same as a large one. A characteristic a model was never tested on is never counted as zero. The model is marked incomplete instead.</p>

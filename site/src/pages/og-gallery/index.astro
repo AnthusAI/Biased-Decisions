@@ -16,8 +16,11 @@ const TITLES = { home: "Home and lists", dimension: "One characteristic", group:
     <p class="deck">These images preview our tests of how AI responds to gender, race and other personal details. Choose a preview to open the page behind it. Each includes a written description for readers who cannot see the image.</p>
   </section>
   {templates.map((t) => (
-    <section class="wrap section">
+    <section class="wrap section sec-split">
+      <div class="sec-head">
       <h2 class="display sm">{TITLES[t] || t}</h2>
+      </div>
+      <div class="sec-body">
       <ul class="og-gallery">
         {cards.filter((c) => c.template === t).map((c) => (
           <li>
@@ -27,6 +30,7 @@ const TITLES = { home: "Home and lists", dimension: "One characteristic", group:
           </li>
         ))}
       </ul>
+      </div>
     </section>
   ))}
 </Base>

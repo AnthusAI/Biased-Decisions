@@ -19,7 +19,7 @@ const description = `${testedCount} tested AI models on the Biased-Decisions lea
     {pendingCount > 0 && <p class="note">{pendingCount} {pendingCount === 1 ? "model is" : "models are"} not yet tested.</p>}
     <p class="note">Models are listed in a fixed order, not ranked: compare them characteristic by characteristic on each model's page and on the leaderboard. <a href={urls.methods()}>How the comparison works</a>.</p>
   </section>
-  <section class="wrap section tight">
+  <section class="wrap section sec-prose tight">
     <ol class="overall">
       {rows.map((r, i) => {
         const en = engineById[r.engine];

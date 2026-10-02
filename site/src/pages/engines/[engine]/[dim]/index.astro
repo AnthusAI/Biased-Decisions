@@ -62,32 +62,44 @@ const description = measured
   <RiskPanel dim={dim} engineId={en.id} place={`${en.label} on ${dim.label.toLowerCase()}`} />
 
   {measured && twoAxes && (
-    <section class="wrap section">
+    <section class="wrap section sec-split">
+      <div class="sec-head">
       <h2 class="display">Every {kindWord(bd.group_kind)}, every {kindWord(bd.item_kind)}</h2>
       <p class="lede">Each square is {en.label}'s effect beyond the control edit for one {kindWord(bd.group_kind)} and one {kindWord(bd.item_kind)}. Select a square for the full result, or a {kindWord(bd.group_kind)} or a {kindWord(bd.item_kind)} to compare every model.</p>
+      </div>
+      <div class="sec-body">
       <Matrix dim={dim} engineId={en.id} caption={`${en.label}, ${dim.label}: every ${kindWord(bd.group_kind)} by every ${kindWord(bd.item_kind)}`} />
+      </div>
     </section>
   )}
 
   {measured && oneAxis && (
-    <section class="wrap section">
+    <section class="wrap section sec-split">
+      <div class="sec-head">
       <h2 class="display">Every {multiGroup(dim) ? kindWord(bd.group_kind) : kindWord(bd.item_kind)}, most biased first</h2>
       <p class="lede">{en.label}'s effect beyond the control edit for each {multiGroup(dim) ? kindWord(bd.group_kind) : kindWord(bd.item_kind)}. Each is shown with its 95% range.</p>
+      </div>
+      <div class="sec-body">
       <Chart id="forest" />
+      </div>
     </section>
   )}
 
   {measured && (
-    <section class="wrap section">
+    <section class="wrap section sec-split">
+      <div class="sec-head">
       <h2 class="display">Every {facetWord}, in a table</h2>
+      </div>
+      <div class="sec-body">
       <FacetTable dim={dim} facets={c.facets} headline={c.headline.facet} detected={c.detected} facetKind={dim.facet_kind}
         caption={`${en.label}, ${dim.label}: the result for each ${facetWord}`}
         rowHref={!multiGroup(dim) && !multiItem(dim) ? null : (f) => `${facetHref(dim, f.id)}#${en.id}`} />
       {twoAxes && <p class="note">Each row shows the largest result over all the {kindPlural(bd.group_kind)}. The grid above has every square.</p>}
+      </div>
     </section>
   )}
 
-  <section class="wrap section">
+  <section class="wrap section sec-prose">
     <nav class="chips" aria-label={`${en.label} on other characteristics`}>
       <span class="chips-h">{en.label} on</span>
       {dimensions.filter((d) => d.id !== dim.id).map((d) => <a href={urls.engineDim(en.id, d.id)} class={d.cells[en.id].status === "measured" ? null : "dim-miss"}>{d.label}</a>)}

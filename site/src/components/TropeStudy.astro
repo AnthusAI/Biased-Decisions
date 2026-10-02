@@ -43,7 +43,7 @@ const splitRows = (src) => order.filter((e) => A.split[src][e]).map((e) => ({
     <div class="footnote risk-notice" role="note"><p>These are tests of what the models answer. They say nothing about {A.subject}, and the stereotypes are described only so the tests can be checked.</p></div>
   </section>
 
-  <section class="wrap section" id="tested" aria-labelledby="tested-h">
+  <section class="wrap section sec-prose" id="tested" aria-labelledby="tested-h">
     <h2 class="display" id="tested-h">What we asked</h2>
     <p class="lede">We took short professional biographies and added one phrase saying who the person is. Then we asked yes-or-no questions about the person, three worded differently for each of six {adjective.toLowerCase()} stereotypes, and we averaged the three. We compared each answer with the answer after a harmless phrase of the same size, and with the same phrase for Christian and Muslim people, so the effect of naming any group cancels out. The score is how many percentage points more often the model gave the answer the stereotype predicts.</p>
     <h3>The six stereotypes we tested</h3>
@@ -54,9 +54,12 @@ const splitRows = (src) => order.filter((e) => A.split[src][e]).map((e) => ({
   </section>
 
   {SOURCES.map((s) => (
-    <section class="wrap section" id={s.id} aria-labelledby={`${s.id}-h`}>
+    <section class="wrap section sec-split" id={s.id} aria-labelledby={`${s.id}-h`}>
+      <div class="sec-head">
       <h2 class="display" id={`${s.id}-h`}>{s.name}</h2>
       <p class="lede">{s.id === "bios" ? "Two thousand real biographies, 500 of them answered by each model in this first pass." : "Two hundred loan narratives written for this test, so no real person is described."} <a href={`${urls.home()}${s.board}/`}>Every result on its own page</a>.</p>
+      </div>
+      <div class="sec-body">
       <TropeVisual source={s.id} title={s.name.toLowerCase()} study={A} />
       <ul class="cite-list">
         {order.map((e) => {
@@ -66,10 +69,11 @@ const splitRows = (src) => order.filter((e) => A.split[src][e]).map((e) => ({
           return <li><strong>{label(e)}</strong>: its largest result was {fmt(m.best.r.score_pts)} percentage points on {tropeLabel[m.best.tid]}, when the phrase was <q>{cueLabel[m.best.cue]}</q> (range {fmt(m.best.r.lo)} to {fmt(m.best.r.hi)}).</li>;
         })}
       </ul>
+      </div>
     </section>
   ))}
 
-  <section class="wrap section" id="split" aria-labelledby="split-h">
+  <section class="wrap section sec-prose" id="split" aria-labelledby="split-h">
     <h2 class="display" id="split-h">Being {A.who}, or being devout?</h2>
     <p class="lede">A phrase such as “a devout Jew” carries two signals at once: religious practice and Jewish identity. Earlier work found that almost any religious label moves a model on some questions. To separate the two, we compare “a devout {A.who}” with the plain phrase “a {A.who}” on the same biographies. A positive score means the model gave the answer the stereotype predicts more often. A difference well away from zero means the two phrases do not move the model alike.</p>
     {splitRows("bios").map((m) => (
@@ -80,12 +84,12 @@ const splitRows = (src) => order.filter((e) => A.split[src][e]).map((e) => ({
     ))}
   </section>
 
-  {A.boards.decisions && <section class="wrap section" id="decisions" aria-labelledby="decisions-h">
+  {A.boards.decisions && <section class="wrap section sec-prose" id="decisions" aria-labelledby="decisions-h">
     <h2 class="display" id="decisions-h">Does the job it picks change?</h2>
     <p class="lede">We also asked whether the same phrases change which of two occupations a model says a biography describes, such as paralegal or attorney. <a href={`${urls.home()}${A.boards.decisions}/`}>The occupation results</a> are on their own board.</p>
   </section>}
 
-  <section class="wrap section" id="limits" aria-labelledby="limits-h">
+  <section class="wrap section sec-prose" id="limits" aria-labelledby="limits-h">
     <h2 class="display sm" id="limits-h">What this does not show</h2>
     <ul class="unmeasured-list">
       {study === "antisemitism" && <li>The surname test has no matched surnames for other groups, so it is compared only with an ordinary surname.</li>}

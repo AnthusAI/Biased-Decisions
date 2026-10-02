@@ -15,8 +15,11 @@ const buildLabel = (id) => { for (const e of engines) for (const b of e.builds |
 const builds = [...new Set(measured.map((f) => f.build).filter(Boolean))].map(buildLabel).filter(Boolean);
 const files = [...new Set([...measured.flatMap((f) => filesOf(f)), ...extra])].sort();
 ---
-<section class="wrap section how-measured" id="how-measured">
+<section class="wrap section sec-split how-measured" id="how-measured">
+  <div class="sec-head">
   <h2 class="display sm">How we measured this</h2>
+  </div>
+  <div class="sec-body">
   {resampled && <p>Each number in brackets is a range. We repeated the measurement 1,000 times on random re-draws of the texts, and the range covers the middle 95 of every 100 results: the 95% range. The re-draws start from the same fixed point (seed 0), so running them again gives the same range.</p>}
   {wilson && <p>For a few results the saved answers hold only a count, not each answer. There the range comes from a standard formula for a share, the Wilson interval.</p>}
   {other.length > 0 && <p>Other ranges on this page: {other.map((m, i) => <Fragment>{i ? "; " : ""}<code>{m}</code></Fragment>)}.</p>}
@@ -29,4 +32,5 @@ const files = [...new Set([...measured.flatMap((f) => filesOf(f)), ...extra])].s
       <ul class="files">{files.map((p) => <li><code>{p}</code></li>)}</ul>
     </details>
   )}
+  </div>
 </section>
