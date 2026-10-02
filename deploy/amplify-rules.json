@@ -40,6 +40,6 @@
   {"source": "/stereotype-b3-family/<*>", "target": "/family-status-stereotypes/<*>", "status": "301", "condition": null},
   {"source": "/engines/<e>/stereotype-b3-family/<*>", "target": "/engines/<e>/family-status-stereotypes/<*>", "status": "301", "condition": null},
   {"source": "/engines/laya-mlx/<*>", "target": "/engines/laya/<*>", "status": "301", "condition": null},
-  {"source": "/opinion-claims/", "target": "/antisemitism-and-israel/#not-shown-yet", "status": "301", "condition": null},
+  {"source": "/opinion-claims/", "target": "/methods/#direct-statements", "status": "301", "condition": null},
   {"source": "/<*>", "target": "/404.html", "status": "404", "condition": null}
 ]
