@@ -3,7 +3,7 @@
   "title": "Direct-statement arms: add stance controls or take them off the site",
   "description": "The ADL statement arm (`adl_gaza`) and the opinion-claims arm put a claim to a model and record agree/disagree with no control. On the ADL arm one model selects the strongest agreement for most statements, including pairs that contradict each other, which is position or acquiescence bias rather than a stance. Many answer distributions are close to uniform and are still shown as a \"selected response\". The opinion-claims arm has one prompt per claim and prints two-decimal percentages with no interval.\n\nDecide first: keep with controls, or remove from the site until controls exist. If kept:\n- Add a reversed or negated statement for every claim and an option-order reversal, and report the stance as the paired difference.\n- Report an acquiescence index per model (agreement with a claim and its negation) next to every rate.\n- Show the full distribution; do not label a \"selected response\" when the top probability is under an agreed threshold.\n- Do not average statements that point in opposite directions into one figure.\n- Use a neutral colour scale that does not code one answer as wrong.\n- Reconcile the page copy: it currently calls the study both \"not a reproduction\" and a \"completed replication\".\n- Record a pre-registration with predictions before any new answers are collected.",
   "type": "task",
-  "status": "open",
+  "status": "closed",
   "priority": 1,
   "assignee": null,
   "creator": null,
@@ -22,11 +22,18 @@
         "model": "Claude Fable 5.1",
         "name": "Project Assessment"
       }
+    },
+    {
+      "id": "9edabfb1-0847-4308-836d-7cad885df3ed",
+      "author": "home",
+      "text": "The controlled arms are published for all three engines under the pre-registered rule; the single-prompt arms stay off the site.",
+      "created_at": "2026-09-30T22:33:57.703629Z",
+      "comment_type": "default"
     }
   ],
   "created_at": "2026-09-28T04:17:56.199446Z",
-  "updated_at": "2026-09-28T05:23:00.579274Z",
-  "closed_at": null,
+  "updated_at": "2026-09-30T22:33:57.734862Z",
+  "closed_at": "2026-09-30T22:33:57.734839Z",
   "agent": {
     "platform": "claude_code",
     "model": "Claude Fable 5.1",

@@ -3,7 +3,7 @@
   "title": "Assessment follow-up: direct-statement arms, disclosure, statistics, replayable record",
   "description": "Follow-up from a whole-project review of the site, the scoring code and the record. Four themes, each a task below:\n\n1. The direct-statement arms (the ADL statement set and the opinion claims) have no stance control, so what they show is mostly how a model answers agree/disagree prompts rather than what it agrees with. Add the controls or take the arms off the ranked site until they exist.\n2. The site does not say who runs it, how the work is funded, what each engine is, or how the engines were accessed. Add an About page and full engine descriptions.\n3. Several scoring rules understate uncertainty: the detection rule ignores the floor's interval, headlines are the maximum over many cells with no correction, direction share and recall gap carry no interval, and one deterministic engine's flip rates are read against a zero floor.\n4. Parts of the published record are not yet regenerable or not yet published: batch 2 comes from a staging file, some saved answers are marked unpublished, RESULTS.md is stale, most pre-registrations lack an Outcome section, and the test suite fails on a fresh clone.\n\nDefinition of done: every task below closed, `bd replay` regenerates every number on the ranked board, the site says who made it and how, and every published range is a labelled interval that accounts for its floor.",
   "type": "epic",
-  "status": "in_progress",
+  "status": "closed",
   "priority": 1,
   "assignee": null,
   "creator": null,
@@ -34,11 +34,18 @@
         "model": "Claude Fable 5.1",
         "name": "Project Assessment"
       }
+    },
+    {
+      "id": "2672cd72-fda7-483c-9655-324c79f9a101",
+      "author": "home",
+      "text": "Every task in this follow-up is done and released: disclosure (About page), redaction, headings, detection with floor uncertainty, Holm-corrected headlines, no overall mean rank, intervals on every published number, batch 2 and the Laya records replayable, nationality phrases kept off religious-identity headlines, Outcome sections for every study with answers, the trivial-edit floor and the controlled direct-statement arms on all three engines.",
+      "created_at": "2026-09-30T22:34:09.081169Z",
+      "comment_type": "default"
     }
   ],
   "created_at": "2026-09-28T04:17:03.151394Z",
-  "updated_at": "2026-09-28T10:09:07.451434Z",
-  "closed_at": null,
+  "updated_at": "2026-09-30T22:34:09.108574Z",
+  "closed_at": "2026-09-30T22:34:09.108547Z",
   "agent": {
     "platform": "claude_code",
     "model": "Claude Fable 5.1",

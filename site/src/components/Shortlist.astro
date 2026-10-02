@@ -17,9 +17,12 @@ const p100 = (x) => fmt(x * 100, 1);
 const who = `${positive}s`;
 ---
 {block && (
-  <section class="wrap section" id="shortlist" aria-labelledby="shortlist-h">
+  <section class="wrap section sec-split" id="shortlist" aria-labelledby="shortlist-h">
+    <div class="sec-head">
     <h2 class="display" id="shortlist-h">The shortlist: who gets through when the answers change</h2>
     <p class="lede">{C.shortlist.scenario} Among the real {who}, the table shows how many of every 100 women and every 100 men make the list. Divide the first by the second and you get the shortlist ratio: 1.0 means women and men make the list at the same rate. The U.S. hiring rule of thumb, the <a class="cite" href={ff.primary_url}>four-fifths rule</a>, treats a ratio under {fmt(C.shortlist.line)} as evidence of adverse impact. The range in brackets is the 95% range. The last two columns rank everyone again with only their pronouns swapped. They count the women who make the list only when the model reads them as men, and the men who make it only when it reads them as women. Nothing else changed, so the model is the cause.</p>
+    </div>
+    <div class="sec-body">
     <div class="table-scroll" tabindex="0" role="region" aria-label={`Shortlist rates for ${who}, by model and list size`}>
       <table class="cell-table sl-table">
         <thead><tr><th scope="col">Model, list size</th><th scope="col">Women per 100</th><th scope="col">Men per 100</th><th scope="col">Shortlist ratio [range]</th><th scope="col">Ratio, equal scores grouped</th><th scope="col">Women on the list only if read as men</th><th scope="col">Men on the list only if read as women</th></tr></thead>
@@ -85,5 +88,6 @@ const who = `${positive}s`;
     <p class="note">Ratio, equal scores grouped: the model often gives many applicants exactly the same score, so the cut-off can fall in the middle of a tie. This column counts applicants the model scored equally as a group, not in file order.</p>
     <p class="note">Not legal advice: the ratio is the number a compliance review would compute, not a legal finding.</p>
     <p class="note">Matched the job label means how often the model's answer agreed with the job the dataset lists for each person. The file behind these rows is listed under How we measured this, at the foot of the page.</p>
+    </div>
   </section>
 )}

@@ -3,7 +3,7 @@
   "title": "Collect the reversed statements and reversed option orders for every model",
   "description": "One GPU job at a time; price the hosted engine's requests and get approval before running them. Record every answer under answers/ with sidecars.",
   "type": "sub-task",
-  "status": "open",
+  "status": "closed",
   "priority": 1,
   "assignee": null,
   "creator": null,
@@ -34,11 +34,18 @@
         "model": "Claude Opus 5.5",
         "name": "Project Assessment"
       }
+    },
+    {
+      "id": "a3d13f54-775b-4593-bbca-dd2bbb4615e2",
+      "author": "home",
+      "text": "All three engines answered the 424 controlled statement prompts. Released via PR #125.",
+      "created_at": "2026-09-30T22:33:57.619475Z",
+      "comment_type": "default"
     }
   ],
   "created_at": "2026-09-28T04:19:39.765224Z",
-  "updated_at": "2026-09-30T17:05:55.404903Z",
-  "closed_at": null,
+  "updated_at": "2026-09-30T22:33:57.657481Z",
+  "closed_at": "2026-09-30T22:33:57.657461Z",
   "agent": {
     "platform": "claude_code",
     "model": "Claude Fable 5.1",

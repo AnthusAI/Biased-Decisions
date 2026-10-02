@@ -74,25 +74,32 @@ const allFacets = Object.values(cell.engines);
 
   {!isNonHiring(level) && <RiskPanel dim={dim} level={level} place={title} />}
 
-  <section class="wrap section" id="measurements">
+  <section class="wrap section sec-split" id="measurements">
+    <div class="sec-head">
     <h2 class="display">Every model's result</h2>
+    </div>
+    <div class="sec-body">
     {measured.map((e) => <p class="lede plain">{cellSentence(dim, cell, e.id)}</p>)}
     <FacetTable dim={dim} facets={facets} facetKind="engine" caption={`${dim.label}, ${title}: every model`}
       rowId={(f) => f._engine} rowHref={(f) => urls.engineDim(f._engine, dim.id)} sources={false} />
     <h3>The real edit against the control edit</h3>
     <p class="note">The {isTrope ? "stereotype score" : "result"}, with the 95% range, against the control edit{isTrope ? ". Zero means this group moves the answer like the others" : ""}.</p>
     <Chart id="versus" />
+    </div>
   </section>
 
   {isTrope && leadFacet && leadFacet.status === "measured" && (
-    <section class="wrap section"><Stimulus item={item} facet={leadFacet} groupLabel={group.label} /></section>
+    <section class="wrap section sec-prose"><Stimulus item={item} facet={leadFacet} groupLabel={group.label} /></section>
   )}
   {!isTrope && cell.example && (
-    <section class="wrap section"><Example example={cell.example} note={bd.example_note} /></section>
+    <section class="wrap section sec-prose"><Example example={cell.example} note={bd.example_note} /></section>
   )}
 
-  <section class="wrap section">
+  <section class="wrap section sec-split">
+    <div class="sec-head">
     <h2 class="display sm">Nearby results</h2>
+    </div>
+    <div class="sec-body">
     <div class="around">
       <div>
         <h3>{group.label}, every other {I}</h3>
@@ -110,6 +117,7 @@ const allFacets = Object.values(cell.engines);
       </div>
     </div>
     {lead && <p class="note">Each number is {engines.find((e) => e.id === lead.engine).label}'s result beyond the control edit, in percentage points. For a question that tests a stereotype, the result is the stereotype score.</p>}
+    </div>
   </section>
 
   <HowMeasured dim={dim} facets={allFacets} />
