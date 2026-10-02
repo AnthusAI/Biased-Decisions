@@ -1,3 +1,15 @@
+# [1.57.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.56.1...v1.57.0) (2026-10-02)
+
+
+### Bug Fixes
+
+* **site:** draw spider charts again; a local const shadowed the size() formatter ([589809b](https://github.com/AnthusAI/Biased-Decisions/commit/589809b67c0ac9274b0406e6402f993e97c67b88))
+
+
+### Features
+
+* **site:** use wide screens with an 88% column and two-column sections ([f4d6751](https://github.com/AnthusAI/Biased-Decisions/commit/f4d6751ca2c7f570edda341ef3cdd22ac8c1d66c))
+
 ## [1.56.1](https://github.com/AnthusAI/Biased-Decisions/compare/v1.56.0...v1.56.1) (2026-10-01)
 
 
