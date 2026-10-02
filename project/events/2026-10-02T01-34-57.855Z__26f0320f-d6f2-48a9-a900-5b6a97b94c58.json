@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "event_id": "26f0320f-d6f2-48a9-a900-5b6a97b94c58",
+  "issue_id": "BD-a80af7a8-88e9-4225-bd38-6ad0c6b26728",
+  "event_type": "comment_added",
+  "occurred_at": "2026-10-02T01:34:57.855Z",
+  "actor_id": "home",
+  "payload": {
+    "comment_id": "7b17b959-2f26-48cc-abbb-a267410270f8",
+    "comment_author": "home",
+    "agent": {
+      "platform": "claude_code",
+      "model": "Opus 5.5",
+      "name": "BD wide-layout port"
+    }
+  }
+}
