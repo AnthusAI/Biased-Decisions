@@ -1,3 +1,11 @@
+## [1.57.1](https://github.com/AnthusAI/Biased-Decisions/compare/v1.57.0...v1.57.1) (2026-10-02)
+
+
+### Bug Fixes
+
+* **site:** keep study plans and changes of plan on the methods page only ([40c3a6c](https://github.com/AnthusAI/Biased-Decisions/commit/40c3a6cd0a694f79faef005999429c7a74dcbee8))
+* **site:** legacy redirect stubs honor BASE_PATH ([433cdf6](https://github.com/AnthusAI/Biased-Decisions/commit/433cdf688bf1f68b5bc71ecf4d8d523ec23b676c))
+
 # [1.57.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.56.1...v1.57.0) (2026-10-02)
 
 
