@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "event_id": "c7474462-835e-466b-a6fc-0c0842b90bf9",
+  "issue_id": "BD-43149c7c-3a74-4e8a-be36-51e1e3882f91",
+  "event_type": "issue_created",
+  "occurred_at": "2026-10-02T19:41:22.699Z",
+  "actor_id": "unknown",
+  "payload": {
+    "title": "Legacy redirect stubs honor BASE_PATH",
+    "description": "As the Anth.us site, I want to serve the leaderboard at https://anth.us/biased-decisions/ by building it with BASE_PATH=/biased-decisions/ and SITE_URL=https://anth.us, so the leaderboard lives on the main domain. Every page already honors BASE_PATH except the legacy redirect stubs from site/scripts/legacy-redirects.mjs, which point their refresh, link and canonical at the root (\"/religion/\" instead of \"/biased-decisions/religion/\"), sending 415 old addresses to 404s under a sub-path.\n\nFeature: Legacy redirects under a sub-path\n  Scenario: A redirect stub built with a base path points inside that base path\n    Given the site is built with BASE_PATH \"/biased-decisions/\" and SITE_URL \"https://anth.us\"\n    When a legacy redirect stub is written for \"/religion/\"\n    Then its refresh target and link are \"/biased-decisions/religion/\"\n    And its canonical is \"https://anth.us/biased-decisions/religion/\"\n  Scenario: A root build is unchanged\n    Given the site is built with no BASE_PATH\n    When a legacy redirect stub is written for \"/religion/\"\n    Then its refresh target is \"/religion/\"",
+    "issue_type": "story",
+    "status": "open",
+    "priority": 2,
+    "assignee": null,
+    "parent": null,
+    "labels": [],
+    "agent": {
+      "platform": "claude-code",
+      "model": "claude-opus-5-5",
+      "name": "anth-content-strategy-clients"
+    }
+  }
+}

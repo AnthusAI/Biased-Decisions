@@ -3,7 +3,7 @@
   "title": "Port the wide-screen layout from hard-decisions.anth.us: 88% column from 2000px, two-column sections and one-row hero from 2400px",
   "description": "",
   "type": "task",
-  "status": "open",
+  "status": "closed",
   "priority": 2,
   "assignee": null,
   "creator": null,
@@ -22,17 +22,29 @@
         "model": "Opus 5.5",
         "name": "BD wide-layout port"
       }
+    },
+    {
+      "id": "ba8916c2-dc52-473d-a0e2-36548e1ea5ab",
+      "author": "home",
+      "text": "Released: #126 (wide layout + spider fix) merged to develop, #127 promoted to main (d2b0860). Site CI and deployment succeeded; live home page shows sec-split sections and 27 spider vertices (was 0). Deploy check failed for a pre-existing reason: site/data/leaderboard.json still stamps v1.49.1 (not refreshed since 2026-09-30), so the check sees 1.49.1 vs 1.56.1; needs make refresh-site-data by the data owners.",
+      "created_at": "2026-10-02T02:41:03.430586Z",
+      "comment_type": "default",
+      "agent": {
+        "platform": "claude_code",
+        "model": "Opus 5.5",
+        "name": "Hard-Decisions session"
+      }
     }
   ],
   "created_at": "2026-10-02T01:03:22.993122Z",
-  "updated_at": "2026-10-02T01:34:57.855648Z",
-  "closed_at": null,
+  "updated_at": "2026-10-02T02:41:04.651318Z",
+  "closed_at": "2026-10-02T02:41:04.651279Z",
   "agent": {
     "platform": "claude_code",
     "model": "Opus 5.5",
     "name": "Hard-Decisions session"
   },
-  "right_now_summary": "The wide layout is ported on a local branch and tested; spider charts still fail due to an existing bug.",
-  "right_now_updated_at": "2026-10-02T01:34:59.714Z",
+  "right_now_summary": "The wide-screen layout shipped successfully, but the deploy check still flags stale leaderboard data.",
+  "right_now_updated_at": "2026-10-02T02:41:05.945234Z",
   "custom": {}
 }

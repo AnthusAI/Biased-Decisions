@@ -3,7 +3,7 @@ import Base from "../../layouts/Base.astro";
 import GazaStatusVisual from "../../components/GazaStatusVisual.astro";
 import ProbabilityStrip from "../../components/ProbabilityStrip.astro";
 import { pageIntroductions } from "../../lib/introductions.js";
-import { gazaStatus, unpublishedArms, controlledStatements, engineById, urls, jewishIsraelFindings } from "../../lib/site.js";
+import { gazaStatus, controlledStatements, engineById, urls, jewishIsraelFindings } from "../../lib/site.js";
 import { fmt, signed, size } from "../../scripts/util.js";
 
 const intro = pageIntroductions.antisemitismIsrael;
@@ -112,14 +112,14 @@ const range = (lo, hi) => `95% range ${fmt(lo)} to ${fmt(hi)}`;
         </div>
       </details>
     </>)}
-    <p class="note">Read the <a href="https://github.com/AnthusAI/Biased-Decisions/blob/main/docs/gaza-israel-hamas-decision-status-preregistration.md">study plan written before the prompts were run</a>, the <a href="https://github.com/AnthusAI/Biased-Decisions/blob/main/studies/gaza-israel-hamas-decision-status.jsonl">scored study row</a>, and the saved raw answers for <a href="https://github.com/AnthusAI/Biased-Decisions/blob/main/answers/laya/gaza-israel-hamas-decision-status/as-written.jsonl.gz">Laya</a>, <a href="https://github.com/AnthusAI/Biased-Decisions/blob/main/answers/jev/gaza-israel-hamas-decision-status/as-written.jsonl.gz">Jev</a>, and <a href="https://github.com/AnthusAI/Biased-Decisions/blob/main/answers/kev/gaza-israel-hamas-decision-status/as-written.jsonl.gz">Kev</a>. The source framework is ADL’s <a href="https://www.adl.org/resources/report/generating-hate-anti-jewish-and-anti-israel-bias-leading-large-language-models">Generating Hate</a> and <a href="https://www.adl.org/adl-ai-index">AI Index</a>.</p>
+    <p class="note">See the <a href="https://github.com/AnthusAI/Biased-Decisions/blob/main/studies/gaza-israel-hamas-decision-status.jsonl">scored study row</a>, and the saved raw answers for <a href="https://github.com/AnthusAI/Biased-Decisions/blob/main/answers/laya/gaza-israel-hamas-decision-status/as-written.jsonl.gz">Laya</a>, <a href="https://github.com/AnthusAI/Biased-Decisions/blob/main/answers/jev/gaza-israel-hamas-decision-status/as-written.jsonl.gz">Jev</a>, and <a href="https://github.com/AnthusAI/Biased-Decisions/blob/main/answers/kev/gaza-israel-hamas-decision-status/as-written.jsonl.gz">Kev</a>. The source framework is ADL’s <a href="https://www.adl.org/resources/report/generating-hate-anti-jewish-and-anti-israel-bias-leading-large-language-models">Generating Hate</a> and <a href="https://www.adl.org/adl-ai-index">AI Index</a>.</p>
     </div>
   </section>}
 
   {controlledStatements.arms.length > 0 && <section class="wrap section sec-split" id="direct-statements" aria-labelledby="ds-h">
     <div class="sec-head">
     <h2 class="display" id="ds-h">Direct statements, with controls</h2>
-    <p class="lede">We showed the model each statement and a written reversal of it, each in two option orders, and asked whether it agrees. A model that agrees with a statement and with its reversal is not taking a position, so a position is shown only where the model agrees with one and not the other in both orders (a difference of at least {Math.round(controlledStatements.rule.min_stance * 100)} points, with agreement to both, or to neither, within {Math.round(controlledStatements.rule.max_acquiescence * 100)} points of what a consistent reader would give). Otherwise the row says the model shows no consistent position.</p>
+    <p class="lede">We showed each model each statement and a written reversal of it, with the answer options in both orders, and asked whether it agrees. A model that agrees with a statement and with its reversal is not taking a position, so a row shows a position only where the model clearly agrees with one and not the other; otherwise it says the model shows no consistent position. <a href={`${urls.methods()}#direct-statements`}>How this is measured</a>.</p>
     </div>
     <div class="sec-body">
     {controlledStatements.arms.map((arm) => {
@@ -146,38 +146,16 @@ const range = (lo, hi) => `95% range ${fmt(lo)} to ${fmt(hi)}`;
               </tbody>
             </table>
           </div>
-          <p class="note">Read the <a href={`https://github.com/AnthusAI/Biased-Decisions/blob/main/${controlledStatements.plan}`}>plan written before any answer</a>, the <a href={`https://github.com/AnthusAI/Biased-Decisions/blob/main/${arm.study}`}>scored study row</a> and the <a href={`https://github.com/AnthusAI/Biased-Decisions/blob/main/${arm.record}`}>saved answers</a> ({arm.model}). Other models have not answered this version yet.</p>
+          <p class="note">See the <a href={`https://github.com/AnthusAI/Biased-Decisions/blob/main/${arm.study}`}>scored study row</a> and the <a href={`https://github.com/AnthusAI/Biased-Decisions/blob/main/${arm.record}`}>saved answers</a> ({arm.model}).</p>
         </div>
       );
     })}
     </div>
   </section>}
 
-  <section class="wrap section sec-split" id="not-shown-yet" aria-labelledby="unpub-h">
-    <div class="sec-head">
-    <h2 class="display" id="unpub-h">Not shown yet</h2>
-    <p class="lede">The first two arms that tested direct statements are not shown: each statement was asked once, in one wording and one option order, and the models agreed with statements that contradict each other. The controlled version above replaces them. Their saved answers and study plans stay in the repository.</p>
-    </div>
-    <div class="sec-body">
-    {unpublishedArms.map((arm) => (
-      <details class="claim-detail">
-        <summary><strong>{arm.label}</strong></summary>
-        <p><strong>Why not shown:</strong> {arm.reason}</p>
-        <p><strong>Returns when:</strong> {arm.returns_when}</p>
-        <p><strong>Study file:</strong> <a href={`https://github.com/AnthusAI/Biased-Decisions/blob/main/${arm.study}`}>{arm.study}</a></p>
-        <p><strong>Saved answers:</strong></p>
-        <ul>
-          {arm.records.map((record) => (
-            <li><a href={`https://github.com/AnthusAI/Biased-Decisions/blob/main/${record}`}>{record}</a></li>
-          ))}
-        </ul>
-      </details>
-    ))}
-    </div>
-  </section>
 
   <section class="wrap section sec-prose" aria-labelledby="sources-h">
     <h2 class="display" id="sources-h">Source and study records</h2>
-    <p class="lede">See the <a href="https://www.adl.org/adl-ai-index">ADL AI Index</a>, the <a href="https://github.com/AnthusAI/Biased-Decisions/blob/main/docs/antisemitic-tropes-preregistration.md">stereotype study plan</a>, and the <a href="https://github.com/AnthusAI/Biased-Decisions/blob/main/docs/tropes-round2-sources.md">ADL source review</a>.</p>
+    <p class="lede">See the <a href="https://www.adl.org/adl-ai-index">ADL AI Index</a>, and the <a href="https://github.com/AnthusAI/Biased-Decisions/blob/main/docs/tropes-round2-sources.md">ADL source review</a>.</p>
   </section>
 </Base>
