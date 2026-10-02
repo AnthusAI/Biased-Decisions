@@ -223,10 +223,10 @@ export function boardChart(data, dim, onPick) {
 // ---------------------------------------------------------------------------------------------
 export function spider({ axes, series, max, label, hrefFor, compact = false }) {
   return (w) => {
-    const size = Math.min(w, compact ? 360 : 620);
-    const pad = compact ? 58 : size < 420 ? 70 : 104;
-    const R = size / 2 - pad;
-    const W = size, H = size - (compact ? 12 : 0);
+    const side = Math.min(w, compact ? 360 : 620);
+    const pad = compact ? 58 : side < 420 ? 70 : 104;
+    const R = side / 2 - pad;
+    const W = side, H = side - (compact ? 12 : 0);
     const cx = W / 2, cy = H / 2;
     const n = axes.length;
     const ang = (i) => -Math.PI / 2 + (2 * Math.PI * i) / n;
