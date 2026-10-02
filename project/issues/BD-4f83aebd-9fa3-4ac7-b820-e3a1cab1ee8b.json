@@ -177,7 +177,7 @@
     "platform": "claude-code",
     "model": "claude-fable-5-1"
   },
-  "right_now_summary": "The leaderboard site is built, but replay mismatches still block a reliable build and release.",
-  "right_now_updated_at": "2026-09-23T23:26:48.143644Z",
+  "right_now_summary": "The static bias leaderboard is being polished with charts, drill-downs, tests, and release publishing.",
+  "right_now_updated_at": "2026-10-02T10:28:30.884146Z",
   "custom": {}
 }
