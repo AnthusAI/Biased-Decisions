@@ -7,6 +7,8 @@ import { fileURLToPath } from "node:url";
 
 const DIST = join(fileURLToPath(new URL("..", import.meta.url)), "dist");
 export const MOVED = [["religion-v2", "religion"], ["stereotype-religion", "religion"], ["stereotype-nationality", "nationality"], ["race-fullname", "race"], ["race-name", "race"], ["gender-pronouns", "gender"], ["age-inserted", "age"], ["orientation", "sexuality"], ["gender-treatment", "gender", "root"], ["antisemitic-stereotypes-loan-narratives", "antisemitic-stereotypes-loan-narratives"], ["antisemitic-stereotypes", "antisemitic-stereotypes"], ["nationality-stereotypes", "nationality-stereotypes"], ["racial-and-ethnic-stereotypes", "racial-and-ethnic-stereotypes"], ["china-regional-stereotypes", "china-regional-stereotypes"], ["india-caste-and-regional-stereotypes", "india-caste-and-regional-stereotypes"], ["african-ethnic-stereotypes", "african-ethnic-stereotypes"], ["sexual-orientation-stereotypes", "sexual-orientation-stereotypes"], ["family-status-stereotypes", "family-status-stereotypes"]];
+// The direct-statement arms' first, single-prompt version is described on the methods page.
+export const PAGE_MOVES = [["opinion-claims", "/methods/#direct-statements"]];
 const SITE = process.env.SITE_URL || "https://biased-decisions.anth.us";
 const BASE_PATH_WITHOUT_TRAILING_SLASH = `/${(process.env.BASE_PATH || "/").replace(/^\/+|\/+$/g, "")}`.replace(/\/$/, "");
 
@@ -44,6 +46,14 @@ export function writeLegacyRedirects() {
         n++;
       }
     }
+  }
+  // Single pages that moved to a section of another page.
+  for (const [from, to] of PAGE_MOVES) {
+    const file = join(DIST, from, "index.html");
+    if (existsSync(file)) continue;
+    mkdirSync(join(DIST, from), { recursive: true });
+    writeFileSync(file, legacyRedirectStub(to));
+    n++;
   }
   // Laya-mlx is one build of Laya now: its old pages land on Laya's.
   for (const dir of dirsUnder(join(DIST, "engines", "laya"))) {

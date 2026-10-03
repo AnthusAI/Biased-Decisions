@@ -31,3 +31,9 @@ test("a root build is unchanged", () => {
   assert.match(html, /<meta http-equiv="refresh" content="0; url=\/religion\/">/);
   assert.match(html, /<link rel="canonical" href="https:\/\/biased-decisions\.anth\.us\/religion\/">/);
 });
+
+test("the old opinion-claims page lands on the methods page's direct statements", async () => {
+  const { readFileSync } = await import("node:fs");
+  const html = readFileSync(new URL("../dist/opinion-claims/index.html", import.meta.url), "utf8");
+  assert.match(html, /url=[^"]*\/methods\/#direct-statements/);
+});
