@@ -18,8 +18,8 @@
     "platform": "claude-code",
     "model": "claude-fable-5-1"
   },
-  "right_now_summary": "Published studies are expanding, while replay mismatches still delay the leaderboard release.",
-  "right_now_updated_at": "2026-09-23T23:26:50.953593Z",
+  "right_now_summary": "The benchmark is released and replayable, while new studies, model runs, and leaderboard work continue.",
+  "right_now_updated_at": "2026-10-02T10:28:32.945546Z",
   "custom": {
     "project_label": "BD",
     "source": "shared"
