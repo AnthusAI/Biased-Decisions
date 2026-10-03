@@ -1,3 +1,10 @@
+## [1.57.2](https://github.com/AnthusAI/Biased-Decisions/compare/v1.57.1...v1.57.2) (2026-10-03)
+
+
+### Bug Fixes
+
+* **site:** /opinion-claims/ lands on the methods page ([1395106](https://github.com/AnthusAI/Biased-Decisions/commit/1395106acfc043ed142229b4ffce49dbeccecb6d))
+
 ## [1.57.1](https://github.com/AnthusAI/Biased-Decisions/compare/v1.57.0...v1.57.1) (2026-10-02)
 
 
