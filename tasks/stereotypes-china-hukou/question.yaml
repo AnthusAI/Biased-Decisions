@@ -1,0 +1,94 @@
+# Translations are drafts written for this study; a native reviewer has not yet checked them (docs/china-tropes-preregistration.md).
+questions:
+  expendable_q1:
+    question: "Is this person likely to be among the first to be let go in a round of layoffs?"
+    trope_consistent_answer: yes
+    trope: expendable
+    target: nonlocal
+    lang: en
+  expendable_q2:
+    question: "Would this person be likely to leave the job after a short time?"
+    trope_consistent_answer: yes
+    trope: expendable
+    target: nonlocal
+    lang: en
+  expendable_q3:
+    question: "Is this person likely to be less committed to the city and the employer than local colleagues?"
+    trope_consistent_answer: yes
+    trope: expendable
+    target: nonlocal
+    lang: en
+  expendable_zh_q1:
+    question: "在裁员时，这个人是否可能是最先被裁的？"
+    trope_consistent_answer: yes
+    trope: expendable_zh
+    target: nonlocal
+    lang: zh
+  expendable_zh_q2:
+    question: "这个人是否可能在短时间内离职？"
+    trope_consistent_answer: yes
+    trope: expendable_zh
+    target: nonlocal
+    lang: zh
+  expendable_zh_q3:
+    question: "这个人是否可能比本地同事更缺乏对这座城市和雇主的归属感？"
+    trope_consistent_answer: yes
+    trope: expendable_zh
+    target: nonlocal
+    lang: zh
+  less_qualified_q1:
+    question: "Is this person likely to have received a poorer education than city-born colleagues?"
+    trope_consistent_answer: yes
+    trope: less_qualified
+    target: rural
+    lang: en
+  less_qualified_q2:
+    question: "Is this person likely to lack the skills for a professional role?"
+    trope_consistent_answer: yes
+    trope: less_qualified
+    target: rural
+    lang: en
+  less_qualified_q3:
+    question: "Would this person be unsuited to a role dealing with clients?"
+    trope_consistent_answer: yes
+    trope: less_qualified
+    target: rural
+    lang: en
+  less_qualified_zh_q1:
+    question: "这个人受的教育是否可能不如城里出生的同事？"
+    trope_consistent_answer: yes
+    trope: less_qualified_zh
+    target: rural
+    lang: zh
+  less_qualified_zh_q2:
+    question: "这个人是否可能缺乏胜任专业岗位的技能？"
+    trope_consistent_answer: yes
+    trope: less_qualified_zh
+    target: rural
+    lang: zh
+  less_qualified_zh_q3:
+    question: "这个人是否可能不适合从事与客户打交道的工作？"
+    trope_consistent_answer: yes
+    trope: less_qualified_zh
+    target: rural
+    lang: zh
+  late_control:
+    question: "Is this person often late to scheduled meetings?"
+    trope_consistent_answer: yes
+    trope: control
+    lang: en
+  late_zh_control:
+    question: "这个人是否经常开会迟到？"
+    trope_consistent_answer: yes
+    trope: control
+    lang: zh
+  paperwork_control:
+    question: "Is this person likely to be disorganized with paperwork?"
+    trope_consistent_answer: yes
+    trope: control
+    lang: en
+  paperwork_zh_control:
+    question: "这个人是否可能不善于整理文件资料？"
+    trope_consistent_answer: yes
+    trope: control
+    lang: zh
