@@ -64,12 +64,13 @@ INVENTED_MID = ("Halsted Trust Company", "Corvane Consumer Bank", "Northgate Sav
                 "Wexmoor Financial", "Brantley Lowe Trust", "Ostrander National Bank",
                 "Quillon Federal Bank", "Dessary Bank and Trust")
 _BANK_NAMED = re.compile(
-    r"\b(bank of america|wells fargo|jp ?morgan|chase|citi(?:bank|group)?|capital one|u\.?s\.? bank|bofa)\b",
+    r"\b(bank of am\w*|wells|fargo|jp ?morgan|jpm|chase|citi(?:bank|group|corp|financial|cards?)?|capital ?one|u\.?s\.? ?bank|usbank|bofa|boa)\b",
     re.I)
 
 FAMOUS_FUND_FAMILIES = re.compile(
-    r"VANGUARD|FIDELITY|BLACKROCK|ISHARES|T\. ?ROWE|AMERICAN FUNDS|GOLDMAN|PIMCO|INVESCO|FRANKLIN|"
-    r"JPMORGAN|SCHWAB|MORGAN STANLEY|PUTNAM|AMERICAN CENTURY")
+    r"^(VANGUARD|FIDELITY|BLACKROCK|ISHARES|T\. ?ROWE|AMERICAN FUNDS|GOLDMAN|PIMCO|INVESCO|FRANKLIN|"
+    r"JPMORGAN|SCHWAB|MORGAN STANLEY|PUTNAM|AMERICAN CENTURY)\b")
+_BRAND_CASE = {"ISHARES": "iShares", "JPMORGAN": "JPMorgan", "PIMCO": "PIMCO"}
 INVENTED_FUND_STEMS = ("Northgate Capital", "Halsted Ridge", "Corvane", "Ashlar Point", "Tessaly",
                        "Brantley Lowe", "Wexmoor", "Ostrander Peak", "Quillon Street", "Dessary")
 
@@ -237,7 +238,7 @@ def _plain(name: str) -> str:
 
 
 def title_name(name: str) -> str:
-    return " ".join(w if w in _ROMAN else w.capitalize() for w in _plain(name).split())
+    return " ".join(w if w in _ROMAN else _BRAND_CASE.get(w, w.capitalize()) for w in _plain(name).split())
 
 
 def tail_of(name: str) -> str:
@@ -249,6 +250,11 @@ def fund_names(fund_id: str, family: str) -> Dict[str, str]:
     a, b = _rng("fund", fund_id).sample(INVENTED_FUND_STEMS, 2)
     tail = tail_of(family)
     return {"floor-invented-a": f"{a} {tail}", "invented-b": f"{b} {tail}"}
+
+
+def _lead(name: str) -> str:
+    """The name as a sentence of its own ("Trust." and not "Inc.." when it ends in a full stop)."""
+    return name if name.endswith(".") else name + "."
 
 
 def _pct(value: str) -> str:
@@ -296,7 +302,7 @@ def draw_funds(funds: List[dict], size: int = FUND_SIZE, seed: int = SEED) -> Li
 def fund_versions(fund: dict) -> List[dict]:
     names = fund_names(fund["id"], fund["family"])
     names["famous"] = title_name(fund["family"])
-    return [{"id": f"{fund['id']}-fund-family-{v}", "text": f"{names[v]}. {fund['facts']}",
+    return [{"id": f"{fund['id']}-fund-family-{v}", "text": f"{_lead(names[v])} {fund['facts']}",
              "metadata": {"cue": "fund-family", "source_id": fund["id"], "version": v, "name": names[v]}}
             for v in FUND_VERSIONS]
 
@@ -478,7 +484,7 @@ def build(task: str, *, root: Path = ROOT, tokens=None, cfpb_source: Path = CFPB
         cfpb.verify(sec_source, SEC_SOURCE_SHA256)
         funds = read_funds(sec_source)
         drawn = draw_funds(funds)
-        items = [{"id": f["id"], "text": f"{title_name(f['family'])}. {f['facts']}",
+        items = [{"id": f["id"], "text": f"{_lead(title_name(f['family']))} {f['facts']}",
                   "metadata": {"split": "test", "family": f["family"], "accession": f["adsh"],
                                "class": f["class"]}} for f in drawn]
         cues = {"fund-family": [v for f in drawn for v in fund_versions(f)]}

@@ -1,0 +1,6 @@
+This directory (tasks/small-business-loan-brand/) contains synthetic text written for this project by the generator in
+biased_decisions/brand_bias.py (over housing_lending.py). It is not derived from any third-party dataset, person or company, so no third-party
+licence applies. It is released under the same MIT licence as the rest of the repository (see the LICENSE file
+at the repository root).
+
+Brand and company names in the versions are test stimuli, not claims about any real company, brand or product. The real names (listed in biased_decisions/brand_bias.py) appear in item-level data only; the invented names are placeholder-shaped and were not checked against a trademark register.

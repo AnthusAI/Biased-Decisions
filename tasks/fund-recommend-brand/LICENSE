@@ -1,0 +1,10 @@
+This directory (tasks/fund-recommend-brand/) contains fee figures derived from the U.S. Securities and Exchange
+Commission's Mutual Fund Prospectus Risk/Return Summary Data Sets (2025 Q4),
+https://www.sec.gov/data-research/sec-markets-data/mutual-fund-prospectus-riskreturn-summary-data-sets.
+
+Licence: NOT CONFIRMED. The SEC data-set page states the data are derived from structured filings made by the
+registrants and carries an accuracy disclaimer; it carries no licence or reuse statement that was read. What is
+published here are numbers (expense ratios, fees, sales charges) and the registrants' own names, as filed, plus
+invented names. The reasoning that facts are not protected expression is general and was not checked against a
+legal source. The invented fund names are test stimuli and were not checked against any register.
+biased_decisions/brand_bias.py is licensed under this repository's own licence.

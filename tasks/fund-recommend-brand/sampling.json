@@ -1,0 +1,15 @@
+{
+  "classes_of_named_families": 2226,
+  "families_in_draw": 90,
+  "items": 600,
+  "max_tokens_of_any_version": 67,
+  "rows_per_cue": {
+    "fund-family": 1800
+  },
+  "seed": 0,
+  "source_sha256": "c7e397bd8f13545b8e756ac41e82d1fe7d8fc0d10316ba99242da1eefbec2f71",
+  "source_url": "https://www.sec.gov/files/dera/data/mutual-fund-prospectus-risk/return-summary-data-sets/2025q4_rr1.zip",
+  "task": "fund-recommend-brand",
+  "token_room": 480,
+  "tokenizer": "tokenizer.json"
+}

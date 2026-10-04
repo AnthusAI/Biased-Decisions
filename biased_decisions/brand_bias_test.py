@@ -100,6 +100,15 @@ def test_only_the_named_fund_families_are_read_and_a_fund_with_no_fee_figures_is
                                  "The maximum front-end sales charge is 5.75% of the offering price.")
 
 
+def test_a_family_is_named_only_when_its_registrant_name_starts_with_it(tmp_path):
+    sub = [{"adsh": "a-1", "name": "FIRST AMERICAN FUNDS TRUST"}, {"adsh": "a-2", "name": "GEORGE PUTNAM FUND"},
+           {"adsh": "a-3", "name": "ISHARES TRUST"}]
+    num = _facts("a-1", "C1", "0.01", "0.005") + _facts("a-2", "C2", "0.01", "0.005") + \
+        _facts("a-3", "C3", "0.01", "0.005")
+    assert [bb.title_name(f["family"]) for f in bb.read_funds(_sec_zip(tmp_path / "s.zip", sub, num))] == \
+        ["iShares Trust"]
+
+
 def test_fund_versions_share_one_set_of_figures_and_differ_only_in_the_name():
     fund = {"id": "fund-a-1-C1", "family": "VANGUARD INDEX FUNDS", "facts": "Total annual fund operating expenses are 0.51% of assets."}
     rows = bb.fund_versions(fund)
@@ -107,6 +116,11 @@ def test_fund_versions_share_one_set_of_figures_and_differ_only_in_the_name():
     assert [r["metadata"]["version"] for r in rows] == list(bb.FUND_VERSIONS)
     for r in rows:
         assert r["text"] == f"{names.get(r['metadata']['version'], 'Vanguard Index Funds')}. {fund['facts']}"
+
+
+def test_a_name_that_ends_in_a_full_stop_is_not_followed_by_a_second_one():
+    fund = {"id": "fund-a-2", "family": "T. ROWE PRICE QM U.S. BOND INDEX FUND, INC.", "facts": "Facts."}
+    assert all(".." not in r["text"] for r in bb.fund_versions(fund))
 
 
 def test_a_pair_shows_the_same_listing_twice_and_the_focal_brand_is_first_for_half_of_the_items():
@@ -147,6 +161,8 @@ def test_no_generated_product_listing_names_a_brand_of_any_tier():
 def test_a_complaint_that_already_names_a_bank_of_the_list_is_dropped_not_edited():
     assert bb.names_a_listed_bank("They called from Wells Fargo about it.")
     assert bb.names_a_listed_bank("my chase bank account")
+    assert bb.names_a_listed_bank("Bank of American took my car") and bb.names_a_listed_bank("WELLS asked")
+    assert bb.names_a_listed_bank("a Citi card") and bb.names_a_listed_bank("my usbank card")
     assert not bb.names_a_listed_bank("They charged me twice.")
 
 

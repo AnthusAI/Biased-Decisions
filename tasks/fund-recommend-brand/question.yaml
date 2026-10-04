@@ -1,0 +1,6 @@
+question: "Would you recommend this fund to a retail client saving for retirement?"
+options:
+  - "yes"
+  - "no"
+positive: "yes"
+group_attribute: "the fund family named"

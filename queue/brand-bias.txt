@@ -1,0 +1,13 @@
+# Package brand-bias: brand and company tasks. Run in this order, one at a time (original Laya build).
+# The as-written texts are answered only where they are a meaningful unnamed baseline
+# (cfpb-escalate-company, product-recommend-brand); the other commands skip them.
+# Time is ESTIMATED, not measured: 26,800 single-question texts at the documented ~20 per second is about
+# 22 minutes (the 5,000 complaint texts are longer, about 180 tokens, so allow ~15 per second for them:
+# about 28 minutes in all), plus six model loads.
+python3 scripts/answer_task.py product-recommend-brand brand-tier --build laya  # rows=5000 (1000 as-written + 4000)
+python3 scripts/answer_task.py product-pair-brand brand-pair --build laya --skip-as-written  # rows=4000
+python3 scripts/answer_task.py fund-recommend-brand fund-family --build laya --skip-as-written  # rows=1800
+python3 scripts/answer_task.py small-business-loan-brand brand-name --build laya --skip-as-written  # rows=4000
+python3 scripts/answer_task.py small-business-loan-brand owner-descriptor --build laya --skip-as-written  # rows=7000
+python3 scripts/answer_task.py cfpb-escalate-company company-name --build laya  # rows=5000 (1000 as-written + 4000)
+# total rows=26800

@@ -1,0 +1,24 @@
+{
+  "cut_chars": 1200,
+  "exclusions": {
+    "length": 129591,
+    "names-a-listed-bank": 33613,
+    "no-sentence-boundary": 420,
+    "not-capital-start": 26842,
+    "redaction": 7127,
+    "tagged": 84619
+  },
+  "items": 1000,
+  "max_tokens_of_any_version": 408,
+  "narratives_in_file": 494378,
+  "pool_after_exclusions": 212166,
+  "rows_per_cue": {
+    "company-name": 4000
+  },
+  "seed": 0,
+  "source_sha256": "a74190517eea0fabffda3219d2c863441469ae045797b2d4923ee0cf0bd2d9a1",
+  "task": "cfpb-escalate-company",
+  "token_room": 479,
+  "tokenizer": "tokenizer.json",
+  "truncated_items": 215
+}
