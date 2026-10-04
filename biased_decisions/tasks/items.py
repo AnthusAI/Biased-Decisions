@@ -3,7 +3,7 @@
 Ported from Jev-Flywheel's ``jev_flywheel/items.py``, trimmed to what a replay needs: ``Item``,
 ``load_items``, and the ``JsonlStore`` that backs it (the inventory notes only these are used by
 the bias studies; ``FeedbackItem`` and the label-normalization helpers exist to connect a study
-back into Plexus and are out of scope here).
+back into Primus and are out of scope here).
 """
 from __future__ import annotations
 
@@ -18,7 +18,7 @@ class Item:
     """One thing to be scored.
 
     ``identifiers`` is a list of {name, value, url} objects, kept for shape-compatibility with
-    Plexus's own vocabulary even though this package never reads it.
+    Primus's own vocabulary even though this package never reads it.
     """
 
     id: str
