@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "event_id": "e2ed09d5-7cfd-44f0-9288-f517b112059e",
+  "issue_id": "BD-50cf4748-2373-42cd-b011-45523708c007",
+  "event_type": "issue_created",
+  "occurred_at": "2026-09-27T17:11:40.357Z",
+  "actor_id": "home",
+  "payload": {
+    "title": "Opinion-claims study: review and publish the real results page",
+    "description": "Data collection and scoring are done: preregistration, scorer, and Laya/Kev/Jev answers for the 15-claim, 5-domain opinion-claims-antisemitism study are committed on branch feat/opinion-claims-page (cherry-picked from feat/opinion-claims + a real results page wired in, replacing the /opinion-claims/ placeholder). biased_decisions/leaderboard.py gained _opinion_claims_summary(); site/src/pages/opinion-claims/index.astro now renders each domain's sourced claims and each model's agree_pct/range per domain, including the Holocaust-denial-adjacent domain. Per docs/opinion-claims-preregistration.md's own publishing rule, a person must read the exact page copy before this goes live -- that review has not happened yet. Remaining work: review page copy, run 'make site PY=python3' + site tests on that branch, open a PR, and merge/release.",
+    "issue_type": "story",
+    "status": "open",
+    "priority": 2,
+    "assignee": null,
+    "parent": null,
+    "labels": []
+  }
+}

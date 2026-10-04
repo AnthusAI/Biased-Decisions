@@ -34,6 +34,7 @@ from typing import Dict, List, Optional, Sequence, Tuple
 import yaml
 
 from biased_decisions import antisemitism as asem
+from biased_decisions import opinion_claims as oc
 from biased_decisions import islamophobia as islamophobia_study
 from biased_decisions import china_tropes as cn
 from biased_decisions import religion_gaps
@@ -2744,6 +2745,24 @@ def _trope_study_summary(root: Path, name: str) -> dict:
     }
 
 
+def _opinion_claims_summary(root: Path) -> dict:
+    """What the opinion-claims page shows, from the scored study rows: every claim's text and
+    source, and each model's agree rate per claim and per domain, exactly as ``bd replay`` scored
+    it (``biased_decisions.opinion_claims.score_opinion_claims``); nothing recomputed here."""
+    path = root / "studies" / f"{oc.SLUG}.jsonl"
+    by_engine: dict = {}
+    if path.exists():
+        for line in path.read_text(encoding="utf-8").splitlines():
+            if line.strip():
+                row = json.loads(line)
+                by_engine[row["engine"]] = row
+    domains = [{"id": domain, "label": label, "source": source,
+                "claims": [{"id": cid, "text": text} for cid, text in claims],
+                "excess_against": oc.EXCESS_AGAINST.get(domain)}
+               for domain, (label, source, claims) in oc.DOMAINS.items()]
+    return {"task": oc.SLUG, "domains": domains, "results": by_engine}
+
+
 def _neutral(root: Path) -> dict:
     """The neutral-pronoun control's rows (studies/<task>-neutral.jsonl), one per engine and task,
     as scored by ``bd replay``; the site draws which way the bias runs from them."""
@@ -2852,6 +2871,7 @@ def generate_json(root: Path = DEFAULT_ROOT, *, date: Optional[str] = None) -> d
         "antisemitism": _trope_study_summary(root, "antisemitism"),
         "islamophobia": _trope_study_summary(root, "islamophobia"),
         "china": _china_summary(root),
+        "opinion_claims": _opinion_claims_summary(root),
         "honesty": HONESTY,
         "vocabulary": VOCABULARY,
         "compliance": build_compliance(root, dimensions, floors, prereg),
