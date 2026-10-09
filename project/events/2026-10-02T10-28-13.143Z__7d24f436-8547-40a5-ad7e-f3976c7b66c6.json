@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "event_id": "7d24f436-8547-40a5-ad7e-f3976c7b66c6",
+  "issue_id": "BD-806b05e5-8682-4d49-9bc9-4f352321d393",
+  "event_type": "comment_added",
+  "occurred_at": "2026-10-02T10:28:13.143Z",
+  "actor_id": "home",
+  "payload": {
+    "comment_id": "f8803664-fd5a-41a3-a06c-4d34576569b4",
+    "comment_author": "home",
+    "agent": {
+      "platform": "claude_code",
+      "model": "claude-opus-5-5",
+      "name": "Spider regression test"
+    }
+  }
+}

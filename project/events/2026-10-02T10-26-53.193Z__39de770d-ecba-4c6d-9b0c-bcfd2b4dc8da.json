@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "event_id": "39de770d-ecba-4c6d-9b0c-bcfd2b4dc8da",
+  "issue_id": "BD-806b05e5-8682-4d49-9bc9-4f352321d393",
+  "event_type": "issue_created",
+  "occurred_at": "2026-10-02T10:26:53.193Z",
+  "actor_id": "home",
+  "payload": {
+    "title": "Spider charts render blank: local const size shadows the size() formatter",
+    "description": "spider() in site/src/scripts/charts.js declared `const size`, shadowing the `size` formatter imported from ./util.js; its vertex tooltip then threw `TypeError: size is not a function` and every spider chart (home spider cards, model pages, characteristic pages with 3+ facets) rendered empty. The rename to `side` landed in 589809b (released 1.57.0) without a test. This bug adds a regression spec.\n\n```gherkin\nFeature: Chart helpers stay callable\n  Scenario: No chart function shadows an imported helper\n    Given site/src/scripts/charts.js imports helpers from ./util.js\n    When the test suite scans charts.js for local declarations\n    Then no const, let, var, function or parameter reuses an imported helper's name\n```",
+    "issue_type": "bug",
+    "status": "open",
+    "priority": 1,
+    "assignee": null,
+    "parent": "BD-4f83aebd-9fa3-4ac7-b820-e3a1cab1ee8b",
+    "labels": [],
+    "agent": {
+      "platform": "claude_code",
+      "model": "claude-opus-5-5",
+      "name": "Spider regression test"
+    }
+  }
+}
