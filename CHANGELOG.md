@@ -1,3 +1,10 @@
+# [1.58.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.57.2...v1.58.0) (2026-10-09)
+
+
+### Features
+
+* **site:** add client pitch block to every page ([a50645a](https://github.com/AnthusAI/Biased-Decisions/commit/a50645a4a369dfeac1e2c8cd11228a0e7984adc0))
+
 ## [1.57.2](https://github.com/AnthusAI/Biased-Decisions/compare/v1.57.1...v1.57.2) (2026-10-03)
 
 
