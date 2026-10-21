@@ -66,7 +66,7 @@ copy-check: site/node_modules
 	$(PY) scripts/scan_copy.py
 
 dev: site/node_modules
-	cd site && npx astro dev --port $(PORT)
+	cd site && npm run build && node scripts/serve.mjs $(PORT)
 
 serve:
 	node site/scripts/serve.mjs $(PREVIEW_PORT)

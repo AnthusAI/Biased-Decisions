@@ -21,17 +21,17 @@ const files = walk(DIST);
 const urlOf = (file) => "/" + relative(DIST, file).split(sep).join("/").replace(/index\.html$/, "");
 const pages = files.filter((f) => f.endsWith("index.html")).map((f) => ({ file: f, path: urlOf(f), html: readFileSync(f, "utf8") }))
   .filter((p) => !p.html.includes('http-equiv="refresh"'));
-const noindex = (p) => /<meta name="robots" content="noindex">/.test(p.html);
+const noindex = (p) => /<meta name="robots" content="noindex(?:, nofollow)?">/.test(p.html);
 const content = pages.filter((p) => !noindex(p));
 
-const unescape = (s) => s.replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&amp;/g, "&");
+const unescape = (s) => s.replace(/&quot;/g, '"').replace(/&#39;|&#x27;/g, "'").replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&amp;/g, "&");
 function meta(html, key) {
   const re = new RegExp(`<meta (?:property|name)="${key.replace(/[.:]/g, "\\$&")}" content="([^"]*)"`);
   const m = re.exec(html);
   return m ? unescape(m[1]) : null;
 }
 function text(html) {
-  const body = html.slice(html.indexOf("<body"));
+  const body = html.slice(html.indexOf("<main"), html.indexOf("</main>"));
   return unescape(body.replace(/<script[\s\S]*?<\/script>/g, " ").replace(/<[^>]+>/g, " ")).replace(/\s+/g, " ");
 }
 function pngSize(buf) {
@@ -105,7 +105,7 @@ test("the colophon names the release version and its date on every page", () => 
   const r = DATA.provenance.release;
   assert.ok(r && r.version, "the data file has no release version");
   for (const p of pages) {
-    const colo = p.html.slice(p.html.indexOf('<footer class="colophon">'));
+    const colo = p.html.slice(p.html.indexOf('<div class="colophon">'));
     assert.ok(colo.includes(`v${r.version}`), `${p.path}: no version in the colophon`);
     if (r.released) {
       assert.ok(colo.includes(r.date), `${p.path}: no release date in the colophon`);
@@ -169,15 +169,17 @@ test("Google Analytics 4 tag is on every page, once, in the head", () => {
   for (const p of pages) {
     const head = p.html.slice(0, p.html.indexOf("</head>"));
     assert.equal(head.split(`googletagmanager.com/gtag/js?id=${ID}`).length - 1, 1, `${p.path}: gtag.js script`);
-    assert.equal(head.split(`gtag('config', '${ID}')`).length - 1, 1, `${p.path}: gtag config`);
+    assert.equal(head.split(`gtag('config', "${ID}")`).length - 1, 1, `${p.path}: gtag config`);
   }
 });
 
 test("the localStorage analytics opt-out script precedes the gtag config call on every page", () => {
-  const script = "(function(){try{var k='anthus-no-analytics',q=location.search.match(/[?&]notrack=(\\w+)/);if(q){if(q[1]==='1')localStorage.setItem(k,'1');else localStorage.removeItem(k)}if(localStorage.getItem(k)==='1')window['ga-disable-G-31SC26SDGX']=true}catch(e){}})();";
+  const script = `if(localStorage.getItem(k)==='1')window["ga-disable-G-31SC26SDGX"]=true`;
+  const stored = "q=location.search.match(/[?&]notrack=(\\w+)/)";
   for (const p of pages) {
     const head = p.html.slice(0, p.html.indexOf("</head>"));
     assert.equal(head.split(script).length - 1, 1, `${p.path}: opt-out script`);
+    assert.ok(head.includes(stored), `${p.path}: the ?notrack= switch`);
     assert.ok(head.indexOf(script) < head.indexOf("gtag('config'"), `${p.path}: opt-out must come before gtag config`);
   }
 });

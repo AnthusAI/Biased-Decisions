@@ -12,5 +12,5 @@ To re-render a diagram after editing its source:
 d2 site/diagrams/<name>.d2 site/public/diagrams/<name>.svg
 ```
 
-Palette matches `site/src/styles/site.css`: background `#f1f9fe`, ink `#0c1e2b`, rule `#cfdfea`,
+Palette matches `site/web/css/site-theme.css`: background `#f1f9fe`, ink `#0c1e2b`, rule `#cfdfea`,
 alarm red `#c8102e`. Keep new diagrams to that palette so they sit naturally on the page.

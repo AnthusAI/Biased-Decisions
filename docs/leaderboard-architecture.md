@@ -16,7 +16,8 @@ studies/batch2/stereotypes-laya.jsonl    batch 2, staged (second source, see bel
 studies/PREREGISTERED.md                 predictions and outcomes, quoted verbatim
         | bd report --json --date YYYY-MM-DD      (biased_decisions/leaderboard.py)
 site/data/leaderboard.json               the data contract
-        | astro build (site/, static output)
+        | astro build (site/): the body of every page, from the data
+        | Papyrus (site/web/): head, header, footer, sitemap, robots.txt, 404, Markdown twins
 site/dist/<path>/index.html              one static page per path, charts drawn in the browser
                                          from a JSON payload inlined in each page
 ```
@@ -284,12 +285,17 @@ The reasoning:
   Twitter tags, and a social card whose headline, number and alt text come from the page's data
   (docs/social-cards.md).
 - **`SITE_URL`** (build environment, default `https://biased-decisions.anth.us`) is the public
-  origin for canonical and Open Graph URLs;
-  `BASE_PATH` serves the site from a sub-path. Internal links are root-relative with the base.
+  origin for canonical and Open Graph URLs; any other origin builds a non-production copy (`noindex`,
+  its own canonicals). The site is served from the root of its origin (no sub-path).
 
 ## The site
 
-An Astro project in `site/` (static output only, dependencies pinned by `package-lock.json`).
+An Astro project in `site/` (static output only, dependencies pinned by `package-lock.json`) that renders
+the body of every page from the data, inside the standard Papyrus front end: `site/web/projection.json`
+(settings, nav, footer, icons, GA4), `site/web/hooks.py` (places each page's body in `<main>`),
+`site/web/css/site-theme.css` (the stylesheet). `site/scripts/build-site.mjs` runs Astro, stages the pages as
+Papyrus custom pages and runs `papyrus ops content project`; Papyrus is pinned in `site/web/requirements.txt`.
+`make dev` builds and serves `site/dist` (Astro's own dev server only shows page bodies).
 Every page is generated at build time from the data file: its text, tables, rankings, examples
 and metadata are static HTML; `src/lib/site.js` holds every rule the pages need (lookups, the URL
 scheme, chart payloads, titles, descriptions and the plain-language sentences), so the page
