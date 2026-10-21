@@ -50,7 +50,9 @@ function walk(dir, out = []) {
 const decode = (s) => s.replace(/&amp;/g, "&").replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&quot;/g, '"').replace(/&#39;|&#x27;/g, "'").replace(/&nbsp;/g, " ");
 
 // What a person can read on the page: text nodes and the attributes screen readers and previews use.
-function readable(html) {
+function readable(page) {
+  // The family footer is Papyrus's shared text for every Anthus site, not this site's copy.
+  const html = page.replace(/<footer class="markus-site-footer">[\s\S]*?<\/footer>/, " ");
   const attrs = [...html.matchAll(/\b(?:alt|aria-label|title)="([^"]*)"/g)].map((m) => m[1]);
   const metas = [...html.matchAll(/<meta[^>]+(?:name|property)="(?:description|og:title|og:description|og:image:alt|twitter:image:alt)"[^>]+content="([^"]*)"/g)].map((m) => m[1]);
   let body = html.replace(/<(script|style|svg|code|pre)[\s\S]*?<\/\1>/gi, " ");

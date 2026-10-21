@@ -1,7 +1,8 @@
-// The only script every page runs. The page itself is static HTML built from the data contract;
-// this draws its charts (from the JSON payload the page carries, so nothing is fetched) and opens
-// a <details> the URL's #fragment points at.
+// The Charts island (web/projection.json, islands.script). A page that draws charts carries its chart payload
+// as JSON (#bd-charts, so nothing is fetched) and one Charts mount point; Papyrus loads this bundle on those
+// pages only, and the runtime calls Charts once the document is ready.
 import { responsive, heroMatrix, boardChart, spider, intervalStrip, legend, versusFloor, forest } from "./charts.js";
+import { openFragment } from "./hash.js";
 
 function mountCharts() {
   const node = document.getElementById("bd-charts");
@@ -33,19 +34,10 @@ function mountCharts() {
   }
 }
 
-function openFragment() {
-  if (!location.hash) return;
-  // The first build's #cell-<engine> fragments (kept by the legacy redirects) name #<engine> now.
-  if (/^#cell-[a-z0-9-]+$/.test(location.hash)) {
-    history.replaceState(null, "", location.pathname + location.search + location.hash.replace("#cell-", "#"));
-    const el = document.getElementById(location.hash.slice(1));
-    if (el) el.scrollIntoView();
-  }
-  const target = document.getElementById(decodeURIComponent(location.hash.slice(1)));
-  if (target && target.tagName === "DETAILS") target.open = true;
-}
-
-mountCharts();
-openFragment();
-window.addEventListener("hashchange", openFragment);
-window.addEventListener("beforeprint", () => document.querySelectorAll("details").forEach((d) => (d.open = true)));
+window.papyrusIslands = {
+  ...window.papyrusIslands,
+  Charts() {
+    mountCharts();
+    openFragment();
+  },
+};

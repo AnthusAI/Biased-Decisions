@@ -1,4 +1,4 @@
-// The wide-screen layout (the "Wide screens" block at the end of src/styles/site.css): every content
+// The wide-screen layout (the "Wide screens" block at the end of web/css/site-theme.css): every content
 // section is split (a head that opens with its H2, then a body), prose, or an alarm panel split inside
 // its border; no section is left unstructured; and the wide rules exist without touching laptops.
 // Adapted from the Hard-Decisions site's test of the same name. Run after the build: it reads dist/.
@@ -46,7 +46,7 @@ test("every content section is split into a head and a body, marked as prose, or
 });
 
 test("the wide rules are in the stylesheet: column growth, zoom steps, the two-column split, the one-row hero and a line measure", () => {
-  const css = readFileSync(new URL("../src/styles/site.css", import.meta.url), "utf8");
+  const css = readFileSync(new URL("../web/css/site-theme.css", import.meta.url), "utf8");
   assert.match(css, /@media \(min-width: 2000px\) \{[^}]*html \{ zoom: 1\.25; \}[^}]*:root \{ --max: 88%; \}/);
   assert.match(css, /@media \(min-width: 2800px\) \{ html \{ zoom: 1\.4; \} \}/);
   assert.match(css, /@media \(min-width: 4000px\) \{ html \{ zoom: 1\.6; \} \}/);
