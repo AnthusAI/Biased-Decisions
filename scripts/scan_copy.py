@@ -1,19 +1,21 @@
-"""Read the built site's pages as prose and check them with Limatus against writing/style-profile.yml.
+"""Read the built site's pages as prose and check them with Humanus against writing/style-profile.yml.
 
     make copy-check            # builds the site, then scans every page in writing/pages.txt
     python scripts/scan_copy.py --pages / /methods/
 
 Each page's readable text (headings and paragraphs; no tables of numbers, charts or code) is written
-to var/copy/<page>.md and scanned. Limatus reports findings; it never rewrites anything. A finding
-is a question for a person: skip it, rewrite it, delete it or keep it (see writing/README.md).
+to var/copy/<page>.md and checked; the findings (Humanus check-result-v1) go beside it as
+var/copy/<page>.json, and the policy pack made from the style profile as var/copy/pack.json. Humanus
+reports findings; it never rewrites anything. A finding is a question for a person: skip it, rewrite
+it, delete it or keep it (see writing/README.md).
+
+Needs the `copy` extra: pip install -e '.[copy]' (humanus from PyPI; `make install` includes it).
 """
 from __future__ import annotations
 
 import argparse
 import json
-import os
 import re
-import subprocess
 import sys
 from collections import Counter
 from html.parser import HTMLParser
@@ -24,10 +26,8 @@ DIST = ROOT / "site" / "dist"
 OUT = ROOT / "var" / "copy"
 PROFILE = ROOT / "writing" / "style-profile.yml"
 PAGES = ROOT / "writing" / "pages.txt"
-FINDING_LISTS = ("generic_passages", "unsupported_claims", "repetition_groups", "voice_observations")
-# Limatus is developed in ../Limatus; the profile uses keys newer than some installed releases, so
-# prefer that checkout (override with LIMATUS_SRC) and fall back to whatever `limatus` is installed.
-LIMATUS_SRC = Path(os.environ.get("LIMATUS_SRC", ROOT.parent / "Limatus" / "src"))
+# Pin the pack version so var/copy/pack.json and the finding ids do not change with the date.
+PACK_VERSION = "style-profile"
 
 SKIP = {"script", "style", "svg", "code", "pre", "table", "nav", "footer", "head", "header", "noscript", "button"}
 BLOCK = {"p", "li", "h1", "h2", "h3", "h4", "dd", "dt", "figcaption", "blockquote", "summary"}
@@ -85,22 +85,39 @@ def slug(path: str) -> str:
     return path.strip("/").replace("/", "__") or "home"
 
 
-def scan(path: str) -> dict:
+def load_pack() -> dict:
+    """The policy pack Humanus checks against, converted from writing/style-profile.yml."""
+    try:
+        import humanus
+    except ImportError:
+        raise SystemExit("humanus is not installed; run `pip install -e '.[copy]'` (or `make install`)")
+    try:
+        pack = humanus.policy_pack_from_style_profile(PROFILE, version=PACK_VERSION)
+    except ValueError as exc:
+        raise SystemExit(f"{PROFILE}: {exc}")
+    OUT.mkdir(parents=True, exist_ok=True)
+    (OUT / "pack.json").write_text(json.dumps(pack, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    return pack
+
+
+def scan(path: str, pack: dict) -> dict:
+    import humanus
+
     OUT.mkdir(parents=True, exist_ok=True)
     draft = OUT / f"{slug(path)}.md"
-    draft.write_text(page_prose(path), encoding="utf-8")
-    result = OUT / f"{slug(path)}.json"
-    env = dict(os.environ)
-    if LIMATUS_SRC.is_dir():
-        env["PYTHONPATH"] = str(LIMATUS_SRC) + os.pathsep + env.get("PYTHONPATH", "")
-        cmd = [sys.executable, "-m", "limatus"]
-    else:
-        cmd = ["limatus"]
-    proc = subprocess.run(cmd + ["scan", "--draft", str(draft), "--profile", str(PROFILE), "--output", str(result)],
-                          capture_output=True, text=True, env=env)
-    if proc.returncode not in (0, 1) or not result.exists():
-        raise SystemExit(f"{path}: limatus failed\n{proc.stderr or proc.stdout}")
-    return json.loads(result.read_text(encoding="utf-8"))
+    text = page_prose(path)
+    draft.write_text(text, encoding="utf-8")
+    try:
+        report = humanus.check({"schemaVersion": 1, "content": {"format": "markdown", "text": text}, "pack": pack})
+    except Exception as exc:  # report which page broke, as the old CLI failure did
+        raise SystemExit(f"{path}: humanus check failed\n{type(exc).__name__}: {exc}")
+    (OUT / f"{slug(path)}.json").write_text(json.dumps(report, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    return report
+
+
+def kind(finding: dict) -> str:
+    """The summary label: the policy, or the check itself for the style profile's built-in checks."""
+    return finding["detectorId"] if finding["policyId"] == "house-checks" else finding["policyId"]
 
 
 def main() -> int:
@@ -109,11 +126,11 @@ def main() -> int:
     ap.add_argument("--strict", action="store_true", help="exit 1 when any finding remains")
     args = ap.parse_args()
     pages = args.pages or [l.strip() for l in PAGES.read_text().splitlines() if l.strip() and not l.startswith("#")]
+    pack = load_pack()
     total = Counter()
     for path in pages:
-        report = scan(path)
-        findings = [f for key in FINDING_LISTS for f in report.get(key, [])]
-        kinds = Counter(f.get("kind", key) for key in FINDING_LISTS for f in report.get(key, []))
+        findings = scan(path, pack).get("findings", [])
+        kinds = Counter(kind(f) for f in findings)
         total.update(kinds)
         print(f"{path:42s} {len(findings):3d}  " + ", ".join(f"{k} {n}" for k, n in kinds.most_common()))
     print(f"\n{sum(total.values())} findings on {len(pages)} pages: " + ", ".join(f"{k} {n}" for k, n in total.most_common()))
