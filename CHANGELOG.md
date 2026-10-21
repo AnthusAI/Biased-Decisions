@@ -1,3 +1,15 @@
+# [1.59.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.58.0...v1.59.0) (2026-10-21)
+
+
+### Bug Fixes
+
+* **site:** create assets/ when staging ([b618cbe](https://github.com/AnthusAI/Biased-Decisions/commit/b618cbe8f8e9b4bcf2c83ea28ed4a66dc6675877))
+
+
+### Features
+
+* **site:** move the site onto the standard Papyrus front end (PPY-bcfd2d) ([183c7d3](https://github.com/AnthusAI/Biased-Decisions/commit/183c7d33f11915d225ecf3ee3855bba88035f2e8))
+
 # [1.58.0](https://github.com/AnthusAI/Biased-Decisions/compare/v1.57.2...v1.58.0) (2026-10-09)
 
 
